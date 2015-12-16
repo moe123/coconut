@@ -1,0 +1,35 @@
+//
+// None.hpp
+//
+// Copyright (C) 2015 Cucurbita. All rights reserved.
+//
+
+#include <coconut/runtime/Object.hpp>
+
+#ifndef COCONUT_FOUNDATION_NONE_HPP
+#define COCONUT_FOUNDATION_NONE_HPP
+
+namespace coconut
+{
+	COCONUT_PUBLIC class COCONUT_EXPORT None : public Object
+	{
+	COCONUT_KDCL(coconut.None, Object.None)
+		
+	public:
+		None();
+		None(const None & non);
+		virtual ~None();
+		
+		COCONUT_KTOR NonePtr with();
+		
+		virtual kind_ptr copy() const
+		COCONUT_FINAL_OVERRIDE;
+		
+		virtual ComparisonResult compare(const_kind_ref ref) const
+		COCONUT_FINAL_OVERRIDE;
+	};
+}
+
+#endif /* !COCONUT_FOUNDATION_NONE_HPP */
+
+/* EOF */
