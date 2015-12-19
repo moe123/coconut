@@ -12,6 +12,7 @@ it introduces several paradigms that define functionality not covered by the C++
 
 -----------------------------------------------------------------------------------------------
 
+
 Coconut is designed with these goals in mind:
 
 - Provide a small set of basic utility classes.
