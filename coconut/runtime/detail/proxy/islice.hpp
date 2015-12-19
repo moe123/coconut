@@ -5,11 +5,9 @@
 //
 
 #include <coconut/runtime/detail/core/types.hpp>
-#include <coconut/runtime/detail/core/algorithm.hpp>
-#include <coconut/runtime/detail/core/iterator.hpp>
 
-#ifndef COCONUT_RUNTIME_RANGE_HPP
-#define COCONUT_RUNTIME_RANGE_HPP
+#ifndef COCONUT_RUNTIME_ISLICE_HPP
+#define COCONUT_RUNTIME_ISLICE_HPP
 
 namespace coconut
 {
@@ -24,7 +22,7 @@ namespace coconut
 			islice(const islice & slc);
 			islice(const std::string & slc_string);
 			islice(std::int64_t start, std::int64_t stop);
-			islice(std::int64_t start, std::int64_t stop, std::uint16_t step);
+			islice(std::int64_t start, std::int64_t stop, std::int64_t step);
 			virtual ~islice();
 		
 		public:
@@ -33,25 +31,24 @@ namespace coconut
 			
 			std::int64_t start() const;
 			std::int64_t stop() const;
-			std::uint16_t step() const;
+			std::int64_t step() const;
 			
 			void set_start(std::int64_t start);
 			void set_stop(std::int64_t stop);
-			void set_step(std::uint16_t step);
+			void set_step(std::int64_t step);
 			
-			bool iszero() const;
-			std::size_t max() const;
+			void get_indexes(std::vector<std::size_t> & idxes, std::size_t forlen) const;
 			
 			std::string to_string() const;
 		
 		private:
 			std::int64_t m_start;
 			std::int64_t m_stop;
-			std::uint16_t m_step;
+			std::int64_t m_step;
 		};
 	}
 }
 
-#endif /* !COCONUT_RUNTIME_RANGE_HPP */
+#endif /* !COCONUT_RUNTIME_ISLICE_HPP */
 
 /* EOF */

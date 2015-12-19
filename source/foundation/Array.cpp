@@ -11,6 +11,7 @@
 #include <coconut/foundation/Path.hpp>
 #include <coconut/foundation/Range.hpp>
 #include <coconut/foundation/Set.hpp>
+#include <coconut/foundation/Slice.hpp>
 #include <coconut/foundation/SortDescriptor.hpp>
 #include <coconut/foundation/String.hpp>
 #include <coconut/foundation/URL.hpp>
@@ -917,7 +918,8 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption o
 const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 {
 	impl_type buf;
-	if(size() && rg.maxRange() <= size()) {
+	std::size_t sz = size();
+	if(sz && rg.maxRange() <= sz) {
 		std::size_t loc = rg.location();
 		for (std::size_t i = 0; i < rg.length(); i++) {
 			kind_ptr item = objectAtIndex(loc + i);
@@ -929,8 +931,24 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 	return Array(buf.cbegin(), buf.cend(), option);
 }
 
-const Array Array::subarrayWithRange(std::size_t location, std::size_t length, CopyOption option) const
-{ return Array::subarrayWithRange(Range(location, length), option); }
+#pragma mark -
+
+const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
+{
+	impl_type buf;
+	std::size_t sz = size();
+	if(sz) {
+		std::vector<std::size_t> idxs;
+		slc.getIndexes(idxs, size());
+		for(std::vector<std::size_t>::iterator it = idxs.begin(); it != idxs.end(); ++it) {
+			kind_ptr item = objectAtIndex(*it);
+			if (item) { buf.push_back(item); }
+		}
+	} else {
+		// Fault();
+	}
+	return Array(buf.cbegin(), buf.cend(), option);
+}
 
 #pragma mark -
 
@@ -963,8 +981,8 @@ bool Array::writeToURL(const URL & url, bool atomically) const
 const_kind_ptr Array::operator [] (std::size_t index) const
 { return objectAtIndex(index); }
 
-const Array Array::operator [] (const Range & rg) const
-{ return subarrayWithRange(rg); }
+const Array Array::operator [] (const Slice & slc) const
+{ return subarrayWithSlice(slc); }
 
 #pragma mark -
 

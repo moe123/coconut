@@ -196,7 +196,7 @@ namespace coconut
 		{ return arrayByAddingObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
 		const Array subarrayWithRange(const Range & rg, CopyOption option = CopyNone) const;
-		const Array subarrayWithRange(std::size_t location, std::size_t length, CopyOption option = CopyNone) const;
+		const Array subarrayWithSlice(const Slice & slc, CopyOption option = CopyNone) const;
 		
 		const String componentsJoinedByString(const String & separator);
 		
@@ -205,7 +205,7 @@ namespace coconut
 
 	public:
 		const_kind_ptr operator [] (std::size_t index) const;
-		const Array operator [] (const Range & rg) const;
+		const Array operator [] (const Slice & slc) const;
 		
 	protected:
 		typedef std::vector<kind_ptr> impl_type;

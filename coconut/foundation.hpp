@@ -29,6 +29,7 @@
 #include <coconut/foundation/Range.hpp>
 #include <coconut/foundation/Rect.hpp>
 #include <coconut/foundation/Set.hpp>
+#include <coconut/foundation/Slice.hpp>
 #include <coconut/foundation/SortDescriptor.hpp>
 #include <coconut/foundation/Stack.hpp>
 #include <coconut/foundation/String.hpp>

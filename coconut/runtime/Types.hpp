@@ -19,6 +19,7 @@
 #include <coconut/runtime/detail/proxy/indexpath.hpp>
 #include <coconut/runtime/detail/proxy/indexset.hpp>
 #include <coconut/runtime/detail/proxy/irange.hpp>
+#include <coconut/runtime/detail/proxy/islice.hpp>
 #include <coconut/runtime/detail/proxy/locale.hpp>
 #include <coconut/runtime/detail/proxy/mapbuf.hpp>
 #include <coconut/runtime/detail/proxy/numeric.hpp>
@@ -79,6 +80,7 @@ namespace coconut
 		RangeClass,
 		RectClass,
 		SetClass,
+		SliceClass,
 		SortDescriptorClass,
 		StackClass,
 		StringClass,
@@ -110,6 +112,7 @@ namespace coconut
 	COCONUT_DCL_PTR(Range)
 	COCONUT_DCL_PTR(Rect)
 	COCONUT_DCL_PTR(Set)
+	COCONUT_DCL_PTR(Slice)
 	COCONUT_DCL_PTR(SortDescriptor)
 	COCONUT_DCL_PTR(Stack)
 	COCONUT_DCL_PTR(String)

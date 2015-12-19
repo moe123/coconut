@@ -5,7 +5,6 @@
 //
 
 #include <coconut/runtime/detail/core/types.hpp>
-#include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/iterator.hpp>
 
 #ifndef COCONUT_RUNTIME_IRANGE_HPP
