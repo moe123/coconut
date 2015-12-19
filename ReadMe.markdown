@@ -21,7 +21,7 @@ Coconut is designed with these goals in mind:
 - Traversable, iterable, sortable collections thru the KVC interface not relaying on binary comparison.
 - Make software development easier by introducing consistent conventions.
 - Code readability, syntax, allowing to express concepts in fewer lines of code.
-- Support Unicode strings (there are by default width insentive) and other legacy encodings, UTF-8, i18n and locale comparison. 
+- Support Unicode strings (by default width insensitive ; e.g composed or precomposed) and other legacy encodings, UTF-8, i18n and locale comparison. 
 - Support for Path, Stream (UTF-16, UTF-8 agnostic parsing and conversion), filesystem and network access on different platforms.
 - Safe and transparent access to the main loop or UI loop queue of the platform e.g safely signaling the UI thread.
 - Object persistence, distribution, melt-in KVO notifications, event looper.
