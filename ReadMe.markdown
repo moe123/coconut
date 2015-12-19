@@ -1,30 +1,35 @@
-# Coconut
+Coconut
+=======
 
 Coconut is an object-oriented runtime that adds Smalltalk-style objects and messaging features ; 
 with a strong emphasis on concurrency ability and the subscripting side of things.
+
+-----------------------------------------------------------------------------------------------
 
 Coconut defines a base layer of classes fully integarted to C++, the data-structures hold ref-counted objects
 and have a STL like interface regarding iterators and other common features. In addition to providing a set of useful primitive object classes, 
 it introduces several paradigms that define functionality not covered by the C++ language. 
 
+-----------------------------------------------------------------------------------------------
 
 Coconut is designed with these goals in mind:
 
-	- Provide a small set of basic utility classes.
-	- Make software development easier by introducing consistent conventions.
-	- Emphasizes on code readability, syntax allowing to express concepts in fewer lines of code.
-	- Support Unicode strings and other legacy encodings, UTF-8, i18n and locale comparison, 
-	- Support for path, filesystem and network access on different platforms.
-	- Object persistence, object distribution, concurrency, multi-threadung, shared object, observer, looper.
-	- Provide a level of OS independence, to enhance portability.
+- Provide a small set of basic utility classes.
+- Make software development easier by introducing consistent conventions.
+- Emphasizes on code readability, syntax allowing to express concepts in fewer lines of code.
+- Support Unicode strings and other legacy encodings, UTF-8, i18n and locale comparison, 
+- Support for path, filesystem and network access on different platforms.
+- Object persistence, object distribution, concurrency, multi-threadung, shared object, observer, looper.
+- Provide a level of OS independence, to enhance portability.
 
-
+-----------------------------------------------------------------------------------------------
 
 Coconut supports multiple programming paradigms, including object-oriented, imperative and 
 functional programming or procedural styles, specifics such as the selector-key interface.
 It features a dynamic type system and automatic memory management using scope ref-counting but without getting in the way, as you can work 
 on the stack as well as on the heap ; you may copy and/or move, acquiring ref-counted containers on the fly.
 
+-----------------------------------------------------------------------------------------------
 
 Coconut is really similar to Smalltalk, Python, Swift Objective-C philosophy but purily written in C++.
 
