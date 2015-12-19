@@ -19,7 +19,7 @@ Coconut is designed with these goals in mind:
 - Emphasizes on code readability, syntax allowing to express concepts in fewer lines of code.
 - Support Unicode strings and other legacy encodings, UTF-8, i18n and locale comparison. 
 - Support for path, filesystem and network access on different platforms.
-- Accessing to  the main loop or UI loop queue of the platform regarding message-passing from other threads.
+- Safe and transparent access to the main loop or UI loop queue of the platform e.g safely signaling the UI thread.
 - Object persistence, distribution, concurrency, multi-threading, asynchronous dispatch, shared data, IPC, observer, looper.
 - Provide a level of OS independence, to enhance portability.
 
