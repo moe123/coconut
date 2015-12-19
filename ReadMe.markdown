@@ -27,11 +27,7 @@ Coconut is designed with these goals in mind:
 Coconut supports multiple programming paradigms, including object-oriented, imperative and 
 functional programming or procedural styles, specifics such as the selector-key interface.
 It features a dynamic type system and automatic memory management using scope ref-counting but without getting in the way, as you can work 
-on the stack as well as on the heap ; you may copy and/or move, acquiring ref-counted containers on the fly.
-
------------------------------------------------------------------------------------------------
-
-Coconut is really similar to Smalltalk, Python, Swift Objective-C philosophy but purily written in C++.
+on the stack as well as on the heap ; you may copy and/or move, acquiring ref-counted containers on the fly. Coconut is really similar to Smalltalk, Python, Swift Objective-C philosophy but purily written in C++.
 
 # Few examples
 
@@ -96,6 +92,62 @@ if (values && values->isKindOf(ArrayClass)) {
 	for (const auto & item : ref_cast<Array>(*values)) {
 		std::cerr << "    + : " << item << std::endl;
 	}
+}
+
+```
+```cpp
+
+Array firstNames = {
+	String::with(u8"Alice"),
+	String::with(u8"Bob"),
+	String::with(u8"Charlie"),
+	String::with(u8"Quentin")
+};
+
+Array lastNames = {
+	String::with(u8"Smith"),
+	String::with(u8"Jones"),
+	String::with(u8"Smith"),
+	String::with(u8"Alberts")
+};
+
+Array ages = {
+	Number::with(24),
+	Number::with(27),
+	Number::with(33),
+	Number::with(31)
+};
+
+Array keys = {
+	String::with(u8"firstName"),
+	String::with(u8"lastName"),
+	String::with(u8"age")
+};
+
+MutableArray people;
+
+firstNames.enumerateObjectsUsingFunction(
+	[&lastNames, &ages, &keys, &people] (const_kind_ptr & obj, std::size_t index, bool & stop)
+{
+	people.addObject(
+		Dictionary::with({
+			{ keys[0], obj },
+			{ keys[1], lastNames[index] },
+			{ keys[2], ages[index] }
+		})
+	);
+}, EnumerationConcurrent);
+
+SortDescriptor s0(u8"firstName", false);
+SortDescriptor s1(u8"lastName", false);
+SortDescriptor s2(u8"age");
+
+Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
+
+for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
+{
+	std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"firstName") << std::endl;
+	std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
 }
 
 ```
