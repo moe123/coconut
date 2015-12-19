@@ -317,9 +317,9 @@
 		D528D43F1BC4930700D8087D /* liburiparser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liburiparser.a; path = ../sdk/darwin_x86_64/liburiparser.a; sourceTree = "<group>"; };
 		D52B86C11A8ECA200086CB97 /* libruntime_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libruntime_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54322131BCC413900839B4B /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
-		D54988121C1A5349000865EE /* ReadMe.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.markdown; path = ../ReadMe.markdown; sourceTree = "<group>"; };
 		D56A57241BC4BC520056B40C /* libfoundation_dylib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libfoundation_dylib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56A57AB1BC4BC630056B40C /* libfoundation_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfoundation_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D56ACFAD1C26018F00BA0A69 /* en */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = en; path = en.lproj/ReadMe.markdown; sourceTree = "<group>"; };
 		D595B8841BC9A43A0051FF91 /* algorithm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
 		D595B8851BC9A43A0051FF91 /* async.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async.hpp; sourceTree = "<group>"; };
 		D595B8861BC9A43A0051FF91 /* base64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base64.hpp; sourceTree = "<group>"; };
@@ -761,7 +761,7 @@
 		D5FD450C1A8559450048F678 = {
 			isa = PBXGroup;
 			children = (
-				D54988121C1A5349000865EE /* ReadMe.markdown */,
+				D56ACFAE1C26018F00BA0A69 /* ReadMe.markdown */,
 				D528D2C21BC4928500D8087D /* coconut */,
 				D528D3881BC4929B00D8087D /* source */,
 				D561E1D11AD1ECF800FD49B0 /* sdk */,
@@ -1237,6 +1237,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D56ACFAE1C26018F00BA0A69 /* ReadMe.markdown */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D56ACFAD1C26018F00BA0A69 /* en */,
+			);
+			name = ReadMe.markdown;
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D52B86CA1A8ECA200086CB97 /* Debug */ = {

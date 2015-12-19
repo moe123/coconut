@@ -1,12 +1,12 @@
 Coconut
 =======
 
-Coconut is an object-oriented runtime that adds Smalltalk-style objects and messaging features ; 
-with a strong emphasis on concurrency ability and the subscripting side of things.
+Coconut is an object-oriented cross-platform runtime written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
+with a strong emphasis on concurrency ability and the subscripting side of things, `feel like scripting`.
 
 -----------------------------------------------------------------------------------------------
 
-Coconut defines a base layer of classes fully integarted to C++, the data-structures hold ref-counted objects
+Coconut defines a base layer of classes fully integrated to the host-lang: C++, the data-structures hold ref-counted objects
 and have a STL like interface regarding iterators, subscript operators, streams and other common features. In addition to providing a set of useful primitive object classes, 
 it introduces several paradigms that define functionality not covered by the C++ language. 
 
