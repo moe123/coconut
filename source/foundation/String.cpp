@@ -158,98 +158,62 @@ ComparisonResult String::compare(const_kind_ref ref) const
 #pragma mark -
 
 std::string String::stringValue() const
-{
-	return m_impl.to_utf8();
-}
+{ return m_impl.to_utf8(); }
 
 std::u16string String::string16Value() const
-{
-	return m_impl.to_utf16();
-}
+{ return m_impl.to_utf16(); }
 
 std::u32string String::string32Value() const
-{
-	return m_impl.to_utf32();
-}
+{ return m_impl.to_utf32(); }
 
 #pragma mark -
 
 std::size_t String::size() const
-{
-	return m_impl.size();
-}
+{ return m_impl.size(); }
 
 #pragma mark -
 
 float String::floatValue() const
-{
-	return m_impl.to_float();
-}
+{ return m_impl.to_float(); }
 
 double String::doubleValue() const
-{
-	return m_impl.to_double();
-}
+{ return m_impl.to_double(); }
 
 long double String::longDoubleValue() const
-{
-	return m_impl.to_long_double();
-}
+{ return m_impl.to_long_double(); }
 
 bool String::boolValue() const
-{
-	return m_impl.to_bool();
-}
+{ return m_impl.to_bool(); }
 
 char String::charValue() const
-{
-	return m_impl.to_char();
-}
+{ return m_impl.to_char(); }
 
 short String::shortValue() const
-{
-	return m_impl.to_short();
-}
+{ return m_impl.to_short(); }
 
 int String::intValue() const
-{
-	return m_impl.to_int();
-}
+{ return m_impl.to_int(); }
 
 long String::longValue() const
-{
-	return m_impl.to_long();
-}
+{ return m_impl.to_long(); }
 
 long long String::longLongValue() const
-{
-	return m_impl.to_longlong();
-}
+{ return m_impl.to_longlong(); }
 
 unsigned char String::unsignedCharValue() const
-{
-	return m_impl.to_unsigned_char();
-}
+{ return m_impl.to_unsigned_char(); }
 
 unsigned short String::unsignedShortValue() const
-{
-	return m_impl.to_unsigned_short();
-}
+{ return m_impl.to_unsigned_short(); }
 
 unsigned int String::unsignedIntValue() const
-{
-	return m_impl.to_unsigned_int();
-}
+{ return m_impl.to_unsigned_int(); }
 
 unsigned long String::unsignedLongValue() const
-{
-	return m_impl.to_unsigned_long();
-}
+{ return m_impl.to_unsigned_long(); }
 
 unsigned long long String::unsignedLongLongValue() const
-{
-	return m_impl.to_unsigned_longlong();
-}
+{ return m_impl.to_unsigned_longlong(); }
 
 #pragma mark -
 
@@ -290,45 +254,31 @@ ComparisonResult String::localizedCaseInsensitiveCompare(const String & str) con
 #pragma mark -
 
 bool String::hasPrefix(const String & str) const
-{
-	return m_impl.has_prefix(str.m_impl);
-}
+{ return m_impl.has_prefix(str.m_impl); }
 
 bool String::hasSuffix(const String & str) const
-{
-	return m_impl.has_suffix(str.m_impl);
-}
+{ return m_impl.has_suffix(str.m_impl); }
 
 #pragma mark -
 
 bool String::hasCaseInsensitivePrefix(const String & str) const
-{
-	return m_impl.icase_has_prefix(str.m_impl);
-}
+{ return m_impl.icase_has_prefix(str.m_impl); }
 
 bool String::hasCaseInsensitiveSuffix(const String & str) const
-{
-	return m_impl.icase_has_suffix(str.m_impl);
-}
+{ return m_impl.icase_has_suffix(str.m_impl); }
 
 #pragma mark -
 
 std::uint16_t String::codeUnitAtIndex(std::size_t index) const
-{
-	return m_impl.code_unit_at(index);
-}
+{ return m_impl.code_unit_at(index); }
 
 std::uint32_t String::codePointAtIndex(std::size_t index) const
-{
-	return m_impl.code_point_at(index);
-}
+{ return m_impl.code_point_at(index); }
 
 #pragma mark -
 
 std::uint32_t String::characterAtIndex(std::size_t index) const
-{
-	return m_impl.code_point_at(index);
-}
+{ return m_impl.code_point_at(index); }
 
 #pragma mark -
 
@@ -355,38 +305,26 @@ void String::getCodePoints(std::vector<std::uint32_t> & bv, const Range & rg)
 #pragma mark -
 
 void String::getCharacters(std::vector<std::uint32_t> & bv, const Range & rg)
-{
-	return getCodePoints(bv, rg);
-}
+{ return getCodePoints(bv, rg); }
 
 #pragma mark -
 
 std::size_t String::numberOfCodeUnits() const
-{
-	return m_impl.size();
-}
+{ return m_impl.size(); }
 
 std::size_t String::numberOfCodePoints() const
-{
-	return m_impl.count();
-}
+{ return m_impl.count(); }
 
 #pragma mark -
 
 std::size_t String::numberOfCharacters() const
-{
-	return m_impl.count();
-}
+{ return m_impl.count(); }
 
 std::size_t String::length() const
-{
-	return m_impl.size();
-}
+{ return m_impl.size(); }
 
 std::size_t String::lengthOfBytesUsingEncoding(StringEncodingOption encoding) const
-{
-	return m_impl.size_for(encoding);
-}
+{ return m_impl.size_for(encoding); }
 
 #pragma mark -
 
