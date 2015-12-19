@@ -17,10 +17,12 @@ Coconut is designed with these goals in mind:
 - Provide a small set of basic utility classes.
 - Make software development easier by introducing consistent conventions.
 - Emphasizes on code readability, syntax allowing to express concepts in fewer lines of code.
-- Support Unicode strings and other legacy encodings, UTF-8, i18n and locale comparison, 
+- Support Unicode strings and other legacy encodings, UTF-8, i18n and locale comparison. 
 - Support for path, filesystem and network access on different platforms.
-- Object persistence, object distribution, concurrency, multi-threadung, shared object, observer, looper.
+- Accessing to  the main loop or UI loop queue of the platform regarding message-passing from other threads.
+- Object persistence, distribution, concurrency, multi-threading, asynchronous dispatch, shared data, IPC, observer, looper.
 - Provide a level of OS independence, to enhance portability.
+
 
 -----------------------------------------------------------------------------------------------
 
