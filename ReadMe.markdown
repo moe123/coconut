@@ -26,7 +26,7 @@ Coconut is designed with these goals in mind:
 
 Coconut supports multiple programming paradigms, including object-oriented, imperative and 
 functional programming or procedural styles, specifics such as the selector-key interface.
-It features a dynamic type system and automatic memory management using scope ref-counting but without getting in the way, as you can work 
+It features a dynamic type system and automatic memory management using the built-in scope ref-counting system but without getting in the way, as you can work 
 on the stack as well as on the heap ; you may copy and/or move, acquiring ref-counted containers on the fly. 
 Coconut is really similar to Smalltalk, Python, Swift and the Objective-C philosophy but purily written in modern-portable C++.
 
