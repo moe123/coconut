@@ -341,11 +341,15 @@ static void test_stuff(void)
 		tree.addObject(parent);
 	}
 	auto values = tree.valueForKeyPath(u8"parent.child");
-	for (const auto & number : ref_cast<Array>(*values)) {
-		std::cerr << "    + : " << number << std::endl;
+	if (values && values->isMemberOf(Array{})) {
+		for (const auto & number : ref_cast<Array>(*values)) {
+			std::cerr << "    + : " << number << std::endl;
+		}
 	}
-	
 	MutableArray indexTree;
+	
+	ref_cast<MutableArray>(indexTree);
+	
 	for (std::size_t i = 0; i < 10; i++ ) {
 		auto child = Dictionary::with({
 			{ String::with(u8"child"), Number::with(i + 1) }

@@ -15,7 +15,7 @@ it introduces several paradigms that define functionality not covered by the C++
 Coconut is designed with these goals in mind:
 
 - Provide a small set of basic utility classes.
-- Performances and memory footprint in mind.
+- Performances and memory footprint in mind (The author has a background in embedded systems and real-time signal processing).
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
 - Not only reserved to desktops but also distributed systems.
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
