@@ -44,7 +44,7 @@ if (str == u8"étourdie") {
 ...
 }
 
-// literal comparison
+// literal and lexical comparison
 
 if (str < u8"Avion") {
 ...
