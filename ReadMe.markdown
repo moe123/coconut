@@ -53,6 +53,10 @@ if (str < u8"Avion") {
 str = u"étourdissement 나는태오";
 std::cout << str.stringValue(); << std::endl;
 
+// or simply
+
+std::cout << str << std::endl;
+
 String oUmlaut = u"\u00f6";
 String oPlusUmlaut = u"o\u0308";
 
@@ -149,13 +153,35 @@ SortDescriptor s0(u8"firstName", false);
 SortDescriptor s1(u8"lastName", false);
 SortDescriptor s2(u8"age");
 
-Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
+const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
 for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
 {
 	std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"firstName") << std::endl;
 	std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
 }
+
+```
+```cpp
+
+// Pythonic
+
+std::cout << people[1] << std::endl;
+std::cout << people[{-1, 1, 2}] << std::endl;
+
+```
+```cpp
+
+// Javascriptic
+
+std::size_t idx = people.someObjectPassingTest(
+	[] (const_kind_ptr & obj, std::size_t index, bool & stop) -> bool
+{
+	if (/* ... condition */) {
+		return true;
+	}
+	return false;
+});
 
 ```
 ```cpp
