@@ -44,6 +44,8 @@ if (str == u8"étourdie") {
 ...
 }
 
+// literal comparison
+
 if (str < u8"Avion") {
 ...
 }
@@ -167,7 +169,7 @@ for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); 
 // Pythonic
 
 std::cout << people[1] << std::endl;
-std::cout << people[{-1, 1, 2}] << std::endl;
+std::cout << people[{ -1, 1, 2 }] << std::endl;
 
 ```
 ```cpp

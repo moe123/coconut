@@ -155,6 +155,21 @@ namespace coconut
 		ErrT error;
 		bool valid;
 	};
+	
+	template<typename ObjT, typename... ArgsT>
+	const_kind_ptr With(ArgsT &&... args) {
+		return ObjT::with(std::forward<ArgsT>(args)...);
+	}
+	
+	template<typename ObjT>
+	const_kind_ptr With(const std::initializer_list<kind_ptr> & args) {
+		return ObjT::with(args);
+	}
+	
+	template<typename ObjT>
+	const_kind_ptr With(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) {
+		return ObjT::with(args);
+	}
 		
 	COCONUT_OPT(StringEncodingOption)
 	{

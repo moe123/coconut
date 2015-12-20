@@ -18,8 +18,30 @@ COCONUT_SECTION_FINI
 	std::cerr << " _fini " << std::endl;
 }
 
+const_kind_ptr operator "" _U(const char * in, std::size_t sz)
+{ return String::with(in); }
+	
+const_kind_ptr operator "" _U(const char16_t * in, std::size_t sz)
+{ return String::with(in); }
+	
+const_kind_ptr operator "" _U(long double in)
+{ return Number::with(in); }
+	
+const_kind_ptr operator "" _U(unsigned long long in)
+{ return Number::with(in); }
+
+
+	
 static void print_ref(const_kind_ref ref)
 {
+	auto array = With<Array>
+	({
+		With<String>(u8"hello"),
+		With<Number>(10),
+		With<Number>(10.8),
+		With<Date>()
+	});
+	
 	std::cerr.setf(std::ios::fixed, std::ios::floatfield);
 	std::cerr.precision(10);
 	
