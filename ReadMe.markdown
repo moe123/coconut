@@ -186,6 +186,9 @@ bool test = people.someObjectPassingTest(
 ```
 ```cpp
 
+// Array, Set are traversable by index-key-path : 
+// read and write (if the destination object is mutable).
+
 MutableArray indexTree;
 for (std::size_t i = 0; i < 10; i++ ) {
 	auto child = Dictionary::with({
