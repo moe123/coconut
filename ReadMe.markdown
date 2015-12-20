@@ -174,14 +174,14 @@ std::cout << people[{-1, 1, 2}] << std::endl;
 
 // Javascriptic
 
-std::size_t idx = people.someObjectPassingTest(
+bool test = people.someObjectPassingTest(
 	[] (const_kind_ptr & obj, std::size_t index, bool & stop) -> bool
 {
 	if (/* ... condition */) {
 		return true;
 	}
 	return false;
-});
+}, EnumerationConcurrent);
 
 ```
 ```cpp
