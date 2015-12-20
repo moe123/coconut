@@ -41,14 +41,14 @@ kind_ptr Object::copyObject(const_kind_ref ref, CopyOption option)
 	{
 		case CopyMutable:
 			copy = ref.mutableCopy();
-			break;
+		break;
 		case CopyImmutable:
 			copy = ref.copy();
-			break;
+		break;
 		case CopyNone:
 		case CopyKind:
 			copy = ref.kindCopy();
-			break;
+		break;
 		default:
 			break;
 	}
@@ -66,15 +66,15 @@ kind_ptr Object::copyObject(const_kind_ptr & ptr, CopyOption option)
 			{
 				case CopyMutable:
 					copy = ptr->mutableCopy();
-					break;
+				break;
 				case CopyImmutable:
 					copy = ptr->copy();
-					break;
+				break;
 				case CopyKind:
 					copy = ptr->kindCopy();
-					break;
-				default:
 				break;
+				default:
+					break;
 			}
 			return copy;
 		}
