@@ -5,7 +5,6 @@
 //
 
 #include <coconut/foundation/None.hpp>
-#include <coconut/foundation/Empty.hpp>
 
 using namespace coconut;
 

@@ -939,7 +939,7 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 	std::size_t sz = size();
 	if(sz) {
 		std::vector<std::size_t> idxs;
-		slc.getIndexes(idxs, sz);
+		slc.m_impl.get_indexes(idxs, sz);
 		for(std::vector<std::size_t>::const_iterator it = idxs.cbegin(); it != idxs.cend(); ++it) {
 			kind_ptr item = objectAtIndex(*it);
 			if (item) { buf.push_back(item); }

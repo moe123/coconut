@@ -18,9 +18,7 @@ namespace coconut
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha256_rot(std::uint32_t a, std::uint32_t c)
-			{
-				return (a >> c) | (a << (32 - c));
-			}
+			{ return (a >> c) | (a << (32 - c)); }
 	
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha256_f1(std::uint32_t e, std::uint32_t f, std::uint32_t g)

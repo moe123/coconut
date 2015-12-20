@@ -18,27 +18,19 @@ namespace coconut
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha1_rot(std::uint32_t a, std::uint32_t c)
-			{
-				return (a << c) | (a >> (32 - c));
-			}
+			{ return (a << c) | (a >> (32 - c)); }
 	
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha1_f1(std::uint32_t b, std::uint32_t c, std::uint32_t d)
-			{
-				return d ^ (b & (c ^ d));
-			}
+			{ return d ^ (b & (c ^ d)); }
 
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha1_f2(std::uint32_t b, std::uint32_t c, std::uint32_t d)
-			{
-				return b ^ c ^ d;
-			}
+			{ return b ^ c ^ d; }
 
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha1_f3(std::uint32_t b, std::uint32_t c, std::uint32_t d)
-			{
-				return (b & c) | (b & d) | (c & d);
-			}
+			{ return (b & c) | (b & d) | (c & d); }
 		}
 	}
 }

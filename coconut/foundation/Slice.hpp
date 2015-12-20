@@ -44,11 +44,13 @@ namespace coconut
 		std::int64_t stop() const;
 		std::int64_t step() const;
 		
-		void getIndexes(std::vector<std::size_t> & indexes, std::size_t for_length) const;
-		
 	public:
 		friend inline std::ostream & operator << (std::ostream & os, const SlicePtr ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
+	
+	protected:
+		friend class Array;
+		friend class String;
 		
 	protected:
 		typedef runtime::islice impl_type;

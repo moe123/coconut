@@ -82,9 +82,4 @@ std::int64_t Slice::stop() const
 std::int64_t Slice::step() const
 { return m_impl.step(); }
 
-#pragma mark -
-
-void Slice::getIndexes(std::vector<std::size_t> & indexes, std::size_t for_length) const
-{ m_impl.get_indexes(indexes, for_length); }
-
 /* EOF */

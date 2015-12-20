@@ -228,7 +228,7 @@ namespace coconut
 		StringSearchWidthInsensitive = runtime::search_nowidth,
 		StringSearchCaseInsensitive = runtime::search_insensitive,
 		StringSearchDiacriticInsensitive = runtime::search_diacritic,
-		StringSearchBackwards= runtime::search_backwards,
+		StringSearchBackwards = runtime::search_backwards,
 		StringSearchForcedOrdering = runtime::search_forceorder,
 		StringSearchAnchored = runtime::search_anchored,
 		StringSearchNumeric = runtime::search_numeric
