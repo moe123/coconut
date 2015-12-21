@@ -114,10 +114,10 @@ namespace coconut
 	
 
 	template <typename T1, typename T2>
-	inline bool KindOf(T2 && r) { return r.isKindOf(T1{}); }
+	inline bool KindOf(T2 && r) { return r . template isKindOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline bool KindOf(std::shared_ptr<T2> const r) { return (r && r->isKindOf(T1{})); }
+	inline bool KindOf(std::shared_ptr<T2> const r) { return (r && r -> template isKindOf<T1>()); }
 	
 	template <typename T1, typename T2>
 	inline bool SubclassOf(T2 && r) { return r.isSubclassOf(T1{}); }
