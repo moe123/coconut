@@ -91,10 +91,10 @@ std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
 
 MutableArray tree;
 for (std::size_t i = 0; i < 10; i++ ) {
-	auto child = Dictionary::with({
+	auto child = With<Dictionary>({
 		{ String::with(u8"child"), Number::with(i + 1) }
 	});
-	auto parent = Dictionary::with({
+	auto parent = With<Dictionary>({
 		{ String::with(u8"parent"), child }
 	});
 	tree.addObject(parent);
