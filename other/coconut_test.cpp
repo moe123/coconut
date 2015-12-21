@@ -361,7 +361,7 @@ static void test_stuff(void)
 		tree.addObject(parent);
 	}
 	auto values = tree.valueForKeyPath(u8"parent.child");
-	if (values && values->isMemberOf(Array{})) {
+	if (values && values->isMemberOf<Array>()) {
 		for (const auto & number : Thus<Array>(values)) {
 			std::cerr << " number  + : " << number << std::endl;
 		}
