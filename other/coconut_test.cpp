@@ -775,8 +775,16 @@ int main(int argc, const char * argv[])
 	ret.valid = true;
 	ret.success = Data::with();
 	
+	if (ret) {
+		std::cerr << "+ true " << ret() << std::endl;
+	}
+	
 	ret.valid = false;
 	ret.error = Error::with();
+	
+	if (!ret) {
+		std::cerr << "+ false " << ~ret << std::endl;
+	}
 	
 	JobDetach([]() -> void
 	{

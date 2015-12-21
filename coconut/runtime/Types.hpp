@@ -151,24 +151,27 @@ namespace coconut
 	{
 		operator bool () const { return valid; }
 
+		RetT operator () () const { return success; }
+		ErrT operator ~ () const { return error; }
+
 		RetT success;
 		ErrT error;
 		bool valid;
 	};
 	
-	template<typename ObjT, typename... ArgsT>
-	const_kind_ptr With(ArgsT &&... args) {
-		return ObjT::with(std::forward<ArgsT>(args)...);
+	template<typename TypeT, typename... ArgsT>
+	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT> {
+		return TypeT::with(std::forward<ArgsT>(args)...);
 	}
 	
-	template<typename ObjT>
-	const_kind_ptr With(const std::initializer_list<kind_ptr> & args) {
-		return ObjT::with(args);
+	template<typename TypeT>
+	inline auto With(const std::initializer_list<kind_ptr> & args) -> ptr_declare<TypeT> {
+		return TypeT::with(args);
 	}
 	
-	template<typename ObjT>
-	const_kind_ptr With(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) {
-		return ObjT::with(args);
+	template<typename TypeT>
+	inline auto With(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) -> ptr_declare<TypeT> {
+		return TypeT::with(args);
 	}
 		
 	COCONUT_OPT(StringEncodingOption)
