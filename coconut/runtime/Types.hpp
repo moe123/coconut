@@ -112,6 +112,31 @@ namespace coconut
 	COCONUT_FORWARD_KDCL(String)
 	COCONUT_FORWARD_KDCL(URL)
 	
+
+	template <typename T1, typename T2>
+	inline bool KindOf(T2 && r) { return r.isKindOf(T1{}); }
+	
+	template <typename T1, typename T2>
+	inline bool KindOf(std::shared_ptr<T2> const r) { return (r && r->isKindOf(T1{})); }
+	
+	template <typename T1, typename T2>
+	inline bool SubclassOf(T2 && r) { return r.isSubclassOf(T1{}); }
+	
+	template <typename T1, typename T2>
+	inline bool SubclassOf(std::shared_ptr<T2> const r) { return (r && r->isSubclassOf(T1{})); }
+	
+	template <typename T1, typename T2>
+	inline bool MemberOf(T2 && r) { return r.isMemberOf(T1{}); }
+	
+	template <typename T1, typename T2>
+	inline bool MemberOf(std::shared_ptr<T2> const r) { return (r && r->isMemberOf(T1{})); }
+	
+	template <typename T1, typename T2>
+	inline bool AncestorOf(T2 && r) { return r.isAncestorOf(T1{}); }
+	
+	template <typename T1, typename T2>
+	inline bool AncestorOf(std::shared_ptr<T2> const r) { return (r && r->isAncestorOf(T1{})); }
+	
 	COCONUT_OPT(OrderedOption)
 	{
 		OrderedAscending = runtime::cmp_ascending,
