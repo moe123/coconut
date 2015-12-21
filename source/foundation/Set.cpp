@@ -30,7 +30,7 @@ Set::Set(Set && set) :
 	m_impl(std::move(set.m_impl))
 { /* NOP */ }
 
-Set::Set(const std::initializer_list<Owning<Any>> & args) :
+Set::Set(const std::initializer_list< Owning<Any> > & args) :
 	Set(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
@@ -58,7 +58,7 @@ Owning<Set> Set::with(const Set & set, CopyOption option)
 Owning<Set> Set::with(Set && set)
 { return ptr_create<Set>(std::move(set)); }
 
-Owning<Set> Set::with(const std::initializer_list<Owning<Any>> & args)
+Owning<Set> Set::with(const std::initializer_list< Owning<Any> > & args)
 { return ptr_create<Set>(args); }
 
 Owning<Set> Set::with(const std::initializer_list<Any *> & args)

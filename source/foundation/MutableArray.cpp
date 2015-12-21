@@ -33,7 +33,7 @@ MutableArray::MutableArray(const Array & arr, CopyOption option) :
 	Array(arr.cbegin(), arr.cend(), option)
 { setClassKind(MutableArrayClass, true); }
 
-MutableArray::MutableArray(const std::initializer_list<Owning<Any>> & args) :
+MutableArray::MutableArray(const std::initializer_list< Owning<Any> > & args) :
 	Array(args)
 { setClassKind(MutableArrayClass, true); }
 
@@ -72,7 +72,7 @@ Owning<MutableArray> MutableArray::with(const Array & arr, CopyOption option)
 Owning<MutableArray> MutableArray::with(Array && arr)
 { return ptr_create<MutableArray>(std::move(arr)); }
 
-Owning<MutableArray> MutableArray::with(const std::initializer_list<Owning<Any>> & args)
+Owning<MutableArray> MutableArray::with(const std::initializer_list< Owning<Any> > & args)
 { return ptr_create<MutableArray>(args); }
 
 Owning<MutableArray> MutableArray::with(const std::initializer_list<Any *> & args)

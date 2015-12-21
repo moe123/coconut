@@ -190,11 +190,11 @@ namespace coconut
 	{ return TypeT::with(std::forward<ArgsT>(args)...); }
 	
 	template<typename TypeT>
-	inline auto With(const std::initializer_list<Owning<Any>> & args) -> ptr_declare<TypeT>
+	inline auto With(const std::initializer_list< Owning<Any> > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
 	
 	template<typename TypeT>
-	inline auto With(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) -> ptr_declare<TypeT>
+	inline auto With(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
 	
 	template <typename T1, typename T2>

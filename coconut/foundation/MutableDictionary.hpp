@@ -26,7 +26,7 @@ namespace coconut
 		MutableDictionary(const Dictionary & dict, CopyOption option);
 		MutableDictionary(Dictionary && dict);
 		
-		MutableDictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		MutableDictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		MutableDictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>
@@ -59,7 +59,7 @@ namespace coconut
 		COCONUT_KTOR Owning<MutableDictionary> with(const Dictionary & dict, CopyOption option);
 		COCONUT_KTOR Owning<MutableDictionary> with(Dictionary && dict);
 		
-		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>

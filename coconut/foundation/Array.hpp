@@ -23,7 +23,7 @@ namespace coconut
 		
 		Array(Array && arr);
 
-		Array(const std::initializer_list<Owning<Any>> & args);
+		Array(const std::initializer_list< Owning<Any> > & args);
 		Array(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
@@ -60,7 +60,7 @@ namespace coconut
 		
 		COCONUT_KTOR Owning<Array> with(Array && arr);
 		
-		COCONUT_KTOR Owning<Array> with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR Owning<Array> with(const std::initializer_list< Owning<Any> > & args);
 		COCONUT_KTOR Owning<Array> with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
@@ -208,7 +208,7 @@ namespace coconut
 		const Array operator [] (const Slice & slc) const;
 		
 	protected:
-		typedef std::vector<Owning<Any>> impl_type;
+		typedef std::vector< Owning<Any> > impl_type;
 		
 	public:
 		typedef impl_type::iterator iterator;

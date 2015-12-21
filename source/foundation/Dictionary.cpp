@@ -35,7 +35,7 @@ Dictionary::Dictionary(Dictionary && dict) :
 	m_impl(std::move(dict.m_impl))
 { /* NOP */ }
 
-Dictionary::Dictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) :
+Dictionary::Dictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args) :
 	Dictionary(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
@@ -78,7 +78,7 @@ Owning<Dictionary> Dictionary::with(const Dictionary & dict, CopyOption option)
 Owning<Dictionary> Dictionary::with(Dictionary && dict)
 { return ptr_create<Dictionary>(std::move(dict)); }
 
-Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
+Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
 { return ptr_create<Dictionary>(args); }
 
 Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
@@ -128,7 +128,7 @@ ComparisonResult Dictionary::compare(const Any & ref) const
 		} else if (size() > ref_cast<Dictionary>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Dictionary>(ref).cbegin(), [] (const std::pair<Owning<Any>, Owning<Any>> & a, const std::pair<Owning<Any>, Owning<Any>> & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<Dictionary>(ref).cbegin(), [] (const std::pair< Owning<Any>, Owning<Any> > & a, const std::pair< Owning<Any>, Owning<Any> > & b) -> bool
 			{
 				if (a.first && a.second && b.first && b.second) {
 					if (((a.first)->compare(*(b.first)) == OrderedSame)) {

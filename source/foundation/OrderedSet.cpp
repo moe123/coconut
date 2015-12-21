@@ -31,7 +31,7 @@ OrderedSet::OrderedSet(OrderedSet && set) :
 	m_impl(std::move(set.m_impl))
 { /* NOP */ }
 
-OrderedSet::OrderedSet(const std::initializer_list<Owning<Any>> & args) :
+OrderedSet::OrderedSet(const std::initializer_list< Owning<Any> > & args) :
 	OrderedSet(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
@@ -58,7 +58,7 @@ Owning<OrderedSet> OrderedSet::with(const OrderedSet & set, CopyOption option)
 Owning<OrderedSet> OrderedSet::with(OrderedSet && set)
 { return ptr_create<OrderedSet>(std::move(set)); }
 
-Owning<OrderedSet> OrderedSet::with(const std::initializer_list<Owning<Any>> & args)
+Owning<OrderedSet> OrderedSet::with(const std::initializer_list< Owning<Any> > & args)
 { return ptr_create<OrderedSet>(args); }
 
 Owning<OrderedSet> OrderedSet::with(const std::initializer_list<Any *> & args)

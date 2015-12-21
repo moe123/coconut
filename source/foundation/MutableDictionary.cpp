@@ -34,7 +34,7 @@ MutableDictionary::MutableDictionary(Dictionary && dict) :
 	Dictionary(std::forward<Dictionary>(dict))
 { setClassKind(MutableDictionaryClass, true); }
 		
-MutableDictionary::MutableDictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) :
+MutableDictionary::MutableDictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args) :
 	Dictionary(args)
 { setClassKind(MutableDictionaryClass, true); }
 
@@ -73,7 +73,7 @@ Owning<MutableDictionary> MutableDictionary::with(const Dictionary & dict, CopyO
 Owning<MutableDictionary> MutableDictionary::with(Dictionary && dict)
 { return ptr_create<MutableDictionary>(std::move(dict)); }
 
-Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
+Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
 { return ptr_create<MutableDictionary>(args); }
 
 Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)

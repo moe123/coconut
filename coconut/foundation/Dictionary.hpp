@@ -23,7 +23,7 @@ namespace coconut
 		
 		Dictionary(Dictionary && dict);
 		
-		Dictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		Dictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		Dictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>
@@ -94,7 +94,7 @@ namespace coconut
 		
 		COCONUT_KTOR Owning<Dictionary> with(Dictionary && dict);
 		
-		COCONUT_KTOR Owning<Dictionary> with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		COCONUT_KTOR Owning<Dictionary> with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		COCONUT_KTOR Owning<Dictionary> with(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>

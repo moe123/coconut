@@ -36,7 +36,7 @@ Array::Array(Array && arr) :
 	m_impl(std::move(arr.m_impl))
 { /* NOP */ }
 
-Array::Array(const std::initializer_list<Owning<Any>> & args) :
+Array::Array(const std::initializer_list< Owning<Any> > & args) :
 	Array(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
@@ -76,7 +76,7 @@ Owning<Array> Array::with(const Array & arr, CopyOption option)
 Owning<Array> Array::with(Array && arr)
 { return ptr_create<Array>(std::move(arr)); }
 
-Owning<Array> Array::with(const std::initializer_list<Owning<Any>> & args)
+Owning<Array> Array::with(const std::initializer_list< Owning<Any> > & args)
 { return ptr_create<Array>(args); }
 
 Owning<Array> Array::with(const std::initializer_list<Any *> & args)

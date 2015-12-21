@@ -26,7 +26,7 @@ namespace coconut
 		MutableArray(const Array & arr, CopyOption option);
 		MutableArray(Array && arr);
 		
-		MutableArray(const std::initializer_list<Owning<Any>> & args);
+		MutableArray(const std::initializer_list< Owning<Any> > & args);
 		MutableArray(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
@@ -51,7 +51,7 @@ namespace coconut
 		COCONUT_KTOR Owning<MutableArray> with(const Array & arr, CopyOption option);
 		COCONUT_KTOR Owning<MutableArray> with(Array && arr);
 		
-		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list< Owning<Any> > & args);
 		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>

@@ -23,7 +23,7 @@ namespace coconut
 		
 		OrderedSet(OrderedSet && set);
 		
-		OrderedSet(const std::initializer_list<Owning<Any>> & args);
+		OrderedSet(const std::initializer_list< Owning<Any> > & args);
 		OrderedSet(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
@@ -55,7 +55,7 @@ namespace coconut
 		COCONUT_KTOR Owning<OrderedSet> with(const OrderedSet & set);
 		COCONUT_KTOR Owning<OrderedSet> with(const OrderedSet & set, CopyOption option);
 		COCONUT_KTOR Owning<OrderedSet> with(OrderedSet && set);
-		COCONUT_KTOR Owning<OrderedSet> with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR Owning<OrderedSet> with(const std::initializer_list< Owning<Any> > & args);
 		COCONUT_KTOR Owning<OrderedSet> with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
@@ -139,7 +139,7 @@ namespace coconut
 		const Owning<Any> operator [] (std::size_t index) const;
 		
 	protected:
-		typedef std::vector<Owning<Any>> impl_type;
+		typedef std::vector< Owning<Any> > impl_type;
 		
 	public:
 		typedef impl_type::iterator iterator;

@@ -23,7 +23,7 @@ namespace coconut
 		
 		Set(Set && set);
 
-		Set(const std::initializer_list<Owning<Any>> & args);
+		Set(const std::initializer_list< Owning<Any> > & args);
 		Set(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
@@ -56,7 +56,7 @@ namespace coconut
 		COCONUT_KTOR Owning<Set> with(const Set & set);
 		COCONUT_KTOR Owning<Set> with(const Set & set, CopyOption option);
 		COCONUT_KTOR Owning<Set> with(Set && set);
-		COCONUT_KTOR Owning<Set> with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR Owning<Set> with(const std::initializer_list< Owning<Any> > & args);
 		COCONUT_KTOR Owning<Set> with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>

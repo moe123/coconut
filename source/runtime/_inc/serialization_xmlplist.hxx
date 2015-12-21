@@ -36,7 +36,7 @@ namespace coconut
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			Owning<Any> xmlplist_read_array(const pugi::xml_node & node, SerializationReadOption option)
 			{
-				std::vector<Owning<Any>> buf;
+				std::vector< Owning<Any> > buf;
 				for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
 					pugi::xml_node v = (*it);
 					Owning<Any> vv = xmlplist_read(v, option);
@@ -74,7 +74,7 @@ namespace coconut
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			Owning<Any> xmlplist_read_dictionary(const pugi::xml_node & node, SerializationReadOption option)
 			{
-				std::vector<Owning<Any>> kk, vv;
+				std::vector< Owning<Any> > kk, vv;
 				for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
 					if(std::string("key") != it->name()) {
 						throw std::invalid_argument("coconut parsing xmlplist");
