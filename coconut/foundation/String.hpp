@@ -62,13 +62,13 @@ namespace coconut
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForSelectorKey(const std::string & utf8_selkey, kind_ptr arg = {}) const
+		virtual Owning<Any> valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const
 		COCONUT_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::string stringValue() const

@@ -35,15 +35,9 @@
 #define COCONUT_RUNTIME_TO_FOUNDATION_TYPES_HPP
 
 namespace coconut
-{
-	using runtime::kind_ptr;
-	using runtime::const_kind_ptr;
-	
-	using runtime::kind_raw_ptr;
-	using runtime::const_kind_raw_ptr;
-	
-	using runtime::kind_ref;
-	using runtime::const_kind_ref;
+{	
+	using runtime::Owning;
+	using runtime::Any;
 	
 	using runtime::ClassKind;
 	using runtime::ComparisonResult;
@@ -165,12 +159,12 @@ namespace coconut
 	}
 	
 	template<typename TypeT>
-	inline auto With(const std::initializer_list<kind_ptr> & args) -> ptr_declare<TypeT> {
+	inline auto With(const std::initializer_list<Owning<Any>> & args) -> ptr_declare<TypeT> {
 		return TypeT::with(args);
 	}
 	
 	template<typename TypeT>
-	inline auto With(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) -> ptr_declare<TypeT> {
+	inline auto With(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) -> ptr_declare<TypeT> {
 		return TypeT::with(args);
 	}
 	

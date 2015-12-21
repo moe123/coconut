@@ -26,12 +26,12 @@ NonePtr None::with()
 
 #pragma mark -
 
-kind_ptr None::copy() const
+Owning<Any> None::copy() const
 { return ptr_create<None>(*this); }
 
 #pragma mark -
 
-ComparisonResult None::compare(const_kind_ref ref) const
+ComparisonResult None::compare(const Any & ref) const
 {
 	if (isMemberOf(ref)) {
 		return OrderedSame;

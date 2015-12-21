@@ -15,7 +15,7 @@ static inline void test_attr_and_custom(void)
 	// usually foundation types are not to be extended.
 	
 	// attributes are key-value pair dynamically added to a container:
-	//   - where key is a std::string, value is a ref-counted kind_ptr
+	//   - where key is a std::string, value is a ref-counted Owning<Any>
 	//   - key must be prefixed with the $ sign
 	//   - they can be only set/get thru the KVC interface.
 	//   - this extension must be used carefully and only when necessary, e.g this is greedy.
@@ -39,7 +39,7 @@ static inline void test_attr_and_custom(void)
 		{ return ptr_create<Container>(other); }
 	
 	// copyable
-		virtual kind_ptr copy() const override final
+		virtual Owning<Any> copy() const override final
 		{ return ptr_create<Container>(*this); }
 
 	};
@@ -126,7 +126,7 @@ static inline void test_attr_and_custom(void)
 			return ptr_create<Person>(firstname, lastname, age);
 		}
 		
-		virtual kind_ptr copy() const override final
+		virtual Owning<Any> copy() const override final
 		{
 			// making this object copyable, overloading.
 			// creating and returning a ref-counted pointer

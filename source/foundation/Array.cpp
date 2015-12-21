@@ -36,16 +36,16 @@ Array::Array(Array && arr) :
 	m_impl(std::move(arr.m_impl))
 { /* NOP */ }
 
-Array::Array(const std::initializer_list<kind_ptr> & args) :
+Array::Array(const std::initializer_list<Owning<Any>> & args) :
 	Array(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
-Array::Array(const std::initializer_list<kind_raw_ptr> & args) :
+Array::Array(const std::initializer_list<Any *> & args) :
 	Object(ArrayClass),
 	m_impl()
 {
-	for (kind_raw_ptr item : args) {
-		if (dynamic_cast<kind_raw_ptr>(item) != nullptr) { m_impl.push_back(item->kindCopy()); }
+	for (Any * item : args) {
+		if (dynamic_cast<Any *>(item) != nullptr) { m_impl.push_back(item->kindCopy()); }
 	}
 }
 
@@ -76,10 +76,10 @@ ArrayPtr Array::with(const Array & arr, CopyOption option)
 ArrayPtr Array::with(Array && arr)
 { return ptr_create<Array>(std::move(arr)); }
 
-ArrayPtr Array::with(const std::initializer_list<kind_ptr> & args)
+ArrayPtr Array::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<Array>(args); }
 
-ArrayPtr Array::with(const std::initializer_list<kind_raw_ptr> & args)
+ArrayPtr Array::with(const std::initializer_list<Any *> & args)
 { return ptr_create<Array>(args); }
 
 ArrayPtr Array::with(const Path & path)
@@ -104,15 +104,15 @@ std::size_t Array::hash() const
 
 #pragma mark -
 
-kind_ptr Array::copy() const
+Owning<Any> Array::copy() const
 { return ptr_create<Array>(cbegin(), cend(), CopyKind); }
 
-kind_ptr Array::mutableCopy() const
+Owning<Any> Array::mutableCopy() const
 { return ptr_create<MutableArray>(cbegin(), cend(), CopyKind); }
 
 #pragma mark -
 
-ComparisonResult Array::compare(const_kind_ref ref) const
+ComparisonResult Array::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;
@@ -123,7 +123,7 @@ ComparisonResult Array::compare(const_kind_ref ref) const
 		} else if (size() > ref_cast<Array>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Array>(ref).cbegin(), [] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<Array>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{
 				if (a && b) { return (a->compare(*b) == OrderedSame); } return false;
 			})
@@ -136,7 +136,7 @@ ComparisonResult Array::compare(const_kind_ref ref) const
 
 #pragma mark -
 
-bool Array::doesContain(const_kind_ref ref) const
+bool Array::doesContain(const Any & ref) const
 { return containsObject(ref); }
 
 #pragma mark -
@@ -151,7 +151,7 @@ std::size_t Array::size() const
 
 #pragma mark -
 
-kind_ptr Array::valueForKey(const std::string & utf8_key) const
+Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
@@ -164,8 +164,8 @@ kind_ptr Array::valueForKey(const std::string & utf8_key) const
 	}
 	impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		kind_ptr item = (*it);
-		kind_ptr v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
 		if (!v) { v = None::with(); }
 		buf.push_back(v);
@@ -173,7 +173,7 @@ kind_ptr Array::valueForKey(const std::string & utf8_key) const
 	return Array::with(buf.cbegin(), buf.cend());
 }
 
-kind_ptr Array::valueForKeyPath(const std::string & utf8_keypath) const
+Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	if (isSelectorKey(utf8_keypath)) {
 		return valueForSelectorKey(utf8_keypath);
@@ -186,7 +186,7 @@ kind_ptr Array::valueForKeyPath(const std::string & utf8_keypath) const
 	} else if (parts.size() >= 2) {
 		
 		if (runtime::algorithm::is_integer(parts[0], true)) {
-			kind_ptr item = valueForKey(parts[0]);
+			Owning<Any> item = valueForKey(parts[0]);
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
@@ -199,8 +199,8 @@ kind_ptr Array::valueForKeyPath(const std::string & utf8_keypath) const
 		}
 		
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			kind_ptr item = (*it);
-			kind_ptr v;
+			Owning<Any> item = (*it);
+			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
 			if (!v) { v = None::with(); }
 			buf.push_back(v);
@@ -211,12 +211,12 @@ kind_ptr Array::valueForKeyPath(const std::string & utf8_keypath) const
 
 #pragma mark -
 
-const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		kind_ptr item = (*it);
-		kind_ptr v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) {
 			//v = item->valueForSelectorKey(utf8_selkey, arg);
 			v = item->performSelectorKey(utf8_selkey, arg);
@@ -229,10 +229,10 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 
 #pragma mark -
 
-void Array::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { enumerateObjectsUsingFunction(func, EnumerationDefault); }
 
-void Array::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
+void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -315,15 +315,15 @@ void Array::enumerateObjectsUsingFunction(const std::function<void(const_kind_pt
 
 #pragma mark -
 
-bool Array::containsObject(const_kind_ref obj) const
+bool Array::containsObject(const Any & obj) const
 { return (indexOfObject(obj) != NotFound); }
 
-bool Array::containsObject(const_kind_ptr & obj) const
+bool Array::containsObject(const Owning<Any> & obj) const
 { if (obj) { return indexOfObject(*obj); } return false; }
 
 #pragma mark -
 
-kind_ptr Array::firstObject() const
+Owning<Any> Array::firstObject() const
 {
 	if (size()) {
 		return m_impl.front();
@@ -332,7 +332,7 @@ kind_ptr Array::firstObject() const
 	return {};
 }
 
-kind_ptr Array::lastObject() const
+Owning<Any> Array::lastObject() const
 {
 	if (size()) {
 		return m_impl.back();
@@ -341,7 +341,7 @@ kind_ptr Array::lastObject() const
 	return {};
 }
 
-kind_ptr Array::objectAtIndex(std::size_t index) const
+Owning<Any> Array::objectAtIndex(std::size_t index) const
 {
 	if (index < size()) {
 		return m_impl.at(index);
@@ -352,7 +352,7 @@ kind_ptr Array::objectAtIndex(std::size_t index) const
 
 #pragma mark -
 
-std::size_t Array::indexOfObject(const_kind_ref obj) const
+std::size_t Array::indexOfObject(const Any & obj) const
 {
 	std::size_t idx = 0;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -366,7 +366,7 @@ std::size_t Array::indexOfObject(const_kind_ref obj) const
 	return NotFound;
 }
 
-std::size_t Array::indexOfObject(const_kind_ref obj, Range in_rg) const
+std::size_t Array::indexOfObject(const Any & obj, Range in_rg) const
 {
 	std::size_t idx = 0, sz = size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -391,15 +391,15 @@ std::size_t Array::indexOfObject(const_kind_ref obj, Range in_rg) const
 
 #pragma mark -
 
-std::size_t Array::indexOfObject(const_kind_ptr & obj) const
+std::size_t Array::indexOfObject(const Owning<Any> & obj) const
 { if (obj) { return indexOfObject(*obj); } return NotFound; }
 
-std::size_t Array::indexOfObject(const_kind_ptr & obj, Range in_rg) const
+std::size_t Array::indexOfObject(const Owning<Any> & obj, Range in_rg) const
 { if (obj) { return indexOfObject(*obj, in_rg); } return NotFound; }
 
 #pragma mark -
 
-std::size_t Array::indexOfObjectIdenticalTo(const_kind_ref obj) const
+std::size_t Array::indexOfObjectIdenticalTo(const Any & obj) const
 {
 	std::size_t idx = 0;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -409,7 +409,7 @@ std::size_t Array::indexOfObjectIdenticalTo(const_kind_ref obj) const
 	return NotFound;
 }
 
-std::size_t Array::indexOfObjectIdenticalTo(const_kind_ref obj, Range in_rg) const
+std::size_t Array::indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const
 {
 	std::size_t idx = 0, sz = size();
 	if (sz) {
@@ -434,17 +434,17 @@ std::size_t Array::indexOfObjectIdenticalTo(const_kind_ref obj, Range in_rg) con
 
 #pragma mark -
 
-std::size_t Array::indexOfObjectIdenticalTo(const_kind_ptr & obj) const
+std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj); } return NotFound; }
 
-std::size_t Array::indexOfObjectIdenticalTo(const_kind_ptr & obj, Range in_rg) const
+std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj, in_rg); } return NotFound; }
 
 #pragma mark -
 
-kind_ptr Array::firstObjectCommonWithArray(const Array & arr) const
+Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 {
-	kind_ptr item;
+	Owning<Any> item;
 	if (size()) {
 		std::size_t idx = 0;
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -459,10 +459,10 @@ kind_ptr Array::firstObjectCommonWithArray(const Array & arr) const
 
 #pragma mark -
 
-std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { return indexOfObjectPassingTest(func, EnumerationDefault); }
 
-std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
+std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -552,7 +552,7 @@ std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const_kind_
 
 #pragma mark -
 
-bool Array::everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+bool Array::everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
@@ -569,7 +569,7 @@ bool Array::everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj
 	return ret;
 }
 
-bool Array::someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+bool Array::someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
@@ -600,7 +600,7 @@ const Array Array::uniquedArray(CopyOption option) const
 	impl_type buf;
 	for (const_iterator it0 = cbegin(); it0 != cend(); ++it0) {
 		const_iterator it1 = std::find_if(buf.cbegin(), buf.cend(),
-			[&it0] (const_kind_ptr & item) -> bool {
+			[&it0] (const Owning<Any> & item) -> bool {
 				return (item->compare(*(*it0)) == OrderedSame);
 			});
 		if (it1 == buf.cend()) { buf.push_back(*it0); }
@@ -631,10 +631,10 @@ const Array Array::shuffledArray(CopyOption option) const
 
 #pragma mark -
 
-const Array Array::filteredArrayUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option) const
+const Array Array::filteredArrayUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option) const
 { return filteredArrayUsingFunction(func, option, EnumerationDefault); }
 
-const Array Array::filteredArrayUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const
+const Array Array::filteredArrayUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const
 {
 	IterationOption iter_option = IterationAscending;
 	if (options != EnumerationDefault) {
@@ -721,10 +721,10 @@ const Array Array::filteredArrayUsingFunction(const std::function<bool(const_kin
 
 #pragma mark -
 
-const Array Array::sortedArrayUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option) const
+const Array Array::sortedArrayUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option) const
 { return sortedArrayUsingFunction(func, option, SortDefault); }
 
-const Array Array::sortedArrayUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option, SortOptions options) const
+const Array Array::sortedArrayUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option, SortOptions options) const
 {
 	impl_type buf;
 	if (options == SortConcurrent || options & SortConcurrent) {
@@ -761,7 +761,7 @@ const Array Array::sortedArrayAscending(CopyOption option) const
 
 const Array Array::sortedArrayAscending(CopyOption option, SortOptions options) const
 {
-	return sortedArrayUsingFunction([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	return sortedArrayUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedAscending); } return false;
 	}, option, options);
@@ -774,7 +774,7 @@ const Array Array::sortedArrayDescending(CopyOption option) const
 
 const Array Array::sortedArrayDescending(CopyOption option, SortOptions options) const
 {
-	return sortedArrayUsingFunction([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	return sortedArrayUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedDescending); } return false;
 	}, option, options);
@@ -791,10 +791,10 @@ const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, 
 const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, CopyOption option, bool descending, SortOptions options) const
 {
 	ComparisonResult cmp_result = descending ? OrderedDescending : OrderedAscending;
-	return sortedArrayUsingFunction([&utf8_selkey, cmp_result](const_kind_ptr & a, const_kind_ptr & b) -> bool
+	return sortedArrayUsingFunction([&utf8_selkey, cmp_result](const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) {
-			kind_ptr sel_cmp = a->valueForSelectorKey(utf8_selkey, b);
+			Owning<Any> sel_cmp = a->valueForSelectorKey(utf8_selkey, b);
 			if (sel_cmp) {
 				return (static_cast<ComparisonResult>(sel_cmp->intValue()) == cmp_result);
 			} else {
@@ -821,7 +821,7 @@ const Array Array::sortedArrayUsingDescriptors(const Array & descriptors, CopyOp
 {
 	if (descriptors.size()) {
 		ComparisonResult cmp_result = OrderedAscending;
-		return sortedArrayUsingFunction([&descriptors, cmp_result](const_kind_ptr & a, const_kind_ptr & b) -> bool
+		return sortedArrayUsingFunction([&descriptors, cmp_result](const Owning<Any> & a, const Owning<Any> & b) -> bool
 		{
 			if (a && b) {
 				ComparisonResult result = OrderedSame;
@@ -842,18 +842,18 @@ const Array Array::sortedArrayUsingDescriptors(const Array & descriptors, CopyOp
 
 #pragma mark -
 
-const Array Array::arrayByPushingObject(const_kind_ref obj) const
+const Array Array::arrayByPushingObject(const Any & obj) const
 { return arrayByPushingObject(Object::copyObject(obj, CopyKind), CopyNone); }
 
-const Array Array::arrayByPushingObject(const_kind_ref obj, CopyOption option) const
+const Array Array::arrayByPushingObject(const Any & obj, CopyOption option) const
 { return arrayByPushingObject(Object::copyObject(obj, option), CopyNone); }
 
 #pragma mark -
 
-const Array Array::arrayByPushingObject(kind_ptr obj) const
+const Array Array::arrayByPushingObject(Owning<Any> obj) const
 { return arrayByPushingObject(obj, CopyNone); }
 
-const Array Array::arrayByPushingObject(kind_ptr obj, CopyOption option) const
+const Array Array::arrayByPushingObject(Owning<Any> obj, CopyOption option) const
 {
 	if (obj) {
 		impl_type buf;
@@ -879,18 +879,18 @@ const Array Array::arrayByPushingObjectsFromArray(const Array & arr, CopyOption 
 
 #pragma mark -
 
-const Array Array::arrayByAddingObject(const_kind_ref obj) const
+const Array Array::arrayByAddingObject(const Any & obj) const
 { return arrayByAddingObject(Object::copyObject(obj, CopyKind), CopyNone); }
 
-const Array Array::arrayByAddingObject(const_kind_ref obj, CopyOption option) const
+const Array Array::arrayByAddingObject(const Any & obj, CopyOption option) const
 { return arrayByAddingObject(Object::copyObject(obj, option), CopyNone); }
 
 #pragma mark -
 
-const Array Array::arrayByAddingObject(kind_ptr obj) const
+const Array Array::arrayByAddingObject(Owning<Any> obj) const
 { return arrayByAddingObject(obj, CopyNone); }
 
-const Array Array::arrayByAddingObject(kind_ptr obj, CopyOption option) const
+const Array Array::arrayByAddingObject(Owning<Any> obj, CopyOption option) const
 {
 	if (obj) {
 		impl_type buf(cbegin(), cend());
@@ -922,7 +922,7 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 	if(sz && rg.maxRange() <= sz) {
 		std::size_t loc = rg.location();
 		for (std::size_t i = 0; i < rg.length(); i++) {
-			kind_ptr item = objectAtIndex(loc + i);
+			Owning<Any> item = objectAtIndex(loc + i);
 			if (item) { buf.push_back(item); }
 		}
 	} else {
@@ -947,7 +947,7 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 			std::vector<std::size_t> idxs;
 			slc.m_impl.get_indexes(idxs, sz);
 			for(std::vector<std::size_t>::const_iterator it = idxs.cbegin(); it != idxs.cend(); ++it) {
-				kind_ptr item = objectAtIndex(*it);
+				Owning<Any> item = objectAtIndex(*it);
 				if (item) { buf.push_back(item); }
 			}
 		}
@@ -985,7 +985,7 @@ bool Array::writeToURL(const URL & url, bool atomically) const
 
 #pragma mark -
 
-const_kind_ptr Array::operator [] (std::size_t index) const
+const Owning<Any> Array::operator [] (std::size_t index) const
 { return objectAtIndex(index); }
 
 const Array Array::operator [] (const Slice & slc) const

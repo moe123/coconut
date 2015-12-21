@@ -39,7 +39,7 @@ StackPtr Stack::with(Stack && stk)
 
 #pragma mark -
 
-kind_ptr Stack::copy() const
+Owning<Any> Stack::copy() const
 { return ptr_create<Stack>(*this); }
 
 #pragma mark -
@@ -49,9 +49,9 @@ std::size_t Stack::size() const
 
 #pragma mark -
 
-kind_ptr Stack::pop()
+Owning<Any> Stack::pop()
 {
-	kind_ptr head;
+	Owning<Any> head;
 	if (m_impl.size()) {
 		head = m_impl.top();
 		m_impl.pop();
@@ -59,7 +59,7 @@ kind_ptr Stack::pop()
 	return head;
 }
 
-void Stack::push(kind_ptr ptr)
+void Stack::push(Owning<Any> ptr)
 { if (ptr) { m_impl.push(ptr); } }
 
 #pragma mark -

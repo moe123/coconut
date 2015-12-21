@@ -129,12 +129,12 @@ std::size_t Date::hash() const
 
 #pragma mark -
 
-kind_ptr Date::copy() const
+Owning<Any> Date::copy() const
 { return ptr_create<Date>(*this); }
 
 #pragma mark -
 
-ComparisonResult Date::compare(const_kind_ref ref) const
+ComparisonResult Date::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

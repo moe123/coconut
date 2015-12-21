@@ -681,7 +681,7 @@ bool ustring::icase_has_prefix(const ustring & ustr) const
 {
 	// TODO range_of + options search_insensitive|search_nowidth|search_anchored
 
-	if (size() >= ustr.size()) {  // bit_cmp norms not wanted
+	if (size() >= ustr.size()) { // bit_cmp norms not wanted
 		return (
 			m_ustr.caseCompare(
 				0,
@@ -699,7 +699,7 @@ bool ustring::icase_has_suffix(const ustring & ustr) const
 {
 	// TODO range_of + options search_insensitive|search_nowidth|search_anchored|search_backwards
 
-	if (size() >= ustr.size()) {  // bit_cmp norms not wanted
+	if (size() >= ustr.size()) { // bit_cmp norms not wanted
 		return (
 			m_ustr.caseCompare(
 				unsafe_cast<std::int32_t>(size() - ustr.size()),

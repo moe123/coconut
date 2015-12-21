@@ -68,12 +68,12 @@ std::size_t Error::hash() const
 
 #pragma mark -
 
-kind_ptr Error::copy() const
+Owning<Any> Error::copy() const
 { return ptr_create<Error>(*this); }
 
 #pragma mark -
 
-ComparisonResult Error::compare(const_kind_ref ref) const
+ComparisonResult Error::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

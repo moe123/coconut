@@ -45,15 +45,15 @@ std::size_t Range::hash() const
 
 #pragma mark -
 
-kind_ptr Range::copy() const
+Owning<Any> Range::copy() const
 { return ptr_create<Range>(*this); }
 
-kind_ptr Range::mutableCopy() const
+Owning<Any> Range::mutableCopy() const
 { return ptr_create<MutableRange>(*this); }
 
 #pragma mark -
 
-ComparisonResult Range::compare(const_kind_ref ref) const
+ComparisonResult Range::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

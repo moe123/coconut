@@ -26,8 +26,8 @@ namespace coconut
 		MutableDictionary(const Dictionary & dict, CopyOption option);
 		MutableDictionary(Dictionary && dict);
 		
-		MutableDictionary(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args);
-		MutableDictionary(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args);
+		MutableDictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		MutableDictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>
 		MutableDictionary(IterT && beg, IterT && end) :
@@ -48,7 +48,7 @@ namespace coconut
 		MutableDictionary(const URL & url);
 		virtual ~MutableDictionary();
 
-		virtual void setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;
 		
 		COCONUT_KTOR MutableDictionaryPtr with();
@@ -59,8 +59,8 @@ namespace coconut
 		COCONUT_KTOR MutableDictionaryPtr with(const Dictionary & dict, CopyOption option);
 		COCONUT_KTOR MutableDictionaryPtr with(Dictionary && dict);
 		
-		COCONUT_KTOR MutableDictionaryPtr with(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args);
-		COCONUT_KTOR MutableDictionaryPtr with(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args);
+		COCONUT_KTOR MutableDictionaryPtr with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		COCONUT_KTOR MutableDictionaryPtr with(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>
 		COCONUT_KTOR MutableDictionaryPtr with(IterT && beg, IterT && end)
@@ -91,13 +91,13 @@ namespace coconut
 		void setObjects(IterT && beg, IterT && end, CopyOption option)
 		{ setObjectsFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
-		void setObject(kind_ptr ptr, const std::string & utf8_key);
-		void setObject(kind_ptr ptr, const_kind_ref key);
-		void setObject(kind_ptr ptr, const_kind_ptr & key);
+		void setObject(Owning<Any> ptr, const std::string & utf8_key);
+		void setObject(Owning<Any> ptr, const Any & key);
+		void setObject(Owning<Any> ptr, const Owning<Any> & key);
 		
-		void setObject(kind_ptr ptr, const std::string & utf8_key, CopyOption option);
-		void setObject(kind_ptr ptr, const_kind_ref key, CopyOption option);
-		void setObject(kind_ptr ptr, const_kind_ptr & key, CopyOption option);
+		void setObject(Owning<Any> ptr, const std::string & utf8_key, CopyOption option);
+		void setObject(Owning<Any> ptr, const Any & key, CopyOption option);
+		void setObject(Owning<Any> ptr, const Owning<Any> & key, CopyOption option);
 		
 		void addEntriesFromDictionary(const Dictionary & dict);
 		void addEntriesFromDictionary(const Dictionary & dict, CopyOption option);
@@ -111,16 +111,16 @@ namespace coconut
 		{ addEntriesFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
 		void removeObjectForKey(const std::string & utf8_key);
-		void removeObjectForKey(const_kind_ref key);
-		void removeObjectForKey(const_kind_ptr & key);
+		void removeObjectForKey(const Any & key);
+		void removeObjectForKey(const Owning<Any> & key);
 		
 		void removeAllObjects();
 		void removeObjectsForKeys(const Array & keys);
 		
 	public:
-		kind_ptr & operator [] (const std::string & utf8_key);
-		kind_ptr & operator [] (const_kind_ref key);
-		kind_ptr & operator [] (const_kind_ptr & key);
+		Owning<Any> & operator [] (const std::string & utf8_key);
+		Owning<Any> & operator [] (const Any & key);
+		Owning<Any> & operator [] (const Owning<Any> & key);
 	};
 }
 

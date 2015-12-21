@@ -80,7 +80,7 @@ bool nucleus::isAttributeKey(const std::string & utf8_attrkey)
 bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 {
 	if (isSelectorKey(utf8_selkey)) {
-		kind_ptr ptr;
+		Owning<Any> ptr;
 		if (runtime::algorithm::ends_with<std::string>(utf8_selkey, u8":")) {
 			ptr = valueForSelectorKey(utf8_selkey, ptr_create<zombie>());
 		} else {
@@ -91,7 +91,7 @@ bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 	return false;
 }
 
-void nucleus::performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, const std::string & utf8_selkey, kind_ptr arg) const
+void nucleus::performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	if (isSelectorKey(utf8_selkey)) {
 		if (wait) {
@@ -111,12 +111,12 @@ void nucleus::performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, con
 	}
 }
 
-void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, kind_ptr arg) const
+void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	performSelectorKeyAfterDelay(0, false, utf8_selkey, arg);
 }
 
-kind_ptr nucleus::performSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	if (isSelectorKey(utf8_selkey)) {
 		auto op = runtime::async::exec(runtime::launch_any, [this, &utf8_selkey, &arg]
@@ -151,13 +151,13 @@ ClassKind nucleus::parentClassKind() const
 
 #pragma mark -
 
-void nucleus::conveyAttributesFrom(const_kind_ref ref)
+void nucleus::conveyAttributesFrom(const Any & ref)
 { m_attrs.insert(ref.m_attrs.cbegin(), ref.m_attrs.cend()); }
 
 void nucleus::removeAllAttributes()
 { m_attrs.clear();}
 
-bool nucleus::setAttributeForKey(kind_ptr ptr, const std::string & utf8_attrkey)
+bool nucleus::setAttributeForKey(Owning<Any> ptr, const std::string & utf8_attrkey)
 { if (ptr) { m_attrs[utf8_attrkey] = ptr; return true; } return false; }
 
 bool nucleus::removeAttributeForKey(const std::string & utf8_attrkey)
@@ -166,7 +166,7 @@ bool nucleus::removeAttributeForKey(const std::string & utf8_attrkey)
 bool nucleus::hasAttributeForKey(const std::string & utf8_attrkey) const
 { return (m_attrs.size() != 0 && m_attrs.count(utf8_attrkey) != 0); }
 
-kind_ptr nucleus::attributeForKey(const std::string & utf8_attrkey) const
+Owning<Any> nucleus::attributeForKey(const std::string & utf8_attrkey) const
 { if (m_attrs.count(utf8_attrkey) != 0) { return m_attrs.at(utf8_attrkey); } return {}; }
 
 #pragma mark -
@@ -191,7 +191,7 @@ const std::string nucleus::classTree() const
 
 #pragma mark -
 
-const_kind_raw_ptr nucleus::itself() const { return this; }
+const Any * nucleus::itself() const { return this; }
 
 #pragma mark -
 
@@ -207,12 +207,12 @@ bool nucleus::isKindOf(ClassKind kind) const
 	return !(std::find(m_kinds.begin(), m_kinds.end(), kind) == m_kinds.end());
 }
 
-bool nucleus::isKindOf(const_kind_ref ref, const_kind_ref other_ref) const
+bool nucleus::isKindOf(const Any & ref, const Any & other_ref) const
 {
 	return (ref.isKindOf(other_ref.classKind()));
 }
 
-bool nucleus::isKindOf(kind_ptr ptr, kind_ptr other_ptr) const
+bool nucleus::isKindOf(Owning<Any> ptr, Owning<Any> other_ptr) const
 {
 	if (ptr && other_ptr) {
 		return isKindOf(*ptr, *other_ptr);
@@ -220,12 +220,12 @@ bool nucleus::isKindOf(kind_ptr ptr, kind_ptr other_ptr) const
 	return false;
 }
 
-bool nucleus::isKindOf(const_kind_ref ref) const
+bool nucleus::isKindOf(const Any & ref) const
 {
 	return isKindOf(ref.classKind());
 }
 
-bool nucleus::isKindOf(kind_ptr ptr) const
+bool nucleus::isKindOf(Owning<Any> ptr) const
 {
 	if (ptr) {
 		return isKindOf(*ptr);
@@ -240,12 +240,12 @@ bool nucleus::isSubclassOf(ClassKind kind) const
 	return (parentClassKind() == kind);
 }
 
-bool nucleus::isSubclassOf(const_kind_ref ref, const_kind_ref other_ref) const
+bool nucleus::isSubclassOf(const Any & ref, const Any & other_ref) const
 {
 	return (ref.isSubclassOf(other_ref.classKind()));
 }
 
-bool nucleus::isSubclassOf(kind_ptr ptr, kind_ptr other_ptr) const
+bool nucleus::isSubclassOf(Owning<Any> ptr, Owning<Any> other_ptr) const
 {
 	if (ptr && other_ptr) {
 		return isSubclassOf(*ptr, *other_ptr);
@@ -253,12 +253,12 @@ bool nucleus::isSubclassOf(kind_ptr ptr, kind_ptr other_ptr) const
 	return false;
 }
 
-bool nucleus::isSubclassOf(const_kind_ref ref) const
+bool nucleus::isSubclassOf(const Any & ref) const
 {
 	return isSubclassOf(ref.classKind());
 }
 
-bool nucleus::isSubclassOf(kind_ptr ptr) const
+bool nucleus::isSubclassOf(Owning<Any> ptr) const
 {
 	if (ptr) {
 		return isSubclassOf(*ptr);
@@ -273,12 +273,12 @@ bool nucleus::isMemberOf(ClassKind kind) const
 	return (m_kind == kind);
 }
 
-bool nucleus::isMemberOf(const_kind_ref ref, const_kind_ref other_ref) const
+bool nucleus::isMemberOf(const Any & ref, const Any & other_ref) const
 {
 	return (ref.classKind() == other_ref.classKind());
 }
 
-bool nucleus::isMemberOf(kind_ptr ptr, kind_ptr other_ptr) const
+bool nucleus::isMemberOf(Owning<Any> ptr, Owning<Any> other_ptr) const
 {
 	if (ptr && other_ptr) {
 		return isMemberOf(*ptr, *other_ptr);
@@ -286,12 +286,12 @@ bool nucleus::isMemberOf(kind_ptr ptr, kind_ptr other_ptr) const
 	return false;
 }
 
-bool nucleus::isMemberOf(const_kind_ref ref) const
+bool nucleus::isMemberOf(const Any & ref) const
 {
 	return (m_kind == ref.classKind());
 }
 
-bool nucleus::isMemberOf(kind_ptr ptr) const
+bool nucleus::isMemberOf(Owning<Any> ptr) const
 {
 	if (ptr) {
 		return isMemberOf(*ptr);
@@ -301,12 +301,12 @@ bool nucleus::isMemberOf(kind_ptr ptr) const
 
 #pragma mark -
 
-bool nucleus::isAncestorOf(const_kind_ref ref) const
+bool nucleus::isAncestorOf(const Any & ref) const
 {
 	return ref.isKindOf(*this);
 }
 
-bool nucleus::isAncestorOf(kind_ptr ptr) const
+bool nucleus::isAncestorOf(Owning<Any> ptr) const
 {
 	if (ptr) {
 		return isAncestorOf(*ptr);
@@ -316,12 +316,12 @@ bool nucleus::isAncestorOf(kind_ptr ptr) const
 
 #pragma mark -
 
-bool nucleus::isParentOf(const_kind_ref ref) const
+bool nucleus::isParentOf(const Any & ref) const
 {
 	return (ref.parentClassKind() == classKind());
 }
 
-bool nucleus::isParentOf(kind_ptr ptr) const
+bool nucleus::isParentOf(Owning<Any> ptr) const
 {
 	if (ptr) {
 		return isParentOf(*ptr);
@@ -331,17 +331,17 @@ bool nucleus::isParentOf(kind_ptr ptr) const
 
 #pragma mark -
 
-kind_ptr nucleus::copy() const { return {}; }
-kind_ptr nucleus::mutableCopy() const { return copy(); }
+Owning<Any> nucleus::copy() const { return {}; }
+Owning<Any> nucleus::mutableCopy() const { return copy(); }
 
-kind_ptr nucleus::kindCopy() const
+Owning<Any> nucleus::kindCopy() const
 { return m_ismutable ? mutableCopy() : copy(); }
 
 #pragma mark -
 
-kind_ptr nucleus::valueForKey(const std::string & utf8_key) const
+Owning<Any> nucleus::valueForKey(const std::string & utf8_key) const
 {
-	kind_ptr v;
+	Owning<Any> v;
 	if (isSelectorKey(utf8_key)) {
 		v = valueForSelectorKey(utf8_key, nullptr);
 	} else if (isAttributeKey(utf8_key)) {
@@ -350,7 +350,7 @@ kind_ptr nucleus::valueForKey(const std::string & utf8_key) const
 	return v;
 }
 
-void nucleus::setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+void nucleus::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 {
 	if (ptr && isAttributeKey(utf8_key)) {
 		setAttributeForKey(ptr, utf8_key);
@@ -359,13 +359,13 @@ void nucleus::setValueForKey(kind_ptr ptr, const std::string & utf8_key)
 
 #pragma mark -
 
-kind_ptr nucleus::valueForKeyPath(const std::string & utf8_keypath) const
+Owning<Any> nucleus::valueForKeyPath(const std::string & utf8_keypath) const
 {
-	kind_ptr v;
+	Owning<Any> v;
 	std::vector<std::string> parts;
 	parts = algorithm::split<std::string>(utf8_keypath, u8".");
 	if (parts.size() >= 2) {
-		kind_ptr vv = valueForKey(parts[0]);
+		Owning<Any> vv = valueForKey(parts[0]);
 		if (vv) {
 			parts.erase(parts.begin());
 			if (parts.size() >= 2) {
@@ -380,13 +380,13 @@ kind_ptr nucleus::valueForKeyPath(const std::string & utf8_keypath) const
 	return v;
 }
 
-void nucleus::setValueForKeyPath(kind_ptr ptr, const std::string & utf8_keypath)
+void nucleus::setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypath)
 {
 	if (ptr) {
 		std::vector<std::string> parts;
 		parts = algorithm::split<std::string>(utf8_keypath, u8".");
 		if (parts.size() >= 2) {
-			kind_ptr vv = valueForKey(parts[0]);
+			Owning<Any> vv = valueForKey(parts[0]);
 			if (vv) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
@@ -403,49 +403,49 @@ void nucleus::setValueForKeyPath(kind_ptr ptr, const std::string & utf8_keypath)
 
 #pragma mark -
 
-kind_ptr nucleus::valueForSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+Owning<Any> nucleus::valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 { COCONUT_UNUSED(utf8_selkey); COCONUT_UNUSED(arg); return {}; }
 
 
 #pragma mark -
 
-kind_ptr nucleus::valueForKey(const_kind_ref key) const
+Owning<Any> nucleus::valueForKey(const Any & key) const
 { return valueForKeyPath(key.stringValue()); }
 
-kind_ptr nucleus::valueForKey(const_kind_ptr & key) const
+Owning<Any> nucleus::valueForKey(const Owning<Any> & key) const
 { if (key) { return valueForKeyPath(key->stringValue()); } return {}; }
 
-void nucleus::setValueForKey(kind_ptr ptr, const_kind_ref key)
+void nucleus::setValueForKey(Owning<Any> ptr, const Any & key)
 { setValueForKey(ptr, key.stringValue()); }
 
-void nucleus::setValueForKey(kind_ptr ptr, const_kind_ptr & key)
+void nucleus::setValueForKey(Owning<Any> ptr, const Owning<Any> & key)
 { if (key) { setValueForKey(ptr, key->stringValue()); } }
 
 #pragma mark -
 
-kind_ptr nucleus::valueForKeyPath(const_kind_ref keypath) const
+Owning<Any> nucleus::valueForKeyPath(const Any & keypath) const
 { return valueForKeyPath(keypath.stringValue()); }
 
-kind_ptr nucleus::valueForKeyPath(const_kind_ptr & keypath) const
+Owning<Any> nucleus::valueForKeyPath(const Owning<Any> & keypath) const
 { if (keypath) { return valueForKeyPath(keypath->stringValue()); } return {}; }
 
-void nucleus::setValueForKeyPath(kind_ptr ptr, const_kind_ref keypath)
+void nucleus::setValueForKeyPath(Owning<Any> ptr, const Any & keypath)
 { setValueForKeyPath(ptr, keypath.stringValue()); }
 
-void nucleus::setValueForKeyPath(kind_ptr ptr, const_kind_ptr & keypath)
+void nucleus::setValueForKeyPath(Owning<Any> ptr, const Owning<Any> & keypath)
 { if (keypath) { setValueForKeyPath(ptr, keypath->stringValue()); } }
 
 #pragma mark -
 
-kind_ptr nucleus::valueForSelectorKey(const_kind_ref selkey, kind_ptr arg) const
+Owning<Any> nucleus::valueForSelectorKey(const Any & selkey, Owning<Any> arg) const
 { return valueForSelectorKey(selkey.stringValue(), arg); }
 
-kind_ptr nucleus::valueForSelectorKey(const_kind_ptr & selkey, kind_ptr arg) const
+Owning<Any> nucleus::valueForSelectorKey(const Owning<Any> & selkey, Owning<Any> arg) const
 { if (selkey) { return valueForSelectorKey(selkey->stringValue(), arg); } return {}; }
 
 #pragma mark -
 
-bool nucleus::isEqual(const_kind_ref ref) const
+bool nucleus::isEqual(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return true;
@@ -456,72 +456,72 @@ bool nucleus::isEqual(const_kind_ref ref) const
 	return false;
 }
 
-bool nucleus::isEqual(kind_ptr ptr) const { if (ptr) { return isEqual(*ptr); } return false; }
+bool nucleus::isEqual(Owning<Any> ptr) const { if (ptr) { return isEqual(*ptr); } return false; }
 
 #pragma mark -
 
-ComparisonResult nucleus::compare(const_kind_ref ref) const { return compareTo(*this, &ref); }
-ComparisonResult nucleus::compare(kind_ptr ptr) const { if (ptr) { return compare(*ptr); } return cmp_descending; }
+ComparisonResult nucleus::compare(const Any & ref) const { return compareTo(*this, &ref); }
+ComparisonResult nucleus::compare(Owning<Any> ptr) const { if (ptr) { return compare(*ptr); } return cmp_descending; }
 
 #pragma mark -
 
-bool nucleus::doesContain(const_kind_ref ref) const { COCONUT_UNUSED(ref); return false; }
-bool nucleus::doesContain(kind_ptr ptr) const { if (ptr) { return doesContain(*ptr); } return false; }
+bool nucleus::doesContain(const Any & ref) const { COCONUT_UNUSED(ref); return false; }
+bool nucleus::doesContain(Owning<Any> ptr) const { if (ptr) { return doesContain(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::doesNotContain(const_kind_ref ref) const { return !doesContain(ref); }
-bool nucleus::doesNotContain(kind_ptr ptr) const { return !doesContain(ptr); }
+bool nucleus::doesNotContain(const Any & ref) const { return !doesContain(ref); }
+bool nucleus::doesNotContain(Owning<Any> ptr) const { return !doesContain(ptr); }
 
 #pragma mark -
 
-bool nucleus::isIdenticalTo(const_kind_ref ref) const { return sig() == ref.sig(); }
-bool nucleus::isIdenticalTo(kind_ptr ptr) const { if (ptr) { return isIdenticalTo(*ptr); } return false; }
+bool nucleus::isIdenticalTo(const Any & ref) const { return sig() == ref.sig(); }
+bool nucleus::isIdenticalTo(Owning<Any> ptr) const { if (ptr) { return isIdenticalTo(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::isNotIdenticalTo(const_kind_ref ref) const { return !isIdenticalTo(ref); }
-bool nucleus::isNotisIdenticalTo(kind_ptr ptr) const { return !isIdenticalTo(ptr); }
+bool nucleus::isNotIdenticalTo(const Any & ref) const { return !isIdenticalTo(ref); }
+bool nucleus::isNotisIdenticalTo(Owning<Any> ptr) const { return !isIdenticalTo(ptr); }
 
 #pragma mark -
 
-bool nucleus::isEqualTo(const_kind_ref ref) const { return isEqual(ref); }
-bool nucleus::isEqualTo(kind_ptr ptr) const { if (ptr) { return isEqualTo(*ptr); } return false; }
+bool nucleus::isEqualTo(const Any & ref) const { return isEqual(ref); }
+bool nucleus::isEqualTo(Owning<Any> ptr) const { if (ptr) { return isEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::isNotEqualTo(const_kind_ref ref) const { return !isEqual(ref); }
-bool nucleus::isNotEqualTo(kind_ptr ptr) const { if (ptr) { return isNotEqualTo(*ptr); } return false; }
+bool nucleus::isNotEqualTo(const Any & ref) const { return !isEqual(ref); }
+bool nucleus::isNotEqualTo(Owning<Any> ptr) const { if (ptr) { return isNotEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::isLessThan(const_kind_ref ref) const { return (compare(ref) == cmp_ascending); }
-bool nucleus::isLessThan(kind_ptr ptr) const { if (ptr) { return isLessThan(*ptr); } return false; }
+bool nucleus::isLessThan(const Any & ref) const { return (compare(ref) == cmp_ascending); }
+bool nucleus::isLessThan(Owning<Any> ptr) const { if (ptr) { return isLessThan(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::isLessThanOrEqualTo(const_kind_ref ref) const { int cmp = compare(ref); return (cmp == cmp_ascending || cmp == cmp_same); }
-bool nucleus::isLessThanOrEqualTo(kind_ptr ptr) const { if (ptr) { return isLessThanOrEqualTo(*ptr); } return false; }
+bool nucleus::isLessThanOrEqualTo(const Any & ref) const { int cmp = compare(ref); return (cmp == cmp_ascending || cmp == cmp_same); }
+bool nucleus::isLessThanOrEqualTo(Owning<Any> ptr) const { if (ptr) { return isLessThanOrEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::isGreaterThan(const_kind_ref ref) const { return (compare(ref) == cmp_descending); }
-bool nucleus::isGreaterThan(kind_ptr ptr) const { if (ptr) { return isGreaterThan(*ptr); } return false; }
+bool nucleus::isGreaterThan(const Any & ref) const { return (compare(ref) == cmp_descending); }
+bool nucleus::isGreaterThan(Owning<Any> ptr) const { if (ptr) { return isGreaterThan(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::isGreaterThanOrEqualTo(const_kind_ref ref) const { int cmp = compare(ref); return (cmp == cmp_descending || cmp == cmp_same); }
-bool nucleus::isGreaterThanOrEqualTo(kind_ptr ptr) const { if (ptr) { return isGreaterThanOrEqualTo(*ptr); } return false; }
+bool nucleus::isGreaterThanOrEqualTo(const Any & ref) const { int cmp = compare(ref); return (cmp == cmp_descending || cmp == cmp_same); }
+bool nucleus::isGreaterThanOrEqualTo(Owning<Any> ptr) const { if (ptr) { return isGreaterThanOrEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
-bool nucleus::operator &= (const_kind_ref ref) const { return isIdenticalTo(ref); }
-bool nucleus::operator == (const_kind_ref ref) const { return isEqualTo(ref); }
-bool nucleus::operator != (const_kind_ref ref) const { return isNotEqualTo(ref); }
-bool nucleus::operator < (const_kind_ref ref) const { return isLessThan(ref); }
-bool nucleus::operator <= (const_kind_ref ref) const { return isLessThanOrEqualTo(ref); }
-bool nucleus::operator > (const_kind_ref ref) const { return isGreaterThan(ref); }
-bool nucleus::operator >= (const_kind_ref ref) const { return isGreaterThanOrEqualTo(ref); }
+bool nucleus::operator &= (const Any & ref) const { return isIdenticalTo(ref); }
+bool nucleus::operator == (const Any & ref) const { return isEqualTo(ref); }
+bool nucleus::operator != (const Any & ref) const { return isNotEqualTo(ref); }
+bool nucleus::operator < (const Any & ref) const { return isLessThan(ref); }
+bool nucleus::operator <= (const Any & ref) const { return isLessThanOrEqualTo(ref); }
+bool nucleus::operator > (const Any & ref) const { return isGreaterThan(ref); }
+bool nucleus::operator >= (const Any & ref) const { return isGreaterThanOrEqualTo(ref); }
 
 #pragma mark -
 

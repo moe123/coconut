@@ -13,7 +13,7 @@ using namespace coconut;
 
 Set::Set() :
 	Object(SetClass),
-	m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{ return (a->compare(*b) != OrderedSame); })
 { /* NOP */ }
 
@@ -30,17 +30,17 @@ Set::Set(Set && set) :
 	m_impl(std::move(set.m_impl))
 { /* NOP */ }
 
-Set::Set(const std::initializer_list<kind_ptr> & args) :
+Set::Set(const std::initializer_list<Owning<Any>> & args) :
 	Set(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
-Set::Set(const std::initializer_list<kind_raw_ptr> & args) :
+Set::Set(const std::initializer_list<Any *> & args) :
 	Object(SetClass),
-	m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{ return (a->compare(*b) != OrderedSame); })
 {
-	for (kind_raw_ptr item : args) {
-		if (dynamic_cast<kind_raw_ptr>(item) != nullptr) { m_impl.insert(item->kindCopy()); }
+	for (Any * item : args) {
+		if (dynamic_cast<Any *>(item) != nullptr) { m_impl.insert(item->kindCopy()); }
 	}
 }
 
@@ -58,10 +58,10 @@ SetPtr Set::with(const Set & set, CopyOption option)
 SetPtr Set::with(Set && set)
 { return ptr_create<Set>(std::move(set)); }
 
-SetPtr Set::with(const std::initializer_list<kind_ptr> & args)
+SetPtr Set::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<Set>(args); }
 
-SetPtr Set::with(const std::initializer_list<kind_raw_ptr> & args)
+SetPtr Set::with(const std::initializer_list<Any *> & args)
 { return ptr_create<Set>(args); }
 
 #pragma mark -
@@ -80,14 +80,14 @@ std::size_t Set::hash() const
 
 #pragma mark -
 
-kind_ptr Set::copy() const
+Owning<Any> Set::copy() const
 {
 	//std::unique_lock<spinlock>();
 	return ptr_create<Set>(cbegin(), cend(), CopyKind);
 }
 
 /*
-kind_ptr Set::mutableCopy() const
+Owning<Any> Set::mutableCopy() const
 {
 return ptr_create<MutableSet>(cbegin(), cend(), CopyKind);
 }
@@ -95,7 +95,7 @@ return ptr_create<MutableSet>(cbegin(), cend(), CopyKind);
 
 #pragma mark -
 
-ComparisonResult Set::compare(const_kind_ref ref) const
+ComparisonResult Set::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;
@@ -106,7 +106,7 @@ ComparisonResult Set::compare(const_kind_ref ref) const
 		} else if (size() > ref_cast<Set>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Set>(ref).cbegin(), [] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<Set>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{
 				if (a && b) {
 					return (a->compare(*b) == OrderedSame);
@@ -122,7 +122,7 @@ ComparisonResult Set::compare(const_kind_ref ref) const
 
 #pragma mark -
 
-bool Set::doesContain(const_kind_ref ref) const
+bool Set::doesContain(const Any & ref) const
 { return containsObject(ref); }
 
 #pragma mark -
@@ -137,7 +137,7 @@ std::size_t Set::size() const
 
 #pragma mark -
 
-kind_ptr Set::valueForKey(const std::string & utf8_key) const
+Owning<Any> Set::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
@@ -157,8 +157,8 @@ kind_ptr Set::valueForKey(const std::string & utf8_key) const
 	}
 	Array::impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		kind_ptr item = (*it);
-		kind_ptr v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
 		if (!v) { v = None::with(); }
 		buf.push_back(v);
@@ -166,7 +166,7 @@ kind_ptr Set::valueForKey(const std::string & utf8_key) const
 	return Array::with(buf.cbegin(), buf.cend());
 }
 
-kind_ptr Set::valueForKeyPath(const std::string & utf8_keypath) const
+Owning<Any> Set::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	if (isSelectorKey(utf8_keypath)) {
 		return valueForSelectorKey(utf8_keypath);
@@ -179,7 +179,7 @@ kind_ptr Set::valueForKeyPath(const std::string & utf8_keypath) const
 	} else if (parts.size() >= 2) {
 		
 		if (runtime::algorithm::is_integer(parts[0], true)) {
-			kind_ptr item = valueForKey(parts[0]);
+			Owning<Any> item = valueForKey(parts[0]);
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
@@ -192,8 +192,8 @@ kind_ptr Set::valueForKeyPath(const std::string & utf8_keypath) const
 		}
 		
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			kind_ptr item = (*it);
-			kind_ptr v;
+			Owning<Any> item = (*it);
+			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
 			if (!v) { v = None::with(); }
 			buf.push_back(v);
@@ -204,12 +204,12 @@ kind_ptr Set::valueForKeyPath(const std::string & utf8_keypath) const
 
 #pragma mark -
 
-const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	Array::impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		kind_ptr item = (*it);
-		kind_ptr v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) {
 			//v = item->valueForSelectorKey(utf8_selkey, arg);
 			v = item->performSelectorKey(utf8_selkey, arg);
@@ -222,10 +222,10 @@ const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, 
 
 #pragma mark -
 
-void Set::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, bool & stop)> & func) const
+void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const
 { enumerateObjectsUsingFunction(func, EnumerationDefault); }
 
-void Set::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, bool & stop)> & func, EnumerationOptions options) const
+void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -303,7 +303,7 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr 
 
 #pragma mark -
 
-bool Set::containsObject(const_kind_ref obj) const
+bool Set::containsObject(const Any & obj) const
 {
 	if (member(obj)) {
 		return true;
@@ -311,7 +311,7 @@ bool Set::containsObject(const_kind_ref obj) const
 	return false;
 }
 
-bool Set::containsObject(const_kind_ptr & obj) const
+bool Set::containsObject(const Owning<Any> & obj) const
 { if (obj) { return containsObject(*obj); } return false; }
 
 #pragma mark -
@@ -342,7 +342,7 @@ bool Set::isSubsetOfSet(const Set & set) const
 
 #pragma mark -
 
-kind_ptr Set::member(const_kind_ref obj) const
+Owning<Any> Set::member(const Any & obj) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isIdenticalTo(obj)) {
@@ -355,12 +355,12 @@ kind_ptr Set::member(const_kind_ref obj) const
 	return {};
 }
 
-kind_ptr Set::member(const_kind_ptr & obj) const
+Owning<Any> Set::member(const Owning<Any> & obj) const
 { if (obj) { return member(*obj); } return {}; }
 
 #pragma mark -
 
-kind_ptr Set::anyObject() const
+Owning<Any> Set::anyObject() const
 {
 	if (size() == 1) {
 		const_iterator it = m_impl.cbegin();
@@ -379,7 +379,7 @@ kind_ptr Set::anyObject() const
 	return {};
 }
 
-kind_ptr Set::firstObject() const
+Owning<Any> Set::firstObject() const
 {
 	if (size()) {
 		const_iterator it = m_impl.cbegin();
@@ -390,7 +390,7 @@ kind_ptr Set::firstObject() const
 	return {};
 }
 
-kind_ptr Set::lastObject() const
+Owning<Any> Set::lastObject() const
 {
 	if (size()) {
 		const_iterator it = m_impl.cbegin();
@@ -406,10 +406,10 @@ const Array Set::allObjects(CopyOption option) const
 
 #pragma mark -
 
-const Set Set::objectsPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func) const
+const Set Set::objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const
 { return objectsPassingTest(func, EnumerationDefault); }
 
-const Set Set::objectsPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func, EnumerationOptions options) const
+const Set Set::objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
 {
 	Array::impl_type buf;
 	if (size()) {
@@ -493,7 +493,7 @@ const Set Set::objectsPassingTest(const std::function<bool(const_kind_ptr & obj,
 
 #pragma mark -
 
-bool Set::everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func) const
+bool Set::everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
@@ -508,7 +508,7 @@ bool Set::everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, 
 	return ret;
 }
 
-bool Set::someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func) const
+bool Set::someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
@@ -525,10 +525,10 @@ bool Set::someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, b
 
 #pragma mark -
 
-const Set Set::filteredSetUsingFunction(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func, CopyOption option) const
+const Set Set::filteredSetUsingFunction(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, CopyOption option) const
 { return filteredSetUsingFunction(func, option, EnumerationDefault); }
 
-const Set Set::filteredSetUsingFunction(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func, CopyOption option, EnumerationOptions options) const
+const Set Set::filteredSetUsingFunction(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, CopyOption option, EnumerationOptions options) const
 {
 	IterationOption iter_option = IterationAscending;
 	if (options != EnumerationDefault) {
@@ -615,7 +615,7 @@ const Set Set::filteredSetUsingFunction(const std::function<bool(const_kind_ptr 
 
 #pragma mark -
 
-const Set Set::setByAddingObject(kind_ptr ptr, CopyOption option) const
+const Set Set::setByAddingObject(Owning<Any> ptr, CopyOption option) const
 {
 	if (ptr) {
 		impl_type buf(cbegin(), cend());

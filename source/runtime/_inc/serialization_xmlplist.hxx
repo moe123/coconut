@@ -31,15 +31,15 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read(const pugi::xml_node & node, SerializationReadOption option);
+			Owning<Any> xmlplist_read(const pugi::xml_node & node, SerializationReadOption option);
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read_array(const pugi::xml_node & node, SerializationReadOption option)
+			Owning<Any> xmlplist_read_array(const pugi::xml_node & node, SerializationReadOption option)
 			{
-				std::vector<kind_ptr> buf;
+				std::vector<Owning<Any>> buf;
 				for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
 					pugi::xml_node v = (*it);
-					kind_ptr vv = xmlplist_read(v, option);
+					Owning<Any> vv = xmlplist_read(v, option);
 					if (vv) { buf.push_back(vv); }
 				}
 				if (
@@ -52,7 +52,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read_data(const pugi::xml_node & node, SerializationReadOption option)
+			Owning<Any> xmlplist_read_data(const pugi::xml_node & node, SerializationReadOption option)
 			{
 				std::string val(node.first_child().value());
 				if (option == SerializationReadMutableContainersAndLeaves) {
@@ -62,7 +62,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read_date(const pugi::xml_node & node)
+			Owning<Any> xmlplist_read_date(const pugi::xml_node & node)
 			{
 				std::string val(node.first_child().value());
 				if (val.size()) {
@@ -72,9 +72,9 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read_dictionary(const pugi::xml_node & node, SerializationReadOption option)
+			Owning<Any> xmlplist_read_dictionary(const pugi::xml_node & node, SerializationReadOption option)
 			{
-				std::vector<kind_ptr> kk, vv;
+				std::vector<Owning<Any>> kk, vv;
 				for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
 					if(std::string("key") != it->name()) {
 						throw std::invalid_argument("coconut parsing xmlplist");
@@ -86,8 +86,8 @@ namespace coconut
 					} else if(std::string("key") == std::string(it->name())) {
 						throw std::invalid_argument("coconut parsing xmlplist");
 					}
-					kind_ptr k = String::with(key);
-					kind_ptr v = xmlplist_read(*it, option);
+					Owning<Any> k = String::with(key);
+					Owning<Any> v = xmlplist_read(*it, option);
 					if (k && v) {
 						kk.push_back(v);
 						vv.push_back(k);
@@ -103,7 +103,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read_number(const pugi::xml_node & node)
+			Owning<Any> xmlplist_read_number(const pugi::xml_node & node)
 			{
 				std::string type = node.name();
 				if("false" == type) {
@@ -121,7 +121,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read_string(const pugi::xml_node & node, SerializationReadOption option)
+			Owning<Any> xmlplist_read_string(const pugi::xml_node & node, SerializationReadOption option)
 			{
 				std::string val(node.first_child().value());
 				if (option == SerializationReadMutableContainersAndLeaves) {
@@ -131,7 +131,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_read(const pugi::xml_node & node, SerializationReadOption option)
+			Owning<Any> xmlplist_read(const pugi::xml_node & node, SerializationReadOption option)
 			{
 				std::string type(node.name());
 				
@@ -141,7 +141,7 @@ namespace coconut
 					return xmlplist_read_array(node, option);
 				} else if("string" == type) {
 					return xmlplist_read_string(node, option);
-				} else if("integer" == type || "real" == type || "false" == type  || "true" == type) {
+				} else if("integer" == type || "real" == type || "false" == type || "true" == type) {
 					return xmlplist_read_number(node);
 				} else if("data" == type) {
 					return xmlplist_read_data(node, option);
@@ -154,7 +154,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			kind_ptr xmlplist_from_raw(const std::uint8_t * in, std::size_t len, SerializationReadOption option)
+			Owning<Any> xmlplist_from_raw(const std::uint8_t * in, std::size_t len, SerializationReadOption option)
 			{
 				try {
 					pugi::xml_document document;

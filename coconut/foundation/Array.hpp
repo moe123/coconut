@@ -23,8 +23,8 @@ namespace coconut
 		
 		Array(Array && arr);
 
-		Array(const std::initializer_list<kind_ptr> & args);
-		Array(const std::initializer_list<kind_raw_ptr> & args);
+		Array(const std::initializer_list<Owning<Any>> & args);
+		Array(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		Array(IterT && beg, IterT && end) :
@@ -40,7 +40,7 @@ namespace coconut
 			while (it != end) {
 				if ((*it)) {
 					if (option != CopyNone) {
-						kind_ptr copy = Object::copyObject((*it), option);
+						Owning<Any> copy = Object::copyObject((*it), option);
 						if (copy) { m_impl.push_back(copy); }
 					} else {
 						m_impl.push_back((*it));
@@ -60,8 +60,8 @@ namespace coconut
 		
 		COCONUT_KTOR ArrayPtr with(Array && arr);
 		
-		COCONUT_KTOR ArrayPtr with(const std::initializer_list<kind_ptr> & args);
-		COCONUT_KTOR ArrayPtr with(const std::initializer_list<kind_raw_ptr> & args);
+		COCONUT_KTOR ArrayPtr with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR ArrayPtr with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		COCONUT_KTOR ArrayPtr with(IterT && beg, IterT && end)
@@ -77,16 +77,16 @@ namespace coconut
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr mutableCopy() const
+		virtual Owning<Any> mutableCopy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual bool doesContain(const_kind_ref ref) const
+		virtual bool doesContain(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 
 		virtual std::string stringValue() const
@@ -95,55 +95,55 @@ namespace coconut
 		virtual std::size_t size() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKey(const std::string & utf8_key) const
+		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKeyPath(const std::string & utf8_keypath) const
+		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, kind_ptr arg = {}) const;
+		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 		
-		void enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
-		void enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
-		bool containsObject(const_kind_ref obj) const;
-		bool containsObject(const_kind_ptr & obj) const;
+		bool containsObject(const Any & obj) const;
+		bool containsObject(const Owning<Any> & obj) const;
 		
 		bool containsObject(bool & obj) const;
 		
-		kind_ptr firstObject() const;
-		kind_ptr lastObject() const;
-		kind_ptr objectAtIndex(std::size_t index) const;
+		Owning<Any> firstObject() const;
+		Owning<Any> lastObject() const;
+		Owning<Any> objectAtIndex(std::size_t index) const;
 		
-		std::size_t indexOfObject(const_kind_ref obj) const;
-		std::size_t indexOfObject(const_kind_ref obj, Range in_rg) const;
+		std::size_t indexOfObject(const Any & obj) const;
+		std::size_t indexOfObject(const Any & obj, Range in_rg) const;
 		
-		std::size_t indexOfObject(const_kind_ptr & obj) const;
-		std::size_t indexOfObject(const_kind_ptr & obj, Range in_rg) const;
+		std::size_t indexOfObject(const Owning<Any> & obj) const;
+		std::size_t indexOfObject(const Owning<Any> & obj, Range in_rg) const;
 		
-		std::size_t indexOfObjectIdenticalTo(const_kind_ref obj) const;
-		std::size_t indexOfObjectIdenticalTo(const_kind_ref obj, Range in_rg) const;
+		std::size_t indexOfObjectIdenticalTo(const Any & obj) const;
+		std::size_t indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const;
 		
-		std::size_t indexOfObjectIdenticalTo(const_kind_ptr & obj) const;
-		std::size_t indexOfObjectIdenticalTo(const_kind_ptr & obj, Range in_rg) const;
+		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj) const;
+		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const;
 
-		std::size_t indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
-		std::size_t indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
+		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
-		bool everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
-		bool someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
+		bool everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		
-		kind_ptr firstObjectCommonWithArray(const Array & arr) const;
+		Owning<Any> firstObjectCommonWithArray(const Array & arr) const;
 	
 		const Array reversedArray(CopyOption option = CopyNone) const;
 		const Array uniquedArray(CopyOption option = CopyNone) const;
 		const Array shuffledArray(CopyOption option = CopyNone) const;
 		
-		const Array filteredArrayUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option = CopyNone) const;
-		const Array filteredArrayUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const;
+		const Array filteredArrayUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option = CopyNone) const;
+		const Array filteredArrayUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const;
 		
-		const Array sortedArrayUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option = CopyNone) const;
-		const Array sortedArrayUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option, SortOptions options) const;
+		const Array sortedArrayUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option = CopyNone) const;
+		const Array sortedArrayUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option, SortOptions options) const;
 		
 		const Array sortedArrayAscending(CopyOption option = CopyNone) const;
 		const Array sortedArrayAscending(CopyOption option, SortOptions options) const;
@@ -161,11 +161,11 @@ namespace coconut
 		const Array sortedArrayUsingDescriptors(const Array & descriptors, CopyOption option = CopyNone) const;
 		const Array sortedArrayUsingDescriptors(const Array & descriptors, CopyOption option, SortOptions options) const;
 		
-		const Array arrayByPushingObject(const_kind_ref obj) const;
-		const Array arrayByPushingObject(const_kind_ref obj, CopyOption option) const;
+		const Array arrayByPushingObject(const Any & obj) const;
+		const Array arrayByPushingObject(const Any & obj, CopyOption option) const;
 		
-		const Array arrayByPushingObject(kind_ptr obj) const;
-		const Array arrayByPushingObject(kind_ptr obj, CopyOption option) const;
+		const Array arrayByPushingObject(Owning<Any> obj) const;
+		const Array arrayByPushingObject(Owning<Any> obj, CopyOption option) const;
 		
 		const Array arrayByPushingObjectsFromArray(const Array & arr) const;
 		const Array arrayByPushingObjectsFromArray(const Array & arr, CopyOption option) const;
@@ -178,11 +178,11 @@ namespace coconut
 		const Array arrayByPushingObjects(IterT && beg, IterT && end, CopyOption option) const
 		{ return arrayByPushingObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
-		const Array arrayByAddingObject(const_kind_ref obj) const;
-		const Array arrayByAddingObject(const_kind_ref obj, CopyOption option) const;
+		const Array arrayByAddingObject(const Any & obj) const;
+		const Array arrayByAddingObject(const Any & obj, CopyOption option) const;
 		
-		const Array arrayByAddingObject(kind_ptr obj) const;
-		const Array arrayByAddingObject(kind_ptr obj, CopyOption option) const;
+		const Array arrayByAddingObject(Owning<Any> obj) const;
+		const Array arrayByAddingObject(Owning<Any> obj, CopyOption option) const;
 		
 		const Array arrayByAddingObjectsFromArray(const Array & arr) const;
 		const Array arrayByAddingObjectsFromArray(const Array & arr, CopyOption option) const;
@@ -204,11 +204,11 @@ namespace coconut
 		bool writeToURL(const URL & url, bool atomically = true) const;
 
 	public:
-		const_kind_ptr operator [] (std::size_t index) const;
+		const Owning<Any> operator [] (std::size_t index) const;
 		const Array operator [] (const Slice & slc) const;
 		
 	protected:
-		typedef std::vector<kind_ptr> impl_type;
+		typedef std::vector<Owning<Any>> impl_type;
 		
 	public:
 		typedef impl_type::iterator iterator;

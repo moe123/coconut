@@ -113,16 +113,16 @@ std::size_t String::hash() const
 
 #pragma mark -
 
-kind_ptr String::copy() const
+Owning<Any> String::copy() const
 {
 	return ptr_create<String>(*this);
 }
 
 #pragma mark -
 
-kind_ptr String::valueForSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+Owning<Any> String::valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
-	kind_ptr val;
+	Owning<Any> val;
 	if (isSelectorKey(utf8_selkey)) {
 		if (arg && arg->isKindOf(*this)) {
 			if (utf8_selkey == u8"@caseInsensitiveCompare:") {
@@ -144,7 +144,7 @@ kind_ptr String::valueForSelectorKey(const std::string & utf8_selkey, kind_ptr a
 
 #pragma mark -
 
-ComparisonResult String::compare(const_kind_ref ref) const
+ComparisonResult String::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

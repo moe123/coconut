@@ -21,8 +21,8 @@ namespace coconut
 		virtual ~Serialization();
 		
 	public:
-		COCONUT_KTOD OptionalReturn<DataPtr, ErrorPtr> dataWithCollection(const_kind_ref collection, SerializationFormatOption format);
-		COCONUT_KTOD OptionalReturn<kind_ptr, ErrorPtr> collectionWithData(const Data & dt, SerializationReadOption option, SerializationFormatOption format);
+		COCONUT_KTOD OptionalReturn<DataPtr, ErrorPtr> dataWithCollection(const Any & collection, SerializationFormatOption format);
+		COCONUT_KTOD OptionalReturn<Owning<Any>, ErrorPtr> collectionWithData(const Data & dt, SerializationReadOption option, SerializationFormatOption format);
 	};
 }
 

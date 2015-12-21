@@ -149,12 +149,12 @@ std::size_t Data::hash() const
 
 #pragma mark -
 
-kind_ptr Data::copy() const
+Owning<Any> Data::copy() const
 { return ptr_create<Data>(*this); }
 
 #pragma mark -
 
-ComparisonResult Data::compare(const_kind_ref ref) const
+ComparisonResult Data::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

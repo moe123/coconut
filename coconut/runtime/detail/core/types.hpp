@@ -215,15 +215,9 @@ namespace coconut
 		};
 		
 		class nucleus;
-		
-		typedef std::shared_ptr<nucleus> kind_ptr;
-		typedef const std::shared_ptr<nucleus> const_kind_ptr;
-		
-		typedef nucleus * kind_raw_ptr;
-		typedef const nucleus * const_kind_raw_ptr;
-		
-		typedef nucleus & kind_ref;
-		typedef const nucleus & const_kind_ref;
+
+		using Any = nucleus;
+		template <typename T> using Owning = ptr_declare<T>;
 	}
 }
 

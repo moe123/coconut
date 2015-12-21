@@ -140,7 +140,7 @@ Array keys = {
 MutableArray people;
 
 firstNames.enumerateObjectsUsingFunction(
-	[&lastNames, &ages, &keys, &people] (const_kind_ptr & obj, std::size_t index, bool & stop)
+	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
 	people.addObject(
 		Dictionary::with({
@@ -177,7 +177,7 @@ std::cout << people[{ -1, 1, 2 }] << std::endl;
 // Javascriptic
 
 bool test = people.someObjectPassingTest(
-	[] (const_kind_ptr & obj, std::size_t index, bool & stop) -> bool
+	[] (const Owning<Any> & obj, std::size_t index, bool & stop) -> bool
 {
 	if (/* ... condition */) {
 		return true;

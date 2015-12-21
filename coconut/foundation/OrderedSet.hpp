@@ -23,8 +23,8 @@ namespace coconut
 		
 		OrderedSet(OrderedSet && set);
 		
-		OrderedSet(const std::initializer_list<kind_ptr> & args);
-		OrderedSet(const std::initializer_list<kind_raw_ptr> & args);
+		OrderedSet(const std::initializer_list<Owning<Any>> & args);
+		OrderedSet(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		OrderedSet(IterT && beg, IterT && end) :
@@ -40,7 +40,7 @@ namespace coconut
 			while (it != end) {
 				if ((*it) && doesNotContain(*(*it))) {
 					if (option != CopyNone) {
-						kind_ptr copy = Object::copyObject((*it), option);
+						Owning<Any> copy = Object::copyObject((*it), option);
 						if (copy) { m_impl.push_back(copy); }
 					} else {
 						m_impl.push_back((*it));
@@ -55,8 +55,8 @@ namespace coconut
 		COCONUT_KTOR OrderedSetPtr with(const OrderedSet & set);
 		COCONUT_KTOR OrderedSetPtr with(const OrderedSet & set, CopyOption option);
 		COCONUT_KTOR OrderedSetPtr with(OrderedSet && set);
-		COCONUT_KTOR OrderedSetPtr with(const std::initializer_list<kind_ptr> & args);
-		COCONUT_KTOR OrderedSetPtr with(const std::initializer_list<kind_raw_ptr> & args);
+		COCONUT_KTOR OrderedSetPtr with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR OrderedSetPtr with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		COCONUT_KTOR OrderedSetPtr with(IterT && beg, IterT && end)
@@ -72,16 +72,16 @@ namespace coconut
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		// virtual kind_ptr mutableCopy() const
+		// virtual Owning<Any> mutableCopy() const
 		// COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual bool doesContain(const_kind_ref ref) const
+		virtual bool doesContain(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 
 		virtual std::string stringValue() const
@@ -90,17 +90,17 @@ namespace coconut
 		virtual std::size_t size() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKey(const std::string & utf8_key) const
+		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKeyPath(const std::string & utf8_keypath) const
+		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		void enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
-		void enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
-		bool containsObject(const_kind_ref obj) const;
-		bool containsObject(const_kind_ptr & obj) const;
+		bool containsObject(const Any & obj) const;
+		bool containsObject(const Owning<Any> & obj) const;
 		
 		bool intersectsOrderedSet(const OrderedSet & set) const;
 		bool isSubsetOfOrderedSet(const OrderedSet & set) const;
@@ -108,38 +108,38 @@ namespace coconut
 		bool intersectsSet(const Set & set) const;
 		bool isSubsetOfSet(const Set & set) const;
 		
-		kind_ptr firstObject() const;
-		kind_ptr lastObject() const;
-		kind_ptr objectAtIndex(std::size_t index) const;
+		Owning<Any> firstObject() const;
+		Owning<Any> lastObject() const;
+		Owning<Any> objectAtIndex(std::size_t index) const;
 		
-		std::size_t indexOfObject(const_kind_ref obj) const;
-		std::size_t indexOfObject(const_kind_ref obj, Range in_rg) const;
+		std::size_t indexOfObject(const Any & obj) const;
+		std::size_t indexOfObject(const Any & obj, Range in_rg) const;
 		
-		std::size_t indexOfObject(const_kind_ptr & obj) const;
-		std::size_t indexOfObject(const_kind_ptr & obj, Range in_rg) const;
+		std::size_t indexOfObject(const Owning<Any> & obj) const;
+		std::size_t indexOfObject(const Owning<Any> & obj, Range in_rg) const;
 		
-		std::size_t indexOfObjectIdenticalTo(const_kind_ref obj) const;
-		std::size_t indexOfObjectIdenticalTo(const_kind_ptr & obj, Range in_rg) const;
+		std::size_t indexOfObjectIdenticalTo(const Any & obj) const;
+		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const;
 		
-		std::size_t indexOfObjectIdenticalTo(const_kind_ptr & obj) const;
-		std::size_t indexOfObjectIdenticalTo(const_kind_ref obj, Range in_rg) const;
+		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj) const;
+		std::size_t indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const;
 
-		std::size_t indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
-		std::size_t indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
+		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
-		bool everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
-		bool someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const;
+		bool everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		
 		const OrderedSet reversedOrderedSet(CopyOption option = CopyNone) const;
 		
-		const OrderedSet filteredOrderedSetUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option = CopyNone) const;
-		const OrderedSet filteredOrderedSetUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const;
+		const OrderedSet filteredOrderedSetUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option = CopyNone) const;
+		const OrderedSet filteredOrderedSetUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const;
 		
 	public:
-		const_kind_ptr operator [] (std::size_t index) const;
+		const Owning<Any> operator [] (std::size_t index) const;
 		
 	protected:
-		typedef std::vector<kind_ptr> impl_type;
+		typedef std::vector<Owning<Any>> impl_type;
 		
 	public:
 		typedef impl_type::iterator iterator;

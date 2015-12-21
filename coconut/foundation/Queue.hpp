@@ -26,20 +26,20 @@ namespace coconut
 		COCONUT_KTOR QueuePtr with(Queue && que);
 		
 	public:
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::size_t size() const
 		COCONUT_FINAL_OVERRIDE;
 	
 	public:
-		kind_ptr dequeue();
-		void enqueue(kind_ptr ptr);
+		Owning<Any> dequeue();
+		void enqueue(Owning<Any> ptr);
 		
 		void clear();
 		
 	protected:
-		typedef std::queue<kind_ptr> impl_type;
+		typedef std::queue<Owning<Any>> impl_type;
 		
 	private:
 		impl_type m_impl;

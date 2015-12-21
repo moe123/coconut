@@ -31,16 +31,16 @@ OrderedSet::OrderedSet(OrderedSet && set) :
 	m_impl(std::move(set.m_impl))
 { /* NOP */ }
 
-OrderedSet::OrderedSet(const std::initializer_list<kind_ptr> & args) :
+OrderedSet::OrderedSet(const std::initializer_list<Owning<Any>> & args) :
 	OrderedSet(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
-OrderedSet::OrderedSet(const std::initializer_list<kind_raw_ptr> & args) :
+OrderedSet::OrderedSet(const std::initializer_list<Any *> & args) :
 	Object(OrderedSetClass),
 	m_impl()
 {
-	for (kind_raw_ptr item : args) {
-		if (dynamic_cast<kind_raw_ptr>(item) != nullptr && doesNotContain(*item)) { m_impl.push_back(item->kindCopy()); }
+	for (Any * item : args) {
+		if (dynamic_cast<Any *>(item) != nullptr && doesNotContain(*item)) { m_impl.push_back(item->kindCopy()); }
 	}
 }
 
@@ -58,10 +58,10 @@ OrderedSetPtr OrderedSet::with(const OrderedSet & set, CopyOption option)
 OrderedSetPtr OrderedSet::with(OrderedSet && set)
 { return ptr_create<OrderedSet>(std::move(set)); }
 
-OrderedSetPtr OrderedSet::with(const std::initializer_list<kind_ptr> & args)
+OrderedSetPtr OrderedSet::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<OrderedSet>(args); }
 
-OrderedSetPtr OrderedSet::with(const std::initializer_list<kind_raw_ptr> & args)
+OrderedSetPtr OrderedSet::with(const std::initializer_list<Any *> & args)
 { return ptr_create<OrderedSet>(args); }
 
 #pragma mark -
@@ -80,11 +80,11 @@ std::size_t OrderedSet::hash() const
 
 #pragma mark -
 
-kind_ptr OrderedSet::copy() const
+Owning<Any> OrderedSet::copy() const
 { return ptr_create<OrderedSet>(cbegin(), cend(), CopyKind); }
 
 /*
-kind_ptr OrderedSet::mutableCopy() const
+Owning<Any> OrderedSet::mutableCopy() const
 {
 	return ptr_create<OrderedSet>(cbegin(), cend(), CopyKind);
 }
@@ -92,7 +92,7 @@ kind_ptr OrderedSet::mutableCopy() const
 
 #pragma mark -
 
-ComparisonResult OrderedSet::compare(const_kind_ref ref) const
+ComparisonResult OrderedSet::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;
@@ -103,7 +103,7 @@ ComparisonResult OrderedSet::compare(const_kind_ref ref) const
 		} else if (size() > ref_cast<OrderedSet>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<OrderedSet>(ref).cbegin(), [] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<OrderedSet>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{
 				if (a && b) {
 					return (a->compare(*b) == OrderedSame);
@@ -119,7 +119,7 @@ ComparisonResult OrderedSet::compare(const_kind_ref ref) const
 
 #pragma mark -
 
-bool OrderedSet::doesContain(const_kind_ref ref) const
+bool OrderedSet::doesContain(const Any & ref) const
 { return containsObject(ref); }
 
 #pragma mark -
@@ -134,7 +134,7 @@ std::size_t OrderedSet::size() const
 
 #pragma mark -
 
-kind_ptr OrderedSet::valueForKey(const std::string & utf8_key) const
+Owning<Any> OrderedSet::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
@@ -147,8 +147,8 @@ kind_ptr OrderedSet::valueForKey(const std::string & utf8_key) const
 	}
 	Array::impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		kind_ptr item = (*it);
-		kind_ptr v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
 		if (!v) { v = None::with(); }
 		buf.push_back(v);
@@ -156,7 +156,7 @@ kind_ptr OrderedSet::valueForKey(const std::string & utf8_key) const
 	return Array::with(buf.cbegin(), buf.cend());
 }
 
-kind_ptr OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
+Owning<Any> OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	if (isSelectorKey(utf8_keypath)) {
 		return valueForSelectorKey(utf8_keypath);
@@ -169,7 +169,7 @@ kind_ptr OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 	} else if (parts.size() >= 2) {
 		
 		if (runtime::algorithm::is_integer(parts[0], true)) {
-			kind_ptr item = valueForKey(parts[0]);
+			Owning<Any> item = valueForKey(parts[0]);
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
@@ -182,8 +182,8 @@ kind_ptr OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 		}
 		
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			kind_ptr item = (*it);
-			kind_ptr v;
+			Owning<Any> item = (*it);
+			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
 			if (!v) { v = None::with(); }
 			buf.push_back(v);
@@ -194,10 +194,10 @@ kind_ptr OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 
 #pragma mark -
 
-void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { enumerateObjectsUsingFunction(func, EnumerationDefault); }
 
-void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
+void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -280,10 +280,10 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const_ki
 
 #pragma mark -
 
-bool OrderedSet::containsObject(const_kind_ref obj) const
+bool OrderedSet::containsObject(const Any & obj) const
 { return (indexOfObject(obj) != NotFound); }
 
-bool OrderedSet::containsObject(const_kind_ptr & obj) const
+bool OrderedSet::containsObject(const Owning<Any> & obj) const
 { if (obj) { return indexOfObject(*obj); } return false; }
 
 #pragma mark -
@@ -340,7 +340,7 @@ bool OrderedSet::isSubsetOfSet(const Set & set) const
 
 #pragma mark -
 
-kind_ptr OrderedSet::firstObject() const
+Owning<Any> OrderedSet::firstObject() const
 {
 	if (size()) {
 		return m_impl.front();
@@ -349,7 +349,7 @@ kind_ptr OrderedSet::firstObject() const
 	return {};
 }
 
-kind_ptr OrderedSet::lastObject() const
+Owning<Any> OrderedSet::lastObject() const
 {
 	if (size()) {
 		return m_impl.back();
@@ -358,7 +358,7 @@ kind_ptr OrderedSet::lastObject() const
 	return {};
 }
 
-kind_ptr OrderedSet::objectAtIndex(std::size_t index) const
+Owning<Any> OrderedSet::objectAtIndex(std::size_t index) const
 {
 	if (index < size()) {
 		return m_impl.at(index);
@@ -369,7 +369,7 @@ kind_ptr OrderedSet::objectAtIndex(std::size_t index) const
 
 #pragma mark -
 
-std::size_t OrderedSet::indexOfObject(const_kind_ref obj) const
+std::size_t OrderedSet::indexOfObject(const Any & obj) const
 {
 	std::size_t idx = 0;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -383,7 +383,7 @@ std::size_t OrderedSet::indexOfObject(const_kind_ref obj) const
 	return NotFound;
 }
 
-std::size_t OrderedSet::indexOfObject(const_kind_ref obj, Range in_rg) const
+std::size_t OrderedSet::indexOfObject(const Any & obj, Range in_rg) const
 {
 	std::size_t idx = 0, sz = size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -408,15 +408,15 @@ std::size_t OrderedSet::indexOfObject(const_kind_ref obj, Range in_rg) const
 
 #pragma mark -
 
-std::size_t OrderedSet::indexOfObject(const_kind_ptr & obj) const
+std::size_t OrderedSet::indexOfObject(const Owning<Any> & obj) const
 { if (obj) { return indexOfObject(*obj); } return false; }
 
-std::size_t OrderedSet::indexOfObject(const_kind_ptr & obj, Range in_rg) const
+std::size_t OrderedSet::indexOfObject(const Owning<Any> & obj, Range in_rg) const
 { if (obj) { return indexOfObject(*obj, in_rg); } return false; }
 
 #pragma mark -
 
-std::size_t OrderedSet::indexOfObjectIdenticalTo(const_kind_ref obj) const
+std::size_t OrderedSet::indexOfObjectIdenticalTo(const Any & obj) const
 {
 	std::size_t idx = 0;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -426,7 +426,7 @@ std::size_t OrderedSet::indexOfObjectIdenticalTo(const_kind_ref obj) const
 	return NotFound;
 }
 
-std::size_t OrderedSet::indexOfObjectIdenticalTo(const_kind_ref obj, Range in_rg) const
+std::size_t OrderedSet::indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const
 {
 	std::size_t idx = 0, sz = size();
 	if (sz) {
@@ -451,18 +451,18 @@ std::size_t OrderedSet::indexOfObjectIdenticalTo(const_kind_ref obj, Range in_rg
 
 #pragma mark -
 
-std::size_t OrderedSet::indexOfObjectIdenticalTo(const_kind_ptr & obj) const
+std::size_t OrderedSet::indexOfObjectIdenticalTo(const Owning<Any> & obj) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj); } return false; }
 
-std::size_t OrderedSet::indexOfObjectIdenticalTo(const_kind_ptr & obj, Range in_rg) const
+std::size_t OrderedSet::indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj, in_rg); } return false; }
 
 #pragma mark -
 
-std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { return indexOfObjectPassingTest(func, EnumerationDefault); }
 
-std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
+std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -552,7 +552,7 @@ std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const_
 
 #pragma mark -
 
-bool OrderedSet::everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+bool OrderedSet::everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
@@ -569,7 +569,7 @@ bool OrderedSet::everyObjectPassingTest(const std::function<bool(const_kind_ptr 
 	return ret;
 }
 
-bool OrderedSet::someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func) const
+bool OrderedSet::someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
@@ -599,10 +599,10 @@ const OrderedSet OrderedSet::reversedOrderedSet(CopyOption option) const
 
 #pragma mark -
 
-const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option) const
+const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option) const
 { return filteredOrderedSetUsingFunction(func, option, EnumerationDefault); }
 
-const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const
+const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, CopyOption option, EnumerationOptions options) const
 {
 	IterationOption iter_option = IterationAscending;
 	if (options != EnumerationDefault) {
@@ -694,7 +694,7 @@ const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function
 
 #pragma mark -
 
-const_kind_ptr OrderedSet::operator [] (std::size_t index) const
+const Owning<Any> OrderedSet::operator [] (std::size_t index) const
 { return objectAtIndex(index); }
 
 #pragma mark -

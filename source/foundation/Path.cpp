@@ -70,12 +70,12 @@ PathPtr Path::with(const char16_t * utf16_path)
 
 #pragma mark -
 
-kind_ptr Path::copy() const
+Owning<Any> Path::copy() const
 { return ptr_create<Path>(*this); }
 
 #pragma mark -
 
-ComparisonResult Path::compare(const_kind_ref ref) const
+ComparisonResult Path::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

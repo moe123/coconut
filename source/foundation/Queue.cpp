@@ -39,7 +39,7 @@ QueuePtr Queue::with(Queue && que)
 
 #pragma mark -
 
-kind_ptr Queue::copy() const
+Owning<Any> Queue::copy() const
 { return ptr_create<Queue>(*this); }
 
 #pragma mark -
@@ -49,9 +49,9 @@ std::size_t Queue::size() const
 
 #pragma mark -
 
-kind_ptr Queue::dequeue()
+Owning<Any> Queue::dequeue()
 {
-	kind_ptr head;
+	Owning<Any> head;
 	if (m_impl.size()) {
 		head = m_impl.front();
 		m_impl.pop();
@@ -59,7 +59,7 @@ kind_ptr Queue::dequeue()
 	return head;
 }
 
-void Queue::enqueue(kind_ptr ptr)
+void Queue::enqueue(Owning<Any> ptr)
 { if (ptr) { m_impl.push(ptr); } }
 
 #pragma mark -

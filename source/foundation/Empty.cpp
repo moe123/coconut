@@ -24,12 +24,12 @@ Empty::~Empty()
 EmptyPtr Empty::with()
 { return ptr_create<Empty>(); }
 
-kind_ptr Empty::copy() const
+Owning<Any> Empty::copy() const
 {
 	return ptr_create<Empty>(ref_cast<Empty>(*this));
 }
 
-ComparisonResult Empty::compare(const_kind_ref ref) const
+ComparisonResult Empty::compare(const Any & ref) const
 {
 	if (isMemberOf(ref)) {
 		return OrderedSame;

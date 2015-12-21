@@ -23,8 +23,8 @@ namespace coconut
 		
 		Dictionary(Dictionary && dict);
 		
-		Dictionary(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args);
-		Dictionary(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args);
+		Dictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		Dictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>
 		Dictionary(IterT && beg, IterT && end) :
@@ -34,15 +34,15 @@ namespace coconut
 		template <typename IterT>
 		Dictionary(IterT && beg, IterT && end, CopyOption option) :
 			Object(DictionaryClass),
-			m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) == OrderedAscending); })
 		{
 			IterT it = beg;
 			while (it != end) {
 				if ((*it).first && (*it).second) {
 					if (option != CopyNone) {
-						kind_ptr kcpy = Object::copyObject((*it).first, CopyImmutable);
-						kind_ptr vcpy = Object::copyObject((*it).second, option);
+						Owning<Any> kcpy = Object::copyObject((*it).first, CopyImmutable);
+						Owning<Any> vcpy = Object::copyObject((*it).second, option);
 						if (kcpy && vcpy) { m_impl.insert(std::make_pair(kcpy, vcpy)); }
 					} else {
 						m_impl.insert(std::make_pair((*it).first, (*it).second));
@@ -55,7 +55,7 @@ namespace coconut
 		template <typename IterKeyT, typename IterValT>
 		Dictionary(IterKeyT && beg_key, IterKeyT && end_key, IterValT && beg_val, IterValT && end_val, CopyOption option = CopyNone) :
 			Object(DictionaryClass),
-			m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) == OrderedAscending); })
 		{
 			using key_diff_t = typename IterKeyT::difference_type;
@@ -73,8 +73,8 @@ namespace coconut
 				for (pair_iterator it(beg_key, beg_val); it.first != end_key; ++it.first, ++it.second) {
 					if ((*it.first) && (*it.second)) {
 						if (option != CopyNone) {
-							kind_ptr kcpy = Object::copyObject((*it.first), CopyImmutable);
-							kind_ptr vcpy = Object::copyObject((*it.second), option);
+							Owning<Any> kcpy = Object::copyObject((*it.first), CopyImmutable);
+							Owning<Any> vcpy = Object::copyObject((*it.second), option);
 							if (kcpy && vcpy) { m_impl.insert(std::make_pair(kcpy, vcpy)); }
 						} else {
 							m_impl.insert(std::make_pair((*it.first), (*it.second)));
@@ -94,8 +94,8 @@ namespace coconut
 		
 		COCONUT_KTOR DictionaryPtr with(Dictionary && dict);
 		
-		COCONUT_KTOR DictionaryPtr with(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args);
-		COCONUT_KTOR DictionaryPtr with(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args);
+		COCONUT_KTOR DictionaryPtr with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args);
+		COCONUT_KTOR DictionaryPtr with(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
 		template <typename IterT>
 		COCONUT_KTOR DictionaryPtr with(IterT && beg, IterT && end)
@@ -115,16 +115,16 @@ namespace coconut
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr mutableCopy() const
+		virtual Owning<Any> mutableCopy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual bool doesContain(const_kind_ref ref) const
+		virtual bool doesContain(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::string stringValue() const
@@ -133,41 +133,41 @@ namespace coconut
 		virtual std::size_t size() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKey(const std::string & utf8_key) const
+		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		const Array makeKeysPerformSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const;
+		const Array makeKeysPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const;
 		
-		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const_kind_ptr & key, const_kind_ptr & obj, bool & stop)> & func) const;
-		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const_kind_ptr & key, const_kind_ptr & obj, bool & stop)> & func, EnumerationOptions options) const;
+		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func) const;
+		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 		
 		bool containsKey(const std::string & utf8_key) const;
-		bool containsKey(const_kind_ref key) const;
-		bool containsKey(const_kind_ptr & key) const;
+		bool containsKey(const Any & key) const;
+		bool containsKey(const Owning<Any> & key) const;
 		
-		kind_ptr objectForKey(const std::string & utf8_key) const;
-		kind_ptr objectForKey(const_kind_ref key) const;
-		kind_ptr objectForKey(const_kind_ptr & key) const;
+		Owning<Any> objectForKey(const std::string & utf8_key) const;
+		Owning<Any> objectForKey(const Any & key) const;
+		Owning<Any> objectForKey(const Owning<Any> & key) const;
 		
-		kind_ptr objectForCaseInsensitiveKey(const std::string & utf8_key) const;
-		kind_ptr objectForCaseInsensitiveKey(const_kind_ref key) const;
-		kind_ptr objectForCaseInsensitiveKey(const_kind_ptr & key) const;
+		Owning<Any> objectForCaseInsensitiveKey(const std::string & utf8_key) const;
+		Owning<Any> objectForCaseInsensitiveKey(const Any & key) const;
+		Owning<Any> objectForCaseInsensitiveKey(const Owning<Any> & key) const;
 		
-		const Array objectsForKeys(const Array & keys, kind_ptr notFoundMarker = {});
-		const Array objectsForKeys(const Set & keys, kind_ptr notFoundMarker = {});
+		const Array objectsForKeys(const Array & keys, Owning<Any> notFoundMarker = {});
+		const Array objectsForKeys(const Set & keys, Owning<Any> notFoundMarker = {});
 		
 		const Array allKeys(CopyOption option = CopyNone) const;
-		const Array allKeysForObject(const_kind_ref obj, CopyOption option = CopyNone) const;
-		const Array allKeysForObject(const_kind_ptr & obj, CopyOption option = CopyNone) const;
+		const Array allKeysForObject(const Any & obj, CopyOption option = CopyNone) const;
+		const Array allKeysForObject(const Owning<Any> & obj, CopyOption option = CopyNone) const;
 		
 		const Array allValues(CopyOption option = CopyNone) const;
 		
-		const Array keysSortedByValueUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option = CopyNone) const;
+		const Array keysSortedByValueUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option = CopyNone) const;
 		const Array keysSortedByValueAscending(CopyOption option = CopyNone) const;
 		const Array keysSortedByValueDescending(CopyOption option = CopyNone) const;
 		
-		const Array keysSortedUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option = CopyNone) const;
-		const Array keysSortedUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option, SortOptions options) const;
+		const Array keysSortedUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option = CopyNone) const;
+		const Array keysSortedUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option, SortOptions options) const;
 		
 		const Array keysSortedAscending(CopyOption option = CopyNone) const;
 		const Array keysSortedAscending(CopyOption option, SortOptions options) const;
@@ -185,18 +185,18 @@ namespace coconut
 		const Array keysSortedUsingDescriptors(const Array & descriptors, CopyOption option = CopyNone) const;
 		const Array keysSortedUsingDescriptors(const Array & descriptors, CopyOption option, SortOptions options) const;
 		
-		const Set keysOfEntriesPassingTest(const std::function<bool(const_kind_ptr & key, bool & stop)> & func, CopyOption option = CopyNone) const;
+		const Set keysOfEntriesPassingTest(const std::function<bool(const Owning<Any> & key, bool & stop)> & func, CopyOption option = CopyNone) const;
 		
 		bool writeToFile(const Path & path, bool atomically = true) const;
 		bool writeToURL(const URL & url, bool atomically = true) const;
 		
 	public:
-		const_kind_ptr operator [] (const std::string & utf8_key) const;
-		const_kind_ptr operator [] (const_kind_ref key) const;
-		const_kind_ptr operator [] (const_kind_ptr & key) const;
+		const Owning<Any> operator [] (const std::string & utf8_key) const;
+		const Owning<Any> operator [] (const Any & key) const;
+		const Owning<Any> operator [] (const Owning<Any> & key) const;
 	
 	protected:
-		typedef std::map<kind_ptr, kind_ptr, std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> > impl_type;
+		typedef std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> > impl_type;
 	
 	public:
 		typedef impl_type::iterator iterator;

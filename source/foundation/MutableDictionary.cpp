@@ -34,11 +34,11 @@ MutableDictionary::MutableDictionary(Dictionary && dict) :
 	Dictionary(std::forward<Dictionary>(dict))
 { setClassKind(MutableDictionaryClass, true); }
 		
-MutableDictionary::MutableDictionary(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) :
+MutableDictionary::MutableDictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) :
 	Dictionary(args)
 { setClassKind(MutableDictionaryClass, true); }
 
-MutableDictionary::MutableDictionary(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args) :
+MutableDictionary::MutableDictionary(const std::initializer_list< std::pair<Any *, Any *> > & args) :
 	Dictionary(args)
 { setClassKind(MutableDictionaryClass, true); }
 		
@@ -73,10 +73,10 @@ MutableDictionaryPtr MutableDictionary::with(const Dictionary & dict, CopyOption
 MutableDictionaryPtr MutableDictionary::with(Dictionary && dict)
 { return ptr_create<MutableDictionary>(std::move(dict)); }
 
-MutableDictionaryPtr MutableDictionary::with(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args)
+MutableDictionaryPtr MutableDictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
 { return ptr_create<MutableDictionary>(args); }
 
-MutableDictionaryPtr MutableDictionary::with(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args)
+MutableDictionaryPtr MutableDictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
 { return ptr_create<MutableDictionary>(args); }
 
 MutableDictionaryPtr MutableDictionary::with(const Path & path)
@@ -87,7 +87,7 @@ MutableDictionaryPtr MutableDictionary::with(const URL & url)
 
 #pragma mark -
 
-void MutableDictionary::setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+void MutableDictionary::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 {
 	if (ptr) {
 		if (isAttributeKey(utf8_key)) {
@@ -126,63 +126,63 @@ void MutableDictionary::setObjectsFromDictionary(const Dictionary & dict, CopyOp
 
 #pragma mark -
 
-void MutableDictionary::setObject(kind_ptr ptr, const std::string & utf8_key)
+void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key)
 {
 	setObject(ptr, utf8_key, CopyNone);
 }
 
-void MutableDictionary::setObject(kind_ptr ptr, const_kind_ref key)
+void MutableDictionary::setObject(Owning<Any> ptr, const Any & key)
 {
 	setObject(ptr, key, CopyNone);
 }
 
-void MutableDictionary::setObject(kind_ptr ptr, const_kind_ptr & key)
+void MutableDictionary::setObject(Owning<Any> ptr, const Owning<Any> & key)
 {
 	setObject(ptr, key, CopyNone);
 }
 
 #pragma mark -
 
-void MutableDictionary::setObject(kind_ptr ptr, const std::string & utf8_key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (ptr) {
 		if (option != CopyNone) {
-			kind_ptr k = String::with(utf8_key);
-			kind_ptr v = Object::copyObject(ptr, option);
+			Owning<Any> k = String::with(utf8_key);
+			Owning<Any> v = Object::copyObject(ptr, option);
 			m_impl[k] = v;
 		} else {
-			kind_ptr k = String::with(utf8_key);
+			Owning<Any> k = String::with(utf8_key);
 			m_impl[k] = ptr;
 		}
 	}
 }
 
-void MutableDictionary::setObject(kind_ptr ptr, const_kind_ref key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> ptr, const Any & key, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (ptr) {
 		if (option != CopyNone) {
-			kind_ptr k = key.kindCopy();
-			kind_ptr v = Object::copyObject(ptr, option);
+			Owning<Any> k = key.kindCopy();
+			Owning<Any> v = Object::copyObject(ptr, option);
 			m_impl[k] = v;
 		} else {
-			kind_ptr k = key.kindCopy();
+			Owning<Any> k = key.kindCopy();
 			m_impl[k] = ptr;
 		}
 	}
 }
 
-void MutableDictionary::setObject(kind_ptr ptr, const_kind_ptr & key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> ptr, const Owning<Any> & key, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (ptr && key) {
 		if (option != CopyNone) {
-			kind_ptr k = Object::copyObject(key, option);
-			kind_ptr v = Object::copyObject(ptr, option);
+			Owning<Any> k = Object::copyObject(key, option);
+			Owning<Any> v = Object::copyObject(ptr, option);
 			m_impl[k] = v;
 		} else {
-			kind_ptr k = key;
+			Owning<Any> k = key;
 			m_impl[k] = ptr;
 		}
 	}
@@ -208,22 +208,22 @@ void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict, CopyOp
 void MutableDictionary::removeObjectForKey(const std::string & utf8_key)
 {
 	std::lock_guard<spin_type> lck(spin());
-	kind_ptr k = String::with(utf8_key);
+	Owning<Any> k = String::with(utf8_key);
 	m_impl.erase(k);
 }
 
-void MutableDictionary::removeObjectForKey(const_kind_ref key)
+void MutableDictionary::removeObjectForKey(const Any & key)
 {
 	std::lock_guard<spin_type> lck(spin());
-	kind_ptr k = key.kindCopy();
+	Owning<Any> k = key.kindCopy();
 	m_impl.erase(k);
 }
 
-void MutableDictionary::removeObjectForKey(const_kind_ptr & key)
+void MutableDictionary::removeObjectForKey(const Owning<Any> & key)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (key) {
-		kind_ptr k = key;
+		Owning<Any> k = key;
 		m_impl.erase(k);
 	}
 }
@@ -248,13 +248,13 @@ void MutableDictionary::removeObjectsForKeys(const Array & keys)
 
 #pragma mark -
 
-kind_ptr & MutableDictionary::operator [] (const std::string & utf8_key)
+Owning<Any> & MutableDictionary::operator [] (const std::string & utf8_key)
 { return m_impl[String::with(utf8_key)]; }
 
-kind_ptr & MutableDictionary::operator [] (const_kind_ref key)
+Owning<Any> & MutableDictionary::operator [] (const Any & key)
 { return m_impl[key.kindCopy()]; }
 
-kind_ptr & MutableDictionary::operator [] (const_kind_ptr & key)
+Owning<Any> & MutableDictionary::operator [] (const Owning<Any> & key)
 { return m_impl[key]; }
 
 /* EOF */

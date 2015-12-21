@@ -40,10 +40,10 @@ namespace coconut
 		COCONUT_KTOR URLPtr with(const std::string & in);
 		COCONUT_KTOR URLPtr with(const char * in);
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::string stringValue() const

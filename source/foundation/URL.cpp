@@ -88,12 +88,12 @@ URLPtr URL::with(const char * in)
 
 #pragma mark -
 
-kind_ptr URL::copy() const
+Owning<Any> URL::copy() const
 { return ptr_create<URL>(*this); }
 
 #pragma mark -
 
-ComparisonResult URL::compare(const_kind_ref ref) const
+ComparisonResult URL::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

@@ -52,12 +52,12 @@ std::size_t IndexPath::hash() const
 
 #pragma mark -
 
-kind_ptr IndexPath::copy() const
+Owning<Any> IndexPath::copy() const
 { return ptr_create<IndexPath>(*this); }
 
 #pragma mark -
 
-ComparisonResult IndexPath::compare(const_kind_ref ref) const
+ComparisonResult IndexPath::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

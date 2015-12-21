@@ -37,9 +37,9 @@ namespace coconut
 		public:
 			bool respondsToSelectorKey(const std::string & utf8_selkey) const;
 			
-			void performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, const std::string & utf8_selkey, kind_ptr arg = {}) const;
-			void performSelectorKeyInBackground(const std::string & utf8_selkey, kind_ptr arg = {}) const;
-			kind_ptr performSelectorKey(const std::string & utf8_selkey, kind_ptr arg = {}) const;
+			void performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg = {}) const;
+			void performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
+			Owning<Any> performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 			
 		protected:
 		/*
@@ -54,13 +54,13 @@ namespace coconut
 		/*
 		* Dynamic attributes.
 		*/
-			void conveyAttributesFrom(const_kind_ref ref);
+			void conveyAttributesFrom(const Any & ref);
 			void removeAllAttributes();
 			
-			bool setAttributeForKey(kind_ptr ptr, const std::string & utf8_attrkey);
+			bool setAttributeForKey(Owning<Any> ptr, const std::string & utf8_attrkey);
 			bool removeAttributeForKey(const std::string & utf8_attrkey);
 			bool hasAttributeForKey(const std::string & utf8_attrkey) const;
-			kind_ptr attributeForKey(const std::string & utf8_attrkey) const;
+			Owning<Any> attributeForKey(const std::string & utf8_attrkey) const;
 		
 		public:
 			void setTag(std::int64_t tag);
@@ -71,7 +71,7 @@ namespace coconut
 			const std::string classTree() const;
 		
 		public:
-			const_kind_raw_ptr itself() const;
+			const Any * itself() const;
 			virtual std::size_t hash() const;
 			
 		public:
@@ -83,63 +83,63 @@ namespace coconut
 			{ COCONUT_UNUSED(no_param); T * ptr = dynamic_cast<T *>(this); return (ptr != nullptr); }
 			
 			bool isKindOf(ClassKind kind) const;
-			bool isKindOf(const_kind_ref ref, const_kind_ref other_ref) const;
-			bool isKindOf(kind_ptr ptr, kind_ptr other_ptr) const;
-			bool isKindOf(const_kind_ref ref) const;
-			bool isKindOf(kind_ptr ptr) const;
+			bool isKindOf(const Any & ref, const Any & other_ref) const;
+			bool isKindOf(Owning<Any> ptr, Owning<Any> other_ptr) const;
+			bool isKindOf(const Any & ref) const;
+			bool isKindOf(Owning<Any> ptr) const;
 			
 			bool isSubclassOf(ClassKind kind) const;
-			bool isSubclassOf(const_kind_ref ref, const_kind_ref other_ref) const;
-			bool isSubclassOf(kind_ptr ptr, kind_ptr other_ptr) const;
-			bool isSubclassOf(const_kind_ref ref) const;
-			bool isSubclassOf(kind_ptr ptr) const;
+			bool isSubclassOf(const Any & ref, const Any & other_ref) const;
+			bool isSubclassOf(Owning<Any> ptr, Owning<Any> other_ptr) const;
+			bool isSubclassOf(const Any & ref) const;
+			bool isSubclassOf(Owning<Any> ptr) const;
 			
 			bool isMemberOf(ClassKind kind) const;
-			bool isMemberOf(const_kind_ref ref, const_kind_ref other_ref) const;
-			bool isMemberOf(kind_ptr ptr, kind_ptr other_ptr) const;
-			bool isMemberOf(const_kind_ref ref) const;
-			bool isMemberOf(kind_ptr ptr) const;
+			bool isMemberOf(const Any & ref, const Any & other_ref) const;
+			bool isMemberOf(Owning<Any> ptr, Owning<Any> other_ptr) const;
+			bool isMemberOf(const Any & ref) const;
+			bool isMemberOf(Owning<Any> ptr) const;
 			
-			bool isAncestorOf(const_kind_ref ref) const;
-			bool isAncestorOf(kind_ptr ptr) const;
+			bool isAncestorOf(const Any & ref) const;
+			bool isAncestorOf(Owning<Any> ptr) const;
 			
-			bool isParentOf(const_kind_ref ref) const;
-			bool isParentOf(kind_ptr ptr) const;
+			bool isParentOf(const Any & ref) const;
+			bool isParentOf(Owning<Any> ptr) const;
 			
 		public:
 		/*
 		* Interface/Protocol iCopying: Copying object.
 		*/
-			virtual kind_ptr copy() const;
-			virtual kind_ptr mutableCopy() const;
-			kind_ptr kindCopy() const;
+			virtual Owning<Any> copy() const;
+			virtual Owning<Any> mutableCopy() const;
+			Owning<Any> kindCopy() const;
 
 		public:
 		/*
 		* Interface/Protocol iKeyValueCoding: A mechanism by which you can access the properties of an object indirectly by key.
 		*/
-			virtual kind_ptr valueForKey(const std::string & utf8_key) const;
-			virtual void setValueForKey(kind_ptr ptr, const std::string & utf8_key);
+			virtual Owning<Any> valueForKey(const std::string & utf8_key) const;
+			virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key);
 			
-			virtual kind_ptr valueForKeyPath(const std::string & utf8_keypath) const;
-			virtual void setValueForKeyPath(kind_ptr ptr, const std::string & utf8_keypath);
+			virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const;
+			virtual void setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypath);
 			
-			virtual kind_ptr valueForSelectorKey(const std::string & utf8_selkey, kind_ptr arg = {}) const;
+			virtual Owning<Any> valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 			
-			kind_ptr valueForKey(const_kind_ref key) const;
-			kind_ptr valueForKey(const_kind_ptr & key) const;
+			Owning<Any> valueForKey(const Any & key) const;
+			Owning<Any> valueForKey(const Owning<Any> & key) const;
 			
-			void setValueForKey(kind_ptr ptr, const_kind_ref key);
-			void setValueForKey(kind_ptr ptr, const_kind_ptr & key);
+			void setValueForKey(Owning<Any> ptr, const Any & key);
+			void setValueForKey(Owning<Any> ptr, const Owning<Any> & key);
 			
-			kind_ptr valueForKeyPath(const_kind_ref keypath) const;
-			kind_ptr valueForKeyPath(const_kind_ptr & keypath) const;
+			Owning<Any> valueForKeyPath(const Any & keypath) const;
+			Owning<Any> valueForKeyPath(const Owning<Any> & keypath) const;
 			
-			void setValueForKeyPath(kind_ptr ptr, const_kind_ref keypath);
-			void setValueForKeyPath(kind_ptr ptr, const_kind_ptr & keypath);
+			void setValueForKeyPath(Owning<Any> ptr, const Any & keypath);
+			void setValueForKeyPath(Owning<Any> ptr, const Owning<Any> & keypath);
 			
-			kind_ptr valueForSelectorKey(const_kind_ref selkey, kind_ptr arg = {}) const;
-			kind_ptr valueForSelectorKey(const_kind_ptr & selkey, kind_ptr arg = {}) const;
+			Owning<Any> valueForSelectorKey(const Any & selkey, Owning<Any> arg = {}) const;
+			Owning<Any> valueForSelectorKey(const Owning<Any> & selkey, Owning<Any> arg = {}) const;
 			
 		private:
 		/*
@@ -167,56 +167,56 @@ namespace coconut
 			}
 		
 		public:
-			bool isEqual(const_kind_ref ref) const;
-			bool isEqual(kind_ptr ptr) const;
+			bool isEqual(const Any & ref) const;
+			bool isEqual(Owning<Any> ptr) const;
 			
-			virtual ComparisonResult compare(const_kind_ref ref) const;
-			ComparisonResult compare(kind_ptr ptr) const;
+			virtual ComparisonResult compare(const Any & ref) const;
+			ComparisonResult compare(Owning<Any> ptr) const;
 			
-			virtual bool doesContain(const_kind_ref ref) const;
-			bool doesContain(kind_ptr ptr) const;
+			virtual bool doesContain(const Any & ref) const;
+			bool doesContain(Owning<Any> ptr) const;
 			
-			bool doesNotContain(const_kind_ref ref) const;
-			bool doesNotContain(kind_ptr ptr) const;
+			bool doesNotContain(const Any & ref) const;
+			bool doesNotContain(Owning<Any> ptr) const;
 			
-			bool isIdenticalTo(const_kind_ref ref) const;
-			bool isIdenticalTo(kind_ptr ptr) const;
+			bool isIdenticalTo(const Any & ref) const;
+			bool isIdenticalTo(Owning<Any> ptr) const;
 			
-			bool isNotIdenticalTo(const_kind_ref ref) const;
-			bool isNotisIdenticalTo(kind_ptr ptr) const;
+			bool isNotIdenticalTo(const Any & ref) const;
+			bool isNotisIdenticalTo(Owning<Any> ptr) const;
 			
-			bool isEqualTo(const_kind_ref ref) const;
-			bool isEqualTo(kind_ptr ptr) const;
+			bool isEqualTo(const Any & ref) const;
+			bool isEqualTo(Owning<Any> ptr) const;
 			
-			bool isNotEqualTo(const_kind_ref ref) const;
-			bool isNotEqualTo(kind_ptr ptr) const;
+			bool isNotEqualTo(const Any & ref) const;
+			bool isNotEqualTo(Owning<Any> ptr) const;
 			
-			bool isLessThan(const_kind_ref ref) const;
-			bool isLessThan(kind_ptr ptr) const;
+			bool isLessThan(const Any & ref) const;
+			bool isLessThan(Owning<Any> ptr) const;
 			
-			bool isLessThanOrEqualTo(const_kind_ref ref) const;
-			bool isLessThanOrEqualTo(kind_ptr ptr) const;
+			bool isLessThanOrEqualTo(const Any & ref) const;
+			bool isLessThanOrEqualTo(Owning<Any> ptr) const;
 			
-			bool isGreaterThan(const_kind_ref ref) const;
-			bool isGreaterThan(kind_ptr ptr) const;
+			bool isGreaterThan(const Any & ref) const;
+			bool isGreaterThan(Owning<Any> ptr) const;
 			
-			bool isGreaterThanOrEqualTo(const_kind_ref ref) const;
-			bool isGreaterThanOrEqualTo(kind_ptr ptr) const;
+			bool isGreaterThanOrEqualTo(const Any & ref) const;
+			bool isGreaterThanOrEqualTo(Owning<Any> ptr) const;
 			
 			/*
 			* operator identical by addresse calling @isIdenticalTo:, e.g left and right are truely the same.
 			*/
-			bool operator &= (const_kind_ref ref) const;
+			bool operator &= (const Any & ref) const;
 			
 			/*
 			* operators identical and comparison by value calling @compare:.
 			*/
-			bool operator == (const_kind_ref ref) const;
-			bool operator != (const_kind_ref ref) const;
-			bool operator <  (const_kind_ref ref) const;
-			bool operator <= (const_kind_ref ref) const;
-			bool operator >  (const_kind_ref ref) const;
-			bool operator >= (const_kind_ref ref) const;
+			bool operator == (const Any & ref) const;
+			bool operator != (const Any & ref) const;
+			bool operator <  (const Any & ref) const;
+			bool operator <= (const Any & ref) const;
+			bool operator >  (const Any & ref) const;
+			bool operator >= (const Any & ref) const;
 		
 		public:
 		/*
@@ -250,10 +250,10 @@ namespace coconut
 			virtual std::size_t size() const;
 			
 		public:
-			friend inline std::ostream & operator << (std::ostream & os, const_kind_ref ref)
+			friend inline std::ostream & operator << (std::ostream & os, const Any & ref)
 			{ os << ref.stringValue(); return os; }
 			
-			friend inline std::ostream & operator << (std::ostream & os, const_kind_ptr ptr)
+			friend inline std::ostream & operator << (std::ostream & os, const Owning<Any> ptr)
 			{ if (ptr) { os << ptr->stringValue(); } return os; }
 			
 		private:
@@ -262,7 +262,7 @@ namespace coconut
 			bool mutability() const;
 			
 		private:
-			std::unordered_map<std::string, kind_ptr> m_attrs;
+			std::unordered_map<std::string, Owning<Any>> m_attrs;
 			std::vector<ClassKind> m_kinds;
 			std::string m_addr;
 			ClassKind m_kind;

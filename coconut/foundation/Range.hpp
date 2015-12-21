@@ -29,13 +29,13 @@ namespace coconut
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr mutableCopy() const
+		virtual Owning<Any> mutableCopy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::string stringValue() const

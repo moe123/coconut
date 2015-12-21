@@ -26,8 +26,8 @@ namespace coconut
 		MutableArray(const Array & arr, CopyOption option);
 		MutableArray(Array && arr);
 		
-		MutableArray(const std::initializer_list<kind_ptr> & args);
-		MutableArray(const std::initializer_list<kind_raw_ptr> & args);
+		MutableArray(const std::initializer_list<Owning<Any>> & args);
+		MutableArray(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		MutableArray(IterT && beg, IterT && end) :
@@ -51,8 +51,8 @@ namespace coconut
 		COCONUT_KTOR MutableArrayPtr with(const Array & arr, CopyOption option);
 		COCONUT_KTOR MutableArrayPtr with(Array && arr);
 		
-		COCONUT_KTOR MutableArrayPtr with(const std::initializer_list<kind_ptr> & args);
-		COCONUT_KTOR MutableArrayPtr with(const std::initializer_list<kind_raw_ptr> & args);
+		COCONUT_KTOR MutableArrayPtr with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR MutableArrayPtr with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		COCONUT_KTOR MutableArrayPtr with(IterT && beg, IterT && end)
@@ -65,7 +65,7 @@ namespace coconut
 		COCONUT_KTOR MutableArrayPtr with(const Path & path);
 		COCONUT_KTOR MutableArrayPtr with(const URL & url);
 		
-		virtual void setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;
 		
 		void setArray(MutableArray && arr);
@@ -82,23 +82,23 @@ namespace coconut
 		void setObjects(IterT && beg, IterT && end, CopyOption option)
 		{ setObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
-		void setObject(const_kind_ref obj, std::size_t at_idx);
-		void setObject(const_kind_ref obj, std::size_t at_idx, CopyOption option);
+		void setObject(const Any & obj, std::size_t at_idx);
+		void setObject(const Any & obj, std::size_t at_idx, CopyOption option);
 		
-		void setObject(kind_ptr obj, std::size_t at_idx);
-		void setObject(kind_ptr obj, std::size_t at_idx, CopyOption option);
+		void setObject(Owning<Any> obj, std::size_t at_idx);
+		void setObject(Owning<Any> obj, std::size_t at_idx, CopyOption option);
 		
-		void addObject(const_kind_ref obj);
-		void addObject(const_kind_ref obj, CopyOption option);
+		void addObject(const Any & obj);
+		void addObject(const Any & obj, CopyOption option);
 		
-		void addObject(kind_ptr obj);
-		void addObject(kind_ptr obj, CopyOption option);
+		void addObject(Owning<Any> obj);
+		void addObject(Owning<Any> obj, CopyOption option);
 		
-		void insertObject(const_kind_ref obj, std::size_t at_idx);
-		void insertObject(const_kind_ref obj, std::size_t at_idx, CopyOption option);
+		void insertObject(const Any & obj, std::size_t at_idx);
+		void insertObject(const Any & obj, std::size_t at_idx, CopyOption option);
 		
-		void insertObject(kind_ptr obj, std::size_t at_idx);
-		void insertObject(kind_ptr obj, std::size_t at_idx, CopyOption option);
+		void insertObject(Owning<Any> obj, std::size_t at_idx);
+		void insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption option);
 		
 		void exchangeObjectAtIndex(std::size_t idx1, std::size_t idx2);
 		
@@ -115,17 +115,17 @@ namespace coconut
 		
 		void removeObjectAtIndex(std::size_t index);
 		
-		void removeObject(const_kind_ref obj);
-		void removeObject(const_kind_ref obj, const Range & in_rg);
+		void removeObject(const Any & obj);
+		void removeObject(const Any & obj, const Range & in_rg);
 		
-		void removeObject(const_kind_ptr & obj);
-		void removeObject(const_kind_ptr & obj, const Range & in_rg);
+		void removeObject(const Owning<Any> & obj);
+		void removeObject(const Owning<Any> & obj, const Range & in_rg);
 		
-		void removeObjectIdenticalTo(const_kind_ref obj);
-		void removeObjectIdenticalTo(const_kind_ref obj, const Range & in_rg);
+		void removeObjectIdenticalTo(const Any & obj);
+		void removeObjectIdenticalTo(const Any & obj, const Range & in_rg);
 		
-		void removeObjectIdenticalTo(const_kind_ptr & obj);
-		void removeObjectIdenticalTo(const_kind_ptr & obj, const Range & in_rg);
+		void removeObjectIdenticalTo(const Owning<Any> & obj);
+		void removeObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg);
 		
 		void removeObjectsInArray(const Array & arr);
 		void removeObjectsInRange(const Range & in_rg);
@@ -145,11 +145,11 @@ namespace coconut
 		void reverse();
 		void unique();
 		
-		void filterUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func);
-		void filterUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options);
+		void filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func);
+		void filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options);
 		
-		void sortUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func);
-		void sortUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, SortOptions options);
+		void sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func);
+		void sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, SortOptions options);
 
 		void sortAscending();
 		void sortAscending(SortOptions options);
@@ -168,7 +168,7 @@ namespace coconut
 		void sortUsingDescriptors(const Array & descriptors, SortOptions options);
 
 	public:
-		kind_ptr & operator [] (std::size_t index);
+		Owning<Any> & operator [] (std::size_t index);
 	};
 }
 

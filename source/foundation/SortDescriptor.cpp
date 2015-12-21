@@ -58,12 +58,12 @@ SortDescriptorPtr SortDescriptor::with(const String & key, const String & selkey
 
 #pragma mark -
 
-kind_ptr SortDescriptor::copy() const
+Owning<Any> SortDescriptor::copy() const
 { return ptr_create<SortDescriptor>(*this); }
 
 #pragma mark -
 
-ComparisonResult SortDescriptor::compare(const_kind_ref ref) const
+ComparisonResult SortDescriptor::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;
@@ -84,21 +84,21 @@ ComparisonResult SortDescriptor::compare(const_kind_ref ref) const
 
 #pragma mark -
 
-ComparisonResult SortDescriptor::compareObject(const_kind_ptr & a, const_kind_ptr & b) const
+ComparisonResult SortDescriptor::compareObject(const Owning<Any> & a, const Owning<Any> & b) const
 {
 	if (a && b) {
-		kind_ptr aa = a->valueForKeyPath(std::get<0>(m_impl));
-		kind_ptr bb = b->valueForKeyPath(std::get<0>(m_impl));
+		Owning<Any> aa = a->valueForKeyPath(std::get<0>(m_impl));
+		Owning<Any> bb = b->valueForKeyPath(std::get<0>(m_impl));
 		if (aa && bb) {
 			if (std::get<2>(m_impl)) {
 				if (std::get<1>(m_impl) != u8"@compare:") {
-					kind_ptr sel_cmp = aa->valueForSelectorKey(std::get<1>(m_impl), bb);
+					Owning<Any> sel_cmp = aa->valueForSelectorKey(std::get<1>(m_impl), bb);
 					return sel_cmp ? sel_cmp->intValue() : aa->compare(*bb);
 				}
 				return aa->compare(*bb);
 			} else {
 				if (std::get<1>(m_impl) != u8"@compare:") {
-					kind_ptr sel_cmp = bb->valueForSelectorKey(std::get<1>(m_impl), aa);
+					Owning<Any> sel_cmp = bb->valueForSelectorKey(std::get<1>(m_impl), aa);
 					return sel_cmp ? sel_cmp->intValue() : bb->compare(*aa);
 				}
 				return bb->compare(*aa);

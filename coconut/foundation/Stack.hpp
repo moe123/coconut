@@ -26,20 +26,20 @@ namespace coconut
 		COCONUT_KTOR StackPtr with(Stack && stk);
 		
 	public:
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::size_t size() const
 		COCONUT_FINAL_OVERRIDE;
 	
 	public:
-		kind_ptr pop();
-		void push(kind_ptr ptr);
+		Owning<Any> pop();
+		void push(Owning<Any> ptr);
 		
 		void clear();
 		
 	protected:
-		typedef std::stack<kind_ptr> impl_type;
+		typedef std::stack<Owning<Any>> impl_type;
 		
 	private:
 		impl_type m_impl;

@@ -34,13 +34,13 @@ namespace coconut
 		COCONUT_KTOR SortDescriptorPtr with(const String & key, bool isasc = true);
 		COCONUT_KTOR SortDescriptorPtr with(const String & key, const String & selkey, bool isasc = true);
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		ComparisonResult compareObject(const_kind_ptr & a, const_kind_ptr & b) const;
+		ComparisonResult compareObject(const Owning<Any> & a, const Owning<Any> & b) const;
 		
 		const SortDescriptor reversedSortDescriptor();
 		

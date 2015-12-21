@@ -50,12 +50,12 @@ std::size_t Slice::hash() const
 
 #pragma mark -
 
-kind_ptr Slice::copy() const
+Owning<Any> Slice::copy() const
 { return ptr_create<Slice>(*this); }
 
 #pragma mark -
 
-ComparisonResult Slice::compare(const_kind_ref ref) const
+ComparisonResult Slice::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;

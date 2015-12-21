@@ -33,11 +33,11 @@ MutableArray::MutableArray(const Array & arr, CopyOption option) :
 	Array(arr.cbegin(), arr.cend(), option)
 { setClassKind(MutableArrayClass, true); }
 
-MutableArray::MutableArray(const std::initializer_list<kind_ptr> & args) :
+MutableArray::MutableArray(const std::initializer_list<Owning<Any>> & args) :
 	Array(args)
 { setClassKind(MutableArrayClass, true); }
 
-MutableArray::MutableArray(const std::initializer_list<kind_raw_ptr> & args) :
+MutableArray::MutableArray(const std::initializer_list<Any *> & args) :
 	Array(args)
 { setClassKind(MutableArrayClass, true); }
 
@@ -72,10 +72,10 @@ MutableArrayPtr MutableArray::with(const Array & arr, CopyOption option)
 MutableArrayPtr MutableArray::with(Array && arr)
 { return ptr_create<MutableArray>(std::move(arr)); }
 
-MutableArrayPtr MutableArray::with(const std::initializer_list<kind_ptr> & args)
+MutableArrayPtr MutableArray::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<MutableArray>(args); }
 
-MutableArrayPtr MutableArray::with(const std::initializer_list<kind_raw_ptr> & args)
+MutableArrayPtr MutableArray::with(const std::initializer_list<Any *> & args)
 { return ptr_create<MutableArray>(args); }
 
 MutableArrayPtr MutableArray::with(const Path & path)
@@ -86,7 +86,7 @@ MutableArrayPtr MutableArray::with(const URL & url)
 
 #pragma mark -
 
-void MutableArray::setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+void MutableArray::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 {
 	if (runtime::algorithm::is_integer(utf8_key, true)) {
 		setObject(ptr, runtime::algorithm::to_numeric<std::size_t>(utf8_key));
@@ -116,18 +116,18 @@ void MutableArray::setObjectsFromArray(const Array & arr, CopyOption option)
 
 #pragma mark -
 
-void MutableArray::setObject(const_kind_ref obj, std::size_t at_idx)
+void MutableArray::setObject(const Any & obj, std::size_t at_idx)
 { setObject(Object::copyObject(obj, CopyKind), at_idx, CopyNone); }
 
-void MutableArray::setObject(const_kind_ref obj, std::size_t at_idx, CopyOption option)
+void MutableArray::setObject(const Any & obj, std::size_t at_idx, CopyOption option)
 { setObject(Object::copyObject(obj, option), at_idx, CopyNone); }
 
 #pragma mark -
 
-void MutableArray::setObject(kind_ptr obj, std::size_t at_idx)
+void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx)
 { setObject(obj, at_idx, CopyNone); }
 
-void MutableArray::setObject(kind_ptr obj, std::size_t at_idx, CopyOption option)
+void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
@@ -135,14 +135,14 @@ void MutableArray::setObject(kind_ptr obj, std::size_t at_idx, CopyOption option
 			if (option == CopyNone) {
 				m_impl.at(at_idx) = obj;
 			} else {
-				kind_ptr copy = Object::copyObject(obj, option);
+				Owning<Any> copy = Object::copyObject(obj, option);
 				if (copy) { m_impl.at(at_idx) = copy; }
 			}
 		} else {
 			if (option == CopyNone) {
 				m_impl.push_back(obj);
 			} else {
-				kind_ptr copy = Object::copyObject(obj, option);
+				Owning<Any> copy = Object::copyObject(obj, option);
 				if (copy) { m_impl.push_back(copy); }
 			}
 		}
@@ -151,25 +151,25 @@ void MutableArray::setObject(kind_ptr obj, std::size_t at_idx, CopyOption option
 
 #pragma mark -
 
-void MutableArray::addObject(const_kind_ref obj)
+void MutableArray::addObject(const Any & obj)
 { addObject(Object::copyObject(obj, CopyKind), CopyNone); }
 
-void MutableArray::addObject(const_kind_ref obj, CopyOption option)
+void MutableArray::addObject(const Any & obj, CopyOption option)
 { addObject(Object::copyObject(obj, option), CopyNone); }
 
 #pragma mark -
 
-void MutableArray::addObject(kind_ptr obj)
+void MutableArray::addObject(Owning<Any> obj)
 { addObject(obj, CopyNone); }
 
-void MutableArray::addObject(kind_ptr obj, CopyOption option)
+void MutableArray::addObject(Owning<Any> obj, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
 		if (option == CopyNone) {
 			m_impl.push_back(obj);
 		} else {
-			kind_ptr copy = Object::copyObject(obj, option);
+			Owning<Any> copy = Object::copyObject(obj, option);
 			if (copy) { m_impl.push_back(copy); }
 		}
 	}
@@ -177,28 +177,28 @@ void MutableArray::addObject(kind_ptr obj, CopyOption option)
 
 #pragma mark -
 
-void MutableArray::insertObject(const_kind_ref obj, std::size_t at_idx)
+void MutableArray::insertObject(const Any & obj, std::size_t at_idx)
 { insertObject(Object::copyObject(obj, CopyKind), at_idx, CopyNone); }
 
-void MutableArray::insertObject(const_kind_ref obj, std::size_t at_idx, CopyOption option)
+void MutableArray::insertObject(const Any & obj, std::size_t at_idx, CopyOption option)
 { insertObject(Object::copyObject(obj, option), at_idx, CopyNone); }
 
 #pragma mark -
 
-void MutableArray::insertObject(kind_ptr obj, std::size_t at_idx)
+void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx)
 { insertObject(obj, at_idx, CopyNone); }
 
-void MutableArray::insertObject(kind_ptr obj, std::size_t at_idx, CopyOption option)
+void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
 		if (at_idx <= size()) {
 			if (at_idx == size()) {
-				kind_ptr copy = Object::copyObject(obj, option);
+				Owning<Any> copy = Object::copyObject(obj, option);
 				if (copy) { m_impl.push_back(copy); }
 			} else {
 				const_iterator it = cbegin() + static_cast<difference_type>(at_idx);
-				kind_ptr copy = Object::copyObject(obj, option);
+				Owning<Any> copy = Object::copyObject(obj, option);
 				if (copy) { m_impl.reserve(size() + 1); m_impl.insert(it, copy); }
 			}
 		}
@@ -238,7 +238,7 @@ void MutableArray::removeObjectAtIndex(std::size_t index)
 
 #pragma mark -
 
-void MutableArray::removeObject(const_kind_ref obj)
+void MutableArray::removeObject(const Any & obj)
 {
 	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -246,7 +246,7 @@ void MutableArray::removeObject(const_kind_ref obj)
 	}
 }
 
-void MutableArray::removeObject(const_kind_ref obj, const Range & in_rg)
+void MutableArray::removeObject(const Any & obj, const Range & in_rg)
 {
 	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = size();
@@ -266,15 +266,15 @@ void MutableArray::removeObject(const_kind_ref obj, const Range & in_rg)
 
 #pragma mark -
 
-void MutableArray::removeObject(const_kind_ptr & obj)
+void MutableArray::removeObject(const Owning<Any> & obj)
 { if (obj) { removeObject(*obj); } }
 
-void MutableArray::removeObject(const_kind_ptr & obj, const Range & in_rg)
+void MutableArray::removeObject(const Owning<Any> & obj, const Range & in_rg)
 { if (obj) { removeObject(*obj, in_rg); } }
 
 #pragma mark -
 
-void MutableArray::removeObjectIdenticalTo(const_kind_ref obj)
+void MutableArray::removeObjectIdenticalTo(const Any & obj)
 {
 	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -282,7 +282,7 @@ void MutableArray::removeObjectIdenticalTo(const_kind_ref obj)
 	}
 }
 
-void MutableArray::removeObjectIdenticalTo(const_kind_ref obj, const Range & in_rg)
+void MutableArray::removeObjectIdenticalTo(const Any & obj, const Range & in_rg)
 {
 	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = size();
@@ -303,10 +303,10 @@ void MutableArray::removeObjectIdenticalTo(const_kind_ref obj, const Range & in_
 
 #pragma mark -
 
-void MutableArray::removeObjectIdenticalTo(const_kind_ptr & obj)
+void MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj)
 { if (obj) { removeObjectIdenticalTo(*obj); } }
 
-void MutableArray::removeObjectIdenticalTo(const_kind_ptr & obj, const Range & in_rg)
+void MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg)
 { if (obj) { removeObjectIdenticalTo(*obj, in_rg); } }
 
 #pragma mark -
@@ -372,7 +372,7 @@ void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from
 			impl_type buf;
 			std::size_t loc = from_rg.location(), max = 0;
 			for (std::size_t i = 0; i < from_rg.length(); i++) {
-				kind_ptr item = from.objectAtIndex(loc + i);
+				Owning<Any> item = from.objectAtIndex(loc + i);
 				if (item) { buf.push_back(item); }
 			}
 
@@ -403,18 +403,18 @@ void MutableArray::unique()
 
 #pragma mark -
 
-void MutableArray::filterUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func)
+void MutableArray::filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func)
 { filterUsingFunction(func, EnumerationDefault); }
 
-void MutableArray::filterUsingFunction(const std::function<bool(const_kind_ptr & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options)
+void MutableArray::filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options)
 { setObjectsFromArray(filteredArrayUsingFunction(func, CopyNone, options)); }
 
 #pragma mark -
 
-void MutableArray::sortUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func)
+void MutableArray::sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func)
 { sortUsingFunction(func, SortConcurrent); }
 
-void MutableArray::sortUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, SortOptions options)
+void MutableArray::sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, SortOptions options)
 { setObjectsFromArray(sortedArrayUsingFunction(func, CopyNone, options)); }
 
 void MutableArray::sortAscending()
@@ -458,7 +458,7 @@ void MutableArray::sortUsingDescriptors(const Array & descriptors, SortOptions o
 
 #pragma mark -
 
-kind_ptr & MutableArray::operator [] (std::size_t index)
+Owning<Any> & MutableArray::operator [] (std::size_t index)
 {
 	std::size_t sz = m_impl.size();
 	if (index >= sz) {

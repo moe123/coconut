@@ -23,8 +23,8 @@ namespace coconut
 		
 		Set(Set && set);
 
-		Set(const std::initializer_list<kind_ptr> & args);
-		Set(const std::initializer_list<kind_raw_ptr> & args);
+		Set(const std::initializer_list<Owning<Any>> & args);
+		Set(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		Set(IterT && beg, IterT && end) :
@@ -34,14 +34,14 @@ namespace coconut
 		template <typename IterT>
 		Set(IterT && beg, IterT && end, CopyOption option) :
 			Object(SetClass),
-			m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) != OrderedSame); })
 		{
 			IterT it = beg;
 			while (it != end) {
 				if ((*it)) {
 					if (option != CopyNone) {
-						kind_ptr copy = Object::copyObject((*it), option);
+						Owning<Any> copy = Object::copyObject((*it), option);
 						if (copy) { m_impl.insert(copy); }
 					} else {
 						m_impl.insert((*it));
@@ -56,8 +56,8 @@ namespace coconut
 		COCONUT_KTOR SetPtr with(const Set & set);
 		COCONUT_KTOR SetPtr with(const Set & set, CopyOption option);
 		COCONUT_KTOR SetPtr with(Set && set);
-		COCONUT_KTOR SetPtr with(const std::initializer_list<kind_ptr> & args);
-		COCONUT_KTOR SetPtr with(const std::initializer_list<kind_raw_ptr> & args);
+		COCONUT_KTOR SetPtr with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR SetPtr with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
 		COCONUT_KTOR SetPtr with(IterT && beg, IterT && end)
@@ -70,22 +70,22 @@ namespace coconut
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr copy() const
+		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		// virtual kind_ptr mutableCopy() const
+		// virtual Owning<Any> mutableCopy() const
 		// COCONUT_FINAL_OVERRIDE;
 		
-		virtual ComparisonResult compare(const_kind_ref ref) const
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual bool doesContain(const_kind_ref ref) const
+		virtual bool doesContain(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKey(const std::string & utf8_key) const
+		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		virtual kind_ptr valueForKeyPath(const std::string & utf8_keypath) const
+		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::string stringValue() const
@@ -94,35 +94,35 @@ namespace coconut
 		virtual std::size_t size() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, kind_ptr arg = {}) const;
+		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 		
-		void enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, bool & stop)> & func) const;
-		void enumerateObjectsUsingFunction(const std::function<void(const_kind_ptr & obj, bool & stop)> & func, EnumerationOptions options) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 		
-		bool containsObject(const_kind_ref obj) const;
-		bool containsObject(const_kind_ptr & obj) const;
+		bool containsObject(const Any & obj) const;
+		bool containsObject(const Owning<Any> & obj) const;
 		
 		bool intersectsSet(const Set & set) const;
 		bool isSubsetOfSet(const Set & set) const;
 		
-		kind_ptr member(const_kind_ref obj) const;
-		kind_ptr member(const_kind_ptr & obj) const;
+		Owning<Any> member(const Any & obj) const;
+		Owning<Any> member(const Owning<Any> & obj) const;
 		
-		kind_ptr anyObject() const;
-		kind_ptr firstObject() const;
-		kind_ptr lastObject() const;
+		Owning<Any> anyObject() const;
+		Owning<Any> firstObject() const;
+		Owning<Any> lastObject() const;
 		const Array allObjects(CopyOption option = CopyNone) const;
 		
-		const Set objectsPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func) const;
-		const Set objectsPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func, EnumerationOptions options) const;
+		const Set objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
+		const Set objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 		
-		bool everyObjectPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func) const;
-		bool someObjectPassingTest(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func) const;
+		bool everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
+		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
 		
-		const Set filteredSetUsingFunction(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func, CopyOption option = CopyNone) const;
-		const Set filteredSetUsingFunction(const std::function<bool(const_kind_ptr & obj, bool & stop)> & func, CopyOption option, EnumerationOptions options) const;
+		const Set filteredSetUsingFunction(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, CopyOption option = CopyNone) const;
+		const Set filteredSetUsingFunction(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, CopyOption option, EnumerationOptions options) const;
 		
-		const Set setByAddingObject(kind_ptr ptr, CopyOption option = CopyNone) const;
+		const Set setByAddingObject(Owning<Any> ptr, CopyOption option = CopyNone) const;
 		const Set setByAddingObjectsFromSet(const Set & set, CopyOption option = CopyNone) const;
 		const Set setByAddingObjectsFromOrderedSet(const OrderedSet & set, CopyOption option = CopyNone) const;
 		const Set setByAddingObjectsFromArray(const Array & arr, CopyOption option = CopyNone) const;
@@ -136,7 +136,7 @@ namespace coconut
 		{ return setByAddingObjectsFromSet(Set(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 	
 	protected:
-		typedef std::set<kind_ptr, std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> > impl_type;
+		typedef std::set<Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> > impl_type;
 		
 	public:
 		typedef impl_type::iterator iterator;

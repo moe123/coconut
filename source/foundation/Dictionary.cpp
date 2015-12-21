@@ -18,7 +18,7 @@ using namespace coconut;
 
 Dictionary::Dictionary() :
 	Object(DictionaryClass),
-	m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{ return (a->compare(*b) == OrderedAscending); })
 { /* NOP */ }
 
@@ -35,29 +35,29 @@ Dictionary::Dictionary(Dictionary && dict) :
 	m_impl(std::move(dict.m_impl))
 { /* NOP */ }
 
-Dictionary::Dictionary(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) :
+Dictionary::Dictionary(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) :
 	Dictionary(args.begin(), args.end(), CopyNone)
 { /* NOP */ }
 
-Dictionary::Dictionary(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args) :
+Dictionary::Dictionary(const std::initializer_list< std::pair<Any *, Any *> > & args) :
 	Object(DictionaryClass),
-	m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{ return (a->compare(*b) == OrderedAscending); })
 {
-	for (const std::pair<kind_raw_ptr, kind_raw_ptr> & pair : args) {
-		if (dynamic_cast<kind_raw_ptr>(pair.first) != nullptr && dynamic_cast<kind_raw_ptr>(pair.second) != nullptr) { m_impl.insert(std::make_pair(pair.first->kindCopy(), pair.second->kindCopy())); }
+	for (const std::pair<Any *, Any *> & pair : args) {
+		if (dynamic_cast<Any *>(pair.first) != nullptr && dynamic_cast<Any *>(pair.second) != nullptr) { m_impl.insert(std::make_pair(pair.first->kindCopy(), pair.second->kindCopy())); }
 	}
 }
 
 Dictionary::Dictionary(const Path & path) :
 	Object(DictionaryClass),
-	m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{ return (a->compare(*b) == OrderedAscending); })
 { /* TODO SERIALIZATION */ }
 
 Dictionary::Dictionary(const URL & url) :
 	Object(DictionaryClass),
-	m_impl([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{ return (a->compare(*b) == OrderedAscending); })
 { /* TODO SERIALIZATION */ }
 
@@ -78,10 +78,10 @@ DictionaryPtr Dictionary::with(const Dictionary & dict, CopyOption option)
 DictionaryPtr Dictionary::with(Dictionary && dict)
 { return ptr_create<Dictionary>(std::move(dict)); }
 
-DictionaryPtr Dictionary::with(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args)
+DictionaryPtr Dictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
 { return ptr_create<Dictionary>(args); }
 
-DictionaryPtr Dictionary::with(const std::initializer_list< std::pair<kind_raw_ptr, kind_raw_ptr> > & args)
+DictionaryPtr Dictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
 { return ptr_create<Dictionary>(args); }
 
 DictionaryPtr Dictionary::with(const Path & path)
@@ -109,15 +109,15 @@ std::size_t Dictionary::hash() const
 
 #pragma mark -
 
-kind_ptr Dictionary::copy() const
+Owning<Any> Dictionary::copy() const
 { return ptr_create<Dictionary>(cbegin(), cend(), CopyKind); }
 
-kind_ptr Dictionary::mutableCopy() const
+Owning<Any> Dictionary::mutableCopy() const
 { return ptr_create<MutableDictionary>(cbegin(), cend(), CopyKind); }
 
 #pragma mark -
 
-ComparisonResult Dictionary::compare(const_kind_ref ref) const
+ComparisonResult Dictionary::compare(const Any & ref) const
 {
 	if (isIdenticalTo(ref)) {
 		return OrderedSame;
@@ -128,7 +128,7 @@ ComparisonResult Dictionary::compare(const_kind_ref ref) const
 		} else if (size() > ref_cast<Dictionary>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Dictionary>(ref).cbegin(), [] (const std::pair<kind_ptr, kind_ptr> & a, const std::pair<kind_ptr, kind_ptr> & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<Dictionary>(ref).cbegin(), [] (const std::pair<Owning<Any>, Owning<Any>> & a, const std::pair<Owning<Any>, Owning<Any>> & b) -> bool
 			{
 				if (a.first && a.second && b.first && b.second) {
 					if (((a.first)->compare(*(b.first)) == OrderedSame)) {
@@ -144,7 +144,7 @@ ComparisonResult Dictionary::compare(const_kind_ref ref) const
 	return OrderedDescending;
 }
 
-bool Dictionary::doesContain(const_kind_ref ref) const
+bool Dictionary::doesContain(const Any & ref) const
 { return containsKey(ref); }
 
 #pragma mark -
@@ -159,7 +159,7 @@ std::size_t Dictionary::size() const
 
 #pragma mark -
 
-kind_ptr Dictionary::valueForKey(const std::string & utf8_key) const
+Owning<Any> Dictionary::valueForKey(const std::string & utf8_key) const
 {
 	if(isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
@@ -171,12 +171,12 @@ kind_ptr Dictionary::valueForKey(const std::string & utf8_key) const
 
 #pragma mark -
 
-const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	Array::impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		kind_ptr k = (*it).first;
-		kind_ptr v;
+		Owning<Any> k = (*it).first;
+		Owning<Any> v;
 		if (k) {
 			//v = k->valueForSelectorKey(utf8_selkey, arg);
 			v = k->performSelectorKey(utf8_selkey, arg);
@@ -189,12 +189,12 @@ const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selk
 
 #pragma mark -
 
-void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const_kind_ptr & key, const_kind_ptr & obj, bool & stop)> & func) const
+void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func) const
 {
 	enumerateKeysAndObjectsUsingFunction(func, EnumerationDefault);
 }
 
-void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const_kind_ptr & key, const_kind_ptr & obj, bool & stop)> & func, EnumerationOptions options) const
+void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -283,7 +283,7 @@ void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(c
 bool Dictionary::containsKey(const std::string & utf8_key) const
 { return containsKey(String(utf8_key)); }
 
-bool Dictionary::containsKey(const_kind_ref key) const
+bool Dictionary::containsKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
@@ -297,15 +297,15 @@ bool Dictionary::containsKey(const_kind_ref key) const
 	return false;
 }
 
-bool Dictionary::containsKey(const_kind_ptr & key) const
+bool Dictionary::containsKey(const Owning<Any> & key) const
 { if (key) { return containsKey(*key); } return false; }
 
 #pragma mark -
 
-kind_ptr Dictionary::objectForKey(const std::string & utf8_key) const
+Owning<Any> Dictionary::objectForKey(const std::string & utf8_key) const
 { return objectForKey(String(utf8_key)); }
 
-kind_ptr Dictionary::objectForKey(const_kind_ref key) const
+Owning<Any> Dictionary::objectForKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
@@ -320,17 +320,17 @@ kind_ptr Dictionary::objectForKey(const_kind_ref key) const
 	return {};
 }
 
-kind_ptr Dictionary::objectForKey(const_kind_ptr & key) const
+Owning<Any> Dictionary::objectForKey(const Owning<Any> & key) const
 { if (key) { return objectForKey(*key); } return {}; }
 
 #pragma mark -
 
-kind_ptr Dictionary::objectForCaseInsensitiveKey(const std::string & utf8_key) const
+Owning<Any> Dictionary::objectForCaseInsensitiveKey(const std::string & utf8_key) const
 {
 	return objectForCaseInsensitiveKey(String(utf8_key));
 }
 
-kind_ptr Dictionary::objectForCaseInsensitiveKey(const_kind_ref key) const
+Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
@@ -351,17 +351,17 @@ kind_ptr Dictionary::objectForCaseInsensitiveKey(const_kind_ref key) const
 	return {};
 }
 
-kind_ptr Dictionary::objectForCaseInsensitiveKey(const_kind_ptr & key) const
+Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Owning<Any> & key) const
 { if (key) { return objectForCaseInsensitiveKey(*key); } return {}; }
 
 #pragma mark -
 
-const Array Dictionary::objectsForKeys(const Array & keys, kind_ptr notFoundMarker)
+const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundMarker)
 {
 	Array::impl_type buf;
 	for (Array::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) {
-			kind_ptr v;
+			Owning<Any> v;
 			if (!(v = objectForKey(*(*it)))) {
 				if (notFoundMarker) { v = notFoundMarker; } else { v = None::with(); }
 			}
@@ -390,7 +390,7 @@ const Array Dictionary::allKeys(CopyOption option) const
 
 #pragma mark -
 
-const Array Dictionary::allKeysForObject(const_kind_ref obj, CopyOption option) const
+const Array Dictionary::allKeysForObject(const Any & obj, CopyOption option) const
 {
 	Array::impl_type buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -403,7 +403,7 @@ const Array Dictionary::allKeysForObject(const_kind_ref obj, CopyOption option) 
 	return Array(buf.cbegin(), buf.cend(), option);
 }
 
-const Array Dictionary::allKeysForObject(const_kind_ptr & obj, CopyOption option) const
+const Array Dictionary::allKeysForObject(const Owning<Any> & obj, CopyOption option) const
 { if (obj) { return allKeysForObject(*obj, option); } return {}; }
 
 #pragma mark -
@@ -423,7 +423,7 @@ const Array Dictionary::allValues(CopyOption option) const
 
 #pragma mark -
 
-const Array Dictionary::keysSortedByValueUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option) const
+const Array Dictionary::keysSortedByValueUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option) const
 {
 	Array::impl_type buf;
 	Array values = allValues().sortedArrayUsingFunction(func);
@@ -438,7 +438,7 @@ const Array Dictionary::keysSortedByValueUsingFunction(const std::function<bool(
 
 const Array Dictionary::keysSortedByValueAscending(CopyOption option) const
 {
-	return keysSortedByValueUsingFunction([] (const_kind_ptr & a, const_kind_ptr & b) -> bool
+	return keysSortedByValueUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedAscending); } return false;
 	}, option);
@@ -446,7 +446,7 @@ const Array Dictionary::keysSortedByValueAscending(CopyOption option) const
 
 const Array Dictionary::keysSortedByValueDescending(CopyOption option) const
 {
-	return keysSortedByValueUsingFunction([] (const_kind_ptr & a, const_kind_ptr & b)
+	return keysSortedByValueUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b)
 	{
 		if (a && b) { return (a->compare(*b) == OrderedDescending); } return false;
 	}, option);
@@ -454,10 +454,10 @@ const Array Dictionary::keysSortedByValueDescending(CopyOption option) const
 
 #pragma mark -
 
-const Array Dictionary::keysSortedUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option) const
+const Array Dictionary::keysSortedUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option) const
 { return allKeys().sortedArrayUsingFunction(func, option, SortConcurrent|SortDefault); }
 
-const Array Dictionary::keysSortedUsingFunction(const std::function<bool(const_kind_ptr & a, const_kind_ptr & b)> & func, CopyOption option, SortOptions options) const
+const Array Dictionary::keysSortedUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option, SortOptions options) const
 { return allKeys().sortedArrayUsingFunction(func, option, options); }
 
 #pragma mark -
@@ -505,7 +505,7 @@ const Array Dictionary::keysSortedUsingDescriptors(const Array & descriptors, Co
 
 #pragma mark -
 
-const Set Dictionary::keysOfEntriesPassingTest(const std::function<bool(const_kind_ptr & key, bool & stop)> & func, CopyOption option) const
+const Set Dictionary::keysOfEntriesPassingTest(const std::function<bool(const Owning<Any> & key, bool & stop)> & func, CopyOption option) const
 {
 	Set::impl_type buf;
 	if (size()) {
@@ -535,13 +535,13 @@ bool Dictionary::writeToURL(const URL & url, bool atomically) const
 
 #pragma mark -
 
-const_kind_ptr Dictionary::operator [] (const std::string & utf8_key) const
+const Owning<Any> Dictionary::operator [] (const std::string & utf8_key) const
 { return objectForKey(String(utf8_key)); }
 
-const_kind_ptr Dictionary::operator [] (const_kind_ref key) const
+const Owning<Any> Dictionary::operator [] (const Any & key) const
 { return objectForKey(key); }
 
-const_kind_ptr Dictionary::operator [] (const_kind_ptr & key) const
+const Owning<Any> Dictionary::operator [] (const Owning<Any> & key) const
 { return objectForKey(key); }
 
 #pragma mark -

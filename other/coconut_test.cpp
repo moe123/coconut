@@ -18,21 +18,19 @@ COCONUT_SECTION_FINI
 	std::cerr << " _fini " << std::endl;
 }
 
-const_kind_ptr operator "" _U(const char * in, std::size_t sz)
+const Owning<Any> operator "" _U(const char * in, std::size_t sz)
 { return String::with(in); }
 	
-const_kind_ptr operator "" _U(const char16_t * in, std::size_t sz)
+const Owning<Any> operator "" _U(const char16_t * in, std::size_t sz)
 { return String::with(in); }
 	
-const_kind_ptr operator "" _U(long double in)
+const Owning<Any> operator "" _U(long double in)
 { return Number::with(in); }
 	
-const_kind_ptr operator "" _U(unsigned long long in)
+const Owning<Any> operator "" _U(unsigned long long in)
 { return Number::with(in); }
-
-
 	
-static void print_ref(const_kind_ref ref)
+static void print_ref(const Any & ref)
 {
 	auto array = With<Array>
 	({
@@ -104,7 +102,7 @@ static void print_array(const Array & a)
 	}
 	
 	std::cerr << "+ ---- + " << std::endl;
-	kind_ptr item;
+	Owning<Any> item;
 	std::size_t idx = 0;
 	
 	for (idx = 0 ; idx < a.size() ; ++idx) {
@@ -221,7 +219,7 @@ static void test_array(void)
 		i--;
 	}
 	
-	std::size_t idx = a.indexOfObjectPassingTest([] (const_kind_ptr & obj, std::size_t index, bool & stop) -> bool {
+	std::size_t idx = a.indexOfObjectPassingTest([] (const Owning<Any> & obj, std::size_t index, bool & stop) -> bool {
 		if (obj && obj->unsignedIntValue() > 2U) {
 			return true;
 		}
@@ -232,7 +230,7 @@ static void test_array(void)
 	
 	std::cerr << "main this_thread  : " << std::this_thread::get_id() << std::endl;
 	
-	idx = a.indexOfObjectPassingTest([&n1] (const_kind_ptr & obj, std::size_t index, bool & stop) -> bool {
+	idx = a.indexOfObjectPassingTest([&n1] (const Owning<Any> & obj, std::size_t index, bool & stop) -> bool {
 		if (obj && obj->isEqual(n1)) {
 			std::cerr << "indexOfObjectPassingTest idx : " << index << " " <<  obj << std::this_thread::get_id() << std::endl;
 			return true;
@@ -266,7 +264,7 @@ static void test_array(void)
 	print_array(*b);
 	
 	NumberPtr n00 = Number::with(1L);
-	kind_ptr n11 = Number::with(4U);
+	Owning<Any> n11 = Number::with(4U);
 	NumberPtr n22 = Number::with(-3L);
 	auto n33 = Number::with(n2);
 	
@@ -497,7 +495,7 @@ static void test_stuff(void)
 	MutableArray people;
 	
 	firstNames.enumerateObjectsUsingFunction(
-		[&lastNames, &ages, &keys, &people] (const_kind_ptr & obj, std::size_t index, bool & stop)
+		[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
 		people.addObject(
 			Dictionary::with({
@@ -579,7 +577,7 @@ static void test_stuff(void)
 	std::cerr << "past: " << Date::distantPast()  << std::endl;
 	std::cerr << "future: " << Date::distantFuture()  << std::endl;
 	
-	kind_ptr now = Date::with();
+	Owning<Any> now = Date::with();
 	
 	std::cerr << "now: " << now << std::endl;
 	
@@ -589,7 +587,7 @@ static void test_stuff(void)
 	
 	encoding_option encoding;
 	float confidence;
-	//const char *  bom = u8"\xEF\xBB\xBF";
+	//const char * bom = u8"\xEF\xBB\xBF";
 	std::string hello = u8"hello & wérld!";
 	ustring::guess_encoding(hello, encoding, confidence);
 	

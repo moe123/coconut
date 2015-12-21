@@ -26,39 +26,39 @@ namespace coconut
 		virtual ~Object();
 	
 	public:
-		COCONUT_KTOD kind_ptr copyObject(const_kind_ref ref, CopyOption option);
-		COCONUT_KTOD kind_ptr copyObject(const_kind_ptr & ptr, CopyOption option);
+		COCONUT_KTOD Owning<Any> copyObject(const Any & ref, CopyOption option);
+		COCONUT_KTOD Owning<Any> copyObject(const Owning<Any> & ptr, CopyOption option);
 		
 	public:
 	/*
 	* iKeyValueCoding compliant.
 	*/
-		virtual kind_ptr valueForKey(const std::string & utf8_key) const
+		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_OVERRIDE;
 		
-		virtual void setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_OVERRIDE;
 		
-		virtual kind_ptr valueForSelectorKey(const std::string & utf8_selkey, kind_ptr arg = {}) const
+		virtual Owning<Any> valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const
 		COCONUT_OVERRIDE;
 		
 	protected:
 	/*
 	* iKeyValueCoding collection operators.
 	*/
-		kind_ptr sum(const std::string & utf8_key) const;
-		kind_ptr min(const std::string & utf8_key) const;
-		kind_ptr max(const std::string & utf8_key) const;
-		kind_ptr avg(const std::string & utf8_key) const;
+		Owning<Any> sum(const std::string & utf8_key) const;
+		Owning<Any> min(const std::string & utf8_key) const;
+		Owning<Any> max(const std::string & utf8_key) const;
+		Owning<Any> avg(const std::string & utf8_key) const;
 		
-		kind_ptr distinctUnionOfObjects(const std::string & utf8_key) const;
-		kind_ptr unionOfObjects(const std::string & utf8_key) const;
-		kind_ptr distinctUnionOfArrays(const std::string & utf8_key) const;
-		kind_ptr distinctUnionOfOrderedSets(const std::string & utf8_key) const;
-		kind_ptr distinctUnionOfSets(const std::string & utf8_key) const;
-		kind_ptr unionOfArrays(const std::string & utf8_key) const;
-		kind_ptr unionOfOrderedSets(const std::string & utf8_key) const;
-		kind_ptr unionOfSets(const std::string & utf8_key) const;
+		Owning<Any> distinctUnionOfObjects(const std::string & utf8_key) const;
+		Owning<Any> unionOfObjects(const std::string & utf8_key) const;
+		Owning<Any> distinctUnionOfArrays(const std::string & utf8_key) const;
+		Owning<Any> distinctUnionOfOrderedSets(const std::string & utf8_key) const;
+		Owning<Any> distinctUnionOfSets(const std::string & utf8_key) const;
+		Owning<Any> unionOfArrays(const std::string & utf8_key) const;
+		Owning<Any> unionOfOrderedSets(const std::string & utf8_key) const;
+		Owning<Any> unionOfSets(const std::string & utf8_key) const;
 	};
 }
 

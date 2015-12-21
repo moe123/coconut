@@ -34,9 +34,9 @@ Object::~Object()
 
 #pragma mark -
 
-kind_ptr Object::copyObject(const_kind_ref ref, CopyOption option)
+Owning<Any> Object::copyObject(const Any & ref, CopyOption option)
 {
-	kind_ptr copy;
+	Owning<Any> copy;
 	switch (option)
 	{
 		case CopyMutable:
@@ -55,13 +55,13 @@ kind_ptr Object::copyObject(const_kind_ref ref, CopyOption option)
 	return copy;
 }
 
-kind_ptr Object::copyObject(const_kind_ptr & ptr, CopyOption option)
+Owning<Any> Object::copyObject(const Owning<Any> & ptr, CopyOption option)
 {
 	if (ptr) {
 		if (option == CopyNone) {
 			return ptr;
 		} else {
-			kind_ptr copy;
+			Owning<Any> copy;
 			switch (option)
 			{
 				case CopyMutable:
@@ -85,17 +85,17 @@ kind_ptr Object::copyObject(const_kind_ptr & ptr, CopyOption option)
 
 #pragma mark -
 
-kind_ptr Object::valueForKey(const std::string & utf8_key) const
+Owning<Any> Object::valueForKey(const std::string & utf8_key) const
 { return nucleus::valueForKey(utf8_key); }
 
-void Object::setValueForKey(kind_ptr ptr, const std::string & utf8_key)
+void Object::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 { nucleus::setValueForKey(ptr, utf8_key); }
 
 #pragma mark -
 
-kind_ptr Object::valueForSelectorKey(const std::string & utf8_selkey, kind_ptr arg) const
+Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
-	kind_ptr result;
+	Owning<Any> result;
 	if (isSelectorKey(utf8_selkey)) {
 		if (arg) {
 			if (utf8_selkey == u8"@isEqual:") {
@@ -202,15 +202,15 @@ kind_ptr Object::valueForSelectorKey(const std::string & utf8_selkey, kind_ptr a
 
 #pragma mark -
 
-kind_ptr Object::sum(const std::string & utf8_key) const
+Owning<Any> Object::sum(const std::string & utf8_key) const
 {
 	double sum = 0.0;
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
 			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					sum += vv->doubleValue();
 				} else {
@@ -223,7 +223,7 @@ kind_ptr Object::sum(const std::string & utf8_key) const
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
 			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					sum += vv->doubleValue();
 				} else {
@@ -236,7 +236,7 @@ kind_ptr Object::sum(const std::string & utf8_key) const
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
 			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					sum += vv->doubleValue();
 				} else {
@@ -251,17 +251,17 @@ kind_ptr Object::sum(const std::string & utf8_key) const
 	return Number::with(sum);
 }
 
-kind_ptr Object::min(const std::string & utf8_key) const
+Owning<Any> Object::min(const std::string & utf8_key) const
 {
-	kind_ptr min;
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> min;
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		min = ptr_static_cast<Array>(v)->lastObject();
 		if (min) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
 			{
 				for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedDescending == min->compare(*vv)) {
 							min = vv;
@@ -279,7 +279,7 @@ kind_ptr Object::min(const std::string & utf8_key) const
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
 			{
 				for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedDescending == min->compare(*vv)) {
 							min = vv;
@@ -297,7 +297,7 @@ kind_ptr Object::min(const std::string & utf8_key) const
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
 			{
 				for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedDescending == min->compare(*vv)) {
 							min = vv;
@@ -315,17 +315,17 @@ kind_ptr Object::min(const std::string & utf8_key) const
 	return min;
 }
 
-kind_ptr Object::max(const std::string & utf8_key) const
+Owning<Any> Object::max(const std::string & utf8_key) const
 {
-	kind_ptr max;
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> max;
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		max = ptr_static_cast<Array>(v)->lastObject();
 		if (max) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
 			{
 				for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedAscending == max->compare(*vv)) {
 							max = vv;
@@ -343,7 +343,7 @@ kind_ptr Object::max(const std::string & utf8_key) const
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
 			{
 				for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedAscending == max->compare(*vv)) {
 							max = vv;
@@ -361,7 +361,7 @@ kind_ptr Object::max(const std::string & utf8_key) const
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
 			{
 				for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedAscending == max->compare(*vv)) {
 							max = vv;
@@ -379,17 +379,17 @@ kind_ptr Object::max(const std::string & utf8_key) const
 	return max;
 }
 
-kind_ptr Object::avg(const std::string & utf8_key) const
+Owning<Any> Object::avg(const std::string & utf8_key) const
 {
 	double avg = 0.0;
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
 			{
 				for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						avg += (vv->doubleValue() / static_cast<double>(count));
 					} else {
@@ -405,7 +405,7 @@ kind_ptr Object::avg(const std::string & utf8_key) const
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
 			{
 				for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						avg += (vv->doubleValue() / static_cast<double>(count));
 					} else {
@@ -421,7 +421,7 @@ kind_ptr Object::avg(const std::string & utf8_key) const
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
 			{
 				for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-					kind_ptr vv = (*it);
+					Owning<Any> vv = (*it);
 					if (vv) {
 						avg += (vv->doubleValue() / static_cast<double>(count));
 					} else {
@@ -439,15 +439,15 @@ kind_ptr Object::avg(const std::string & utf8_key) const
 
 #pragma mark -
 
-kind_ptr Object::distinctUnionOfObjects(const std::string & utf8_key) const
+Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Set::impl_type buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
 			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
 						buf.insert(vv);
@@ -463,7 +463,7 @@ kind_ptr Object::distinctUnionOfObjects(const std::string & utf8_key) const
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
 			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
 						buf.insert(vv);
@@ -479,7 +479,7 @@ kind_ptr Object::distinctUnionOfObjects(const std::string & utf8_key) const
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
 			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
 						buf.insert(vv);
@@ -497,15 +497,15 @@ kind_ptr Object::distinctUnionOfObjects(const std::string & utf8_key) const
 	return Array::with(buf.begin(), buf.end());
 }
 
-kind_ptr Object::unionOfObjects(const std::string & utf8_key) const
+Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_type buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
 			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
 						buf.push_back(vv);
@@ -521,7 +521,7 @@ kind_ptr Object::unionOfObjects(const std::string & utf8_key) const
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
 			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
 						buf.push_back(vv);
@@ -537,7 +537,7 @@ kind_ptr Object::unionOfObjects(const std::string & utf8_key) const
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
 			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
 						buf.push_back(vv);
@@ -557,17 +557,17 @@ kind_ptr Object::unionOfObjects(const std::string & utf8_key) const
 
 #pragma mark -
 
-kind_ptr Object::distinctUnionOfArrays(const std::string & utf8_key) const
+Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Set::impl_type buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
 			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(ArrayClass)) {
-					kind_ptr vvv = vv->valueForKeyPath(utf8_key);
+					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
 					if (vvv) {
 						if (!vvv->isMemberOf(NoneClass)) {
 							buf.insert(vvv);
@@ -588,17 +588,17 @@ kind_ptr Object::distinctUnionOfArrays(const std::string & utf8_key) const
 	return Array::with(buf.begin(), buf.end());
 }
 
-kind_ptr Object::distinctUnionOfOrderedSets(const std::string & utf8_key) const
+Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	OrderedSet::impl_type buf;
 	if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
 			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(OrderedSetClass)) {
-					kind_ptr vvv = vv->valueForKeyPath(utf8_key);
+					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
 					if (vvv) {
 						if (!vvv->isMemberOf(NoneClass)) {
 							buf.push_back(vvv);
@@ -619,17 +619,17 @@ kind_ptr Object::distinctUnionOfOrderedSets(const std::string & utf8_key) const
 	return OrderedSet::with(buf.begin(), buf.end());
 }
 
-kind_ptr Object::distinctUnionOfSets(const std::string & utf8_key) const
+Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Set::impl_type buf;
 	if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
 			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(SetClass)) {
-					kind_ptr vvv = vv->valueForKeyPath(utf8_key);
+					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
 					if (vvv) {
 						if (!vvv->isMemberOf(NoneClass)) {
 							buf.insert(vvv);
@@ -652,17 +652,17 @@ kind_ptr Object::distinctUnionOfSets(const std::string & utf8_key) const
 
 #pragma mark -
 
-kind_ptr Object::unionOfArrays(const std::string & utf8_key) const
+Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_type buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
 			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(ArrayClass)) {
-					kind_ptr vvv = vv->valueForKeyPath(utf8_key);
+					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
 					if (vvv) {
 						if (!vvv->isMemberOf(NoneClass)) {
 							buf.push_back(vvv);
@@ -683,17 +683,17 @@ kind_ptr Object::unionOfArrays(const std::string & utf8_key) const
 	return Array::with(buf.begin(), buf.end());
 }
 
-kind_ptr Object::unionOfOrderedSets(const std::string & utf8_key) const
+Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_type buf;
 	if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
 			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(OrderedSetClass)) {
-					kind_ptr vvv = vv->valueForKeyPath(utf8_key);
+					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
 					if (vvv) {
 						if (!vvv->isMemberOf(NoneClass)) {
 							buf.push_back(vvv);
@@ -714,17 +714,17 @@ kind_ptr Object::unionOfOrderedSets(const std::string & utf8_key) const
 	return Array::with(buf.begin(), buf.end());
 }
 
-kind_ptr Object::unionOfSets(const std::string & utf8_key) const
+Owning<Any> Object::unionOfSets(const std::string & utf8_key) const
 {
-	kind_ptr v = valueForKeyPath(utf8_key);
+	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_type buf;
 	if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
 			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
-				kind_ptr vv = (*it);
+				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(SetClass)) {
-					kind_ptr vvv = vv->valueForKeyPath(utf8_key);
+					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
 					if (vvv) {
 						if (!vvv->isMemberOf(NoneClass)) {
 							buf.push_back(vvv);
