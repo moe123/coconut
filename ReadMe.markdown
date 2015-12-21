@@ -111,10 +111,10 @@ if (values && values->isKindOf(ArrayClass)) {
 ```cpp
 
 Array firstNames = {
-	String::with(u8"Alice"),
-	String::with(u8"Bob"),
-	String::with(u8"Charlie"),
-	String::with(u8"Quentin")
+	With<String>(u8"Alice"),
+	With<String>(u8"Bob"),
+	With<String>(u8"Charlie"),
+	With<String>(u8"Quentin")
 };
 
 Array lastNames = {
@@ -128,7 +128,7 @@ Array ages = {
 	Number::with(24),
 	Number::with(27),
 	Number::with(33),
-	Number::with(31)
+	With<Number>(31)
 };
 
 Array keys = {
