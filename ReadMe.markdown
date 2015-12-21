@@ -159,8 +159,8 @@ const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
 for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
 {
-	std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"firstName") << std::endl;
-	std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
+	std::cerr << " + people_sort: " << Thus<Dictionary>(*it).objectForKey(u8"firstName") << std::endl;
+	std::cerr << " + people_sort: " << Thus<Dictionary>(*it).objectForKey(u8"lastName") << std::endl;
 }
 
 ```
