@@ -173,7 +173,15 @@ namespace coconut
 	inline auto With(const std::initializer_list< std::pair<kind_ptr, kind_ptr> > & args) -> ptr_declare<TypeT> {
 		return TypeT::with(args);
 	}
-		
+	
+	template <typename T1, typename T2>
+	inline auto Thus(T2 && r) -> T1 &
+	{ return (T1 &)r; }
+	
+	template <typename T1, typename T2>
+	inline auto Thus(std::shared_ptr<T2> const r) -> T1 &
+	{ return (*(std::static_pointer_cast<T1>(r))); }
+	
 	COCONUT_OPT(StringEncodingOption)
 	{
 		StringEncodingAuto = runtime::encoding_auto,

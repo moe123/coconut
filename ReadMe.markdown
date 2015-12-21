@@ -102,7 +102,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 
 auto values = tree.valueForKeyPath(u8"parent.child");
 if (values && values->isKindOf(ArrayClass)) {
-	for (const auto & item : ref_cast<Array>(*values)) {
+	for (const auto & item : Thus<Array>(values)) {
 		std::cerr << "    + : " << item << std::endl;
 	}
 }

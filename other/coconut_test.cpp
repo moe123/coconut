@@ -364,8 +364,8 @@ static void test_stuff(void)
 	}
 	auto values = tree.valueForKeyPath(u8"parent.child");
 	if (values && values->isMemberOf(Array{})) {
-		for (const auto & number : ref_cast<Array>(*values)) {
-			std::cerr << "    + : " << number << std::endl;
+		for (const auto & number : Thus<Array>(values)) {
+			std::cerr << " number  + : " << number << std::endl;
 		}
 	}
 	MutableArray indexTree;
@@ -461,7 +461,7 @@ static void test_stuff(void)
 	};
 	
 	auto sort = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
-	for (const auto & str : ref_cast<Array>(sort)) {
+	for (const auto & str : Thus<Array>(sort)) {
 		std::cerr << "    + : " << str << std::endl;
 	}
 	
