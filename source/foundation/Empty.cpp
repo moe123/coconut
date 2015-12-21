@@ -21,7 +21,7 @@ Empty::~Empty()
 
 #pragma mark -
 
-EmptyPtr Empty::with()
+Owning<Empty> Empty::with()
 { return ptr_create<Empty>(); }
 
 Owning<Any> Empty::copy() const

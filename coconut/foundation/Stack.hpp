@@ -21,9 +21,9 @@ namespace coconut
 		Stack(Stack && stk);
 		virtual ~Stack();
 	
-		COCONUT_KTOR StackPtr with();
-		COCONUT_KTOR StackPtr with(const Stack & stk);
-		COCONUT_KTOR StackPtr with(Stack && stk);
+		COCONUT_KTOR Owning<Stack> with();
+		COCONUT_KTOR Owning<Stack> with(const Stack & stk);
+		COCONUT_KTOR Owning<Stack> with(Stack && stk);
 		
 	public:
 		virtual Owning<Any> copy() const

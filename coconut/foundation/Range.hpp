@@ -22,9 +22,9 @@ namespace coconut
 		Range(std::size_t location, std::size_t length);
 		virtual ~Range();
 		
-		COCONUT_KTOR RangePtr with();
-		COCONUT_KTOR RangePtr with(const Range & rg);
-		COCONUT_KTOR RangePtr with(std::size_t location, std::size_t length);
+		COCONUT_KTOR Owning<Range> with();
+		COCONUT_KTOR Owning<Range> with(const Range & rg);
+		COCONUT_KTOR Owning<Range> with(std::size_t location, std::size_t length);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -53,7 +53,7 @@ namespace coconut
 		const Range unionRange(const Range & other_rg) const;
 
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const RangePtr ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Range> ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:

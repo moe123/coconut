@@ -20,10 +20,6 @@ static inline void test_attr_and_custom(void)
 	//   - they can be only set/get thru the KVC interface.
 	//   - this extension must be used carefully and only when necessary, e.g this is greedy.
 	
-	
-	class Container;
-	typedef ptr_declare<Container> ContainerPtr;
-	
 	class Container final : public Proxy
 	{
 	public:
@@ -32,10 +28,10 @@ static inline void test_attr_and_custom(void)
 		virtual ~Container() {}
 		
 	// ref-counted ctors
-		static ContainerPtr with()
+		static Owning<Container> with()
 		{ return ptr_create<Container>(); }
 		
-		static ContainerPtr with(const Container & other)
+		static Owning<Container> with(const Container & other)
 		{ return ptr_create<Container>(other); }
 	
 	// copyable
@@ -44,7 +40,7 @@ static inline void test_attr_and_custom(void)
 
 	};
 	
-	ContainerPtr c = Container::with();
+	Owning<Container> c = Container::with();
 	
 	c->setValueForKey(
 		String::with(u8"Robert"),
@@ -58,11 +54,6 @@ static inline void test_attr_and_custom(void)
 	
 	std::cerr << "+ firstname : " << c->valueForKey(u8"$firstname") << std::endl;
 	std::cerr << "+ lastname : " << c->valueForKey(u8"$lastname") << std::endl;
-	
-	class Person;
-	
-	// declaring a ref-counted pointer to Person.
-	typedef ptr_declare<Person> PersonPtr;
 	
 	class Person : public Proxy
 	{
@@ -115,7 +106,7 @@ static inline void test_attr_and_custom(void)
 		}
 		
 		// `with` constructor is a convention which must be respected.
-		static PersonPtr with
+		static Owning<Person> with
 		(
 			const std::string & firstname,
 			const std::string & lastname,

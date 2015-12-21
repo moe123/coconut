@@ -41,19 +41,19 @@ SortDescriptor::~SortDescriptor()
 
 #pragma mark -
 
-SortDescriptorPtr SortDescriptor::with()
+Owning<SortDescriptor> SortDescriptor::with()
 { return ptr_create<SortDescriptor>(); }
 
-SortDescriptorPtr SortDescriptor::with(const SortDescriptor & sdr)
+Owning<SortDescriptor> SortDescriptor::with(const SortDescriptor & sdr)
 { return ptr_create<SortDescriptor>(sdr); }
 
-SortDescriptorPtr SortDescriptor::with(SortDescriptor && sdr)
+Owning<SortDescriptor> SortDescriptor::with(SortDescriptor && sdr)
 { return ptr_create<SortDescriptor>(std::move(sdr)); }
 
-SortDescriptorPtr SortDescriptor::with(const String & key, bool isasc)
+Owning<SortDescriptor> SortDescriptor::with(const String & key, bool isasc)
 { return ptr_create<SortDescriptor>(key, isasc); }
 
-SortDescriptorPtr SortDescriptor::with(const String & key, const String & selkey, bool isasc)
+Owning<SortDescriptor> SortDescriptor::with(const String & key, const String & selkey, bool isasc)
 { return ptr_create<SortDescriptor>(key, selkey, isasc); }
 
 #pragma mark -

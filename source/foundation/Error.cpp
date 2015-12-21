@@ -43,22 +43,22 @@ Error::~Error()
 
 #pragma mark -
 
-ErrorPtr Error::with()
+Owning<Error> Error::with()
 { return ptr_create<Error>(); }
 
-ErrorPtr Error::with(const Error & err)
+Owning<Error> Error::with(const Error & err)
 { return ptr_create<Error>(err); }
 
-ErrorPtr Error::with(Error && err)
+Owning<Error> Error::with(Error && err)
 { return ptr_create<Error>(std::move(err)); }
 
-ErrorPtr Error::with(std::size_t code)
+Owning<Error> Error::with(std::size_t code)
 { return ptr_create<Error>(code); }
 
-ErrorPtr Error::with(const String & domain, std::size_t code)
+Owning<Error> Error::with(const String & domain, std::size_t code)
 { return ptr_create<Error>(domain, code); }
 
-ErrorPtr Error::with(const String & domain, std::size_t code, const Dictionary & userInfo)
+Owning<Error> Error::with(const String & domain, std::size_t code, const Dictionary & userInfo)
 { return ptr_create<Error>(domain, code, userInfo); }
 
 #pragma mark -

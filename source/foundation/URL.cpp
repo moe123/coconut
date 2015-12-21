@@ -65,25 +65,25 @@ const String URL::percentEscapesDecode(const String & in, bool plus_as_space)
 
 #pragma mark -
 
-URLPtr URL::with(const URL & url)
+Owning<URL> URL::with(const URL & url)
 { return ptr_create<URL>(url); }
 
-URLPtr URL::with(const Path & path)
+Owning<URL> URL::with(const Path & path)
 { return ptr_create<URL>(path); }
 
-URLPtr URL::with(const String & in, const URL & base_url)
+Owning<URL> URL::with(const String & in, const URL & base_url)
 { return ptr_create<URL>(in, base_url); }
 
-URLPtr URL::with(const String & in, bool is_filepath)
+Owning<URL> URL::with(const String & in, bool is_filepath)
 { return ptr_create<URL>(in, is_filepath); }
 
-URLPtr URL::with(const String & scheme, const String & host, const String & path)
+Owning<URL> URL::with(const String & scheme, const String & host, const String & path)
 { return ptr_create<URL>(scheme, host, path); }
 
-URLPtr URL::with(const std::string & in)
+Owning<URL> URL::with(const std::string & in)
 { return ptr_create<URL>(in); }
 
-URLPtr URL::with(const char * in)
+Owning<URL> URL::with(const char * in)
 { return ptr_create<URL>(in); }
 
 #pragma mark -

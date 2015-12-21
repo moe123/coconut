@@ -66,28 +66,28 @@ Dictionary::~Dictionary()
 
 #pragma mark -
 
-DictionaryPtr Dictionary::with()
+Owning<Dictionary> Dictionary::with()
 { return ptr_create<Dictionary>(); }
 
-DictionaryPtr Dictionary::with(const Dictionary & dict)
+Owning<Dictionary> Dictionary::with(const Dictionary & dict)
 { return ptr_create<Dictionary>(dict); }
 
-DictionaryPtr Dictionary::with(const Dictionary & dict, CopyOption option)
+Owning<Dictionary> Dictionary::with(const Dictionary & dict, CopyOption option)
 { return ptr_create<Dictionary>(dict, option); }
 
-DictionaryPtr Dictionary::with(Dictionary && dict)
+Owning<Dictionary> Dictionary::with(Dictionary && dict)
 { return ptr_create<Dictionary>(std::move(dict)); }
 
-DictionaryPtr Dictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
+Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
 { return ptr_create<Dictionary>(args); }
 
-DictionaryPtr Dictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
+Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
 { return ptr_create<Dictionary>(args); }
 
-DictionaryPtr Dictionary::with(const Path & path)
+Owning<Dictionary> Dictionary::with(const Path & path)
 { return ptr_create<Dictionary>(path); }
 
-DictionaryPtr Dictionary::with(const URL & url)
+Owning<Dictionary> Dictionary::with(const URL & url)
 { return ptr_create<Dictionary>(url); }
 
 #pragma mark -

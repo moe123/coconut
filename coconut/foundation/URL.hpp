@@ -32,13 +32,13 @@ namespace coconut
 		COCONUT_KTOD const String percentEscapesEncode(const String & in, bool space_as_plus = false);
 		COCONUT_KTOD const String percentEscapesDecode(const String & in, bool plus_as_space = false);
 		
-		COCONUT_KTOR URLPtr with(const URL & url);
-		COCONUT_KTOR URLPtr with(const Path & path);
-		COCONUT_KTOR URLPtr with(const String & in, const URL & base_url);
-		COCONUT_KTOR URLPtr with(const String & in, bool is_filepath);
-		COCONUT_KTOR URLPtr with(const String & scheme, const String & host, const String & path);
-		COCONUT_KTOR URLPtr with(const std::string & in);
-		COCONUT_KTOR URLPtr with(const char * in);
+		COCONUT_KTOR Owning<URL> with(const URL & url);
+		COCONUT_KTOR Owning<URL> with(const Path & path);
+		COCONUT_KTOR Owning<URL> with(const String & in, const URL & base_url);
+		COCONUT_KTOR Owning<URL> with(const String & in, bool is_filepath);
+		COCONUT_KTOR Owning<URL> with(const String & scheme, const String & host, const String & path);
+		COCONUT_KTOR Owning<URL> with(const std::string & in);
+		COCONUT_KTOR Owning<URL> with(const char * in);
 		
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;

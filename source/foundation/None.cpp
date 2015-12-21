@@ -21,7 +21,7 @@ None::~None()
 
 #pragma mark -
 
-NonePtr None::with()
+Owning<None> None::with()
 { return ptr_create<None>(); }
 
 #pragma mark -

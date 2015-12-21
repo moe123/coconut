@@ -64,28 +64,28 @@ Array::~Array()
 
 #pragma mark -
 
-ArrayPtr Array::with()
+Owning<Array> Array::with()
 { return ptr_create<Array>(); }
 
-ArrayPtr Array::with(const Array & arr)
+Owning<Array> Array::with(const Array & arr)
 { return ptr_create<Array>(arr); }
 
-ArrayPtr Array::with(const Array & arr, CopyOption option)
+Owning<Array> Array::with(const Array & arr, CopyOption option)
 { return ptr_create<Array>(arr, option); }
 
-ArrayPtr Array::with(Array && arr)
+Owning<Array> Array::with(Array && arr)
 { return ptr_create<Array>(std::move(arr)); }
 
-ArrayPtr Array::with(const std::initializer_list<Owning<Any>> & args)
+Owning<Array> Array::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<Array>(args); }
 
-ArrayPtr Array::with(const std::initializer_list<Any *> & args)
+Owning<Array> Array::with(const std::initializer_list<Any *> & args)
 { return ptr_create<Array>(args); }
 
-ArrayPtr Array::with(const Path & path)
+Owning<Array> Array::with(const Path & path)
 { return ptr_create<Array>(path); }
 
-ArrayPtr Array::with(const URL & url)
+Owning<Array> Array::with(const URL & url)
 { return ptr_create<Array>(url); }
 
 #pragma mark -

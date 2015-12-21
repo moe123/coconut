@@ -33,16 +33,16 @@ IndexPath::~IndexPath()
 
 #pragma mark -
 
-IndexPathPtr IndexPath::with()
+Owning<IndexPath> IndexPath::with()
 { return ptr_create<IndexPath>(); }
 		   
-IndexPathPtr IndexPath::with(const IndexPath & idxp)
+Owning<IndexPath> IndexPath::with(const IndexPath & idxp)
 { return ptr_create<IndexPath>(idxp); }
 
-IndexPathPtr IndexPath::with(const std::initializer_list<std::size_t> & args)
+Owning<IndexPath> IndexPath::with(const std::initializer_list<std::size_t> & args)
 { return ptr_create<IndexPath>(args); }
 		   
-IndexPathPtr IndexPath::with(std::size_t index)
+Owning<IndexPath> IndexPath::with(std::size_t index)
 { return ptr_create<IndexPath>(index); }
 
 #pragma mark -

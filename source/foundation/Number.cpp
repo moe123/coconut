@@ -93,49 +93,49 @@ Number::~Number()
 
 #pragma mark -
 
-NumberPtr Number::with(const Number & num)
+Owning<Number> Number::with(const Number & num)
 { return ptr_create<Number>(num); }
 
-NumberPtr Number::with(const float & value)
+Owning<Number> Number::with(const float & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const double & value)
+Owning<Number> Number::with(const double & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const long double & value)
+Owning<Number> Number::with(const long double & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const bool & value)
+Owning<Number> Number::with(const bool & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const char & value)
+Owning<Number> Number::with(const char & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const short & value)
+Owning<Number> Number::with(const short & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const int & value)
+Owning<Number> Number::with(const int & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const long & value)
+Owning<Number> Number::with(const long & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const long long & value)
+Owning<Number> Number::with(const long long & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const unsigned char & value)
+Owning<Number> Number::with(const unsigned char & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const unsigned short & value)
+Owning<Number> Number::with(const unsigned short & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const unsigned int & value)
+Owning<Number> Number::with(const unsigned int & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const unsigned long & value)
+Owning<Number> Number::with(const unsigned long & value)
 { return ptr_create<Number>(value); }
 
-NumberPtr Number::with(const unsigned long long & value)
+Owning<Number> Number::with(const unsigned long long & value)
 { return ptr_create<Number>(value); }
 
 #pragma mark -

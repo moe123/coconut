@@ -40,13 +40,13 @@ namespace coconut
 		COCONUT_KTOD const Date distantPast();
 		COCONUT_KTOD const Date now();
 		
-		COCONUT_KTOR DatePtr with();
-		COCONUT_KTOR DatePtr with(const Date & dtm);
-		COCONUT_KTOR DatePtr with(Date && dtm);
-		COCONUT_KTOR DatePtr with(TimeInterval seconds, TimeReferenceOption ref_opt);
-		COCONUT_KTOR DatePtr with(TimeInterval seconds, const Date & since);
-		COCONUT_KTOR DatePtr with(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt);
-		COCONUT_KTOR DatePtr with(TimeInterval interval, TimeUnitOption unit_opt, const Date & since);
+		COCONUT_KTOR Owning<Date> with();
+		COCONUT_KTOR Owning<Date> with(const Date & dtm);
+		COCONUT_KTOR Owning<Date> with(Date && dtm);
+		COCONUT_KTOR Owning<Date> with(TimeInterval seconds, TimeReferenceOption ref_opt);
+		COCONUT_KTOR Owning<Date> with(TimeInterval seconds, const Date & since);
+		COCONUT_KTOR Owning<Date> with(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt);
+		COCONUT_KTOR Owning<Date> with(TimeInterval interval, TimeUnitOption unit_opt, const Date & since);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -73,7 +73,7 @@ namespace coconut
 		const Date & laterDate(const Date & dtm) const;
 
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const DatePtr ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Date> ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:

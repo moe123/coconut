@@ -54,34 +54,34 @@ MutableArray::~MutableArray()
 
 #pragma mark -
 
-MutableArrayPtr MutableArray::with()
+Owning<MutableArray> MutableArray::with()
 { return ptr_create<MutableArray>(); }
 
-MutableArrayPtr MutableArray::with(const MutableArray & arr)
+Owning<MutableArray> MutableArray::with(const MutableArray & arr)
 { return ptr_create<MutableArray>(arr); }
 
-MutableArrayPtr MutableArray::with(const MutableArray & arr, CopyOption option)
+Owning<MutableArray> MutableArray::with(const MutableArray & arr, CopyOption option)
 { return ptr_create<MutableArray>(arr, option); }
 
-MutableArrayPtr MutableArray::with(MutableArray && arr)
+Owning<MutableArray> MutableArray::with(MutableArray && arr)
 { return ptr_create<MutableArray>(std::move(arr)); }
 
-MutableArrayPtr MutableArray::with(const Array & arr, CopyOption option)
+Owning<MutableArray> MutableArray::with(const Array & arr, CopyOption option)
 { return ptr_create<MutableArray>(arr, option); }
 
-MutableArrayPtr MutableArray::with(Array && arr)
+Owning<MutableArray> MutableArray::with(Array && arr)
 { return ptr_create<MutableArray>(std::move(arr)); }
 
-MutableArrayPtr MutableArray::with(const std::initializer_list<Owning<Any>> & args)
+Owning<MutableArray> MutableArray::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<MutableArray>(args); }
 
-MutableArrayPtr MutableArray::with(const std::initializer_list<Any *> & args)
+Owning<MutableArray> MutableArray::with(const std::initializer_list<Any *> & args)
 { return ptr_create<MutableArray>(args); }
 
-MutableArrayPtr MutableArray::with(const Path & path)
+Owning<MutableArray> MutableArray::with(const Path & path)
 { return ptr_create<MutableArray>(path); }
 
-MutableArrayPtr MutableArray::with(const URL & url)
+Owning<MutableArray> MutableArray::with(const URL & url)
 { return ptr_create<MutableArray>(url); }
 
 #pragma mark -

@@ -43,27 +43,27 @@ namespace coconut
 		MutableArray(const URL & url);
 		virtual ~MutableArray();
 		
-		COCONUT_KTOR MutableArrayPtr with();
-		COCONUT_KTOR MutableArrayPtr with(const MutableArray & arr);
-		COCONUT_KTOR MutableArrayPtr with(const MutableArray & arr, CopyOption option);
-		COCONUT_KTOR MutableArrayPtr with(MutableArray && arr);
+		COCONUT_KTOR Owning<MutableArray> with();
+		COCONUT_KTOR Owning<MutableArray> with(const MutableArray & arr);
+		COCONUT_KTOR Owning<MutableArray> with(const MutableArray & arr, CopyOption option);
+		COCONUT_KTOR Owning<MutableArray> with(MutableArray && arr);
 		
-		COCONUT_KTOR MutableArrayPtr with(const Array & arr, CopyOption option);
-		COCONUT_KTOR MutableArrayPtr with(Array && arr);
+		COCONUT_KTOR Owning<MutableArray> with(const Array & arr, CopyOption option);
+		COCONUT_KTOR Owning<MutableArray> with(Array && arr);
 		
-		COCONUT_KTOR MutableArrayPtr with(const std::initializer_list<Owning<Any>> & args);
-		COCONUT_KTOR MutableArrayPtr with(const std::initializer_list<Any *> & args);
+		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list<Owning<Any>> & args);
+		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list<Any *> & args);
 		
 		template <typename IterT>
-		COCONUT_KTOR MutableArrayPtr with(IterT && beg, IterT && end)
+		COCONUT_KTOR Owning<MutableArray> with(IterT && beg, IterT && end)
 		{ return ptr_create<MutableArray>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
 		
 		template <typename IterT>
-		COCONUT_KTOR MutableArrayPtr with(IterT && beg, IterT && end, CopyOption option)
+		COCONUT_KTOR Owning<MutableArray> with(IterT && beg, IterT && end, CopyOption option)
 		{ return ptr_create<MutableArray>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
 		
-		COCONUT_KTOR MutableArrayPtr with(const Path & path);
-		COCONUT_KTOR MutableArrayPtr with(const URL & url);
+		COCONUT_KTOR Owning<MutableArray> with(const Path & path);
+		COCONUT_KTOR Owning<MutableArray> with(const URL & url);
 		
 		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;

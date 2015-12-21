@@ -24,13 +24,13 @@ namespace coconut
 		MutablePath(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16, DirectorySeparatorOption separator = DirectorySeparatorAuto);
 		virtual ~MutablePath();
 		
-		COCONUT_KTOR PathPtr with();
-		COCONUT_KTOR PathPtr with(const MutablePath & path);
-		COCONUT_KTOR PathPtr with(const Path & path);
-		COCONUT_KTOR PathPtr with(const String & str, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		COCONUT_KTOR PathPtr with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		COCONUT_KTOR PathPtr with(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		COCONUT_KTOR PathPtr with(const std::u32string & str, StringEncodingOption encoding = StringEncodingUTF32, DirectorySeparatorOption separator = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with();
+		COCONUT_KTOR Owning<Path> with(const MutablePath & path);
+		COCONUT_KTOR Owning<Path> with(const Path & path);
+		COCONUT_KTOR Owning<Path> with(const String & str, DirectorySeparatorOption separator = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8, DirectorySeparatorOption separator = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16, DirectorySeparatorOption separator = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const std::u32string & str, StringEncodingOption encoding = StringEncodingUTF32, DirectorySeparatorOption separator = DirectorySeparatorAuto);
 		
 		void append(const MutablePath & path);
 		void append(const Path & path);

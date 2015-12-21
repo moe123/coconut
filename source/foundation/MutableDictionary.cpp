@@ -55,34 +55,34 @@ MutableDictionary::~MutableDictionary()
 
 #pragma mark -
 		
-MutableDictionaryPtr MutableDictionary::with()
+Owning<MutableDictionary> MutableDictionary::with()
 { return ptr_create<MutableDictionary>(); }
 
-MutableDictionaryPtr MutableDictionary::with(const MutableDictionary & dict)
+Owning<MutableDictionary> MutableDictionary::with(const MutableDictionary & dict)
 { return ptr_create<MutableDictionary>(dict); }
 
-MutableDictionaryPtr MutableDictionary::with(const MutableDictionary & dict, CopyOption option)
+Owning<MutableDictionary> MutableDictionary::with(const MutableDictionary & dict, CopyOption option)
 { return ptr_create<MutableDictionary>(dict, option); }
 
-MutableDictionaryPtr MutableDictionary::with(MutableDictionary && dict)
+Owning<MutableDictionary> MutableDictionary::with(MutableDictionary && dict)
 { return ptr_create<MutableDictionary>(std::move(dict)); }
 
-MutableDictionaryPtr MutableDictionary::with(const Dictionary & dict, CopyOption option)
+Owning<MutableDictionary> MutableDictionary::with(const Dictionary & dict, CopyOption option)
 { return ptr_create<MutableDictionary>(dict, option); }
 
-MutableDictionaryPtr MutableDictionary::with(Dictionary && dict)
+Owning<MutableDictionary> MutableDictionary::with(Dictionary && dict)
 { return ptr_create<MutableDictionary>(std::move(dict)); }
 
-MutableDictionaryPtr MutableDictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
+Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args)
 { return ptr_create<MutableDictionary>(args); }
 
-MutableDictionaryPtr MutableDictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
+Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
 { return ptr_create<MutableDictionary>(args); }
 
-MutableDictionaryPtr MutableDictionary::with(const Path & path)
+Owning<MutableDictionary> MutableDictionary::with(const Path & path)
 { return ptr_create<MutableDictionary>(path); }
 
-MutableDictionaryPtr MutableDictionary::with(const URL & url)
+Owning<MutableDictionary> MutableDictionary::with(const URL & url)
 { return ptr_create<MutableDictionary>(url); }
 
 #pragma mark -

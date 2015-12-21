@@ -50,22 +50,22 @@ Path::~Path()
 
 #pragma mark -
 
-PathPtr Path::with(const Path & path)
+Owning<Path> Path::with(const Path & path)
 { return ptr_create<Path>(path); }
 
-PathPtr Path::with(const String & path, DirectorySeparatorOption option)
+Owning<Path> Path::with(const String & path, DirectorySeparatorOption option)
 { return ptr_create<Path>(path, option); }
 
-PathPtr Path::with(const std::string & utf8_path, DirectorySeparatorOption option)
+Owning<Path> Path::with(const std::string & utf8_path, DirectorySeparatorOption option)
 { return ptr_create<Path>(utf8_path, option); }
 
-PathPtr Path::with(const std::u16string & utf16_path, DirectorySeparatorOption option)
+Owning<Path> Path::with(const std::u16string & utf16_path, DirectorySeparatorOption option)
 { return ptr_create<Path>(utf16_path, option); }
 
-PathPtr Path::with(const char * utf8_path)
+Owning<Path> Path::with(const char * utf8_path)
 { return ptr_create<Path>(utf8_path); }
 
-PathPtr Path::with(const char16_t * utf16_path)
+Owning<Path> Path::with(const char16_t * utf16_path)
 { return ptr_create<Path>(utf16_path); }
 
 #pragma mark -

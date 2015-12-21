@@ -49,19 +49,19 @@ Set::~Set()
 
 #pragma mark -
 
-SetPtr Set::with(const Set & set)
+Owning<Set> Set::with(const Set & set)
 { return ptr_create<Set>(set); }
 
-SetPtr Set::with(const Set & set, CopyOption option)
+Owning<Set> Set::with(const Set & set, CopyOption option)
 { return ptr_create<Set>(set, option); }
 
-SetPtr Set::with(Set && set)
+Owning<Set> Set::with(Set && set)
 { return ptr_create<Set>(std::move(set)); }
 
-SetPtr Set::with(const std::initializer_list<Owning<Any>> & args)
+Owning<Set> Set::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<Set>(args); }
 
-SetPtr Set::with(const std::initializer_list<Any *> & args)
+Owning<Set> Set::with(const std::initializer_list<Any *> & args)
 { return ptr_create<Set>(args); }
 
 #pragma mark -

@@ -97,49 +97,49 @@ Data::~Data()
 
 #pragma mark -
 
-DataPtr Data::with()
+Owning<Data> Data::with()
 { return ptr_create<Data>(); }
 
-DataPtr Data::with(const Data & dat)
+Owning<Data> Data::with(const Data & dat)
 { return ptr_create<Data>(dat); }
 
-DataPtr Data::with(Data && dat)
+Owning<Data> Data::with(Data && dat)
 { return ptr_create<Data>(std::move(dat)); }
 
-DataPtr Data::with(const Data & dat, bool b64_decode)
+Owning<Data> Data::with(const Data & dat, bool b64_decode)
 { return ptr_create<Data>(dat, b64_decode); }
 
-DataPtr Data::with(Data && dat, bool b64_decode)
+Owning<Data> Data::with(Data && dat, bool b64_decode)
 { return ptr_create<Data>(std::move(dat), b64_decode); }
 
-DataPtr Data::with(const std::uint8_t * in, std::size_t length, bool b64_decode)
+Owning<Data> Data::with(const std::uint8_t * in, std::size_t length, bool b64_decode)
 { return ptr_create<Data>(in, length, b64_decode); }
 
-DataPtr Data::with(const char * in, std::size_t length, bool b64_decode)
+Owning<Data> Data::with(const char * in, std::size_t length, bool b64_decode)
 { return ptr_create<Data>(in, length, b64_decode); }
 
-DataPtr Data::with(const std::uint16_t * in, std::size_t length, DataPackingOption option)
+Owning<Data> Data::with(const std::uint16_t * in, std::size_t length, DataPackingOption option)
 { return ptr_create<Data>(in, length, option); }
 
-DataPtr Data::with(const std::uint32_t * in, std::size_t length, DataPackingOption option)
+Owning<Data> Data::with(const std::uint32_t * in, std::size_t length, DataPackingOption option)
 { return ptr_create<Data>(in, length, option); }
 
-DataPtr Data::with(const std::uint64_t * in, std::size_t length, DataPackingOption option)
+Owning<Data> Data::with(const std::uint64_t * in, std::size_t length, DataPackingOption option)
 { return ptr_create<Data>(in, length, option); }
 
-DataPtr Data::with(const std::int16_t * in, std::size_t length, DataPackingOption option)
+Owning<Data> Data::with(const std::int16_t * in, std::size_t length, DataPackingOption option)
 { return ptr_create<Data>(in, length, option); }
 
-DataPtr Data::with(const std::int32_t * in, std::size_t length, DataPackingOption option)
+Owning<Data> Data::with(const std::int32_t * in, std::size_t length, DataPackingOption option)
 { return ptr_create<Data>(in, length, option); }
 
-DataPtr Data::with(const std::int64_t * in, std::size_t length, DataPackingOption option)
+Owning<Data> Data::with(const std::int64_t * in, std::size_t length, DataPackingOption option)
 { return ptr_create<Data>(in, length, option); }
 
-DataPtr Data::with(const Path & path, bool b64_decode)
+Owning<Data> Data::with(const Path & path, bool b64_decode)
 { return ptr_create<Data>(path, b64_decode); }
 
-DataPtr Data::with(const URL & url, bool b64_decode)
+Owning<Data> Data::with(const URL & url, bool b64_decode)
 { return ptr_create<Data>(url, b64_decode); }
 
 #pragma mark -

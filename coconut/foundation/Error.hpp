@@ -29,12 +29,12 @@ namespace coconut
 		
 		virtual ~Error();
 		
-		COCONUT_KTOR ErrorPtr with();
-		COCONUT_KTOR ErrorPtr with(const Error & err);
-		COCONUT_KTOR ErrorPtr with(Error && err);
-		COCONUT_KTOR ErrorPtr with(std::size_t code);
-		COCONUT_KTOR ErrorPtr with(const String & domain, std::size_t code);
-		COCONUT_KTOR ErrorPtr with(const String & domain, std::size_t code, const Dictionary & userInfo);
+		COCONUT_KTOR Owning<Error> with();
+		COCONUT_KTOR Owning<Error> with(const Error & err);
+		COCONUT_KTOR Owning<Error> with(Error && err);
+		COCONUT_KTOR Owning<Error> with(std::size_t code);
+		COCONUT_KTOR Owning<Error> with(const String & domain, std::size_t code);
+		COCONUT_KTOR Owning<Error> with(const String & domain, std::size_t code, const Dictionary & userInfo);
 
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -53,7 +53,7 @@ namespace coconut
 		const Dictionary userInfo() const;
 
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const ErrorPtr ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Error> ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:

@@ -28,13 +28,13 @@ Queue::~Queue()
 
 #pragma mark -
 
-QueuePtr Queue::with()
+Owning<Queue> Queue::with()
 { return ptr_create<Queue>(); }
 
-QueuePtr Queue::with(const Queue & que)
+Owning<Queue> Queue::with(const Queue & que)
 { return ptr_create<Queue>(que); }
 
-QueuePtr Queue::with(Queue && que)
+Owning<Queue> Queue::with(Queue && que)
 { return ptr_create<Queue>(std::move(que)); }
 
 #pragma mark -

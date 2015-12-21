@@ -214,8 +214,7 @@ namespace coconut
 			launch_any
 		};
 		
-		class nucleus;
-
+		COCONUT_FORWARD_KDCL(nucleus)
 		using Any = nucleus;
 		template <typename T> using Owning = ptr_declare<T>;
 	}

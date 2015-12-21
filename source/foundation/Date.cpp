@@ -101,25 +101,25 @@ const Date Date::now()
 
 #pragma mark -
 
-DatePtr Date::with()
+Owning<Date> Date::with()
 { return ptr_create<Date>(); }
 
-DatePtr Date::with(const Date & dtm)
+Owning<Date> Date::with(const Date & dtm)
 { return ptr_create<Date>(dtm); }
 
-DatePtr Date::with(Date && dtm)
+Owning<Date> Date::with(Date && dtm)
 { return ptr_create<Date>(std::move(dtm)); }
 
-DatePtr Date::with(TimeInterval seconds, TimeReferenceOption ref_opt)
+Owning<Date> Date::with(TimeInterval seconds, TimeReferenceOption ref_opt)
 { return ptr_create<Date>(seconds, ref_opt); }
 
-DatePtr Date::with(TimeInterval seconds, const Date & since)
+Owning<Date> Date::with(TimeInterval seconds, const Date & since)
 { return ptr_create<Date>(seconds, since); }
 
-DatePtr Date::with(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt)
+Owning<Date> Date::with(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt)
 { return ptr_create<Date>(interval, unit_opt, ref_opt); }
 
-DatePtr Date::with(TimeInterval interval, TimeUnitOption unit_opt, const Date & since)
+Owning<Date> Date::with(TimeInterval interval, TimeUnitOption unit_opt, const Date & since)
 { return ptr_create<Date>(interval, unit_opt, since); }
 
 #pragma mark -

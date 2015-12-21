@@ -49,19 +49,19 @@ OrderedSet::~OrderedSet()
 
 #pragma mark -
 
-OrderedSetPtr OrderedSet::with(const OrderedSet & set)
+Owning<OrderedSet> OrderedSet::with(const OrderedSet & set)
 { return ptr_create<OrderedSet>(set); }
 
-OrderedSetPtr OrderedSet::with(const OrderedSet & set, CopyOption option)
+Owning<OrderedSet> OrderedSet::with(const OrderedSet & set, CopyOption option)
 { return ptr_create<OrderedSet>(set, option); }
 
-OrderedSetPtr OrderedSet::with(OrderedSet && set)
+Owning<OrderedSet> OrderedSet::with(OrderedSet && set)
 { return ptr_create<OrderedSet>(std::move(set)); }
 
-OrderedSetPtr OrderedSet::with(const std::initializer_list<Owning<Any>> & args)
+Owning<OrderedSet> OrderedSet::with(const std::initializer_list<Owning<Any>> & args)
 { return ptr_create<OrderedSet>(args); }
 
-OrderedSetPtr OrderedSet::with(const std::initializer_list<Any *> & args)
+Owning<OrderedSet> OrderedSet::with(const std::initializer_list<Any *> & args)
 { return ptr_create<OrderedSet>(args); }
 
 #pragma mark -

@@ -20,7 +20,7 @@ namespace coconut
 		None(const None & non);
 		virtual ~None();
 		
-		COCONUT_KTOR NonePtr with();
+		COCONUT_KTOR Owning<None> with();
 		
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;

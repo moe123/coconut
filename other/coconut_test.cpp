@@ -154,7 +154,7 @@ static void print_array(const Array & a)
 	}
 	
 	// or
-	MutableArrayPtr arr = ptr_cast<MutableArray>(
+	Owning<MutableArray> arr = ptr_cast<MutableArray>(
 		d.valueForKeyPath(u8"unicøde.3.ßtring")
 	);
 	if(arr && arr->size() > 5) {
@@ -243,7 +243,7 @@ static void test_array(void)
 	std::cerr << "indexOfObjectPassingTest idx : " << idx << std::endl;
 
 	
-	ArrayPtr aa = Array::with
+	Owning<Array> aa = Array::with
 	({
 		a[0], // increasing ref count &n0 [a copied]
 		a[1], // increasing ref count  &n1 [a copied]
@@ -252,9 +252,9 @@ static void test_array(void)
 	
 	print_array(a);
 	
-	ArrayPtr b = Array::with(a, CopyKind);
+	Owning<Array> b = Array::with(a, CopyKind);
 	
-	ArrayPtr bb = Array::with
+	Owning<Array> bb = Array::with
 	(
 		b->begin(),
 		b->end(),
@@ -263,9 +263,9 @@ static void test_array(void)
 	
 	print_array(*b);
 	
-	NumberPtr n00 = Number::with(1L);
+	Owning<Number> n00 = Number::with(1L);
 	Owning<Any> n11 = Number::with(4U);
-	NumberPtr n22 = Number::with(-3L);
+	Owning<Number> n22 = Number::with(-3L);
 	auto n33 = Number::with(n2);
 	
 	Array c = { n00, n11, n22, n33 };
@@ -768,7 +768,7 @@ int main(int argc, const char * argv[])
 	
 	std::cerr << "+ rg " << rg << std::endl;
 	
-	OptionalReturn<DataPtr, ErrorPtr> ret;
+	OptionalReturn<Owning<Data>, Owning<Error>> ret;
 	
 	ret.valid = true;
 	ret.success = Data::with();
@@ -858,7 +858,7 @@ int main(int argc, const char * argv[])
 
 	cout << "[" << str_16 << "] " << endl;
 
-	StringPtr str_other = String::with(str_fmt);
+	Owning<String> str_other = String::with(str_fmt);
 
 	cout << "[" << str_fmt << "] " << endl;
 	cout << "[" << str_other << "] " << endl;

@@ -29,13 +29,13 @@ Range::~Range()
 
 #pragma mark -
 
-RangePtr Range::with()
+Owning<Range> Range::with()
 { return ptr_create<Range>(); }
 
-RangePtr Range::with(const Range & rg)
+Owning<Range> Range::with(const Range & rg)
 { return ptr_create<Range>(rg); }
 
-RangePtr Range::with(std::size_t location, std::size_t length)
+Owning<Range> Range::with(std::size_t location, std::size_t length)
 { return ptr_create<Range>(location, length); }
 
 #pragma mark -

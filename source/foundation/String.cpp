@@ -71,37 +71,37 @@ String::~String()
 
 #pragma mark -
 
-StringPtr String::with()
+Owning<String> String::with()
 { return ptr_create<String>(); }
 
-StringPtr String::with(const String & str)
+Owning<String> String::with(const String & str)
 { return ptr_create<String>(str); }
 
-StringPtr String::with(const std::string & str, StringEncodingOption encoding)
+Owning<String> String::with(const std::string & str, StringEncodingOption encoding)
 { return ptr_create<String>(str, encoding); }
 
-StringPtr String::with(const std::u16string & str, StringEncodingOption encoding)
+Owning<String> String::with(const std::u16string & str, StringEncodingOption encoding)
 { return ptr_create<String>(str, encoding); }
 
-StringPtr String::with(const std::u32string & str, StringEncodingOption encoding)
+Owning<String> String::with(const std::u32string & str, StringEncodingOption encoding)
 { return ptr_create<String>(str, encoding); }
 
-StringPtr String::with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding)
+Owning<String> String::with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding)
 { return ptr_create<String>(bytes, length, encoding); }
 
-StringPtr String::with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding)
+Owning<String> String::with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding)
 { return ptr_create<String>(bytes, length, encoding); }
 
-StringPtr String::with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding)
+Owning<String> String::with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding)
 { return ptr_create<String>(bytes, length, encoding); }
 
-StringPtr String::with(const char * utf8_str)
+Owning<String> String::with(const char * utf8_str)
 { return ptr_create<String>(utf8_str); }
 
-StringPtr String::with(const char16_t * utf16_str)
+Owning<String> String::with(const char16_t * utf16_str)
 { return ptr_create<String>(utf16_str); }
 
-StringPtr String::with(const char32_t * utf32_str)
+Owning<String> String::with(const char32_t * utf32_str)
 { return ptr_create<String>(utf32_str); }
 
 #pragma mark -
@@ -372,7 +372,7 @@ const Range String::rangeOfString(const String & str, const Range & in_rg, Strin
 
 #pragma mark -
 
-ArrayPtr String::componentsSeparatedByString(const String & separator) const
+Owning<Array> String::componentsSeparatedByString(const String & separator) const
 {
 	return {};
 }

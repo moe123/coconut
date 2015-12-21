@@ -29,13 +29,13 @@ namespace coconut
 		
 		virtual ~Path();
 		
-		COCONUT_KTOR PathPtr with();
-		COCONUT_KTOR PathPtr with(const Path & path);
-		COCONUT_KTOR PathPtr with(const String & path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		COCONUT_KTOR PathPtr with(const std::string & utf8_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		COCONUT_KTOR PathPtr with(const std::u16string & utf16_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		COCONUT_KTOR PathPtr with(const char * utf8_path);
-		COCONUT_KTOR PathPtr with(const char16_t * utf16_path);
+		COCONUT_KTOR Owning<Path> with();
+		COCONUT_KTOR Owning<Path> with(const Path & path);
+		COCONUT_KTOR Owning<Path> with(const String & path, DirectorySeparatorOption option = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const std::string & utf8_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const std::u16string & utf16_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const char * utf8_path);
+		COCONUT_KTOR Owning<Path> with(const char16_t * utf16_path);
 
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;

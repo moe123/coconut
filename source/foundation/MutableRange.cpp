@@ -29,22 +29,22 @@ MutableRange::~MutableRange()
 
 #pragma mark -
 
-MutableRangePtr MutableRange::with()
+Owning<MutableRange> MutableRange::with()
 {
 	return ptr_create<MutableRange>();
 }
 
-MutableRangePtr MutableRange::with(const MutableRange & rg)
+Owning<MutableRange> MutableRange::with(const MutableRange & rg)
 {
 	return ptr_create<MutableRange>(rg);
 }
 
-MutableRangePtr MutableRange::with(const Range & rg)
+Owning<MutableRange> MutableRange::with(const Range & rg)
 {
 	return ptr_create<MutableRange>(rg);
 }
 
-MutableRangePtr MutableRange::with(std::size_t location, std::size_t length)
+Owning<MutableRange> MutableRange::with(std::size_t location, std::size_t length)
 {
 	return ptr_create<MutableRange>(location, length);
 }

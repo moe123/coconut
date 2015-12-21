@@ -23,10 +23,10 @@ namespace coconut
 		Slice(std::int64_t start, std::int64_t stop, std::int64_t step);
 		virtual ~Slice();
 		
-		COCONUT_KTOR SlicePtr with();
-		COCONUT_KTOR SlicePtr with(const Slice & slc);
-		COCONUT_KTOR SlicePtr with(std::int64_t start, std::int64_t stop);
-		COCONUT_KTOR SlicePtr with(std::int64_t start, std::int64_t stop, std::int64_t step);
+		COCONUT_KTOR Owning<Slice> with();
+		COCONUT_KTOR Owning<Slice> with(const Slice & slc);
+		COCONUT_KTOR Owning<Slice> with(std::int64_t start, std::int64_t stop);
+		COCONUT_KTOR Owning<Slice> with(std::int64_t start, std::int64_t stop, std::int64_t step);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -45,7 +45,7 @@ namespace coconut
 		std::int64_t step() const;
 		
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const SlicePtr ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Slice> ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 	
 	protected:

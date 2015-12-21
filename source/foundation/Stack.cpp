@@ -28,13 +28,13 @@ Stack::~Stack()
 
 #pragma mark -
 
-StackPtr Stack::with()
+Owning<Stack> Stack::with()
 { return ptr_create<Stack>(); }
 
-StackPtr Stack::with(const Stack & stk)
+Owning<Stack> Stack::with(const Stack & stk)
 { return ptr_create<Stack>(stk); }
 
-StackPtr Stack::with(Stack && stk)
+Owning<Stack> Stack::with(Stack && stk)
 { return ptr_create<Stack>(std::move(stk)); }
 
 #pragma mark -

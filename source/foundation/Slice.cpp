@@ -31,16 +31,16 @@ Slice::Slice(std::int64_t start, std::int64_t stop, std::int64_t step) :
 Slice::~Slice()
 { /* NOP */ }
 
-SlicePtr Slice::with()
+Owning<Slice> Slice::with()
 { return ptr_create<Slice>(); }
 
-SlicePtr Slice::with(const Slice & slc)
+Owning<Slice> Slice::with(const Slice & slc)
 { return ptr_create<Slice>(slc); }
 
-SlicePtr Slice::with(std::int64_t start, std::int64_t stop)
+Owning<Slice> Slice::with(std::int64_t start, std::int64_t stop)
 { return ptr_create<Slice>(start, stop); }
 
-SlicePtr Slice::with(std::int64_t start, std::int64_t stop, std::int64_t step)
+Owning<Slice> Slice::with(std::int64_t start, std::int64_t stop, std::int64_t step)
 { return ptr_create<Slice>(start, stop, step); }
 
 #pragma mark -

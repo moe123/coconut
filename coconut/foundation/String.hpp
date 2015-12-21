@@ -44,20 +44,20 @@ namespace coconut
 		COCONUT_KTOD String format(const char16_t * utf16_fmt, ArgsT &&... args)
 		{ return String(impl_type::uformat(utf16_fmt, std::forward<ArgsT>(args)...)); }
 		
-		COCONUT_KTOR StringPtr with();
-		COCONUT_KTOR StringPtr with(const String & str);
+		COCONUT_KTOR Owning<String> with();
+		COCONUT_KTOR Owning<String> with(const String & str);
 		
-		COCONUT_KTOR StringPtr with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
-		COCONUT_KTOR StringPtr with(const std::u16string & str, StringEncodingOption encoding= StringEncodingUTF16);
-		COCONUT_KTOR StringPtr with(const std::u32string & str, StringEncodingOption encoding= StringEncodingUTF32);
+		COCONUT_KTOR Owning<String> with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
+		COCONUT_KTOR Owning<String> with(const std::u16string & str, StringEncodingOption encoding= StringEncodingUTF16);
+		COCONUT_KTOR Owning<String> with(const std::u32string & str, StringEncodingOption encoding= StringEncodingUTF32);
 		
-		COCONUT_KTOR StringPtr with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding);
-		COCONUT_KTOR StringPtr with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding);
-		COCONUT_KTOR StringPtr with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding);
+		COCONUT_KTOR Owning<String> with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding);
+		COCONUT_KTOR Owning<String> with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding);
+		COCONUT_KTOR Owning<String> with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding);
 		
-		COCONUT_KTOR StringPtr with(const char * utf8_str);
-		COCONUT_KTOR StringPtr with(const char16_t * utf16_str);
-		COCONUT_KTOR StringPtr with(const char32_t * utf32_str);
+		COCONUT_KTOR Owning<String> with(const char * utf8_str);
+		COCONUT_KTOR Owning<String> with(const char16_t * utf16_str);
+		COCONUT_KTOR Owning<String> with(const char32_t * utf32_str);
 	
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -167,7 +167,7 @@ namespace coconut
 		const Range rangeOfString(const String & str, StringSearchOptions options) const;
 		const Range rangeOfString(const String & str, const Range & in_rg, StringSearchOptions options) const;
 		
-		ArrayPtr componentsSeparatedByString(const String & separator) const;
+		Owning<Array> componentsSeparatedByString(const String & separator) const;
 		
 		const String stringByReplacingOccurrencesOfString(const String & target, const String & replacement) const;
 		
@@ -191,7 +191,7 @@ namespace coconut
 		bool operator >= (const String & other_str) const;
 	
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const StringPtr ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<String> ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:

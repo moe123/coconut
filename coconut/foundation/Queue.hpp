@@ -21,9 +21,9 @@ namespace coconut
 		Queue(Queue && que);
 		virtual ~Queue();
 	
-		COCONUT_KTOR QueuePtr with();
-		COCONUT_KTOR QueuePtr with(const Queue & que);
-		COCONUT_KTOR QueuePtr with(Queue && que);
+		COCONUT_KTOR Owning<Queue> with();
+		COCONUT_KTOR Owning<Queue> with(const Queue & que);
+		COCONUT_KTOR Owning<Queue> with(Queue && que);
 		
 	public:
 		virtual Owning<Any> copy() const

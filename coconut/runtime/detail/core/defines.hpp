@@ -158,9 +158,8 @@
 	#define COCONUT_KTOR static
 	#define COCONUT_KTOD static
 
-	#define COCONUT_DCL_PTR(KLASS) \
-		class KLASS; \
-		typedef ptr_declare<KLASS> KLASS##Ptr;
+	#define COCONUT_FORWARD_KDCL(KLASS) \
+		class KLASS;
 
 	#define COCONUT_RUNTIME_KDCL(NS_KLASS, TR_KLASS) \
 		public: \

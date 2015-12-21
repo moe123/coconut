@@ -36,21 +36,21 @@ namespace coconut
 		Number(const unsigned long long & value);
 		virtual ~Number();
 		
-		COCONUT_KTOR NumberPtr with(const Number & num);
-		COCONUT_KTOR NumberPtr with(const float & value);
-		COCONUT_KTOR NumberPtr with(const double & value);
-		COCONUT_KTOR NumberPtr with(const long double & value);
-		COCONUT_KTOR NumberPtr with(const bool & value);
-		COCONUT_KTOR NumberPtr with(const char & value);
-		COCONUT_KTOR NumberPtr with(const short & value);
-		COCONUT_KTOR NumberPtr with(const int & value);
-		COCONUT_KTOR NumberPtr with(const long & value);
-		COCONUT_KTOR NumberPtr with(const long long & value);
-		COCONUT_KTOR NumberPtr with(const unsigned char & value);
-		COCONUT_KTOR NumberPtr with(const unsigned short & value);
-		COCONUT_KTOR NumberPtr with(const unsigned int & value);
-		COCONUT_KTOR NumberPtr with(const unsigned long & value);
-		COCONUT_KTOR NumberPtr with(const unsigned long long & value);
+		COCONUT_KTOR Owning<Number> with(const Number & num);
+		COCONUT_KTOR Owning<Number> with(const float & value);
+		COCONUT_KTOR Owning<Number> with(const double & value);
+		COCONUT_KTOR Owning<Number> with(const long double & value);
+		COCONUT_KTOR Owning<Number> with(const bool & value);
+		COCONUT_KTOR Owning<Number> with(const char & value);
+		COCONUT_KTOR Owning<Number> with(const short & value);
+		COCONUT_KTOR Owning<Number> with(const int & value);
+		COCONUT_KTOR Owning<Number> with(const long & value);
+		COCONUT_KTOR Owning<Number> with(const long long & value);
+		COCONUT_KTOR Owning<Number> with(const unsigned char & value);
+		COCONUT_KTOR Owning<Number> with(const unsigned short & value);
+		COCONUT_KTOR Owning<Number> with(const unsigned int & value);
+		COCONUT_KTOR Owning<Number> with(const unsigned long & value);
+		COCONUT_KTOR Owning<Number> with(const unsigned long long & value);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -123,7 +123,7 @@ namespace coconut
 		bool operator >= (const Number & other_num) const;
 	
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const NumberPtr ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Number> ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:
