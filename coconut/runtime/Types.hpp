@@ -112,30 +112,37 @@ namespace coconut
 	COCONUT_FORWARD_KDCL(String)
 	COCONUT_FORWARD_KDCL(URL)
 	
-
 	template <typename T1, typename T2>
-	inline bool KindOf(T2 && r) { return r . template isKindOf<T1>(); }
+	inline auto KindOf(T2 && r) -> bool
+	{ return r . template isKindOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline bool KindOf(std::shared_ptr<T2> const r) { return (r && r -> template isKindOf<T1>()); }
+	inline auto KindOf(ptr_declare<T2> const r) -> bool
+	{ return (r && r -> template isKindOf<T1>()); }
 	
 	template <typename T1, typename T2>
-	inline bool SubclassOf(T2 && r) { return r.isSubclassOf(T1{}); }
+	inline auto SubclassOf(T2 && r) -> bool
+	{ return r.isSubclassOf(T1{}); }
 	
 	template <typename T1, typename T2>
-	inline bool SubclassOf(std::shared_ptr<T2> const r) { return (r && r->isSubclassOf(T1{})); }
+	inline auto SubclassOf(ptr_declare<T2> const r) -> bool
+	{ return (r && r->isSubclassOf(T1{})); }
 	
 	template <typename T1, typename T2>
-	inline bool MemberOf(T2 && r) { return r.isMemberOf(T1{}); }
+	inline auto MemberOf(T2 && r) -> bool
+	{ return r.isMemberOf(T1{}); }
 	
 	template <typename T1, typename T2>
-	inline bool MemberOf(std::shared_ptr<T2> const r) { return (r && r->isMemberOf(T1{})); }
+	inline auto MemberOf(ptr_declare<T2> const r) -> bool
+	{ return (r && r->isMemberOf(T1{})); }
 	
 	template <typename T1, typename T2>
-	inline bool AncestorOf(T2 && r) { return r.isAncestorOf(T1{}); }
+	inline auto AncestorOf(T2 && r) -> bool &
+	{ return r.isAncestorOf(T1{}); }
 	
 	template <typename T1, typename T2>
-	inline bool AncestorOf(std::shared_ptr<T2> const r) { return (r && r->isAncestorOf(T1{})); }
+	inline auto AncestorOf(ptr_declare<T2> const r) -> bool
+	{ return (r && r->isAncestorOf(T1{})); }
 	
 	COCONUT_OPT(OrderedOption)
 	{
@@ -179,27 +186,24 @@ namespace coconut
 	};
 	
 	template<typename TypeT, typename... ArgsT>
-	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT> {
-		return TypeT::with(std::forward<ArgsT>(args)...);
-	}
+	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
+	{ return TypeT::with(std::forward<ArgsT>(args)...); }
 	
 	template<typename TypeT>
-	inline auto With(const std::initializer_list<Owning<Any>> & args) -> ptr_declare<TypeT> {
-		return TypeT::with(args);
-	}
+	inline auto With(const std::initializer_list<Owning<Any>> & args) -> ptr_declare<TypeT>
+	{ return TypeT::with(args); }
 	
 	template<typename TypeT>
-	inline auto With(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) -> ptr_declare<TypeT> {
-		return TypeT::with(args);
-	}
+	inline auto With(const std::initializer_list< std::pair<Owning<Any>, Owning<Any>> > & args) -> ptr_declare<TypeT>
+	{ return TypeT::with(args); }
 	
 	template <typename T1, typename T2>
 	inline auto Thus(T2 && r) -> T1 &
 	{ return (T1 &)r; }
 	
 	template <typename T1, typename T2>
-	inline auto Thus(std::shared_ptr<T2> const r) -> T1 &
-	{ return (*(std::static_pointer_cast<T1>(r))); }
+	inline auto Thus(ptr_declare<T2> const r) -> T1 &
+	{ return (*(ptr_cast<T1>(r))); }
 	
 	COCONUT_OPT(StringEncodingOption)
 	{
