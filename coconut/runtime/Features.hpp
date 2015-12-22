@@ -103,7 +103,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	inline auto Thus(T2 & r, std::false_type) -> T1 &
-	{ return (T1 &)r; }
+	{ return ref_cast<T1>(r); }
 	
 	template <typename T1, typename T2>
 	inline auto Thus(ptr_declare<T2> const & r, std::true_type) -> T1 &
@@ -116,7 +116,7 @@ namespace coconut
 
 	template <typename T1, typename T2>
 	inline auto Then(T2 & r, std::false_type) -> T1 &
-	{ return (T1 &)r; }
+	{ return ref_cast<T1>(r); }
 	
 	template <typename T1, typename T2>
 	inline auto Then(ptr_declare<T2> const & r, std::true_type) -> ptr_declare<T1>
