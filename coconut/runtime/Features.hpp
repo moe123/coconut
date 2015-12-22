@@ -27,11 +27,11 @@ namespace coconut
 	{ return KindOf<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
-	inline auto SubclassOf(T2 & r) -> bool
+	inline auto SubclassOf(T2 & r, std::false_type) -> bool
 	{ return r . template isSubclassOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto SubclassOf(ptr_declare<T2> const & r) -> bool
+	inline auto SubclassOf(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isSubclassOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -39,11 +39,11 @@ namespace coconut
 	{ return SubclassOf<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
-	inline auto MemberOf(T2 & r) -> bool
+	inline auto MemberOf(T2 & r, std::false_type) -> bool
 	{ return r . template isMemberOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto MemberOf(ptr_declare<T2> const & r) -> bool
+	inline auto MemberOf(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isMemberOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -51,11 +51,11 @@ namespace coconut
 	{ return MemberOf<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
-	inline auto AncestorOf(T2 & r) -> bool &
+	inline auto AncestorOf(T2 & r, std::false_type) -> bool &
 	{ return r . template  isAncestorOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto AncestorOf(ptr_declare<T2> const & r) -> bool
+	inline auto AncestorOf(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isAncestorOf<T1>()); }
 	
 	template <typename T1, typename T2>
