@@ -361,14 +361,14 @@ static void test_stuff(void)
 		tree.addObject(parent);
 	}
 	auto values = tree.valueForKeyPath(u8"parent.child");
-	if (KindOf<Array>(values)) {
+	Then<Array>(*values);
+	Thus<Array>(tree);
+	if (values && KindOf<Array>(values)) {
 		for (const auto & number : Thus<Array>(values)) {
 			std::cerr << " number  + : " << number << std::endl;
 		}
 	}
 	MutableArray indexTree;
-	
-	ref_cast<MutableArray>(indexTree);
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
 		auto child = Dictionary::with({
@@ -379,7 +379,7 @@ static void test_stuff(void)
 		});
 		indexTree.addObject(parent);
 	}
-	
+
 	// Passing from Number 2 String
 	
 	String s(u8"\t\n 15,000AAD 6788");
@@ -459,7 +459,7 @@ static void test_stuff(void)
 	};
 	
 	auto sort = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
-	for (const auto & str : Thus<Array>(sort)) {
+	for (const auto & str : Then<Array>(sort)) {
 		std::cerr << "    + : " << str << std::endl;
 	}
 	
