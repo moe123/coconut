@@ -21,12 +21,14 @@ namespace coconut
 		Slice & operator = (const Slice & slc) = default;
 		Slice(std::int64_t start, std::int64_t stop);
 		Slice(std::int64_t start, std::int64_t stop, std::int64_t step);
+		Slice(const Range & rg);
 		virtual ~Slice();
 		
 		COCONUT_KTOR Owning<Slice> with();
 		COCONUT_KTOR Owning<Slice> with(const Slice & slc);
 		COCONUT_KTOR Owning<Slice> with(std::int64_t start, std::int64_t stop);
 		COCONUT_KTOR Owning<Slice> with(std::int64_t start, std::int64_t stop, std::int64_t step);
+		COCONUT_KTOR Owning<Slice> with(const Range & rg);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;

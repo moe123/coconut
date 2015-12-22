@@ -5,6 +5,7 @@
 //
 
 #include <coconut/foundation/Slice.hpp>
+#include <coconut/foundation/Range.hpp>
 
 using namespace coconut;
 
@@ -19,13 +20,20 @@ Slice::Slice(const Slice & slc) :
 { /* NOP */ }
 
 Slice::Slice(std::int64_t start, std::int64_t stop) :
-	Object(SliceClass),
-	m_impl(start, stop)
+	Slice(start, stop, 1)
 { /* NOP */ }
 
 Slice::Slice(std::int64_t start, std::int64_t stop, std::int64_t step) :
 	Object(SliceClass),
 	m_impl(start, stop, step)
+{ /* NOP */ }
+
+Slice::Slice(const Range & rg) :
+	Slice(
+		static_cast<std::int64_t>(rg.location()),
+		static_cast<std::int64_t>(rg.length()),
+		1
+	)
 { /* NOP */ }
 
 Slice::~Slice()

@@ -366,7 +366,17 @@ std::size_t Array::indexOfObject(const Any & obj) const
 	return NotFound;
 }
 
-std::size_t Array::indexOfObject(const Any & obj, Range in_rg) const
+#pragma mark -
+
+const Array Array::objectsInRange(const Range & rg, CopyOption option) const
+{ return subarrayWithRange(rg, option); }
+
+const Array Array::objectsInSlice(const Slice & slc, CopyOption option) const
+{ return subarrayWithSlice(slc, option); }
+
+#pragma mark -
+
+std::size_t Array::indexOfObject(const Any & obj, const Range & in_rg) const
 {
 	std::size_t idx = 0, sz = size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -394,7 +404,7 @@ std::size_t Array::indexOfObject(const Any & obj, Range in_rg) const
 std::size_t Array::indexOfObject(const Owning<Any> & obj) const
 { if (obj) { return indexOfObject(*obj); } return NotFound; }
 
-std::size_t Array::indexOfObject(const Owning<Any> & obj, Range in_rg) const
+std::size_t Array::indexOfObject(const Owning<Any> & obj, const Range & in_rg) const
 { if (obj) { return indexOfObject(*obj, in_rg); } return NotFound; }
 
 #pragma mark -
@@ -409,7 +419,7 @@ std::size_t Array::indexOfObjectIdenticalTo(const Any & obj) const
 	return NotFound;
 }
 
-std::size_t Array::indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const
+std::size_t Array::indexOfObjectIdenticalTo(const Any & obj, const Range & in_rg) const
 {
 	std::size_t idx = 0, sz = size();
 	if (sz) {
@@ -437,7 +447,7 @@ std::size_t Array::indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const
 std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj); } return NotFound; }
 
-std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const
+std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj, in_rg); } return NotFound; }
 
 #pragma mark -
@@ -989,7 +999,7 @@ const Owning<Any> Array::operator [] (std::size_t index) const
 { return objectAtIndex(index); }
 
 const Array Array::operator [] (const Slice & slc) const
-{ return subarrayWithSlice(slc); }
+{ return objectsInSlice(slc); }
 
 #pragma mark -
 

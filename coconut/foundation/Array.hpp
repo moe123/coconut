@@ -115,17 +115,20 @@ namespace coconut
 		Owning<Any> lastObject() const;
 		Owning<Any> objectAtIndex(std::size_t index) const;
 		
+		const Array objectsInRange(const Range & rg, CopyOption option = CopyNone) const;
+		const Array objectsInSlice(const Slice & slc, CopyOption option = CopyNone) const;
+		
 		std::size_t indexOfObject(const Any & obj) const;
-		std::size_t indexOfObject(const Any & obj, Range in_rg) const;
+		std::size_t indexOfObject(const Any & obj, const Range & in_rg) const;
 		
 		std::size_t indexOfObject(const Owning<Any> & obj) const;
-		std::size_t indexOfObject(const Owning<Any> & obj, Range in_rg) const;
+		std::size_t indexOfObject(const Owning<Any> & obj, const Range & in_rg) const;
 		
 		std::size_t indexOfObjectIdenticalTo(const Any & obj) const;
-		std::size_t indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const;
+		std::size_t indexOfObjectIdenticalTo(const Any & obj, const Range & in_rg) const;
 		
 		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj) const;
-		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const;
+		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg) const;
 
 		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
