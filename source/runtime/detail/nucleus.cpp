@@ -212,7 +212,7 @@ bool nucleus::isKindOf(const Any & ref, const Any & other_ref) const
 	return (ref.isKindOf(other_ref.classKind()));
 }
 
-bool nucleus::isKindOf(Owning<Any> ptr, Owning<Any> other_ptr) const
+bool nucleus::isKindOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const
 {
 	if (ptr && other_ptr) {
 		return isKindOf(*ptr, *other_ptr);
@@ -225,7 +225,7 @@ bool nucleus::isKindOf(const Any & ref) const
 	return isKindOf(ref.classKind());
 }
 
-bool nucleus::isKindOf(Owning<Any> ptr) const
+bool nucleus::isKindOf(const Owning<Any> & ptr) const
 {
 	if (ptr) {
 		return isKindOf(*ptr);
@@ -245,7 +245,7 @@ bool nucleus::isSubclassOf(const Any & ref, const Any & other_ref) const
 	return (ref.isSubclassOf(other_ref.classKind()));
 }
 
-bool nucleus::isSubclassOf(Owning<Any> ptr, Owning<Any> other_ptr) const
+bool nucleus::isSubclassOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const
 {
 	if (ptr && other_ptr) {
 		return isSubclassOf(*ptr, *other_ptr);
@@ -258,7 +258,7 @@ bool nucleus::isSubclassOf(const Any & ref) const
 	return isSubclassOf(ref.classKind());
 }
 
-bool nucleus::isSubclassOf(Owning<Any> ptr) const
+bool nucleus::isSubclassOf(const Owning<Any> & ptr) const
 {
 	if (ptr) {
 		return isSubclassOf(*ptr);
@@ -278,7 +278,7 @@ bool nucleus::isMemberOf(const Any & ref, const Any & other_ref) const
 	return (ref.classKind() == other_ref.classKind());
 }
 
-bool nucleus::isMemberOf(Owning<Any> ptr, Owning<Any> other_ptr) const
+bool nucleus::isMemberOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const
 {
 	if (ptr && other_ptr) {
 		return isMemberOf(*ptr, *other_ptr);
@@ -291,7 +291,7 @@ bool nucleus::isMemberOf(const Any & ref) const
 	return (m_kind == ref.classKind());
 }
 
-bool nucleus::isMemberOf(Owning<Any> ptr) const
+bool nucleus::isMemberOf(const Owning<Any> & ptr) const
 {
 	if (ptr) {
 		return isMemberOf(*ptr);
@@ -306,7 +306,7 @@ bool nucleus::isAncestorOf(const Any & ref) const
 	return ref.isKindOf(*this);
 }
 
-bool nucleus::isAncestorOf(Owning<Any> ptr) const
+bool nucleus::isAncestorOf(const Owning<Any> & ptr) const
 {
 	if (ptr) {
 		return isAncestorOf(*ptr);
@@ -321,7 +321,7 @@ bool nucleus::isParentOf(const Any & ref) const
 	return (ref.parentClassKind() == classKind());
 }
 
-bool nucleus::isParentOf(Owning<Any> ptr) const
+bool nucleus::isParentOf(const Owning<Any> & ptr) const
 {
 	if (ptr) {
 		return isParentOf(*ptr);

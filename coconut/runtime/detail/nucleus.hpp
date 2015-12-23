@@ -84,39 +84,39 @@ namespace coconut
 			
 			bool isKindOf(ClassKind kind) const;
 			bool isKindOf(const Any & ref, const Any & other_ref) const;
-			bool isKindOf(Owning<Any> ptr, Owning<Any> other_ptr) const;
+			bool isKindOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const;
 			bool isKindOf(const Any & ref) const;
-			bool isKindOf(Owning<Any> ptr) const;
+			bool isKindOf(const Owning<Any> & ptr) const;
 			
 			template <typename T> inline bool isKindOf(void * no_param = nullptr) const
 			{ COCONUT_UNUSED(no_param); return isKindOf(T{}); }
 			
 			bool isSubclassOf(ClassKind kind) const;
 			bool isSubclassOf(const Any & ref, const Any & other_ref) const;
-			bool isSubclassOf(Owning<Any> ptr, Owning<Any> other_ptr) const;
+			bool isSubclassOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const;
 			bool isSubclassOf(const Any & ref) const;
-			bool isSubclassOf(Owning<Any> ptr) const;
+			bool isSubclassOf(const Owning<Any> & ptr) const;
 			
 			template <typename T> inline bool isSubclassOf(void * no_param = nullptr) const
 			{ COCONUT_UNUSED(no_param); return isSubclassOf(T{}); }
 			
 			bool isMemberOf(ClassKind kind) const;
 			bool isMemberOf(const Any & ref, const Any & other_ref) const;
-			bool isMemberOf(Owning<Any> ptr, Owning<Any> other_ptr) const;
+			bool isMemberOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const;
 			bool isMemberOf(const Any & ref) const;
-			bool isMemberOf(Owning<Any> ptr) const;
+			bool isMemberOf(const Owning<Any> & ptr) const;
 			
 			template <typename T> inline bool isMemberOf(void * no_param = nullptr) const
 			{ COCONUT_UNUSED(no_param); return isMemberOf(T{}); }
 			
 			bool isAncestorOf(const Any & ref) const;
-			bool isAncestorOf(Owning<Any> ptr) const;
+			bool isAncestorOf(const Owning<Any> & ptr) const;
 			
 			template <typename T> inline bool isAncestorOf(void * no_param = nullptr) const
 			{ COCONUT_UNUSED(no_param); return isAncestorOf(T{}); }
 			
 			bool isParentOf(const Any & ref) const;
-			bool isParentOf(Owning<Any> ptr) const;
+			bool isParentOf(const Owning<Any> & ptr) const;
 			
 			template <typename T> inline bool isParentOf(void * no_param = nullptr) const
 			{ COCONUT_UNUSED(no_param); return isParentOf(T{}); }
