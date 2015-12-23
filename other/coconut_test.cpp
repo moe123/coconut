@@ -40,6 +40,8 @@ static void print_ref(const Any & ref)
 		With<Date>()
 	});
 	
+	auto array1 = With<Array>(Thus<Array>(array));
+	
 	std::cerr.setf(std::ios::fixed, std::ios::floatfield);
 	std::cerr.precision(10);
 	

@@ -88,10 +88,41 @@ namespace coconut
 		ErrT error;
 		bool valid;
 	};
-	
+
+
 	template<typename TypeT, typename... ArgsT>
 	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
 	{ return TypeT::with(std::forward<ArgsT>(args)...); }
+
+	/** unwrapping for checking
+	template<typename TypeT>
+	inline auto With() -> ptr_declare<TypeT>
+	{ return TypeT::with(); }
+	
+	template<typename TypeT, typename A0>
+	inline auto With(A0 a0) -> ptr_declare<TypeT>
+	{ return TypeT::with(a0); }
+
+	template<typename TypeT, typename A0, typename A1>
+	inline auto With(A0 a0, A1 a1) -> ptr_declare<TypeT>
+	{ return TypeT::with(a0, a1); }
+
+	template<typename TypeT, typename A0, typename A1, typename A2>
+	inline auto With(A0 a0, A1 a1, A2 a2) -> ptr_declare<TypeT>
+	{ return TypeT::with(a0, a1, a2); }
+
+	template<typename TypeT, typename A0, typename A1, typename A2, typename A3>
+	inline auto With(A0 a0, A1 a1, A2 a2, A3 a3) -> ptr_declare<TypeT>
+	{ return TypeT::with(a0, a1, a2, a3); }
+	
+	template<typename TypeT, typename A0, typename A1, typename A2, typename A3, typename A4>
+	inline auto With(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4) -> ptr_declare<TypeT>
+	{ return TypeT::with(a0, a1, a2, a4); }
+	
+	template<typename TypeT, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
+	inline auto With(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5) -> ptr_declare<TypeT>
+	{ return TypeT::with(a0, a1, a2, a4, a5); }
+	**/
 	
 	template<typename TypeT>
 	inline auto With(const std::initializer_list< ptr_declare<Any> > & args) -> ptr_declare<TypeT>
