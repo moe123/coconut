@@ -89,7 +89,6 @@ namespace coconut
 		bool valid;
 	};
 
-
 	template<typename TypeT, typename... ArgsT>
 	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
 	{ return TypeT::with(std::forward<ArgsT>(args)...); }
