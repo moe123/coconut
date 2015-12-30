@@ -118,23 +118,23 @@ Array firstNames = {
 };
 
 Array lastNames = {
-	String::with(u8"Smith"),
-	String::with(u8"Jones"),
-	String::with(u8"Smith"),
-	String::with(u8"Alberts")
+	With<String>(u8"Smith"),
+	With<String>(u8"Jones"),
+	With<String>(u8"Smith"),
+	With<String>(u8"Alberts")
 };
 
 Array ages = {
-	Number::with(24),
-	Number::with(27),
-	Number::with(33),
+	With<Number>(24),
+	With<Number>(27),
+	With<Number>(33),
 	With<Number>(31)
 };
 
 Array keys = {
-	String::with(u8"firstName"),
-	String::with(u8"lastName"),
-	String::with(u8"age")
+	With<String>(u8"firstName"),
+	With<String>(u8"lastName"),
+	With<String>(u8"age")
 };
 
 MutableArray people;
@@ -143,7 +143,7 @@ firstNames.enumerateObjectsUsingFunction(
 	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
 	people.addObject(
-		Dictionary::with({
+		With<Dictionary>({
 			{ keys[0], obj },
 			{ keys[1], lastNames[index] },
 			{ keys[2], ages[index] }
@@ -160,7 +160,7 @@ const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
 {
 	std::cerr << " + people_sort: " << Thus<Dictionary>(*it).objectForKey(u8"firstName") << std::endl;
-	std::cerr << " + people_sort: " << Thus<Dictionary>(*it).objectForKey(u8"lastName") << std::endl;
+	std::cerr << " + people_sort: " << Then<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
 }
 
 ```
@@ -193,10 +193,10 @@ bool test = people.someObjectPassingTest(
 
 MutableArray indexTree;
 for (std::size_t i = 0; i < 10; i++ ) {
-	auto child = Dictionary::with({
-		{ String::with(u8"child"), Number::with(i + 1) }
+	auto child = With<Dictionary>({
+		{ With<String>(u8"child"), With<Number>(i + 1) }
 	});
-	auto parent = Array::with({
+	auto parent = With<Array>({
 		child
 	});
 	indexTree.addObject(parent);
@@ -211,14 +211,14 @@ for (std::size_t i = 0; i < 10; i++ ) {
 ```cpp
 
 Array list = {
-	String::with(u8"Banana"),
-	String::with(u8"Apple"),
-	String::with(u8"étourdie"),
-	String::with(u8"éa"),
-	String::with(u8"Cherry"),
-	String::with(u8"å"),
-	String::with(u8"Pear"),
-	String::with(u8"epic")
+	With<String>(u8"Banana"),
+	With<String>(u8"Apple"),
+	With<String>(u8"étourdie"),
+	With<String>(u8"éa"),
+	With<String>(u8"Cherry"),
+	With<String>(u8"å"),
+	With<String>(u8"Pear"),
+	With<String>(u8"epic")
 };
 
 Array sorted = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");

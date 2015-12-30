@@ -15,6 +15,18 @@ namespace coconut
 	template <class T> struct _is_ptr< ptr_declare<T> > : std::true_type{};
 	
 	template <typename T1, typename T2>
+	inline auto InstanceOf(T2 & r, std::false_type) -> bool
+	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(r)); return (ptr != nullptr); }
+	
+	template <typename T1, typename T2>
+	inline auto InstanceOf(ptr_declare<T2> const & r, std::true_type) -> bool
+	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(*r)); return (ptr != nullptr); }
+	
+	template <typename T1, typename T2>
+	inline auto InstanceOf(T2 && r) -> bool
+	{ return InstanceOf<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	
+	template <typename T1, typename T2>
 	inline auto KindOf(T2 & r, std::false_type) -> bool
 	{ return r . template isKindOf<T1>(); }
 	
@@ -88,7 +100,7 @@ namespace coconut
 		ErrT error;
 		bool valid;
 	};
-
+	
 	template<typename TypeT, typename... ArgsT>
 	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
 	{ return TypeT::with(std::forward<ArgsT>(args)...); }
@@ -122,7 +134,7 @@ namespace coconut
 	inline auto With(A0 a0, A1 a1, A2 a2, A3 a3, A4 a4, A5 a5) -> ptr_declare<TypeT>
 	{ return TypeT::with(a0, a1, a2, a4, a5); }
 	**/
-	
+
 	template<typename TypeT>
 	inline auto With(const std::initializer_list< ptr_declare<Any> > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
@@ -130,7 +142,7 @@ namespace coconut
 	template<typename TypeT>
 	inline auto With(const std::initializer_list< std::pair< ptr_declare<Any>, ptr_declare<Any> > > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
-	
+
 	template <typename T1, typename T2>
 	inline auto Thus(T2 & r, std::false_type) -> T1 &
 	{ return ref_cast<T1>(r); }

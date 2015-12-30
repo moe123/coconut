@@ -42,7 +42,7 @@ namespace coconut
 		virtual Owning<Any> valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const
 		COCONUT_OVERRIDE;
 		
-	protected:
+	private:
 	/*
 	* iKeyValueCoding collection operators.
 	*/

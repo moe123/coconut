@@ -197,6 +197,10 @@ static void test_array(void)
 		&n8
 	};
 	
+	if (InstanceOf<Array>(a)) {
+		std::cerr << " + InstanceOf<Array>(a) " << std::endl;
+	}
+	
 	Array unique = a.uniquedArray();
 	
 	for (Array::const_iterator it = unique.cbegin(); it != unique.cend(); ++it)
@@ -550,8 +554,8 @@ static void test_stuff(void)
 	
 	for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
 	{
-		std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"firstName") << std::endl;
-		std::cerr << " + people_sort: " << ptr_cast<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
+		std::cerr << " + people_sort: " << Thus<Dictionary>(*it).objectForKey(u8"firstName") << std::endl;
+		std::cerr << " + people_sort: " << Then<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
 	}
 	
 	MutableDictionary d;
@@ -901,7 +905,7 @@ int main(int argc, const char * argv[])
 			test_attr_and_custom();
 			//test_date();
 			//test_number();
-			//test_array();
+			test_array();
 			return true;
 		});
 		bool result = job1.get();

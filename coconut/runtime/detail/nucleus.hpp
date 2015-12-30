@@ -33,7 +33,7 @@ namespace coconut
 		*/
 			static bool isSelectorKey(const std::string & utf8_in);
 			static bool isAttributeKey(const std::string & utf8_attrkey);
-			
+
 		public:
 			bool respondsToSelectorKey(const std::string & utf8_selkey) const;
 			

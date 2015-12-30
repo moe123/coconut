@@ -406,7 +406,6 @@ void nucleus::setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypa
 Owning<Any> nucleus::valueForSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 { COCONUT_UNUSED(utf8_selkey); COCONUT_UNUSED(arg); return {}; }
 
-
 #pragma mark -
 
 Owning<Any> nucleus::valueForKey(const Any & key) const
