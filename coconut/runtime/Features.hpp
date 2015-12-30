@@ -12,16 +12,16 @@
 namespace coconut
 {
 	template <typename T1, typename T2>
-	inline auto InstanceOf(T2 & r, std::false_type) -> bool
+	inline auto ConformsTo(T2 & r, std::false_type) -> bool
 	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
-	inline auto InstanceOf(ptr_declare<T2> const & r, std::true_type) -> bool
+	inline auto ConformsTo(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(*r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
-	inline auto InstanceOf(T2 && r) -> bool
-	{ return InstanceOf<T1>(r, is_ptr<typename std::decay<T2>::type>{}); }
+	inline auto ConformsTo(T2 && r) -> bool
+	{ return ConformsTo<T1>(r, is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
 	inline auto KindOf(T2 & r, std::false_type) -> bool
@@ -98,9 +98,9 @@ namespace coconut
 		bool valid;
 	};
 	
-	template<typename TypeT, typename... ArgsT>
-	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
-	{ return TypeT::with(std::forward<ArgsT>(args)...); }
+	template<typename TypeT>
+	inline auto With(void * no_param = nullptr) -> ptr_declare<TypeT>
+	{ COCONUT_UNUSED(no_param); return TypeT::with(); }
 
 	template<typename TypeT>
 	inline auto With(const std::initializer_list< ptr_declare<Any> > & args) -> ptr_declare<TypeT>
@@ -110,6 +110,10 @@ namespace coconut
 	inline auto With(const std::initializer_list< std::pair< ptr_declare<Any>, ptr_declare<Any> > > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
 
+	template<typename TypeT, typename... ArgsT>
+	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
+	{ return TypeT::with(std::forward<ArgsT>(args)...); }
+	
 	template <typename T1, typename T2>
 	inline auto Thus(T2 & r, std::false_type) -> T1 &
 	{ return ref_cast<T1>(r); }

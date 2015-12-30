@@ -210,6 +210,9 @@ namespace coconut
 		const Owning<Any> operator [] (std::size_t index) const;
 		const Array operator [] (const Slice & slc) const;
 		
+		const Array operator + (const Any & obj) const;
+		const Array operator + (const Owning<Any> & obj) const;
+		
 	protected:
 		typedef std::vector< Owning<Any> > impl_type;
 		

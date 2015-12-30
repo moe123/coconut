@@ -1003,6 +1003,14 @@ const Array Array::operator [] (const Slice & slc) const
 
 #pragma mark -
 
+const Array Array::operator + (const Any & obj) const
+{ return arrayByAddingObject(obj); }
+
+const Array Array::operator + (const Owning<Any> & obj) const
+{ return arrayByAddingObject(obj); }
+
+#pragma mark -
+
 Array::iterator Array::begin() { return m_impl.begin(); }
 Array::iterator Array::end() { return m_impl.end(); }
 

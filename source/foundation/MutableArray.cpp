@@ -461,7 +461,7 @@ void MutableArray::sortUsingDescriptors(const Array & descriptors, SortOptions o
 Owning<Any> & MutableArray::operator [] (std::size_t index)
 {
 	std::size_t sz = m_impl.size();
-	if (index >= sz) {
+	if (index  == MaxFound || index >= sz) {
 		std::lock_guard<spin_type> lck(spin());
 		m_impl.resize(sz + 1);
 		index = sz;

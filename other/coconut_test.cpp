@@ -19,16 +19,16 @@ COCONUT_SECTION_FINI
 }
 
 const Owning<Any> operator "" _U(const char * in, std::size_t sz)
-{ return String::with(in); }
+{ return With<String>(in); }
 	
 const Owning<Any> operator "" _U(const char16_t * in, std::size_t sz)
-{ return String::with(in); }
+{ return With<String>(in); }
 	
 const Owning<Any> operator "" _U(long double in)
-{ return Number::with(in); }
+{ return With<Number>(in); }
 	
 const Owning<Any> operator "" _U(unsigned long long in)
-{ return Number::with(in); }
+{ return With<Number>(in); }
 	
 static void print_ref(const Any & ref)
 {
@@ -150,7 +150,7 @@ static void print_array(const Array & a)
 		if(ref_cast<MutableArray>(*arr).size() > 5UL) {
 			ref_cast<MutableArray>(*arr).replaceObjectAtIndex(
 				5,
-				String::with(u8"an unicøde ßtring")
+				With<String>(u8"an unicøde ßtring")
 			);
 		}
 	}
@@ -160,7 +160,7 @@ static void print_array(const Array & a)
 		d.valueForKeyPath(u8"unicøde.3.ßtring")
 	);
 	if(arr && arr->size() > 5) {
-		arr->replaceObjectAtIndex(5, String::with(u8"an unicøde ßtring"));
+		arr->replaceObjectAtIndex(5, With<String>(u8"an unicøde ßtring"));
 	}
 #endif
 	 
@@ -197,8 +197,8 @@ static void test_array(void)
 		&n8
 	};
 	
-	if (InstanceOf<Array>(a)) {
-		std::cerr << " + InstanceOf<Array>(a) " << std::endl;
+	if (ConformsTo<Array>(a)) {
+		std::cerr << " + ConformsTo<Array>(a) " << std::endl;
 	}
 	
 	Array unique = a.uniquedArray();
@@ -238,7 +238,7 @@ static void test_array(void)
 	
 	idx = a.indexOfObjectPassingTest([&n1] (const Owning<Any> & obj, std::size_t index, bool & stop) -> bool {
 		if (obj && obj->isEqual(n1)) {
-			std::cerr << "indexOfObjectPassingTest idx : " << index << " " <<  obj << std::this_thread::get_id() << std::endl;
+			std::cerr << "indexOfObjectPassingTest idx : " << index << " obj: " <<  obj << " this_thread  : " << std::this_thread::get_id() << std::endl;
 			return true;
 		}
 		return false;
@@ -249,7 +249,7 @@ static void test_array(void)
 	std::cerr << "indexOfObjectPassingTest idx : " << idx << std::endl;
 
 	
-	Owning<Array> aa = Array::with
+	Owning<Array> aa = With<Array>
 	({
 		a[0], // increasing ref count &n0 [a copied]
 		a[1], // increasing ref count  &n1 [a copied]
@@ -258,9 +258,9 @@ static void test_array(void)
 	
 	print_array(a);
 	
-	Owning<Array> b = Array::with(a, CopyKind);
+	Owning<Array> b = With<Array>(a, CopyKind);
 	
-	Owning<Array> bb = Array::with
+	Owning<Array> bb = With<Array>
 	(
 		b->begin(),
 		b->end(),
@@ -269,10 +269,10 @@ static void test_array(void)
 	
 	print_array(*b);
 	
-	Owning<Number> n00 = Number::with(1L);
-	Owning<Any> n11 = Number::with(4U);
-	Owning<Number> n22 = Number::with(-3L);
-	auto n33 = Number::with(n2);
+	Owning<Number> n00 = With<Number>(1L);
+	Owning<Any> n11 = With<Number>(4U);
+	Owning<Number> n22 = With<Number>(-3L);
+	auto n33 = With<Number>(n2);
 	
 	Array c = { n00, n11, n22, n33 };
 	
@@ -358,11 +358,11 @@ static void test_stuff(void)
 	
 	MutableArray tree;
 	for (std::size_t i = 0; i < 10; i++ ) {
-		auto child = Dictionary::with({
-			{ String::with(u8"child"), Number::with(i + 1) }
+		auto child = With<Dictionary>({
+			{ With<String>(u8"child"), With<Number>(i + 1) }
 		});
-		auto parent = Dictionary::with({
-			{ String::with(u8"parent"), child }
+		auto parent = With<Dictionary>({
+			{ With<String>(u8"parent"), child }
 		});
 		tree.addObject(parent);
 	}
@@ -377,10 +377,10 @@ static void test_stuff(void)
 	MutableArray indexTree;
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
-		auto child = Dictionary::with({
-			{ String::with(u8"child"), Number::with(i + 1) }
+		auto child = With<Dictionary>({
+			{ With<String>(u8"child"), With<Number>(i + 1) }
 		});
-		auto parent = Array::with({
+		auto parent = With<Array>({
 			child
 		});
 		indexTree.addObject(parent);
@@ -418,8 +418,8 @@ static void test_stuff(void)
 	// subscripting, script language
 	// to use with moderation
 	
-	indexTree[10] = String::with(u8"étourdie");
-	indexTree[40] = Date::with();
+	indexTree[MaxFound] = With<String>(u8"étourdie"); // push_back
+	indexTree[MaxFound] = With<Date>(); // push_back
 	
 	for (std::size_t i = 0; i < indexTree.size(); i++ ) {
 		std::cerr << "  ---->  + : " << indexTree[i] << std::endl;
@@ -430,10 +430,10 @@ static void test_stuff(void)
 	// indexTree = {};
 	indexTree.removeAllObjects();
 	for (std::size_t i = 0; i < 10; i++ ) {
-		auto child = Dictionary::with({
-			{ String::with(u8"child"), Number::with(i + 1) }
+		auto child = With<Dictionary>({
+			{ With<String>(u8"child"), With<Number>(i + 1) }
 		});
-		auto parent = Array::with({
+		auto parent = With<Array>({
 			child,
 			child,
 			child
@@ -450,18 +450,18 @@ static void test_stuff(void)
 	}
 	
 	Array list = {
-		String::with(u8"apple"),
-		String::with(u8"Banana"),
-		String::with(u8"Apple"),
-		String::with(u8"baNana"),
-		String::with(u8"bånAna"),
-		String::with(u8"étourdie"),
-		String::with(u8"éa"),
-		String::with(u8"Cherry"),
-		String::with(u8"åpple"),
-		String::with(u8"Pear"),
-		String::with(u8"epic"),
-		String::with(u"\ub098\ub294\ud0dc\uc624")
+		With<String>(u8"apple"),
+		With<String>(u8"Banana"),
+		With<String>(u8"Apple"),
+		With<String>(u8"baNana"),
+		With<String>(u8"bånAna"),
+		With<String>(u8"étourdie"),
+		With<String>(u8"éa"),
+		With<String>(u8"Cherry"),
+		With<String>(u8"åpple"),
+		With<String>(u8"Pear"),
+		With<String>(u8"epic"),
+		With<String>(u"\ub098\ub294\ud0dc\uc624")
 	};
 	
 	auto sort = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
@@ -470,32 +470,50 @@ static void test_stuff(void)
 	}
 	
 	Array firstNames = {
-		String::with(u8"Alice"),
-		String::with(u8"Bob"),
-		String::with(u8"Charlie"),
-		String::with(u8"Quentin")
+		With<String>(u8"Alice"),
+		With<String>(u8"Bob"),
+		With<String>(u8"Charlie"),
+		With<String>(u8"Quentin")
 	};
 	
 	Array lastNames = {
-		String::with(u8"Smith"),
-		String::with(u8"Jones"),
-		String::with(u8"Smith"),
-		String::with(u8"Alberts")
+		With<String>(u8"Smith"),
+		With<String>(u8"Jones"),
+		With<String>(u8"Smith"),
+		With<String>(u8"Alberts")
 	};
 	
 	Array ages = {
-		Number::with(24),
-		Number::with(27),
-		Number::with(33),
-		Number::with(31)
+		With<Number>(24),
+		With<Number>(27),
+		With<Number>(33),
+		With<Number>(31)
 	};
 	
-	std::cerr << ages[{2,1}] << std::endl;
+	auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
+	for (const auto & name : Then<Array>(names)) {
+		std::cerr << " + name  + : " << name << std::endl;
+	}
+	
+	struct hello
+	{
+		virtual ~hello() {}
+	};
+	
+	hello world;
+	
+	std::cerr << " + ConformsTo<Dictionary> names  + : " << ConformsTo<Dictionary>(names) << std::endl;
+	std::cerr << " + ConformsTo<Array> names  + : " << ConformsTo<Array>(names) << std::endl;
+	std::cerr << " + ConformsTo<Any> world  + : " << ConformsTo<Any>(world) << std::endl;
+	
+	for (const auto & age : ages[{-2,1}]) {
+		std::cerr << " + age  + : " << age << std::endl;
+	}
 	
 	Array keys = {
-		String::with(u8"firstName"),
-		String::with(u8"lastName"),
-		String::with(u8"age")
+		With<String>(u8"firstName"),
+		With<String>(u8"lastName"),
+		With<String>(u8"age")
 	};
 	
 	MutableArray people;
@@ -504,7 +522,7 @@ static void test_stuff(void)
 		[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
 		people.addObject(
-			Dictionary::with({
+			With<Dictionary>({
 				{ keys[0], obj },
 				{ keys[1], lastNames[index] },
 				{ keys[2], ages[index] }
@@ -514,7 +532,7 @@ static void test_stuff(void)
 	/*
 	for (std::size_t i = 0 ; i < 4 ; i++) {
 		people.addObject(
-			Dictionary::with({
+			With<Dictionary>({
 				{ keys[0], firstNames[i] },
 				{ keys[1], lastNames[i] },
 				{ keys[2], ages[i] }
@@ -524,25 +542,25 @@ static void test_stuff(void)
 	*/
 	/*
 	Array people = {
-		Dictionary::with({
-			{ String::with(u8"firstName"), firstNames[0] },
-			{ String::with(u8"lastName"), lastNames[0] },
-			{ String::with(u8"age"), ages[0] }
+		With<Dictionary>({
+			{ With<String>(u8"firstName"), firstNames[0] },
+			{ With<String>(u8"lastName"), lastNames[0] },
+			{ With<String>(u8"age"), ages[0] }
 		}),
-		Dictionary::with({
-			{ String::with(u8"firstName"), firstNames[1] },
-			{ String::with(u8"lastName"), lastNames[1] },
-			{ String::with(u8"age"), ages[1] }
+		With<Dictionary>({
+			{ With<String>(u8"firstName"), firstNames[1] },
+			{ With<String>(u8"lastName"), lastNames[1] },
+			{ With<String>(u8"age"), ages[1] }
 		}),
-		Dictionary::with({
-			{ String::with(u8"firstName"), firstNames[2] },
-			{ String::with(u8"lastName"), lastNames[2] },
-			{ String::with(u8"age"), ages[2] }
+		With<Dictionary>({
+			{ With<String>(u8"firstName"), firstNames[2] },
+			{ With<String>(u8"lastName"), lastNames[2] },
+			{ With<String>(u8"age"), ages[2] }
 		}),
-		Dictionary::with({
-			{ String::with(u8"firstName"), firstNames[3] },
-			{ String::with(u8"lastName"), lastNames[3] },
-			{ String::with(u8"age"), ages[3] }
+		With<Dictionary>({
+			{ With<String>(u8"firstName"), firstNames[3] },
+			{ With<String>(u8"lastName"), lastNames[3] },
+			{ With<String>(u8"age"), ages[3] }
 		})
 	};
 	*/
@@ -562,7 +580,7 @@ static void test_stuff(void)
 	d[u8"héllo2"] = lastNames[1];
 	d[u8"héllo1"] = lastNames[0];
 	d[u8"héllo3"] = lastNames[2];
-	d[u8"héllo4"] = String::with(u8"étourdie");
+	d[u8"héllo4"] = With<String>(u8"étourdie");
 	
 	
 	for (Dictionary::const_iterator it = d.begin(); it != d.end(); ++it)
@@ -583,7 +601,7 @@ static void test_stuff(void)
 	std::cerr << "past: " << Date::distantPast()  << std::endl;
 	std::cerr << "future: " << Date::distantFuture()  << std::endl;
 	
-	Owning<Any> now = Date::with();
+	Owning<Any> now = With<Date>();
 	
 	std::cerr << "now: " << now << std::endl;
 	
@@ -632,18 +650,18 @@ static void test_stuff(void)
 	
 	Array keys =
 	{
-		String::with(u8"key0"),
-		String::with(u8"key0"),
-		String::with(u8"key1"),
-		String::with(u8"key2")
+		With<String>(u8"key0"),
+		With<String>(u8"key0"),
+		With<String>(u8"key1"),
+		With<String>(u8"key2")
 	};
 	
 	Array vals =
 	{
-		Number::with(0UL),
-		Number::with(0UL),
-		Number::with(1UL),
-		Number::with(2UL)
+		With<Number>(0UL),
+		With<Number>(0UL),
+		With<Number>(1UL),
+		With<Number>(2UL)
 	};
 	
 	Set keys_set(keys.cbegin(), keys.cend());
@@ -864,7 +882,7 @@ int main(int argc, const char * argv[])
 
 	cout << "[" << str_16 << "] " << endl;
 
-	Owning<String> str_other = String::with(str_fmt);
+	Owning<String> str_other = With<String>(str_fmt);
 
 	cout << "[" << str_fmt << "] " << endl;
 	cout << "[" << str_other << "] " << endl;
