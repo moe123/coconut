@@ -221,8 +221,8 @@ Array list = {
 	With<String>(u8"epic")
 };
 
-Array sorted = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
-for (const auto & str : sorted) {
+auto sorted = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
+for (const auto & str : Thus<Array>(sorted)) {
 	std::cerr << "    + : " << str << std::endl;
 }
 
