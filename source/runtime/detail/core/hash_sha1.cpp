@@ -7,7 +7,7 @@
 #include <coconut/runtime/detail/core/hash.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 
-#include <source/runtime/_inc/core_hash_sha1.hxx>
+#include <source/runtime/builtins/core_hash_sha1.hxx>
 
 using namespace coconut::runtime;
 
@@ -49,43 +49,43 @@ void hash::sha1::process_block(const void * block)
 	}
 	
 	for (i = 16; i < 80; i++) {
-		words[i] = _inc::hash_sha1_rot(words[i - 3] ^ words[i - 8] ^ words[i - 14] ^ words[i - 16], 1);
+		words[i] = builtins::hash_sha1_rot(words[i - 3] ^ words[i - 8] ^ words[i - 14] ^ words[i - 16], 1);
 	}
 	
 	for (i = 0; i < 4; i++) {
 		std::size_t offset = 5 * i;
-		e += _inc::hash_sha1_rot(a, 5) + _inc::hash_sha1_f1(b, c, d) + words[offset] + 0x5a827999; b = _inc::hash_sha1_rot(b, 30);
-		d += _inc::hash_sha1_rot(e, 5) + _inc::hash_sha1_f1(a, b, c) + words[offset + 1] + 0x5a827999; a = _inc::hash_sha1_rot(a, 30);
-		c += _inc::hash_sha1_rot(d, 5) + _inc::hash_sha1_f1(e, a, b) + words[offset + 2] + 0x5a827999; e = _inc::hash_sha1_rot(e, 30);
-		b += _inc::hash_sha1_rot(c, 5) + _inc::hash_sha1_f1(d, e, a) + words[offset + 3] + 0x5a827999; d = _inc::hash_sha1_rot(d, 30);
-		a += _inc::hash_sha1_rot(b, 5) + _inc::hash_sha1_f1(c, d, e) + words[offset + 4] + 0x5a827999; c = _inc::hash_sha1_rot(c, 30);
+		e += builtins::hash_sha1_rot(a, 5) + builtins::hash_sha1_f1(b, c, d) + words[offset] + 0x5a827999; b = builtins::hash_sha1_rot(b, 30);
+		d += builtins::hash_sha1_rot(e, 5) + builtins::hash_sha1_f1(a, b, c) + words[offset + 1] + 0x5a827999; a = builtins::hash_sha1_rot(a, 30);
+		c += builtins::hash_sha1_rot(d, 5) + builtins::hash_sha1_f1(e, a, b) + words[offset + 2] + 0x5a827999; e = builtins::hash_sha1_rot(e, 30);
+		b += builtins::hash_sha1_rot(c, 5) + builtins::hash_sha1_f1(d, e, a) + words[offset + 3] + 0x5a827999; d = builtins::hash_sha1_rot(d, 30);
+		a += builtins::hash_sha1_rot(b, 5) + builtins::hash_sha1_f1(c, d, e) + words[offset + 4] + 0x5a827999; c = builtins::hash_sha1_rot(c, 30);
 	}
 	
 	for (i = 4; i < 8; i++) {
 		std::size_t offset = 5 * i;
-		e += _inc::hash_sha1_rot(a, 5) + _inc::hash_sha1_f2(b, c, d) + words[offset] + 0x6ed9eba1; b = _inc::hash_sha1_rot(b, 30);
-		d += _inc::hash_sha1_rot(e, 5) + _inc::hash_sha1_f2(a, b, c) + words[offset + 1] + 0x6ed9eba1; a = _inc::hash_sha1_rot(a, 30);
-		c += _inc::hash_sha1_rot(d, 5) + _inc::hash_sha1_f2(e, a, b) + words[offset + 2] + 0x6ed9eba1; e = _inc::hash_sha1_rot(e, 30);
-		b += _inc::hash_sha1_rot(c, 5) + _inc::hash_sha1_f2(d, e, a) + words[offset + 3] + 0x6ed9eba1; d = _inc::hash_sha1_rot(d, 30);
-		a += _inc::hash_sha1_rot(b, 5) + _inc::hash_sha1_f2(c, d, e) + words[offset + 4] + 0x6ed9eba1; c = _inc::hash_sha1_rot(c, 30);
+		e += builtins::hash_sha1_rot(a, 5) + builtins::hash_sha1_f2(b, c, d) + words[offset] + 0x6ed9eba1; b = builtins::hash_sha1_rot(b, 30);
+		d += builtins::hash_sha1_rot(e, 5) + builtins::hash_sha1_f2(a, b, c) + words[offset + 1] + 0x6ed9eba1; a = builtins::hash_sha1_rot(a, 30);
+		c += builtins::hash_sha1_rot(d, 5) + builtins::hash_sha1_f2(e, a, b) + words[offset + 2] + 0x6ed9eba1; e = builtins::hash_sha1_rot(e, 30);
+		b += builtins::hash_sha1_rot(c, 5) + builtins::hash_sha1_f2(d, e, a) + words[offset + 3] + 0x6ed9eba1; d = builtins::hash_sha1_rot(d, 30);
+		a += builtins::hash_sha1_rot(b, 5) + builtins::hash_sha1_f2(c, d, e) + words[offset + 4] + 0x6ed9eba1; c = builtins::hash_sha1_rot(c, 30);
 	}
 	
 	for (i = 8; i < 12; i++) {
 		std::size_t offset = 5 * i;
-		e += _inc::hash_sha1_rot(a, 5) + _inc::hash_sha1_f3(b, c, d) + words[offset] + 0x8f1bbcdc; b = _inc::hash_sha1_rot(b, 30);
-		d += _inc::hash_sha1_rot(e, 5) + _inc::hash_sha1_f3(a, b, c) + words[offset + 1] + 0x8f1bbcdc; a = _inc::hash_sha1_rot(a, 30);
-		c += _inc::hash_sha1_rot(d, 5) + _inc::hash_sha1_f3(e, a, b) + words[offset + 2] + 0x8f1bbcdc; e = _inc::hash_sha1_rot(e, 30);
-		b += _inc::hash_sha1_rot(c, 5) + _inc::hash_sha1_f3(d, e, a) + words[offset + 3] + 0x8f1bbcdc; d = _inc::hash_sha1_rot(d, 30);
-		a += _inc::hash_sha1_rot(b, 5) + _inc::hash_sha1_f3(c, d, e) + words[offset + 4] + 0x8f1bbcdc; c = _inc::hash_sha1_rot(c, 30);
+		e += builtins::hash_sha1_rot(a, 5) + builtins::hash_sha1_f3(b, c, d) + words[offset] + 0x8f1bbcdc; b = builtins::hash_sha1_rot(b, 30);
+		d += builtins::hash_sha1_rot(e, 5) + builtins::hash_sha1_f3(a, b, c) + words[offset + 1] + 0x8f1bbcdc; a = builtins::hash_sha1_rot(a, 30);
+		c += builtins::hash_sha1_rot(d, 5) + builtins::hash_sha1_f3(e, a, b) + words[offset + 2] + 0x8f1bbcdc; e = builtins::hash_sha1_rot(e, 30);
+		b += builtins::hash_sha1_rot(c, 5) + builtins::hash_sha1_f3(d, e, a) + words[offset + 3] + 0x8f1bbcdc; d = builtins::hash_sha1_rot(d, 30);
+		a += builtins::hash_sha1_rot(b, 5) + builtins::hash_sha1_f3(c, d, e) + words[offset + 4] + 0x8f1bbcdc; c = builtins::hash_sha1_rot(c, 30);
 	}
 	
 	for (i = 12; i < 16; i++) {
 		std::size_t offset = 5 * i;
-		e += _inc::hash_sha1_rot(a, 5) + _inc::hash_sha1_f2(b, c, d) + words[offset] + 0xca62c1d6; b = _inc::hash_sha1_rot(b, 30);
-		d += _inc::hash_sha1_rot(e, 5) + _inc::hash_sha1_f2(a, b, c) + words[offset + 1] + 0xca62c1d6; a = _inc::hash_sha1_rot(a, 30);
-		c += _inc::hash_sha1_rot(d, 5) + _inc::hash_sha1_f2(e, a, b) + words[offset + 2] + 0xca62c1d6; e = _inc::hash_sha1_rot(e, 30);
-		b += _inc::hash_sha1_rot(c, 5) + _inc::hash_sha1_f2(d, e, a) + words[offset + 3] + 0xca62c1d6; d = _inc::hash_sha1_rot(d, 30);
-		a += _inc::hash_sha1_rot(b, 5) + _inc::hash_sha1_f2(c, d, e) + words[offset + 4] + 0xca62c1d6; c = _inc::hash_sha1_rot(c, 30);
+		e += builtins::hash_sha1_rot(a, 5) + builtins::hash_sha1_f2(b, c, d) + words[offset] + 0xca62c1d6; b = builtins::hash_sha1_rot(b, 30);
+		d += builtins::hash_sha1_rot(e, 5) + builtins::hash_sha1_f2(a, b, c) + words[offset + 1] + 0xca62c1d6; a = builtins::hash_sha1_rot(a, 30);
+		c += builtins::hash_sha1_rot(d, 5) + builtins::hash_sha1_f2(e, a, b) + words[offset + 2] + 0xca62c1d6; e = builtins::hash_sha1_rot(e, 30);
+		b += builtins::hash_sha1_rot(c, 5) + builtins::hash_sha1_f2(d, e, a) + words[offset + 3] + 0xca62c1d6; d = builtins::hash_sha1_rot(d, 30);
+		a += builtins::hash_sha1_rot(b, 5) + builtins::hash_sha1_f2(c, d, e) + words[offset + 4] + 0xca62c1d6; c = builtins::hash_sha1_rot(c, 30);
 	}
 	
 	m_hash[0] += a;

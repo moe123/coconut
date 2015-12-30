@@ -4,14 +4,14 @@
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //
 
-//#define pugi COCONUT_PPCAT(coconut, _inc0pugi)
+//#define pugi COCONUT_PPCAT(coconut, builtins0pugi)
 #define PUGIXML_HEADER_ONLY
 
 namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			#include "pugixml.hpp"
 			

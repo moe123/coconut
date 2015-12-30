@@ -10,7 +10,7 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-#include <source/runtime/_inc/proxy_upath_absolute.hxx>
+#include <source/runtime/builtins/proxy_upath_absolute.hxx>
 
 using namespace coconut::runtime;
 
@@ -133,7 +133,7 @@ const upath upath::absolute(dirsep_option option) const
 {
 	// be smarter about separator
 	return upath(
-		_inc::upath_absolute(to_utf8_string(option)),
+		builtins::upath_absolute(to_utf8_string(option)),
 		encoding_utf8,
 		option
 	);

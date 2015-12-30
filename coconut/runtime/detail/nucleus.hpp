@@ -277,7 +277,7 @@ namespace coconut
 			bool mutability() const;
 			
 		private:
-			std::unordered_map<std::string, Owning<Any>> m_attrs;
+			std::unordered_map<std::string, Owning<Any> > m_attrs;
 			std::vector<ClassKind> m_kinds;
 			std::string m_addr;
 			ClassKind m_kind;

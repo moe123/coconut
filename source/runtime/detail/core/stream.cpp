@@ -8,7 +8,7 @@
 #include <coconut/runtime/detail/core/types.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-#include <source/runtime/_inc/core_stream.hxx>
+#include <source/runtime/builtins/core_stream.hxx>
 
 using namespace coconut::runtime;
 
@@ -17,11 +17,11 @@ stream::ifstream::ifstream() :
 { /* NOP */ }
 
 stream::ifstream::ifstream(const std::string & utf8_path, std::ios_base::open_mode mode) :
-	std::ifstream(_inc::stream_convpath(utf8_path).c_str(), mode)
+	std::ifstream(builtins::stream_convpath(utf8_path).c_str(), mode)
 { /* NOP */ }
 
 stream::ifstream::ifstream(const std::u16string & utf16_path, std::ios_base::open_mode mode) :
-	std::ifstream(_inc::stream_convpath(utf16_path).c_str(), mode)
+	std::ifstream(builtins::stream_convpath(utf16_path).c_str(), mode)
 { /* NOP */ }
 
 stream::ifstream::~ifstream()
@@ -29,12 +29,12 @@ stream::ifstream::~ifstream()
 
 void stream::ifstream::open(const std::string & utf8_path, std::ios_base::open_mode mode)
 {
-	std::ifstream::open(_inc::stream_convpath(utf8_path).c_str(), mode);
+	std::ifstream::open(builtins::stream_convpath(utf8_path).c_str(), mode);
 }
 
 void stream::ifstream::open(const std::u16string & utf16_path, std::ios_base::open_mode mode)
 {
-	std::ifstream::open(_inc::stream_convpath(utf16_path).c_str(), mode);
+	std::ifstream::open(builtins::stream_convpath(utf16_path).c_str(), mode);
 }
 
 #pragma mark -
@@ -44,11 +44,11 @@ stream::ofstream::ofstream() :
 { /* NOP */ }
 
 stream::ofstream::ofstream(const std::string & utf8_path, std::ios_base::open_mode mode) :
-	std::ofstream(_inc::stream_convpath(utf8_path).c_str(), mode)
+	std::ofstream(builtins::stream_convpath(utf8_path).c_str(), mode)
 { /* NOP */ }
 
 stream::ofstream::ofstream(const std::u16string & utf16_path, std::ios_base::open_mode mode) :
-	std::ofstream(_inc::stream_convpath(utf16_path).c_str(), mode)
+	std::ofstream(builtins::stream_convpath(utf16_path).c_str(), mode)
 { /* NOP */ }
 
 stream::ofstream::~ofstream()
@@ -56,12 +56,12 @@ stream::ofstream::~ofstream()
 
 void stream::ofstream::open(const std::string & utf8_path, std::ios_base::open_mode mode)
 {
-	std::ofstream::open(_inc::stream_convpath(utf8_path).c_str(), mode);
+	std::ofstream::open(builtins::stream_convpath(utf8_path).c_str(), mode);
 }
 
 void stream::ofstream::open(const std::u16string & utf16_path, std::ios_base::open_mode mode)
 {
-	std::ofstream::open(_inc::stream_convpath(utf16_path).c_str(), mode);
+	std::ofstream::open(builtins::stream_convpath(utf16_path).c_str(), mode);
 }
 
 #pragma mark -
@@ -71,11 +71,11 @@ stream::fstream::fstream() :
 { /* NOP */ }
 
 stream::fstream::fstream(const std::string & utf8_path, std::ios_base::open_mode mode) :
-	std::fstream(_inc::stream_convpath(utf8_path).c_str(), mode)
+	std::fstream(builtins::stream_convpath(utf8_path).c_str(), mode)
 { /* NOP */ }
 
 stream::fstream::fstream(const std::u16string & utf16_path, std::ios_base::open_mode mode) :
-	std::fstream(_inc::stream_convpath(utf16_path).c_str(), mode)
+	std::fstream(builtins::stream_convpath(utf16_path).c_str(), mode)
 { /* NOP */ }
 
 stream::fstream::~fstream()
@@ -83,12 +83,12 @@ stream::fstream::~fstream()
 
 void stream::fstream::open(const std::string & utf8_path, std::ios_base::open_mode mode)
 {
-	std::fstream::open(_inc::stream_convpath(utf8_path).c_str(), mode);
+	std::fstream::open(builtins::stream_convpath(utf8_path).c_str(), mode);
 }
 
 void stream::fstream::open(const std::u16string & utf16_path, std::ios_base::open_mode mode)
 {
-	std::fstream::open(_inc::stream_convpath(utf16_path).c_str(), mode);
+	std::fstream::open(builtins::stream_convpath(utf16_path).c_str(), mode);
 }
 
 #pragma mark -

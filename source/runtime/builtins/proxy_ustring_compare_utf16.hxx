@@ -11,7 +11,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			int ustring_compare_utf16(const icu::UnicodeString & a, const icu::UnicodeString & b, search_options options, icu::Locale * locale = nullptr)

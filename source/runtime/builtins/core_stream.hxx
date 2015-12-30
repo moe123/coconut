@@ -4,33 +4,13 @@
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //
 
-/*
-#if defined(_MSC_VER)
-	#ifdef _UNICODE
-		#undef _UNICODE
-	#endif
-	#ifdef UNICODE
-		#undef UNICODE
-	#endif
-	#ifndef _WINSOCKAPI_
-		#define _WINSOCKAPI_ 1
-	#endif
-	#ifndef _CRT_SECURE_NO_WARNINGS
-		#define _CRT_SECURE_NO_WARNINGS 1
-	#endif
-	#define WIN32_LEAN_AND_MEAN
-	#include <windows.h>
-#endif
-*/
-
 namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
-// #if defined(_MSC_VER)
-#if defined(WIN32) || defined(_WIN32)
+#if defined(__MICROSOFT__)
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			const std::wstring stream_convpath(const std::u16string & utf16_in)
 			{

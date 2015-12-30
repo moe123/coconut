@@ -13,7 +13,7 @@
 #include <coconut/runtime/detail/core/hash.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 
-#include <source/runtime/_inc/core_hash_sha_base.hxx>
+#include <source/runtime/builtins/core_hash_sha_base.hxx>
 
 using namespace coconut::runtime;
 
@@ -225,7 +225,7 @@ const char * hash::sha1_hex(const void * bytes, std::size_t len)
 const char * hash::sha1_hex(stream::imstream & in_binary)
 {
 	sha1 h;
-	_inc::hash_sha_hex(in_binary, &h);
+	builtins::hash_sha_hex(in_binary, &h);
 	return h.hex().c_str();
 }
 
@@ -233,7 +233,7 @@ const char * hash::sha1_hex(stream::ifstream & in_binary)
 {
 	sha1 h;
 	if (in_binary.is_open()) {
-		_inc::hash_sha_hex(in_binary, &h);
+		builtins::hash_sha_hex(in_binary, &h);
 	}
 	return h.hex().c_str();
 }
@@ -250,7 +250,7 @@ const std::vector<std::uint8_t> hash::sha1_raw(const void * bytes, std::size_t l
 const std::vector<std::uint8_t> hash::sha1_raw(stream::imstream & in_binary)
 {
 	sha1 h;
-	_inc::hash_sha_hex(in_binary, &h);
+	builtins::hash_sha_hex(in_binary, &h);
 	return h.raw();
 }
 
@@ -258,7 +258,7 @@ const std::vector<std::uint8_t> hash::sha1_raw(stream::ifstream & in_binary)
 {
 	sha1 h;
 	if (in_binary.is_open()) {
-		_inc::hash_sha_hex(in_binary, &h);
+		builtins::hash_sha_hex(in_binary, &h);
 	}
 	return h.raw();
 }
@@ -275,7 +275,7 @@ const char * hash::sha256_hex(const void * bytes, std::size_t len)
 const char * hash::sha256_hex(stream::imstream & in_binary)
 {
 	sha256 h;
-	_inc::hash_sha_hex(in_binary, &h);
+	builtins::hash_sha_hex(in_binary, &h);
 	return h.hex().c_str();
 }
 
@@ -283,7 +283,7 @@ const char * hash::sha256_hex(stream::ifstream & in_binary)
 {
 	sha256 h;
 	if (in_binary.is_open()) {
-		_inc::hash_sha_hex(in_binary, &h);
+		builtins::hash_sha_hex(in_binary, &h);
 	}
 	return h.hex().c_str();
 }
@@ -300,7 +300,7 @@ const std::vector<std::uint8_t> hash::sha256_raw(const void * bytes, std::size_t
 const std::vector<std::uint8_t> hash::sha256_raw(stream::imstream & in_binary)
 {
 	sha256 h;
-	_inc::hash_sha_hex(in_binary, &h);
+	builtins::hash_sha_hex(in_binary, &h);
 	return h.raw();
 }
 
@@ -308,7 +308,7 @@ const std::vector<std::uint8_t> hash::sha256_raw(stream::ifstream & in_binary)
 {
 	sha256 h;
 	if (in_binary.is_open()) {
-		_inc::hash_sha_hex(in_binary, &h);
+		builtins::hash_sha_hex(in_binary, &h);
 	}
 	return h.raw();
 }

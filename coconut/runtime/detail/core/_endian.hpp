@@ -36,13 +36,17 @@
 		#endif
 	#endif
 
-	#if defined(_MSC_VER)
+	#if defined(__MICROSOFT__)
 		#ifndef BYTE_ORDER
-			#if defined(REG_DWORD) && (REG_DWORD == REG_DWORD_BIG_ENDIAN)
-				#define BYTE_ORDER BIG_ENDIAN
-			#endif
-			#ifndef BYTE_ORDER
-				#define BYTE_ORDER LITTLE_ENDIAN
+			#ifndef __BYTE_ORDER
+				#if defined(REG_DWORD) && (REG_DWORD == REG_DWORD_BIG_ENDIAN)
+					#define BYTE_ORDER BIG_ENDIAN
+				#endif
+				#ifndef BYTE_ORDER
+					#define BYTE_ORDER LITTLE_ENDIAN
+				#endif
+			#else
+				#define BYTE_ORDER __BYTE_ORDER
 			#endif
 		#endif
 	#endif

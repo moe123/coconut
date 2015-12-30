@@ -11,7 +11,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, std::size_t length, const icu::UnicodeString & needle, search_options options, icu::Locale * locale = nullptr)

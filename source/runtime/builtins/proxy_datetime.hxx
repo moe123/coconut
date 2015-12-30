@@ -9,56 +9,14 @@
 #include "unicode/smpdtfmt.h"
 #include "unicode/fieldpos.h"
 
-#if defined(_MSC_VER)
-	/*
-	#ifdef _UNICODE
-		#undef _UNICODE
-	#endif
-	#ifdef UNICODE
-		#undef UNICODE
-	#endif
-	#ifndef _WINSOCKAPI_
-		#define _WINSOCKAPI_ 1
-	#endif
-	#ifndef _CRT_SECURE_NO_WARNINGS
-		#define _CRT_SECURE_NO_WARNINGS 1
-	#endif
-	#define WIN32_LEAN_AND_MEAN
-	*/
-	#include <WinSock2.h>
-	#include <windows.h>
-
-	/*
-	typedef unsigned long DWORD;
-
-	typedef struct _FILETIME
-	{
-		DWORD dwLowDateTime;
-		DWORD dwHighDateTime;
-	} FILETIME, *PFILETIME;
-
-	#define WINAPI __stdcall
-	#define _Out_
-
-	void WINAPI GetSystemTimeAsFileTime(_Out_ LPFILETIME lpSystemTimeAsFileTime);
-	*/
-
-#endif
-
-#if __MACH__
-	#include <mach/clock.h>
-	#include <mach/mach.h>
-	#include <mach/mach_error.h>
-#endif
-
 namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 
-#if defined(_MSC_VER) && !defined(TIME_UTC)
+#if defined(__MICROSOFT__) && !defined(TIME_UTC)
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			int gettimeofday(struct timeval * tp, void * tzp)
@@ -163,10 +121,7 @@ namespace coconut
 				
 #elif defined(_MSC_VER)
 				
-				union {
-					unsigned long long ns100;
-					FILETIME ft;
-				} now;
+				union { unsigned long long ns100; FILETIME ft; } now;
 				
 				if (tms == nullptr) {
 					return result;
@@ -262,10 +217,14 @@ namespace coconut
 			double datetime_parse_utc(const std::string & utc)
 			{
 				UErrorCode status = U_ZERO_ERROR;
+				UDate milliseconds = 0.0;
+				
+				constexpr auto fmt_short = u8"yyyy-MM-dd'T'HH:mm:ss'Z'";
+				constexpr auto fmt_long = u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 				
 				icu::SimpleDateFormat dtf = icu::SimpleDateFormat
 				(
-					UnicodeString::fromUTF8(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+					UnicodeString::fromUTF8((utc.find(".") != std::string::npos) ? fmt_long : fmt_short),
 					Locale::getRoot(),
 					status
 				);
@@ -275,13 +234,13 @@ namespace coconut
 				UnicodeString buf = UnicodeString::fromUTF8(icu::StringPiece(utc));
 				dtf.setTimeZone(*(icu::TimeZone::getGMT()));
 				icu::ParsePosition pos(0);
-				UDate milliseconds = dtf.parse(
+				milliseconds = dtf.parse(
 					buf,
 					pos
 				);
 				if (!milliseconds) {
 					status = U_ZERO_ERROR;
-					dtf.applyLocalizedPattern(UnicodeString::fromUTF8(u8"yyyy-MM-dd'T'HH:mm:ss'Z'"), status);
+					dtf.applyLocalizedPattern(UnicodeString::fromUTF8(fmt_short), status);
 					if (U_FAILURE(status)) {
 						return 0.0;
 					}
@@ -305,8 +264,6 @@ namespace coconut
 #define COCONUT_APPLE_EPOCH_MILLISECONDS  978307200000.000
 #define COCONUT_APPLE_EPOCH_MICROSECONDS  978307200000000.000
 #define COCONUT_APPLE_EPOCH_NANOSECONDS   978307200000000000.000
-
-
-#define COCONUT_FORTY_YEARS_MILLISECONDS 1262277040000.0
+#define COCONUT_FORTY_YEARS_MILLISECONDS  1262277040000.000
 
 /* EOF */

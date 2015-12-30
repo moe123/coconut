@@ -542,7 +542,7 @@
 		D528D3A11BC4929B00D8087D /* runtime */ = {
 			isa = PBXGroup;
 			children = (
-				D5F5AB8D1BC9E5BE00902D69 /* _inc */,
+				D5F5AB8D1BC9E5BE00902D69 /* builtins */,
 				D595B8E21BC9A4690051FF91 /* detail */,
 				D528D3C41BC4929C00D8087D /* Object.cpp */,
 				D5F5AB5F1BC9C9CC00902D69 /* Serialization.cpp */,
@@ -740,7 +740,7 @@
 			path = ../other;
 			sourceTree = "<group>";
 		};
-		D5F5AB8D1BC9E5BE00902D69 /* _inc */ = {
+		D5F5AB8D1BC9E5BE00902D69 /* builtins */ = {
 			isa = PBXGroup;
 			children = (
 				D5F5AB8E1BC9E5BE00902D69 /* core_hash_sha1.hxx */,
@@ -759,7 +759,7 @@
 				D5F5AB9A1BC9E5BE00902D69 /* proxy_ustring_searching.hxx */,
 				D5F5AB9B1BC9E5BE00902D69 /* serialization_xmlplist.hxx */,
 			);
-			path = _inc;
+			path = builtins;
 			sourceTree = "<group>";
 		};
 		D5FD450C1A8559450048F678 = {

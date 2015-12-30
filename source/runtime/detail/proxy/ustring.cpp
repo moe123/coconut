@@ -13,11 +13,11 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-#include <source/runtime/_inc/proxy_ustring_compare_utf8.hxx>
-#include <source/runtime/_inc/proxy_ustring_compare_utf16.hxx>
-#include <source/runtime/_inc/proxy_ustring_encoding.hxx>
-#include <source/runtime/_inc/proxy_ustring_parsing.hxx>
-#include <source/runtime/_inc/proxy_ustring_searching.hxx>
+#include <source/runtime/builtins/proxy_ustring_compare_utf8.hxx>
+#include <source/runtime/builtins/proxy_ustring_compare_utf16.hxx>
+#include <source/runtime/builtins/proxy_ustring_encoding.hxx>
+#include <source/runtime/builtins/proxy_ustring_parsing.hxx>
+#include <source/runtime/builtins/proxy_ustring_searching.hxx>
 
 using namespace coconut::runtime;
 
@@ -38,7 +38,7 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 			case encoding_auto:
 			{
 				float confidence = 0.0f;
-				std::string codepage = _inc::ustring_detectcodepage(bytes, length, confidence);
+				std::string codepage = builtins::ustring_detectcodepage(bytes, length, confidence);
 				if (codepage.size()) {
 					if (confidence >= 0.10f) {
 						m_ustr = icu::UnicodeString(
@@ -98,7 +98,7 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 			case encoding_ibm424ltr:
 			case encoding_ibm424rtl:
 			{
-				std::string codepage = _inc::ustring_getcodepage(encoding);
+				std::string codepage = builtins::ustring_getcodepage(encoding);
 				m_ustr = icu::UnicodeString(
 					unsafe_cast<const char *>(bytes),
 					unsafe_cast<std::int32_t>(length),
@@ -248,17 +248,17 @@ ustring::~ustring()
 
 std::string ustring::get_codepage(encoding_option encoding)
 {
-	return _inc::ustring_getcodepage(encoding);
+	return builtins::ustring_getcodepage(encoding);
 }
 
 bool ustring::get_sys_codepages(std::vector<std::string> & codepages)
 {
-	return _inc::ustring_syscodepages(codepages);
+	return builtins::ustring_syscodepages(codepages);
 }
 
 bool ustring::get_codepages(std::set<std::string> & codepages)
 {
-	return _inc::ustring_getcodepages(codepages);
+	return builtins::ustring_getcodepages(codepages);
 }
 
 #pragma mark -
@@ -266,9 +266,9 @@ bool ustring::get_codepages(std::set<std::string> & codepages)
 bool ustring::guess_encoding(const std::string & in8bits, encoding_option & encoding, float & confidence)
 {
 	bool result = false;
-	std::string codepage = _inc::ustring_detectcodepage(unsafe_cast<const std::uint8_t *>(in8bits.data()), in8bits.length(), confidence);
+	std::string codepage = builtins::ustring_detectcodepage(unsafe_cast<const std::uint8_t *>(in8bits.data()), in8bits.length(), confidence);
 	if (codepage.size()) {
-		if (_inc::ustring_getencoding(codepage.c_str(), encoding)) {
+		if (builtins::ustring_getencoding(codepage.c_str(), encoding)) {
 			result = true;
 		} else {
 			confidence = 0.0f;
@@ -330,7 +330,7 @@ int ustring::compare_utf8(const std::string & utf8_a, const std::string & utf8_r
 	}
 	//icu::Locale loc = icu::Locale::getDefault();
 	icu::Locale loc = icu::Locale::getEnglish();
-	return _inc::ustring_compare_utf8(utf8_a, utf8_r, options, &loc);
+	return builtins::ustring_compare_utf8(utf8_a, utf8_r, options, &loc);
 }
 
 #pragma mark -
@@ -371,7 +371,7 @@ int ustring::compare(const ustring & other_ustr, search_options options) const
 	if ((options & search_literal) && ((options & search_nowidth) || (options & search_numeric))) {
 		options &= ~search_literal;
 	}
-	return _inc::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options);
+	return builtins::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options);
 }
 
 int ustring::icase_compare(const ustring & other_ustr) const
@@ -388,7 +388,7 @@ int ustring::icase_compare(const ustring & other_ustr, search_options options) c
 	if ((options & search_literal) && ((options & search_nowidth) || (options & search_numeric))) {
 		options &= ~search_literal;
 	}
-	return _inc::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options);
+	return builtins::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options);
 }
 
 int ustring::compare_localized(const ustring & other_ustr) const
@@ -404,7 +404,7 @@ int ustring::compare_localized(const ustring & other_ustr, search_options option
 	}
 	//icu::Locale loc = icu::Locale::getDefault();
 	icu::Locale loc = icu::Locale::getEnglish();
-	return _inc::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options, &loc);
+	return builtins::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options, &loc);
 }
 
 int ustring::icase_compare_localized(const ustring & other_ustr) const
@@ -423,7 +423,7 @@ int ustring::icase_compare_localized(const ustring & other_ustr, search_options 
 	}
 	//icu::Locale loc = icu::Locale::getDefault();
 	icu::Locale loc = icu::Locale::getEnglish();
-	return _inc::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options, &loc);
+	return builtins::ustring_compare_utf16(m_ustr , other_ustr.m_ustr, options, &loc);
 }
 
 #pragma mark -
@@ -456,7 +456,7 @@ std::size_t ustring::size_for(encoding_option encoding) const
 {
 	std::int32_t sz = m_ustr.length();
 	if (sz && encoding != encoding_auto) {
-		std::string codepage = _inc::ustring_getcodepage(encoding);
+		std::string codepage = builtins::ustring_getcodepage(encoding);
 		if (!codepage.size()) {
 			return 0;
 		}
@@ -478,7 +478,7 @@ float ustring::to_float() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<float>(out);
 	}
 	return 0;
@@ -488,7 +488,7 @@ double ustring::to_double() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<double>(out);
 	}
 	return 0;
@@ -498,7 +498,7 @@ long double ustring::to_long_double() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<long double>(out);
 	}
 	return 0;
@@ -513,7 +513,7 @@ char ustring::to_char() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<char>(out);
 	}
 	return 0;
@@ -523,7 +523,7 @@ short ustring::to_short() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<short>(out);
 	}
 	return 0;
@@ -533,7 +533,7 @@ int ustring::to_int() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<int>(out);
 	}
 	return 0;
@@ -543,7 +543,7 @@ long ustring::to_long() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<long>(out);
 	}
 	return 0;
@@ -553,7 +553,7 @@ long long ustring::to_longlong() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<long long>(out);
 	}
 	return 0;
@@ -563,7 +563,7 @@ unsigned char ustring::to_unsigned_char() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<unsigned char>(out);
 	}
 	return 0;
@@ -573,7 +573,7 @@ unsigned short ustring::to_unsigned_short() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<unsigned short>(out);
 	}
 	return 0;
@@ -583,7 +583,7 @@ unsigned int ustring::to_unsigned_int() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<unsigned int>(out);
 	}
 	return 0;
@@ -593,7 +593,7 @@ unsigned long ustring::to_unsigned_long() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<unsigned long>(out);
 	}
 	return 0;
@@ -603,7 +603,7 @@ unsigned long long ustring::to_unsigned_longlong() const
 {
 	std::string out;
 	bool isfp = false;
-	if(_inc::ustring_parse_numeric(m_ustr, out, isfp)) {
+	if(builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
 		return algorithm::to_numeric<unsigned long long>(out);
 	}
 	return 0;
@@ -732,7 +732,7 @@ irange ustring::range_of(const ustring & ustr, search_options options) const
 
 irange ustring::range_of(const ustring & ustr, const irange & in_rg, search_options options) const
 {
-	return _inc::ustring_rangeof(m_ustr, in_rg.location(), in_rg.length(), ustr.m_ustr, options);
+	return builtins::ustring_rangeof(m_ustr, in_rg.location(), in_rg.length(), ustr.m_ustr, options);
 }
 
 #pragma mark -

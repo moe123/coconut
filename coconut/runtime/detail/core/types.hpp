@@ -39,6 +39,9 @@ namespace coconut
 	inline ptr_declare<T1> ptr_cast(ptr_declare<T2> const & r)
 	{ return std::dynamic_pointer_cast<T1>(r); }
 	
+	template <class T> struct is_ptr : std::false_type{};
+	template <class T> struct is_ptr< ptr_declare<T> > : std::true_type{};
+	
 	namespace runtime
 	{
 		COCONUT_OPT_TYPED(ComparisonResult, int)

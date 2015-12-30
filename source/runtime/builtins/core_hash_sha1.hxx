@@ -14,7 +14,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t hash_sha1_rot(std::uint32_t a, std::uint32_t c)

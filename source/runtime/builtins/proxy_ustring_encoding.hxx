@@ -11,7 +11,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			static struct { encoding_option encoding; const char * codepage; } const ustring_codepages[] =
 			{

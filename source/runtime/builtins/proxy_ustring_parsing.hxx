@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool ustring_parse_numeric(const icu::UnicodeString & in, std::string & out, bool & isfp, icu::Locale * locale = nullptr)

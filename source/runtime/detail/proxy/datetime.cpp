@@ -9,7 +9,7 @@
 #include <coconut/runtime/detail/proxy/locale.hpp>
 #include <coconut/runtime/detail/proxy/timezone.hpp>
 
-#include <source/runtime/_inc/proxy_datetime.hxx>
+#include <source/runtime/builtins/proxy_datetime.hxx>
 
 using namespace coconut::runtime;
 
@@ -150,23 +150,23 @@ double datetime::absolute(timeunit_option unit_opt)
 	{
 		case timeunit_nanoseconds:
 		{
-			result = static_cast<double>(_inc::datetime_nanotime());
+			result = static_cast<double>(builtins::datetime_nanotime());
 		}
 		break;
 		case timeunit_microseconds:
 		{
-			result = static_cast<double>(_inc::datetime_microtime());
+			result = static_cast<double>(builtins::datetime_microtime());
 		}
 		break;
 		case timeunit_milliseconds:
 		{
-			result = static_cast<double>(_inc::datetime_millitime());
+			result = static_cast<double>(builtins::datetime_millitime());
 		}
 		break;
 		case timeunit_plainseconds:
 		case timeunit_doubleseconds:
 		{
-			result = static_cast<double>(_inc::datetime_millitime()) * 1000.0;
+			result = static_cast<double>(builtins::datetime_millitime()) * 1000.0;
 		}
 		break;
 		default:
@@ -179,14 +179,14 @@ double datetime::absolute(timeunit_option unit_opt)
 
 std::string datetime::utc_now()
 {
-	return _inc::datetime_format_utc(
+	return builtins::datetime_format_utc(
 		datetime::timestamp_1970(timeunit_milliseconds)
 	);
 }
 
 datetime datetime::utc_parse(const std::string & utc)
 {
-	double milliseconds = _inc::datetime_parse_utc(utc);
+	double milliseconds = builtins::datetime_parse_utc(utc);
 	datetime dtm(milliseconds, timeref_since_1970);
 	return dtm;
 }
@@ -196,10 +196,10 @@ datetime datetime::utc_parse(const std::string & utc)
 bool datetime::get_now(std::pair<std::int64_t, std::int64_t> & tm)
 {
 	bool result = false;
-	_inc::time_spec tms;
+	builtins::time_spec tms;
 	tm.first = 0;
  	tm.second = 0;
-	if (_inc::datetime_epoch(&tms)) {
+	if (builtins::datetime_epoch(&tms)) {
 		tm.first = static_cast<std::int64_t>(tms.tv_sec);
 		tm.second = static_cast<std::int64_t>(tms.tv_nsec);
 		result = true;
@@ -345,7 +345,7 @@ const datetime & datetime::later(const datetime & dtm) const
 
 std::string datetime::to_string() const
 {
-	return _inc::datetime_format_utc(
+	return builtins::datetime_format_utc(
 		time_interval_since_1970()
 	);
 }

@@ -7,9 +7,9 @@
 #include <coconut/runtime/detail/proxy/uri.hpp>
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
-#include <source/runtime/_inc/proxy_uri_escaping.hxx>
-#include <source/runtime/_inc/proxy_uri_joining.hxx>
-#include <source/runtime/_inc/proxy_uri_parsing.hxx>
+#include <source/runtime/builtins/proxy_uri_escaping.hxx>
+#include <source/runtime/builtins/proxy_uri_joining.hxx>
+#include <source/runtime/builtins/proxy_uri_parsing.hxx>
 
 using namespace coconut::runtime;
 
@@ -67,7 +67,7 @@ uri::uri(const uri & url, bool normalize) :
 		};
 		m_parameters.clear();
 		m_port = 0;
-		m_isvalid_url = _inc::uri_parse(
+		m_isvalid_url = builtins::uri_parse(
 			url.to_string(),
 			m_components,
 			m_parameters,
@@ -102,8 +102,8 @@ uri::uri(const std::string & str_url, const uri & url, bool normalize) :
 	m_isvalid_url(false)
 {
 	std::string str_abs_url;
-	if (_inc::uri_join(str_url, url.to_string(), str_abs_url, normalize)) {
-		m_isvalid_url = _inc::uri_parse(
+	if (builtins::uri_join(str_url, url.to_string(), str_abs_url, normalize)) {
+		m_isvalid_url = builtins::uri_parse(
 			str_abs_url,
 			m_components,
 			m_parameters,
@@ -138,8 +138,8 @@ uri::uri(const std::string & str_url, const std::string & str_base_url, bool nor
 	m_isvalid_url(false)
 {
 	std::string str_abs_url;
-	if (_inc::uri_join(str_url, str_base_url, str_abs_url, normalize)) {
-		m_isvalid_url = _inc::uri_parse(
+	if (builtins::uri_join(str_url, str_base_url, str_abs_url, normalize)) {
+		m_isvalid_url = builtins::uri_parse(
 			str_abs_url,
 			m_components,
 			m_parameters,
@@ -175,9 +175,9 @@ uri::uri(const std::string & str_url, bool is_filepath, bool normalize) :
 {
 	if (is_filepath) {
 		std::string abs_uri;
-		if (_inc::uri_filetouri(str_url, abs_uri)) {
+		if (builtins::uri_filetouri(str_url, abs_uri)) {
 			m_isfile_url = true;
-			m_isvalid_url = _inc::uri_parse(
+			m_isvalid_url = builtins::uri_parse(
 				abs_uri,
 				m_components,
 				m_parameters,
@@ -187,7 +187,7 @@ uri::uri(const std::string & str_url, bool is_filepath, bool normalize) :
 			);
 		}
 	} else {
-		m_isvalid_url = _inc::uri_parse(
+		m_isvalid_url = builtins::uri_parse(
 			str_url,
 			m_components,
 			m_parameters,
@@ -225,7 +225,7 @@ uri::uri(const std::string & scheme, const std::string & host, const std::string
 	in += "://";
 	in += host;
 	in += path;
-	m_isvalid_url = _inc::uri_parse(
+	m_isvalid_url = builtins::uri_parse(
 		in,
 		m_components,
 		m_parameters,
@@ -239,7 +239,7 @@ uri::uri(const std::string & scheme, const std::string & host, const std::string
 }
 
 uri::uri(const std::string & str_url) :
-	uri(str_url, !_inc::uri_asscheme(str_url), true)
+	uri(str_url, !builtins::uri_asscheme(str_url), true)
 { /* NOP */ }
 
 uri::~uri()
@@ -249,12 +249,12 @@ uri::~uri()
 
 std::string uri::escape(const std::string & in, bool space_as_plus)
 {
-	return _inc::uri_escape(in, space_as_plus);
+	return builtins::uri_escape(in, space_as_plus);
 }
 
 std::string uri::unescape(const std::string & in, bool plus_as_space)
 {
-	return _inc::uri_escape(in, plus_as_space);
+	return builtins::uri_escape(in, plus_as_space);
 }
 
 #pragma mark -
@@ -294,7 +294,7 @@ std::string uri::to_string() const
 
 bool uri::is_scheme(const std::string & scheme)
 {
-	return _inc::uri_validscheme(scheme);
+	return builtins::uri_validscheme(scheme);
 }
 
 bool uri::is_valid() const

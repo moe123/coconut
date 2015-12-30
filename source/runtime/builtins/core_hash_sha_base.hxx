@@ -8,7 +8,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace _inc
+		namespace builtins
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool hash_sha_hex(std::istream & in_binary, hash::sha_base * h)

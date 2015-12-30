@@ -44,6 +44,43 @@
 #include <unordered_set>
 #include <vector>
 
+#if __MACH__
+	#include <mach/clock.h>
+	#include <mach/mach.h>
+	#include <mach/mach_error.h>
+#endif
+
+#if !defined(__CYGWIN__) && (defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64))
+	#ifndef __MICROSOFT__
+		#define __MICROSOFT__ 1
+	#endif
+	#ifndef _SCL_SECURE_NO_WARNINGS
+		#define _SCL_SECURE_NO_WARNINGS 1
+	#endif
+	#ifndef _CRT_SECURE_NO_WARNINGS
+		#define _CRT_SECURE_NO_WARNINGS 1
+	#endif
+
+	#include <winsock2.h>
+	#include <ws2tcpip.h>
+	#include <rpcdce.h>
+	#include <wincrypt.h>
+	#include <windows.h>
+
+	#ifndef _MSC_VER
+		#include <sys/param.h>
+	#endif
+
+	#ifndef SIZE_MAX
+		#if defined(WIN64) || defined(_WIN64)
+			#define SIZE_MAX _UI64_MAX
+		#else
+			#define SIZE_MAX _UI32_MAX
+		#endif
+	#endif
+
+#endif
+
 #include <coconut/runtime/detail/core/_endian.hpp>
 #include <coconut/runtime/detail/core/_intrinsic.hpp>
 #include <coconut/runtime/detail/core/_inifini.hpp>
@@ -53,14 +90,6 @@
 
 	#ifndef COCONUT_API_VERSION
 		#define COCONUT_API_VERSION 1_0_0
-	#endif
-
-	#ifndef SIZE_MAX
-		#if defined(WIN64) || defined(_WIN64)
-			#define SIZE_MAX _UI64_MAX
-		#else
-			#define SIZE_MAX _UI32_MAX
-		#endif
 	#endif
 
 	#define COCONUT_PPCAT_NX(A, B) A ## B
