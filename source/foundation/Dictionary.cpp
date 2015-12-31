@@ -356,10 +356,29 @@ Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Owning<Any> & key) con
 
 #pragma mark -
 
-const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundMarker)
+const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundMarker) const
 {
 	Array::impl_type buf;
 	for (Array::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
+		if ((*it)) {
+			Owning<Any> v;
+			if (!(v = objectForKey(*(*it)))) {
+				if (notFoundMarker) { v = notFoundMarker; } else { v = None::with(); }
+			}
+			buf.push_back(v);
+		} else {
+			// Fault();
+		}
+	}
+	return Array(buf.cbegin(), buf.cend());
+}
+
+#pragma mark -
+
+const Array Dictionary::objectsForKeys(const Set & keys, Owning<Any> notFoundMarker) const
+{
+	Array::impl_type buf;
+	for (Set::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) {
 			Owning<Any> v;
 			if (!(v = objectForKey(*(*it)))) {

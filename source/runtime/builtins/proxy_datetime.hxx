@@ -48,7 +48,7 @@ namespace coconut
 					result = static_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
 				}
 				
-#elif defined(_MSC_VER)
+#elif defined(__MICROSOFT__)
 				FILETIME ft;
 				GetSystemTimeAsFileTime(&ft);
 				long long x;
@@ -119,7 +119,7 @@ namespace coconut
 					result = true;
 				}
 				
-#elif defined(_MSC_VER)
+#elif defined(__MICROSOFT__)
 				
 				union { unsigned long long ns100; FILETIME ft; } now;
 				
@@ -199,7 +199,7 @@ namespace coconut
 				
 				icu::SimpleDateFormat dtf = icu::SimpleDateFormat
 				(
-					UnicodeString::fromUTF8(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+					UnicodeString::fromUTF8(icu::StringPiece(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")),
 				 	Locale::getRoot(),
 					status
 				);
@@ -224,13 +224,19 @@ namespace coconut
 				
 				icu::SimpleDateFormat dtf = icu::SimpleDateFormat
 				(
-					UnicodeString::fromUTF8((utc.find(".") != std::string::npos) ? fmt_long : fmt_short),
+					UnicodeString::fromUTF8(
+						icu::StringPiece(
+							(utc.find(".") != std::string::npos) ? fmt_long : fmt_short
+						)
+					),
 					Locale::getRoot(),
 					status
 				);
+				
 				if (U_FAILURE(status)) {
 					return 0.0;
 				}
+				
 				UnicodeString buf = UnicodeString::fromUTF8(icu::StringPiece(utc));
 				dtf.setTimeZone(*(icu::TimeZone::getGMT()));
 				icu::ParsePosition pos(0);
@@ -240,7 +246,10 @@ namespace coconut
 				);
 				if (!milliseconds) {
 					status = U_ZERO_ERROR;
-					dtf.applyLocalizedPattern(UnicodeString::fromUTF8(fmt_short), status);
+					dtf.applyLocalizedPattern(
+						UnicodeString::fromUTF8(icu::StringPiece(fmt_short)),
+						status
+					);
 					if (U_FAILURE(status)) {
 						return 0.0;
 					}

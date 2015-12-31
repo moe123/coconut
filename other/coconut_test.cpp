@@ -565,7 +565,7 @@ static void test_stuff(void)
 		})
 	};
 	*/
-	SortDescriptor s0(u8"firstName", false);
+	SortDescriptor s0(u8"firstName", true);
 	SortDescriptor s1(u8"lastName", false);
 	SortDescriptor s2(u8"age");
 	
@@ -785,7 +785,7 @@ int main(int argc, const char * argv[])
 	
 	std::uint8_t in_1[4] = { out_0[0], out_0[1], out_0[2], out_0[3] };
 	std::int32_t out_1;
-	runtime::byteorder::r32be_v2(in_1, out_1);
+	runtime::byteorder::r32be(in_1, out_1);
 	
 	std::cerr << "+ out_1 " << out_1 << std::endl;
 	
@@ -921,10 +921,10 @@ int main(int argc, const char * argv[])
 		{
 			/* do job */
 			test_stuff();
-			test_attr_and_custom();
+			//test_attr_and_custom();
 			//test_date();
 			//test_number();
-			test_array();
+			//test_array();
 			return true;
 		});
 		bool result = job1.get();

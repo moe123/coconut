@@ -136,7 +136,7 @@ namespace coconut
 		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		const Array makeKeysPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const;
+		const Array makeKeysPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 		
 		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func) const;
 		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
@@ -153,8 +153,8 @@ namespace coconut
 		Owning<Any> objectForCaseInsensitiveKey(const Any & key) const;
 		Owning<Any> objectForCaseInsensitiveKey(const Owning<Any> & key) const;
 		
-		const Array objectsForKeys(const Array & keys, Owning<Any> notFoundMarker = {});
-		const Array objectsForKeys(const Set & keys, Owning<Any> notFoundMarker = {});
+		const Array objectsForKeys(const Array & keys, Owning<Any> notFoundMarker = {}) const;
+		const Array objectsForKeys(const Set & keys, Owning<Any> notFoundMarker = {}) const;
 		
 		const Array allKeys(CopyOption option = CopyNone) const;
 		const Array allKeysForObject(const Any & obj, CopyOption option = CopyNone) const;

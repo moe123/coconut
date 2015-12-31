@@ -62,7 +62,6 @@ const Date Date::fromUTC(const String & UTC)
 	Date dtm(0.0L, TimeReferenceSinceReferenceDate, TimeUnitMilliSeconds);
 	dtm.m_impl = impl_type::utc_parse(UTC.stringValue());
 	return dtm;
-	
 }
 
 #pragma mark -

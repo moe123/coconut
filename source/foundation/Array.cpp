@@ -793,10 +793,10 @@ const Array Array::sortedArrayDescending(CopyOption option, SortOptions options)
 #pragma mark -
 
 const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, CopyOption option) const
-{ return sortedArrayUsingSelectorKey(utf8_selkey, option, false, SortDefault); }
+{ return sortedArrayUsingSelectorKey(utf8_selkey, option, false, SortDefault|SortConcurrent); }
 
 const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, CopyOption option, bool descending) const
-{ return sortedArrayUsingSelectorKey(utf8_selkey, option, descending, SortDefault); }
+{ return sortedArrayUsingSelectorKey(utf8_selkey, option, descending, SortDefault|SortConcurrent); }
 
 const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, CopyOption option, bool descending, SortOptions options) const
 {

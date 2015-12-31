@@ -215,28 +215,28 @@ bytebuf::~bytebuf()
 
 void bytebuf::unpack(const std::uint8_t (&in)[2], std::uint16_t & out, unpacking_option option)
 {
-	if (option == packing_littleendian) {
-		out = byteorder::r16le(in);
+	if (option == unpacking_littleendian) {
+		byteorder::r16le(in, out);
 	} else {
-		out =  byteorder::r16be(in);
+		byteorder::r16be(in, out);
 	}
 }
 
 void bytebuf::unpack(const std::uint8_t (&in)[4], std::uint32_t & out, unpacking_option option)
 {
-	if (option == packing_littleendian) {
-		out = byteorder::r32le(in);
+	if (option == unpacking_littleendian) {
+		byteorder::r32le(in, out);
 	} else {
-		out =  byteorder::r32be(in);
+		byteorder::r32be(in, out);
 	}
 }
 
 void bytebuf::unpack(const std::uint8_t (&in)[8], std::uint64_t & out, unpacking_option option)
 {
-	if (option == packing_littleendian) {
-		out = byteorder::r64le(in);
+	if (option == unpacking_littleendian) {
+		byteorder::r64le(in, out);
 	} else {
-		out =  byteorder::r64be(in);
+		byteorder::r64be(in, out);
 	}
 }
 
@@ -244,28 +244,28 @@ void bytebuf::unpack(const std::uint8_t (&in)[8], std::uint64_t & out, unpacking
 
 void bytebuf::unpack(const std::uint8_t (&in)[2], std::int16_t & out, unpacking_option option)
 {
-	if (option == packing_littleendian) {
-		out = byteorder::r16le(in);
+	if (option == unpacking_littleendian) {
+		byteorder::r16le(in, out);
 	} else {
-		out =  byteorder::r16be(in);
+		byteorder::r16be(in, out);
 	}
 }
 
 void bytebuf::unpack(const std::uint8_t (&in)[4], std::int32_t & out, unpacking_option option)
 {
-	if (option == packing_littleendian) {
-		out = byteorder::r32le(in);
+	if (option == unpacking_littleendian) {
+		byteorder::r32le(in, out);
 	} else {
-		out =  byteorder::r32be(in);
+		byteorder::r32be(in, out);
 	}
 }
 
 void bytebuf::unpack(const std::uint8_t (&in)[8], std::int64_t & out, unpacking_option option)
 {
-	if (option == packing_littleendian) {
-		out = byteorder::r64le(in);
+	if (option == unpacking_littleendian) {
+		byteorder::r64le(in, out);
 	} else {
-		out =  byteorder::r64be(in);
+		byteorder::r64be(in, out);
 	}
 }
 
