@@ -50,6 +50,10 @@
 	#include <mach/mach_error.h>
 #endif
 
+#if __APPLE__
+	#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 #if !defined(__CYGWIN__) && (defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64))
 	#ifndef __MICROSOFT__
 		#define __MICROSOFT__ 1

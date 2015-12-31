@@ -774,9 +774,19 @@ static void test_stuff(void)
 	}
 #endif
 }
+	
+#include <langinfo.h>
 
 int main(int argc, const char * argv[])
-{
+{	
+	std::string id = u8"en_US.UTF-8";
+	std::size_t found = id.find_first_of(".");
+	if (found != std::string::npos) {
+		id = id.substr (0, found);
+	}
+	
+	std::cerr << "+ id " << id << std::endl;
+	
 	std::int32_t in_0 = -18;
 	std::uint8_t out_0[4];
 	runtime::byteorder::w32be(in_0, out_0);

@@ -77,7 +77,7 @@ namespace coconut
 			{
 				std::size_t i = 0;
 				do {
-					if (0 == algorithm::icmp(std::string(uri_schemes[i].scheme), scheme)) {
+					if (std::string(uri_schemes[i].scheme) == scheme) {
 						return true;
 					}
 					++i;
