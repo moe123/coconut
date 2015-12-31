@@ -1,5 +1,5 @@
 //
-// system_terminal_utf8.hxx
+// terminal_utf8.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

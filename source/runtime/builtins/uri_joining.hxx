@@ -1,5 +1,5 @@
 //
-// proxy_uri_joining.hxx
+// uri_joining.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

@@ -1,5 +1,5 @@
 //
-// proxy_datetime.hxx
+// datetime.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

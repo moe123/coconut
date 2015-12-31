@@ -7,9 +7,9 @@
 #include <coconut/runtime/detail/proxy/uri.hpp>
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
-#include <source/runtime/builtins/proxy_uri_escaping.hxx>
-#include <source/runtime/builtins/proxy_uri_joining.hxx>
-#include <source/runtime/builtins/proxy_uri_parsing.hxx>
+#include <source/runtime/builtins/uri_escaping.hxx>
+#include <source/runtime/builtins/uri_joining.hxx>
+#include <source/runtime/builtins/uri_parsing.hxx>
 
 using namespace coconut::runtime;
 

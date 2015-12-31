@@ -13,11 +13,11 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-#include <source/runtime/builtins/proxy_ustring_compare_utf8.hxx>
-#include <source/runtime/builtins/proxy_ustring_compare_utf16.hxx>
-#include <source/runtime/builtins/proxy_ustring_encoding.hxx>
-#include <source/runtime/builtins/proxy_ustring_parsing.hxx>
-#include <source/runtime/builtins/proxy_ustring_searching.hxx>
+#include <source/runtime/builtins/ustring_compare_utf8.hxx>
+#include <source/runtime/builtins/ustring_compare_utf16.hxx>
+#include <source/runtime/builtins/ustring_encoding.hxx>
+#include <source/runtime/builtins/ustring_parsing.hxx>
+#include <source/runtime/builtins/ustring_searching.hxx>
 
 using namespace coconut::runtime;
 

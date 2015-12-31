@@ -1,5 +1,5 @@
 //
-// proxy_upath_absolute.hxx
+// upath_absolute.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

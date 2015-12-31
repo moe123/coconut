@@ -1,5 +1,5 @@
 //
-// proxy_ustring_parsing.hxx
+// ustring_parsing.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

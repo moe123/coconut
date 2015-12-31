@@ -10,7 +10,7 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-#include <source/runtime/builtins/proxy_upath_absolute.hxx>
+#include <source/runtime/builtins/upath_absolute.hxx>
 
 using namespace coconut::runtime;
 

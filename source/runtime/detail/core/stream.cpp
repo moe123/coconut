@@ -8,7 +8,7 @@
 #include <coconut/runtime/detail/core/types.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-#include <source/runtime/builtins/core_stream.hxx>
+#include <source/runtime/builtins/stream.hxx>
 
 using namespace coconut::runtime;
 

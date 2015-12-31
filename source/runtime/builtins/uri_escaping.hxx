@@ -1,5 +1,5 @@
 //
-// proxy_uri_escaping.hxx
+// uri_escaping.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

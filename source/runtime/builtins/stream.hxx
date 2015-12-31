@@ -1,5 +1,5 @@
 //
-// core_stream.hxx
+// stream.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //

@@ -13,7 +13,7 @@
 #include <coconut/runtime/detail/core/hash.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 
-#include <source/runtime/builtins/core_hash_sha_base.hxx>
+#include <source/runtime/builtins/hash_sha_base.hxx>
 
 using namespace coconut::runtime;
 

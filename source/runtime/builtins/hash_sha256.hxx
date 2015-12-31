@@ -1,5 +1,5 @@
 //
-// core_hash_sha256.hxx
+// hash_sha256.hxx
 //
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //
