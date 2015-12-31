@@ -363,9 +363,11 @@ static void test_stuff(void)
 		});
 		auto parent = With<Dictionary>({
 			{ With<String>(u8"parent"), child }
+
 		});
 		tree.addObject(parent);
 	}
+	
 	auto values = tree.valueForKeyPath(u8"parent.child");
 	Then<Array>(*values);
 	Thus<Array>(tree);
@@ -373,8 +375,7 @@ static void test_stuff(void)
 		for (const auto & number : Thus<Array>(values)) {
 			std::cerr << " number  + : " << number << std::endl;
 		}
-	}
-	MutableArray indexTree;
+	}	MutableArray indexTree;
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
 		auto child = With<Dictionary>({

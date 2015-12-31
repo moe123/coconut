@@ -169,6 +169,13 @@ namespace coconut
 
 	public:
 		Owning<Any> & operator [] (std::size_t index);
+		MutableArray & operator [] (const Slice & slc);
+		
+		MutableArray & operator + (const Any & obj);
+		MutableArray & operator + (const Owning<Any> & obj);
+		
+		MutableArray & operator += (const Any & obj);
+		MutableArray & operator += (const Owning<Any> & obj);
 	};
 }
 

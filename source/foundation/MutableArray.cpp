@@ -6,6 +6,7 @@
 
 #include <coconut/foundation/MutableArray.hpp>
 #include <coconut/foundation/Range.hpp>
+#include <coconut/foundation/Slice.hpp>
 
 using namespace coconut;
 
@@ -131,7 +132,8 @@ void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx, CopyOption opt
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
-		if (at_idx < size()) {
+		std::size_t sz = m_impl.size();
+		if (at_idx < sz) {
 			if (option == CopyNone) {
 				m_impl.at(at_idx) = obj;
 			} else {
@@ -192,14 +194,15 @@ void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption 
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
-		if (at_idx <= size()) {
-			if (at_idx == size()) {
+		std::size_t sz = m_impl.size();
+		if (at_idx <= sz) {
+			if (at_idx == sz) {
 				Owning<Any> copy = Object::copyObject(obj, option);
 				if (copy) { m_impl.push_back(copy); }
 			} else {
 				const_iterator it = cbegin() + static_cast<difference_type>(at_idx);
 				Owning<Any> copy = Object::copyObject(obj, option);
-				if (copy) { m_impl.reserve(size() + 1); m_impl.insert(it, copy); }
+				if (copy) { m_impl.reserve(sz + 1); m_impl.insert(it, copy); }
 			}
 		}
 	}
@@ -210,7 +213,7 @@ void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption 
 void MutableArray::exchangeObjectAtIndex(std::size_t idx1, std::size_t idx2)
 {
 	std::lock_guard<spin_type> lck(spin());
-	if (idx1 < size() && idx2 < size()) {
+	if (idx1 < size() && idx2 < m_impl.size()) {
 		std::swap(m_impl.at(idx1), m_impl.at(idx2));
 	}
 }
@@ -233,7 +236,7 @@ void MutableArray::addObjectsFromArray(const Array & arr, CopyOption option)
 void MutableArray::removeObjectAtIndex(std::size_t index)
 {
 	std::lock_guard<spin_type> lck(spin());
-	if (index < size()) { m_impl.erase(m_impl.begin() + static_cast<difference_type>(index)); }
+	if (index < m_impl.size()) { m_impl.erase(m_impl.begin() + static_cast<difference_type>(index)); }
 }
 
 #pragma mark -
@@ -249,7 +252,7 @@ void MutableArray::removeObject(const Any & obj)
 void MutableArray::removeObject(const Any & obj, const Range & in_rg)
 {
 	std::lock_guard<spin_type> lck(spin());
-	std::size_t sz = size();
+	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		std::size_t loc, max;
 		
@@ -285,7 +288,7 @@ void MutableArray::removeObjectIdenticalTo(const Any & obj)
 void MutableArray::removeObjectIdenticalTo(const Any & obj, const Range & in_rg)
 {
 	std::lock_guard<spin_type> lck(spin());
-	std::size_t sz = size();
+	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		std::size_t loc, max;
 		
@@ -322,7 +325,7 @@ void MutableArray::removeObjectsInArray(const Array & arr)
 void MutableArray::removeObjectsInRange(const Range & in_rg)
 {
 	std::lock_guard<spin_type> lck(spin());
-	std::size_t sz = size();
+	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		std::size_t loc, max;
 		
@@ -366,7 +369,7 @@ void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from
 void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, const Range & from_rg, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
-	std::size_t sz = size();
+	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		if(from.size() && from_rg.maxRange() <= from.size()) {
 			impl_type buf;
@@ -460,14 +463,39 @@ void MutableArray::sortUsingDescriptors(const Array & descriptors, SortOptions o
 
 Owning<Any> & MutableArray::operator [] (std::size_t index)
 {
+	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = m_impl.size();
 	if (index  == MaxFound || index >= sz) {
-		std::lock_guard<spin_type> lck(spin());
 		m_impl.resize(sz + 1);
 		index = sz;
 	}
 	return m_impl[index];
 }
+
+MutableArray & MutableArray::operator [] (const Slice & slc)
+{
+	std::lock_guard<spin_type> lck(spin());
+	if (m_impl.size()) {
+		setObjectsFromArray(objectsInSlice(slc));
+	}
+	return *this;
+}
+
+#pragma mark -
+
+MutableArray & MutableArray::operator + (const Any & obj)
+{ addObject(obj); return *this; }
+
+MutableArray & MutableArray::operator + (const Owning<Any> & obj)
+{ addObject(obj); return *this; }
+
+#pragma mark -
+
+MutableArray & MutableArray::operator += (const Any & obj)
+{ addObject(obj); return *this; }
+
+MutableArray & MutableArray::operator += (const Owning<Any> & obj)
+{ addObject(obj); return *this; }
 
 #pragma mark -
 

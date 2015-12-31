@@ -21,6 +21,8 @@ namespace coconut
 			spinlock();
 			spinlock(spinlock &) = default;
 			virtual ~spinlock();
+			
+		public:
 			void lock();
 			bool try_lock();
 			void unlock();

@@ -52,6 +52,7 @@ namespace coconut
 	
 	protected:
 		friend class Array;
+		friend class MutableArray;
 		friend class String;
 		
 	protected:
