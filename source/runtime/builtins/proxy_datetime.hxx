@@ -200,7 +200,7 @@ namespace coconut
 				icu::SimpleDateFormat dtf = icu::SimpleDateFormat
 				(
 					UnicodeString::fromUTF8(icu::StringPiece(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")),
-				 	Locale::getRoot(),
+					Locale::getRoot(),
 					status
 				);
 				
