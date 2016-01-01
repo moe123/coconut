@@ -36,12 +36,12 @@ namespace coconut
 		
 		template <typename IterT>
 		MutableDictionary(IterT && beg, IterT && end, CopyOption option) :
-			Dictionary(beg, end, option)
+			Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end), option)
 		{ setClassKind(MutableDictionaryClass, true); }
 		
 		template <typename IterKeyT, typename IterValT>
 		MutableDictionary(IterKeyT && beg_key, IterKeyT && end_key, IterValT && beg_val, IterValT && end_val, CopyOption option = CopyNone) :
-			Dictionary(beg_key, end_key, beg_val, end_val, option)
+			Dictionary(std::forward<IterKeyT>(beg_key), std::forward<IterKeyT>(end_key), std::forward<IterValT>(beg_val), std::forward<IterValT>(end_val), option)
 		{ setClassKind(MutableDictionaryClass, true); }
 		
 		MutableDictionary(const Path & path);

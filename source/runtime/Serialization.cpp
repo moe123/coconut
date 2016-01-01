@@ -11,6 +11,7 @@
 #include <coconut/foundation/Date.hpp>
 #include <coconut/foundation/Dictionary.hpp>
 #include <coconut/foundation/MutableArray.hpp>
+#include <coconut/foundation/MutableDictionary.hpp>
 #include <coconut/foundation/Number.hpp>
 #include <coconut/foundation/Set.hpp>
 #include <coconut/foundation/String.hpp>

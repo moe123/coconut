@@ -96,8 +96,8 @@ namespace coconut
 				if (
 					option == SerializationReadMutableContainers ||
 					option == SerializationReadMutableContainersAndLeaves
-					) {
-					// return MutableDictionary::with(kk.begin(), kk.end(), vv.begin(), vv.end());
+				) {
+					return MutableDictionary::with(kk.begin(), kk.end(), vv.begin(), vv.end());
 				}
 				return Dictionary::with(kk.begin(), kk.end(), vv.begin(), vv.end());
 			}

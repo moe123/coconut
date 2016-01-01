@@ -183,7 +183,7 @@ namespace coconut
 		
 		public:
 			bool isEqual(const Any & ref) const;
-			bool isEqual(Owning<Any> ptr) const;
+			bool isEqual(Owning<Any> & ptr) const;
 			
 			virtual ComparisonResult compare(const Any & ref) const;
 			ComparisonResult compare(Owning<Any> ptr) const;
@@ -192,58 +192,58 @@ namespace coconut
 			bool doesContain(Owning<Any> ptr) const;
 			
 			bool doesNotContain(const Any & ref) const;
-			bool doesNotContain(Owning<Any> ptr) const;
+			bool doesNotContain(Owning<Any> & ptr) const;
 			
 			bool isIdenticalTo(const Any & ref) const;
-			bool isIdenticalTo(Owning<Any> ptr) const;
+			bool isIdenticalTo(Owning<Any> & ptr) const;
 			
 			bool isNotIdenticalTo(const Any & ref) const;
 			bool isNotisIdenticalTo(Owning<Any> ptr) const;
 			
 			bool isEqualTo(const Any & ref) const;
-			bool isEqualTo(Owning<Any> ptr) const;
+			bool isEqualTo(Owning<Any> & ptr) const;
 			
 			bool isNotEqualTo(const Any & ref) const;
-			bool isNotEqualTo(Owning<Any> ptr) const;
+			bool isNotEqualTo(Owning<Any> & ptr) const;
 			
 			bool isLessThan(const Any & ref) const;
-			bool isLessThan(Owning<Any> ptr) const;
+			bool isLessThan(Owning<Any> & ptr) const;
 			
 			bool isLessThanOrEqualTo(const Any & ref) const;
-			bool isLessThanOrEqualTo(Owning<Any> ptr) const;
+			bool isLessThanOrEqualTo(Owning<Any> & ptr) const;
 			
 			bool isGreaterThan(const Any & ref) const;
-			bool isGreaterThan(Owning<Any> ptr) const;
+			bool isGreaterThan(Owning<Any> & ptr) const;
 			
 			bool isGreaterThanOrEqualTo(const Any & ref) const;
-			bool isGreaterThanOrEqualTo(Owning<Any> ptr) const;
+			bool isGreaterThanOrEqualTo(Owning<Any> & ptr) const;
 			
 			/*
 			* operator identical by addresse calling @isIdenticalTo:, e.g left and right are truely the same.
 			*/
 			bool operator &= (const Any & ref) const;
-			bool operator &= (Owning<Any> ptr) const;
+			bool operator &= (Owning<Any> & ptr) const;
 			
 			/*
 			* operators identical and comparison by value calling @compare:.
 			*/
 			bool operator == (const Any & ref) const;
-			bool operator == (Owning<Any> ptr) const;
+			bool operator == (Owning<Any> & ptr) const;
 			
 			bool operator != (const Any & ref) const;
-			bool operator != (Owning<Any> ptr) const;
+			bool operator != (Owning<Any> & ptr) const;
 			
 			bool operator <  (const Any & ref) const;
-			bool operator <  (Owning<Any> ptr) const;
+			bool operator <  (Owning<Any> & ptr) const;
 			
 			bool operator <= (const Any & ref) const;
-			bool operator <= (Owning<Any> ptr) const;
+			bool operator <= (Owning<Any> & ptr) const;
 			
 			bool operator >  (const Any & ref) const;
-			bool operator >  (Owning<Any> ptr) const;
+			bool operator >  (Owning<Any> & ptr) const;
 			
 			bool operator >= (const Any & ref) const;
-			bool operator >= (Owning<Any> ptr) const;
+			bool operator >= (Owning<Any> & ptr) const;
 		
 		public:
 		/*

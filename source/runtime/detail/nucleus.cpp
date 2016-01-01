@@ -455,7 +455,7 @@ bool nucleus::isEqual(const Any & ref) const
 	return false;
 }
 
-bool nucleus::isEqual(Owning<Any> ptr) const { if (ptr) { return isEqual(*ptr); } return false; }
+bool nucleus::isEqual(Owning<Any> & ptr) const { if (ptr) { return isEqual(*ptr); } return false; }
 
 #pragma mark -
 
@@ -470,12 +470,12 @@ bool nucleus::doesContain(Owning<Any> ptr) const { if (ptr) { return doesContain
 #pragma mark -
 
 bool nucleus::doesNotContain(const Any & ref) const { return !doesContain(ref); }
-bool nucleus::doesNotContain(Owning<Any> ptr) const { return !doesContain(ptr); }
+bool nucleus::doesNotContain(Owning<Any> & ptr) const { return !doesContain(ptr); }
 
 #pragma mark -
 
 bool nucleus::isIdenticalTo(const Any & ref) const { return sig() == ref.sig(); }
-bool nucleus::isIdenticalTo(Owning<Any> ptr) const { if (ptr) { return isIdenticalTo(*ptr); } return false; }
+bool nucleus::isIdenticalTo(Owning<Any> & ptr) const { if (ptr) { return isIdenticalTo(*ptr); } return false; }
 
 #pragma mark -
 
@@ -485,67 +485,67 @@ bool nucleus::isNotisIdenticalTo(Owning<Any> ptr) const { return !isIdenticalTo(
 #pragma mark -
 
 bool nucleus::isEqualTo(const Any & ref) const { return isEqual(ref); }
-bool nucleus::isEqualTo(Owning<Any> ptr) const { if (ptr) { return isEqualTo(*ptr); } return false; }
+bool nucleus::isEqualTo(Owning<Any> & ptr) const { if (ptr) { return isEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
 bool nucleus::isNotEqualTo(const Any & ref) const { return !isEqual(ref); }
-bool nucleus::isNotEqualTo(Owning<Any> ptr) const { if (ptr) { return isNotEqualTo(*ptr); } return false; }
+bool nucleus::isNotEqualTo(Owning<Any> & ptr) const { if (ptr) { return isNotEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
 bool nucleus::isLessThan(const Any & ref) const { return (compare(ref) == cmp_ascending); }
-bool nucleus::isLessThan(Owning<Any> ptr) const { if (ptr) { return isLessThan(*ptr); } return false; }
+bool nucleus::isLessThan(Owning<Any> & ptr) const { if (ptr) { return isLessThan(*ptr); } return false; }
 
 #pragma mark -
 
 bool nucleus::isLessThanOrEqualTo(const Any & ref) const { int cmp = compare(ref); return (cmp == cmp_ascending || cmp == cmp_same); }
-bool nucleus::isLessThanOrEqualTo(Owning<Any> ptr) const { if (ptr) { return isLessThanOrEqualTo(*ptr); } return false; }
+bool nucleus::isLessThanOrEqualTo(Owning<Any> & ptr) const { if (ptr) { return isLessThanOrEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
 bool nucleus::isGreaterThan(const Any & ref) const { return (compare(ref) == cmp_descending); }
-bool nucleus::isGreaterThan(Owning<Any> ptr) const { if (ptr) { return isGreaterThan(*ptr); } return false; }
+bool nucleus::isGreaterThan(Owning<Any> & ptr) const { if (ptr) { return isGreaterThan(*ptr); } return false; }
 
 #pragma mark -
 
 bool nucleus::isGreaterThanOrEqualTo(const Any & ref) const { int cmp = compare(ref); return (cmp == cmp_descending || cmp == cmp_same); }
-bool nucleus::isGreaterThanOrEqualTo(Owning<Any> ptr) const { if (ptr) { return isGreaterThanOrEqualTo(*ptr); } return false; }
+bool nucleus::isGreaterThanOrEqualTo(Owning<Any> & ptr) const { if (ptr) { return isGreaterThanOrEqualTo(*ptr); } return false; }
 
 #pragma mark -
 
 bool nucleus::operator &= (const Any & ref) const { return isIdenticalTo(ref); }
-bool nucleus::operator &= (Owning<Any> ptr) const { return isIdenticalTo(ptr); }
+bool nucleus::operator &= (Owning<Any> & ptr) const { return isIdenticalTo(ptr); }
 
 #pragma mark -
 
 bool nucleus::operator == (const Any & ref) const { return isEqualTo(ref); }
-bool nucleus::operator == (Owning<Any> ptr) const { return isEqualTo(ptr); }
+bool nucleus::operator == (Owning<Any> & ptr) const { return isEqualTo(ptr); }
 
 #pragma mark -
 
 bool nucleus::operator != (const Any & ref) const { return isNotEqualTo(ref); }
-bool nucleus::operator != (Owning<Any> ptr) const { return isNotEqualTo(ptr); }
+bool nucleus::operator != (Owning<Any> & ptr) const { return isNotEqualTo(ptr); }
 
 #pragma mark -
 
 bool nucleus::operator < (const Any & ref) const { return isLessThan(ref); }
-bool nucleus::operator < (Owning<Any> ptr) const { return isLessThan(ptr); }
+bool nucleus::operator < (Owning<Any> & ptr) const { return isLessThan(ptr); }
 
 #pragma mark -
 
 bool nucleus::operator <= (const Any & ref) const { return isLessThanOrEqualTo(ref); }
-bool nucleus::operator <= (Owning<Any> ptr) const { return isLessThanOrEqualTo(ptr); }
+bool nucleus::operator <= (Owning<Any> & ptr) const { return isLessThanOrEqualTo(ptr); }
 
 #pragma mark -
 
 bool nucleus::operator > (const Any & ref) const { return isGreaterThan(ref); }
-bool nucleus::operator > (Owning<Any> ptr) const { return isGreaterThan(ptr); }
+bool nucleus::operator > (Owning<Any> & ptr) const { return isGreaterThan(ptr); }
 
 #pragma mark -
 
 bool nucleus::operator >= (const Any & ref) const { return isGreaterThanOrEqualTo(ref); }
-bool nucleus::operator >= (Owning<Any> ptr) const { return isGreaterThanOrEqualTo(ptr); }
+bool nucleus::operator >= (Owning<Any> & ptr) const { return isGreaterThanOrEqualTo(ptr); }
 
 #pragma mark -
 
