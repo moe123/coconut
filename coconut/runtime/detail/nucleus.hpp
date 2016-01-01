@@ -183,7 +183,7 @@ namespace coconut
 		
 		public:
 			bool isEqual(const Any & ref) const;
-			bool isEqual(Owning<Any> & ptr) const;
+			bool isEqual(Owning<Any> ptr) const;
 			
 			virtual ComparisonResult compare(const Any & ref) const;
 			ComparisonResult compare(Owning<Any> ptr) const;
