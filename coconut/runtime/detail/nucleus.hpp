@@ -222,16 +222,28 @@ namespace coconut
 			* operator identical by addresse calling @isIdenticalTo:, e.g left and right are truely the same.
 			*/
 			bool operator &= (const Any & ref) const;
+			bool operator &= (Owning<Any> ptr) const;
 			
 			/*
 			* operators identical and comparison by value calling @compare:.
 			*/
 			bool operator == (const Any & ref) const;
+			bool operator == (Owning<Any> ptr) const;
+			
 			bool operator != (const Any & ref) const;
+			bool operator != (Owning<Any> ptr) const;
+			
 			bool operator <  (const Any & ref) const;
+			bool operator <  (Owning<Any> ptr) const;
+			
 			bool operator <= (const Any & ref) const;
+			bool operator <= (Owning<Any> ptr) const;
+			
 			bool operator >  (const Any & ref) const;
+			bool operator >  (Owning<Any> ptr) const;
+			
 			bool operator >= (const Any & ref) const;
+			bool operator >= (Owning<Any> ptr) const;
 		
 		public:
 		/*
