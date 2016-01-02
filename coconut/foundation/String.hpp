@@ -181,6 +181,9 @@ namespace coconut
 		
 	public:
 		const std::uint32_t operator [] (std::size_t index) const;
+		
+		const String operator + (const String & str) const;
+		const String operator + (const Owning<String> & str) const;
 	
 	public:
 		bool operator == (const String & other_str) const;

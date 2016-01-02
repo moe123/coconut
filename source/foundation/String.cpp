@@ -449,4 +449,12 @@ bool String::operator >= (const String & other_str) const
 	return (cmp == OrderedDescending || cmp == OrderedSame);
 }
 
+#pragma mark -
+
+const String String::operator + (const String & str) const
+{ return stringByAppendingString(str); }
+
+const String String::operator + (const Owning<String> & str) const
+{ if (str) { return stringByAppendingString(*str); } return String(*this); }
+
 /* EOF */

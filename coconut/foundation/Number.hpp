@@ -121,10 +121,6 @@ namespace coconut
 		bool operator <= (const Number & other_num) const;
 		bool operator >  (const Number & other_num) const;
 		bool operator >= (const Number & other_num) const;
-	
-	public:
-		const std::string operator + (const char * utf8_in) const;
-		const std::string operator + (const std::string & utf8_in) const;
 		
 	public:
 		friend inline std::ostream & operator << (std::ostream & os, const Owning<Number> ptr)

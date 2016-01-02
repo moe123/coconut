@@ -173,6 +173,8 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 	return Array::with(buf.cbegin(), buf.cend());
 }
 
+#pragma mark -
+
 Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	if (isSelectorKey(utf8_keypath)) {

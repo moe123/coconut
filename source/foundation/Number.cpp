@@ -252,12 +252,4 @@ bool Number::operator >= (const Number & other_num) const
 	return (cmp == OrderedDescending || cmp == OrderedSame);
 }
 
-#pragma mark -
-
-const std::string Number::operator + (const char * utf8_in) const
-{ return stringValue() + utf8_in; }
-
-const std::string Number::operator + (const std::string & utf8_in) const
-{ return stringValue() + utf8_in; }
-
 /* EOF */

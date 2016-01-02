@@ -203,7 +203,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 }
 
 for (std::size_t i = 0; i < 10; i++ ) {
-	auto num = indexTree.valueForKeyPath(Number(i) + u8".0.child");
+	auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");
 	std::cerr << "    + : " << num << std::endl;
 }
 
