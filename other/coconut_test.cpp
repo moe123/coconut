@@ -411,7 +411,7 @@ static void test_stuff(void)
 	// key-path: [Array{indexTree, size=10}].[Array{parent, size=1}].Number
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
-		auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");
+		auto num = indexTree.valueForKeyPath(Number(i) + u8".0.child");
 		std::cerr << "    + : " << num << std::endl;
 	}
 	
@@ -443,7 +443,7 @@ static void test_stuff(void)
 	}
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
-		auto array = indexTree.valueForKeyPath(Number(i).stringValue() + u8".child");
+		auto array = indexTree.valueForKeyPath(Number(i) + u8".child");
 		std::cerr << "    +-+ : " << i << std::endl;
 		for (std::size_t j = 0; j < 3; j++ ) {
 			std::cerr << "      + : [" << j <<  "] " << ref_cast<Array>(*array)[j] << std::endl;
