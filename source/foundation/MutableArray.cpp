@@ -472,15 +472,6 @@ Owning<Any> & MutableArray::operator [] (std::size_t index)
 	return m_impl[index];
 }
 
-MutableArray & MutableArray::operator [] (const Slice & slc)
-{
-	std::lock_guard<spin_type> lck(spin());
-	if (m_impl.size()) {
-		setObjectsFromArray(objectsInSlice(slc));
-	}
-	return *this;
-}
-
 #pragma mark -
 
 MutableArray & MutableArray::operator + (const Any & obj)

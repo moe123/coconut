@@ -18,7 +18,7 @@ namespace coconut
 			{
 				std::string id;
 				char buf[ULOC_FULLNAME_CAPACITY];
-			#if defined(__APPLE__)
+			#if defined(__APPLE22__)
 				// @FUTURE shortcuts avoiding all the CF cargobay.
 				//
 				// if $HOME/Library/Preferences/.GlobalPreferences.plist
@@ -32,7 +32,7 @@ namespace coconut
 				if (CFStringGetCString(_id, buf, LOC_BUF_SIZE, kCFStringEncodingUTF8)) {
 					id = buf;
 				} else {
-					id = u8"en_US";
+					id = u8"en_US_POSIX";
 				}
 				CFRelease(_loc);
 			#elif defined(__MICROSOFT__)
@@ -42,23 +42,39 @@ namespace coconut
 				if (U_SUCCESS(status) && len) {
 					id = buf;
 				} else {
-					id = u8"en_US";
+					id = u8"en_US_POSIX";
 				}
 			#else
+				char * q;
 				std::vector<std::string> lc;
+				
 				setlocale(LC_ALL, "");
-				char * lang = std::getenv("LANG");
 				
-				lc.push_back((lang != NULL ? lang : ""));
-				lc.push_back(setlocale(LC_ALL, NULL));
-				lc.push_back(setlocale(LC_CTYPE, NULL));
-				lc.push_back(setlocale(LC_COLLATE, NULL));
-				lc.push_back(setlocale(LC_MESSAGES, NULL));
-				lc.push_back(setlocale(LC_MONETARY, NULL));
-				lc.push_back(setlocale(LC_NUMERIC, NULL));
-				lc.push_back(setlocale(LC_TIME, NULL));
+				q = std::getenv("LANG");
+				lc.push_back((q != NULL ? q : ""));
 				
-				for(std::vector<string>::const_iterator i = lc.begin(); i != lc.end(); ++i) {
+				q = setlocale(LC_ALL, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				q = setlocale(LC_CTYPE, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				q = setlocale(LC_COLLATE, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				q = setlocale(LC_MESSAGES, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				q = setlocale(LC_MONETARY, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				q = setlocale(LC_NUMERIC, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				q = setlocale(LC_TIME, NULL);
+				lc.push_back((q != NULL ? q : ""));
+				
+				for(std::vector<std::string>::const_iterator it = lc.begin(); it != lc.end(); ++it) {
 					if ((*it).size() >= 5) {
 						std::size_t found = (*it).find_first_of(".");
 						if (found != std::string::npos) {
@@ -73,7 +89,7 @@ namespace coconut
 					id = uloc_getDefault();
 				}
 				if (id.size() < 5) {
-					id = u8"en_US";
+					id = u8"en_US_POSIX";
 				}
 			#endif
 				return id;

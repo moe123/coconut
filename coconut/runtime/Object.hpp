@@ -17,7 +17,7 @@ namespace coconut
 		
 	protected:
 	/*
-	* Bridge adapter late and early runtime bindings @see nucleus.
+	* Bridge adapter late and early runtime bindings @see runtime::nucleus.
 	*/
 		Object();
 		Object(const Object & obj);

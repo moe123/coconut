@@ -775,17 +775,65 @@ static void test_stuff(void)
 #endif
 }
 	
-#include <langinfo.h>
-
-int main(int argc, const char * argv[])
-{	
-	std::string id = u8"en_US.UTF-8";
-	std::size_t found = id.find_first_of(".");
-	if (found != std::string::npos) {
-		id = id.substr (0, found);
+static void test_getlocale()
+{
+	std::string id;
+	char * q;
+	std::vector<std::string> lc;
+	
+	setlocale(LC_ALL, "");
+	
+	q = std::getenv("LANG");
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_ALL, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_CTYPE, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_COLLATE, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_MESSAGES, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_MONETARY, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_NUMERIC, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	q = setlocale(LC_TIME, NULL);
+	lc.push_back((q != NULL ? q : ""));
+	
+	for(std::vector<std::string>::const_iterator it = lc.begin(); it != lc.end(); it++) {
+		if ((*it).size() >= 5) {
+			std::size_t found = (*it).find_first_of(".");
+			if (found != std::string::npos) {
+				id = (*it).substr (0, found);
+			} else {
+				id = (*it);
+			}
+			id = (*it);
+			break;
+		}
+	}
+	if (!id.size()) {
+		id = uloc_getDefault();
+	}
+	if (id.size() < 5) {
+		id = u8"en_US_POSIX";
 	}
 	
 	std::cerr << "+ id " << id << std::endl;
+}
+
+int main(int argc, const char * argv[])
+{
+	test_getlocale();
+	test_getlocale();
+	test_getlocale();
 	
 	std::int32_t in_0 = -18;
 	std::uint8_t out_0[4];
