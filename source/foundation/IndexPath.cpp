@@ -18,6 +18,11 @@ IndexPath::IndexPath(const IndexPath & idxp) :
 	m_impl(idxp.m_impl)
 { /* NOP */ }
 
+IndexPath::IndexPath(IndexPath && idxp) :
+	Object(IndexPathClass),
+	m_impl(std::move(idxp.m_impl))
+{ /* NOP */ }
+
 IndexPath::IndexPath(const std::initializer_list<std::size_t> & args) :
 	Object(IndexPathClass),
 	m_impl(args.begin(), args.end())
@@ -85,14 +90,14 @@ std::size_t IndexPath::indexAtPosition(std::size_t node) const
 
 #pragma mark -
 
-IndexPath IndexPath::indexPathByAddingIndex(std::size_t index) const
+const IndexPath IndexPath::indexPathByAddingIndex(std::size_t index) const
 {
 	IndexPath idxp;
 	idxp.m_impl = m_impl.by_adding(index);
 	return idxp;
 }
 
-IndexPath IndexPath::indexPathByRemovingLastIndex() const
+const IndexPath IndexPath::indexPathByRemovingLastIndex() const
 {
 	IndexPath idxp;
 	idxp.m_impl = m_impl.by_removing_last();

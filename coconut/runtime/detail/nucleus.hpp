@@ -284,7 +284,7 @@ namespace coconut
 			{ if (ptr) { os << ptr->stringValue(); } return os; }
 			
 		private:
-			uintptr_t sig() const;
+			std::size_t sig() const;
 			const std::string addr() const;
 			bool mutability() const;
 			

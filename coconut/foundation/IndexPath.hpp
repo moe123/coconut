@@ -20,7 +20,6 @@ namespace coconut
 		IndexPath(const IndexPath & idxp);
 		IndexPath & operator = (const IndexPath & idxp) = default;
 		
-		IndexPath(const IndexPath && idxp);
 		IndexPath(IndexPath && idxp);
 		
 		IndexPath(const std::initializer_list<std::size_t> & args);
@@ -59,8 +58,8 @@ namespace coconut
 		
 		std::size_t indexAtPosition(std::size_t node) const;
 		
-		IndexPath indexPathByAddingIndex(std::size_t index) const;
-		IndexPath indexPathByRemovingLastIndex() const;
+		const IndexPath indexPathByAddingIndex(std::size_t index) const;
+		const IndexPath indexPathByRemovingLastIndex() const;
 		
 		bool getIndexes(std::vector<std::size_t> & indexes) const;
 		

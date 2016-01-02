@@ -835,6 +835,8 @@ int main(int argc, const char * argv[])
 	test_getlocale();
 	test_getlocale();
 	
+	std::cerr << "+ sizeof(int) " << sizeof(int) << std::endl;
+	
 	std::int32_t in_0 = -18;
 	std::uint8_t out_0[4];
 	runtime::byteorder::w32be(in_0, out_0);

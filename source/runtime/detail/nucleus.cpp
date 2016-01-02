@@ -592,9 +592,9 @@ std::size_t nucleus::size() const { return 0LL; }
 
 #pragma mark -
 
-uintptr_t nucleus::sig() const
+std::size_t nucleus::sig() const
 {
-	return unsafe_cast<uintptr_t>(this);
+	return unsafe_cast<std::size_t>(this);
 }
 
 const std::string nucleus::addr() const

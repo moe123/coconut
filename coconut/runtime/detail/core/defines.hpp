@@ -150,6 +150,11 @@
 		#endif
 	#endif
 
+	#if !defined(COCONUT_ISALIGNED)
+		#define COCONUT_ISALIGNED(ptr, sz) \
+			(((ptrdiff_t)(const void *)(ptr)) % (sz) == 0)
+	#endif
+
 	#if !defined(COCONUT_EXPORT)
 		#if defined(_MSC_VER)
 			#if defined(BUILD_DLL)
