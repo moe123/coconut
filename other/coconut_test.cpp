@@ -365,7 +365,7 @@ static void test_stuff(void)
 			{ With<String>(u8"parent"), child }
 
 		});
-		tree.addObject(parent);
+		tree += parent;
 	}
 	
 	auto values = tree.valueForKeyPath(u8"parent.child");
@@ -384,7 +384,7 @@ static void test_stuff(void)
 		auto parent = With<Array>({
 			child
 		});
-		indexTree.addObject(parent);
+		indexTree += parent;
 	}
 
 	// Passing from Number 2 String
@@ -412,7 +412,7 @@ static void test_stuff(void)
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
 		auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");
-		std::cerr << "    + : " << num << std::endl;
+		std::cerr << "indexTree    + : " << num << std::endl;
 	}
 	
 	// out of bounds capacity, seeing index as key-like,
@@ -439,12 +439,12 @@ static void test_stuff(void)
 			child,
 			child
 		});
-		indexTree.addObject(parent);
+		indexTree += parent;
 	}
 	
 	for (std::size_t i = 0; i < 10; i++ ) {
 		auto array = indexTree.valueForKeyPath(Number(i).stringValue() + u8".child");
-		std::cerr << "    +-+ : " << i << std::endl;
+		std::cerr << "indexTree2 +-+ : " << i << std::endl;
 		for (std::size_t j = 0; j < 3; j++ ) {
 			std::cerr << "      + : [" << j <<  "] " << ref_cast<Array>(*array)[j] << std::endl;
 		}

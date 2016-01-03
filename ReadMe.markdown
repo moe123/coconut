@@ -55,7 +55,7 @@ if (str < u8"Avion") {
 str = u"étourdissement 나는태오";
 std::cout << str.stringValue(); << std::endl;
 
-// or simply
+// or simply, in coconut, std::string(s) are UTF8 everywhere, works on windows too.
 
 std::cout << str << std::endl;
 
@@ -86,6 +86,35 @@ Number n1 = 5;
 
 std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
 
+// NOTE Any object answer to the following without the need of casting
+/*
+const std::string description() const;
+
+std::string stringValue() const;
+std::u16string string16Value() const;
+std::u32string string32Value() const;
+
+float floatValue() const;
+double doubleValue() const;
+long double longDoubleValue() const;
+
+bool boolValue() const;
+char charValue() const;
+
+short shortValue() const;
+int intValue() const;
+long longValue() const;
+long long longLongValue() const;
+
+unsigned char unsignedCharValue() const;
+unsigned short unsignedShortValue() const;
+unsigned int unsignedIntValue() const;
+unsigned long unsignedLongValue() const;
+unsigned long long unsignedLongLongValue() const;
+
+std::size_t size() const;
+*/
+
 ```
 ```cpp
 
@@ -98,6 +127,10 @@ for (std::size_t i = 0; i < 10; i++ ) {
 		{ With<String>(u8"parent"), child }
 	});
 	tree.addObject(parent);
+
+	// or 
+
+	tree += parent;
 }
 
 auto values = tree.valueForKeyPath(u8"parent.child");
@@ -155,6 +188,14 @@ SortDescriptor s0(u8"firstName", false);
 SortDescriptor s1(u8"lastName", false);
 SortDescriptor s2(u8"age");
 
+// TODO adding user Locale defined option to {call}UsingDescriptors, missing in cocoa,
+// in general, in cocoa, even with the i18n strong interface, you can feel it has been written 
+// by native english speakers self-centered on their language as a primary reference, 
+// they constently miss all the useful points and create sets of not so usefull calls ;
+// you can feel they don't get root based languages or any of the Eastern world at large, 
+// because it requires a state of mind, not theories ; they can't grasp it, 
+// e.g they see digits where they should see numbers.
+
 const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
 for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
@@ -188,8 +229,9 @@ bool test = people.someObjectPassingTest(
 ```
 ```cpp
 
-// Array, Set are traversable by index-key-path : 
-// read and write (if the destination object is mutable).
+// unlike Cocoa Array, Set are traversable by index-key-path : 
+// read and write (if the destination object is mutable), mostly
+// the coconut KVC interface is more complex TODO explain. 
 
 MutableArray indexTree;
 for (std::size_t i = 0; i < 10; i++ ) {
