@@ -190,7 +190,7 @@ SortDescriptor s2(u8"age");
 
 // TODO adding user defined Locale option to sort-calls, missing in Cocoa,
 // despite the exhaustive i18n  interface, this is poorly designed ; e.g you feel 
-// the hand of the regular self-centered native english speakers.
+// the heavy hand of the regular self-centered native english speaker.
 
 const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
