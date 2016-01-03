@@ -188,13 +188,9 @@ SortDescriptor s0(u8"firstName", false);
 SortDescriptor s1(u8"lastName", false);
 SortDescriptor s2(u8"age");
 
-// TODO adding user Locale defined option to {call}UsingDescriptors, missing in cocoa,
-// in general, in cocoa, even with the i18n strong interface, you can feel it has been written 
-// by native english speakers self-centered on their language as a primary reference, 
-// they constently miss all the useful points and create sets of not so usefull calls ;
-// you can feel they don't get root based languages or any of the Eastern world at large, 
-// because it requires a state of mind, not theories ; they can't grasp it, 
-// e.g they see digits where they should see numbers.
+// TODO adding user defined Locale option to sort-calls, missing in Cocoa,
+// despite the exhaustive i18n  interface, this is poorly designed ; e.g you feel 
+// the hand of the regular self-centered native english speakers.
 
 const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
