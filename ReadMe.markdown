@@ -188,8 +188,8 @@ SortDescriptor s0(u8"firstName", false);
 SortDescriptor s1(u8"lastName", false);
 SortDescriptor s2(u8"age");
 
-// TODO adding user defined Locale option to sort-calls, missing in Cocoa,
-// despite the exhaustive i18n  interface, this is poorly designed ; e.g you feel 
+// TODO adding user defined Locale option to sort-calls, mostly missing in Cocoa,
+// despite the exhaustive i18n interface, this is poorly designed ; e.g you feel 
 // the heavy hand of the regular self-centered native english speaker.
 
 const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
@@ -225,7 +225,7 @@ bool test = people.someObjectPassingTest(
 ```
 ```cpp
 
-// unlike Cocoa Array, Set are traversable by index-key-path : 
+// unlike in Cocoa, Collections are traversable by index-key-path : 
 // read and write (if the destination object is mutable), mostly
 // the coconut KVC interface is more complex TODO explain. 
 
