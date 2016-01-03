@@ -426,6 +426,11 @@ std::size_t OrderedSet::indexOfObjectIdenticalTo(const Any & obj) const
 	return NotFound;
 }
 
+std::size_t OrderedSet::indexOfObjectIdenticalTo(const Owning<Any> & obj) const
+{ if (obj) { return indexOfObjectIdenticalTo(*obj); } return false; }
+
+#pragma mark -
+
 std::size_t OrderedSet::indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const
 {
 	std::size_t idx = 0, sz = size();
@@ -448,11 +453,6 @@ std::size_t OrderedSet::indexOfObjectIdenticalTo(const Any & obj, Range in_rg) c
 	}
 	return NotFound;
 }
-
-#pragma mark -
-
-std::size_t OrderedSet::indexOfObjectIdenticalTo(const Owning<Any> & obj) const
-{ if (obj) { return indexOfObjectIdenticalTo(*obj); } return false; }
 
 std::size_t OrderedSet::indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const
 { if (obj) { return indexOfObjectIdenticalTo(*obj, in_rg); } return false; }

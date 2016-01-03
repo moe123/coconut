@@ -18,6 +18,7 @@ namespace coconut
 	public:
 		None();
 		None(const None & non);
+		None & operator = (const None & non) = default;
 		virtual ~None();
 		
 		COCONUT_KTOR Owning<None> with();

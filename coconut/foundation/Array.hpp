@@ -20,9 +20,7 @@ namespace coconut
 		Array(const Array & arr);
 		Array & operator = (const Array & arr) = default;
 		Array(const Array & arr, CopyOption option);
-		
 		Array(Array && arr);
-
 		Array(const std::initializer_list< Owning<Any> > & args);
 		Array(const std::initializer_list<Any *> & args);
 		

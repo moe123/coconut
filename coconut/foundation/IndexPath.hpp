@@ -19,9 +19,7 @@ namespace coconut
 		IndexPath();
 		IndexPath(const IndexPath & idxp);
 		IndexPath & operator = (const IndexPath & idxp) = default;
-		
 		IndexPath(IndexPath && idxp);
-		
 		IndexPath(const std::initializer_list<std::size_t> & args);
 		IndexPath(std::size_t index);
 		

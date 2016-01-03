@@ -20,9 +20,7 @@ namespace coconut
 		Error();
 		Error(const Error & err);
 		Error & operator = (const Error & err) = default;
-		
 		Error(Error && err);
-		
 		Error(std::size_t code);
 		Error(const String & domain, std::size_t code);
 		Error(const String & domain, std::size_t code, const Dictionary & userInfo);

@@ -18,6 +18,7 @@ namespace coconut
 	public:
 		Stack();
 		Stack(const Stack & stk);
+		Stack & operator = (const Stack & stk) = default;
 		Stack(Stack && stk);
 		virtual ~Stack();
 	

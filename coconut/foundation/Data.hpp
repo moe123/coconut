@@ -19,13 +19,10 @@ namespace coconut
 		Data();
 		Data(const Data & dat);
 		Data & operator = (const Data & dat) = default;
-		
 		Data(Data && dat);
-		
 		Data(const Data & dat, bool b64_decode);
 		Data(const Data && dat, bool b64_decode);
 		Data(Data && dat, bool b64_decode);
-		
 		Data(const std::uint8_t * in, std::size_t length, bool b64_decode = false);
 		Data(const char * in, std::size_t length, bool b64_decode = false);
 		
@@ -38,7 +35,6 @@ namespace coconut
 		Data(const std::uint16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		Data(const std::uint32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		Data(const std::uint64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		
 		Data(const std::int16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		Data(const std::int32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		Data(const std::int64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
@@ -57,10 +53,8 @@ namespace coconut
 		COCONUT_KTOR Owning<Data> with();
 		COCONUT_KTOR Owning<Data> with(const Data & dat);
 		COCONUT_KTOR Owning<Data> with(Data && dat);
-		
 		COCONUT_KTOR Owning<Data> with(const Data & dat, bool b64_decode);
 		COCONUT_KTOR Owning<Data> with(Data && dat, bool b64_decode);
-		
 		COCONUT_KTOR Owning<Data> with(const std::uint8_t * in, std::size_t length, bool b64_decode = false);
 		COCONUT_KTOR Owning<Data> with(const char * in, std::size_t length, bool b64_decode = false);
 		
@@ -70,8 +64,7 @@ namespace coconut
 		
 		COCONUT_KTOR Owning<Data> with(const std::uint16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		COCONUT_KTOR Owning<Data> with(const std::uint32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		COCONUT_KTOR Owning<Data> with(const std::uint64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		
+		COCONUT_KTOR Owning<Data> with(const std::uint64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);		
 		COCONUT_KTOR Owning<Data> with(const std::int16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		COCONUT_KTOR Owning<Data> with(const std::int32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		COCONUT_KTOR Owning<Data> with(const std::int64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);

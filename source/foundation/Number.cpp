@@ -18,6 +18,11 @@ Number::Number(const Number & num) :
 	m_impl(num.m_impl)
 { /* NOP */ }
 
+Number::Number(Number && num) :
+	Object(NumberClass),
+	m_impl(std::move(num.m_impl))
+{ /* NOP */ }
+
 Number::Number(const float & value) :
 	Object(NumberClass),
 	m_impl(value)
@@ -95,6 +100,9 @@ Number::~Number()
 
 Owning<Number> Number::with(const Number & num)
 { return ptr_create<Number>(num); }
+
+Owning<Number> Number::with(Number && num)
+{ return ptr_create<Number>(std::move(num)); }
 
 Owning<Number> Number::with(const float & value)
 { return ptr_create<Number>(value); }

@@ -19,7 +19,7 @@ namespace coconut
 		Number();
 		Number(const Number & num);
 		Number & operator = (const Number & num) = default;
-		
+		Number(Number && num);
 		Number(const float & value);
 		Number(const double & value);
 		Number(const long double & value);
@@ -37,6 +37,7 @@ namespace coconut
 		virtual ~Number();
 		
 		COCONUT_KTOR Owning<Number> with(const Number & num);
+		COCONUT_KTOR Owning<Number> with(Number && num);
 		COCONUT_KTOR Owning<Number> with(const float & value);
 		COCONUT_KTOR Owning<Number> with(const double & value);
 		COCONUT_KTOR Owning<Number> with(const long double & value);

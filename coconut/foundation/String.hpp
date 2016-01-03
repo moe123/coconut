@@ -19,19 +19,15 @@ namespace coconut
 		String();
 		String(const String & str);
 		String & operator = (const String & str) = default;
-		
 		String(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
 		String(const std::u16string & str, StringEncodingOption encoding= StringEncodingUTF16);
 		String(const std::u32string & str, StringEncodingOption encoding= StringEncodingUTF32);
-		
 		String(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding);
 		String(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding);
 		String(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding);
-		
 		String(const char * utf8_str);
 		String(const char16_t * utf16_str);
 		String(const char32_t * utf32_str);
-		
 		virtual ~String();
 		
 		// COCONUT_KTOD String normalize(const String & str, NormalizationForm option);
@@ -46,15 +42,12 @@ namespace coconut
 		
 		COCONUT_KTOR Owning<String> with();
 		COCONUT_KTOR Owning<String> with(const String & str);
-		
 		COCONUT_KTOR Owning<String> with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
 		COCONUT_KTOR Owning<String> with(const std::u16string & str, StringEncodingOption encoding= StringEncodingUTF16);
 		COCONUT_KTOR Owning<String> with(const std::u32string & str, StringEncodingOption encoding= StringEncodingUTF32);
-		
 		COCONUT_KTOR Owning<String> with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding);
 		COCONUT_KTOR Owning<String> with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding);
 		COCONUT_KTOR Owning<String> with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding);
-		
 		COCONUT_KTOR Owning<String> with(const char * utf8_str);
 		COCONUT_KTOR Owning<String> with(const char16_t * utf16_str);
 		COCONUT_KTOR Owning<String> with(const char32_t * utf32_str);

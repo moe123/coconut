@@ -20,12 +20,9 @@ namespace coconut
 		MutableDictionary(const MutableDictionary & dict);
 		MutableDictionary & operator = (const MutableDictionary & dict) = default;
 		MutableDictionary(const MutableDictionary & dict, CopyOption option);
-		
 		MutableDictionary(MutableDictionary && dict);
-		
-		MutableDictionary(const Dictionary & dict, CopyOption option);
+		MutableDictionary(const Dictionary & dict, CopyOption option = CopyNone);
 		MutableDictionary(Dictionary && dict);
-		
 		MutableDictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		MutableDictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
@@ -55,10 +52,8 @@ namespace coconut
 		COCONUT_KTOR Owning<MutableDictionary> with(const MutableDictionary & dict);
 		COCONUT_KTOR Owning<MutableDictionary> with(const MutableDictionary & dict, CopyOption option);
 		COCONUT_KTOR Owning<MutableDictionary> with(MutableDictionary && dict);
-		
 		COCONUT_KTOR Owning<MutableDictionary> with(const Dictionary & dict, CopyOption option);
 		COCONUT_KTOR Owning<MutableDictionary> with(Dictionary && dict);
-		
 		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		

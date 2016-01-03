@@ -18,6 +18,7 @@ namespace coconut
 	public:
 		Proxy();
 		Proxy(const Proxy & proxy);
+		Proxy & operator = (const Proxy & proxy) = default;
 		virtual ~Proxy();
 	};
 }

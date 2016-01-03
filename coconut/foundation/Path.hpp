@@ -19,11 +19,9 @@ namespace coconut
 		Path();
 		Path(const Path & path);
 		Path & operator = (const Path & path) = default;
-		
 		Path(const String & path, DirectorySeparatorOption option = DirectorySeparatorAuto);
 		Path(const std::string & utf8_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
 		Path(const std::u16string & utf16_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		
 		Path(const char * utf8_path);
 		Path(const char16_t * utf16_path);
 		

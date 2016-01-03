@@ -20,9 +20,7 @@ namespace coconut
 		OrderedSet(const OrderedSet & set);
 		OrderedSet & operator = (const OrderedSet & set) = default;
 		OrderedSet(const OrderedSet & set, CopyOption option);
-		
 		OrderedSet(OrderedSet && set);
-		
 		OrderedSet(const std::initializer_list< Owning<Any> > & args);
 		OrderedSet(const std::initializer_list<Any *> & args);
 		
@@ -119,9 +117,9 @@ namespace coconut
 		std::size_t indexOfObject(const Owning<Any> & obj, Range in_rg) const;
 		
 		std::size_t indexOfObjectIdenticalTo(const Any & obj) const;
-		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const;
-		
 		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj) const;
+		
+		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, Range in_rg) const;
 		std::size_t indexOfObjectIdenticalTo(const Any & obj, Range in_rg) const;
 
 		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;

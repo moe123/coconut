@@ -18,6 +18,7 @@ namespace coconut
 	public:
 		Queue();
 		Queue(const Queue & que);
+		Queue & operator = (const Queue & que) = default;
 		Queue(Queue && que);
 		virtual ~Queue();
 	

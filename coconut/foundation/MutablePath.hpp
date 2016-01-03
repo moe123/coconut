@@ -18,7 +18,8 @@ namespace coconut
 	public:
 		MutablePath();
 		MutablePath(const MutablePath & path);
-		MutablePath(const Path & path);
+		MutablePath & operator = (const MutablePath & path) = default;
+		MutablePath(const Path & path);		
 		MutablePath(const String & str, DirectorySeparatorOption = DirectorySeparatorAuto);
 		MutablePath(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8, DirectorySeparatorOption separator = DirectorySeparatorAuto);
 		MutablePath(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16, DirectorySeparatorOption separator = DirectorySeparatorAuto);

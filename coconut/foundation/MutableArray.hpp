@@ -20,12 +20,9 @@ namespace coconut
 		MutableArray(const MutableArray & arr);
 		MutableArray & operator = (const MutableArray & arr) = default;
 		MutableArray(const MutableArray & arr, CopyOption option);
-		
 		MutableArray(MutableArray && arr);
-		
-		MutableArray(const Array & arr, CopyOption option);
+		MutableArray(const Array & arr, CopyOption option = CopyNone);
 		MutableArray(Array && arr);
-		
 		MutableArray(const std::initializer_list< Owning<Any> > & args);
 		MutableArray(const std::initializer_list<Any *> & args);
 		
@@ -47,10 +44,8 @@ namespace coconut
 		COCONUT_KTOR Owning<MutableArray> with(const MutableArray & arr);
 		COCONUT_KTOR Owning<MutableArray> with(const MutableArray & arr, CopyOption option);
 		COCONUT_KTOR Owning<MutableArray> with(MutableArray && arr);
-		
 		COCONUT_KTOR Owning<MutableArray> with(const Array & arr, CopyOption option);
 		COCONUT_KTOR Owning<MutableArray> with(Array && arr);
-		
 		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list< Owning<Any> > & args);
 		COCONUT_KTOR Owning<MutableArray> with(const std::initializer_list<Any *> & args);
 		

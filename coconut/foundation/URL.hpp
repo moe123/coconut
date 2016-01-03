@@ -18,8 +18,7 @@ namespace coconut
 	public:
 		URL();
 		URL(const URL & url);
-		URL & operator = (const URL & url) = default;
-		
+		URL & operator = (const URL & url) = default;		
 		URL(const Path & path);
 		URL(const String & in, const URL & base_url);
 		URL(const String & in, bool is_filepath);
