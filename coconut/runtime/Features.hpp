@@ -128,8 +128,8 @@ namespace coconut
 	{ return Thus<T1>(r, is_ptr<typename std::decay<T2>::type>{}); }
 
 	template <typename T1, typename T2>
-	inline auto Then(T2 & r, std::false_type) -> T1 &
-	{ return ref_cast<T1>(r); }
+	inline auto Then(T2 & r, std::false_type) -> T1 *
+	{ return std::addressof(ref_cast<T1>(r)); }
 	
 	template <typename T1, typename T2>
 	inline auto Then(ptr_declare<T2> const & r, std::true_type) -> ptr_declare<T1>

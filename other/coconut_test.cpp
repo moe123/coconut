@@ -466,7 +466,7 @@ static void test_stuff(void)
 	};
 	
 	auto sort = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
-	for (const auto & str : Then<Array>(sort)) {
+	for (const auto & str : Thus<Array>(sort)) {
 		std::cerr << "    + : " << str << std::endl;
 	}
 	
@@ -492,7 +492,7 @@ static void test_stuff(void)
 	};
 	
 	auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
-	for (const auto & name : Then<Array>(names)) {
+	for (const auto & name : Thus<Array>(names)) {
 		std::cerr << " + name  + : " << name << std::endl;
 	}
 	
@@ -583,6 +583,8 @@ static void test_stuff(void)
 	d[u8"héllo3"] = lastNames[2];
 	d[u8"héllo4"] = With<String>(u8"étourdie");
 	
+	
+	std::cerr << " + d[héllo4]: " << Then<Dictionary>(d)->objectForKey(u8"héllo4") << std::endl;
 	
 	for (Dictionary::const_iterator it = d.begin(); it != d.end(); ++it)
 	{
