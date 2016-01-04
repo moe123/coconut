@@ -510,9 +510,9 @@ static void test_stuff(void)
 	});
 	
 	if (std::all_of(
-		 names.cbegin(),
-		 names.cend(),
-		 [](const Owning<Any> & obj) -> bool { return KindOf<Object>(obj); })
+		std::begin(names),
+		std::end(names),
+		[](const Owning<Any> & obj) -> bool { return KindOf<Object>(obj); })
 	) {
 		std::cerr << " + all of Anys are Objects in + : " << names << std::endl;
 	}
@@ -522,7 +522,7 @@ static void test_stuff(void)
 		names.cend(),
 		[](const Owning<Any> & obj) -> bool { return MemberOf<Data>(obj); })
 	) {
-		std::cerr << " + no data class in + : " << names << std::endl;
+		std::cerr << " + no Data in + : " << names << std::endl;
 	}
 	
 	if (std::any_of(
@@ -530,7 +530,7 @@ static void test_stuff(void)
 		names.cend(),
 		[](const Owning<Any> & obj) -> bool { return MemberOf<Date>(obj); })
 	) {
-		std::cerr << " + there is at least one date in + : " << names << std::endl;
+		std::cerr << " + there is at least one Date in + : " << names << std::endl;
 	}
 	
 	struct hello

@@ -289,8 +289,8 @@ std::for_each(names.crbegin(), names.crend(),
 });
 
 if (std::all_of(
-	names.cbegin(),
-	names.cend(),
+	std::begin(names),
+	std::end(names),
 	[](const Owning<Any> & obj) -> bool { return KindOf<Object>(obj); })
 ) {
 	std::cerr << " + all of Anys are Objects in + : " << names << std::endl;

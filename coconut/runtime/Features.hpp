@@ -98,19 +98,19 @@ namespace coconut
 		bool valid;
 	};
 	
-	template<typename TypeT>
+	template <typename TypeT>
 	inline auto With(void * no_param = nullptr) -> ptr_declare<TypeT>
 	{ COCONUT_UNUSED(no_param); return TypeT::with(); }
 
-	template<typename TypeT>
+	template <typename TypeT>
 	inline auto With(const std::initializer_list< ptr_declare<Any> > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
 	
-	template<typename TypeT>
+	template <typename TypeT>
 	inline auto With(const std::initializer_list< std::pair< ptr_declare<Any>, ptr_declare<Any> > > & args) -> ptr_declare<TypeT>
 	{ return TypeT::with(args); }
 
-	template<typename TypeT, typename... ArgsT>
+	template <typename TypeT, typename... ArgsT>
 	inline auto With(ArgsT &&... args) -> ptr_declare<TypeT>
 	{ return TypeT::with(std::forward<ArgsT>(args)...); }
 	

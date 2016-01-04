@@ -16,7 +16,7 @@ namespace coconut
 	{
 		namespace iterator
 		{
-			template<class MapT>
+			template <class MapT>
 			class key_map_facet : public MapT::iterator
 			{
 			public:
@@ -28,15 +28,15 @@ namespace coconut
 				key_type & operator * () const { return MapT::iterator::operator*().first; }
 			};
 
-			template<class MapT>
+			template <class MapT>
 			key_map_facet<MapT> key_begin(MapT & m)
 			{ return key_map_facet<MapT>(m.begin()); }
 
-			template<class MapT>
+			template <class MapT>
 			key_map_facet<MapT> key_end(MapT & m)
 			{ return key_map_facet<MapT>(m.end()); }
 
-			template<class MapT>
+			template <class MapT>
 			class value_map_facet : public MapT::iterator
 			{
 			public:
@@ -48,11 +48,11 @@ namespace coconut
 				value_type & operator * () const { return MapT::iterator::operator*().second; }
 			};
 
-			template<class MapT>
+			template <class MapT>
 			value_map_facet<MapT> value_begin(MapT & m)
 			{ return value_map_facet<MapT>(m.begin()); }
 
-			template<class MapT>
+			template <class MapT>
 			value_map_facet<MapT> value_end(MapT & m)
 			{ return value_map_facet<MapT>(m.end()); }
 			
