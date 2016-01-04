@@ -301,7 +301,7 @@ if (std::none_of(
 	names.cend(),
 	[](const Owning<Any> & obj) -> bool { return MemberOf<Data>(obj); })
 ) {
-	std::cerr << " + no data class in + : " << names << std::endl;
+	std::cerr << " + no Data in + : " << names << std::endl;
 }
 
 if (std::any_of(
@@ -309,7 +309,7 @@ if (std::any_of(
 	names.cend(),
 	[](const Owning<Any> & obj) -> bool { return MemberOf<Date>(obj); })
 ) {
-	std::cerr << " + there is at least one date in + : " << names << std::endl;
+	std::cerr << " + there is at least one Date in + : " << names << std::endl;
 }
 
 ```
