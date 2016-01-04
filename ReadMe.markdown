@@ -278,8 +278,9 @@ for (const auto & str : Thus<Array>(sorted)) {
 ```
 ```cpp
 
-// STL bindings, Coconut collections already implement those algorithms adding concurrency options.
-// Thus, just an example to show the interoperability between both.
+// STL bindings, Coconut collections already implement those algorithms 
+// but adding concurrency options among other things not covered by the 
+// STL algorithm interfaces. Thus, just an example to show the interoperability between both.
 
 auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
 
