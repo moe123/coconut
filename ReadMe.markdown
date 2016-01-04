@@ -280,6 +280,8 @@ for (const auto & str : Thus<Array>(sorted)) {
 
 // STL bindings
 
+auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
+
 std::for_each(names.crbegin(), names.crend(),
 	[](const Owning<Any> & obj)
 {
