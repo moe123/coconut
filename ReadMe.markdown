@@ -283,15 +283,13 @@ for (const auto & str : Thus<Array>(sorted)) {
 auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
 
 std::for_each(names.crbegin(), names.crend(),
-	[](const Owning<Any> & obj)
-{
-	std::cerr << " + name + : " << obj << std::endl;
-});
+	[] (const Owning<Any> & obj) -> void
+{ std::cerr << " + name + : " << obj << std::endl; });
 
 if (std::all_of(
 	std::begin(names),
 	std::end(names),
-	[](const Owning<Any> & obj) -> bool { return KindOf<Object>(obj); })
+	[] (const Owning<Any> & obj) -> bool { return KindOf<Object>(obj); })
 ) {
 	std::cerr << " + all of Anys are Objects in + : " << names << std::endl;
 }
@@ -299,7 +297,7 @@ if (std::all_of(
 if (std::none_of(
 	names.cbegin(),
 	names.cend(),
-	[](const Owning<Any> & obj) -> bool { return MemberOf<Data>(obj); })
+	[] (const Owning<Any> & obj) -> bool { return MemberOf<Data>(obj); })
 ) {
 	std::cerr << " + no Data in + : " << names << std::endl;
 }
@@ -307,7 +305,7 @@ if (std::none_of(
 if (std::any_of(
 	names.cbegin(),
 	names.cend(),
-	[](const Owning<Any> & obj) -> bool { return MemberOf<Date>(obj); })
+	[] (const Owning<Any> & obj) -> bool { return MemberOf<Date>(obj); })
 ) {
 	std::cerr << " + there is at least one Date in + : " << names << std::endl;
 }
