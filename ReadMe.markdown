@@ -14,7 +14,7 @@ it introduces several paradigms that define functionality not covered by the C++
 
 Coconut is designed with these goals in mind:
 
-- Provide a small set of basic utility classes.
+- Provide a small set of basic utility classes optimized for use in a multi-threading environment.
 - Performances and memory footprint in mind (The author has a background in embedded systems and real-time signal processing).
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
 - Not only reserved to desktops but also distributed systems (The author knows about fail-over clusters and everything in between).
@@ -26,7 +26,7 @@ Coconut is designed with these goals in mind:
 - Support for Path, Stream (UTF-16, UTF-8 agnostic parsing and conversion), filesystem and network access on different platforms.
 - Safe and transparent access to the main loop or UI loop queue of the platform e.g safely signaling the UI thread.
 - Object persistence, distribution, melt-in KVO notifications, event looper.
-- Provide a level of OS independence, to enhance portability.
+- Provide a level of OS independence, to enhance portability without the temptation of becoming a cargobay.
 
 -----------------------------------------------------------------------------------------------
 
