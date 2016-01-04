@@ -17,7 +17,7 @@ Coconut is designed with these goals in mind:
 - Provide a small set of basic utility classes.
 - Performances and memory footprint in mind (The author has a background in embedded systems and real-time signal processing).
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
-- Not only reserved to desktops but also distributed systems (The author knows about fail over clusters and everything in between).
+- Not only reserved to desktops but also distributed systems (The author knows about fail-over clusters and everything in between).
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
 - Traversable, iterable, sortable collections thru the KVC interface not relaying on binary comparison.
 - Make software development easier by introducing consistent conventions.
