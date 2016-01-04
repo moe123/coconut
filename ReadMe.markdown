@@ -253,7 +253,7 @@ indexTree.enumerateObjectsUsingFunction(
 	[&indexTree] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
 	auto num = indexTree.valueForKeyPath(Number(index).stringValue() + u8".0.child");
-	std::cerr << "indexTree[" << index << "]    + : " << num << std::endl;
+	std::cerr << "+ index : " << index << "], valueForKeyPath : " << num << std::endl;
 }, EnumerationConcurrent|EnumerationReverse);
 
 ```
