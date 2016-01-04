@@ -410,6 +410,13 @@ static void test_stuff(void)
 	// unlike in cocoa collections are traversable by key index
 	// key-path: [Array{indexTree, size=10}].[Array{parent, size=1}].Number
 	
+	indexTree.enumerateObjectsUsingFunction(
+		[&indexTree] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		auto num = indexTree.valueForKeyPath(Number(index).stringValue() + u8".0.child");
+		std::cerr << "indexTree[" << index << "]    + : " << num << std::endl;
+	}, EnumerationConcurrent|EnumerationReverse);
+	
 	for (std::size_t i = 0; i < 10; i++ ) {
 		auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");
 		std::cerr << "indexTree    + : " << num << std::endl;
@@ -569,7 +576,7 @@ static void test_stuff(void)
 	SortDescriptor s1(u8"lastName", false);
 	SortDescriptor s2(u8"age");
 	
-	Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
+	auto people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 	
 	for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
 	{

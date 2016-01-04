@@ -192,12 +192,16 @@ SortDescriptor s2(u8"age");
 // despite the exhaustive i18n interface, this is poorly designed ; e.g you feel 
 // the heavy hand of the regular self-centered native english speaker.
 
-const Array people_sort = people.sortedArrayUsingDescriptors({ &s1, &s0 });
+auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
-for (Array::const_iterator it = people_sort.cbegin(); it != people_sort.cend(); ++it)
-{
-	std::cerr << " + people_sort: " << Thus<Dictionary>(*it)[u8"firstName"] << std::endl;
-	std::cerr << " + people_sort: " << Then<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
+for (Array::const_iterator it = sorted.cbegin(); it != sorted.cend(); ++it) {
+	std::cerr << " + sorted: " << Thus<Dictionary>(*it)[u8"firstName"] << std::endl;
+	std::cerr << " + sorted: " << Then<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
+}
+
+for (const auto & item : Thus<Array>(sorted)) {
+	std::cerr << " + sorted: " << Thus<Dictionary>(item)[u8"firstName"] << std::endl;
+	std::cerr << " + sorted: " << Then<Dictionary>(item)->objectForKey(u8"lastName") << std::endl;
 }
 
 ```
@@ -244,6 +248,13 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");
 	std::cerr << "    + : " << num << std::endl;
 }
+
+indexTree.enumerateObjectsUsingFunction(
+	[&indexTree] (const Owning<Any> & obj, std::size_t index, bool & stop)
+{
+	auto num = indexTree.valueForKeyPath(Number(index).stringValue() + u8".0.child");
+	std::cerr << "indexTree[" << index << "]    + : " << num << std::endl;
+}, EnumerationConcurrent|EnumerationReverse);
 
 ```
 ```cpp
