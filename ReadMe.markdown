@@ -281,7 +281,9 @@ for (const auto & str : Thus<Array>(sorted)) {
 // STL bindings, Coconut collections already implement those algorithms 
 // but adding concurrency options among other things not covered by the 
 // STL algorithm interfaces. Thus, just an explicit example to show the 
-// existing interoperability between both: end-user's choice.
+// existing interoperability between both: end-user's choice, this is a   
+// inherent part of the Coconut's philosophy, hiding complexity but 
+// without getting in the way, when necessary.
 
 auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
 
