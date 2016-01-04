@@ -16,15 +16,17 @@ namespace coconut
 	{
 	COCONUT_KDCL(coconut.Object, nucleus.Object)
 		
-	protected:
+	public:
 	/*
 	* Bridge adapter late and early runtime bindings @see runtime::nucleus.
 	*/
 		Object();
+		virtual ~Object();
+		
+	protected:
 		Object(const Object & obj);
 		Object & operator = (const Object & obj);
 		explicit Object(ClassKind kind);
-		virtual ~Object();
 	
 	public:
 		COCONUT_KTOD Owning<Any> copyObject(const Any & ref, CopyOption option);

@@ -500,7 +500,37 @@ static void test_stuff(void)
 	
 	auto names = firstNames + With<String>(u8"Alberts") + Number(44) + Date();
 	for (const auto & name : Thus<Array>(names)) {
-		std::cerr << " + name  + : " << name << std::endl;
+		std::cerr << " + name + : " << name << std::endl;
+	}
+	
+	std::for_each(names.crbegin(), names.crend(),
+		[](const Owning<Any> & obj)
+	{
+		std::cerr << " + name + : " << obj << std::endl;
+	});
+	
+	if (std::all_of(
+		 names.cbegin(),
+		 names.cend(),
+		 [](const Owning<Any> & obj) -> bool { return KindOf<Object>(obj); })
+	) {
+		std::cerr << " + all of Anys are Objects in + : " << names << std::endl;
+	}
+	
+	if (std::none_of(
+		names.cbegin(),
+		names.cend(),
+		[](const Owning<Any> & obj) -> bool { return MemberOf<Data>(obj); })
+	) {
+		std::cerr << " + no data class in + : " << names << std::endl;
+	}
+	
+	if (std::any_of(
+		names.cbegin(),
+		names.cend(),
+		[](const Owning<Any> & obj) -> bool { return MemberOf<Date>(obj); })
+	) {
+		std::cerr << " + there is at least one date in + : " << names << std::endl;
 	}
 	
 	struct hello
