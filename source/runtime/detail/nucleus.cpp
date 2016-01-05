@@ -588,7 +588,7 @@ unsigned long long nucleus::unsignedLongLongValue() const { return 0ULL; }
 
 #pragma mark -
 
-std::size_t nucleus::size() const { return 0LL; }
+std::size_t nucleus::size() const { return sizeof(*this); }
 
 #pragma mark -
 

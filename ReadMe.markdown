@@ -86,7 +86,7 @@ Number n1 = 5;
 
 std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
 
-// NOTE Any object answer to the following without the need of casting
+// NOTE Any objects answer to the following without the need of casting
 /*
 const std::string description() const;
 
