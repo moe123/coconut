@@ -184,6 +184,20 @@ firstNames.enumerateObjectsUsingFunction(
 	);
 }, EnumerationConcurrent);
 
+// or
+
+Enumerate<Array>(firstNames,
+	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
+{
+	people.addObject(
+		With<Dictionary>({
+			{ keys[0], obj },
+			{ keys[1], lastNames[index] },
+			{ keys[2], ages[index] }
+		})
+	);
+}, EnumerationConcurrent);
+
 SortDescriptor s0(u8"firstName", false);
 SortDescriptor s1(u8"lastName", false);
 SortDescriptor s2(u8"age");

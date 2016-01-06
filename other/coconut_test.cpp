@@ -554,7 +554,7 @@ static void test_stuff(void)
 	
 	MutableArray people;
 	
-	firstNames.enumerateObjectsUsingFunction(
+	Enumerate<Array>(firstNames,
 		[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
 		people.addObject(
