@@ -71,7 +71,7 @@ namespace coconut
 		const Date & laterDate(const Date & dtm) const;
 
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Date> ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Date> & ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:

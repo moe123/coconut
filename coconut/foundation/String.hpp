@@ -187,7 +187,7 @@ namespace coconut
 		bool operator >= (const String & other_str) const;
 	
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<String> ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<String> & ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:

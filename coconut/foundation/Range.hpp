@@ -53,7 +53,7 @@ namespace coconut
 		const Range unionRange(const Range & other_rg) const;
 
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Range> ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Range> & ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:

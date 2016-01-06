@@ -280,7 +280,7 @@ namespace coconut
 			friend inline std::ostream & operator << (std::ostream & os, const Any & ref)
 			{ os << ref.stringValue(); return os; }
 			
-			friend inline std::ostream & operator << (std::ostream & os, const Owning<Any> ptr)
+			friend inline std::ostream & operator << (std::ostream & os, const Owning<Any> & ptr)
 			{ if (ptr) { os << ptr->stringValue(); } return os; }
 			
 		private:

@@ -47,7 +47,7 @@ namespace coconut
 		std::int64_t step() const;
 		
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Slice> ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Slice> & ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 	
 	protected:

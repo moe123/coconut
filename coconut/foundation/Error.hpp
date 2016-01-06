@@ -51,7 +51,7 @@ namespace coconut
 		const Dictionary userInfo() const;
 
 	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Error> ptr)
+		friend inline std::ostream & operator << (std::ostream & os, const Owning<Error> & ptr)
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:
