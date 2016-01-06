@@ -35,17 +35,15 @@ namespace coconut
 			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) != OrderedSame); })
 		{
-			IterT it = beg;
-			while (it != end) {
-				if ((*it)) {
+			for (; beg != end; ++beg) {
+				if ((*beg)) {
 					if (option != CopyNone) {
-						Owning<Any> copy = Object::copyObject((*it), option);
+						Owning<Any> copy = Object::copyObject((*beg), option);
 						if (copy) { m_impl.insert(copy); }
 					} else {
-						m_impl.insert((*it));
+						m_impl.insert((*beg));
 					}
 				}
-				++it;
 			}
 		}
 		
@@ -115,6 +113,7 @@ namespace coconut
 		const Set objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 		
 		bool everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
+		bool noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
 		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
 		
 		const Set filteredSetUsingFunction(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, CopyOption option = CopyNone) const;

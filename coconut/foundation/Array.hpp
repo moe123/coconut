@@ -34,17 +34,15 @@ namespace coconut
 			Object(ArrayClass),
 			m_impl()
 		{
-			IterT it = beg;
-			while (it != end) {
-				if ((*it)) {
+			for (; beg != end; ++beg) {
+				if ((*beg)) {
 					if (option != CopyNone) {
-						Owning<Any> copy = Object::copyObject((*it), option);
+						Owning<Any> copy = Object::copyObject((*beg), option);
 						if (copy) { m_impl.push_back(copy); }
 					} else {
-						m_impl.push_back((*it));
+						m_impl.push_back((*beg));
 					}
 				}
-				++it;
 			}
 		}
 		
@@ -132,6 +130,7 @@ namespace coconut
 		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
 		bool everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
+		bool noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		
 		Owning<Any> firstObjectCommonWithArray(const Array & arr) const;

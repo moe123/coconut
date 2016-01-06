@@ -529,13 +529,17 @@ const Set Dictionary::keysOfEntriesPassingTest(const std::function<bool(const Ow
 	Set::impl_type buf;
 	if (size()) {
 		bool stop = false, ret = false;
-		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			if ((*it).first && (*it).second) {
-				ret = func((*it).second, stop);
-				if (ret) { buf.insert((*it).second); }
-				if (stop) { break; }
+		auto op = runtime::async::exec(runtime::launch_any, [this, &buf, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				if ((*it).first && (*it).second) {
+					ret = func((*it).second, stop);
+					if (ret) { buf.insert((*it).second); }
+					if (stop) { break; }
+				}
 			}
-		}
+		});
+		op.get();
 	}
 	return Set(buf.cbegin(), buf.cend(), option);
 }

@@ -569,16 +569,41 @@ bool Array::everyObjectPassingTest(const std::function<bool(const Owning<Any> & 
 	bool stop = false, ret = false;
 	if (size()) {
 		std::size_t idx = 0;
-		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
-			if ((*it)) {
-				ret = func((*it), idx, stop);
-				if (!ret) { break; }
-				if (stop) { break; }
+		auto op = runtime::async::exec(runtime::launch_any, [this, &idx, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
+				if ((*it)) {
+					ret = func((*it), idx, stop);
+					if (!ret) { break; }
+					if (stop) { break; }
+				}
 			}
-		}
+		});
+		op.get();
 	}
 	return ret;
+}
+
+bool Array::noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
+{
+	bool stop = false, ret = false;
+	if (size()) {
+		std::size_t idx = 0;
+		auto op = runtime::async::exec(runtime::launch_any, [this, &idx, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
+				if ((*it)) {
+					ret = func((*it), idx, stop);
+					if (ret) { break; }
+					if (stop) { break; }
+				}
+			}
+		});
+		op.get();
+	}
+	return !ret;
 }
 
 bool Array::someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
@@ -586,14 +611,18 @@ bool Array::someObjectPassingTest(const std::function<bool(const Owning<Any> & o
 	bool stop = false, ret = false;
 	if (size()) {
 		std::size_t idx = 0;
-		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
-			if ((*it)) {
-				ret = func((*it), idx, stop);
-				if (ret) { break; }
-				if (stop) { break; }
+		auto op = runtime::async::exec(runtime::launch_any, [this, &idx, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
+				if ((*it)) {
+					ret = func((*it), idx, stop);
+					if (ret) { break; }
+					if (stop) { break; }
+				}
 			}
-		}
+		});
+		op.get();
 	}
 	return ret;
 }

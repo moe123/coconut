@@ -497,28 +497,55 @@ bool Set::everyObjectPassingTest(const std::function<bool(const Owning<Any> & ob
 {
 	bool stop = false, ret = false;
 	if (size()) {
-		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			if ((*it)) {
-				ret = func((*it), stop);
-				if (!ret) { break; }
-				if (stop) { break; }
+		auto op = runtime::async::exec(runtime::launch_any, [this, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				if ((*it)) {
+					ret = func((*it), stop);
+					if (!ret) { break; }
+					if (stop) { break; }
+				}
 			}
-		}
+		});
+		op.get();
 	}
 	return ret;
+}
+
+bool Set::noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const
+{
+	bool stop = false, ret = false;
+	if (size()) {
+		auto op = runtime::async::exec(runtime::launch_any, [this, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				if ((*it)) {
+					ret = func((*it), stop);
+					if (ret) { break; }
+					if (stop) { break; }
+				}
+			}
+		});
+		op.get();
+	}
+	return !ret;
 }
 
 bool Set::someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const
 {
 	bool stop = false, ret = false;
 	if (size()) {
-		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			if ((*it)) {
-				ret = func((*it), stop);
-				if (ret) { break; }
-				if (stop) { break; }
+		auto op = runtime::async::exec(runtime::launch_any, [this, &stop, &ret, &func]
+		{
+			for (const_iterator it = cbegin(); it != cend(); ++it) {
+				if ((*it)) {
+					ret = func((*it), stop);
+					if (ret) { break; }
+					if (stop) { break; }
+				}
 			}
-		}
+		});
+		op.get();
 	}
 	return ret;
 }

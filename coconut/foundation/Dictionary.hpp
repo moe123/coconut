@@ -37,18 +37,16 @@ namespace coconut
 			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) == OrderedAscending); })
 		{
-			IterT it = beg;
-			while (it != end) {
-				if ((*it).first && (*it).second) {
+			for (; beg != end; ++beg) {
+				if ((*beg).first && (*beg).second) {
 					if (option != CopyNone) {
-						Owning<Any> kcpy = Object::copyObject((*it).first, CopyImmutable);
-						Owning<Any> vcpy = Object::copyObject((*it).second, option);
+						Owning<Any> kcpy = Object::copyObject((*beg).first, CopyImmutable);
+						Owning<Any> vcpy = Object::copyObject((*beg).second, option);
 						if (kcpy && vcpy) { m_impl.insert(std::make_pair(kcpy, vcpy)); }
 					} else {
-						m_impl.insert(std::make_pair((*it).first, (*it).second));
+						m_impl.insert(std::make_pair((*beg).first, (*beg).second));
 					}
 				}
-				++it;
 			}
 		}
 		
