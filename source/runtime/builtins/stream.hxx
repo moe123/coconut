@@ -22,7 +22,7 @@ namespace coconut
 			const std::wstring stream_convpath(const std::string & utf8_in)
 			{
 				std::wstring wout;
-				unicode::codeset_utf8_utf16(utf8_in, uft16_out);
+				unicode::codeset_utf8_utf16(utf8_in, wout);
 				return wout;
 				/*
 				std::wstring wout;

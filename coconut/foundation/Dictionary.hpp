@@ -5,6 +5,7 @@
 //
 
 #include <coconut/runtime/Object.hpp>
+#include <coconut/runtime/Serialization.hpp>
 
 #ifndef COCONUT_FOUNDATION_DICTIONARY_HPP
 #define COCONUT_FOUNDATION_DICTIONARY_HPP

@@ -4,8 +4,9 @@
 // Copyright (C) 2015 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/ByteOrder.hpp>
+#include <coconut/runtime/Types.hpp>
 #include <coconut/runtime/Features.hpp>
+#include <coconut/runtime/ByteOrder.hpp>
 
 #ifndef COCONUT_RUNTIME_TO_FOUNDATION_OBJECT_HPP
 #define COCONUT_RUNTIME_TO_FOUNDATION_OBJECT_HPP

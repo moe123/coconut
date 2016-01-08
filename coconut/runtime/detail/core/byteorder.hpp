@@ -16,17 +16,17 @@ namespace coconut
 		namespace byteorder
 		{
 			/**
-			 	@assuming modern archs and compilers 
-			    (e.g being smart with arch alignment):
-			 
+				@assuming modern archs and compilers
+				(e.g being smart with arch alignment):
+
 				char        : 1 byte
 				short       : 2 bytes
 				int         : 4 bytes
 				long        : 4 bytes or 8 bytes
-			 	long long   : 8 bytes
+				long long   : 8 bytes
 				float       : 4 bytes
 				double      : 8 bytes
-			 	long double : 8 bytes
+				long double : 8 bytes
 			 **/
 			
 			typedef struct { std::uint32_t v; } fswp_t;
