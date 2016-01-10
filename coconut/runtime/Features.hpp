@@ -152,42 +152,15 @@ namespace coconut
 		-> decltype(_then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}))
 	{ return _then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 
-	template <typename T>
-	inline auto _enumerate_caller(
-			const T & r,
-			const std::function<bool(const Owning<Any> & obj, bool & stop)> & func,
-			EnumerationOptions options
-		)
-		-> void
-	{ r.enumerateObjectsUsingFunction(func, options); }
-	
-	template <typename T>
-	inline auto _enumerate_caller(
-			const T & r,
-			const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func,
-			EnumerationOptions options
-		)
-		-> void
-	{ r.enumerateObjectsUsingFunction(func, options); }
-	
-	template <typename T>
-	inline auto _enumerate_caller(
-			const T & r,
-			const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func,
-			EnumerationOptions options
-		)
-		-> void
-	{ r.enumerateKeysAndObjectsUsingFunction(func, options); }
-	
 	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto _enumerate(const CollT & r, const FuncT & func, EnumerationOptions options, std::false_type)
 		-> void
-	{ _enumerate_caller(r, func, options); }
+	{ ref_cast<TypeT>(r).enumerateUsingFunction(func, options); }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto _enumerate(ptr_declare<CollT> const & r, const FuncT & func, EnumerationOptions options, std::true_type)
 		-> void
-	{ if (r) { _enumerate_caller(*r, func, options); }; }
+	{ if (r) { ptr_cast<TypeT>(r)->enumerateUsingFunction(func, options); }; }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto Enumerate(CollT && r, FuncT && func, EnumerationOptions options = EnumerationDefault)

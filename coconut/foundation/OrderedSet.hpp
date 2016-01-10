@@ -95,6 +95,8 @@ namespace coconut
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
+		void enumerateUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
+		
 		bool containsObject(const Any & obj) const;
 		bool containsObject(const Owning<Any> & obj) const;
 		

@@ -278,6 +278,9 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Ow
 	}
 }
 
+void OrderedSet::enumerateUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
+{ enumerateObjectsUsingFunction(func, options); }
+
 #pragma mark -
 
 bool OrderedSet::containsObject(const Any & obj) const

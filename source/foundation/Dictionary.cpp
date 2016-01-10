@@ -190,9 +190,7 @@ const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selk
 #pragma mark -
 
 void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func) const
-{
-	enumerateKeysAndObjectsUsingFunction(func, EnumerationDefault);
-}
+{ enumerateKeysAndObjectsUsingFunction(func, EnumerationDefault); }
 
 void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
 {
@@ -277,6 +275,9 @@ void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(c
 		}
 	}
 }
+
+void Dictionary::enumerateUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
+{ enumerateKeysAndObjectsUsingFunction(func, options); }
 
 #pragma mark -
 
