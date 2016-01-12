@@ -301,9 +301,6 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 	}
 }
 
-void Set::enumerateUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
-{ enumerateObjectsUsingFunction(func, options); }
-
 #pragma mark -
 
 bool Set::containsObject(const Any & obj) const

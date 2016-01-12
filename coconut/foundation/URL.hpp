@@ -18,14 +18,13 @@ namespace coconut
 	public:
 		URL();
 		URL(const URL & url);
-		URL & operator = (const URL & url) = default;		
+		URL & operator = (const URL & url) = default;
 		URL(const Path & path);
+		URL(const String & in);
 		URL(const String & in, const URL & base_url);
 		URL(const String & in, bool is_filepath);
 		URL(const String & scheme, const String & host, const String & path);
-		URL(const std::string & in);
-		URL(const char * in);
-		
+		URL(const char * utf8_str);
 		virtual ~URL();
 		
 		COCONUT_KTOD const String percentEscapesEncode(const String & in, bool space_as_plus = false);
@@ -33,11 +32,11 @@ namespace coconut
 		
 		COCONUT_KTOR Owning<URL> with(const URL & url);
 		COCONUT_KTOR Owning<URL> with(const Path & path);
+		COCONUT_KTOR Owning<URL> with(const String & in);
 		COCONUT_KTOR Owning<URL> with(const String & in, const URL & base_url);
 		COCONUT_KTOR Owning<URL> with(const String & in, bool is_filepath);
 		COCONUT_KTOR Owning<URL> with(const String & scheme, const String & host, const String & path);
-		COCONUT_KTOR Owning<URL> with(const std::string & in);
-		COCONUT_KTOR Owning<URL> with(const char * in);
+		COCONUT_KTOR Owning<URL> with(const char * utf8_str);
 		
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;

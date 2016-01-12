@@ -276,9 +276,6 @@ void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(c
 	}
 }
 
-void Dictionary::enumerateUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
-{ enumerateKeysAndObjectsUsingFunction(func, options); }
-
 #pragma mark -
 
 bool Dictionary::containsKey(const std::string & utf8_key) const

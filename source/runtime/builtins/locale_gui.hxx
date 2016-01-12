@@ -18,7 +18,7 @@ namespace coconut
 			{
 				std::string id;
 				char buf[ULOC_FULLNAME_CAPACITY];
-			#if defined(__APPLE22__)
+			#if defined(__APPLE__)
 				// @FUTURE shortcuts avoiding all the CF cargobay.
 				//
 				// if $HOME/Library/Preferences/.GlobalPreferences.plist

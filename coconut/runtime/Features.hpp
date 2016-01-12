@@ -12,14 +12,14 @@
 namespace coconut
 {
 	template <class T> struct _is_ptr : std::false_type{};
-	template <class T> struct _is_ptr< ptr_declare<T> > : std::true_type{};
+	template <class T> struct _is_ptr< Owning<T> > : std::true_type{};
 	
 	template <typename T1, typename T2>
 	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
 	{ const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
-	inline auto _conforms_to(ptr_declare<T2> const & r, std::true_type) -> bool
+	inline auto _conforms_to(Owning<T2> const & r, std::true_type) -> bool
 	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(*r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
@@ -31,7 +31,7 @@ namespace coconut
 	{ return r . template isKindOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _kind_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	inline auto _kind_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isKindOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -43,7 +43,7 @@ namespace coconut
 	{ return r . template isSubclassOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _subclass_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	inline auto _subclass_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isSubclassOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -55,7 +55,7 @@ namespace coconut
 	{ return r . template isMemberOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _member_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	inline auto _member_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isMemberOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -63,11 +63,11 @@ namespace coconut
 	{ return _member_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
-	inline auto _ancestor_of(const T2 & r, std::false_type) -> bool &
+	inline auto _ancestor_of(const T2 & r, std::false_type) -> bool
 	{ return r . template  isAncestorOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _ancestor_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	inline auto _ancestor_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isAncestorOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -104,22 +104,22 @@ namespace coconut
 	
 	template <typename TypeT>
 	inline auto With(void * no_param = nullptr)
-		-> ptr_declare<TypeT>
+		-> Owning<TypeT>
 	{ COCONUT_UNUSED(no_param); return TypeT::with(); }
 
 	template <typename TypeT>
-	inline auto With(const std::initializer_list< ptr_declare<Any> > & args)
-		-> ptr_declare<TypeT>
+	inline auto With(const std::initializer_list< Owning<Any> > & args)
+		-> Owning<TypeT>
 	{ return TypeT::with(args); }
 	
 	template <typename TypeT>
-	inline auto With(const std::initializer_list< std::pair< ptr_declare<Any>, ptr_declare<Any> > > & args)
-		-> ptr_declare<TypeT>
+	inline auto With(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
+		-> Owning<TypeT>
 	{ return TypeT::with(args); }
 
 	template <typename TypeT, typename... ArgsT>
 	inline auto With(ArgsT &&... args)
-		-> ptr_declare<TypeT>
+		-> Owning<TypeT>
 	{ return TypeT::with(std::forward<ArgsT>(args)...); }
 	
 	template <typename T1, typename T2>
@@ -128,7 +128,7 @@ namespace coconut
 	{ return ref_cast<T1>(r); }
 	
 	template <typename T1, typename T2>
-	inline auto _thus(ptr_declare<T2> const & r, std::true_type)
+	inline auto _thus(Owning<T2> const & r, std::true_type)
 		-> T1 &
 	{ return (*(ptr_cast<T1>(r))); }
 	
@@ -143,24 +143,54 @@ namespace coconut
 	{ return std::addressof(ref_cast<T1>(r)); }
 	
 	template <typename T1, typename T2>
-	inline auto _then(ptr_declare<T2> const & r, std::true_type)
-		-> ptr_declare<T1>
+	inline auto _then(Owning<T2> const & r, std::true_type)
+		-> Owning<T1>
 	{ return ptr_cast<T1>(r); }
 	
 	template <typename T1, typename T2>
 	inline auto Then(T2 && r)
 		-> decltype(_then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}))
 	{ return _then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
-
+	
+	template <typename T1, typename T2>
+	inline auto _copy(const T2 & r, std::false_type)
+		-> Owning<T1>
+	{ return ptr_cast<T1>(r.copyKind()); }
+	
+	template <typename T1, typename T2>
+	inline auto _copy(Owning<T2> const & r, std::true_type)
+		-> Owning<T1>
+	{ return ptr_cast<T1>(r->copyKind()); }
+	
+	template <typename T1, typename T2>
+	inline auto Copy(T2 && r)
+		-> Owning<T1>
+	{ return _copy<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	
+	template <typename TypeT, typename CollT>
+	inline auto _enumerate_dispatch(const CollT & r, const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options)
+		-> void
+	{ ref_cast<TypeT>(r).enumerateObjectsUsingFunction(func, options); }
+	
+	template <typename TypeT, typename CollT>
+	inline auto _enumerate_dispatch(const CollT & r, const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options)
+		-> void
+	{ ref_cast<TypeT>(r).enumerateObjectsUsingFunction(func, options); }
+	
+	template <typename TypeT, typename CollT>
+	inline auto _enumerate_dispatch(const CollT & r, const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options)
+		-> void
+	{ ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(func, options); }
+	
 	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto _enumerate(const CollT & r, const FuncT & func, EnumerationOptions options, std::false_type)
 		-> void
-	{ ref_cast<TypeT>(r).enumerateUsingFunction(func, options); }
+	{ _enumerate_dispatch<TypeT>(r, func, options); }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
-	inline auto _enumerate(ptr_declare<CollT> const & r, const FuncT & func, EnumerationOptions options, std::true_type)
+	inline auto _enumerate(Owning<CollT> const & r, const FuncT & func, EnumerationOptions options, std::true_type)
 		-> void
-	{ if (r) { ptr_cast<TypeT>(r)->enumerateUsingFunction(func, options); }; }
+	{ if (r) { _enumerate_dispatch<TypeT>(*r, func, options); }; }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto Enumerate(CollT && r, FuncT && func, EnumerationOptions options = EnumerationDefault)

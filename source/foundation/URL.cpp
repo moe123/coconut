@@ -27,6 +27,11 @@ URL::URL(const Path & path) :
 	m_impl(path.stringValue(), true, false)
 { /* NOP */ }
 
+URL::URL(const String & in) :
+	Object(URLClass),
+	m_impl(in.stringValue())
+{ /* NOP */ }
+
 URL::URL(const String & in, const URL & url) :
 	Object(URLClass),
 	m_impl(in.stringValue(), url.m_impl, false)
@@ -40,11 +45,6 @@ URL::URL(const String & in, bool is_filepath) :
 URL::URL(const String & scheme, const String & host, const String & path) :
 	Object(URLClass),
 	m_impl(scheme.stringValue(), host.stringValue(), path.stringValue(), false)
-{ /* NOP */ }
-
-URL::URL(const std::string & in) :
-	Object(URLClass),
-	m_impl(in)
 { /* NOP */ }
 
 URL::URL(const char * in) :
@@ -71,6 +71,9 @@ Owning<URL> URL::with(const URL & url)
 Owning<URL> URL::with(const Path & path)
 { return ptr_create<URL>(path); }
 
+Owning<URL> URL::with(const String & in)
+{ return ptr_create<URL>(in); }
+
 Owning<URL> URL::with(const String & in, const URL & base_url)
 { return ptr_create<URL>(in, base_url); }
 
@@ -79,9 +82,6 @@ Owning<URL> URL::with(const String & in, bool is_filepath)
 
 Owning<URL> URL::with(const String & scheme, const String & host, const String & path)
 { return ptr_create<URL>(scheme, host, path); }
-
-Owning<URL> URL::with(const std::string & in)
-{ return ptr_create<URL>(in); }
 
 Owning<URL> URL::with(const char * in)
 { return ptr_create<URL>(in); }

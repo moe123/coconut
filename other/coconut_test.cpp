@@ -612,19 +612,25 @@ static void test_stuff(void)
 		std::cerr << " + people_sort: " << Then<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
 	}
 	
-	MutableDictionary d;
-	d[u8"héllo2"] = lastNames[1];
-	d[u8"héllo1"] = lastNames[0];
-	d[u8"héllo3"] = lastNames[2];
-	d[u8"héllo4"] = With<String>(u8"étourdie");
+	MutableDictionary hellos;
+	hellos[u8"héllo 2"] = lastNames[1];
+	hellos[u8"héllo 1"] = lastNames[0];
+	hellos[u8"héllo 3"] = lastNames[2];
+	hellos[u8"héllo 4"] = With<String>(u8"étourdie");
 	
+	std::cerr << " + d[héllo 4]: " << Then<Dictionary>(hellos)->objectForKey(u8"héllo4") << std::endl;
 	
-	std::cerr << " + d[héllo4]: " << Then<Dictionary>(d)->objectForKey(u8"héllo4") << std::endl;
-	
-	for (Dictionary::const_iterator it = d.begin(); it != d.end(); ++it)
+	for (Dictionary::const_iterator it = hellos.cbegin(); it != hellos.cend(); ++it)
 	{
-		std::cerr << " + d: " << (*it).first << " = " <<  (*it).second << std::endl;
+		std::cerr << " + hellos: " << (*it).first << " = " <<  (*it).second << std::endl;
 	}
+	
+	Enumerate<Dictionary>(hellos,
+		[] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+	{
+		std::cerr << " + key: " << key << " = " <<  obj << std::endl;
+	}, EnumerationConcurrent|EnumerationReverse);
+	
 #if 0
 	
 	std::string in = u8"+45666.123";
