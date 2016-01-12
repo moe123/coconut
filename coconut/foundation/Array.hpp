@@ -106,8 +106,6 @@ namespace coconut
 		bool containsObject(const Any & obj) const;
 		bool containsObject(const Owning<Any> & obj) const;
 		
-		bool containsObject(bool & obj) const;
-		
 		Owning<Any> firstObject() const;
 		Owning<Any> lastObject() const;
 		Owning<Any> objectAtIndex(std::size_t index) const;
