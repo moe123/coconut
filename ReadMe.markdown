@@ -29,16 +29,17 @@ Coconut is designed with these goals in mind:
 - Object persistence, distribution, melt-in KVO notifications, event looper.
 - Provide a level of OS independence, to enhance portability (5).
 
+-----------------------------------------------------------------------------------------------
 
-1 - The author has a background in embedded systems ; not in a limited sense of mobile software programming ; and real-time signal processing.
+1. The author has a background in embedded systems ; not in a limited sense of mobile software programming ; and real-time signal processing.
 
-2 - The author knows about fail-over clusters and everything in between.
+2. The author knows about fail-over clusters and everything in between.
 
-3 - by default width insensitive ; e.g composed or precomposed insensitive.
+3. by default width insensitive ; e.g composed or precomposed insensitive.
 
-4 - UTF-16, UTF-8 agnostic parsing and conversion.
+4. UTF-16, UTF-8 agnostic parsing and conversion.
 
-5 - Without the temptation of becoming a cargobay and only using a small set of selected dependencies.
+5. Without the temptation of becoming a cargobay and only using a small set of selected dependencies.
 
 -----------------------------------------------------------------------------------------------
 
