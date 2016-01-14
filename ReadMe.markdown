@@ -31,15 +31,15 @@ Coconut is designed with these goals in mind:
 
 -----------------------------------------------------------------------------------------------
 
-1. <sup>The author has a background in embedded systems ; not in a limited sense of mobile software programming ; and real-time signal processing.</sup>
+<sup>1 - The author has a background in embedded systems ; not in a limited sense of mobile software programming ; and real-time signal processing.</sup>
 
-2. <sup>The author knows about fail-over clusters and everything in between.</sup>
+<sup>2 - The author knows about fail-over clusters and everything in between.</sup>
 
-3. <sup>by default width insensitive ; e.g composed or precomposed insensitive.</sup>
+<sup>3 - by default width insensitive ; e.g composed or precomposed insensitive.</sup>
 
-4. <sup>UTF-16, UTF-8 agnostic parsing and conversion.</sup>
+<sup>4 - UTF-16, UTF-8 agnostic parsing and conversion.</sup>
 
-5. <sup>Without the temptation of becoming a cargobay and only using a small set of selected dependencies.</sup>
+<sup>5 - Without the temptation of becoming a cargobay and only using a small set of selected dependencies.</sup>
 
 -----------------------------------------------------------------------------------------------
 
