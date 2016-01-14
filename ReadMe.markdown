@@ -30,7 +30,7 @@ Coconut is designed with these goals in mind:
 - Provide a level of OS independence, to enhance portability (5).
 
 -----------------------------------------------------------------------------------------------
-
+<sup>
 1. The author has a background in embedded systems ; not in a limited sense of mobile software programming ; and real-time signal processing.
 
 2. The author knows about fail-over clusters and everything in between.
@@ -40,7 +40,7 @@ Coconut is designed with these goals in mind:
 4. UTF-16, UTF-8 agnostic parsing and conversion.
 
 5. Without the temptation of becoming a cargobay and only using a small set of selected dependencies.
-
+</sup>
 -----------------------------------------------------------------------------------------------
 
 Coconut supports multiple programming paradigms, including object-oriented, imperative and 
