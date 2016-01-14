@@ -3,7 +3,7 @@ Coconut
 
 Coconut is an object-oriented cross-platform runtime written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
 with a strong emphasis on concurrency ability and the subscripting side of things, `feel like scripting`, but Coconut is more than just yet-another-Object 
-framework , it adds a syntax within the syntax, somehow, close to a meta-programming approach.
+framework, it adds a syntax within the syntax, somehow, close to a meta-programming approach (or embedded meta-language) what we named mainly Features.
 
 -----------------------------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ it introduces several paradigms that define functionality not covered by the C++
 Coconut is designed with these goals in mind:
 
 - Provide a small set of basic utility classes optimized for use in a multi-threading environment.
-- Performances and memory footprint in mind (The author has a background in embedded systems and real-time signal processing).
+- Performances and memory footprint in mind (The author has a background in embedded systems (not in a limited sense of mobile software programming) and real-time signal processing).
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
 - Not only reserved to desktops but also distributed systems (The author knows about fail-over clusters and everything in between).
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
@@ -27,7 +27,7 @@ Coconut is designed with these goals in mind:
 - Support for Path, Stream (UTF-16, UTF-8 agnostic parsing and conversion), filesystem and network access on different platforms.
 - Safe and transparent access to the main loop or UI loop queue of the platform e.g safely signaling the UI thread.
 - Object persistence, distribution, melt-in KVO notifications, event looper.
-- Provide a level of OS independence, to enhance portability without the temptation of becoming a cargobay.
+- Provide a level of OS independence, to enhance portability without the temptation of becoming a cargobay and only using a small set of selected dependencies.
 
 -----------------------------------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ Coconut supports multiple programming paradigms, including object-oriented, impe
 functional programming or procedural styles and other specifics such as the selector-key interface.
 It features a dynamic type system and automatic memory management using the built-in scope ref-counting system but without getting in the way, as you can work 
 on the stack as well as on the heap ; you may copy and/or move, acquiring ref-counted containers on the fly. 
-Coconut is really similar to Smalltalk, Python, Swift and the Objective-C philosophy but purily written in modern-portable C++.
+Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy but purily written in modern-portable C++.
 
 # Few examples
 

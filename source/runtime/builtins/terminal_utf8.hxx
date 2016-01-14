@@ -15,6 +15,7 @@ namespace coconut
 			{
 #if defined(__MICROSOFT__)
 				HANDLE stdout_h = GetStdHandle(STD_OUTPUT_HANDLE);
+				HANDLE stderr_h = GetStdHandle(STD_ERROR_HANDLE);
 				OSVERSIONINFOEX osvi;
 				osvi.dwOSVersionInfoSize = sizeof(osvi);
 				GetVersionEx(reinterpret_cast<LPOSVERSIONINFO>(&osvi));
@@ -37,11 +38,14 @@ namespace coconut
 					lstrcpy(inf.FaceName, TEXT("Lucida Console"));
 
 					sym(stdout_h, FALSE, &inf);
+					sym(stderr_h, FALSE, &inf);
+					
 				} else {
 					typedef BOOL (WINAPI * SetConsoleFont__)(HANDLE, DWORD);
 					HMODULE mod_h = GetModuleHandle(TEXT("kernel32.dll"));
 					SetConsoleFont__ sym = (SetConsoleFont__)GetProcAddress(mod_h, "SetConsoleFont");
 					sym(stdout_h, 12);
+					sym(stderr_h, 12);
 				}
 #endif
 			}
