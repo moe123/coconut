@@ -131,6 +131,11 @@ namespace coconut
 	inline auto JobExec(FuncT && func, ArgsT &&... args)
 		-> decltype(runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...))
 	{ return runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+	
+	template <typename FuncT, typename... ArgsT>
+	inline auto JobRun(FuncT && func, ArgsT &&... args)
+		-> typename std::result_of<FuncT(ArgsT...)>::type
+	{ auto job = runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); return job.get(); }
 		
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobDetach(FuncT && func, ArgsT &&... args)

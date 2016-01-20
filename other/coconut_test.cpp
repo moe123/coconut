@@ -1022,9 +1022,9 @@ int main(int argc, const char * argv[])
 		cout << "[" << c << "] ";
 	cout << endl;
 	
-	auto job0 = JobExec([]() -> bool
+	bool job0 = JobRun([]() -> bool
 	{
-		auto job1 = JobExec([]() -> bool
+		JobRun([]() -> void
 		{
 			/* do job */
 			test_stuff();
@@ -1032,14 +1032,14 @@ int main(int argc, const char * argv[])
 			//test_date();
 			//test_number();
 			//test_array();
-			return true;
+			//return true;
 		});
-		bool result = job1.get();
-		std::cerr << "+ result : " << result << std::endl;
-		return result;
+		//bool result = job1.get();
+		//std::cerr << "+ result : " << job1 << std::endl;
+		return true;
 	});
-	bool result = job0.get();
-	std::cerr << "+ result : " << result << std::endl;
+	//bool result = job0.get();
+	std::cerr << "+ result : " << job0 << std::endl;
 	
 	return 0;
 }
