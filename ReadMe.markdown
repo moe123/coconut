@@ -4,7 +4,7 @@ Coconut
 Coconut is an object-oriented cross-platform runtime written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
 with a strong emphasis on concurrency ability and the subscripting side of things, `feel like scripting`, but Coconut is more than just yet-another-Object 
 framework, it adds a syntax within the syntax, somehow, close to a meta-programming approach (or embedded meta-language) what we named mainly Features.
-Coconut implements type introspection (knowing type or properties of an object at runtime) and a tiny barebones reflection system.
+Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system.
 
 -----------------------------------------------------------------------------------------------
 
