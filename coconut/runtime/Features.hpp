@@ -1,7 +1,7 @@
 //
 // Features.hpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/Types.hpp>
@@ -83,20 +83,55 @@ namespace coconut
 	inline auto _copy(Owning<T2> const & r, std::true_type)
 		-> Owning<T1>
 	{ return ptr_cast<T1>(r->copyKind()); }
-
+	
 	template <typename TypeT, typename CollT>
-	inline auto _enumerate_dispatch(const CollT & r, const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options)
-		-> void
+	inline auto _enumerate_dispatch
+	(
+		const CollT & r,
+		const std::function<void(const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	) -> void
+	{
+		if (ref_cast<TypeT>(r).isKindOf(ArrayClass) || ref_cast<TypeT>(r).isKindOf(OrderedSetClass)) {
+			ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+				[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+			{ func(obj); }, options);
+		} else if (ref_cast<TypeT>(r).isKindOf(SetClass)) {
+			ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+				[&func] (const Owning<Any> & obj, bool & stop)
+			{ func(obj); }, options);
+		} else if (ref_cast<TypeT>(r).isKindOf(DictionaryClass)) {
+			ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(
+				[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+			{ func(key); }, options);
+		}
+	}
+	
+	template <typename TypeT, typename CollT>
+	inline auto _enumerate_dispatch
+	(
+	 	const CollT & r,
+	 	const std::function<void(const Owning<Any> & obj, bool & stop)> & func,
+	 	EnumerationOptions options
+	) -> void
 	{ ref_cast<TypeT>(r).enumerateObjectsUsingFunction(func, options); }
 	
 	template <typename TypeT, typename CollT>
-	inline auto _enumerate_dispatch(const CollT & r, const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options)
-		-> void
+	inline auto _enumerate_dispatch
+	(
+	 	const CollT & r,
+	 	const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func,
+	 	EnumerationOptions options
+	) -> void
 	{ ref_cast<TypeT>(r).enumerateObjectsUsingFunction(func, options); }
 	
 	template <typename TypeT, typename CollT>
-	inline auto _enumerate_dispatch(const CollT & r, const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options)
-		-> void
+	inline auto _enumerate_dispatch
+	(
+		const CollT & r,
+	 	const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func,
+	 	EnumerationOptions options
+	) -> void
 	{ ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(func, options); }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
@@ -112,14 +147,25 @@ namespace coconut
 	template <typename RetT, typename ErrT>
 	struct OptionalReturn
 	{
-		operator bool () const { return valid; }
+		OptionalReturn() : m_success{}, m_error{}, m_valid(false) {}
+		
+		const RetT & success() const { return m_success; }
+		const ErrT & error() const { return m_error; }
+		
+		operator bool () const { return m_valid; }
+		const RetT & operator () () const { return success(); }
+		const ErrT & operator ~ () const { return error(); }
+		
+		void setSuccess(const RetT & success)
+		{ m_success = success; m_error = {}; m_valid = true; }
+		
+		void setError(const ErrT & error)
+		{ m_success = {}; m_error = error; m_valid = false; }
 
-		RetT operator () () const { return success; }
-		ErrT operator ~ () const { return error; }
-
-		RetT success;
-		ErrT error;
-		bool valid;
+	private:
+		RetT m_success;
+		ErrT m_error;
+		bool m_valid;
 	};
 
 	template <typename FuncT, typename... ArgsT>

@@ -11,6 +11,8 @@
 		D512EED51C21E11300E52A3E /* islice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D512EED31C21E11300E52A3E /* islice.hpp */; };
 		D512EED71C21E31B00E52A3E /* islice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D512EED61C21E31B00E52A3E /* islice.cpp */; };
 		D512EED81C21E31B00E52A3E /* islice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D512EED61C21E31B00E52A3E /* islice.cpp */; };
+		D51F01B41C51C14F00C2735C /* upath_detection.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D51F01B31C51C14F00C2735C /* upath_detection.hxx */; };
+		D51F01B51C51C14F00C2735C /* upath_detection.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D51F01B31C51C14F00C2735C /* upath_detection.hxx */; };
 		D521DD1E1C35C48A00944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
 		D521DD1F1C35C4A600944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
 		D521DD201C35C4CD00944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
@@ -346,6 +348,7 @@
 /* Begin PBXFileReference section */
 		D512EED31C21E11300E52A3E /* islice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = islice.hpp; sourceTree = "<group>"; };
 		D512EED61C21E31B00E52A3E /* islice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = islice.cpp; sourceTree = "<group>"; };
+		D51F01B31C51C14F00C2735C /* upath_detection.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = upath_detection.hxx; sourceTree = "<group>"; };
 		D5209D511C3B50A400D86E74 /* ReadMe.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.markdown; path = ../ReadMe.markdown; sourceTree = "<group>"; };
 		D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D523CA381C2A07B4007270F7 /* Features.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Features.hpp; sourceTree = "<group>"; };
@@ -721,6 +724,7 @@
 				D5B09C901C35ED9F00AF0B9D /* stream.hxx */,
 				D5B09C911C35ED9F00AF0B9D /* terminal_utf8.hxx */,
 				D5B09C921C35ED9F00AF0B9D /* upath_absolute.hxx */,
+				D51F01B31C51C14F00C2735C /* upath_detection.hxx */,
 				D5B09C931C35ED9F00AF0B9D /* uri_escaping.hxx */,
 				D5B09C941C35ED9F00AF0B9D /* uri_joining.hxx */,
 				D5B09C951C35ED9F00AF0B9D /* uri_parsing.hxx */,
@@ -879,6 +883,7 @@
 				D595B8CB1BC9A43A0051FF91 /* indexpath.hpp in Headers */,
 				D595B8C31BC9A43A0051FF91 /* nucleus.hpp in Headers */,
 				D595B8CD1BC9A43A0051FF91 /* indexset.hpp in Headers */,
+				D51F01B51C51C14F00C2735C /* upath_detection.hxx in Headers */,
 				D5B09CB01C35ED9F00AF0B9D /* serialization_xmlplist.hxx in Headers */,
 				D595B8E11BC9A43A0051FF91 /* zombie.hpp in Headers */,
 				D595B8A51BC9A43A0051FF91 /* algorithm.hpp in Headers */,
@@ -1055,6 +1060,7 @@
 				D595B8CA1BC9A43A0051FF91 /* indexpath.hpp in Headers */,
 				D595B8C21BC9A43A0051FF91 /* nucleus.hpp in Headers */,
 				D595B8CC1BC9A43A0051FF91 /* indexset.hpp in Headers */,
+				D51F01B41C51C14F00C2735C /* upath_detection.hxx in Headers */,
 				D5B09CAF1C35ED9F00AF0B9D /* serialization_xmlplist.hxx in Headers */,
 				D595B8E01BC9A43A0051FF91 /* zombie.hpp in Headers */,
 				D595B8A41BC9A43A0051FF91 /* algorithm.hpp in Headers */,

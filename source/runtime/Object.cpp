@@ -1,11 +1,12 @@
 //
 // Object.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/Object.hpp>
 #include <coconut/foundation/Array.hpp>
+#include <coconut/foundation/Dictionary.hpp>
 #include <coconut/foundation/None.hpp>
 #include <coconut/foundation/Number.hpp>
 #include <coconut/foundation/OrderedSet.hpp>

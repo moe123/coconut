@@ -1,7 +1,7 @@
 //
 // types.hpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/detail/core/defines.hpp>
@@ -180,7 +180,8 @@ namespace coconut
 		
 		COCONUT_OPT(dirsep_option)
 		{
-			dirsep_auto = 0ULL,
+			dirsep_none = 0ULL,
+			dirsep_auto,
 			dirsep_slack,
 			dirsep_whack
 		};

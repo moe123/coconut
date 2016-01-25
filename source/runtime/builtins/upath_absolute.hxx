@@ -1,7 +1,7 @@
 //
 // upath_absolute.hxx
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 namespace coconut
@@ -10,10 +10,7 @@ namespace coconut
 	{
 		namespace builtins
 		{
-			namespace
-			{
-				std::mutex upath_absolute_mtx;
-			}
+			namespace { std::mutex upath_absolute_mtx; }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string upath_absolute(const std::string & utf8_in)
@@ -23,7 +20,7 @@ namespace coconut
 #if defined(__MICROSOFT__)
 				std::wstring uft16_out;
 				unicode::codeset_utf8_utf16(utf8_in, uft16_out);
-				WCHAR buf[2048];
+				WCHAR buf[512];
 				DWORD len;
 				if (0 != (len = GetFullPathNameW(uft16_out.c_str(), sizeof(buf), buf, NULL)) {
 					if (len <= sizeof(buf)) {

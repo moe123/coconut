@@ -1,7 +1,7 @@
 //
 // Path.hpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/Object.hpp>
@@ -19,9 +19,7 @@ namespace coconut
 		Path();
 		Path(const Path & path);
 		Path & operator = (const Path & path) = default;
-		Path(const String & path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		Path(const std::string & utf8_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		Path(const std::u16string & utf16_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
+		Path(const String & path);
 		Path(const char * utf8_path);
 		Path(const char16_t * utf16_path);
 		
@@ -29,9 +27,7 @@ namespace coconut
 		
 		COCONUT_KTOR Owning<Path> with();
 		COCONUT_KTOR Owning<Path> with(const Path & path);
-		COCONUT_KTOR Owning<Path> with(const String & path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		COCONUT_KTOR Owning<Path> with(const std::string & utf8_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
-		COCONUT_KTOR Owning<Path> with(const std::u16string & utf16_path, DirectorySeparatorOption option = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<Path> with(const String & path);
 		COCONUT_KTOR Owning<Path> with(const char * utf8_path);
 		COCONUT_KTOR Owning<Path> with(const char16_t * utf16_path);
 

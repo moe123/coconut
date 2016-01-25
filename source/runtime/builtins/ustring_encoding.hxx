@@ -1,7 +1,7 @@
 //
 // ustring_encoding.hxx
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include "unicode/coll.h"

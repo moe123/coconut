@@ -1,7 +1,7 @@
 //
 // URL.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/foundation/URL.hpp>
@@ -166,6 +166,6 @@ const Dictionary URL::queryParameters() const
 #pragma mark -
 
 const Path URL::fileSystemRepresentation() const
-{ return Path(m_impl.path(), DirectorySeparatorSlash); }
+{ return Path(String(m_impl.path())); }
 
 /* EOF */

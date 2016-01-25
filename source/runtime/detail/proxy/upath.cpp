@@ -1,7 +1,7 @@
 //
 // upath.hpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/detail/proxy/upath.hpp>
@@ -11,6 +11,7 @@
 #include <coconut/runtime/detail/core/unicode.hpp>
 
 #include <source/runtime/builtins/upath_absolute.hxx>
+#include <source/runtime/builtins/upath_detection.hxx>
 
 using namespace coconut::runtime;
 

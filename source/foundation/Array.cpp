@@ -1,7 +1,7 @@
 //
 // Array.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/foundation/Array.hpp>
@@ -381,7 +381,7 @@ const Array Array::objectsInSlice(const Slice & slc, CopyOption option) const
 std::size_t Array::indexOfObject(const Any & obj, const Range & in_rg) const
 {
 	std::size_t idx = 0, sz = size();
-	if (sz && in_rg.maxRange() <= sz) {
+	if (sz) {
 		std::size_t loc, len, max;
 		
 		Range src(0, sz);
@@ -956,15 +956,46 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption o
 
 #pragma mark -
 
+/*
+ std::size_t idx = 0, sz = size();
+	if (sz) {
+ std::size_t loc, len, max;
+ 
+ Range src(0, sz);
+ Range dest = src.intersectionRange(in_rg);
+ 
+ loc = dest.location();
+ len = dest.length();
+ max = dest.maxRange();
+ 
+ if (loc && len) {
+ for (const_iterator it = cbegin() + static_cast<difference_type>(loc); it != cbegin() + static_cast<difference_type>(max); ++it) {
+ idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
+ if ((*it) && (*it)->isEqual(obj)) { return idx; }
+ }
+ }
+	}
+	return NotFound;
+*/
+
 const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 {
 	impl_type buf;
 	std::size_t sz = size();
-	if(sz && rg.maxRange() <= sz) {
-		std::size_t loc = rg.location();
-		for (std::size_t i = 0; i < rg.length(); i++) {
-			Owning<Any> item = objectAtIndex(loc + i);
-			if (item) { buf.push_back(item); }
+	if(sz) {
+		std::size_t loc, len;
+		Range src(0, sz);
+		Range dest = src.intersectionRange(rg);
+		loc = dest.location();
+		len = dest.length();
+		
+		if (loc && len) {
+			for (std::size_t i = 0; i < len; i++) {
+				Owning<Any> item = objectAtIndex(loc + i);
+				if (item) { buf.push_back(item); }
+			}
+		} else {
+			// Fault();
 		}
 	} else {
 		// Fault();

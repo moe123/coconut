@@ -1,7 +1,7 @@
 //
 // coconut_test.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <other/coconut_test_attrs.hpp>
@@ -875,14 +875,128 @@ static void test_getlocale()
 	
 	std::cerr << "+ id " << id << std::endl;
 }
+	
+static void parse_path(void)
+{
+	runtime::irange rg(u8"{\"location\" : 45, \"length\" : 78}");
+	
+	std::cerr << "+ rg " << rg.to_string() << std::endl;
+	
+	std::string in = u8"C:\\a/toto";
+	
+	std::smatch iswin_match;
+	std::ssub_match sub_match;
+	std::regex iswin_regex{R"(^([a-zA-z]:)(\\|/)(.*)$)"};
+	
+	if (std::regex_match(in, iswin_match, iswin_regex)) {
+		if (iswin_match.size() == 4) {
+			std::smatch iswin_ntfs_match;
+			
+			sub_match = iswin_match[2];
+			
+			std::cerr << "+ sub_match separator " << sub_match.str() << std::endl;
+			
+			try
+			{
+				std::regex iswin_ntfs_regex{R"(^[a-zA-Z]:\\(((?![<>:\"/\\|?*]).)*[^ ](\\|/))*((?![<>:\"/\\|?*]).)*[^ ](\\|/)?$)"};
+				if (std::regex_match(in, iswin_ntfs_match, iswin_ntfs_regex)) {
+					std::cerr << "+ parse_path " << std::endl;
+				}
+			}
+			catch(const std::regex_error & e)
+			{
+				std::cerr << e.what() << ". Code: " << e.code() << std::endl;
+				
+				switch (e.code())
+				{
+					case std::regex_constants::error_collate:
+						std::cerr << "The expression contained an invalid collating element name.";
+						break;
+					case std::regex_constants::error_ctype:
+						std::cerr << "The expression contained an invalid character class name.";
+						break;
+					case std::regex_constants::error_escape:
+						std::cerr << "The expression contained an invalid escaped character, or a trailing escape.";
+						break;
+					case std::regex_constants::error_backref:
+						std::cerr << "The expression contained an invalid back reference.";
+						break;
+					case std::regex_constants::error_brack:
+						std::cerr << "The expression contained mismatched brackets ([ and ]).";
+						break;
+					case std::regex_constants::error_paren:
+						std::cerr << "The expression contained mismatched parentheses (( and )).";
+						break;
+					case std::regex_constants::error_brace:
+						std::cerr << "The expression contained mismatched braces ({ and }).";
+						break;
+					case std::regex_constants::error_badbrace:
+						std::cerr << "The expression contained an invalid range between braces ({ and }).";
+						break;
+					case std::regex_constants::error_range:
+						std::cerr << "The expression contained an invalid character range.";
+						break;
+					case std::regex_constants::error_space:
+						std::cerr << "There was insufficient memory to convert the expression into a finite state machine.";
+						break;
+					case std::regex_constants::error_badrepeat:
+						std::cerr << "The expression contained a repeat specifier (one of *?+{) that was not preceded by a valid regular expression.";
+						break;
+					case std::regex_constants::error_complexity:
+						std::cerr << "The complexity of an attempted match against a regular expression exceeded a pre-set level.";
+						break;
+					case std::regex_constants::error_stack:
+						std::cerr << "There was insufficient memory to determine whether the regular expression could match the specified character sequence.";
+						break;
+					default:
+						std::cerr << "Undefined.";
+						break;
+						
+				}
+				std::cerr << std::endl;
+			}
+			
+			
+		}
+		/*
+		std::cerr << "+ parse_path " << std::endl;
+		sub_match = match[1];
+		std::cerr << "+ match.size() " << match.size() << std::endl;
+		std::cerr << "+ match[1] " << sub_match.str() << std::endl;
+		
+		if (match.size() == 3) {
+			sub_match = match[1];
+		}
+		*/
+	}
+}
 
 int main(int argc, const char * argv[])
 {
+	parse_path();
+	
+	return 0;
+	
 	test_getlocale();
 	test_getlocale();
 	test_getlocale();
 	
+	Range rg0 = { 0, 10 };
+	Range rg1 = { 3, 2 };
+	
+	Range rg2 = rg0.intersectionRange(rg1);
+	
+	for (auto i : rg2)
+		std::cout << "[" << i << "] " << std::endl;
+	
+	std::cerr << "+ rg2 " << rg2 << std::endl;
+	
 	std::cerr << "+ sizeof(int) " << sizeof(int) << std::endl;
+	
+	Data dt = { "some bytes", 10 };
+	
+	for (auto byte : dt)
+		std::cerr << std::hex << std::showbase << int(byte) << std::endl;
 	
 	std::int32_t in_0 = -18;
 	std::uint8_t out_0[4];
@@ -900,17 +1014,17 @@ int main(int argc, const char * argv[])
 	
 	std::cerr << "+ rg " << rg << std::endl;
 	
-	OptionalReturn<Owning<Data>, Owning<Error>> ret;
+	OptionalReturn<bool, std::string> ret0;
 	
-	ret.valid = true;
-	ret.success = Data::with();
+	OptionalReturn< Owning<Data>, Owning<Error> > ret;
+	
+	ret.setSuccess(Data::with());
 	
 	if (ret) {
 		std::cerr << "+ true " << ret() << std::endl;
 	}
 	
-	ret.valid = false;
-	ret.error = Error::with();
+	ret.setError(Error::with());
 	
 	if (!ret) {
 		std::cerr << "+ false " << ~ret << std::endl;

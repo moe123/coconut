@@ -1,7 +1,7 @@
 //
 // irange.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/detail/proxy/irange.hpp>
@@ -24,7 +24,11 @@ irange::irange(const std::string & rg_string) :
 	m_len(0)
 {
 	try {
-		std::regex regex("\\{\"location\" : ([0-9]+), \"length\" : ([0-9]+)\\}", std::regex::icase);
+		std::regex regex
+		{
+			R"(\{\"location\" : ([0-9]+), \"length\" : ([0-9]+)\})",
+			std::regex::icase
+		};
 		std::smatch match;
 		std::ssub_match sub_match;
 		if (std::regex_match(rg_string, match, regex)) {
@@ -111,10 +115,11 @@ bool irange::in(std::size_t location) const
 
 const irange irange::intxn(const irange & other_rg) const
 {
-	//std::size_t min = std::min(max(), other_rg.max());
-	//std::size_t loc = std::max(location(), other_rg.location());
-	//return (min < loc) ? irange(0, 0) : irange(loc, min - loc);
-	
+	std::size_t mininum = std::min(max(), other_rg.max());
+	std::size_t loc = std::max(location(), other_rg.location());
+	return (mininum < loc) ? irange(0, 0) : irange(loc, mininum - loc);
+
+/*
 	irange intxn;
 	size_t new_loc, new_len;
 	
@@ -129,14 +134,16 @@ const irange irange::intxn(const irange & other_rg) const
 	intxn.set_length(new_len);
 	
 	return intxn;
+*/
 }
 
 const irange irange::merge(const irange & other_rg) const
 {
-	// size_t max = std::max(max(), other_rg.max());
-	// size_t loc = std::min(location(), other_rg.location());
-	// return irange(loc, max - loc);
-	
+	std::size_t maximum = std::max(max(), other_rg.max());
+	std::size_t loc = std::min(location(), other_rg.location());
+	return irange(loc, maximum - loc);
+
+/*
 	irange uni;
 	size_t new_loc, new_len;
 	
@@ -147,6 +154,7 @@ const irange irange::merge(const irange & other_rg) const
 	uni.set_length(new_len);
 	
 	return uni;
+*/
 }
 
 #pragma mark -

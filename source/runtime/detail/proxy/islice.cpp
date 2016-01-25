@@ -1,7 +1,7 @@
 //
 // islice.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/detail/proxy/islice.hpp>
@@ -27,7 +27,10 @@ islice::islice(const std::string & slc_string) :
 	m_step(1)
 {
 	try {
-		std::regex regex("\\{\"start\" : ([0-9]+), \"stop\" : ([0-9]+), \"step\" : ([0-9]+)\\}", std::regex::icase);
+		std::regex regex
+		{	R"(\{\"start\" : ([0-9]+), \"stop\" : ([0-9]+), \"step\" : ([0-9]+)\})",
+			std::regex::icase
+		};
 		std::smatch match;
 		std::ssub_match sub_match;
 		if (std::regex_match(slc_string, match, regex)) {

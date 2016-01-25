@@ -1,7 +1,7 @@
 //
 // Path.cpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/foundation/Path.hpp>
@@ -20,19 +20,9 @@ Path::Path(const Path & path) :
 	m_impl(path.m_impl)
 { /* NOP */ }
 
-Path::Path(const String & path, DirectorySeparatorOption option) :
+Path::Path(const String & path) :
 	Object(PathClass),
-	m_impl(path.m_impl, option)
-{ /* NOP */ }
-
-Path::Path(const std::string & utf8_path, DirectorySeparatorOption option) :
-	Object(PathClass),
-	m_impl(utf8_path, StringEncodingUTF8, option)
-{ /* NOP */ }
-
-Path::Path(const std::u16string & utf16_path, DirectorySeparatorOption option) :
-	Object(PathClass),
-	m_impl(utf16_path, StringEncodingUTF16, option)
+	m_impl(path.m_impl, DirectorySeparatorAuto)
 { /* NOP */ }
 
 Path::Path(const char * utf8_path) :
@@ -53,14 +43,8 @@ Path::~Path()
 Owning<Path> Path::with(const Path & path)
 { return ptr_create<Path>(path); }
 
-Owning<Path> Path::with(const String & path, DirectorySeparatorOption option)
-{ return ptr_create<Path>(path, option); }
-
-Owning<Path> Path::with(const std::string & utf8_path, DirectorySeparatorOption option)
-{ return ptr_create<Path>(utf8_path, option); }
-
-Owning<Path> Path::with(const std::u16string & utf16_path, DirectorySeparatorOption option)
-{ return ptr_create<Path>(utf16_path, option); }
+Owning<Path> Path::with(const String & path)
+{ return ptr_create<Path>(path); }
 
 Owning<Path> Path::with(const char * utf8_path)
 { return ptr_create<Path>(utf8_path); }

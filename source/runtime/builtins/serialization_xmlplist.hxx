@@ -1,7 +1,7 @@
 //
 // serialization_xmlplist.hxx
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 //#define pugi COCONUT_PPCAT(coconut, builtins0pugi)

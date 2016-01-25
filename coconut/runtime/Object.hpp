@@ -1,7 +1,7 @@
 //
 // Object.hpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/runtime/Types.hpp>
@@ -32,7 +32,7 @@ namespace coconut
 	public:
 		COCONUT_KTOD Owning<Any> copyObject(const Any & ref, CopyOption option);
 		COCONUT_KTOD Owning<Any> copyObject(const Owning<Any> & ptr, CopyOption option);
-		
+	
 	public:
 	/*
 	* iKeyValueCoding compliant.

@@ -1,7 +1,7 @@
 //
 // MutablePath.hpp
 //
-// Copyright (C) 2015 Cucurbita. All rights reserved.
+// Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
 #include <coconut/foundation/Path.hpp>
@@ -20,25 +20,20 @@ namespace coconut
 		MutablePath(const MutablePath & path);
 		MutablePath & operator = (const MutablePath & path) = default;
 		MutablePath(const Path & path);		
-		MutablePath(const String & str, DirectorySeparatorOption = DirectorySeparatorAuto);
-		MutablePath(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		MutablePath(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16, DirectorySeparatorOption separator = DirectorySeparatorAuto);
+		MutablePath(const String & str);
+		MutablePath(const char * utf8_path);
+		MutablePath(const char16_t * utf16_path);
 		virtual ~MutablePath();
 		
-		COCONUT_KTOR Owning<Path> with();
-		COCONUT_KTOR Owning<Path> with(const MutablePath & path);
-		COCONUT_KTOR Owning<Path> with(const Path & path);
-		COCONUT_KTOR Owning<Path> with(const String & str, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		COCONUT_KTOR Owning<Path> with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		COCONUT_KTOR Owning<Path> with(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16, DirectorySeparatorOption separator = DirectorySeparatorAuto);
-		COCONUT_KTOR Owning<Path> with(const std::u32string & str, StringEncodingOption encoding = StringEncodingUTF32, DirectorySeparatorOption separator = DirectorySeparatorAuto);
+		COCONUT_KTOR Owning<MutablePath> with();
+		COCONUT_KTOR Owning<MutablePath> with(const MutablePath & path);
+		COCONUT_KTOR Owning<MutablePath> with(const Path & path);
+		COCONUT_KTOR Owning<MutablePath> with(const String & str);
+		COCONUT_KTOR Owning<MutablePath> with(const char * utf8_path);
+		COCONUT_KTOR Owning<MutablePath> with(const char16_t * utf16_path);
 		
-		void append(const MutablePath & path);
 		void append(const Path & path);
-		void append(const String & component);
-		void append(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
-		void append(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16);
-		void append(const Array & components);
+		void appendComponents(const Array & components);
 		
 		void removeLastComponent();
 	};
