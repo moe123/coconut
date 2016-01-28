@@ -343,7 +343,7 @@ bool OrderedSet::isSubsetOfSet(const Set & set) const
 
 #pragma mark -
 
-Owning<Any> OrderedSet::firstObject() const
+const Owning<Any> OrderedSet::firstObject() const
 {
 	if (size()) {
 		return m_impl.front();
@@ -352,7 +352,7 @@ Owning<Any> OrderedSet::firstObject() const
 	return {};
 }
 
-Owning<Any> OrderedSet::lastObject() const
+const Owning<Any> OrderedSet::lastObject() const
 {
 	if (size()) {
 		return m_impl.back();
@@ -361,7 +361,7 @@ Owning<Any> OrderedSet::lastObject() const
 	return {};
 }
 
-Owning<Any> OrderedSet::objectAtIndex(std::size_t index) const
+const Owning<Any> OrderedSet::objectAtIndex(std::size_t index) const
 {
 	if (index < size()) {
 		return m_impl.at(index);

@@ -144,13 +144,13 @@ namespace coconut
 		bool containsKey(const Any & key) const;
 		bool containsKey(const Owning<Any> & key) const;
 		
-		Owning<Any> objectForKey(const std::string & utf8_key) const;
-		Owning<Any> objectForKey(const Any & key) const;
-		Owning<Any> objectForKey(const Owning<Any> & key) const;
+		const Owning<Any> objectForKey(const std::string & utf8_key) const;
+		const Owning<Any> objectForKey(const Any & key) const;
+		const Owning<Any> objectForKey(const Owning<Any> & key) const;
 		
-		Owning<Any> objectForCaseInsensitiveKey(const std::string & utf8_key) const;
-		Owning<Any> objectForCaseInsensitiveKey(const Any & key) const;
-		Owning<Any> objectForCaseInsensitiveKey(const Owning<Any> & key) const;
+		const Owning<Any> objectForCaseInsensitiveKey(const std::string & utf8_key) const;
+		const Owning<Any> objectForCaseInsensitiveKey(const Any & key) const;
+		const Owning<Any> objectForCaseInsensitiveKey(const Owning<Any> & key) const;
 		
 		const Array objectsForKeys(const Array & keys, Owning<Any> notFoundMarker = {}) const;
 		const Array objectsForKeys(const Set & keys, Owning<Any> notFoundMarker = {}) const;

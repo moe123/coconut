@@ -106,9 +106,9 @@ namespace coconut
 		bool intersectsSet(const Set & set) const;
 		bool isSubsetOfSet(const Set & set) const;
 		
-		Owning<Any> firstObject() const;
-		Owning<Any> lastObject() const;
-		Owning<Any> objectAtIndex(std::size_t index) const;
+		const Owning<Any> firstObject() const;
+		const Owning<Any> lastObject() const;
+		const Owning<Any> objectAtIndex(std::size_t index) const;
 		
 		std::size_t indexOfObject(const Any & obj) const;
 		std::size_t indexOfObject(const Any & obj, Range in_rg) const;

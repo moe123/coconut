@@ -325,7 +325,7 @@ bool Array::containsObject(const Owning<Any> & obj) const
 
 #pragma mark -
 
-Owning<Any> Array::firstObject() const
+const Owning<Any> Array::firstObject() const
 {
 	if (size()) {
 		return m_impl.front();
@@ -334,7 +334,7 @@ Owning<Any> Array::firstObject() const
 	return {};
 }
 
-Owning<Any> Array::lastObject() const
+const Owning<Any> Array::lastObject() const
 {
 	if (size()) {
 		return m_impl.back();
@@ -343,7 +343,7 @@ Owning<Any> Array::lastObject() const
 	return {};
 }
 
-Owning<Any> Array::objectAtIndex(std::size_t index) const
+const Owning<Any> Array::objectAtIndex(std::size_t index) const
 {
 	if (index < size()) {
 		return m_impl.at(index);
@@ -454,7 +454,7 @@ std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range
 
 #pragma mark -
 
-Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
+const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 {
 	Owning<Any> item;
 	if (size()) {

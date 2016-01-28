@@ -18,14 +18,8 @@ namespace coconut
 			{
 				std::string id;
 				char buf[ULOC_FULLNAME_CAPACITY];
-			#if defined(__APPLE__)
-				// @FUTURE shortcuts avoiding all the CF cargobay.
-				//
-				// if $HOME/Library/Preferences/.GlobalPreferences.plist
-				// load -> objectForkey(u8"AppleLocale")
 				
-				// else if $HOME/Safe Preferences/.GlobalPreferences.plist
-				// load -> objectForkey(u8"AppleLocale")
+			#if defined(__APPLE__)
 				
 				CFLocaleRef _loc = CFLocaleCopyCurrent();
 				CFStringRef _id = static_cast<CFStringRef>(CFLocaleGetValue(_loc, kCFLocaleIdentifier));
@@ -35,7 +29,9 @@ namespace coconut
 					id = u8"en_US_POSIX";
 				}
 				CFRelease(_loc);
+				
 			#elif defined(__MICROSOFT__)
+				
 				LCID lcid = GetUserDefaultLCID();
 				std::int32_t len = uloc_getLocaleForLCID(lcid, buf, LOC_BUF_SIZE, &status);
 				buf[len] = 0;
@@ -44,7 +40,9 @@ namespace coconut
 				} else {
 					id = u8"en_US_POSIX";
 				}
+				
 			#else
+				
 				char * q;
 				std::vector<std::string> lc;
 				

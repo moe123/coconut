@@ -342,7 +342,7 @@ bool Set::isSubsetOfSet(const Set & set) const
 
 #pragma mark -
 
-Owning<Any> Set::member(const Any & obj) const
+const Owning<Any> Set::member(const Any & obj) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isIdenticalTo(obj)) {
@@ -355,12 +355,12 @@ Owning<Any> Set::member(const Any & obj) const
 	return {};
 }
 
-Owning<Any> Set::member(const Owning<Any> & obj) const
+const Owning<Any> Set::member(const Owning<Any> & obj) const
 { if (obj) { return member(*obj); } return {}; }
 
 #pragma mark -
 
-Owning<Any> Set::anyObject() const
+const Owning<Any> Set::anyObject() const
 {
 	if (size() == 1) {
 		const_iterator it = m_impl.cbegin();
@@ -379,7 +379,7 @@ Owning<Any> Set::anyObject() const
 	return {};
 }
 
-Owning<Any> Set::firstObject() const
+const Owning<Any> Set::firstObject() const
 {
 	if (size()) {
 		const_iterator it = m_impl.cbegin();
@@ -390,7 +390,7 @@ Owning<Any> Set::firstObject() const
 	return {};
 }
 
-Owning<Any> Set::lastObject() const
+const Owning<Any> Set::lastObject() const
 {
 	if (size()) {
 		const_iterator it = m_impl.cbegin();

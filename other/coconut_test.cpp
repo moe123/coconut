@@ -886,13 +886,21 @@ static void parse_path(void)
 	
 	std::smatch iswin_match;
 	std::ssub_match sub_match;
-	std::regex iswin_regex{R"(^([a-zA-z]:)(\\|/)(.*)$)"};
+	std::regex iswin_regex{R"(^(\\|/|)([a-zA-z]:)(\\|/)(.*)$)"};
 	
 	if (std::regex_match(in, iswin_match, iswin_regex)) {
-		if (iswin_match.size() == 4) {
+		if (iswin_match.size() == 5) {
 			std::smatch iswin_ntfs_match;
 			
+			sub_match = iswin_match[1];
+			
+			std::cerr << "+ sub_match first separator " << sub_match.str() << std::endl;
+			
 			sub_match = iswin_match[2];
+			
+			std::cerr << "+ sub_match drive " << sub_match.str() << std::endl;
+			
+			sub_match = iswin_match[3];
 			
 			std::cerr << "+ sub_match separator " << sub_match.str() << std::endl;
 			

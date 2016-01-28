@@ -106,9 +106,9 @@ namespace coconut
 		bool containsObject(const Any & obj) const;
 		bool containsObject(const Owning<Any> & obj) const;
 		
-		Owning<Any> firstObject() const;
-		Owning<Any> lastObject() const;
-		Owning<Any> objectAtIndex(std::size_t index) const;
+		const Owning<Any> firstObject() const;
+		const Owning<Any> lastObject() const;
+		const Owning<Any> objectAtIndex(std::size_t index) const;
 		
 		const Array objectsInRange(const Range & rg, CopyOption option = CopyNone) const;
 		const Array objectsInSlice(const Slice & slc, CopyOption option = CopyNone) const;
@@ -132,7 +132,7 @@ namespace coconut
 		bool noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		
-		Owning<Any> firstObjectCommonWithArray(const Array & arr) const;
+		const Owning<Any> firstObjectCommonWithArray(const Array & arr) const;
 	
 		const Array reversedArray(CopyOption option = CopyNone) const;
 		const Array uniquedArray(CopyOption option = CopyNone) const;

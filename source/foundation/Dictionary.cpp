@@ -300,10 +300,10 @@ bool Dictionary::containsKey(const Owning<Any> & key) const
 
 #pragma mark -
 
-Owning<Any> Dictionary::objectForKey(const std::string & utf8_key) const
+const Owning<Any> Dictionary::objectForKey(const std::string & utf8_key) const
 { return objectForKey(String(utf8_key)); }
 
-Owning<Any> Dictionary::objectForKey(const Any & key) const
+const Owning<Any> Dictionary::objectForKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
@@ -318,17 +318,17 @@ Owning<Any> Dictionary::objectForKey(const Any & key) const
 	return {};
 }
 
-Owning<Any> Dictionary::objectForKey(const Owning<Any> & key) const
+const Owning<Any> Dictionary::objectForKey(const Owning<Any> & key) const
 { if (key) { return objectForKey(*key); } return {}; }
 
 #pragma mark -
 
-Owning<Any> Dictionary::objectForCaseInsensitiveKey(const std::string & utf8_key) const
+const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const std::string & utf8_key) const
 {
 	return objectForCaseInsensitiveKey(String(utf8_key));
 }
 
-Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Any & key) const
+const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
@@ -349,7 +349,7 @@ Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Any & key) const
 	return {};
 }
 
-Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Owning<Any> & key) const
+const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Owning<Any> & key) const
 { if (key) { return objectForCaseInsensitiveKey(*key); } return {}; }
 
 #pragma mark -

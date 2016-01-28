@@ -101,12 +101,12 @@ namespace coconut
 		bool intersectsSet(const Set & set) const;
 		bool isSubsetOfSet(const Set & set) const;
 		
-		Owning<Any> member(const Any & obj) const;
-		Owning<Any> member(const Owning<Any> & obj) const;
+		const Owning<Any> member(const Any & obj) const;
+		const Owning<Any> member(const Owning<Any> & obj) const;
 		
-		Owning<Any> anyObject() const;
-		Owning<Any> firstObject() const;
-		Owning<Any> lastObject() const;
+		const Owning<Any> anyObject() const;
+		const Owning<Any> firstObject() const;
+		const Owning<Any> lastObject() const;
 		const Array allObjects(CopyOption option = CopyNone) const;
 		
 		const Set objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func) const;
