@@ -54,7 +54,7 @@ Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C 
 
 ```cpp
 
-/** @Note
+/** @Notes
 
 - Any :
 	is the super abstract class of any Object (including Object itself),
@@ -62,6 +62,13 @@ Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C 
 
 - Owning<Any> template :
 	is a ref-counted container holding a pointer, could be seen as "__strong id" in Objective-C.
+
+aquiering:
+
+	Owning<Class> ptr = With<Class>(...);
+
+interoperability between:
+	std::string, String, literal string ; UTF-8/UTF-16 everywhere policy.
 
 **/
 

@@ -112,8 +112,7 @@ static inline void test_attr_and_custom(void)
 		{
 			// returning std::string on an Object (String)
 			auto v = valueForKey(u8"$lastname");
-			// if (v && v->isMemberOf(String{})) {
-			if (v && v->isMemberOf(StringClass)) {
+			if (MemberOf<String>(v)) {
 				return v->stringValue();
 			}
 			throw;
@@ -124,7 +123,7 @@ static inline void test_attr_and_custom(void)
 		{
 			// returning std::size_t on an Object (Number)
 			auto v = valueForKey(u8"$age");
-			if (v && v->isMemberOf(NumberClass)) {
+			if (MemberOf<Number>(v)) {
 				return v->unsignedLongLongValue();
 			}
 			throw;
