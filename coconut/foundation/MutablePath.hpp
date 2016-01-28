@@ -25,13 +25,6 @@ namespace coconut
 		MutablePath(const char16_t * utf16_path);
 		virtual ~MutablePath();
 		
-		COCONUT_KTOR Owning<MutablePath> with();
-		COCONUT_KTOR Owning<MutablePath> with(const MutablePath & path);
-		COCONUT_KTOR Owning<MutablePath> with(const Path & path);
-		COCONUT_KTOR Owning<MutablePath> with(const String & str);
-		COCONUT_KTOR Owning<MutablePath> with(const char * utf8_path);
-		COCONUT_KTOR Owning<MutablePath> with(const char16_t * utf16_path);
-		
 		void append(const Path & path);
 		void appendComponents(const Array & components);
 		

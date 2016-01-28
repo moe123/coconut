@@ -21,11 +21,6 @@ None::~None()
 
 #pragma mark -
 
-Owning<None> None::with()
-{ return ptr_create<None>(); }
-
-#pragma mark -
-
 Owning<Any> None::copy() const
 { return ptr_create<None>(*this); }
 

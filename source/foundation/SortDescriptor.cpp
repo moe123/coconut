@@ -41,23 +41,6 @@ SortDescriptor::~SortDescriptor()
 
 #pragma mark -
 
-Owning<SortDescriptor> SortDescriptor::with()
-{ return ptr_create<SortDescriptor>(); }
-
-Owning<SortDescriptor> SortDescriptor::with(const SortDescriptor & sdr)
-{ return ptr_create<SortDescriptor>(sdr); }
-
-Owning<SortDescriptor> SortDescriptor::with(SortDescriptor && sdr)
-{ return ptr_create<SortDescriptor>(std::move(sdr)); }
-
-Owning<SortDescriptor> SortDescriptor::with(const String & key, bool isasc)
-{ return ptr_create<SortDescriptor>(key, isasc); }
-
-Owning<SortDescriptor> SortDescriptor::with(const String & key, const String & selkey, bool isasc)
-{ return ptr_create<SortDescriptor>(key, selkey, isasc); }
-
-#pragma mark -
-
 Owning<Any> SortDescriptor::copy() const
 { return ptr_create<SortDescriptor>(*this); }
 

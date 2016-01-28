@@ -24,13 +24,6 @@ namespace coconut
 		SortDescriptor(const String & key, const String & selkey, bool isasc = true);		
 		virtual ~SortDescriptor();
 		
-		COCONUT_KTOR Owning<SortDescriptor> with();
-		
-		COCONUT_KTOR Owning<SortDescriptor> with(const SortDescriptor & sdr);
-		COCONUT_KTOR Owning<SortDescriptor> with(SortDescriptor && sdr);
-		COCONUT_KTOR Owning<SortDescriptor> with(const String & key, bool isasc = true);
-		COCONUT_KTOR Owning<SortDescriptor> with(const String & key, const String & selkey, bool isasc = true);
-		
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		

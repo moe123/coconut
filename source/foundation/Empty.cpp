@@ -21,13 +21,8 @@ Empty::~Empty()
 
 #pragma mark -
 
-Owning<Empty> Empty::with()
-{ return ptr_create<Empty>(); }
-
 Owning<Any> Empty::copy() const
-{
-	return ptr_create<Empty>(ref_cast<Empty>(*this));
-}
+{ return ptr_create<Empty>(*this); }
 
 ComparisonResult Empty::compare(const Any & ref) const
 {

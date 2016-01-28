@@ -21,8 +21,6 @@ namespace coconut
 		None & operator = (const None & non) = default;
 		virtual ~None();
 		
-		COCONUT_KTOR Owning<None> with();
-		
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		

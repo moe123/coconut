@@ -49,23 +49,6 @@ OrderedSet::~OrderedSet()
 
 #pragma mark -
 
-Owning<OrderedSet> OrderedSet::with(const OrderedSet & set)
-{ return ptr_create<OrderedSet>(set); }
-
-Owning<OrderedSet> OrderedSet::with(const OrderedSet & set, CopyOption option)
-{ return ptr_create<OrderedSet>(set, option); }
-
-Owning<OrderedSet> OrderedSet::with(OrderedSet && set)
-{ return ptr_create<OrderedSet>(std::move(set)); }
-
-Owning<OrderedSet> OrderedSet::with(const std::initializer_list< Owning<Any> > & args)
-{ return ptr_create<OrderedSet>(args); }
-
-Owning<OrderedSet> OrderedSet::with(const std::initializer_list<Any *> & args)
-{ return ptr_create<OrderedSet>(args); }
-
-#pragma mark -
-
 std::size_t OrderedSet::hash() const
 {
 	std::size_t seed = 0;
@@ -150,10 +133,10 @@ Owning<Any> OrderedSet::valueForKey(const std::string & utf8_key) const
 		Owning<Any> item = (*it);
 		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
-		if (!v) { v = None::with(); }
+		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return Array::with(buf.cbegin(), buf.cend());
+	return ptr_create<Array>(buf.cbegin(), buf.cend());
 }
 
 Owning<Any> OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
@@ -185,11 +168,11 @@ Owning<Any> OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 			Owning<Any> item = (*it);
 			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
-			if (!v) { v = None::with(); }
+			if (!v) { v = ptr_create<None>(); }
 			buf.push_back(v);
 		}
 	}
-	return Array::with(buf.cbegin(), buf.cend());
+	return ptr_create<Array>(buf.cbegin(), buf.cend());
 }
 
 #pragma mark -

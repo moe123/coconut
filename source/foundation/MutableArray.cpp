@@ -55,38 +55,6 @@ MutableArray::~MutableArray()
 
 #pragma mark -
 
-Owning<MutableArray> MutableArray::with()
-{ return ptr_create<MutableArray>(); }
-
-Owning<MutableArray> MutableArray::with(const MutableArray & arr)
-{ return ptr_create<MutableArray>(arr); }
-
-Owning<MutableArray> MutableArray::with(const MutableArray & arr, CopyOption option)
-{ return ptr_create<MutableArray>(arr, option); }
-
-Owning<MutableArray> MutableArray::with(MutableArray && arr)
-{ return ptr_create<MutableArray>(std::move(arr)); }
-
-Owning<MutableArray> MutableArray::with(const Array & arr, CopyOption option)
-{ return ptr_create<MutableArray>(arr, option); }
-
-Owning<MutableArray> MutableArray::with(Array && arr)
-{ return ptr_create<MutableArray>(std::move(arr)); }
-
-Owning<MutableArray> MutableArray::with(const std::initializer_list< Owning<Any> > & args)
-{ return ptr_create<MutableArray>(args); }
-
-Owning<MutableArray> MutableArray::with(const std::initializer_list<Any *> & args)
-{ return ptr_create<MutableArray>(args); }
-
-Owning<MutableArray> MutableArray::with(const Path & path)
-{ return ptr_create<MutableArray>(path); }
-
-Owning<MutableArray> MutableArray::with(const URL & url)
-{ return ptr_create<MutableArray>(url); }
-
-#pragma mark -
-
 void MutableArray::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 {
 	if (runtime::algorithm::is_integer(utf8_key, true)) {

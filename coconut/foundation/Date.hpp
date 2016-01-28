@@ -27,6 +27,7 @@ namespace coconut
 		
 		virtual ~Date();
 		
+		
 		COCONUT_KTOD const String UTC();
 		COCONUT_KTOD const String UTC(const Date & dtm);
 		COCONUT_KTOD const Date fromUTC(const String & UTC);
@@ -37,14 +38,6 @@ namespace coconut
 		COCONUT_KTOD const Date distantFuture();
 		COCONUT_KTOD const Date distantPast();
 		COCONUT_KTOD const Date now();
-		
-		COCONUT_KTOR Owning<Date> with();
-		COCONUT_KTOR Owning<Date> with(const Date & dtm);
-		COCONUT_KTOR Owning<Date> with(Date && dtm);
-		COCONUT_KTOR Owning<Date> with(TimeInterval seconds, TimeReferenceOption ref_opt);
-		COCONUT_KTOR Owning<Date> with(TimeInterval seconds, const Date & since);
-		COCONUT_KTOR Owning<Date> with(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt);
-		COCONUT_KTOR Owning<Date> with(TimeInterval interval, TimeUnitOption unit_opt, const Date & since);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;

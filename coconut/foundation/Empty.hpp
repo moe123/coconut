@@ -19,9 +19,7 @@ namespace coconut
 		Empty();
 		Empty(const Empty & emp);
 		virtual ~Empty();
-		
-		COCONUT_KTOR Owning<Empty> with();
-		
+
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		

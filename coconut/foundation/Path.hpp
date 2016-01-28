@@ -22,15 +22,8 @@ namespace coconut
 		Path(const String & path);
 		Path(const char * utf8_path);
 		Path(const char16_t * utf16_path);
-		
 		virtual ~Path();
 		
-		COCONUT_KTOR Owning<Path> with();
-		COCONUT_KTOR Owning<Path> with(const Path & path);
-		COCONUT_KTOR Owning<Path> with(const String & path);
-		COCONUT_KTOR Owning<Path> with(const char * utf8_path);
-		COCONUT_KTOR Owning<Path> with(const char16_t * utf16_path);
-
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;
 		

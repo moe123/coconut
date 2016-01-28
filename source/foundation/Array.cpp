@@ -64,32 +64,6 @@ Array::~Array()
 
 #pragma mark -
 
-Owning<Array> Array::with()
-{ return ptr_create<Array>(); }
-
-Owning<Array> Array::with(const Array & arr)
-{ return ptr_create<Array>(arr); }
-
-Owning<Array> Array::with(const Array & arr, CopyOption option)
-{ return ptr_create<Array>(arr, option); }
-
-Owning<Array> Array::with(Array && arr)
-{ return ptr_create<Array>(std::move(arr)); }
-
-Owning<Array> Array::with(const std::initializer_list< Owning<Any> > & args)
-{ return ptr_create<Array>(args); }
-
-Owning<Array> Array::with(const std::initializer_list<Any *> & args)
-{ return ptr_create<Array>(args); }
-
-Owning<Array> Array::with(const Path & path)
-{ return ptr_create<Array>(path); }
-
-Owning<Array> Array::with(const URL & url)
-{ return ptr_create<Array>(url); }
-
-#pragma mark -
-
 std::size_t Array::hash() const
 {
 	std::size_t seed = 0;
@@ -167,10 +141,10 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 		Owning<Any> item = (*it);
 		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
-		if (!v) { v = None::with(); }
+		if (!v) { v =  ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return Array::with(buf.cbegin(), buf.cend());
+	return  ptr_create<Array>(buf.cbegin(), buf.cend());
 }
 
 #pragma mark -
@@ -204,11 +178,11 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 			Owning<Any> item = (*it);
 			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
-			if (!v) { v = None::with(); }
+			if (!v) { v =  ptr_create<None>(); }
 			buf.push_back(v);
 		}
 	}
-	return Array::with(buf.cbegin(), buf.cend());
+	return  ptr_create<Array>(buf.cbegin(), buf.cend());
 }
 
 #pragma mark -
@@ -223,7 +197,7 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 			//v = item->valueForSelectorKey(utf8_selkey, arg);
 			v = item->performSelectorKey(utf8_selkey, arg);
 		}
-		if (!v) { v = None::with(); }
+		if (!v) { v =  ptr_create<None>(); }
 		buf.push_back(v);
 	}
 	return Array(buf.begin(), buf.end());

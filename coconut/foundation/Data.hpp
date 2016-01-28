@@ -47,35 +47,8 @@ namespace coconut
 		
 		Data(const Path & path, bool b64_decode = false);
 		Data(const URL & url, bool b64_decode = false);
-		
 		virtual ~Data();
-		
-		COCONUT_KTOR Owning<Data> with();
-		COCONUT_KTOR Owning<Data> with(const Data & dat);
-		COCONUT_KTOR Owning<Data> with(Data && dat);
-		COCONUT_KTOR Owning<Data> with(const Data & dat, bool b64_decode);
-		COCONUT_KTOR Owning<Data> with(Data && dat, bool b64_decode);
-		COCONUT_KTOR Owning<Data> with(const std::uint8_t * in, std::size_t length, bool b64_decode = false);
-		COCONUT_KTOR Owning<Data> with(const char * in, std::size_t length, bool b64_decode = false);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Data> with(IterT && beg, IterT && end, bool b64_decode)
-		{ return ptr_create<Data>(std::forward<IterT>(beg), std::forward<IterT>(end), b64_decode); }
-		
-		COCONUT_KTOR Owning<Data> with(const std::uint16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		COCONUT_KTOR Owning<Data> with(const std::uint32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		COCONUT_KTOR Owning<Data> with(const std::uint64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);		
-		COCONUT_KTOR Owning<Data> with(const std::int16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		COCONUT_KTOR Owning<Data> with(const std::int32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
-		COCONUT_KTOR Owning<Data> with(const std::int64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 
-		template <typename IterT>
-		COCONUT_KTOR Owning<Data> with(IterT && beg, IterT && end, DataPackingOption option)
-		{ return ptr_create<Data>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
-		
-		COCONUT_KTOR Owning<Data> with(const Path & path, bool b64_decode = false);
-		COCONUT_KTOR Owning<Data> with(const URL & url, bool b64_decode = false);
-		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

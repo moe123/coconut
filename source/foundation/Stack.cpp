@@ -28,17 +28,6 @@ Stack::~Stack()
 
 #pragma mark -
 
-Owning<Stack> Stack::with()
-{ return ptr_create<Stack>(); }
-
-Owning<Stack> Stack::with(const Stack & stk)
-{ return ptr_create<Stack>(stk); }
-
-Owning<Stack> Stack::with(Stack && stk)
-{ return ptr_create<Stack>(std::move(stk)); }
-
-#pragma mark -
-
 Owning<Any> Stack::copy() const
 { return ptr_create<Stack>(*this); }
 

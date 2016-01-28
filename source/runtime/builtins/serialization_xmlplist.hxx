@@ -46,9 +46,9 @@ namespace coconut
 					option == SerializationReadMutableContainers ||
 					option == SerializationReadMutableContainersAndLeaves
 				) {
-					return MutableArray::with(buf.begin(), buf.end());
+					return ptr_create<MutableArray>(buf.begin(), buf.end());
 				}
-				return Array::with(buf.begin(), buf.end());
+				return ptr_create<Array>(buf.begin(), buf.end());
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -56,9 +56,9 @@ namespace coconut
 			{
 				std::string val(node.first_child().value());
 				if (option == SerializationReadMutableContainersAndLeaves) {
-					//return MutableData::with(val.data(), val.size(), true);
+					//return ptr_create<MutableData>(val.data(), val.size(), true);
 				}
-				return Data::with(val.data(), val.size(), true);
+				return ptr_create<Data>(val.data(), val.size(), true);
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -66,9 +66,9 @@ namespace coconut
 			{
 				std::string val(node.first_child().value());
 				if (val.size()) {
-					return Date::with(Date::fromUTC(val));
+					return ptr_create<Date>(Date::fromUTC(val));
 				}
-				return Date::with(Date::distantPast());
+				return ptr_create<Date>(Date::distantPast());
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -86,7 +86,7 @@ namespace coconut
 					} else if(std::string("key") == std::string(it->name())) {
 						throw std::invalid_argument("coconut parsing xmlplist");
 					}
-					Owning<Any> k = String::with(key);
+					Owning<Any> k = ptr_create<String>(key);
 					Owning<Any> v = xmlplist_read(*it, option);
 					if (k && v) {
 						kk.push_back(v);
@@ -97,9 +97,9 @@ namespace coconut
 					option == SerializationReadMutableContainers ||
 					option == SerializationReadMutableContainersAndLeaves
 				) {
-					return MutableDictionary::with(kk.begin(), kk.end(), vv.begin(), vv.end());
+					return ptr_create<MutableDictionary>(kk.begin(), kk.end(), vv.begin(), vv.end());
 				}
-				return Dictionary::with(kk.begin(), kk.end(), vv.begin(), vv.end());
+				return ptr_create<Dictionary>(kk.begin(), kk.end(), vv.begin(), vv.end());
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -107,17 +107,17 @@ namespace coconut
 			{
 				std::string type = node.name();
 				if("false" == type) {
-					return Number::with(false);
+					return ptr_create<Number>(false);
 				} else if("true" == type) {
-					return Number::with(true);
+					return ptr_create<Number>(true);
 				} else if("integer" == type) {
 					std::string val = node.first_child().value();
-					return Number::with(runtime::algorithm::to_numeric<std::int64_t>(val));
+					return ptr_create<Number>(runtime::algorithm::to_numeric<std::int64_t>(val));
 				} else if("real" == type) {
 					std::string val = node.first_child().value();
-					return Number::with(runtime::algorithm::to_numeric<double>(val));
+					return ptr_create<Number>(runtime::algorithm::to_numeric<double>(val));
 				}
-				return Number::with(NotFound);
+				return ptr_create<Number>(NotFound);
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -125,9 +125,9 @@ namespace coconut
 			{
 				std::string val(node.first_child().value());
 				if (option == SerializationReadMutableContainersAndLeaves) {
-					//return MutableString::with(val);
+					//return ptr_create<MutableString>(val);
 				}
-				return String::with(val);
+				return ptr_create<String>(val);
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

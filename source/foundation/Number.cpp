@@ -98,56 +98,6 @@ Number::~Number()
 
 #pragma mark -
 
-Owning<Number> Number::with(const Number & num)
-{ return ptr_create<Number>(num); }
-
-Owning<Number> Number::with(Number && num)
-{ return ptr_create<Number>(std::move(num)); }
-
-Owning<Number> Number::with(const float & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const double & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const long double & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const bool & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const char & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const short & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const int & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const long & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const long long & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const unsigned char & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const unsigned short & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const unsigned int & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const unsigned long & value)
-{ return ptr_create<Number>(value); }
-
-Owning<Number> Number::with(const unsigned long long & value)
-{ return ptr_create<Number>(value); }
-
-#pragma mark -
-
 std::size_t Number::hash() const
 { return m_impl.hash_code(); }
 

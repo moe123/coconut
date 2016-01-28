@@ -71,41 +71,6 @@ String::~String()
 
 #pragma mark -
 
-Owning<String> String::with()
-{ return ptr_create<String>(); }
-
-Owning<String> String::with(const String & str)
-{ return ptr_create<String>(str); }
-
-Owning<String> String::with(const std::string & str, StringEncodingOption encoding)
-{ return ptr_create<String>(str, encoding); }
-
-Owning<String> String::with(const std::u16string & str, StringEncodingOption encoding)
-{ return ptr_create<String>(str, encoding); }
-
-Owning<String> String::with(const std::u32string & str, StringEncodingOption encoding)
-{ return ptr_create<String>(str, encoding); }
-
-Owning<String> String::with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding)
-{ return ptr_create<String>(bytes, length, encoding); }
-
-Owning<String> String::with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding)
-{ return ptr_create<String>(bytes, length, encoding); }
-
-Owning<String> String::with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding)
-{ return ptr_create<String>(bytes, length, encoding); }
-
-Owning<String> String::with(const char * utf8_str)
-{ return ptr_create<String>(utf8_str); }
-
-Owning<String> String::with(const char16_t * utf16_str)
-{ return ptr_create<String>(utf16_str); }
-
-Owning<String> String::with(const char32_t * utf32_str)
-{ return ptr_create<String>(utf32_str); }
-
-#pragma mark -
-
 std::size_t String::hash() const
 {
 	return m_impl.hash_code();
@@ -126,13 +91,13 @@ Owning<Any> String::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 	if (isSelectorKey(utf8_selkey)) {
 		if (arg && arg->isKindOf(*this)) {
 			if (utf8_selkey == u8"@caseInsensitiveCompare:") {
-				val = Number::with(caseInsensitiveCompare(ref_cast<String>(*arg)));
+				val = ptr_create<Number>(caseInsensitiveCompare(ref_cast<String>(*arg)));
 			} else if (utf8_selkey == u8"@localizedCompare:") {
-				val = Number::with(localizedCompare(ref_cast<String>(*arg)));
+				val = ptr_create<Number>(localizedCompare(ref_cast<String>(*arg)));
 			} else if (utf8_selkey == u8"@localizedStandardCompare:") {
-				val = Number::with(localizedStandardCompare(ref_cast<String>(*arg)));
+				val = ptr_create<Number>(localizedStandardCompare(ref_cast<String>(*arg)));
 			} else if (utf8_selkey == u8"@localizedCaseInsensitiveCompare:") {
-				val = Number::with(localizedCaseInsensitiveCompare(ref_cast<String>(*arg)));
+				val = ptr_create<Number>(localizedCaseInsensitiveCompare(ref_cast<String>(*arg)));
 			}
 		}
 		if (!val) {

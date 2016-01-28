@@ -21,11 +21,7 @@ namespace coconut
 		Queue & operator = (const Queue & que) = default;
 		Queue(Queue && que);
 		virtual ~Queue();
-	
-		COCONUT_KTOR Owning<Queue> with();
-		COCONUT_KTOR Owning<Queue> with(const Queue & que);
-		COCONUT_KTOR Owning<Queue> with(Queue && que);
-		
+
 	public:
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;

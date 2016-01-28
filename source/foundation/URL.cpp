@@ -65,29 +65,6 @@ const String URL::percentEscapesDecode(const String & in, bool plus_as_space)
 
 #pragma mark -
 
-Owning<URL> URL::with(const URL & url)
-{ return ptr_create<URL>(url); }
-
-Owning<URL> URL::with(const Path & path)
-{ return ptr_create<URL>(path); }
-
-Owning<URL> URL::with(const String & in)
-{ return ptr_create<URL>(in); }
-
-Owning<URL> URL::with(const String & in, const URL & base_url)
-{ return ptr_create<URL>(in, base_url); }
-
-Owning<URL> URL::with(const String & in, bool is_filepath)
-{ return ptr_create<URL>(in, is_filepath); }
-
-Owning<URL> URL::with(const String & scheme, const String & host, const String & path)
-{ return ptr_create<URL>(scheme, host, path); }
-
-Owning<URL> URL::with(const char * in)
-{ return ptr_create<URL>(in); }
-
-#pragma mark -
-
 Owning<Any> URL::copy() const
 { return ptr_create<URL>(*this); }
 
@@ -158,7 +135,7 @@ const Dictionary URL::queryParameters() const
 	Dictionary::impl_type buf;
 	auto parameters = m_impl.parameters();
 	for (auto & kv : parameters) {
-		buf.insert(std::make_pair(String::with(kv.first), String::with(kv.second)));
+		buf.insert(std::make_pair(ptr_create<String>(kv.first), ptr_create<String>(kv.second)));
 	}
 	return Dictionary(buf.cbegin(), buf.cend());
 }

@@ -29,28 +29,6 @@ MutableRange::~MutableRange()
 
 #pragma mark -
 
-Owning<MutableRange> MutableRange::with()
-{
-	return ptr_create<MutableRange>();
-}
-
-Owning<MutableRange> MutableRange::with(const MutableRange & rg)
-{
-	return ptr_create<MutableRange>(rg);
-}
-
-Owning<MutableRange> MutableRange::with(const Range & rg)
-{
-	return ptr_create<MutableRange>(rg);
-}
-
-Owning<MutableRange> MutableRange::with(std::size_t location, std::size_t length)
-{
-	return ptr_create<MutableRange>(location, length);
-}
-
-#pragma mark -
-
 void MutableRange::setLocation(std::size_t location)
 {
 	m_impl.set_location(location);

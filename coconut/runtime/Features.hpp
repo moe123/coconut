@@ -211,22 +211,32 @@ namespace coconut
 	template <typename TypeT>
 	inline auto With(void * no_param = nullptr)
 		-> Owning<TypeT>
-	{ COCONUT_UNUSED(no_param); return TypeT::with(); }
+	{ COCONUT_UNUSED(no_param); return ptr_create<TypeT>(); }
+	
+	template <typename TypeT>
+	inline auto With(const TypeT & arg)
+		-> Owning<TypeT>
+	{ return ptr_create<TypeT>(arg); }
+	
+	template <typename TypeT>
+	inline auto With(TypeT && arg)
+		-> Owning<TypeT>
+	{ return ptr_create<TypeT>(std::move(arg)); }
 
 	template <typename TypeT>
 	inline auto With(const std::initializer_list< Owning<Any> > & args)
 		-> Owning<TypeT>
-	{ return TypeT::with(args); }
+	{ return ptr_create<TypeT>(args); }
 	
 	template <typename TypeT>
 	inline auto With(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
 		-> Owning<TypeT>
-	{ return TypeT::with(args); }
+	{ return ptr_create<TypeT>(args); }
 
 	template <typename TypeT, typename... ArgsT>
 	inline auto With(ArgsT &&... args)
 		-> Owning<TypeT>
-	{ return TypeT::with(std::forward<ArgsT>(args)...); }
+	{ return ptr_create<TypeT>(std::forward<ArgsT>(args)...); }
 	
 	template <typename T1, typename T2>
 	inline auto Thus(T2 && r)

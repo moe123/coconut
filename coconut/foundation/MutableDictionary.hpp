@@ -48,30 +48,6 @@ namespace coconut
 		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;
 		
-		COCONUT_KTOR Owning<MutableDictionary> with();
-		COCONUT_KTOR Owning<MutableDictionary> with(const MutableDictionary & dict);
-		COCONUT_KTOR Owning<MutableDictionary> with(const MutableDictionary & dict, CopyOption option);
-		COCONUT_KTOR Owning<MutableDictionary> with(MutableDictionary && dict);
-		COCONUT_KTOR Owning<MutableDictionary> with(const Dictionary & dict, CopyOption option);
-		COCONUT_KTOR Owning<MutableDictionary> with(Dictionary && dict);
-		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
-		COCONUT_KTOR Owning<MutableDictionary> with(const std::initializer_list< std::pair<Any *, Any *> > & args);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<MutableDictionary> with(IterT && beg, IterT && end)
-		{ return ptr_create<MutableDictionary>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<MutableDictionary> with(IterT && beg, IterT && end, CopyOption option)
-		{ return ptr_create<MutableDictionary>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
-		
-		template <typename IterKeyT, typename IterValT>
-		COCONUT_KTOR Owning<MutableDictionary> with(IterKeyT && beg_key, IterKeyT && end_key, IterValT && beg_val, IterValT && end_val, CopyOption option = CopyNone)
-		{ return ptr_create<MutableDictionary>(std::forward<IterKeyT>(beg_key), std::forward<IterKeyT>(end_key), std::forward<IterValT>(beg_val), std::forward<IterValT>(end_val), option); }
-		
-		COCONUT_KTOR Owning<MutableDictionary> with(const Path & path);
-		COCONUT_KTOR Owning<MutableDictionary> with(const URL & url);
-		
 		void setDictionary(MutableDictionary && dict);
 		void setDictionary(Dictionary && dict);
 		

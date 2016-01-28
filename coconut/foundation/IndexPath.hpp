@@ -29,16 +29,7 @@ namespace coconut
 		{ /* NOP */ }
 		
 		virtual ~IndexPath();
-		
-		COCONUT_KTOR Owning<IndexPath> with();
-		COCONUT_KTOR Owning<IndexPath> with(const IndexPath & idxp);
-		COCONUT_KTOR Owning<IndexPath> with(const std::initializer_list<std::size_t> & args);
-		COCONUT_KTOR Owning<IndexPath> with(std::size_t index);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<IndexPath> with(IterT && beg, IterT && end)
-		{ return ptr_create<IndexPath>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
-		
+
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

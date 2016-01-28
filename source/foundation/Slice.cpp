@@ -39,18 +39,6 @@ Slice::Slice(const Range & rg) :
 Slice::~Slice()
 { /* NOP */ }
 
-Owning<Slice> Slice::with()
-{ return ptr_create<Slice>(); }
-
-Owning<Slice> Slice::with(const Slice & slc)
-{ return ptr_create<Slice>(slc); }
-
-Owning<Slice> Slice::with(std::int64_t start, std::int64_t stop)
-{ return ptr_create<Slice>(start, stop); }
-
-Owning<Slice> Slice::with(std::int64_t start, std::int64_t stop, std::int64_t step)
-{ return ptr_create<Slice>(start, stop, step); }
-
 #pragma mark -
 
 std::size_t Slice::hash() const

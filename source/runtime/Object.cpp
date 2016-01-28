@@ -100,25 +100,25 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 	if (isSelectorKey(utf8_selkey)) {
 		if (arg) {
 			if (utf8_selkey == u8"@isEqual:") {
-				result = Number::with(isEqual(*arg));
+				result = ptr_create<Number>(isEqual(*arg));
 			} else if (utf8_selkey == u8"@compare:") {
-				result = Number::with(compare(*arg));
+				result = ptr_create<Number>(compare(*arg));
 			} else if (utf8_selkey == u8"@doesContain:") {
-				result = Number::with(doesContain(*arg));
+				result = ptr_create<Number>(doesContain(*arg));
 			} else if (utf8_selkey == u8"@isIdenticalTo:") {
-				result = Number::with(isIdenticalTo(*arg));
+				result = ptr_create<Number>(isIdenticalTo(*arg));
 			} else if (utf8_selkey == u8"@isEqualTo:") {
-				result = Number::with(isEqualTo(*arg));
+				result = ptr_create<Number>(isEqualTo(*arg));
 			} else if (utf8_selkey == u8"@isNotEqualTo:") {
-				result = Number::with(isNotEqualTo(*arg));
+				result = ptr_create<Number>(isNotEqualTo(*arg));
 			} else if (utf8_selkey == u8"@isLessThan:") {
-				result = Number::with(isLessThan(*arg));
+				result = ptr_create<Number>(isLessThan(*arg));
 			} else if (utf8_selkey == u8"@isLessThanOrEqualTo:") {
-				result = Number::with(isLessThanOrEqualTo(*arg));
+				result = ptr_create<Number>(isLessThanOrEqualTo(*arg));
 			} else if (utf8_selkey == u8"@isGreaterThan:") {
-				result = Number::with(isGreaterThan(*arg));
+				result = ptr_create<Number>(isGreaterThan(*arg));
 			} else if (utf8_selkey == u8"@isGreaterThanOrEqualTo:") {
-				result = Number::with(isGreaterThanOrEqualTo(*arg));
+				result = ptr_create<Number>(isGreaterThanOrEqualTo(*arg));
 			}
 		} else {
 			std::vector<std::string> parts;
@@ -163,37 +163,37 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 				}
 			} else {
 				if (utf8_selkey == u8"@count" || utf8_selkey == u8"@length" || utf8_selkey == u8"@size") {
-					result = Number::with(size());
+					result = ptr_create<Number>(size());
 				} else if (utf8_selkey == u8"@floatValue") {
-					result = Number::with(floatValue());
+					result = ptr_create<Number>(floatValue());
 				} else if (utf8_selkey == u8"@doubleValue") {
-					result = Number::with(doubleValue());
+					result = ptr_create<Number>(doubleValue());
 				} else if (utf8_selkey == u8"@boolValue") {
-					result = Number::with(boolValue());
+					result = ptr_create<Number>(boolValue());
 				} else if (utf8_selkey == u8"@charValue") {
-					result = Number::with(charValue());
+					result = ptr_create<Number>(charValue());
 				} else if (utf8_selkey == u8"@shortValue") {
-					result = Number::with(shortValue());
+					result = ptr_create<Number>(shortValue());
 				} else if (utf8_selkey == u8"@intValue") {
-					result = Number::with(intValue());
+					result = ptr_create<Number>(intValue());
 				} else if (utf8_selkey == u8"@longValue") {
-					result = Number::with(longValue());
+					result = ptr_create<Number>(longValue());
 				} else if (utf8_selkey == u8"@longLongValue") {
-					result = Number::with(longLongValue());
+					result = ptr_create<Number>(longLongValue());
 				} else if (utf8_selkey == u8"@unsignedCharValue") {
-					result = Number::with(unsignedCharValue());
+					result = ptr_create<Number>(unsignedCharValue());
 				} else if (utf8_selkey == u8"@unsignedShortValue") {
-					result = Number::with(unsignedShortValue());
+					result = ptr_create<Number>(unsignedShortValue());
 				} else if (utf8_selkey == u8"@unsignedIntValue") {
-					result = Number::with(unsignedIntValue());
+					result = ptr_create<Number>(unsignedIntValue());
 				} else if (utf8_selkey == u8"@unsignedLongValue") {
-					result = Number::with(unsignedLongValue());
+					result = ptr_create<Number>(unsignedLongValue());
 				} else if (utf8_selkey == u8"@unsignedLongLongValue") {
-					result = Number::with(unsignedLongLongValue());
+					result = ptr_create<Number>(unsignedLongLongValue());
 				} else if (utf8_selkey == u8"@stringValue") {
-					result = String::with(stringValue());
+					result = ptr_create<String>(stringValue());
 				} else if (utf8_selkey == u8"@description") {
-					result = String::with(description());
+					result = ptr_create<String>(description());
 				}
 			}
 		}
@@ -249,7 +249,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Number::with(sum);
+	return ptr_create<Number>(sum);
 }
 
 Owning<Any> Object::min(const std::string & utf8_key) const
@@ -435,7 +435,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Number::with(avg);
+	return ptr_create<Number>(avg);
 }
 
 #pragma mark -
@@ -495,7 +495,7 @@ Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Array::with(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
@@ -553,7 +553,7 @@ Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Array::with(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 #pragma mark -
@@ -586,7 +586,7 @@ Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Array::with(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) const
@@ -617,7 +617,7 @@ Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) con
 	} else {
 		// Fault();
 	}
-	return OrderedSet::with(buf.begin(), buf.end());
+	return ptr_create<OrderedSet>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
@@ -648,7 +648,7 @@ Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Set::with(buf.begin(), buf.end());
+	return ptr_create<Set>(buf.begin(), buf.end());
 }
 
 #pragma mark -
@@ -681,7 +681,7 @@ Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Array::with(buf.begin(), buf.end());
+	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
@@ -712,7 +712,7 @@ Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Array::with(buf.begin(), buf.end());
+	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::unionOfSets(const std::string & utf8_key) const
@@ -743,7 +743,7 @@ Owning<Any> Object::unionOfSets(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return Array::with(buf.begin(), buf.end());
+	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 	
 /* EOF */

@@ -54,38 +54,6 @@ MutableDictionary::~MutableDictionary()
 { /* NOP */ }
 
 #pragma mark -
-		
-Owning<MutableDictionary> MutableDictionary::with()
-{ return ptr_create<MutableDictionary>(); }
-
-Owning<MutableDictionary> MutableDictionary::with(const MutableDictionary & dict)
-{ return ptr_create<MutableDictionary>(dict); }
-
-Owning<MutableDictionary> MutableDictionary::with(const MutableDictionary & dict, CopyOption option)
-{ return ptr_create<MutableDictionary>(dict, option); }
-
-Owning<MutableDictionary> MutableDictionary::with(MutableDictionary && dict)
-{ return ptr_create<MutableDictionary>(std::move(dict)); }
-
-Owning<MutableDictionary> MutableDictionary::with(const Dictionary & dict, CopyOption option)
-{ return ptr_create<MutableDictionary>(dict, option); }
-
-Owning<MutableDictionary> MutableDictionary::with(Dictionary && dict)
-{ return ptr_create<MutableDictionary>(std::move(dict)); }
-
-Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
-{ return ptr_create<MutableDictionary>(args); }
-
-Owning<MutableDictionary> MutableDictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
-{ return ptr_create<MutableDictionary>(args); }
-
-Owning<MutableDictionary> MutableDictionary::with(const Path & path)
-{ return ptr_create<MutableDictionary>(path); }
-
-Owning<MutableDictionary> MutableDictionary::with(const URL & url)
-{ return ptr_create<MutableDictionary>(url); }
-
-#pragma mark -
 
 void MutableDictionary::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 {
@@ -148,11 +116,11 @@ void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key,
 	std::lock_guard<spin_type> lck(spin());
 	if (ptr) {
 		if (option != CopyNone) {
-			Owning<Any> k = String::with(utf8_key);
+			Owning<Any> k = ptr_create<String>(utf8_key);
 			Owning<Any> v = Object::copyObject(ptr, option);
 			m_impl[k] = v;
 		} else {
-			Owning<Any> k = String::with(utf8_key);
+			Owning<Any> k = ptr_create<String>(utf8_key);
 			m_impl[k] = ptr;
 		}
 	}
@@ -208,7 +176,7 @@ void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict, CopyOp
 void MutableDictionary::removeObjectForKey(const std::string & utf8_key)
 {
 	std::lock_guard<spin_type> lck(spin());
-	Owning<Any> k = String::with(utf8_key);
+	Owning<Any> k = ptr_create<String>(utf8_key);
 	m_impl.erase(k);
 }
 
@@ -249,7 +217,7 @@ void MutableDictionary::removeObjectsForKeys(const Array & keys)
 #pragma mark -
 
 Owning<Any> & MutableDictionary::operator [] (const std::string & utf8_key)
-{ return m_impl[String::with(utf8_key)]; }
+{ return m_impl[ptr_create<String>(utf8_key)]; }
 
 Owning<Any> & MutableDictionary::operator [] (const Any & key)
 { return m_impl[key.kindCopy()]; }

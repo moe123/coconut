@@ -40,20 +40,6 @@ Path::~Path()
 
 #pragma mark -
 
-Owning<Path> Path::with(const Path & path)
-{ return ptr_create<Path>(path); }
-
-Owning<Path> Path::with(const String & path)
-{ return ptr_create<Path>(path); }
-
-Owning<Path> Path::with(const char * utf8_path)
-{ return ptr_create<Path>(utf8_path); }
-
-Owning<Path> Path::with(const char16_t * utf16_path)
-{ return ptr_create<Path>(utf16_path); }
-
-#pragma mark -
-
 Owning<Any> Path::copy() const
 { return ptr_create<Path>(*this); }
 

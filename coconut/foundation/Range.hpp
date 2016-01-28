@@ -22,10 +22,6 @@ namespace coconut
 		Range(std::size_t location, std::size_t length);
 		virtual ~Range();
 		
-		COCONUT_KTOR Owning<Range> with();
-		COCONUT_KTOR Owning<Range> with(const Range & rg);
-		COCONUT_KTOR Owning<Range> with(std::size_t location, std::size_t length);
-		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

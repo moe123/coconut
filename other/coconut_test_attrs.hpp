@@ -27,28 +27,21 @@ static inline void test_attr_and_custom(void)
 		Container(const Container & other) : Proxy(other) { /* super class conveying attributes */ }
 		virtual ~Container() {}
 		
-	// ref-counted ctors
-		static Owning<Container> with()
-		{ return ptr_create<Container>(); }
-		
-		static Owning<Container> with(const Container & other)
-		{ return ptr_create<Container>(other); }
-	
 	// copyable
 		virtual Owning<Any> copy() const override final
-		{ return ptr_create<Container>(*this); }
+		{ return With<Container>(*this); }
 
 	};
 	
-	Owning<Container> c = Container::with();
+	Owning<Container> c = With<Container>();
 	
 	c->setValueForKey(
-		String::with(u8"Robert"),
+		With<String>(u8"Robert"),
 		u8"$firstname"
 	);
 	
 	c->setValueForKey(
-		String::with(u8"Johan"),
+		With<String>(u8"Johan"),
 		u8"$lastname"
 	);
 	
@@ -88,40 +81,28 @@ static inline void test_attr_and_custom(void)
 		) : Proxy()
 		{
 			setValueForKey(
-				String::with(firstname),
+				With<String>(firstname),
 				u8"$firstname"
 			);
 			setValueForKey(
-				String::with(lastname),
+				With<String>(lastname),
 				u8"$lastname"
 			);
 			setValueForKey(
-				String::with(firstname + u8" " + lastname),
+				With<String>(firstname + u8" " + lastname),
 				u8"$fullname"
 			);
 			setValueForKey(
-				Number::with(age),
+				With<Number>(age),
 				u8"$age"
 			);
-		}
-		
-		// `with` constructor is a convention which must be respected.
-		static Owning<Person> with
-		(
-			const std::string & firstname,
-			const std::string & lastname,
-			std::size_t age
-		)
-		{
-			// creating and returning a ref-counted pointer
-			return ptr_create<Person>(firstname, lastname, age);
 		}
 		
 		virtual Owning<Any> copy() const override final
 		{
 			// making this object copyable, overloading.
 			// creating and returning a ref-counted pointer
-			return ptr_create<Person>(*this);
+			return With<Person>(*this);
 		}
 		
 		/**
@@ -155,12 +136,12 @@ static inline void test_attr_and_custom(void)
 		 */
 		void setLastname(const std::string & lastname)
 		{
-			setValueForKey(String::with(lastname), u8"$lastname");
+			setValueForKey(With<String>(lastname), u8"$lastname");
 		}
 		
 		void setAge(std::size_t age)
 		{
-			setValueForKey(Number::with(age), u8"$age");
+			setValueForKey(With<Number>(age), u8"$age");
 		}
 		
 		virtual ~Person() {}

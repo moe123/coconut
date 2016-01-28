@@ -28,17 +28,6 @@ Queue::~Queue()
 
 #pragma mark -
 
-Owning<Queue> Queue::with()
-{ return ptr_create<Queue>(); }
-
-Owning<Queue> Queue::with(const Queue & que)
-{ return ptr_create<Queue>(que); }
-
-Owning<Queue> Queue::with(Queue && que)
-{ return ptr_create<Queue>(std::move(que)); }
-
-#pragma mark -
-
 Owning<Any> Queue::copy() const
 { return ptr_create<Queue>(*this); }
 

@@ -43,26 +43,6 @@ Error::~Error()
 
 #pragma mark -
 
-Owning<Error> Error::with()
-{ return ptr_create<Error>(); }
-
-Owning<Error> Error::with(const Error & err)
-{ return ptr_create<Error>(err); }
-
-Owning<Error> Error::with(Error && err)
-{ return ptr_create<Error>(std::move(err)); }
-
-Owning<Error> Error::with(std::size_t code)
-{ return ptr_create<Error>(code); }
-
-Owning<Error> Error::with(const String & domain, std::size_t code)
-{ return ptr_create<Error>(domain, code); }
-
-Owning<Error> Error::with(const String & domain, std::size_t code, const Dictionary & userInfo)
-{ return ptr_create<Error>(domain, code, userInfo); }
-
-#pragma mark -
-
 std::size_t Error::hash() const
 { return std::get<0>(m_impl).hash() + std::get<1>(m_impl); }
 

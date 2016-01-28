@@ -217,7 +217,7 @@ static void test_array(void)
 	
 	//return;
 	
-	a.performSelectorKeyAfterDelay(10000, false, u8"@isEqual:", None::with());
+	a.performSelectorKeyAfterDelay(10000, false, u8"@isEqual:", With<None>());
 	
 	std::size_t i = 8000000;
 	
@@ -1026,13 +1026,13 @@ int main(int argc, const char * argv[])
 	
 	OptionalReturn< Owning<Data>, Owning<Error> > ret;
 	
-	ret.setSuccess(Data::with());
+	ret.setSuccess(With<Data>());
 	
 	if (ret) {
 		std::cerr << "+ true " << ret() << std::endl;
 	}
 	
-	ret.setError(Error::with());
+	ret.setError(With<Error>());
 	
 	if (!ret) {
 		std::cerr << "+ false " << ~ret << std::endl;

@@ -100,29 +100,6 @@ const Date Date::now()
 
 #pragma mark -
 
-Owning<Date> Date::with()
-{ return ptr_create<Date>(); }
-
-Owning<Date> Date::with(const Date & dtm)
-{ return ptr_create<Date>(dtm); }
-
-Owning<Date> Date::with(Date && dtm)
-{ return ptr_create<Date>(std::move(dtm)); }
-
-Owning<Date> Date::with(TimeInterval seconds, TimeReferenceOption ref_opt)
-{ return ptr_create<Date>(seconds, ref_opt); }
-
-Owning<Date> Date::with(TimeInterval seconds, const Date & since)
-{ return ptr_create<Date>(seconds, since); }
-
-Owning<Date> Date::with(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt)
-{ return ptr_create<Date>(interval, unit_opt, ref_opt); }
-
-Owning<Date> Date::with(TimeInterval interval, TimeUnitOption unit_opt, const Date & since)
-{ return ptr_create<Date>(interval, unit_opt, since); }
-
-#pragma mark -
-
 std::size_t Date::hash() const
 { return m_impl.hash_code(); }
 

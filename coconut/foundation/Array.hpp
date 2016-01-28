@@ -51,26 +51,6 @@ namespace coconut
 		Array(const URL & url);
 		virtual ~Array();
 		
-		COCONUT_KTOR Owning<Array> with();
-		COCONUT_KTOR Owning<Array> with(const Array & arr);
-		COCONUT_KTOR Owning<Array> with(const Array & arr, CopyOption option);
-		
-		COCONUT_KTOR Owning<Array> with(Array && arr);
-		
-		COCONUT_KTOR Owning<Array> with(const std::initializer_list< Owning<Any> > & args);
-		COCONUT_KTOR Owning<Array> with(const std::initializer_list<Any *> & args);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Array> with(IterT && beg, IterT && end)
-		{ return ptr_create<Array>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Array> with(IterT && beg, IterT && end, CopyOption option)
-		{ return ptr_create<Array>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
-		
-		COCONUT_KTOR Owning<Array> with(const Path & path);
-		COCONUT_KTOR Owning<Array> with(const URL & url);
-		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

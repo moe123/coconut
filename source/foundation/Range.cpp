@@ -29,17 +29,6 @@ Range::~Range()
 
 #pragma mark -
 
-Owning<Range> Range::with()
-{ return ptr_create<Range>(); }
-
-Owning<Range> Range::with(const Range & rg)
-{ return ptr_create<Range>(rg); }
-
-Owning<Range> Range::with(std::size_t location, std::size_t length)
-{ return ptr_create<Range>(location, length); }
-
-#pragma mark -
-
 std::size_t Range::hash() const
 { return maxRange(); }
 

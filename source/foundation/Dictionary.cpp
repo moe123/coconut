@@ -66,32 +66,6 @@ Dictionary::~Dictionary()
 
 #pragma mark -
 
-Owning<Dictionary> Dictionary::with()
-{ return ptr_create<Dictionary>(); }
-
-Owning<Dictionary> Dictionary::with(const Dictionary & dict)
-{ return ptr_create<Dictionary>(dict); }
-
-Owning<Dictionary> Dictionary::with(const Dictionary & dict, CopyOption option)
-{ return ptr_create<Dictionary>(dict, option); }
-
-Owning<Dictionary> Dictionary::with(Dictionary && dict)
-{ return ptr_create<Dictionary>(std::move(dict)); }
-
-Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
-{ return ptr_create<Dictionary>(args); }
-
-Owning<Dictionary> Dictionary::with(const std::initializer_list< std::pair<Any *, Any *> > & args)
-{ return ptr_create<Dictionary>(args); }
-
-Owning<Dictionary> Dictionary::with(const Path & path)
-{ return ptr_create<Dictionary>(path); }
-
-Owning<Dictionary> Dictionary::with(const URL & url)
-{ return ptr_create<Dictionary>(url); }
-
-#pragma mark -
-
 std::size_t Dictionary::hash() const
 {
 	std::size_t seed = 0;
@@ -181,7 +155,7 @@ const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selk
 			//v = k->valueForSelectorKey(utf8_selkey, arg);
 			v = k->performSelectorKey(utf8_selkey, arg);
 		}
-		if (!v) { v = None::with(); }
+		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
 	return Array(buf.cbegin(), buf.cend());
@@ -361,7 +335,7 @@ const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundM
 		if ((*it)) {
 			Owning<Any> v;
 			if (!(v = objectForKey(*(*it)))) {
-				if (notFoundMarker) { v = notFoundMarker; } else { v = None::with(); }
+				if (notFoundMarker) { v = notFoundMarker; } else { v = ptr_create<None>(); }
 			}
 			buf.push_back(v);
 		} else {
@@ -380,7 +354,7 @@ const Array Dictionary::objectsForKeys(const Set & keys, Owning<Any> notFoundMar
 		if ((*it)) {
 			Owning<Any> v;
 			if (!(v = objectForKey(*(*it)))) {
-				if (notFoundMarker) { v = notFoundMarker; } else { v = None::with(); }
+				if (notFoundMarker) { v = notFoundMarker; } else { v = ptr_create<None>(); }
 			}
 			buf.push_back(v);
 		} else {

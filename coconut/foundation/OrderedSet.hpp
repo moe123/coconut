@@ -47,23 +47,6 @@ namespace coconut
 		}
 		
 		virtual ~OrderedSet();
-
-		COCONUT_KTOR Owning<OrderedSet> with(const OrderedSet & set);
-		COCONUT_KTOR Owning<OrderedSet> with(const OrderedSet & set, CopyOption option);
-		COCONUT_KTOR Owning<OrderedSet> with(OrderedSet && set);
-		COCONUT_KTOR Owning<OrderedSet> with(const std::initializer_list< Owning<Any> > & args);
-		COCONUT_KTOR Owning<OrderedSet> with(const std::initializer_list<Any *> & args);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<OrderedSet> with(IterT && beg, IterT && end)
-		{ return ptr_create<OrderedSet>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<OrderedSet> with(IterT && beg, IterT && end, CopyOption option)
-		{ return ptr_create<OrderedSet>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
-		
-		COCONUT_KTOR Owning<OrderedSet> with(const Path & path);
-		COCONUT_KTOR Owning<OrderedSet> with(const URL & url);
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;

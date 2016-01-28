@@ -86,31 +86,7 @@ namespace coconut
 		Dictionary(const Path & path);
 		Dictionary(const URL & url);
 		virtual ~Dictionary();
-		
-		COCONUT_KTOR Owning<Dictionary> with();
-		COCONUT_KTOR Owning<Dictionary> with(const Dictionary & dict);
-		COCONUT_KTOR Owning<Dictionary> with(const Dictionary & dict, CopyOption option);
-		
-		COCONUT_KTOR Owning<Dictionary> with(Dictionary && dict);
-		
-		COCONUT_KTOR Owning<Dictionary> with(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
-		COCONUT_KTOR Owning<Dictionary> with(const std::initializer_list< std::pair<Any *, Any *> > & args);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Dictionary> with(IterT && beg, IterT && end)
-		{ return ptr_create<Dictionary>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Dictionary> with(IterT && beg, IterT && end, CopyOption option)
-		{ return ptr_create<Dictionary>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
-		
-		template <typename IterKeyT, typename IterValT>
-		COCONUT_KTOR Owning<Dictionary> with(IterKeyT && beg_key, IterKeyT && end_key, IterValT && beg_val, IterValT && end_val, CopyOption option = CopyNone)
-		{ return ptr_create<Dictionary>(std::forward<IterKeyT>(beg_key), std::forward<IterKeyT>(end_key), std::forward<IterValT>(beg_val), std::forward<IterValT>(end_val), option); }
-		
-		COCONUT_KTOR Owning<Dictionary> with(const Path & path);
-		COCONUT_KTOR Owning<Dictionary> with(const URL & url);
-		
+
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

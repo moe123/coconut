@@ -24,16 +24,8 @@ namespace coconut
 		Error(std::size_t code);
 		Error(const String & domain, std::size_t code);
 		Error(const String & domain, std::size_t code, const Dictionary & userInfo);
-		
 		virtual ~Error();
 		
-		COCONUT_KTOR Owning<Error> with();
-		COCONUT_KTOR Owning<Error> with(const Error & err);
-		COCONUT_KTOR Owning<Error> with(Error && err);
-		COCONUT_KTOR Owning<Error> with(std::size_t code);
-		COCONUT_KTOR Owning<Error> with(const String & domain, std::size_t code);
-		COCONUT_KTOR Owning<Error> with(const String & domain, std::size_t code, const Dictionary & userInfo);
-
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

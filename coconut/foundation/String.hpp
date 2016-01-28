@@ -39,19 +39,7 @@ namespace coconut
 		template <typename... ArgsT>
 		COCONUT_KTOD String format(const char16_t * utf16_fmt, ArgsT &&... args)
 		{ return String(impl_type::uformat(utf16_fmt, std::forward<ArgsT>(args)...)); }
-		
-		COCONUT_KTOR Owning<String> with();
-		COCONUT_KTOR Owning<String> with(const String & str);
-		COCONUT_KTOR Owning<String> with(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
-		COCONUT_KTOR Owning<String> with(const std::u16string & str, StringEncodingOption encoding= StringEncodingUTF16);
-		COCONUT_KTOR Owning<String> with(const std::u32string & str, StringEncodingOption encoding= StringEncodingUTF32);
-		COCONUT_KTOR Owning<String> with(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding);
-		COCONUT_KTOR Owning<String> with(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding);
-		COCONUT_KTOR Owning<String> with(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding);
-		COCONUT_KTOR Owning<String> with(const char * utf8_str);
-		COCONUT_KTOR Owning<String> with(const char16_t * utf16_str);
-		COCONUT_KTOR Owning<String> with(const char32_t * utf32_str);
-	
+
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

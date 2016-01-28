@@ -22,11 +22,6 @@ namespace coconut
 		MutableRange(std::size_t location, std::size_t length);
 		virtual ~MutableRange();
 		
-		COCONUT_KTOR Owning<MutableRange> with();
-		COCONUT_KTOR Owning<MutableRange> with(const MutableRange & rg);
-		COCONUT_KTOR Owning<MutableRange> with(const Range & rg);
-		COCONUT_KTOR Owning<MutableRange> with(std::size_t location, std::size_t length);
-		
 		void setLocation(std::size_t location);
 		void setLength(std::size_t length);
 	};

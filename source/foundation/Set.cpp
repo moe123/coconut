@@ -49,23 +49,6 @@ Set::~Set()
 
 #pragma mark -
 
-Owning<Set> Set::with(const Set & set)
-{ return ptr_create<Set>(set); }
-
-Owning<Set> Set::with(const Set & set, CopyOption option)
-{ return ptr_create<Set>(set, option); }
-
-Owning<Set> Set::with(Set && set)
-{ return ptr_create<Set>(std::move(set)); }
-
-Owning<Set> Set::with(const std::initializer_list< Owning<Any> > & args)
-{ return ptr_create<Set>(args); }
-
-Owning<Set> Set::with(const std::initializer_list<Any *> & args)
-{ return ptr_create<Set>(args); }
-
-#pragma mark -
-
 std::size_t Set::hash() const
 {
 	std::size_t seed = 0;
@@ -160,10 +143,10 @@ Owning<Any> Set::valueForKey(const std::string & utf8_key) const
 		Owning<Any> item = (*it);
 		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
-		if (!v) { v = None::with(); }
+		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return Array::with(buf.cbegin(), buf.cend());
+	return ptr_create<Array>(buf.cbegin(), buf.cend());
 }
 
 Owning<Any> Set::valueForKeyPath(const std::string & utf8_keypath) const
@@ -195,11 +178,11 @@ Owning<Any> Set::valueForKeyPath(const std::string & utf8_keypath) const
 			Owning<Any> item = (*it);
 			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
-			if (!v) { v = None::with(); }
+			if (!v) { v = ptr_create<None>(); }
 			buf.push_back(v);
 		}
 	}
-	return Array::with(buf.cbegin(), buf.cend());
+	return ptr_create<Array>(buf.cbegin(), buf.cend());
 }
 
 #pragma mark -
@@ -214,7 +197,7 @@ const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, 
 			//v = item->valueForSelectorKey(utf8_selkey, arg);
 			v = item->performSelectorKey(utf8_selkey, arg);
 		}
-		if (!v) { v = None::with(); }
+		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
 	return Array(buf.cbegin(), buf.cend());

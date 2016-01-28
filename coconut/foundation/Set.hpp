@@ -49,20 +49,6 @@ namespace coconut
 		
 		virtual ~Set();
 
-		COCONUT_KTOR Owning<Set> with(const Set & set);
-		COCONUT_KTOR Owning<Set> with(const Set & set, CopyOption option);
-		COCONUT_KTOR Owning<Set> with(Set && set);
-		COCONUT_KTOR Owning<Set> with(const std::initializer_list< Owning<Any> > & args);
-		COCONUT_KTOR Owning<Set> with(const std::initializer_list<Any *> & args);
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Set> with(IterT && beg, IterT && end)
-		{ return ptr_create<Set>(std::forward<IterT>(beg), std::forward<IterT>(end)); }
-		
-		template <typename IterT>
-		COCONUT_KTOR Owning<Set> with(IterT && beg, IterT && end, CopyOption option)
-		{ return ptr_create<Set>(std::forward<IterT>(beg), std::forward<IterT>(end), option); }
-		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
 		

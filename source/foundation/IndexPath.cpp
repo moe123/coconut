@@ -38,20 +38,6 @@ IndexPath::~IndexPath()
 
 #pragma mark -
 
-Owning<IndexPath> IndexPath::with()
-{ return ptr_create<IndexPath>(); }
-		   
-Owning<IndexPath> IndexPath::with(const IndexPath & idxp)
-{ return ptr_create<IndexPath>(idxp); }
-
-Owning<IndexPath> IndexPath::with(const std::initializer_list<std::size_t> & args)
-{ return ptr_create<IndexPath>(args); }
-		   
-Owning<IndexPath> IndexPath::with(std::size_t index)
-{ return ptr_create<IndexPath>(index); }
-
-#pragma mark -
-
 std::size_t IndexPath::hash() const
 { return m_impl.hash_code(); }
 
