@@ -145,9 +145,9 @@ namespace coconut
 	{ if (r) { _enumerate_dispatch<TypeT>(*r, func, options); }; }
 
 	template <typename RetT, typename ErrT>
-	struct OptionalReturn
+	struct COCONUT_EXPORT OptionalReturn COCONUT_FINAL
 	{
-		OptionalReturn() : m_success{}, m_error{}, m_valid(false) {}
+		explicit OptionalReturn() : m_success{}, m_error{}, m_valid(false) { /* NOP */ }
 		
 		const RetT & success() const { return m_success; }
 		const ErrT & error() const { return m_error; }
@@ -167,21 +167,55 @@ namespace coconut
 		ErrT m_error;
 		bool m_valid;
 	};
-
+	
+	template <typename T>
+	struct COCONUT_EXPORT JobDelegate COCONUT_FINAL
+	{
+		explicit JobDelegate(std::future<T> && f) : m_fut(std::move(f)) { /* NOP */ }
+		
+		T operator () () { return m_fut.get(); }
+		
+	private:
+		std::future<T> m_fut;
+	};
+	
 	template <typename FuncT, typename... ArgsT>
-	inline auto JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
+	inline auto _JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
 		-> decltype(runtime::async::exec(option, std::forward<FuncT>(func), std::forward<ArgsT>(args)...))
 	{ return runtime::async::exec(option, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
 	
 	template <typename FuncT, typename... ArgsT>
+	inline auto JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
+		-> JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+	{
+		return JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+		(
+			_JobExec(
+				JobPolicyAsync,
+				std::forward<FuncT>(func),
+				std::forward<ArgsT>(args)...
+			)
+		 );
+	}
+	
+	template <typename FuncT, typename... ArgsT>
 	inline auto JobExec(FuncT && func, ArgsT &&... args)
-		-> decltype(runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...))
-	{ return runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+		-> JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+	{
+		return JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+		(
+			_JobExec(
+				JobPolicyAsync,
+				std::forward<FuncT>(func),
+				std::forward<ArgsT>(args)...
+			)
+		);
+	}
 	
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobRun(FuncT && func, ArgsT &&... args)
 		-> typename std::result_of<FuncT(ArgsT...)>::type
-	{ auto job = runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); return job.get(); }
+	{ auto job = JobExec(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); return job(); }
 		
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobDetach(FuncT && func, ArgsT &&... args)
@@ -211,7 +245,10 @@ namespace coconut
 	template <typename TypeT>
 	inline auto With(void * no_param = nullptr)
 		-> Owning<TypeT>
-	{ COCONUT_UNUSED(no_param); return ptr_create<TypeT>(); }
+	{
+		static_assert(std::is_base_of<Any, TypeT>::value, "");
+		COCONUT_UNUSED(no_param); return ptr_create<TypeT>();
+	}
 	
 	template <typename TypeT>
 	inline auto With(const TypeT & arg)

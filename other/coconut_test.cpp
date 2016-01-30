@@ -979,9 +979,51 @@ static void parse_path(void)
 	}
 }
 
+static std::pair<int, bool> is_prime(int n)
+{
+	for(int i = 2; i < n; i++) {
+		if(n % i == 0) { return std::make_pair(i, false); }
+	}
+	return std::make_pair(n, true);
+}
+	
+static void run_queue(void)
+{
+	/*
+	runtime::async::queue queue(4);
+	std::vector< std::future< bool > > tasks;
+	for(int i = 2; i < 400; i++) {
+		tasks.push_back(queue.add(
+			[] (int y) -> bool {
+				std::cerr << " + hello:" << std::endl;
+				return y;
+			}, 3
+		));
+	}
+	*/
+	/*for(auto i = tasks.begin(); i != tasks.end(); i++) {
+		std::pair<int, bool> n = (*i).get();
+		std::cout << n.first << ": " << (n.second ? "is prime" : "is composite") << std::endl;
+	}*/
+}
+
 int main(int argc, const char * argv[])
 {
-	parse_path();
+	Data dt_0 = { "some bytes", 10 };
+	
+	for (const auto & byte : dt_0) {
+		std::cerr << std::hex << std::showbase << int(byte) << std::endl;
+	}
+	
+	auto job_0 = JobRun([]() -> bool
+	{
+		JobRun([]() -> void { });
+		return true;
+	});
+	std::cerr << "+ job_0 : " << job_0 << std::endl;
+	
+	//run_queue();
+	//parse_path();
 	
 	return 0;
 	
@@ -1048,14 +1090,14 @@ int main(int argc, const char * argv[])
 			return true;
 		});
 		bool res_1 = false;
-		auto job_2 = JobExec(JobPolicyDeferred, [&job_1, &res_1]() -> bool
+		auto job_2 = JobExec(JobPolicyAsync, [&job_1, &res_1]() -> bool
 		{
 			std::cerr << "+ job_2 " << std::endl;
-			res_1 = job_1.get();
+			res_1 = job_1();
 			return true;
 		});
 		
-		bool res_2 = job_2.get();
+		bool res_2 = job_2();
 		
 		std::cerr << "+ res_1 " << res_1 << std::endl;
 		std::cerr << "+ res_2 " << res_2 << std::endl;
@@ -1144,9 +1186,9 @@ int main(int argc, const char * argv[])
 		cout << "[" << c << "] ";
 	cout << endl;
 	
-	bool job0 = JobRun([]() -> bool
+	auto job0 = JobExec([]() -> bool
 	{
-		JobRun([]() -> void
+		JobExec([]() -> void
 		{
 			/* do job */
 			test_stuff();
@@ -1161,7 +1203,7 @@ int main(int argc, const char * argv[])
 		return true;
 	});
 	//bool result = job0.get();
-	std::cerr << "+ result : " << job0 << std::endl;
+	//std::cerr << "+ result : " << job0.get(); << std::endl;
 	
 	return 0;
 }

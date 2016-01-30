@@ -17,7 +17,7 @@ namespace coconut
 		{
 		COCONUT_RUNTIME_KDCL(coconut.runtime.nucleus, nucleus)
 			
-		private:
+		public:
 			nucleus();
 		protected:
 			nucleus(const nucleus & ref);
@@ -25,6 +25,8 @@ namespace coconut
 			
 		protected:
 			explicit nucleus(ClassKind root, ClassKind kind);
+			
+		public:
 			virtual ~nucleus();
 		
 		protected:
