@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT String : public Object
 	{
-	COCONUT_KDCL(coconut.String, Object.String)
+	COCONUT_CLASSDECLARE(coconut.String, Object.String)
 		
 	public:
 		String();
@@ -30,14 +30,14 @@ namespace coconut
 		String(const char32_t * utf32_str);
 		virtual ~String();
 		
-		// COCONUT_KTOD String normalize(const String & str, NormalizationForm option);
+		// COCONUT_CLASSMETHOD String normalize(const String & str, NormalizationForm option);
 		
 		template <typename... ArgsT>
-		COCONUT_KTOD String format(const char * utf8_fmt, ArgsT &&... args)
+		COCONUT_CLASSMETHOD String format(const char * utf8_fmt, ArgsT &&... args)
 		{ return String(impl_type::uformat(utf8_fmt, std::forward<ArgsT>(args)...)); }
 		
 		template <typename... ArgsT>
-		COCONUT_KTOD String format(const char16_t * utf16_fmt, ArgsT &&... args)
+		COCONUT_CLASSMETHOD String format(const char16_t * utf16_fmt, ArgsT &&... args)
 		{ return String(impl_type::uformat(utf16_fmt, std::forward<ArgsT>(args)...)); }
 
 		virtual std::size_t hash() const

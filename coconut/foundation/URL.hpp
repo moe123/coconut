@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT URL : public Object
 	{
-	COCONUT_KDCL(coconut.URL, Object.URL)
+	COCONUT_CLASSDECLARE(coconut.URL, Object.URL)
 		
 	public:
 		URL();
@@ -27,8 +27,8 @@ namespace coconut
 		URL(const char * utf8_str);
 		virtual ~URL();
 		
-		COCONUT_KTOD const String percentEscapesEncode(const String & in, bool space_as_plus = false);
-		COCONUT_KTOD const String percentEscapesDecode(const String & in, bool plus_as_space = false);
+		COCONUT_CLASSMETHOD const String percentEscapesEncode(const String & in, bool space_as_plus = false);
+		COCONUT_CLASSMETHOD const String percentEscapesDecode(const String & in, bool plus_as_space = false);
 		
 		virtual Owning<Any> copy() const
 		COCONUT_FINAL_OVERRIDE;

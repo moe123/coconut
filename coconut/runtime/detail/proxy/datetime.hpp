@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT datetime COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.datetime, datetime)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.datetime, datetime)
 			
 		public:
 			datetime();

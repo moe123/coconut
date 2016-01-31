@@ -191,7 +191,7 @@ namespace coconut
 		return JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
 		(
 			_JobExec(
-				JobPolicyAsync,
+				option,
 				std::forward<FuncT>(func),
 				std::forward<ArgsT>(args)...
 			)

@@ -14,7 +14,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Error : public Object
 	{
-	COCONUT_KDCL(coconut.Error, Object.Error)
+	COCONUT_CLASSDECLARE(coconut.Error, Object.Error)
 		
 	public:
 		Error();

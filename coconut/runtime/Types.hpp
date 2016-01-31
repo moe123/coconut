@@ -112,7 +112,7 @@ namespace coconut
 	COCONUT_FORWARD_KDCL(String)
 	COCONUT_FORWARD_KDCL(URL)
 	
-	COCONUT_OPT(OrderedOption)
+	COCONUT_OPT_TYPED(OrderedOption, int)
 	{
 		OrderedAscending = runtime::cmp_ascending,
 		OrderedSame = runtime::cmp_same,

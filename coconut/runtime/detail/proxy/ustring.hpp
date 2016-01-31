@@ -22,7 +22,7 @@ namespace coconut
 		
 		COCONUT_PRIVATE class COCONUT_EXPORT ustring COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.ustring, ustring)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.ustring, ustring)
 		
 		public:
 			ustring();

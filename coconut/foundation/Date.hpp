@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Date : public Object
 	{
-	COCONUT_KDCL(coconut.Date, Object.Date)
+	COCONUT_CLASSDECLARE(coconut.Date, Object.Date)
 		
 	public:
 		Date();
@@ -24,20 +24,18 @@ namespace coconut
 		Date(TimeInterval seconds, const Date & since);
 		Date(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt);
 		Date(TimeInterval interval, TimeUnitOption unit_opt, const Date & since);
-		
 		virtual ~Date();
 		
+		COCONUT_CLASSMETHOD const String UTC();
+		COCONUT_CLASSMETHOD const String UTC(const Date & dtm);
+		COCONUT_CLASSMETHOD const Date fromUTC(const String & UTC);
 		
-		COCONUT_KTOD const String UTC();
-		COCONUT_KTOD const String UTC(const Date & dtm);
-		COCONUT_KTOD const Date fromUTC(const String & UTC);
+		COCONUT_CLASSMETHOD TimeInterval absoluteTime(TimeUnitOption unit_opt = TimeUnitNanoSeconds);
+		COCONUT_CLASSMETHOD TimeInterval timestamp(TimeUnitOption unit_opt, TimestampOption stamp_opt = TimestampSinceJanuary1970);
 		
-		COCONUT_KTOD TimeInterval absoluteTime(TimeUnitOption unit_opt = TimeUnitNanoSeconds);
-		COCONUT_KTOD TimeInterval timestamp(TimeUnitOption unit_opt, TimestampOption stamp_opt = TimestampSinceJanuary1970);
-		
-		COCONUT_KTOD const Date distantFuture();
-		COCONUT_KTOD const Date distantPast();
-		COCONUT_KTOD const Date now();
+		COCONUT_CLASSMETHOD const Date distantFuture();
+		COCONUT_CLASSMETHOD const Date distantPast();
+		COCONUT_CLASSMETHOD const Date now();
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;

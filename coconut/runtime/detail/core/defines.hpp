@@ -193,17 +193,17 @@
 	#define COCONUT_OVERRIDE override
 	#define COCONUT_FINAL_OVERRIDE COCONUT_OVERRIDE COCONUT_FINAL
 
-	#define COCONUT_KTOD static
+	#define COCONUT_CLASSMETHOD static
 
 	#define COCONUT_FORWARD_KDCL(KLASS) \
 		class KLASS;
 
-	#define COCONUT_RUNTIME_KDCL(NS_KLASS, TR_KLASS) \
+	#define COCONUT_RUNTIME_CLASSDECLARE(NS_KLASS, TR_KLASS) \
 		public: \
 			virtual const std::string class_name() const { return (#NS_KLASS); } \
 			virtual const std::string class_tree() const { return (#TR_KLASS); }
 
-	#define COCONUT_KDCL(NS_KLASS, TR_KLASS) \
+	#define COCONUT_CLASSDECLARE(NS_KLASS, TR_KLASS) \
 		public: \
 			virtual const std::string class_name() const COCONUT_OVERRIDE { return (#NS_KLASS); } \
 			virtual const std::string class_tree() const COCONUT_OVERRIDE { return (#TR_KLASS); }

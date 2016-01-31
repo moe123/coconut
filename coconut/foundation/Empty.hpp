@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Empty COCONUT_FINAL : public Object
 	{
-	COCONUT_KDCL(coconut.Empty, Object.Empty)
+	COCONUT_CLASSDECLARE(coconut.Empty, Object.Empty)
 		
 	public:
 		Empty();

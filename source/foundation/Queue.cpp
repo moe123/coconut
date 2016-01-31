@@ -48,7 +48,7 @@ Owning<Any> Queue::dequeue()
 	return head;
 }
 
-void Queue::enqueue(Owning<Any> ptr)
+void Queue::enqueue(const Owning<Any> & ptr)
 { if (ptr) { m_impl.push(ptr); } }
 
 #pragma mark -

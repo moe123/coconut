@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT MutableRange COCONUT_FINAL : public Range
 	{
-	COCONUT_KDCL(coconut.MutableRange, Object.Range.MutableRange)
+	COCONUT_CLASSDECLARE(coconut.MutableRange, Object.Range.MutableRange)
 		
 	public:
 		MutableRange();

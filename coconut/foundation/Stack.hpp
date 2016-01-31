@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_ABSTRACT class COCONUT_EXPORT Stack : public Object
 	{
-	COCONUT_KDCL(coconut.Stack, Object.Stack)
+	COCONUT_CLASSDECLARE(coconut.Stack, Object.Stack)
 		
 	public:
 		Stack();
@@ -31,7 +31,7 @@ namespace coconut
 	
 	public:
 		Owning<Any> pop();
-		void push(Owning<Any> ptr);
+		void push(const Owning<Any> & ptr);
 		
 		void clear();
 		

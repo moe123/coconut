@@ -14,7 +14,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Array : public Object
 	{
-	COCONUT_KDCL(coconut.Array, Object.Array)
+	COCONUT_CLASSDECLARE(coconut.Array, Object.Array)
 		
 	public:
 		Array();

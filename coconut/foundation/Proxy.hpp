@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_ABSTRACT class COCONUT_EXPORT Proxy : public Object
 	{
-	COCONUT_KDCL(coconut.Proxy, Object.Proxy)
+	COCONUT_CLASSDECLARE(coconut.Proxy, Object.Proxy)
 		
 	public:
 		Proxy();

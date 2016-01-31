@@ -14,7 +14,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Dictionary : public Object
 	{
-	COCONUT_KDCL(coconut.Dictionary, Object.Dictionary)
+	COCONUT_CLASSDECLARE(coconut.Dictionary, Object.Dictionary)
 		
 	public:
 		Dictionary();

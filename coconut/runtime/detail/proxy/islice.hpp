@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT islice COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.islice, islice)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.islice, islice)
 			
 		public:
 			islice();

@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Range : public Object
 	{
-	COCONUT_KDCL(coconut.Range, Object.Range)
+	COCONUT_CLASSDECLARE(coconut.Range, Object.Range)
 		
 	public:
 		Range();

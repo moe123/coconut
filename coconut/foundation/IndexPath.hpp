@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT IndexPath : public Object
 	{
-	COCONUT_KDCL(coconut.IndexPath, Object.IndexPath)
+	COCONUT_CLASSDECLARE(coconut.IndexPath, Object.IndexPath)
 		
 	public:
 		IndexPath();

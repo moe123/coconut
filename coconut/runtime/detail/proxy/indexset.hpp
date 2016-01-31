@@ -17,7 +17,7 @@ namespace coconut
 		
 		COCONUT_PRIVATE class COCONUT_EXPORT indexset COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.indexset, indexset)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.indexset, indexset)
 			
 		public:
 			indexset();

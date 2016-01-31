@@ -17,7 +17,7 @@ namespace coconut
 		{
 			COCONUT_PRIVATE class COCONUT_EXPORT ifstream : public std::ifstream
 			{
-			COCONUT_RUNTIME_KDCL(coconut.runtime.stream.ifstream, stream.ifstream)
+			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.ifstream, stream.ifstream)
 			
 			public:
 				ifstream();
@@ -31,7 +31,7 @@ namespace coconut
 			
 			COCONUT_PRIVATE class COCONUT_EXPORT ofstream : public std::ofstream
 			{
-			COCONUT_RUNTIME_KDCL(coconut.runtime.stream.ofstream, stream.ofstream)
+			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.ofstream, stream.ofstream)
 			
 			public:
 				ofstream();
@@ -45,7 +45,7 @@ namespace coconut
 			
 			COCONUT_PRIVATE class COCONUT_EXPORT fstream : public std::fstream
 			{
-			COCONUT_RUNTIME_KDCL(coconut.runtime.stream.fstream, stream.fstream)
+			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.fstream, stream.fstream)
 			
 			public:
 				fstream();
@@ -59,7 +59,7 @@ namespace coconut
 			
 			COCONUT_PRIVATE class COCONUT_EXPORT imstreambuf : public std::streambuf
 			{
-			COCONUT_RUNTIME_KDCL(coconut.runtime.stream.imstreambuf, stream.imstreambuf)
+			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.imstreambuf, stream.imstreambuf)
 			
 			public:
 				imstreambuf();
@@ -96,7 +96,7 @@ namespace coconut
 			
 			COCONUT_PRIVATE class COCONUT_EXPORT imstream : public std::istream
 			{
-			COCONUT_RUNTIME_KDCL(coconut.runtime.stream.imstream, stream.imstream)
+			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.imstream, stream.imstream)
 			
 			public:
 				imstream();

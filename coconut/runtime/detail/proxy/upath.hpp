@@ -17,7 +17,7 @@ namespace coconut
 		
 		COCONUT_PRIVATE class COCONUT_EXPORT upath COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.upath, upath)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.upath, upath)
 			
 		public:
 			upath();

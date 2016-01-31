@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT SortDescriptor : public Object
 	{
-	COCONUT_KDCL(coconut.SortDescriptor, Object.SortDescriptor)
+	COCONUT_CLASSDECLARE(coconut.SortDescriptor, Object.SortDescriptor)
 		
 	public:
 		SortDescriptor();

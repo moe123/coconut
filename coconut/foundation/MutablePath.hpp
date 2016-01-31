@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT MutablePath COCONUT_FINAL : public Object
 	{
-	COCONUT_KDCL(coconut.MutablePath, Object.MutablePath)
+	COCONUT_CLASSDECLARE(coconut.MutablePath, Object.MutablePath)
 
 	public:
 		MutablePath();

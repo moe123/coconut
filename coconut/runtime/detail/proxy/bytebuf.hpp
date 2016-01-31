@@ -19,7 +19,7 @@ namespace coconut
 		
 		COCONUT_PRIVATE class COCONUT_EXPORT bytebuf COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.bytebuf, bytebuf)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.bytebuf, bytebuf)
 		
 		public:
 			bytebuf();

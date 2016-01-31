@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT MutableArray : public Array
 	{
-	COCONUT_KDCL(coconut.MutableArray, Object.Array.MutableArray)
+	COCONUT_CLASSDECLARE(coconut.MutableArray, Object.Array.MutableArray)
 		
 	public:
 		MutableArray();

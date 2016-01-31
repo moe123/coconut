@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT uri COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.uri, uri)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.uri, uri)
 		
 		public:
 			uri();

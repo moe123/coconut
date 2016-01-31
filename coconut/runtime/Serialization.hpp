@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_ABSTRACT class COCONUT_EXPORT Serialization : public Object
 	{
-	COCONUT_KDCL(coconut.Object.Serialization, Object.Serialization)
+	COCONUT_CLASSDECLARE(coconut.Object.Serialization, Object.Serialization)
 	
 	protected:
 		Serialization();
@@ -21,8 +21,8 @@ namespace coconut
 		virtual ~Serialization();
 		
 	public:
-		COCONUT_KTOD OptionalReturn< Owning<Data>, Owning<Error> > dataWithCollection(const Any & collection, SerializationFormatOption format);
-		COCONUT_KTOD OptionalReturn< Owning<Any>, Owning<Error> > collectionWithData(const Data & dt, SerializationReadOption option, SerializationFormatOption format);
+		COCONUT_CLASSMETHOD OptionalReturn< Owning<Data>, Owning<Error> > dataWithCollection(const Any & collection, SerializationFormatOption format);
+		COCONUT_CLASSMETHOD OptionalReturn< Owning<Any>, Owning<Error> > collectionWithData(const Data & dt, SerializationReadOption option, SerializationFormatOption format);
 	};
 }
 

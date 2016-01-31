@@ -15,7 +15,7 @@ namespace coconut
 {
 	COCONUT_ABSTRACT class COCONUT_EXPORT Object : public runtime::nucleus
 	{
-	COCONUT_KDCL(coconut.Object, nucleus.Object)
+	COCONUT_CLASSDECLARE(coconut.Object, nucleus.Object)
 		
 	public:
 	/*
@@ -30,8 +30,8 @@ namespace coconut
 		explicit Object(ClassKind kind);
 	
 	public:
-		COCONUT_KTOD Owning<Any> copyObject(const Any & ref, CopyOption option);
-		COCONUT_KTOD Owning<Any> copyObject(const Owning<Any> & ptr, CopyOption option);
+		COCONUT_CLASSMETHOD Owning<Any> copyObject(const Any & ref, CopyOption option);
+		COCONUT_CLASSMETHOD Owning<Any> copyObject(const Owning<Any> & ptr, CopyOption option);
 	
 	public:
 	/*

@@ -15,7 +15,7 @@ namespace coconut
 {	
 	template <typename T> using ptr_declare = std::shared_ptr<T>;
 	
-	template <typename T1, typename...T2>
+	template <typename T1, typename... T2>
 	inline ptr_declare<T1> ptr_create(T2 &&...args)
 	{ return std::make_shared<T1>(std::forward<T2>(args)...); }
 	

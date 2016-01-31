@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT MutableDictionary : public Dictionary
 	{
-	COCONUT_KDCL(coconut.MutableDictionary, Object.Dictionary.MutableDictionary)
+	COCONUT_CLASSDECLARE(coconut.MutableDictionary, Object.Dictionary.MutableDictionary)
 		
 	public:
 		MutableDictionary();

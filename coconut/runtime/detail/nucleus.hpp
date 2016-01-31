@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT nucleus 
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.nucleus, nucleus)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.nucleus, nucleus)
 			
 		public:
 			nucleus();

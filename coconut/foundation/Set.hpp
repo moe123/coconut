@@ -13,7 +13,7 @@ namespace coconut
 {	
 	COCONUT_PUBLIC class COCONUT_EXPORT Set : public Object
 	{
-	COCONUT_KDCL(coconut.Set, Object.Set)
+	COCONUT_CLASSDECLARE(coconut.Set, Object.Set)
 		
 	public:
 		Set();

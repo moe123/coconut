@@ -17,7 +17,7 @@ namespace coconut
 		{
 			COCONUT_PRIVATE class COCONUT_EXPORT sha_base
 			{
-			COCONUT_RUNTIME_KDCL(coconut.runtime.hash.sha_base, hash.sha_base)
+			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.hash.sha_base, hash.sha_base)
 			
 			protected:
 				sha_base();
@@ -50,7 +50,7 @@ namespace coconut
 			
 			COCONUT_PRIVATE class COCONUT_EXPORT sha1 COCONUT_FINAL : public sha_base
 			{
-			COCONUT_KDCL(coconut.runtime.hash.sha1, hash.sha_base.sha1)
+			COCONUT_CLASSDECLARE(coconut.runtime.hash.sha1, hash.sha_base.sha1)
 				
 			public:
 				sha1();
@@ -67,7 +67,7 @@ namespace coconut
 			
 			COCONUT_PRIVATE class COCONUT_EXPORT sha256 COCONUT_FINAL : public sha_base
 			{
-			COCONUT_KDCL(coconut.runtime.hash.sha256, hash.sha_base.sha256)
+			COCONUT_CLASSDECLARE(coconut.runtime.hash.sha256, hash.sha_base.sha256)
 			
 			public:
 				sha256();

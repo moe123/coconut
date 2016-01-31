@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT OrderedSet : public Object
 	{
-	COCONUT_KDCL(coconut.OrderedSet, Object.OrderedSet)
+	COCONUT_CLASSDECLARE(coconut.OrderedSet, Object.OrderedSet)
 		
 	public:
 		OrderedSet();

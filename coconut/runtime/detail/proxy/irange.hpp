@@ -16,7 +16,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT irange COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.irange, irange)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.irange, irange)
 			
 		public:
 			irange();

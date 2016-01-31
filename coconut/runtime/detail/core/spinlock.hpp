@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT spinlock
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.spinlock, spinlock)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.spinlock, spinlock)
 		
 		public:
 			spinlock();

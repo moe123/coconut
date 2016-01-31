@@ -48,7 +48,7 @@ Owning<Any> Stack::pop()
 	return head;
 }
 
-void Stack::push(Owning<Any> ptr)
+void Stack::push(const Owning<Any> & ptr)
 { if (ptr) { m_impl.push(ptr); } }
 
 #pragma mark -

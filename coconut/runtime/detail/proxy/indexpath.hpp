@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT indexpath COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.indexpath, indexpath)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.indexpath, indexpath)
 			
 		public:
 			indexpath();

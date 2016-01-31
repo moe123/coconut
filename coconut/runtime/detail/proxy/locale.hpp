@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT locale COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.locale, locale)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.locale, locale)
 			
 		public:
 			locale();

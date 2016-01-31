@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT zombie : public nucleus
 		{
-		COCONUT_KDCL(coconut.runtime.zombie, nucleus.zombie)
+		COCONUT_CLASSDECLARE(coconut.runtime.zombie, nucleus.zombie)
 		
 		public:
 			zombie();

@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_EXPORT Slice : public Object
 	{
-	COCONUT_KDCL(coconut.Slice, Object.Slice)
+	COCONUT_CLASSDECLARE(coconut.Slice, Object.Slice)
 		
 	public:
 		Slice();

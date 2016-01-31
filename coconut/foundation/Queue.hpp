@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_ABSTRACT class COCONUT_EXPORT Queue : public Object
 	{
-	COCONUT_KDCL(coconut.Queue, Object.Queue)
+	COCONUT_CLASSDECLARE(coconut.Queue, Object.Queue)
 		
 	public:
 		Queue();
@@ -31,7 +31,7 @@ namespace coconut
 	
 	public:
 		Owning<Any> dequeue();
-		void enqueue(Owning<Any> ptr);
+		void enqueue(const Owning<Any> & ptr);
 		
 		void clear();
 		

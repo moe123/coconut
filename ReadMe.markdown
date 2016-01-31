@@ -63,7 +63,7 @@ Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C 
 - Owning<Any> template :
 	is a ref-counted container holding a pointer, could be seen as "__strong id" in Objective-C.
 
-aquiering:
+acquiring:
 
 	Owning<Class> ptr = With<Class>(...);
 

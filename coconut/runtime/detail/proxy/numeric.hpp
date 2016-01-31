@@ -15,7 +15,7 @@ namespace coconut
 	{
 		COCONUT_PRIVATE class COCONUT_EXPORT numeric COCONUT_FINAL
 		{
-		COCONUT_RUNTIME_KDCL(coconut.runtime.numeric, numeric)
+		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.numeric, numeric)
 			
 		public:
 			numeric();
