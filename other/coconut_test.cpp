@@ -8,6 +8,7 @@
 
 using namespace coconut;
 
+/*
 COCONUT_SECTION_INI
 {
 	std::cerr << " _init " << std::endl;
@@ -17,7 +18,7 @@ COCONUT_SECTION_FINI
 {
 	std::cerr << " _fini " << std::endl;
 }
-
+*/
 const Owning<Any> operator "" _U(const char * in, std::size_t sz)
 { return With<String>(in); }
 	
@@ -1010,6 +1011,10 @@ static void run_queue(void)
 int main(int argc, const char * argv[])
 {
 	Data dt_0 = { "some bytes", 10 };
+	
+	Path p_0 = u8"C:\\toto\\tata";
+	
+	std::cerr << "+ p_0 : " << p_0 << std::endl;
 	
 	for (const auto & byte : dt_0) {
 		std::cerr << std::hex << std::showbase << int(byte) << std::endl;

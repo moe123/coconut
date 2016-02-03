@@ -19,10 +19,10 @@ namespace coconut
 		URL();
 		URL(const URL & url);
 		URL & operator = (const URL & url) = default;
+		URL(URL && url);
 		URL(const Path & path);
 		URL(const String & in);
 		URL(const String & in, const URL & base_url);
-		URL(const String & in, bool is_filepath);
 		URL(const String & scheme, const String & host, const String & path);
 		URL(const char * utf8_str);
 		virtual ~URL();

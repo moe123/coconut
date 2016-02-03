@@ -196,7 +196,7 @@ namespace coconut
 			}
 			
 			template <typename StrT, typename IterT>
-			inline StrT joiner(IterT && begin, IterT && end, const StrT & sep)
+			inline StrT joiner(IterT && beg, IterT && end, const StrT & sep)
 			{
 				using char_type = typename StrT::value_type;
 				using traits_type = typename StrT::traits_type;
@@ -205,12 +205,12 @@ namespace coconut
 				typedef std::basic_ostringstream<char_type, traits_type, allocator_type> ostringstream_type;
 				ostringstream_type result;
 
-				if (begin != end) {
-					result << *begin++;
+				if (beg != end) {
+					result << *beg++;
 				}
-				while (begin!=end) {
+				while (beg != end) {
 					result << sep;
-					result << *begin++;
+					result << *beg++;
 				}
 				return result.str();
 			}

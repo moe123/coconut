@@ -30,79 +30,19 @@ upath::upath(const ustring & path, dirsep_option option) :
 upath::upath(const std::string & str_path, encoding_option encoding, dirsep_option option) :
 	m_components()
 {
-	std::string path, sep;
+	std::string path;
 	if (encoding != encoding_utf8) {
 		ustring p(str_path, encoding);
 		path = p.to_utf8();
 	} else {
 		path = str_path;
 	}
-	
-	switch (option)
-	{
-		case dirsep_auto:
-		{
-			if (algorithm::starts_with<std::string>(path, "/")) {
-				sep.assign("/");
-			} else if (algorithm::starts_with<std::string>(path, "\\")) {
-				sep.assign("\\");
-			} else {
-				size_t n_whack = std::count(path.begin(), path.end(), '/');
-				size_t n_slack = std::count(path.begin(), path.end(), '\\');
-				if (n_whack >= n_slack) {
-					sep.assign("/");
-				} else {
-					sep.assign("\\");
-				}
-			}
-		}
-		break;
-		case dirsep_slack:
-			sep.assign("\\");
-		break;
-		default:
-			sep.assign("/");
-		break;
-	}
-	m_components = algorithm::split(path, sep);
-	// sanitize
+	builtins::upath_parse(m_components, path, option);
 }
 
 upath::upath(const std::u16string & str_path, encoding_option encoding, dirsep_option option) :
-	m_components()
-{
-	std::string path, sep;
-	ustring p(str_path, encoding);
-	path = p.to_utf8();
-	switch (option)
-	{
-		case dirsep_auto:
-		{
-			if (algorithm::starts_with<std::string>(path, "/")) {
-				sep.assign("/");
-			} else if (algorithm::starts_with<std::string>(path, "\\")) {
-				sep.assign("\\");
-			} else {
-				size_t n_whack = std::count(path.begin(), path.end(), '/');
-				size_t n_slack = std::count(path.begin(), path.end(), '\\');
-				if (n_whack >= n_slack) {
-					sep.assign("/");
-				} else {
-					sep.assign("\\");
-				}
-			}
-		}
-		break;
-		case dirsep_slack:
-			sep.assign("\\");
-		break;
-		default:
-			sep.assign("/");
-		break;
-	}
-	m_components = algorithm::split(path, sep);
-	// sanitize
-}
+	upath(unicode::utf16_to_utf8(str_path), encoding_utf8, option)
+{ /* NOP */ }
 
 upath::~upath()
 { /* NOP */ }
@@ -185,7 +125,7 @@ const std::string upath::to_utf8_string(dirsep_option option) const
 			sep.assign("/");
 		break;
 	}
-	return sep + algorithm::join<std::string>(m_components, sep);
+	return algorithm::join<std::string>(m_components, sep);
 }
 
 const std::u16string upath::to_utf16_string(dirsep_option option) const

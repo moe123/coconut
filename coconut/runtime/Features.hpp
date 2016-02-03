@@ -12,14 +12,14 @@
 namespace coconut
 {
 	template <class T> struct _is_ptr : std::false_type{};
-	template <class T> struct _is_ptr< Owning<T> > : std::true_type{};
+	template <class T> struct _is_ptr< ptr_declare<T> > : std::true_type{};
 	
 	template <typename T1, typename T2>
 	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
 	{ const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
-	inline auto _conforms_to(Owning<T2> const & r, std::true_type) -> bool
+	inline auto _conforms_to(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(*r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
@@ -27,7 +27,7 @@ namespace coconut
 	{ return r . template isKindOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _kind_of(Owning<T2> const & r, std::true_type) -> bool
+	inline auto _kind_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isKindOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -35,7 +35,7 @@ namespace coconut
 	{ return r . template isSubclassOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _subclass_of(Owning<T2> const & r, std::true_type) -> bool
+	inline auto _subclass_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isSubclassOf<T1>()); }
 
 	template <typename T1, typename T2>
@@ -43,7 +43,7 @@ namespace coconut
 	{ return r . template isMemberOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _member_of(Owning<T2> const & r, std::true_type) -> bool
+	inline auto _member_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isMemberOf<T1>()); }
 
 	template <typename T1, typename T2>
@@ -51,7 +51,7 @@ namespace coconut
 	{ return r . template  isAncestorOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _ancestor_of(Owning<T2> const & r, std::true_type) -> bool
+	inline auto _ancestor_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isAncestorOf<T1>()); }
 
 	template <typename T1, typename T2>
@@ -60,7 +60,7 @@ namespace coconut
 	{ return ref_cast<T1>(r); }
 	
 	template <typename T1, typename T2>
-	inline auto _thus(Owning<T2> const & r, std::true_type)
+	inline auto _thus(ptr_declare<T2> const & r, std::true_type)
 		-> T1 &
 	{ return (*(ptr_cast<T1>(r))); }
 
@@ -70,18 +70,18 @@ namespace coconut
 	{ return std::addressof(ref_cast<T1>(r)); }
 	
 	template <typename T1, typename T2>
-	inline auto _then(Owning<T2> const & r, std::true_type)
+	inline auto _then(ptr_declare<T2> const & r, std::true_type)
 		-> Owning<T1>
 	{ return ptr_cast<T1>(r); }
 
 	template <typename T1, typename T2>
 	inline auto _copy(const T2 & r, std::false_type)
-		-> Owning<T1>
+		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r.copyKind()); }
 	
 	template <typename T1, typename T2>
-	inline auto _copy(Owning<T2> const & r, std::true_type)
-		-> Owning<T1>
+	inline auto _copy(ptr_declare<T2> const & r, std::true_type)
+		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r->copyKind()); }
 	
 	template <typename TypeT, typename CollT>
@@ -245,8 +245,7 @@ namespace coconut
 	template <typename TypeT>
 	inline auto With(void * no_param = nullptr)
 		-> Owning<TypeT>
-	{
-		static_assert(std::is_base_of<Any, TypeT>::value, "");
+	{ /* static_assert(std::is_base_of<Any, TypeT>::value, ""); */
 		COCONUT_UNUSED(no_param); return ptr_create<TypeT>();
 	}
 	

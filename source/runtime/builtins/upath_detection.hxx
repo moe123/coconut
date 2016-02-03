@@ -11,14 +11,14 @@ namespace coconut
 		namespace builtins
 		{
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			bool upath_isposix(const std::string & utf8_in, std::string & utf8_drive, dirsep_option & dsep, bool & isabs)
+			bool upath_isposix(const std::string & utf8_path, std::string & utf8_drive, dirsep_option & dsep, bool & isabs)
 			{
 				try {
 					std::smatch match_posix;
 					std::ssub_match sub_match;
 					dsep = dirsep_none;
 					std::regex regex_posix{R"(^(/)?([^/\0]+(/)?)+$)"};
-					if (std::regex_match(utf8_in, match_posix, regex_posix)) {
+					if (std::regex_match(utf8_path, match_posix, regex_posix)) {
 						sub_match = match_posix[1];
 						utf8_drive.assign(sub_match.str());
 						if (sub_match.str() == "/") {
@@ -32,7 +32,7 @@ namespace coconut
 			}
 				
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			bool upath_isntfs(const std::string & utf8_in, std::string & utf8_drive, dirsep_option & dsep, bool & popfirst, bool & isabs)
+			bool upath_isntfs(const std::string & utf8_path, std::string & utf8_drive, dirsep_option & dsep, bool & popfirst, bool & isabs)
 			{
 				try {
 					std::smatch match_win;
@@ -42,7 +42,7 @@ namespace coconut
 					isabs = false;
 					std::regex regex_win{R"(^(\\|/|)([a-zA-z]:)(\\|/)(.*)$)"};
 					std::regex regex_win_rel{R"(^(\\)?([^\\\0]+(\\)?)+$)"};
-					if (std::regex_match(utf8_in, match_win, regex_win)) {
+					if (std::regex_match(utf8_path, match_win, regex_win)) {
 						if (match_win.size() == 5) {
 							std::smatch match_ntfs;
 							
@@ -64,13 +64,20 @@ namespace coconut
 							}
 							
 							regex_win.assign(R"(^(\\|/|)[a-zA-Z]:(\\|/)(((?![<>:\"/\\|?*]).)*[^ ](\\|/))*((?![<>:\"/\\|?*]).)*[^ ](\\|/)?$)");
-							if (std::regex_match(utf8_in, match_ntfs, regex_win)) {
+							if (std::regex_match(utf8_path, match_ntfs, regex_win)) {
 								return true;
 							}
 						}
-					} else if (std::regex_match(utf8_in, match_win, regex_win_rel)) {
-						dsep = dirsep_slack;
-						return true;
+					} else if (std::regex_match(utf8_path, match_win, regex_win_rel)) {
+						
+						sub_match = match_win[3];
+	
+						if (sub_match.str() == "\\") {
+							dsep = dirsep_slack;
+							return true;
+						}
+						
+						return false;
 					}
 				} catch (std::regex_error e) { /* NOP */ }
 				
@@ -78,28 +85,61 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			dirsep_option upath_match(std::string & utf8_in, std::string & utf8_root, bool & isabs)
+			dirsep_option upath_match(std::string & utf8_path, std::string & utf8_root, bool & isabs)
 			{
 				dirsep_option dsep = dirsep_none;
 				isabs = false;
-				if (utf8_in.size()) {
+				if (utf8_path.size()) {
 					bool popfirst = false;
-					if (upath_isntfs(utf8_in, utf8_root, dsep, popfirst, isabs)) {
+					if (upath_isntfs(utf8_path, utf8_root, dsep, popfirst, isabs)) {
 						if (popfirst) {
-							utf8_in.erase(0, 1);
-							if (dirsep_slack == dsep && utf8_in.back() == '\\') {
-								utf8_in.pop_back();
-							} else if (dirsep_whack == dsep && utf8_in.back() == '/') {
-								utf8_in.pop_back();
-							}
+							utf8_path.erase(0, 1);
 						}
-					} else if (upath_isposix(utf8_in, utf8_root, dsep, isabs)) {
-						if (utf8_in.back() == '/') {
-							utf8_in.pop_back();
+						if (dirsep_slack == dsep && utf8_path.back() == '\\') {
+							utf8_path.pop_back();
+						} else if (dirsep_whack == dsep && utf8_path.back() == '/') {
+							utf8_path.pop_back();
+						}
+						utf8_root.clear();
+					} else if (upath_isposix(utf8_path, utf8_root, dsep, isabs)) {
+						if (utf8_path.back() == '/') {
+							utf8_path.pop_back();
 						}
 					}
 				}
 				return dsep;
+			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			void upath_parse(std::vector<std::string> & out, const std::string & utf8_path, dirsep_option option)
+			{
+				std::string root, sep;
+				std::string path(utf8_path);
+				bool isabs;
+				dirsep_option result = builtins::upath_match(path, root, isabs);
+				if (result != dirsep_none) {
+					if (option != dirsep_auto && option != result) {
+						return;
+					}
+					switch (result)
+					{
+						case dirsep_slack:
+							sep.assign("\\");
+							break;
+						default:
+							sep.assign("/");
+							break;
+					}
+					if (isabs && root.size()) {
+						out.push_back(root);
+					}
+					
+					std::vector<std::string> comps;
+					algorithm::explode(comps, sep, path);
+					if (comps.size()) {
+						out.insert(out.end(), comps.begin(), comps.end());
+					}
+				}
 			}
 		}
 	}

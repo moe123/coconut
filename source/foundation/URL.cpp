@@ -22,6 +22,11 @@ URL::URL(const URL & url) :
 	m_impl(url.m_impl, false)
 { /* NOP */ }
 
+URL::URL(URL && url) :
+	Object(URLClass),
+	m_impl(std::move(url.m_impl), false)
+{ /* NOP */ }
+
 URL::URL(const Path & path) :
 	Object(URLClass),
 	m_impl(path.stringValue(), true, false)
@@ -35,11 +40,6 @@ URL::URL(const String & in) :
 URL::URL(const String & in, const URL & url) :
 	Object(URLClass),
 	m_impl(in.stringValue(), url.m_impl, false)
-{ /* NOP */ }
-
-URL::URL(const String & in, bool is_filepath) :
-	Object(URLClass),
-	m_impl(in.stringValue(), is_filepath, false)
 { /* NOP */ }
 
 URL::URL(const String & scheme, const String & host, const String & path) :
@@ -94,39 +94,43 @@ bool URL::isFileURL() const
 #pragma mark -
 
 const URL URL::normalizedURL() const
-{ return URL(String(impl_type(m_impl, true).to_string()), false); }
+{
+	URL ret;
+	ret.m_impl = impl_type(m_impl, true);
+	return ret;
+}
 
 const String URL::specifier() const
-{ return String(m_impl.specifier()); }
+{ return String{m_impl.specifier()}; }
 
 #pragma mark -
 
 const String URL::scheme() const
-{ return String(m_impl.scheme()); }
+{ return String{m_impl.scheme()}; }
 
 const String URL::host() const
-{ return String(m_impl.scheme()); }
+{ return String{m_impl.scheme()}; }
 
 std::size_t URL::port() const
 { return m_impl.port(); }
 
 const String URL::user() const
-{ return String(m_impl.user()); }
+{ return String{m_impl.user()}; }
 
 const String URL::password() const
-{ return String(m_impl.password()); }
+{ return String{m_impl.password()}; }
 
 const String URL::path() const
-{ return String(m_impl.path()); }
+{ return String{m_impl.path()}; }
 
 const String URL::parameter() const
-{ return String(m_impl.parameter()); }
+{ return String{m_impl.parameter()}; }
 
 const String URL::query() const
-{ return String(m_impl.query()); }
+{ return String{m_impl.query()}; }
 
 const String URL::fragment() const
-{ return String(m_impl.fragment()); }
+{ return String{m_impl.fragment()}; }
 
 #pragma mark -
 
@@ -143,6 +147,6 @@ const Dictionary URL::queryParameters() const
 #pragma mark -
 
 const Path URL::fileSystemRepresentation() const
-{ return Path(String(m_impl.path())); }
+{ return Path(m_impl.path().c_str()); }
 
 /* EOF */
