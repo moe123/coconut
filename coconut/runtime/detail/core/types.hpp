@@ -127,7 +127,6 @@ namespace coconut
 		COCONUT_OPT(search_options)
 		{
 			search_default = 0ULL,
-			search_binary = (1ULL << 2),
 			search_literal = (1ULL << 3),
 			search_nowidth = (1ULL << 5),
 			search_insensitive = (1ULL << 7),

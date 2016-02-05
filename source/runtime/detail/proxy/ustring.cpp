@@ -321,9 +321,6 @@ std::string ustring::make_utf8(const std::string & in8bits, float & confidence, 
 
 int ustring::compare_utf8(const std::string & utf8_a, const std::string & utf8_r, search_options options)
 {
-	if (options == search_default) {
-		options = search_nowidth;
-	}
 	if (options == search_literal || options & search_literal) {
 		options &= ~search_literal;
 		options |= search_nowidth;
@@ -361,7 +358,7 @@ ustring & ustring::operator = (const ustring & ustr)
 #pragma mark -
 
 int ustring::compare(const ustring & other_ustr) const
-{ return compare(other_ustr, search_nowidth); }
+{ return compare(other_ustr, search_literal); }
 
 int ustring::compare(const ustring & other_ustr, search_options options) const
 {
@@ -375,7 +372,7 @@ int ustring::compare(const ustring & other_ustr, search_options options) const
 }
 
 int ustring::icase_compare(const ustring & other_ustr) const
-{ return icase_compare(other_ustr, search_insensitive|search_nowidth|search_forceorder); }
+{ return icase_compare(other_ustr, search_literal|search_insensitive); }
 
 int ustring::icase_compare(const ustring & other_ustr, search_options options) const
 {
@@ -392,7 +389,7 @@ int ustring::icase_compare(const ustring & other_ustr, search_options options) c
 }
 
 int ustring::compare_localized(const ustring & other_ustr) const
-{ return compare_localized(other_ustr, search_nowidth); }
+{ return compare_localized(other_ustr, search_nowidth|search_forceorder); }
 
 int ustring::compare_localized(const ustring & other_ustr, search_options options) const
 {
@@ -717,12 +714,12 @@ bool ustring::icase_has_suffix(const ustring & ustr) const
 
 irange ustring::range_of(const ustring & ustr) const
 {
-	return range_of(ustr, irange(0, unsafe_cast<std::size_t>(m_ustr.length())), search_default);
+	return range_of(ustr, irange(0, unsafe_cast<std::size_t>(m_ustr.length())), search_literal);
 }
 
 irange ustring::range_of(const ustring & ustr, const irange & in_rg) const
 {
-	return range_of(ustr, in_rg, search_default);
+	return range_of(ustr, in_rg, search_literal);
 }
 
 irange ustring::range_of(const ustring & ustr, search_options options) const

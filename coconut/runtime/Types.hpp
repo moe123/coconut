@@ -192,8 +192,6 @@ namespace coconut
 	
 	COCONUT_OPT(StringSearchOptions)
 	{
-		StringSearchDefault = runtime::search_default,
-		StringSearchBinary = runtime::search_binary,
 		StringSearchLiteral = runtime::search_literal,
 		StringSearchWidthInsensitive = runtime::search_nowidth,
 		StringSearchCaseInsensitive = runtime::search_insensitive,

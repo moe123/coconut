@@ -205,7 +205,7 @@ ComparisonResult String::localizedStandardCompare(const String & str) const
 	if (isIdenticalTo(str)) {
 		return OrderedSame;
 	}
-	return m_impl.compare_localized(str.m_impl, StringSearchWidthInsensitive|StringSearchDiacriticInsensitive);
+	return m_impl.compare_localized(str.m_impl);
 }
 
 ComparisonResult String::localizedCaseInsensitiveCompare(const String & str) const
