@@ -1511,7 +1511,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/..\" \"${SRCROOT}/../sdk/darwin_x86_64/include\"";
+				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/..\" \"${SRCROOT}/../sdk/include\"";
 			};
 			name = Debug;
 		};
@@ -1565,7 +1565,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/..\" \"${SRCROOT}/../sdk/darwin_x86_64/include\"";
+				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/..\" \"${SRCROOT}/../sdk/include\"";
 			};
 			name = Release;
 		};
