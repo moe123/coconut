@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_ABSTRACT class COCONUT_EXPORT Queue : public Object
+	COCONUT_ABSTRACT class COCONUT_VISIBLE Queue : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Queue, Object.Queue)
 		

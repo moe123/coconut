@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_EXPORT MutableRange COCONUT_FINAL : public Range
+	COCONUT_PUBLIC class COCONUT_VISIBLE MutableRange COCONUT_FINAL : public Range
 	{
 	COCONUT_CLASSDECLARE(coconut.MutableRange, Object.Range.MutableRange)
 		

@@ -155,24 +155,24 @@
 			(((ptrdiff_t)(const void *)(ptr)) % (sz) == 0)
 	#endif
 
-	#if !defined(COCONUT_EXPORT)
+	#if !defined(COCONUT_VISIBLE)
 		#if defined(_MSC_VER)
 			#if defined(BUILD_DLL)
-				#define COCONUT_EXPORT __declspec(dllexport)
+				#define COCONUT_VISIBLE __declspec(dllexport)
 			#else
-				#define COCONUT_EXPORT __declspec(dllimport)
+				#define COCONUT_VISIBLE __declspec(dllimport)
 			#endif
 		#elif ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__)))
-			#define COCONUT_EXPORT __attribute__ ((visibility("default")))
+			#define COCONUT_VISIBLE __attribute__ ((visibility("default")))
 		#else
-			#define COCONUT_EXPORT
+			#define COCONUT_VISIBLE
 		#endif
 	#endif
 
 	#if !defined(COCONUT_ALWAYS_INLINE)
-		#if defined(_MSC_VER)
+		#if defined(_MSC_VER) || defined(__INTEL_COMPILER)
 			#define COCONUT_ALWAYS_INLINE __forceinline
-		#elif ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__)))
+		#elif (((defined(__GNUC__) && __GNUC__ >= 4) || defined(__clang__) || defined(__llvm__)))
 			#define COCONUT_ALWAYS_INLINE __inline__ __attribute__((always_inline))
 		#else
 			#define COCONUT_ALWAYS_INLINE inline
@@ -182,7 +182,7 @@
 	#if !defined(COCONUT_NEVER_INLINE)
 		#if defined(_MSC_VER)
 			#define COCONUT_NEVER_INLINE __declspec(noinline)
-		#elif ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__)))
+		#elif (((defined(__GNUC__) && __GNUC__ >= 4) || defined(__clang__) || defined(__llvm__)))
 			#define COCONUT_NEVER_INLINE __attribute__((noinline))
 		#else
 			#define COCONUT_NEVER_INLINE

@@ -15,7 +15,7 @@ namespace coconut
 	{
 		namespace hash
 		{
-			COCONUT_PRIVATE class COCONUT_EXPORT sha_base
+			COCONUT_PRIVATE class COCONUT_VISIBLE sha_base
 			{
 			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.hash.sha_base, hash.sha_base)
 			
@@ -48,7 +48,7 @@ namespace coconut
 				std::uint32_t * m_hash;
 			};
 			
-			COCONUT_PRIVATE class COCONUT_EXPORT sha1 COCONUT_FINAL : public sha_base
+			COCONUT_PRIVATE class COCONUT_VISIBLE sha1 COCONUT_FINAL : public sha_base
 			{
 			COCONUT_CLASSDECLARE(coconut.runtime.hash.sha1, hash.sha_base.sha1)
 				
@@ -65,7 +65,7 @@ namespace coconut
 				COCONUT_FINAL_OVERRIDE;
 			};
 			
-			COCONUT_PRIVATE class COCONUT_EXPORT sha256 COCONUT_FINAL : public sha_base
+			COCONUT_PRIVATE class COCONUT_VISIBLE sha256 COCONUT_FINAL : public sha_base
 			{
 			COCONUT_CLASSDECLARE(coconut.runtime.hash.sha256, hash.sha_base.sha256)
 			
@@ -82,40 +82,40 @@ namespace coconut
 				COCONUT_FINAL_OVERRIDE;
 			};
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const char * sha1_hex(const void * bytes, std::size_t len);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const char * sha1_hex(stream::imstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const char * sha1_hex(stream::ifstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha1_raw(const void * bytes, std::size_t len);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha1_raw(stream::imstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha1_raw(stream::ifstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const char * sha256_hex(const void * bytes, std::size_t len);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const char * sha256_hex(stream::imstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const char * sha256_hex(stream::ifstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha256_raw(const void * bytes, std::size_t len);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha256_raw(stream::imstream & in_binary);
 			
-			COCONUT_EXPORT
+			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha256_raw(stream::ifstream & in_binary);
 		}
 	}

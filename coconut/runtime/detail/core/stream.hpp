@@ -15,7 +15,7 @@ namespace coconut
 	{
 		namespace stream
 		{
-			COCONUT_PRIVATE class COCONUT_EXPORT ifstream : public std::ifstream
+			COCONUT_PRIVATE class COCONUT_VISIBLE ifstream : public std::ifstream
 			{
 			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.ifstream, stream.ifstream)
 			
@@ -29,7 +29,7 @@ namespace coconut
 				void open(const std::u16string & utf16_path, std::ios_base::open_mode mode = std::ios_base::in|std::ios_base::binary);
 			};
 			
-			COCONUT_PRIVATE class COCONUT_EXPORT ofstream : public std::ofstream
+			COCONUT_PRIVATE class COCONUT_VISIBLE ofstream : public std::ofstream
 			{
 			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.ofstream, stream.ofstream)
 			
@@ -43,7 +43,7 @@ namespace coconut
 				void open(const std::u16string & utf16_path, std::ios_base::open_mode mode = std::ios_base::out|std::ios_base::binary);
 			};
 			
-			COCONUT_PRIVATE class COCONUT_EXPORT fstream : public std::fstream
+			COCONUT_PRIVATE class COCONUT_VISIBLE fstream : public std::fstream
 			{
 			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.fstream, stream.fstream)
 			
@@ -57,7 +57,7 @@ namespace coconut
 				void open(const std::u16string & utf16_path, std::ios_base::open_mode mode = std::ios_base::in|std::ios_base::out|std::ios_base::binary);
 			};
 			
-			COCONUT_PRIVATE class COCONUT_EXPORT imstreambuf : public std::streambuf
+			COCONUT_PRIVATE class COCONUT_VISIBLE imstreambuf : public std::streambuf
 			{
 			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.imstreambuf, stream.imstreambuf)
 			
@@ -94,7 +94,7 @@ namespace coconut
 				char * m_current;
 			};
 			
-			COCONUT_PRIVATE class COCONUT_EXPORT imstream : public std::istream
+			COCONUT_PRIVATE class COCONUT_VISIBLE imstream : public std::istream
 			{
 			COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.imstream, stream.imstream)
 			

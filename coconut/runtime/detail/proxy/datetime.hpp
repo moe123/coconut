@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT datetime COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE datetime COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.datetime, datetime)
 			

@@ -20,7 +20,7 @@ namespace coconut
 		class locale;
 		class irange;
 		
-		COCONUT_PRIVATE class COCONUT_EXPORT ustring COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE ustring COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.ustring, ustring)
 		

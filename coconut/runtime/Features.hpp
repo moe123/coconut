@@ -145,7 +145,7 @@ namespace coconut
 	{ if (r) { _enumerate_dispatch<TypeT>(*r, func, options); }; }
 
 	template <typename RetT, typename ErrT>
-	struct COCONUT_EXPORT OptionalReturn COCONUT_FINAL
+	struct COCONUT_VISIBLE OptionalReturn COCONUT_FINAL
 	{
 		explicit OptionalReturn() : m_success{}, m_error{}, m_valid(false) { /* NOP */ }
 		
@@ -169,7 +169,7 @@ namespace coconut
 	};
 	
 	template <typename T>
-	struct COCONUT_EXPORT JobDelegate COCONUT_FINAL
+	struct COCONUT_VISIBLE JobDelegate COCONUT_FINAL
 	{
 		explicit JobDelegate(std::future<T> && f) : m_fut(std::move(f)) { /* NOP */ }
 		

@@ -17,7 +17,7 @@ namespace coconut
 		class upath;
 		class uri;
 		
-		COCONUT_PRIVATE class COCONUT_EXPORT bytebuf COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE bytebuf COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.bytebuf, bytebuf)
 		

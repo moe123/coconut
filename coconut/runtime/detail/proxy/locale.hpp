@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT locale COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE locale COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.locale, locale)
 			

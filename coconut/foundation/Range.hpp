@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_EXPORT Range : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Range : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Range, Object.Range)
 		
@@ -93,22 +93,22 @@ namespace coconut
 		impl_type m_impl;
 	};
 	
-	COCONUT_EXPORT
+	COCONUT_VISIBLE
 	bool EqualRanges(const Range & rg1, const Range & rg2);
 	
-	COCONUT_EXPORT
+	COCONUT_VISIBLE
 	Range IntersectionRange(const Range & rg1, const Range & rg2);
 	
-	COCONUT_EXPORT
+	COCONUT_VISIBLE
 	bool LocationInRange(std::size_t location, const Range & rg);
 	
-	COCONUT_EXPORT
+	COCONUT_VISIBLE
 	Range MakeRange(std::size_t location, std::size_t length);
 	
-	COCONUT_EXPORT
+	COCONUT_VISIBLE
 	std::size_t MaxRange(const Range & rg);
 	
-	COCONUT_EXPORT
+	COCONUT_VISIBLE
 	Range UnionRange(const Range & rg1, const Range & rg2);
 }
 

@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT islice COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE islice COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.islice, islice)
 			

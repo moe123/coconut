@@ -13,7 +13,7 @@
 
 namespace coconut
 {
-	COCONUT_ABSTRACT class COCONUT_EXPORT Object : public runtime::nucleus
+	COCONUT_ABSTRACT class COCONUT_VISIBLE Object : public runtime::nucleus
 	{
 	COCONUT_CLASSDECLARE(coconut.Object, nucleus.Object)
 		

@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT uri COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE uri COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.uri, uri)
 		

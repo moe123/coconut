@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT nucleus 
+		COCONUT_PRIVATE class COCONUT_VISIBLE nucleus 
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.nucleus, nucleus)
 			

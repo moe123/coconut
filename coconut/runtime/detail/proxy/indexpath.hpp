@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT indexpath COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE indexpath COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.indexpath, indexpath)
 			

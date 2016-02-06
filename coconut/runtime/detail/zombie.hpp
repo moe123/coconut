@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_EXPORT zombie : public nucleus
+		COCONUT_PRIVATE class COCONUT_VISIBLE zombie : public nucleus
 		{
 		COCONUT_CLASSDECLARE(coconut.runtime.zombie, nucleus.zombie)
 		

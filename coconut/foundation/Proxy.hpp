@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_ABSTRACT class COCONUT_EXPORT Proxy : public Object
+	COCONUT_ABSTRACT class COCONUT_VISIBLE Proxy : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Proxy, Object.Proxy)
 		

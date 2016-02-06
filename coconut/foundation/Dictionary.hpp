@@ -12,7 +12,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_EXPORT Dictionary : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Dictionary : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Dictionary, Object.Dictionary)
 		

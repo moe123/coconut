@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_ABSTRACT class COCONUT_EXPORT Stack : public Object
+	COCONUT_ABSTRACT class COCONUT_VISIBLE Stack : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Stack, Object.Stack)
 		

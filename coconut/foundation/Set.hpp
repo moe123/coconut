@@ -11,7 +11,7 @@
 
 namespace coconut
 {	
-	COCONUT_PUBLIC class COCONUT_EXPORT Set : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Set : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Set, Object.Set)
 		

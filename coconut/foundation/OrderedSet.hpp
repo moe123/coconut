@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_EXPORT OrderedSet : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE OrderedSet : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.OrderedSet, Object.OrderedSet)
 		

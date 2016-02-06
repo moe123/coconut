@@ -12,7 +12,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_EXPORT Array : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Array : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Array, Object.Array)
 		

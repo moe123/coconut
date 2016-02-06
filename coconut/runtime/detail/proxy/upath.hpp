@@ -15,7 +15,7 @@ namespace coconut
 	{
 		class ustring;
 		
-		COCONUT_PRIVATE class COCONUT_EXPORT upath COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE upath COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.upath, upath)
 			
