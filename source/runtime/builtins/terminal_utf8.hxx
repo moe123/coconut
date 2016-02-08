@@ -62,6 +62,9 @@ namespace coconut
 			bool terminal_setup()
 			{
 #if defined(__MICROSOFT__)
+			#ifndef CP_UTF8
+				#define CP_UTF8 65001
+			#endif
 				if (IsValidCodePage(CP_UTF8)) {
 					if (!SetConsoleCP(CP_UTF8)) {
 						return false;
