@@ -330,7 +330,6 @@
 		D5F5AB611BC9C9CC00902D69 /* Serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5F5AB5F1BC9C9CC00902D69 /* Serialization.cpp */; };
 		D5F819A71BE7EC0500AE4EBD /* MutableSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5F819A61BE7EC0500AE4EBD /* MutableSet.hpp */; };
 		D5F819A81BE7EC0500AE4EBD /* MutableSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5F819A61BE7EC0500AE4EBD /* MutableSet.hpp */; };
-		D5FF17271C35D2810059AD75 /* coconut_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5DDFBAC1BC49FFD00E5328A /* coconut_test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1227,7 +1226,6 @@
 				D595B93A1BC9A4690051FF91 /* ustring.cpp in Sources */,
 				D595B92A1BC9A4690051FF91 /* bytebuf.cpp in Sources */,
 				D595B9381BC9A4690051FF91 /* uri.cpp in Sources */,
-				D5FF17271C35D2810059AD75 /* coconut_test.cpp in Sources */,
 				D595B92C1BC9A4690051FF91 /* datetime.cpp in Sources */,
 				D595B9241BC9A4690051FF91 /* spinlock.cpp in Sources */,
 				D595B9261BC9A4690051FF91 /* stream.cpp in Sources */,

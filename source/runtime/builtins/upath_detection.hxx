@@ -100,7 +100,9 @@ namespace coconut
 						} else if (dirsep_whack == dsep && utf8_path.back() == '/') {
 							utf8_path.pop_back();
 						}
-						utf8_root.clear();
+						if (utf8_root.size()) {
+							utf8_path.erase(0, utf8_root.size());
+						}
 					} else if (upath_isposix(utf8_path, utf8_root, dsep, isabs)) {
 						if (utf8_path.back() == '/') {
 							utf8_path.pop_back();
@@ -121,6 +123,7 @@ namespace coconut
 					if (option != dirsep_auto && option != result) {
 						return;
 					}
+					
 					switch (result)
 					{
 						case dirsep_slack:
@@ -130,14 +133,17 @@ namespace coconut
 							sep.assign("/");
 							break;
 					}
-					if (isabs && root.size()) {
-						out.push_back(root);
-					}
 					
 					std::vector<std::string> comps;
 					algorithm::explode(comps, sep, path);
 					if (comps.size()) {
 						out.insert(out.end(), comps.begin(), comps.end());
+					}
+					if (!out.front().size()) {
+						out.erase(out.begin());
+					}
+					for (const auto & comp : comps) {
+						std::cerr << "+ " << comp << std::endl;
 					}
 				}
 			}

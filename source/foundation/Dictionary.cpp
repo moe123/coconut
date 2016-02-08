@@ -152,8 +152,7 @@ const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selk
 		Owning<Any> k = (*it).first;
 		Owning<Any> v;
 		if (k) {
-			//v = k->valueForSelectorKey(utf8_selkey, arg);
-			v = k->performSelectorKey(utf8_selkey, arg);
+			v = k->valueForSelectorKey(utf8_selkey, arg);
 		}
 		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);

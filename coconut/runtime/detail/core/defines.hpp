@@ -65,12 +65,6 @@
 		#define _CRT_SECURE_NO_WARNINGS 1
 	#endif
 
-	#include <winsock2.h>
-	#include <ws2tcpip.h>
-	#include <rpcdce.h>
-	#include <wincrypt.h>
-	#include <windows.h>
-
 	#ifndef _MSC_VER
 		#include <sys/param.h>
 	#endif
@@ -195,7 +189,7 @@
 
 	#define COCONUT_CLASSMETHOD static
 
-	#define COCONUT_FORWARD_KDCL(KLASS) \
+	#define COCONUT_CLASSFORWARD_DCL(KLASS) \
 		class KLASS;
 
 	#define COCONUT_RUNTIME_CLASSDECLARE(NS_KLASS, TR_KLASS) \

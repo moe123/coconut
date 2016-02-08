@@ -4,18 +4,26 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+#if defined(__MICROSOFT__)
+	#include <winsock2.h>
+	#include <ws2tcpip.h>
+	#include <rpcdce.h>
+	#include <wincrypt.h>
+	#include <windows.h>
+#endif
+
 namespace coconut
 {
 	namespace runtime
 	{
 		namespace builtins
 		{
-			namespace { std::mutex upath_absolute_mtx; }
+			// namespace { std::mutex upath_absolute_mtx; }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string upath_absolute(const std::string & utf8_in)
 			{
-				std::unique_lock<std::mutex> auto_lock(upath_absolute_mtx);
+				// std::unique_lock<std::mutex> auto_lock(upath_absolute_mtx);
 				std::string p8;
 #if defined(__MICROSOFT__)
 				std::wstring uft16_out;

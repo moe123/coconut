@@ -38,6 +38,10 @@ upath::upath(const std::string & str_path, encoding_option encoding, dirsep_opti
 		path = str_path;
 	}
 	builtins::upath_parse(m_components, path, option);
+	
+	for (const auto & comp : m_components) {
+		std::cerr << "+ " << comp << std::endl;
+	}
 }
 
 upath::upath(const std::u16string & str_path, encoding_option encoding, dirsep_option option) :

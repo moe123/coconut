@@ -592,21 +592,15 @@ std::size_t nucleus::size() const { return sizeof(*this); }
 
 #pragma mark -
 
-std::size_t nucleus::sig() const
-{
-	return unsafe_cast<std::size_t>(this);
-}
+std::ptrdiff_t nucleus::sig() const
+{ return unsafe_cast<std::ptrdiff_t>(this); }
 
 const std::string nucleus::addr() const
-{
-	return m_addr;
-}
+{ return m_addr; }
 
 #pragma mark -
 
 bool nucleus::mutability() const
-{
-	return m_ismutable;
-}
+{ return m_ismutable; }
 
 /* EOF */

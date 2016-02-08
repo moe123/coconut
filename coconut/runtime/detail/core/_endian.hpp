@@ -36,10 +36,13 @@
 		#endif
 	#endif
 
-	#if defined(__MICROSOFT__)
+	#if defined(__MICROSOFT__) || defined(_XBOX_VER)
 		#ifndef BYTE_ORDER
 			#ifndef __BYTE_ORDER
 				#if defined(REG_DWORD) && (REG_DWORD == REG_DWORD_BIG_ENDIAN)
+					#define BYTE_ORDER BIG_ENDIAN
+				#endif
+				#if defined(_M_PPC)
 					#define BYTE_ORDER BIG_ENDIAN
 				#endif
 				#ifndef BYTE_ORDER
