@@ -36,17 +36,18 @@
 		#endif
 	#endif
 
-	#if defined(__MICROSOFT__) || defined(_XBOX_VER)
+	#if defined(__MICROSOFT__)
 		#ifndef BYTE_ORDER
 			#ifndef __BYTE_ORDER
 				#if defined(REG_DWORD) && (REG_DWORD == REG_DWORD_BIG_ENDIAN)
 					#define BYTE_ORDER BIG_ENDIAN
 				#endif
-				#if defined(_M_PPC)
-					#define BYTE_ORDER BIG_ENDIAN
-				#endif
 				#ifndef BYTE_ORDER
-					#define BYTE_ORDER LITTLE_ENDIAN
+					#if defined(_M_PPC)
+						#define BYTE_ORDER BIG_ENDIAN
+					#else
+						#define BYTE_ORDER LITTLE_ENDIAN
+					#endif
 				#endif
 			#else
 				#define BYTE_ORDER __BYTE_ORDER
@@ -60,7 +61,11 @@
 		#elif defined(_BYTE_ORDER)
 			#define BYTE_ORDER _BYTE_ORDER
 		#else
-			#define BYTE_ORDER LITTLE_ENDIAN
+			#if defined(_M_PPC) || defined(__ppc__) || defined(__ppc64__)
+				#define BYTE_ORDER BIG_ENDIAN
+			#else
+				#define BYTE_ORDER LITTLE_ENDIAN
+			#endif
 		#endif
 	#endif
 

@@ -49,7 +49,7 @@ namespace coconut
 				return _bswap16(x);
 			#elif defined(__GNUC__) || defined(__clang__)
 				return __builtin_bswap16(x);
-			#elif defined(_MSC_VER)
+			#elif __MICROSOFT_VS__
 				return _byteswap_ushort(x);
 			#else
 				std::uint16_t v;
@@ -65,7 +65,7 @@ namespace coconut
 				return OSSwapInt32(x);
 			#elif defined(__GNUC__) || defined(__clang__)
 				return __builtin_bswap32(x);
-			#elif defined(_MSC_VER)
+			#elif __MICROSOFT_VS__
 				return _byteswap_ulong(x);
 			#else
 				std::uint32_t v;
@@ -81,7 +81,7 @@ namespace coconut
 				return OSSwapInt64(x);
 			#elif defined(__GNUC__) || defined(__clang__)
 				return __builtin_bswap64(x);
-			#elif defined(_MSC_VER)
+			#elif __MICROSOFT_VS__
 				return _byteswap_uint64(x);
 			#else
 				std::uint64_t v = (

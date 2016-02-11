@@ -54,29 +54,52 @@
 	#include <CoreFoundation/CoreFoundation.h>
 #endif
 
-#if !defined(__CYGWIN__) && (defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64))
+#if defined(__CYGWIN__)
+	#error __CYGWIN__
+#endif
+
+#if defined(__MINGW32__)
+	#if !defined(__MINGW64__)
+		#error __MINGW32__
+	#else
+		#define __MICROSOFT_MINGW__ 1
+	#endif
+#endif
+
+#if XBOXONE || defined(_XBOX_VER)
+	#define __MICROSOFT_XBOX__ 1
+#endif
+
+#ifdef _MSC_VER
+	#define __MICROSOFT_VS__ 1
+#endif
+
+#if __MICROSOFT_VS__ || __MICROSOFT_XBOX__ || __MICROSOFT_MINGW__
 	#ifndef __MICROSOFT__
 		#define __MICROSOFT__ 1
 	#endif
-	#ifndef _SCL_SECURE_NO_WARNINGS
-		#define _SCL_SECURE_NO_WARNINGS 1
-	#endif
-	#ifndef _CRT_SECURE_NO_WARNINGS
-		#define _CRT_SECURE_NO_WARNINGS 1
-	#endif
 
-	#ifndef _MSC_VER
+	#if __MICROSOFT_MINGW__
 		#include <sys/param.h>
+		#include <sys/types.h>
 	#endif
 
-	#ifndef SIZE_MAX
-		#if defined(WIN64) || defined(_WIN64)
-			#define SIZE_MAX _UI64_MAX
-		#else
-			#define SIZE_MAX _UI32_MAX
+	#ifdef __MICROSOFT_VS__
+		#ifndef SIZE_MAX
+			#if defined(WIN64) || defined(_WIN64)
+				#define SIZE_MAX _UI64_MAX
+			#else
+				#define SIZE_MAX _UI32_MAX
+			#endif
+		#endif
+
+		#ifndef _SCL_SECURE_NO_WARNINGS
+			#define _SCL_SECURE_NO_WARNINGS 1
+		#endif
+		#ifndef _CRT_SECURE_NO_WARNINGS
+			#define _CRT_SECURE_NO_WARNINGS 1
 		#endif
 	#endif
-
 #endif
 
 #include <coconut/runtime/detail/core/_endian.hpp>
@@ -118,7 +141,7 @@
 	#define __COCONUT_END_DECLS }
 
 	#if !defined(COCONUT_ALIGNAS)
-		#if defined(_MSC_VER)
+		#if __MICROSOFT_VS__
 			#define COCONUT_ALIGNAS(x) __declspec( align(x) )
 		#elif ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__)))
 			#if defined(__clang__) || defined(__llvm__)
@@ -135,7 +158,7 @@
 	#endif
 
 	#if !defined(COCONUT_ALIGNOF)
-		#if defined(_MSC_VER)
+		#if __MICROSOFT_VS__
 			#define COCONUT_ALIGNOF(t) __alignof(t)
 		#elif ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__)))
 			#define COCONUT_ALIGNOF(t) __alignof__(t)
@@ -150,7 +173,7 @@
 	#endif
 
 	#if !defined(COCONUT_VISIBLE)
-		#if defined(_MSC_VER)
+		#if __MICROSOFT_VS__
 			#if defined(BUILD_DLL)
 				#define COCONUT_VISIBLE __declspec(dllexport)
 			#else
@@ -164,7 +187,7 @@
 	#endif
 
 	#if !defined(COCONUT_ALWAYS_INLINE)
-		#if defined(_MSC_VER) || defined(__INTEL_COMPILER)
+		#if __MICROSOFT_VS__ || defined(__INTEL_COMPILER)
 			#define COCONUT_ALWAYS_INLINE __forceinline
 		#elif (((defined(__GNUC__) && __GNUC__ >= 4) || defined(__clang__) || defined(__llvm__)))
 			#define COCONUT_ALWAYS_INLINE __inline__ __attribute__((always_inline))
@@ -174,7 +197,7 @@
 	#endif
 
 	#if !defined(COCONUT_NEVER_INLINE)
-		#if defined(_MSC_VER)
+		#if __MICROSOFT_VS__
 			#define COCONUT_NEVER_INLINE __declspec(noinline)
 		#elif (((defined(__GNUC__) && __GNUC__ >= 4) || defined(__clang__) || defined(__llvm__)))
 			#define COCONUT_NEVER_INLINE __attribute__((noinline))

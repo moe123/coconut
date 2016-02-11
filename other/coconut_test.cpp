@@ -1010,6 +1010,11 @@ static void run_queue(void)
 
 int main(int argc, const char * argv[])
 {
+	String s_0 = u"\u00f6";
+	String s_1 = u"o\u0308";
+	
+	if (s_0 == s_1) {}
+	
 	StringSearchOptions opt_0 = StringSearchLiteral | StringSearchBackwards;
 	StringSearchOptions opt_1 = StringSearchLiteral | StringSearchNumeric;
 	

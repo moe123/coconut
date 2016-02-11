@@ -169,9 +169,9 @@ namespace coconut
 	};
 	
 	template <typename T>
-	struct COCONUT_VISIBLE JobDelegate COCONUT_FINAL
+	struct COCONUT_VISIBLE JobReturn COCONUT_FINAL
 	{
-		explicit JobDelegate(std::future<T> && f) : m_fut(std::move(f)) { /* NOP */ }
+		explicit JobReturn(std::future<T> && f) : m_fut(std::move(f)) { /* NOP */ }
 		
 		T operator () () { return m_fut.get(); }
 		
@@ -186,29 +186,21 @@ namespace coconut
 	
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
-		-> JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
 	{
-		return JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+		return JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
 		(
-			_JobExec(
-				option,
-				std::forward<FuncT>(func),
-				std::forward<ArgsT>(args)...
-			)
-		 );
+			_JobExec(option, std::forward<FuncT>(func), std::forward<ArgsT>(args)...)
+		);
 	}
 	
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobExec(FuncT && func, ArgsT &&... args)
-		-> JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
 	{
-		return JobDelegate<typename std::result_of<FuncT(ArgsT...)>::type>
+		return JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
 		(
-			_JobExec(
-				JobPolicyAsync,
-				std::forward<FuncT>(func),
-				std::forward<ArgsT>(args)...
-			)
+			_JobExec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...)
 		);
 	}
 	
