@@ -20,7 +20,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	inline auto _conforms_to(ptr_declare<T2> const & r, std::true_type) -> bool
-	{ T1 * ptr = dynamic_cast<T1 *>(std::addressof(*r)); return (ptr != nullptr); }
+	{ if (r) { const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(*r)); return (ptr != nullptr); }; return false; }
 	
 	template <typename T1, typename T2>
 	inline auto _kind_of(const T2 & r, std::false_type) -> bool
