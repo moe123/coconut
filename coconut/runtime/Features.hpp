@@ -55,6 +55,14 @@ namespace coconut
 	{ return (r && r -> template isAncestorOf<T1>()); }
 
 	template <typename T1, typename T2>
+	inline auto _parent_of(const T2 & r, std::false_type) -> bool
+	{ return r . template isParenOf<T1>(); }
+	
+	template <typename T1, typename T2>
+	inline auto _parent_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	{ return (r && r -> template isParenOf<T1>()); }
+	
+	template <typename T1, typename T2>
 	inline auto _thus(const T2 & r, std::false_type)
 		-> T1 &
 	{ return ref_cast<T1>(r); }
@@ -233,6 +241,10 @@ namespace coconut
 	template <typename T1, typename T2>
 	inline auto AncestorOf(T2 && r) -> bool
 	{ return _ancestor_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	
+	template <typename T1, typename T2>
+	inline auto isParentOf(T2 && r) -> bool
+	{ return _parent_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename TypeT>
 	inline auto With(void * no_param = nullptr)

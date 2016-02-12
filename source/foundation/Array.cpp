@@ -929,28 +929,6 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption o
 
 #pragma mark -
 
-/*
- std::size_t idx = 0, sz = size();
-	if (sz) {
- std::size_t loc, len, max;
- 
- Range src(0, sz);
- Range dest = src.intersectionRange(in_rg);
- 
- loc = dest.location();
- len = dest.length();
- max = dest.maxRange();
- 
- if (loc && len) {
- for (const_iterator it = cbegin() + static_cast<difference_type>(loc); it != cbegin() + static_cast<difference_type>(max); ++it) {
- idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
- if ((*it) && (*it)->isEqual(obj)) { return idx; }
- }
- }
-	}
-	return NotFound;
-*/
-
 const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 {
 	impl_type buf;
@@ -1009,9 +987,7 @@ const String Array::componentsJoinedByString(const String & separator)
 	// TODO MutableString e.g avoiding conv utf16 to utf8 then utf16
 	std::vector<std::string> buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		if ((*it)) {
-			buf.push_back((*it)->stringValue());
-		}
+		if ((*it)) { buf.push_back((*it)->stringValue()); }
 	}
 	return String(runtime::algorithm::join<std::string>(buf, separator.stringValue()));
 }

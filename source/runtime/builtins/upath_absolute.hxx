@@ -24,22 +24,31 @@ namespace coconut
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool upath_wisdir(wchar_t * filepath)
 			{
-				DWORD attrs = GetFileAttributesW(filepath);
-				return (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY));
+				if (filepath) {
+					DWORD attrs = GetFileAttributesW(filepath);
+					return (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY));
+				}
+				return false;
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool upath_wisfile(wchar_t * filepath)
 			{
-				DWORD attrs = GetFileAttributesW(filepath);
-				return (attrs != INVALID_FILE_ATTRIBUTES && !(attrs & FILE_ATTRIBUTE_DIRECTORY));
+				if (filepath) {
+					DWORD attrs = GetFileAttributesW(filepath);
+					return (attrs != INVALID_FILE_ATTRIBUTES && !(attrs & FILE_ATTRIBUTE_DIRECTORY));
+				}
+				return false;
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool upath_wexists(wchar_t * filepath)
 			{
-				DWORD attrs = GetFileAttributesW(filepath);
-				return (attrs != INVALID_FILE_ATTRIBUTES);
+				if (filepath) {
+					DWORD attrs = GetFileAttributesW(filepath);
+					return (attrs != INVALID_FILE_ATTRIBUTES);
+				}
+				return false;
 			}
 #endif
 			
