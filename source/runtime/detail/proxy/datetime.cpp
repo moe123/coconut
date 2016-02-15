@@ -9,7 +9,8 @@
 #include <coconut/runtime/detail/proxy/locale.hpp>
 #include <coconut/runtime/detail/proxy/timezone.hpp>
 
-#include <source/runtime/builtins/datetime.hxx>
+#include <source/runtime/builtins/datetime_epoch.hxx>
+#include <source/runtime/builtins/datetime_format.hxx>
 
 using namespace coconut::runtime;
 

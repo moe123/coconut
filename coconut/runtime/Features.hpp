@@ -92,6 +92,58 @@ namespace coconut
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r->copyKind()); }
 	
+	template <typename TypeT>
+	inline auto _enumerate_aliasing
+	(
+		const Array & r,
+		const std::function<void(const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	) -> void
+	{
+		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		{ func(obj); }, options);
+	}
+	
+	template <typename TypeT>
+	inline auto _enumerate_aliasing
+	(
+		const OrderedSet & r,
+		const std::function<void(const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	) -> void
+	{
+		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		{ func(obj); }, options);
+	}
+	
+	template <typename TypeT>
+	inline auto _enumerate_aliasing
+	(
+		const Set & r,
+		const std::function<void(const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	) -> void
+	{
+		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+			[&func] (const Owning<Any> & obj, bool & stop)
+		{ func(obj); }, options);
+	}
+	
+	template <typename TypeT>
+	inline auto _enumerate_aliasing
+	(
+		const Dictionary & r,
+		const std::function<void(const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	) -> void
+	{
+		ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(
+			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+		{ func(key); }, options);
+	}
+	
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch
 	(
@@ -99,21 +151,7 @@ namespace coconut
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
-	{
-		if (ref_cast<TypeT>(r).isKindOf(ArrayClass) || ref_cast<TypeT>(r).isKindOf(OrderedSetClass)) {
-			ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
-				[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
-			{ func(obj); }, options);
-		} else if (ref_cast<TypeT>(r).isKindOf(SetClass)) {
-			ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
-				[&func] (const Owning<Any> & obj, bool & stop)
-			{ func(obj); }, options);
-		} else if (ref_cast<TypeT>(r).isKindOf(DictionaryClass)) {
-			ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(
-				[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
-			{ func(key); }, options);
-		}
-	}
+	{ _enumerate_aliasing<TypeT>(ref_cast<TypeT>(r), func, options); }
 	
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch

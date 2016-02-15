@@ -4,6 +4,55 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+#if defined(__CYGWIN__)
+	#error __CYGWIN__
+#endif
+
+#if defined(__MINGW32__)
+	#if !defined(__MINGW64__)
+		#error __MINGW32__
+	#else
+		#define __MICROSOFT_MINGW__ 1
+	#endif
+#endif
+
+#if XBOXONE || defined(_XBOX_VER)
+	#define __MICROSOFT_XBOX__ 1
+#endif
+
+#ifdef _MSC_VER
+	#define __MICROSOFT_VS__ 1
+#endif
+
+#if __MICROSOFT_VS__ || __MICROSOFT_XBOX__ || __MICROSOFT_MINGW__
+
+	#ifndef __MICROSOFT__
+		#define __MICROSOFT__ 1
+	#endif
+
+	#if __MICROSOFT_MINGW__
+		#include <sys/param.h>
+		#include <sys/types.h>
+	#endif
+
+	#ifdef __MICROSOFT_VS__
+		#ifndef SIZE_MAX
+			#if defined(WIN64) || defined(_WIN64)
+				#define SIZE_MAX _UI64_MAX
+			#else
+				#define SIZE_MAX _UI32_MAX
+			#endif
+		#endif
+
+		#ifndef _SCL_SECURE_NO_WARNINGS
+			#define _SCL_SECURE_NO_WARNINGS 1
+		#endif
+		#ifndef _CRT_SECURE_NO_WARNINGS
+			#define _CRT_SECURE_NO_WARNINGS 1
+		#endif
+	#endif
+#endif
+
 #include <cfloat>
 #include <cmath>
 #include <ctgmath>
@@ -43,64 +92,6 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-
-#if __MACH__
-	#include <mach/clock.h>
-	#include <mach/mach.h>
-	#include <mach/mach_error.h>
-#endif
-
-#if __APPLE__
-	#include <CoreFoundation/CoreFoundation.h>
-#endif
-
-#if defined(__CYGWIN__)
-	#error __CYGWIN__
-#endif
-
-#if defined(__MINGW32__)
-	#if !defined(__MINGW64__)
-		#error __MINGW32__
-	#else
-		#define __MICROSOFT_MINGW__ 1
-	#endif
-#endif
-
-#if XBOXONE || defined(_XBOX_VER)
-	#define __MICROSOFT_XBOX__ 1
-#endif
-
-#ifdef _MSC_VER
-	#define __MICROSOFT_VS__ 1
-#endif
-
-#if __MICROSOFT_VS__ || __MICROSOFT_XBOX__ || __MICROSOFT_MINGW__
-	#ifndef __MICROSOFT__
-		#define __MICROSOFT__ 1
-	#endif
-
-	#if __MICROSOFT_MINGW__
-		#include <sys/param.h>
-		#include <sys/types.h>
-	#endif
-
-	#ifdef __MICROSOFT_VS__
-		#ifndef SIZE_MAX
-			#if defined(WIN64) || defined(_WIN64)
-				#define SIZE_MAX _UI64_MAX
-			#else
-				#define SIZE_MAX _UI32_MAX
-			#endif
-		#endif
-
-		#ifndef _SCL_SECURE_NO_WARNINGS
-			#define _SCL_SECURE_NO_WARNINGS 1
-		#endif
-		#ifndef _CRT_SECURE_NO_WARNINGS
-			#define _CRT_SECURE_NO_WARNINGS 1
-		#endif
-	#endif
-#endif
 
 #include <coconut/runtime/detail/core/_endian.hpp>
 #include <coconut/runtime/detail/core/_intrinsic.hpp>

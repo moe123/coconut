@@ -99,10 +99,10 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 	Owning<Any> result;
 	if (isSelectorKey(utf8_selkey)) {
 		if (arg) {
-			if (utf8_selkey == u8"@isEqual:") {
-				result = ptr_create<Number>(isEqual(*arg));
-			} else if (utf8_selkey == u8"@compare:") {
+			if (utf8_selkey == u8"@compare:") {
 				result = ptr_create<Number>(compare(*arg));
+			} else if (utf8_selkey == u8"@isEqual:") {
+				result = ptr_create<Number>(isEqual(*arg));
 			} else if (utf8_selkey == u8"@doesContain:") {
 				result = ptr_create<Number>(doesContain(*arg));
 			} else if (utf8_selkey == u8"@isIdenticalTo:") {

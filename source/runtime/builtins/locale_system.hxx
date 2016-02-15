@@ -12,6 +12,10 @@
 	#include <windows.h>
 #endif
 
+#if __APPLE__
+	#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 #include "unicode/locid.h"
 #include "unicode/uloc.h"
 

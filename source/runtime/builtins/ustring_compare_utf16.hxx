@@ -7,9 +7,6 @@
 #include "unicode/locid.h"
 #include "unicode/coll.h"
 
-#include "unicode/dtptngen.h"
-#include "unicode/smpdtfmt.h"
-
 namespace coconut
 {
 	namespace runtime

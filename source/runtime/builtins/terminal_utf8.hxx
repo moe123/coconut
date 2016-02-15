@@ -35,7 +35,7 @@ namespace coconut
 				if (isafterxp) {
 					typedef BOOL (WINAPI * SetCurrentConsoleFontEx__)(HANDLE, BOOL, PCONSOLE_FONT_INFOEX);
 					HMODULE mod_h = GetModuleHandle(TEXT("kernel32.dll"));
-					SetCurrentConsoleFontEx__ sym = (SetCurrentConsoleFontEx__)GetProcAddress(mod_h, "SetCurrentConsoleFontEx");
+					SetCurrentConsoleFontEx__ sym = (SetCurrentConsoleFontEx__)GetProcAddress(mod_h, TEXT("SetCurrentConsoleFontEx"));
 					if (sym) {
 						CONSOLE_FONT_INFOEX inf;
 						inf.cbSize = sizeof(inf);
@@ -44,7 +44,7 @@ namespace coconut
 						inf.dwFontSize.Y = 14;
 						inf.FontFamily = FF_DONTCARE;
 						inf.FontWeight = 400;
-						lstrcpy(inf.FaceName, TEXT("Lucida Console"));
+						StringCchCopyW(inf.FaceName, LF_FACESIZE, L"Lucida Console");
 
 						sym(stdout_h, FALSE, &inf);
 						sym(stderr_h, FALSE, &inf);
@@ -55,7 +55,7 @@ namespace coconut
 				if (!havesym) {
 					typedef BOOL (WINAPI * SetConsoleFont__)(HANDLE, DWORD);
 					HMODULE mod_h = GetModuleHandle(TEXT("kernel32.dll"));
-					SetConsoleFont__ sym = (SetConsoleFont__)GetProcAddress(mod_h, "SetConsoleFont");
+					SetConsoleFont__ sym = (SetConsoleFont__)GetProcAddress(mod_h, TEXT("SetConsoleFont"));
 					if (sym) {
 						sym(stdout_h, 12);
 						sym(stderr_h, 12);

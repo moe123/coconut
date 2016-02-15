@@ -248,34 +248,36 @@
 		D59B558A1C25DA5F00739192 /* Slice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D59B55881C25DA5F00739192 /* Slice.hpp */; };
 		D59B558C1C25DA7600739192 /* Slice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59B558B1C25DA7600739192 /* Slice.cpp */; };
 		D59B558D1C25DA7600739192 /* Slice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59B558B1C25DA7600739192 /* Slice.cpp */; };
-		D5B09C9B1C35ED9F00AF0B9D /* datetime.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8A1C35ED9F00AF0B9D /* datetime.hxx */; };
-		D5B09C9C1C35ED9F00AF0B9D /* datetime.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8A1C35ED9F00AF0B9D /* datetime.hxx */; };
-		D5B09C9D1C35ED9F00AF0B9D /* datetime.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8A1C35ED9F00AF0B9D /* datetime.hxx */; };
-		D5B09C9E1C35ED9F00AF0B9D /* datetime.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8A1C35ED9F00AF0B9D /* datetime.hxx */; };
-		D5B09C9F1C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1.hxx */; };
-		D5B09CA01C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1.hxx */; };
-		D5B09CA11C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1.hxx */; };
-		D5B09CA21C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1.hxx */; };
-		D5B09CA31C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256.hxx */; };
-		D5B09CA41C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256.hxx */; };
-		D5B09CA51C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256.hxx */; };
-		D5B09CA61C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256.hxx */; };
+		D5ACD14F1C7268730042E1F6 /* filesystem_info.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5ACD14E1C7268730042E1F6 /* filesystem_info.hxx */; };
+		D5ACD1501C7268730042E1F6 /* filesystem_info.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5ACD14E1C7268730042E1F6 /* filesystem_info.hxx */; };
+		D5ACD1531C7272C90042E1F6 /* datetime_epoch.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5ACD1511C7272C90042E1F6 /* datetime_epoch.hxx */; };
+		D5ACD1541C7272C90042E1F6 /* datetime_epoch.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5ACD1511C7272C90042E1F6 /* datetime_epoch.hxx */; };
+		D5ACD1551C7272C90042E1F6 /* datetime_format.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5ACD1521C7272C90042E1F6 /* datetime_format.hxx */; };
+		D5ACD1561C7272C90042E1F6 /* datetime_format.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5ACD1521C7272C90042E1F6 /* datetime_format.hxx */; };
+		D5B09C9F1C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1_func.hxx */; };
+		D5B09CA01C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1_func.hxx */; };
+		D5B09CA11C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1_func.hxx */; };
+		D5B09CA21C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8B1C35ED9F00AF0B9D /* hash_sha1_func.hxx */; };
+		D5B09CA31C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256_func.hxx */; };
+		D5B09CA41C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256_func.hxx */; };
+		D5B09CA51C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256_func.hxx */; };
+		D5B09CA61C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8C1C35ED9F00AF0B9D /* hash_sha256_func.hxx */; };
 		D5B09CA71C35ED9F00AF0B9D /* hash_sha_base.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8D1C35ED9F00AF0B9D /* hash_sha_base.hxx */; };
 		D5B09CA81C35ED9F00AF0B9D /* hash_sha_base.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8D1C35ED9F00AF0B9D /* hash_sha_base.hxx */; };
 		D5B09CA91C35ED9F00AF0B9D /* hash_sha_base.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8D1C35ED9F00AF0B9D /* hash_sha_base.hxx */; };
 		D5B09CAA1C35ED9F00AF0B9D /* hash_sha_base.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8D1C35ED9F00AF0B9D /* hash_sha_base.hxx */; };
-		D5B09CAB1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_gui.hxx */; };
-		D5B09CAC1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_gui.hxx */; };
-		D5B09CAD1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_gui.hxx */; };
-		D5B09CAE1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_gui.hxx */; };
+		D5B09CAB1C35ED9F00AF0B9D /* locale_system.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_system.hxx */; };
+		D5B09CAC1C35ED9F00AF0B9D /* locale_system.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_system.hxx */; };
+		D5B09CAD1C35ED9F00AF0B9D /* locale_system.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_system.hxx */; };
+		D5B09CAE1C35ED9F00AF0B9D /* locale_system.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8E1C35ED9F00AF0B9D /* locale_system.hxx */; };
 		D5B09CAF1C35ED9F00AF0B9D /* serialization_xmlplist.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8F1C35ED9F00AF0B9D /* serialization_xmlplist.hxx */; };
 		D5B09CB01C35ED9F00AF0B9D /* serialization_xmlplist.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8F1C35ED9F00AF0B9D /* serialization_xmlplist.hxx */; };
 		D5B09CB11C35ED9F00AF0B9D /* serialization_xmlplist.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8F1C35ED9F00AF0B9D /* serialization_xmlplist.hxx */; };
 		D5B09CB21C35ED9F00AF0B9D /* serialization_xmlplist.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C8F1C35ED9F00AF0B9D /* serialization_xmlplist.hxx */; };
-		D5B09CB31C35ED9F00AF0B9D /* stream.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream.hxx */; };
-		D5B09CB41C35ED9F00AF0B9D /* stream.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream.hxx */; };
-		D5B09CB51C35ED9F00AF0B9D /* stream.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream.hxx */; };
-		D5B09CB61C35ED9F00AF0B9D /* stream.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream.hxx */; };
+		D5B09CB31C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream_convpath.hxx */; };
+		D5B09CB41C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream_convpath.hxx */; };
+		D5B09CB51C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream_convpath.hxx */; };
+		D5B09CB61C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C901C35ED9F00AF0B9D /* stream_convpath.hxx */; };
 		D5B09CB71C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C911C35ED9F00AF0B9D /* terminal_utf8.hxx */; };
 		D5B09CB81C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C911C35ED9F00AF0B9D /* terminal_utf8.hxx */; };
 		D5B09CB91C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D5B09C911C35ED9F00AF0B9D /* terminal_utf8.hxx */; };
@@ -415,13 +417,15 @@
 		D59B55881C25DA5F00739192 /* Slice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Slice.hpp; sourceTree = "<group>"; };
 		D59B558B1C25DA7600739192 /* Slice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slice.cpp; sourceTree = "<group>"; };
 		D5A0E4761BFFA5A2003E566D /* coconut_test_attrs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = coconut_test_attrs.hpp; sourceTree = "<group>"; };
-		D5B09C8A1C35ED9F00AF0B9D /* datetime.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime.hxx; sourceTree = "<group>"; };
-		D5B09C8B1C35ED9F00AF0B9D /* hash_sha1.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash_sha1.hxx; sourceTree = "<group>"; };
-		D5B09C8C1C35ED9F00AF0B9D /* hash_sha256.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash_sha256.hxx; sourceTree = "<group>"; };
+		D5ACD14E1C7268730042E1F6 /* filesystem_info.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = filesystem_info.hxx; sourceTree = "<group>"; };
+		D5ACD1511C7272C90042E1F6 /* datetime_epoch.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime_epoch.hxx; sourceTree = "<group>"; };
+		D5ACD1521C7272C90042E1F6 /* datetime_format.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime_format.hxx; sourceTree = "<group>"; };
+		D5B09C8B1C35ED9F00AF0B9D /* hash_sha1_func.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash_sha1_func.hxx; sourceTree = "<group>"; };
+		D5B09C8C1C35ED9F00AF0B9D /* hash_sha256_func.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash_sha256_func.hxx; sourceTree = "<group>"; };
 		D5B09C8D1C35ED9F00AF0B9D /* hash_sha_base.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash_sha_base.hxx; sourceTree = "<group>"; };
-		D5B09C8E1C35ED9F00AF0B9D /* locale_gui.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locale_gui.hxx; sourceTree = "<group>"; };
+		D5B09C8E1C35ED9F00AF0B9D /* locale_system.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locale_system.hxx; sourceTree = "<group>"; };
 		D5B09C8F1C35ED9F00AF0B9D /* serialization_xmlplist.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serialization_xmlplist.hxx; sourceTree = "<group>"; };
-		D5B09C901C35ED9F00AF0B9D /* stream.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stream.hxx; sourceTree = "<group>"; };
+		D5B09C901C35ED9F00AF0B9D /* stream_convpath.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stream_convpath.hxx; sourceTree = "<group>"; };
 		D5B09C911C35ED9F00AF0B9D /* terminal_utf8.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terminal_utf8.hxx; sourceTree = "<group>"; };
 		D5B09C921C35ED9F00AF0B9D /* upath_absolute.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = upath_absolute.hxx; sourceTree = "<group>"; };
 		D5B09C931C35ED9F00AF0B9D /* uri_escaping.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = uri_escaping.hxx; sourceTree = "<group>"; };
@@ -714,13 +718,15 @@
 		D5B09C891C35ED9F00AF0B9D /* builtins */ = {
 			isa = PBXGroup;
 			children = (
-				D5B09C8A1C35ED9F00AF0B9D /* datetime.hxx */,
-				D5B09C8B1C35ED9F00AF0B9D /* hash_sha1.hxx */,
-				D5B09C8C1C35ED9F00AF0B9D /* hash_sha256.hxx */,
+				D5ACD1511C7272C90042E1F6 /* datetime_epoch.hxx */,
+				D5ACD1521C7272C90042E1F6 /* datetime_format.hxx */,
+				D5ACD14E1C7268730042E1F6 /* filesystem_info.hxx */,
+				D5B09C8B1C35ED9F00AF0B9D /* hash_sha1_func.hxx */,
+				D5B09C8C1C35ED9F00AF0B9D /* hash_sha256_func.hxx */,
 				D5B09C8D1C35ED9F00AF0B9D /* hash_sha_base.hxx */,
-				D5B09C8E1C35ED9F00AF0B9D /* locale_gui.hxx */,
+				D5B09C8E1C35ED9F00AF0B9D /* locale_system.hxx */,
 				D5B09C8F1C35ED9F00AF0B9D /* serialization_xmlplist.hxx */,
-				D5B09C901C35ED9F00AF0B9D /* stream.hxx */,
+				D5B09C901C35ED9F00AF0B9D /* stream_convpath.hxx */,
 				D5B09C911C35ED9F00AF0B9D /* terminal_utf8.hxx */,
 				D5B09C921C35ED9F00AF0B9D /* upath_absolute.hxx */,
 				D51F01B31C51C14F00C2735C /* upath_detection.hxx */,
@@ -849,27 +855,29 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5ACD1501C7268730042E1F6 /* filesystem_info.hxx in Headers */,
 				D595B8DB1BC9A43A0051FF91 /* uri.hpp in Headers */,
 				D5B09CBC1C35ED9F00AF0B9D /* upath_absolute.hxx in Headers */,
 				D5B09CB81C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */,
 				D595B8B11BC9A43A0051FF91 /* hash.hpp in Headers */,
+				D5ACD1541C7272C90042E1F6 /* datetime_epoch.hxx in Headers */,
 				D595B8BF1BC9A43A0051FF91 /* unicode.hpp in Headers */,
 				D595B8D71BC9A43A0051FF91 /* timezone.hpp in Headers */,
 				D5B09CA81C35ED9F00AF0B9D /* hash_sha_base.hxx in Headers */,
 				D595B8D51BC9A43A0051FF91 /* numeric.hpp in Headers */,
-				D5B09CB41C35ED9F00AF0B9D /* stream.hxx in Headers */,
+				D5B09CB41C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */,
 				D595B8C51BC9A43A0051FF91 /* bytebuf.hpp in Headers */,
 				D5B09CD41C35ED9F00AF0B9D /* ustring_encoding.hxx in Headers */,
 				D512EED51C21E11300E52A3E /* islice.hpp in Headers */,
 				D5B09CCC1C35ED9F00AF0B9D /* ustring_compare_utf16.hxx in Headers */,
-				D5B09C9C1C35ED9F00AF0B9D /* datetime.hxx in Headers */,
 				D595B8DD1BC9A43A0051FF91 /* ustring.hpp in Headers */,
 				D595B9421BC9A7710051FF91 /* byteorder.hpp in Headers */,
+				D5ACD1561C7272C90042E1F6 /* datetime_format.hxx in Headers */,
 				D595B8CF1BC9A43A0051FF91 /* irange.hpp in Headers */,
 				D595B8D91BC9A43A0051FF91 /* upath.hpp in Headers */,
 				D5B09CDC1C35ED9F00AF0B9D /* ustring_searching.hxx in Headers */,
-				D5B09CA41C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */,
-				D5B09CAC1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */,
+				D5B09CA41C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */,
+				D5B09CAC1C35ED9F00AF0B9D /* locale_system.hxx in Headers */,
 				D595B9471BC9B85D0051FF91 /* _endian.hpp in Headers */,
 				D595B94B1BC9B85D0051FF91 /* _intrinsic.hpp in Headers */,
 				D5B09CC81C35ED9F00AF0B9D /* uri_parsing.hxx in Headers */,
@@ -889,7 +897,7 @@
 				D595B9491BC9B85D0051FF91 /* _inifini.hpp in Headers */,
 				D5B09CC01C35ED9F00AF0B9D /* uri_escaping.hxx in Headers */,
 				D5DDFB601BC49F4B00E5328A /* foundation.hpp in Headers */,
-				D5B09CA01C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */,
+				D5B09CA01C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
 				D5B09CC41C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B09CD81C35ED9F00AF0B9D /* ustring_parsing.hxx in Headers */,
 				D595B8B71BC9A43A0051FF91 /* iterator.hpp in Headers */,
@@ -910,15 +918,15 @@
 				D56A56D91BC4BC520056B40C /* MutablePath.hpp in Headers */,
 				D56A56DB1BC4BC520056B40C /* ByteOrder.hpp in Headers */,
 				D56A56DD1BC4BC520056B40C /* Set.hpp in Headers */,
-				D5B09CA51C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */,
+				D5B09CA51C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */,
 				D5B09CB91C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */,
-				D5B09CB51C35ED9F00AF0B9D /* stream.hxx in Headers */,
+				D5B09CB51C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */,
 				D56A56E21BC4BC520056B40C /* MutableData.hpp in Headers */,
 				D5B09CD91C35ED9F00AF0B9D /* ustring_parsing.hxx in Headers */,
 				D56A56E31BC4BC520056B40C /* Serialization.hpp in Headers */,
 				D5B09CC51C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B91FFE1C1F409C00829B3A /* Error.hpp in Headers */,
-				D5B09CA11C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */,
+				D5B09CA11C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
 				D56A56E61BC4BC520056B40C /* Proxy.hpp in Headers */,
 				D56A56E71BC4BC520056B40C /* Dictionary.hpp in Headers */,
 				D56A56E81BC4BC520056B40C /* Types.hpp in Headers */,
@@ -928,13 +936,12 @@
 				D56A56FA1BC4BC520056B40C /* Queue.hpp in Headers */,
 				D56A56FC1BC4BC520056B40C /* MutableArray.hpp in Headers */,
 				D5F819A71BE7EC0500AE4EBD /* MutableSet.hpp in Headers */,
-				D5B09C9D1C35ED9F00AF0B9D /* datetime.hxx in Headers */,
 				D56A56FE1BC4BC520056B40C /* Date.hpp in Headers */,
 				D56A57001BC4BC520056B40C /* URL.hpp in Headers */,
 				D5B09CCD1C35ED9F00AF0B9D /* ustring_compare_utf16.hxx in Headers */,
 				D5B09CC91C35ED9F00AF0B9D /* uri_parsing.hxx in Headers */,
 				D56A57011BC4BC520056B40C /* Array.hpp in Headers */,
-				D5B09CAD1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */,
+				D5B09CAD1C35ED9F00AF0B9D /* locale_system.hxx in Headers */,
 				D56A57031BC4BC520056B40C /* Stack.hpp in Headers */,
 				D56A57041BC4BC520056B40C /* Data.hpp in Headers */,
 				D5B09CC11C35ED9F00AF0B9D /* uri_escaping.hxx in Headers */,
@@ -970,15 +977,15 @@
 				D56A57601BC4BC630056B40C /* MutablePath.hpp in Headers */,
 				D56A57621BC4BC630056B40C /* ByteOrder.hpp in Headers */,
 				D56A57641BC4BC630056B40C /* Set.hpp in Headers */,
-				D5B09CA61C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */,
+				D5B09CA61C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */,
 				D5B09CBA1C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */,
-				D5B09CB61C35ED9F00AF0B9D /* stream.hxx in Headers */,
+				D5B09CB61C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */,
 				D56A57691BC4BC630056B40C /* MutableData.hpp in Headers */,
 				D5B09CDA1C35ED9F00AF0B9D /* ustring_parsing.hxx in Headers */,
 				D56A576A1BC4BC630056B40C /* Serialization.hpp in Headers */,
 				D5B09CC61C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B91FFF1C1F409C00829B3A /* Error.hpp in Headers */,
-				D5B09CA21C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */,
+				D5B09CA21C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
 				D56A576D1BC4BC630056B40C /* Proxy.hpp in Headers */,
 				D56A576E1BC4BC630056B40C /* Dictionary.hpp in Headers */,
 				D56A576F1BC4BC630056B40C /* Types.hpp in Headers */,
@@ -988,13 +995,12 @@
 				D56A57811BC4BC630056B40C /* Queue.hpp in Headers */,
 				D56A57831BC4BC630056B40C /* MutableArray.hpp in Headers */,
 				D5F819A81BE7EC0500AE4EBD /* MutableSet.hpp in Headers */,
-				D5B09C9E1C35ED9F00AF0B9D /* datetime.hxx in Headers */,
 				D56A57851BC4BC630056B40C /* Date.hpp in Headers */,
 				D56A57871BC4BC630056B40C /* URL.hpp in Headers */,
 				D5B09CCE1C35ED9F00AF0B9D /* ustring_compare_utf16.hxx in Headers */,
 				D5B09CCA1C35ED9F00AF0B9D /* uri_parsing.hxx in Headers */,
 				D56A57881BC4BC630056B40C /* Array.hpp in Headers */,
-				D5B09CAE1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */,
+				D5B09CAE1C35ED9F00AF0B9D /* locale_system.hxx in Headers */,
 				D56A578A1BC4BC630056B40C /* Stack.hpp in Headers */,
 				D56A578B1BC4BC630056B40C /* Data.hpp in Headers */,
 				D5B09CC21C35ED9F00AF0B9D /* uri_escaping.hxx in Headers */,
@@ -1026,27 +1032,29 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5ACD14F1C7268730042E1F6 /* filesystem_info.hxx in Headers */,
 				D595B8DA1BC9A43A0051FF91 /* uri.hpp in Headers */,
 				D5B09CBB1C35ED9F00AF0B9D /* upath_absolute.hxx in Headers */,
 				D5B09CB71C35ED9F00AF0B9D /* terminal_utf8.hxx in Headers */,
 				D595B8B01BC9A43A0051FF91 /* hash.hpp in Headers */,
+				D5ACD1531C7272C90042E1F6 /* datetime_epoch.hxx in Headers */,
 				D595B8BE1BC9A43A0051FF91 /* unicode.hpp in Headers */,
 				D595B8D61BC9A43A0051FF91 /* timezone.hpp in Headers */,
 				D5B09CA71C35ED9F00AF0B9D /* hash_sha_base.hxx in Headers */,
 				D595B8D41BC9A43A0051FF91 /* numeric.hpp in Headers */,
-				D5B09CB31C35ED9F00AF0B9D /* stream.hxx in Headers */,
+				D5B09CB31C35ED9F00AF0B9D /* stream_convpath.hxx in Headers */,
 				D595B8C41BC9A43A0051FF91 /* bytebuf.hpp in Headers */,
 				D5B09CD31C35ED9F00AF0B9D /* ustring_encoding.hxx in Headers */,
 				D512EED41C21E11300E52A3E /* islice.hpp in Headers */,
 				D5B09CCB1C35ED9F00AF0B9D /* ustring_compare_utf16.hxx in Headers */,
-				D5B09C9B1C35ED9F00AF0B9D /* datetime.hxx in Headers */,
 				D595B8DC1BC9A43A0051FF91 /* ustring.hpp in Headers */,
 				D595B9411BC9A7710051FF91 /* byteorder.hpp in Headers */,
+				D5ACD1551C7272C90042E1F6 /* datetime_format.hxx in Headers */,
 				D595B8CE1BC9A43A0051FF91 /* irange.hpp in Headers */,
 				D595B8D81BC9A43A0051FF91 /* upath.hpp in Headers */,
 				D5B09CDB1C35ED9F00AF0B9D /* ustring_searching.hxx in Headers */,
-				D5B09CA31C35ED9F00AF0B9D /* hash_sha256.hxx in Headers */,
-				D5B09CAB1C35ED9F00AF0B9D /* locale_gui.hxx in Headers */,
+				D5B09CA31C35ED9F00AF0B9D /* hash_sha256_func.hxx in Headers */,
+				D5B09CAB1C35ED9F00AF0B9D /* locale_system.hxx in Headers */,
 				D595B9461BC9B85D0051FF91 /* _endian.hpp in Headers */,
 				D595B94A1BC9B85D0051FF91 /* _intrinsic.hpp in Headers */,
 				D5B09CC71C35ED9F00AF0B9D /* uri_parsing.hxx in Headers */,
@@ -1066,7 +1074,7 @@
 				D595B9481BC9B85D0051FF91 /* _inifini.hpp in Headers */,
 				D5B09CBF1C35ED9F00AF0B9D /* uri_escaping.hxx in Headers */,
 				D5DDFB5F1BC49F4B00E5328A /* foundation.hpp in Headers */,
-				D5B09C9F1C35ED9F00AF0B9D /* hash_sha1.hxx in Headers */,
+				D5B09C9F1C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
 				D5B09CC31C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B09CD71C35ED9F00AF0B9D /* ustring_parsing.hxx in Headers */,
 				D595B8B61BC9A43A0051FF91 /* iterator.hpp in Headers */,

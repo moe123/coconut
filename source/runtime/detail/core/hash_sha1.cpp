@@ -7,7 +7,7 @@
 #include <coconut/runtime/detail/core/hash.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 
-#include <source/runtime/builtins/hash_sha1.hxx>
+#include <source/runtime/builtins/hash_sha1_func.hxx>
 
 using namespace coconut::runtime;
 

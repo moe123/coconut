@@ -12,6 +12,12 @@
 	#include <windows.h>
 #endif
 
+#if __MACH__
+	#include <mach/clock.h>
+	#include <mach/mach.h>
+	#include <mach/mach_error.h>
+#endif
+
 #include "unicode/calendar.h"
 #include "unicode/dtfmtsym.h"
 #include "unicode/smpdtfmt.h"
@@ -23,7 +29,6 @@ namespace coconut
 	{
 		namespace builtins
 		{
-
 #if defined(__MICROSOFT__) && !defined(TIME_UTC)
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -102,16 +107,25 @@ namespace coconut
 			{ return (datetime_nanotime() / 1000000LL); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			time_spec datetime_timespec(std::int64_t nanosecond)
+			void datetime_timespec(std::int64_t nanosecond, time_spec * tms_out)
 			{
-				time_spec tm;
-				tm.tv_sec = nanosecond / 1000000000LL;
-				tm.tv_nsec = nanosecond % 1000000000LL;
-				return tm;
+				tms_out->tv_sec = nanosecond / 1000000000LL;
+				tms_out->tv_nsec = nanosecond % 1000000000LL;
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool datetime_epoch(time_spec * tms)
+			{
+				std::uint64_t nanosecond = datetime_nanotime();
+				if (nanosecond && tms) {
+					datetime_timespec(nanosecond, tms);
+					return true;
+				}
+				return false;
+			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			bool datetime_epoch_v1(time_spec * tms)
 			{
 				bool result = false;
 #if defined(TIME_UTC)
@@ -198,75 +212,6 @@ namespace coconut
 				}
 #endif
 				return result;
-			}
-			
-			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			std::string datetime_format_utc(double milliseconds)
-			{
-				UErrorCode status = U_ZERO_ERROR;
-				
-				icu::SimpleDateFormat dtf = icu::SimpleDateFormat
-				(
-					UnicodeString::fromUTF8(icu::StringPiece(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")),
-					Locale::getRoot(),
-					status
-				);
-				
-				dtf.setTimeZone(*(icu::TimeZone::getGMT()));
-				UnicodeString buf;
-				dtf.format(milliseconds, buf);
-				
-				std::string result;
-				buf.toUTF8String<std::string>(result);
-				return result;
-			}
-			
-			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			double datetime_parse_utc(const std::string & utc)
-			{
-				UErrorCode status = U_ZERO_ERROR;
-				UDate milliseconds = 0.0;
-				
-				constexpr auto fmt_short = u8"yyyy-MM-dd'T'HH:mm:ss'Z'";
-				constexpr auto fmt_long = u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-				
-				icu::SimpleDateFormat dtf = icu::SimpleDateFormat
-				(
-					UnicodeString::fromUTF8(
-						icu::StringPiece(
-							(utc.find(".") != std::string::npos) ? fmt_long : fmt_short
-						)
-					),
-					Locale::getRoot(),
-					status
-				);
-				
-				if (U_FAILURE(status)) {
-					return 0.0;
-				}
-				
-				UnicodeString buf = UnicodeString::fromUTF8(icu::StringPiece(utc));
-				dtf.setTimeZone(*(icu::TimeZone::getGMT()));
-				icu::ParsePosition pos(0);
-				milliseconds = dtf.parse(
-					buf,
-					pos
-				);
-				if (!milliseconds) {
-					status = U_ZERO_ERROR;
-					dtf.applyLocalizedPattern(
-						UnicodeString::fromUTF8(icu::StringPiece(fmt_short)),
-						status
-					);
-					if (U_FAILURE(status)) {
-						return 0.0;
-					}
-					milliseconds = dtf.parse(
-						buf,
-						pos
-					);
-				}
-				return milliseconds;
 			}
 		}
 	}
