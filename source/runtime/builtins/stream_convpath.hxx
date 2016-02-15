@@ -1,5 +1,5 @@
 //
-// stream.hxx
+// stream_convpath.hxx
 //
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //

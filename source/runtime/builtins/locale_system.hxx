@@ -1,5 +1,5 @@
 //
-// locale_gui.hxx
+// locale_system.hxx
 //
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
