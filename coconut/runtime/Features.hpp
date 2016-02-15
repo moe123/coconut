@@ -92,106 +92,50 @@ namespace coconut
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r->copyKind()); }
 	
-	template <typename TypeT>
+	template <typename TypeT, typename CollT>
 	inline auto _enumerate_aliasing
 	(
-		const Array & r,
+		const typename std::enable_if<
+	 		std::is_same<Array, CollT>::value ||
+	 		std::is_same<MutableArray, CollT>::value ||
+	 		std::is_same<OrderedSet, CollT>::value ||
+	 		std::is_same<MutableOrderedSet, CollT>::value
+		>::type & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
 	{
-		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+		ref_cast<CollT>(r).enumerateObjectsUsingFunction(
 			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{ func(obj); }, options);
 	}
 	
-	template <typename TypeT>
+	template <typename TypeT, typename CollT>
 	inline auto _enumerate_aliasing
 	(
-		const MutableArray & r,
+		const typename std::enable_if<
+	 		std::is_same<Set, CollT>::value || std::is_same<MutableSet, CollT>::value
+		>::type & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
 	{
-		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
-			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
-		{ func(obj); }, options);
-	}
-	
-	template <typename TypeT>
-	inline auto _enumerate_aliasing
-	(
-		const OrderedSet & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
-		EnumerationOptions options
-	) -> void
-	{
-		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
-			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
-		{ func(obj); }, options);
-	}
-	
-	template <typename TypeT>
-	inline auto _enumerate_aliasing
-	(
-		const MutableOrderedSet & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
-		EnumerationOptions options
-	) -> void
-	{
-		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
-			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
-		{ func(obj); }, options);
-	}
-	
-	template <typename TypeT>
-	inline auto _enumerate_aliasing
-	(
-		const Set & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
-		EnumerationOptions options
-	) -> void
-	{
-		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
+		ref_cast<CollT>(r).enumerateObjectsUsingFunction(
 			[&func] (const Owning<Any> & obj, bool & stop)
 		{ func(obj); }, options);
 	}
-	
-	template <typename TypeT>
+
+	template <typename TypeT, typename CollT>
 	inline auto _enumerate_aliasing
 	(
-		const MutableSet & r,
+	 	const typename std::enable_if<
+	 		std::is_same<Dictionary, CollT>::value || std::is_same<MutableDictionary, CollT>::value
+		>::type & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
 	{
-		ref_cast<TypeT>(r).enumerateObjectsUsingFunction(
-			[&func] (const Owning<Any> & obj, bool & stop)
-		{ func(obj); }, options);
-	}
-	
-	template <typename TypeT>
-	inline auto _enumerate_aliasing
-	(
-		const Dictionary & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
-		EnumerationOptions options
-	) -> void
-	{
-		ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(
-			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
-		{ func(key); }, options);
-	}
-	
-	template <typename TypeT>
-	inline auto _enumerate_aliasing
-	(
-		const MutableDictionary & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
-		EnumerationOptions options
-	) -> void
-	{
-		ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(
+		ref_cast<CollT>(r).enumerateKeysAndObjectsUsingFunction(
 			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
 		{ func(key); }, options);
 	}
