@@ -147,7 +147,7 @@ namespace coconut
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
-	{ _enumerate_aliasing<TypeT>(ref_cast<TypeT>(r), func, options); }
+	{ _enumerate_aliasing<TypeT>(r, func, options); }
 	
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch
