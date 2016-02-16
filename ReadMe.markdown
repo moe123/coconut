@@ -54,7 +54,7 @@ Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C 
 Builtin dependencies:
 
 - ASIO (Looper/Timer/Events) http://think-async.com
-- URIPARSER (RFC 3986) http://uriparser.sourceforge.net
+- URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 - ICU (Unicode/Punycode/Localization) http://site.icu-project.org
 
 -----------------------------------------------------------------------------------------------
