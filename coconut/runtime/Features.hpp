@@ -100,7 +100,7 @@ namespace coconut
 			std::is_same<MutableOrderedSet, CollT>::value
 		>::type* = nullptr
 	>
-	inline void _enumerate_aliasing
+	inline void _enumerate_dispatch_aliasing
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -118,7 +118,7 @@ namespace coconut
 			std::is_same<MutableSet, CollT>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_aliasing
+	inline auto _enumerate_dispatch_aliasing
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -136,7 +136,7 @@ namespace coconut
 			std::is_same<MutableDictionary, CollT>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_aliasing
+	inline auto _enumerate_dispatch_aliasing
 	(
 	 	const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -155,7 +155,7 @@ namespace coconut
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
-	{ _enumerate_aliasing<TypeT, CollT>(r, func, options); }
+	{ _enumerate_dispatch_aliasing<TypeT, CollT>(r, func, options); }
 	
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch
