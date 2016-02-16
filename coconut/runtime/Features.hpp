@@ -92,30 +92,35 @@ namespace coconut
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r->copyKind()); }
 	
-	template <typename TypeT, typename CollT>
-	inline auto _enumerate_aliasing
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<Array, CollT>::value ||
+			std::is_same<MutableArray, CollT>::value ||
+			std::is_same<OrderedSet, CollT>::value ||
+			std::is_same<MutableOrderedSet, CollT>::value
+		>::type* = nullptr
+	>
+	inline void _enumerate_aliasing
 	(
-		const typename std::enable_if<
-	 		std::is_same<Array, CollT>::value ||
-	 		std::is_same<MutableArray, CollT>::value ||
-	 		std::is_same<OrderedSet, CollT>::value ||
-	 		std::is_same<MutableOrderedSet, CollT>::value
-		>::type & r,
+		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
-	) -> void
+	)
 	{
 		ref_cast<CollT>(r).enumerateObjectsUsingFunction(
 			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{ func(obj); }, options);
 	}
-	
-	template <typename TypeT, typename CollT>
+
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<Set, CollT>::value ||
+			std::is_same<MutableSet, CollT>::value
+		>::type* = nullptr
+	>
 	inline auto _enumerate_aliasing
 	(
-		const typename std::enable_if<
-	 		std::is_same<Set, CollT>::value || std::is_same<MutableSet, CollT>::value
-		>::type & r,
+		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
@@ -125,12 +130,15 @@ namespace coconut
 		{ func(obj); }, options);
 	}
 
-	template <typename TypeT, typename CollT>
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<Dictionary, CollT>::value ||
+			std::is_same<MutableDictionary, CollT>::value
+		>::type* = nullptr
+	>
 	inline auto _enumerate_aliasing
 	(
-	 	const typename std::enable_if<
-	 		std::is_same<Dictionary, CollT>::value || std::is_same<MutableDictionary, CollT>::value
-		>::type & r,
+	 	const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
@@ -139,7 +147,7 @@ namespace coconut
 			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
 		{ func(key); }, options);
 	}
-	
+
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch
 	(
@@ -147,7 +155,7 @@ namespace coconut
 		const std::function<void(const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	) -> void
-	{ _enumerate_aliasing<TypeT>(r, func, options); }
+	{ _enumerate_aliasing<TypeT, CollT>(r, func, options); }
 	
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch

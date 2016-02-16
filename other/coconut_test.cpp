@@ -570,6 +570,13 @@ static void test_stuff(void)
 			})
 		);
 	}, EnumerationConcurrent);
+
+	Enumerate<Array>(firstNames,
+		[] (const Owning<Any> & obj)
+	{
+
+	}, EnumerationConcurrent);
+	
 	/*
 	for (std::size_t i = 0 ; i < 4 ; i++) {
 		people.addObject(
@@ -1010,6 +1017,7 @@ static void run_queue(void)
 
 int main(int argc, const char * argv[])
 {
+	test_stuff();
 	String s_0 = u"\u00f6";
 	String s_1 = u"o\u0308";
 	
