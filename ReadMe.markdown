@@ -51,6 +51,13 @@ on the stack as well as on the heap ; you may copy and/or move, acquiring ref-co
 Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy but purily written in modern-portable C++.
 
 -----------------------------------------------------------------------------------------------
+Builtin dependencies:
+
+<sup>- Looper/Timer/Events: ASIO</sup> http://think-async.com
+<sup>- URL/URI RFC 3986: URIPARSER</sup> http://uriparser.sourceforge.net
+<sup>- Internationalization: ICU</sup> http://site.icu-project.org
+<sup>- Storage/Serialization: SQLITE, PUGIXML, NLOHMANN-JSON</sup>
+-----------------------------------------------------------------------------------------------
 
 ```cpp
 

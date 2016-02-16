@@ -242,13 +242,6 @@ const Data Data::subdataWithRange(std::size_t location, std::size_t length) cons
 
 #pragma mark -
 
-bool Data::getBase64EncodedValue(std::vector<char> & out, ChunkSplitOption option) const
-{
-	out.clear();
-	m_impl.get_base64(out, option);
-	return (out.size() > 0);
-}
-
 const std::string Data::sha1Value() const
 { return m_impl.hash_sha1(); }
 

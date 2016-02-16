@@ -194,8 +194,7 @@ const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, 
 		Owning<Any> item = (*it);
 		Owning<Any> v;
 		if (item) {
-			//v = item->valueForSelectorKey(utf8_selkey, arg);
-			v = item->performSelectorKey(utf8_selkey, arg);
+			v = item->valueForSelectorKey(utf8_selkey, arg);
 		}
 		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);

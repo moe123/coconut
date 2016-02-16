@@ -86,8 +86,6 @@ namespace coconut
 		const Data subdataWithRange(const Range & rg) const;
 		const Data subdataWithRange(std::size_t location, std::size_t length) const;
 		
-		bool getBase64EncodedValue(std::vector<char> & out, ChunkSplitOption option = ChunkSplitNone) const;
-		
 		const std::string sha1Value() const;
 		const std::string sha256Value() const;
 		
