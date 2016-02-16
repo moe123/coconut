@@ -55,7 +55,7 @@ Builtin dependencies:
 
 - ASIO (Looper/Timer/Events) http://think-async.com
 - URIPARSER (RFC 3986) http://uriparser.sourceforge.net
-- ICU (Unicode/Localization) http://site.icu-project.org
+- ICU (Unicode/Punycode/Localization) http://site.icu-project.org
 
 -----------------------------------------------------------------------------------------------
 
