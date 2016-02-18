@@ -63,7 +63,7 @@ Builtin runtime dependencies:
 
 Forked and melted with significant changes:
 
-- BASE64 (Ryan Petrie) http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
+- BASE64 (Ryan Petrie) http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml, https://www.ietf.org/rfc/rfc2045.txt
 - SHA1/SHA256 (Stephan Brumme) http://create.stephan-brumme.com/hash-library
 
 -----------------------------------------------------------------------------------------------
