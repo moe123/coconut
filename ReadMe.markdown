@@ -51,13 +51,18 @@ on the stack as well as on the heap ; you may copy and/or move, acquiring ref-co
 Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy but purily written in modern-portable C++.
 
 -----------------------------------------------------------------------------------------------
-Builtin dependencies:
+Builtin runtime dependencies:
 
 - ASIO (Looper/Timer/Events) http://think-async.com
 - URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 - ICU (Unicode/Punycode/Localization) http://site.icu-project.org
 - NLOHMANN JSON (Serialization) https://github.com/nlohmann/json
 - PUGI XML (Serialization/DOM) http://pugixml.org
+
+  Forked and melted with significant changes:
+
+	- SHA1/SHA256 http://create.stephan-brumme.com/hash-library
+	- BASE64 http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
 
 -----------------------------------------------------------------------------------------------
 
