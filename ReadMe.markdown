@@ -55,8 +55,8 @@ Builtin runtime dependencies:
 
 - ASIO (Looper/Timer/Events) http://think-async.com
 - ICU (Unicode/Punycode/Localization) http://site.icu-project.org
-- NLOHMANN JSON (Serialization) https://github.com/nlohmann/json
-- PUGI XML (Serialization/DOM) http://pugixml.org
+- NLOHMANN JSON (Serialization) http://nlohmann.me, https://github.com/nlohmann/json
+- PUGI XML (Serialization/DOM) http://zeuxcg.org, http://pugixml.org
 - URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 
 -----------------------------------------------------------------------------------------------
