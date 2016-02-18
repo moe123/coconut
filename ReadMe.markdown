@@ -59,6 +59,8 @@ Builtin runtime dependencies:
 - PUGI XML (Serialization/DOM) http://pugixml.org
 - URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 
+-----------------------------------------------------------------------------------------------
+
 Forked and melted with significant changes:
 
 - BASE64 (Ryan Petrie) http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
