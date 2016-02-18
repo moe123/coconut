@@ -54,15 +54,15 @@ Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C 
 Builtin runtime dependencies:
 
 - ASIO (Looper/Timer/Events) http://think-async.com
-- URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 - ICU (Unicode/Punycode/Localization) http://site.icu-project.org
 - NLOHMANN JSON (Serialization) https://github.com/nlohmann/json
 - PUGI XML (Serialization/DOM) http://pugixml.org
+- URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 
-  Forked and melted with significant changes:
+Forked and melted with significant changes:
 
-	- SHA1/SHA256 http://create.stephan-brumme.com/hash-library
-	- BASE64 http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
+- BASE64 (Ryan Petrie) http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
+- SHA1/SHA256 (Stephan Brumme) http://create.stephan-brumme.com/hash-library
 
 -----------------------------------------------------------------------------------------------
 
