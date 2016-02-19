@@ -34,11 +34,11 @@ namespace coconut
 		
 		template <typename... ArgsT>
 		COCONUT_CLASSMETHOD String format(const char * utf8_fmt, ArgsT &&... args)
-		{ return String(impl_type::uformat(utf8_fmt, std::forward<ArgsT>(args)...)); }
+		{ return String(impl_trait::uformat(utf8_fmt, std::forward<ArgsT>(args)...)); }
 		
 		template <typename... ArgsT>
 		COCONUT_CLASSMETHOD String format(const char16_t * utf16_fmt, ArgsT &&... args)
-		{ return String(impl_type::uformat(utf16_fmt, std::forward<ArgsT>(args)...)); }
+		{ return String(impl_trait::uformat(utf16_fmt, std::forward<ArgsT>(args)...)); }
 
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -182,10 +182,10 @@ namespace coconut
 		friend class Path;
 		
 	protected:
-		typedef runtime::ustring impl_type;
+		typedef runtime::ustring impl_trait;
 
 	protected:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

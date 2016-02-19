@@ -58,10 +58,10 @@ URL::~URL()
 #pragma mark -
 
 const String URL::percentEscapesEncode(const String & in, bool space_as_plus)
-{ return String(impl_type::escape(in.stringValue(), space_as_plus)); }
+{ return String(impl_trait::escape(in.stringValue(), space_as_plus)); }
 
 const String URL::percentEscapesDecode(const String & in, bool plus_as_space)
-{ return String(impl_type::unescape(in.stringValue(), plus_as_space)); }
+{ return String(impl_trait::unescape(in.stringValue(), plus_as_space)); }
 
 #pragma mark -
 
@@ -96,7 +96,7 @@ bool URL::isFileURL() const
 const URL URL::normalizedURL() const
 {
 	URL ret;
-	ret.m_impl = impl_type(m_impl, true);
+	ret.m_impl = impl_trait(m_impl, true);
 	return ret;
 }
 
@@ -136,7 +136,7 @@ const String URL::fragment() const
 
 const Dictionary URL::queryParameters() const
 {
-	Dictionary::impl_type buf;
+	Dictionary::impl_trait buf;
 	auto parameters = m_impl.parameters();
 	for (auto & kv : parameters) {
 		buf.insert(std::make_pair(ptr_create<String>(kv.first), ptr_create<String>(kv.second)));

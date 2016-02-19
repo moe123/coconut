@@ -111,10 +111,10 @@ namespace coconut
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:
-		typedef runtime::numeric impl_type;
+		typedef runtime::numeric impl_trait;
 	
 	private:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

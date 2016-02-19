@@ -47,10 +47,10 @@ namespace coconut
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:
-		typedef std::tuple<String, std::size_t, Dictionary> impl_type;
+		typedef std::tuple<String, std::size_t, Dictionary> impl_trait;
 		
 	protected:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

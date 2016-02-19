@@ -340,7 +340,7 @@ void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		if(from.size() && from_rg.maxRange() <= from.size()) {
-			impl_type buf;
+			impl_trait buf;
 			std::size_t loc = from_rg.location(), max = 0;
 			for (std::size_t i = 0; i < from_rg.length(); i++) {
 				Owning<Any> item = from.objectAtIndex(loc + i);

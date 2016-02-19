@@ -55,7 +55,7 @@ void Queue::enqueue(const Owning<Any> & ptr)
 
 void Queue::clear()
 {
-	impl_type none;
+	impl_trait none;
 	std::swap(m_impl, none);
 }
 

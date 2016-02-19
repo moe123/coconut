@@ -100,18 +100,18 @@ namespace coconut
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:
-		typedef runtime::bytebuf impl_type;
+		typedef runtime::bytebuf impl_trait;
 		
 	public:
-		typedef impl_type::iterator iterator;
-		typedef impl_type::const_iterator const_iterator;
+		typedef impl_trait::iterator iterator;
+		typedef impl_trait::const_iterator const_iterator;
 		
-		typedef impl_type::reverse_iterator reverse_iterator;
-		typedef impl_type::const_reverse_iterator const_reverse_iterator;
+		typedef impl_trait::reverse_iterator reverse_iterator;
+		typedef impl_trait::const_reverse_iterator const_reverse_iterator;
 		
-		typedef impl_type::value_type value_type;
-		typedef impl_type::size_type size_type;
-		typedef impl_type::difference_type difference_type;
+		typedef impl_trait::value_type value_type;
+		typedef impl_trait::size_type size_type;
+		typedef impl_trait::difference_type difference_type;
 		
 	public:
 		iterator begin();
@@ -133,7 +133,7 @@ namespace coconut
 		const_reverse_iterator crend() const;
 	
 	protected:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

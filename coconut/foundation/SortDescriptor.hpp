@@ -30,7 +30,7 @@ namespace coconut
 		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
-		ComparisonResult compareObject(const Owning<Any> & a, const Owning<Any> & b) const;
+		ComparisonResult compareObject(const Any & a, const Any & b) const;
 		
 		const SortDescriptor reversedSortDescriptor();
 		
@@ -39,10 +39,10 @@ namespace coconut
 		bool ascending() const;
 		
 	protected:
-		typedef std::tuple<std::string, std::string, bool> impl_type;
+		typedef std::tuple<std::string, std::string, bool> impl_trait;
 		
 	private:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

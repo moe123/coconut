@@ -138,7 +138,7 @@ Owning<Any> Set::valueForKey(const std::string & utf8_key) const
 		// Fault();
 		return {};
 	}
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);
 		Owning<Any> v;
@@ -154,7 +154,7 @@ Owning<Any> Set::valueForKeyPath(const std::string & utf8_keypath) const
 	if (isSelectorKey(utf8_keypath)) {
 		return valueForSelectorKey(utf8_keypath);
 	}
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	std::vector<std::string> parts;
 	parts = runtime::algorithm::split<std::string>(utf8_keypath, u8".");
 	if (parts.size() == 1) {
@@ -189,7 +189,7 @@ Owning<Any> Set::valueForKeyPath(const std::string & utf8_keypath) const
 
 const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);
 		Owning<Any> v;
@@ -393,7 +393,7 @@ const Set Set::objectsPassingTest(const std::function<bool(const Owning<Any> & o
 
 const Set Set::objectsPassingTest(const std::function<bool(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
 		if (options != EnumerationDefault) {
@@ -554,7 +554,7 @@ const Set Set::filteredSetUsingFunction(const std::function<bool(const Owning<An
 		}
 	}
 	
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	bool stop = false, ret = false;
 	
 	switch (iter_option)
@@ -627,7 +627,7 @@ const Set Set::filteredSetUsingFunction(const std::function<bool(const Owning<An
 const Set Set::setByAddingObject(Owning<Any> ptr, CopyOption option) const
 {
 	if (ptr) {
-		impl_type buf(cbegin(), cend());
+		impl_trait buf(cbegin(), cend());
 		buf.insert(ptr);
 		return Set(buf.cbegin(), buf.cend(), option);
 	}
@@ -637,7 +637,7 @@ const Set Set::setByAddingObject(Owning<Any> ptr, CopyOption option) const
 
 const Set Set::setByAddingObjectsFromSet(const Set & set, CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	for (Set::const_iterator it = set.cbegin(); it != set.cend(); ++it) {
 		buf.insert((*it));
 	}
@@ -646,7 +646,7 @@ const Set Set::setByAddingObjectsFromSet(const Set & set, CopyOption option) con
 
 const Set Set::setByAddingObjectsFromOrderedSet(const OrderedSet & set, CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	for (OrderedSet::const_iterator it = set.cbegin(); it != set.cend(); ++it) {
 		buf.insert((*it));
 	}
@@ -655,7 +655,7 @@ const Set Set::setByAddingObjectsFromOrderedSet(const OrderedSet & set, CopyOpti
 
 const Set Set::setByAddingObjectsFromArray(const Array & arr, CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	for (Array::const_iterator it = arr.cbegin(); it != arr.cend(); ++it) {
 		buf.insert((*it));
 	}

@@ -66,10 +66,10 @@ namespace coconut
 		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:
-		typedef runtime::datetime impl_type;
+		typedef runtime::datetime impl_trait;
 	
 	protected:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

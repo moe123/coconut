@@ -36,10 +36,10 @@ namespace coconut
 		void clear();
 		
 	protected:
-		typedef std::queue< Owning<Any> > impl_type;
+		typedef std::queue< Owning<Any> > impl_trait;
 		
 	private:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

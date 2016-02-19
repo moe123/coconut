@@ -128,7 +128,7 @@ Owning<Any> OrderedSet::valueForKey(const std::string & utf8_key) const
 			runtime::algorithm::to_numeric<std::size_t>(utf8_key)
 		);
 	}
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);
 		Owning<Any> v;
@@ -144,7 +144,7 @@ Owning<Any> OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 	if (isSelectorKey(utf8_keypath)) {
 		return valueForSelectorKey(utf8_keypath);
 	}
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	std::vector<std::string> parts;
 	parts = runtime::algorithm::split<std::string>(utf8_keypath, u8".");
 	if (parts.size() == 1) {
@@ -605,7 +605,7 @@ bool OrderedSet::someObjectPassingTest(const std::function<bool(const Owning<Any
 
 const OrderedSet OrderedSet::reversedOrderedSet(CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	if (buf.size() > 1) {
 		std::reverse(buf.begin(), buf.end());
 	}
@@ -634,7 +634,7 @@ const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function
 		}
 	}
 	
-	impl_type buf;
+	impl_trait buf;
 	std::size_t idx = 0;
 	bool stop = false, ret = false;
 	

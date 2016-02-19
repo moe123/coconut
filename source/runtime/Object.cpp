@@ -443,7 +443,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Set::impl_type buf;
+	Set::impl_trait buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
@@ -501,7 +501,7 @@ Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
@@ -561,7 +561,7 @@ Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Set::impl_type buf;
+	Set::impl_trait buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
@@ -592,7 +592,7 @@ Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
 Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	OrderedSet::impl_type buf;
+	OrderedSet::impl_trait buf;
 	if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
@@ -623,7 +623,7 @@ Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) con
 Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Set::impl_type buf;
+	Set::impl_trait buf;
 	if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
@@ -656,7 +656,7 @@ Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
 Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
@@ -687,7 +687,7 @@ Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
 Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
@@ -718,7 +718,7 @@ Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
 Owning<Any> Object::unionOfSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {

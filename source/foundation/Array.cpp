@@ -136,7 +136,7 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 			runtime::algorithm::to_numeric<std::size_t>(utf8_key)
 		);
 	}
-	impl_type buf;
+	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);
 		Owning<Any> v;
@@ -154,7 +154,7 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 	if (isSelectorKey(utf8_keypath)) {
 		return valueForSelectorKey(utf8_keypath);
 	}
-	impl_type buf;
+	impl_trait buf;
 	std::vector<std::string> parts;
 	parts = runtime::algorithm::split<std::string>(utf8_keypath, u8".");
 	if (parts.size() == 1) {
@@ -189,7 +189,7 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 
 const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
-	impl_type buf;
+	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);
 		Owning<Any> v;
@@ -604,14 +604,14 @@ bool Array::someObjectPassingTest(const std::function<bool(const Owning<Any> & o
 
 const Array Array::reversedArray(CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	if (size() > 1) { std::reverse(buf.begin(), buf.end()); }
 	return Array(buf.cbegin(), buf.cend(), option);
 }
 
 const Array Array::uniquedArray(CopyOption option) const
 {
-	impl_type buf;
+	impl_trait buf;
 	for (const_iterator it0 = cbegin(); it0 != cend(); ++it0) {
 		const_iterator it1 = std::find_if(buf.cbegin(), buf.cend(),
 			[&it0] (const Owning<Any> & item) -> bool {
@@ -624,7 +624,7 @@ const Array Array::uniquedArray(CopyOption option) const
 
 const Array Array::shuffledArray(CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	if (size() > 1) {
 		std::mt19937 mt{ std::random_device{}() };
 		std::size_t maxidx = buf.size() -1;
@@ -665,7 +665,7 @@ const Array Array::filteredArrayUsingFunction(const std::function<bool(const Own
 		}
 	}
 	
-	impl_type buf;
+	impl_trait buf;
 	std::size_t idx = 0;
 	bool stop = false, ret = false;
 	
@@ -740,7 +740,7 @@ const Array Array::sortedArrayUsingFunction(const std::function<bool(const Ownin
 
 const Array Array::sortedArrayUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option, SortOptions options) const
 {
-	impl_type buf;
+	impl_trait buf;
 	if (options == SortConcurrent || options & SortConcurrent) {
 		auto op = runtime::async::exec(runtime::launch_async, [this, &options, &buf, &func]
 		{
@@ -841,7 +841,7 @@ const Array Array::sortedArrayUsingDescriptors(const Array & descriptors, CopyOp
 				ComparisonResult result = OrderedSame;
 				for (const_iterator it = descriptors.cbegin(); it != descriptors.cend(); ++it) {
 					if ((*it) && (*it)->isKindOf(SortDescriptorClass)) {
-						result = ptr_cast<SortDescriptor>((*it))->compareObject(a, b);
+						result = ptr_cast<SortDescriptor>((*it))->compareObject(*a, *b);
 						if (OrderedSame != result) { break; };
 					}
 				}
@@ -870,7 +870,7 @@ const Array Array::arrayByPushingObject(Owning<Any> obj) const
 const Array Array::arrayByPushingObject(Owning<Any> obj, CopyOption option) const
 {
 	if (obj) {
-		impl_type buf;
+		impl_trait buf;
 		buf.push_back(obj);
 		buf.insert(buf.cend(), cbegin(), cend());
 		return Array(buf.cbegin(), buf.cend(), option);
@@ -886,7 +886,7 @@ const Array Array::arrayByPushingObjectsFromArray(const Array & arr) const
 
 const Array Array::arrayByPushingObjectsFromArray(const Array & arr, CopyOption option) const
 {
-	impl_type buf(arr.cbegin(), arr.cend());
+	impl_trait buf(arr.cbegin(), arr.cend());
 	buf.insert(buf.cend(), cbegin(), cend());
 	return Array(buf.cbegin(), buf.cend(), option);
 }
@@ -907,7 +907,7 @@ const Array Array::arrayByAddingObject(Owning<Any> obj) const
 const Array Array::arrayByAddingObject(Owning<Any> obj, CopyOption option) const
 {
 	if (obj) {
-		impl_type buf(cbegin(), cend());
+		impl_trait buf(cbegin(), cend());
 		buf.push_back(obj);
 		return Array(buf.cbegin(), buf.cend(), option);
 	}
@@ -922,7 +922,7 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr) const
 
 const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption option) const
 {
-	impl_type buf(cbegin(), cend());
+	impl_trait buf(cbegin(), cend());
 	buf.insert(buf.cend(), arr.cbegin(), arr.cend());
 	return Array(buf.cbegin(), buf.cend(), option);
 }
@@ -931,7 +931,7 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption o
 
 const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 {
-	impl_type buf;
+	impl_trait buf;
 	std::size_t sz = size();
 	if(sz) {
 		std::size_t loc, len;
@@ -958,7 +958,7 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 
 const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 {
-	impl_type buf;
+	impl_trait buf;
 	std::size_t sz = size();
 	if(sz) {
 		if (slc.start() >= 0 && slc.stop() >= 0 && slc.step() == 1) {

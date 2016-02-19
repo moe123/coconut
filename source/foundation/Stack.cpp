@@ -55,7 +55,7 @@ void Stack::push(const Owning<Any> & ptr)
 
 void Stack::clear()
 {
-	impl_type none;
+	impl_trait none;
 	std::swap(m_impl, none);
 }
 

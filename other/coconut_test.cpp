@@ -1017,7 +1017,7 @@ static void run_queue(void)
 
 int main(int argc, const char * argv[])
 {
-	test_stuff();
+	//test_stuff();
 	String s_0 = u"\u00f6";
 	String s_1 = u"o\u0308";
 	
@@ -1026,8 +1026,8 @@ int main(int argc, const char * argv[])
 	StringSearchOptions opt_0 = StringSearchLiteral | StringSearchBackwards;
 	StringSearchOptions opt_1 = StringSearchLiteral | StringSearchNumeric;
 	
-	std::cerr << runtime::algorithm::to_binary<std::string>(opt_0) << std::endl;
-	std::cerr << runtime::algorithm::to_binary<std::string>(opt_1) << std::endl;
+	std::cerr << runtime::algorithm::to_binary(opt_0) << std::endl;
+	std::cerr << runtime::algorithm::to_binary(opt_1) << std::endl;
 	
 	Data dt_0 = { "some bytes", 10 };
 	

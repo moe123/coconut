@@ -119,18 +119,18 @@ namespace coconut
 		{ return setByAddingObjectsFromSet(Set(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 	
 	protected:
-		typedef std::set<Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> > impl_type;
+		typedef std::set<Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> > impl_trait;
 		
 	public:
-		typedef impl_type::iterator iterator;
-		typedef impl_type::const_iterator const_iterator;
+		typedef impl_trait::iterator iterator;
+		typedef impl_trait::const_iterator const_iterator;
 		
-		typedef impl_type::reverse_iterator reverse_iterator;
-		typedef impl_type::const_reverse_iterator const_reverse_iterator;
+		typedef impl_trait::reverse_iterator reverse_iterator;
+		typedef impl_trait::const_reverse_iterator const_reverse_iterator;
 		
-		typedef impl_type::value_type value_type;
-		typedef impl_type::size_type size_type;
-		typedef impl_type::difference_type difference_type;
+		typedef impl_trait::value_type value_type;
+		typedef impl_trait::size_type size_type;
+		typedef impl_trait::difference_type difference_type;
 	
 	public:
 		iterator begin();
@@ -156,7 +156,7 @@ namespace coconut
 		friend class Dictionary;
 		
 	protected:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

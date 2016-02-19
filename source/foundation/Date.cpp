@@ -50,7 +50,7 @@ Date::~Date()
 #pragma mark -
 
 const String Date::UTC()
-{ return String(impl_type::utc_now()); }
+{ return String(impl_trait::utc_now()); }
 
 const String Date::UTC(const Date & dtm)
 { return String(dtm.stringValue()); }
@@ -60,21 +60,21 @@ const String Date::UTC(const Date & dtm)
 const Date Date::fromUTC(const String & UTC)
 {
 	Date dtm(0.0L, TimeReferenceSinceReferenceDate, TimeUnitMilliSeconds);
-	dtm.m_impl = impl_type::utc_parse(UTC.stringValue());
+	dtm.m_impl = impl_trait::utc_parse(UTC.stringValue());
 	return dtm;
 }
 
 #pragma mark -
 
 TimeInterval Date::absoluteTime(TimeUnitOption unit_opt)
-{ return impl_type::absolute(unit_opt); }
+{ return impl_trait::absolute(unit_opt); }
 
 TimeInterval Date::timestamp(TimeUnitOption unit_opt, TimestampOption stamp_opt)
 {
 	if (stamp_opt == TimestampSinceReferenceDate) {
-		return impl_type::reference_time(unit_opt);
+		return impl_trait::reference_time(unit_opt);
 	}
-	return impl_type::timestamp_1970(unit_opt);
+	return impl_trait::timestamp_1970(unit_opt);
 }
 
 #pragma mark -
@@ -82,14 +82,14 @@ TimeInterval Date::timestamp(TimeUnitOption unit_opt, TimestampOption stamp_opt)
 const Date Date::distantFuture()
 {
 	Date dtm(0.0L, TimeReferenceSinceReferenceDate, TimeUnitMilliSeconds);
-	dtm.m_impl = impl_type::future();
+	dtm.m_impl = impl_trait::future();
 	return dtm;
 }
 
 const Date Date::distantPast()
 {
 	Date dtm(0.0L, TimeReferenceSinceReferenceDate, TimeUnitMilliSeconds);
-	dtm.m_impl = impl_type::past();
+	dtm.m_impl = impl_trait::past();
 	return dtm;
 }
 

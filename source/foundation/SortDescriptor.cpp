@@ -67,25 +67,23 @@ ComparisonResult SortDescriptor::compare(const Any & ref) const
 
 #pragma mark -
 
-ComparisonResult SortDescriptor::compareObject(const Owning<Any> & a, const Owning<Any> & b) const
+ComparisonResult SortDescriptor::compareObject(const Any & a, const Any & b) const
 {
-	if (a && b) {
-		Owning<Any> aa = a->valueForKeyPath(std::get<0>(m_impl));
-		Owning<Any> bb = b->valueForKeyPath(std::get<0>(m_impl));
-		if (aa && bb) {
-			if (std::get<2>(m_impl)) {
-				if (std::get<1>(m_impl) != u8"@compare:") {
-					Owning<Any> sel_cmp = aa->valueForSelectorKey(std::get<1>(m_impl), bb);
-					return sel_cmp ? sel_cmp->intValue() : aa->compare(*bb);
-				}
-				return aa->compare(*bb);
-			} else {
-				if (std::get<1>(m_impl) != u8"@compare:") {
-					Owning<Any> sel_cmp = bb->valueForSelectorKey(std::get<1>(m_impl), aa);
-					return sel_cmp ? sel_cmp->intValue() : bb->compare(*aa);
-				}
-				return bb->compare(*aa);
+	Owning<Any> aa = a.valueForKeyPath(std::get<0>(m_impl));
+	Owning<Any> bb = b.valueForKeyPath(std::get<0>(m_impl));
+	if (aa && bb) {
+		if (std::get<2>(m_impl)) {
+			if (std::get<1>(m_impl) != u8"@compare:") {
+				Owning<Any> sel_cmp = aa->valueForSelectorKey(std::get<1>(m_impl), bb);
+				return sel_cmp ? sel_cmp->intValue() : aa->compare(*bb);
 			}
+			return aa->compare(*bb);
+		} else {
+			if (std::get<1>(m_impl) != u8"@compare:") {
+				Owning<Any> sel_cmp = bb->valueForSelectorKey(std::get<1>(m_impl), aa);
+				return sel_cmp ? sel_cmp->intValue() : bb->compare(*aa);
+			}
+			return bb->compare(*aa);
 		}
 	}
 	return OrderedDescending;

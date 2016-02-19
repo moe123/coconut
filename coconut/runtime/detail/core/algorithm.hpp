@@ -161,22 +161,9 @@ namespace coconut
 				return result;
 			}
 			
-			template <typename StrT, typename NumT>
-			inline StrT to_binary(const NumT & x)
-			{
-				using char_type = typename StrT::value_type;
-				using traits_type = typename StrT::traits_type;
-				using allocator_type = typename StrT::allocator_type;
-				
-				typedef std::basic_ostringstream<char_type, traits_type, allocator_type> ostringstream_type;
-				
-				ostringstream_type ostr;
-				
-				for(int i = CHAR_BIT * sizeof(x) - 1; i >= 0; i--) {
-					(x & (1 << i)) ? ostr << 1 : ostr << 0;
-				}
-				return ostr.str();
-			}
+			template <typename NumT>
+			inline std::string to_binary(const NumT & x)
+			{ std::bitset<(sizeof(x) * CHAR_BIT)> bits(x); return bits.to_string(); }
 			
 			template <typename NumT, typename StrT>
 			inline NumT to_numeric(const StrT & in)

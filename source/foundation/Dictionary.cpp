@@ -147,7 +147,7 @@ Owning<Any> Dictionary::valueForKey(const std::string & utf8_key) const
 
 const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> k = (*it).first;
 		Owning<Any> v;
@@ -329,7 +329,7 @@ const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Owning<Any> & ke
 
 const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundMarker) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (Array::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) {
 			Owning<Any> v;
@@ -348,7 +348,7 @@ const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundM
 
 const Array Dictionary::objectsForKeys(const Set & keys, Owning<Any> notFoundMarker) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (Set::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) {
 			Owning<Any> v;
@@ -367,7 +367,7 @@ const Array Dictionary::objectsForKeys(const Set & keys, Owning<Any> notFoundMar
 
 const Array Dictionary::allKeys(CopyOption option) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first) {
 			buf.push_back((*it).first);
@@ -382,7 +382,7 @@ const Array Dictionary::allKeys(CopyOption option) const
 
 const Array Dictionary::allKeysForObject(const Any & obj, CopyOption option) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
 			if ((*it).second->isEqual(obj)) { buf.push_back((*it).first); }
@@ -400,7 +400,7 @@ const Array Dictionary::allKeysForObject(const Owning<Any> & obj, CopyOption opt
 
 const Array Dictionary::allValues(CopyOption option) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).second) {
 			buf.push_back((*it).second);
@@ -415,7 +415,7 @@ const Array Dictionary::allValues(CopyOption option) const
 
 const Array Dictionary::keysSortedByValueUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, CopyOption option) const
 {
-	Array::impl_type buf;
+	Array::impl_trait buf;
 	Array values = allValues().sortedArrayUsingFunction(func);
 	for (Array::const_iterator it0 = values.cbegin(); it0 != values.cend(); ++it0) {
 		Array items = allKeysForObject(*(*it0));
@@ -497,7 +497,7 @@ const Array Dictionary::keysSortedUsingDescriptors(const Array & descriptors, Co
 
 const Set Dictionary::keysOfEntriesPassingTest(const std::function<bool(const Owning<Any> & key, bool & stop)> & func, CopyOption option) const
 {
-	Set::impl_type buf;
+	Set::impl_trait buf;
 	if (size()) {
 		bool stop = false, ret = false;
 		auto op = runtime::async::exec(runtime::launch_any, [this, &buf, &stop, &ret, &func]

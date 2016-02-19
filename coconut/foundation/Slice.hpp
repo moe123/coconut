@@ -50,10 +50,10 @@ namespace coconut
 		friend class String;
 		
 	protected:
-		typedef runtime::islice impl_type;
+		typedef runtime::islice impl_trait;
 	
 	protected:
-		impl_type m_impl;
+		impl_trait m_impl;
 	};
 }
 

@@ -81,13 +81,13 @@ bool Range::locationInRange(std::size_t location) const
 
 const Range Range::intersectionRange(const Range & other_rg) const
 {
-	impl_type rg = m_impl.intxn(other_rg.m_impl);
+	impl_trait rg = m_impl.intxn(other_rg.m_impl);
 	return Range(rg.location(), rg.length());
 }
 
 const Range Range::unionRange(const Range & other_rg) const
 {
-	impl_type rg = m_impl.merge(other_rg.m_impl);
+	impl_trait rg = m_impl.merge(other_rg.m_impl);
 	return Range(rg.location(), rg.length());
 }
 
