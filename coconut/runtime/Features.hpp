@@ -157,7 +157,12 @@ namespace coconut
 	) -> void
 	{ _enumerate_dispatch_aliasing<TypeT, CollT>(r, func, options); }
 	
-	template <typename TypeT, typename CollT>
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<Set, CollT>::value ||
+			std::is_same<MutableSet, CollT>::value
+		>::type* = nullptr
+	>
 	inline auto _enumerate_dispatch
 	(
 	 	const CollT & r,
@@ -166,7 +171,14 @@ namespace coconut
 	) -> void
 	{ ref_cast<TypeT>(r).enumerateObjectsUsingFunction(func, options); }
 	
-	template <typename TypeT, typename CollT>
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<Array, CollT>::value ||
+			std::is_same<MutableArray, CollT>::value ||
+			std::is_same<OrderedSet, CollT>::value ||
+			std::is_same<MutableOrderedSet, CollT>::value
+		>::type* = nullptr
+	>
 	inline auto _enumerate_dispatch
 	(
 	 	const CollT & r,
@@ -175,7 +187,12 @@ namespace coconut
 	) -> void
 	{ ref_cast<TypeT>(r).enumerateObjectsUsingFunction(func, options); }
 	
-	template <typename TypeT, typename CollT>
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<Dictionary, CollT>::value ||
+			std::is_same<MutableDictionary, CollT>::value
+		>::type* = nullptr
+	>
 	inline auto _enumerate_dispatch
 	(
 		const CollT & r,
@@ -291,9 +308,7 @@ namespace coconut
 	template <typename TypeT>
 	inline auto With(void * no_param = nullptr)
 		-> Owning<TypeT>
-	{ /* static_assert(std::is_base_of<Any, TypeT>::value, ""); */
-		COCONUT_UNUSED(no_param); return ptr_create<TypeT>();
-	}
+	{ COCONUT_UNUSED(no_param); return ptr_create<TypeT>(); }
 	
 	template <typename TypeT>
 	inline auto With(const TypeT & arg)
@@ -335,7 +350,11 @@ namespace coconut
 		-> Owning<T1>
 	{ return _copy<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 
-	template <typename TypeT, typename CollT, typename FuncT>
+	template <typename TypeT, typename CollT, typename FuncT,
+		typename std::enable_if<
+			std::is_base_of<Any, typename std::decay<CollT>::type>::value
+		>::type* = nullptr
+	>
 	inline auto Enumerate(CollT && r, FuncT && func, EnumerationOptions options = EnumerationDefault)
 		-> void
 	{ _enumerate<TypeT>(r, func, options, _is_ptr<typename std::decay<CollT>::type>{}); }
