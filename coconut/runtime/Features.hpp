@@ -310,12 +310,20 @@ namespace coconut
 		-> Owning<TypeT>
 	{ COCONUT_UNUSED(no_param); return ptr_create<TypeT>(); }
 	
-	template <typename TypeT>
+	template <typename TypeT,
+		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value
+		>::type* = nullptr
+	>
 	inline auto With(const TypeT & arg)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(arg); }
 	
-	template <typename TypeT>
+	template <typename TypeT,
+		typename std::enable_if<
+			std::is_base_of<Any, typename std::decay<TypeT>::type>::value
+		>::type* = nullptr
+	>
 	inline auto With(TypeT && arg)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(std::move(arg)); }
@@ -350,11 +358,7 @@ namespace coconut
 		-> Owning<T1>
 	{ return _copy<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 
-	template <typename TypeT, typename CollT, typename FuncT,
-		typename std::enable_if<
-			std::is_base_of<Any, typename std::decay<CollT>::type>::value
-		>::type* = nullptr
-	>
+	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto Enumerate(CollT && r, FuncT && func, EnumerationOptions options = EnumerationDefault)
 		-> void
 	{ _enumerate<TypeT>(r, func, options, _is_ptr<typename std::decay<CollT>::type>{}); }
