@@ -33,18 +33,11 @@ namespace coconut
 			{
 				std::string utf8_out;
 #if defined(__MICROSOFT__)
-				std::unique_lock<std::mutex> auto_lock(upath_absolute_mtx);
 				std::wstring win;
+				std::wstring wout;
 				unicode::codeset_utf8_utf16(utf8_in, win);
-				WCHAR buf[1024 + 1];
-				DWORD len;
-				if (0 != (len = GetFullPathNameW(win.c_str(), sizeof(buf), buf, NULL)) {
-					if (len < sizeof(buf)) {
-						std::wstring wout(buf, len);
-						if (filesystem_fileexists(wout.c_str()) {
-							unicode::codeset_utf16_utf8(wout, utf8_out);
-						}
-					}
+				if (filesystem_resolve_v0(win, wout)) {
+					unicode::codeset_utf16_utf8(wout, utf8_out);
 				}
 #else
 				char buffer[PATH_MAX + 1];

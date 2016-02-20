@@ -25,14 +25,15 @@ namespace coconut
 		namespace builtins
 		{
 #if defined(__MICROSOFT__)
+			namespace { std::mutex filesystem_mtx; }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			std::int64_t filesystem_mtime(const wchar_t * filepath)
+			std::int64_t filesystem_mtime(const std::wstring & filepath)
 			{
 				std::int64_t nanosecond = 0LL;
 				if (filepath) {
 					HANDLE file_h = CreateFileW(
-						filepath,
+						filepath.c_str(),
 						GENERIC_READ,
 						FILE_SHARE_READ|FILE_SHARE_WRITE,
 						NULL,
@@ -60,12 +61,12 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			std::int64_t filesystem_atime(const wchar_t * filepath)
+			std::int64_t filesystem_atime(const std::wstring & filepath)
 			{
 				std::int64_t nanosecond = 0LL;
 				if (filepath) {
 					HANDLE file_h = CreateFileW(
-						filepath,
+						filepath.c_str(),
 						GENERIC_READ,
 						FILE_SHARE_READ|FILE_SHARE_WRITE,
 						NULL,
@@ -93,29 +94,79 @@ namespace coconut
 			}
 
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			bool filesystem_isdir(const wchar_t * filepath)
+			bool filesystem_isdir(const std::wstring & filepath)
 			{
 				if (filepath) {
-					DWORD attrs = GetFileAttributesW(filepath);
+					DWORD attrs = GetFileAttributesW(filepath.c_str());
 					return (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY));
 				}
 				return false;
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			bool filesystem_isfile(const wchar_t * filepath)
+			bool filesystem_isfile(const std::wstring & filepath)
 			{
 				if (filepath) {
-					DWORD attrs = GetFileAttributesW(filepath);
+					DWORD attrs = GetFileAttributesW(filepath.c_str());
 					return (attrs != INVALID_FILE_ATTRIBUTES && !(attrs & FILE_ATTRIBUTE_DIRECTORY));
 				}
 				return false;
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			bool filesystem_fileexists(const wchar_t * filepath)
+			bool filesystem_exists(const WCHAR * filepath)
 			{
-				return filesystem_isfile(filepath) || filesystem_isdir(filepath);
+				if (filepath) {
+					DWORD attrs = GetFileAttributesW(filepath);
+					return (attrs != INVALID_FILE_ATTRIBUTES);
+				}
+				return false;
+			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			bool filesystem_resolve_v1(const std::wstring & filepath_in, std::wstring & filepath_out)
+			{
+				bool result = false;
+				HANDLE file_h = CreateFileW(
+					filepath_in.c_str(),
+					GENERIC_READ,
+					FILE_SHARE_READ|FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_ATTRIBUTE_NORMAL,
+					NULL
+				);
+				
+				if (file_h != INVALID_HANDLE_VALUE) {
+					WCHAR buf[1024 + 1];
+					DWORD len;
+					if (0 != (len = GetFinalPathNameByHandleW(file_h, buf, sizeof(buf), FILE_NAME_NORMALIZED))) {
+						std::wstring wout(buf, len);
+						filepath_out = std::move(wout);
+						result = true;
+					}
+					CloseHandle(file_h);
+				}
+				return result;
+			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			std::string filesystem_resolve_v0(const std::wstring & filepath_in, std::wstring & filepath_out)
+			{
+				std::unique_lock<std::mutex> auto_lock(filesystem_mtx);
+				bool result = false;
+				WCHAR buf[1024 + 1];
+				DWORD len;
+				if (0 != (len = GetFullPathNameW(filepath_in.c_str(), sizeof(buf), buf, NULL)) {
+					if (len < sizeof(buf)) {
+						std::wstring wout(buf, len);
+						if (filesystem_exists(wout) {
+							filepath_out = std::move(wout);
+							result = true;
+						}
+					}
+				}
+				return result;
 			}
 #endif
 		}
