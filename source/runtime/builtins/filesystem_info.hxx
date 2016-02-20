@@ -17,6 +17,7 @@
 	#include <wincrypt.h>
 	#include <windows.h>
 #else
+	#include <sys/types.h>
 	#include <sys/stat.h>
 #endif
 
@@ -176,15 +177,15 @@ namespace coconut
 			std::int64_t fs_mtime(const std::string & utf8_path)
 			{
 				std::int64_t nanosecond = 0LL;
-				struct stat attr;
-				stat(utf8_path.c_str(), &attr);
-							
+				if (utf8_path.size()) {
+					struct stat attr;
+					stat(utf8_path.c_str(), &attr);
 			#ifdef __APPLE__
-				nanosecond = static_cast<std::int64_t>(attr.st_mtime * 1000000000LL);
+					nanosecond = static_cast<std::int64_t>(attr.st_mtime * 1000000000LL);
 			#else
-				nanosecond = static_cast<std::int64_t>((attr.st_mtim.tv_sec * 1000000000LL) + attr.st_mtim.tv_nsec);
-				
+					nanosecond = static_cast<std::int64_t>((attr.st_mtim.tv_sec * 1000000000LL) + attr.st_mtim.tv_nsec);
 			#endif
+				}
 				return nanosecond;
 			}
 
@@ -192,15 +193,15 @@ namespace coconut
 			std::int64_t fs_atime(const std::string & utf8_path)
 			{
 				std::int64_t nanosecond = 0LL;
-				struct stat attr;
-				stat(utf8_path.c_str(), &attr);
-				
+				if (utf8_path.size()) {
+					struct stat attr;
+					stat(utf8_path.c_str(), &attr);
 			#ifdef __APPLE__
-				nanosecond = static_cast<std::int64_t>(attr.st_atime * 1000000000LL);
+					nanosecond = static_cast<std::int64_t>(attr.st_atime * 1000000000LL);
 			#else
-				nanosecond = static_cast<std::int64_t>((attr.st_atim.tv_sec * 1000000000LL) + attr.st_atim.tv_nsec);
-				
+					nanosecond = static_cast<std::int64_t>((attr.st_atim.tv_sec * 1000000000LL) + attr.st_atim.tv_nsec);
 			#endif
+				}
 				return nanosecond;
 			}
 							

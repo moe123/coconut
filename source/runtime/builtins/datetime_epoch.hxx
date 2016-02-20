@@ -5,14 +5,18 @@
 //
 
 #if defined(__MICROSOFT__)
+	#undef UNICODE
+	#undef _UNICODE
+
+	#define UNICODE 1
+	#define _UNICODE 1
+
 	#include <winsock2.h>
 	#include <ws2tcpip.h>
 	#include <rpcdce.h>
 	#include <wincrypt.h>
 	#include <windows.h>
-#endif
-
-#if __MACH__
+#elif __MACH__
 	#include <mach/clock.h>
 	#include <mach/mach.h>
 	#include <mach/mach_error.h>
