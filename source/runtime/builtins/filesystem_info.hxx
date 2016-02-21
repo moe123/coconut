@@ -101,7 +101,17 @@ namespace coconut
 			{
 				if (utf16_path.size()) {
 					DWORD attrs = GetFileAttributesW(utf16_path.c_str());
-					return (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY));
+					return (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY) && !(attrs & FILE_ATTRIBUTE_REPARSE_POINT));
+				}
+				return false;
+			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			bool fs_islink(const std::wstring & utf16_path)
+			{
+				if (utf16_path.size()) {
+					DWORD attrs = GetFileAttributesW(utf16_path.c_str());
+					return (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_REPARSE_POINT));
 				}
 				return false;
 			}
@@ -111,7 +121,7 @@ namespace coconut
 			{
 				if (utf16_path.size()) {
 					DWORD attrs = GetFileAttributesW(utf16_path.c_str());
-					return (attrs != INVALID_FILE_ATTRIBUTES && !(attrs & FILE_ATTRIBUTE_DIRECTORY));
+					return (attrs != INVALID_FILE_ATTRIBUTES && !(attrs & FILE_ATTRIBUTE_DIRECTORY) && !(attrs & FILE_ATTRIBUTE_REPARSE_POINT));
 				}
 				return false;
 			}
@@ -130,52 +140,56 @@ namespace coconut
 			bool fs_resolve_v1(const std::wstring & utf16_path_in, std::wstring & utf16_path_out)
 			{
 				bool result = false;
-				HANDLE file_h;
 				
-				if (!fs_isdir(utf16_path_in)) {
-					file_h = CreateFileW(
-						utf16_path_in.c_str(),
-						GENERIC_READ,
-						FILE_SHARE_READ|FILE_SHARE_WRITE,
-						NULL,
-						OPEN_EXISTING,
-						FILE_ATTRIBUTE_NORMAL,
-						NULL
-					);
+				// TODO HANDLING LONG NAME MARKER
+				if (utf16_path.size()) {
+					HANDLE file_h;
 					
-					if (file_h != INVALID_HANDLE_VALUE) {
-						WCHAR buf[1024 + 1];
-						DWORD len;
-						if (0 != (len = GetFinalPathNameByHandleW(file_h, buf, sizeof(buf), FILE_NAME_NORMALIZED))) {
-							std::wstring wout(buf, len);
-							utf16_path_out = std::move(wout);
-							result = true;
+					if (!fs_isdir(utf16_path_in)) {
+						file_h = CreateFileW(
+							utf16_path_in.c_str(),
+							GENERIC_READ,
+							FILE_SHARE_READ|FILE_SHARE_WRITE,
+							NULL,
+							OPEN_EXISTING,
+							FILE_ATTRIBUTE_NORMAL,
+							NULL
+						);
+						
+						if (file_h != INVALID_HANDLE_VALUE) {
+							WCHAR buf[1024 + 1];
+							DWORD len;
+							if (0 != (len = GetFinalPathNameByHandleW(file_h, buf, sizeof(buf), FILE_NAME_NORMALIZED))) {
+								std::wstring wout(buf, len);
+								utf16_path_out = std::move(wout);
+								result = true;
+							}
+							CloseHandle(file_h);
 						}
-						CloseHandle(file_h);
 					}
-				}
-				if (!result) {
-					file_h = CreateFileW(
-						utf16_path_in.c_str(),
-						GENERIC_READ,
-						FILE_SHARE_READ|FILE_SHARE_WRITE,
-						NULL,
-						OPEN_EXISTING,
-						FILE_ATTRIBUTE_DIRECTORY|FILE_FLAG_BACKUP_SEMANTICS,
-						NULL
-					);
-					
-					if (file_h != INVALID_HANDLE_VALUE) {
-						WCHAR buf[1024 + 1];
-						DWORD len;
-						if (0 != (len = GetFinalPathNameByHandleW(file_h, buf, sizeof(buf), FILE_NAME_NORMALIZED))) {
-							std::wstring wout(buf, len);
-							utf16_path_out = std::move(wout);
-							result = true;
+					if (!result) {
+						file_h = CreateFileW(
+							utf16_path_in.c_str(),
+							GENERIC_READ,
+							FILE_SHARE_READ|FILE_SHARE_WRITE,
+							NULL,
+							OPEN_EXISTING,
+							FILE_ATTRIBUTE_DIRECTORY|FILE_FLAG_BACKUP_SEMANTICS,
+							NULL
+						);
+						
+						if (file_h != INVALID_HANDLE_VALUE) {
+							WCHAR buf[1024 + 1];
+							DWORD len;
+							if (0 != (len = GetFinalPathNameByHandleW(file_h, buf, sizeof(buf), FILE_NAME_NORMALIZED))) {
+								std::wstring wout(buf, len);
+								utf16_path_out = std::move(wout);
+								result = true;
+							}
+							CloseHandle(file_h);
 						}
-						CloseHandle(file_h);
+						
 					}
-					
 				}
 				return result;
 			}
