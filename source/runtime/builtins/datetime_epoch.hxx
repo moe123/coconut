@@ -35,17 +35,6 @@ namespace coconut
 		{
 #if defined(__MICROSOFT__) && !defined(TIME_UTC)
 			
-			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			int gettimeofday(struct timeval * tp, void * tzp)
-			{
-				COCONUT_UNUSED(tzp);
-				union { long long ns100; FILETIME ft; } now;
-				GetSystemTimeAsFileTime(&now.ft);
-				tp->tv_usec = (long)((now.ns100 / 10LL) % 1000000LL);
-				tp->tv_sec = (long)((now.ns100 - 116444736000000000LL) / 10000000LL);
-				return 0;
-			}
-
 			struct time_spec
 			{
 				std::int64_t tv_sec;
@@ -103,33 +92,61 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			std::uint64_t datetime_microtime()
+			std::int64_t datetime_microtime()
 			{ return (datetime_nanotime() / 1000LL); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			std::uint64_t datetime_millitime()
+			std::int64_t datetime_millitime()
 			{ return (datetime_nanotime() / 1000000LL); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void datetime_timespec(std::int64_t nanosecond, time_spec * tms_out)
+			void datetime_dotimespec(std::int64_t nanosecond, time_spec * tms_out)
 			{
 				tms_out->tv_sec = nanosecond / 1000000000LL;
-				tms_out->tv_nsec = nanosecond % 1000000000LL;
+				tms_out->tv_nsec = nanosecond >= 0 ? nanosecond % 1000000000LL : -((-nanosecond) % 1000000000LL);
 			}
+			
+#if defined(__MICROSOFT__)
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			int datetime_gettimeofday_v1(struct timeval * tmv, void * tz)
+			{
+				COCONUT_UNUSED(tz);
+				if (tp) {
+					std::int64_t microsecond = datetime_microtime();
+					tmv->tv_sec = microsecond / 1000000LL;
+					tmv->tv_usec = microsecond >= 0 ? microsecond % 1000000LL : -((-microsecond) % 1000000LL);
+					return 0;
+				}
+				return -1;
+			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			int datetime_gettimeofday_v0(struct timeval * tmv, void * tz)
+			{
+				COCONUT_UNUSED(tz);
+				union { long long ns100; FILETIME ft; } now;
+				GetSystemTimeAsFileTime(&now.ft);
+				tmv->tv_usec = ((now.ns100 / 10LL) % 1000000LL);
+				tmv->tv_sec = ((now.ns100 - 116444736000000000LL) / 10000000LL);
+				return 0;
+			}
+#endif
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool datetime_epoch(time_spec * tms)
 			{
-				std::uint64_t nanosecond = datetime_nanotime();
-				if (nanosecond && tms) {
-					datetime_timespec(nanosecond, tms);
-					return true;
+				if (tms) {
+					std::uint64_t nanosecond = datetime_nanotime();
+					if (nanosecond) {
+						datetime_dotimespec(nanosecond, tms);
+						return true;
+					}
 				}
 				return false;
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			bool datetime_epoch_v1(time_spec * tms)
+			bool datetime_epoch_v0(time_spec * tms)
 			{
 				bool result = false;
 #if defined(TIME_UTC)
@@ -147,7 +164,7 @@ namespace coconut
 				
 #elif defined(__MICROSOFT__)
 				
-				union { unsigned long long ns100; FILETIME ft; } now;
+				union { long long ns100; FILETIME ft; } now;
 				
 				if (tms == nullptr) {
 					return result;
