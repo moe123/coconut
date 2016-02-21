@@ -4,7 +4,7 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/indexpath.hpp>
+#include <coconut/runtime/detail/traits/indexpath.hpp>
 #include <coconut/runtime/detail/core/stream.hpp>
 
 using namespace coconut::runtime;

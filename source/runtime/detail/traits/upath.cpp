@@ -4,8 +4,8 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/upath.hpp>
-#include <coconut/runtime/detail/proxy/ustring.hpp>
+#include <coconut/runtime/detail/traits/upath.hpp>
+#include <coconut/runtime/detail/traits/ustring.hpp>
 
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>

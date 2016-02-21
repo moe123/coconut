@@ -4,10 +4,10 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/datetime.hpp>
-#include <coconut/runtime/detail/proxy/formatter.hpp>
-#include <coconut/runtime/detail/proxy/locale.hpp>
-#include <coconut/runtime/detail/proxy/timezone.hpp>
+#include <coconut/runtime/detail/traits/datetime.hpp>
+#include <coconut/runtime/detail/traits/formatter.hpp>
+#include <coconut/runtime/detail/traits/locale.hpp>
+#include <coconut/runtime/detail/traits/timezone.hpp>
 
 #include <source/runtime/builtins/datetime_epoch.hxx>
 #include <source/runtime/builtins/datetime_format.hxx>

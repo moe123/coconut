@@ -164,8 +164,8 @@
 		D595B8AD1BC9A43A0051FF91 /* defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B8881BC9A43A0051FF91 /* defines.hpp */; };
 		D595B8B01BC9A43A0051FF91 /* hash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88A1BC9A43A0051FF91 /* hash.hpp */; };
 		D595B8B11BC9A43A0051FF91 /* hash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88A1BC9A43A0051FF91 /* hash.hpp */; };
-		D595B8B61BC9A43A0051FF91 /* iterator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88D1BC9A43A0051FF91 /* iterator.hpp */; };
-		D595B8B71BC9A43A0051FF91 /* iterator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88D1BC9A43A0051FF91 /* iterator.hpp */; };
+		D595B8B61BC9A43A0051FF91 /* iterators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88D1BC9A43A0051FF91 /* iterators.hpp */; };
+		D595B8B71BC9A43A0051FF91 /* iterators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88D1BC9A43A0051FF91 /* iterators.hpp */; };
 		D595B8B81BC9A43A0051FF91 /* spinlock.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88E1BC9A43A0051FF91 /* spinlock.hpp */; };
 		D595B8B91BC9A43A0051FF91 /* spinlock.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B88E1BC9A43A0051FF91 /* spinlock.hpp */; };
 		D595B8BC1BC9A43A0051FF91 /* stream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D595B8901BC9A43A0051FF91 /* stream.hpp */; };
@@ -374,7 +374,7 @@
 		D595B8861BC9A43A0051FF91 /* base64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base64.hpp; sourceTree = "<group>"; };
 		D595B8881BC9A43A0051FF91 /* defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = defines.hpp; sourceTree = "<group>"; };
 		D595B88A1BC9A43A0051FF91 /* hash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hash.hpp; sourceTree = "<group>"; };
-		D595B88D1BC9A43A0051FF91 /* iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = iterator.hpp; sourceTree = "<group>"; };
+		D595B88D1BC9A43A0051FF91 /* iterators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = iterators.hpp; sourceTree = "<group>"; };
 		D595B88E1BC9A43A0051FF91 /* spinlock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spinlock.hpp; sourceTree = "<group>"; };
 		D595B8901BC9A43A0051FF91 /* stream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stream.hpp; sourceTree = "<group>"; };
 		D595B8911BC9A43A0051FF91 /* unicode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = unicode.hpp; sourceTree = "<group>"; };
@@ -627,7 +627,7 @@
 			children = (
 				D595B8831BC9A43A0051FF91 /* core */,
 				D595B8931BC9A43A0051FF91 /* nucleus.hpp */,
-				D595B8941BC9A43A0051FF91 /* proxy */,
+				D595B8941BC9A43A0051FF91 /* traits */,
 				D595B8A31BC9A43A0051FF91 /* zombie.hpp */,
 			);
 			path = detail;
@@ -645,7 +645,7 @@
 				D595B9401BC9A7710051FF91 /* byteorder.hpp */,
 				D595B8881BC9A43A0051FF91 /* defines.hpp */,
 				D595B88A1BC9A43A0051FF91 /* hash.hpp */,
-				D595B88D1BC9A43A0051FF91 /* iterator.hpp */,
+				D595B88D1BC9A43A0051FF91 /* iterators.hpp */,
 				D595B88E1BC9A43A0051FF91 /* spinlock.hpp */,
 				D595B8901BC9A43A0051FF91 /* stream.hpp */,
 				D595B94C1BC9BB430051FF91 /* types.hpp */,
@@ -654,7 +654,7 @@
 			path = core;
 			sourceTree = "<group>";
 		};
-		D595B8941BC9A43A0051FF91 /* proxy */ = {
+		D595B8941BC9A43A0051FF91 /* traits */ = {
 			isa = PBXGroup;
 			children = (
 				D595B8951BC9A43A0051FF91 /* bytebuf.hpp */,
@@ -672,7 +672,7 @@
 				D595B8A01BC9A43A0051FF91 /* uri.hpp */,
 				D595B8A11BC9A43A0051FF91 /* ustring.hpp */,
 			);
-			path = proxy;
+			path = traits;
 			sourceTree = "<group>";
 		};
 		D595B8E21BC9A4690051FF91 /* detail */ = {
@@ -680,7 +680,7 @@
 			children = (
 				D595B8F11BC9A4690051FF91 /* core */,
 				D595B8F71BC9A4690051FF91 /* nucleus.cpp */,
-				D595B8F81BC9A4690051FF91 /* proxy */,
+				D595B8F81BC9A4690051FF91 /* traits */,
 				D595B9021BC9A4690051FF91 /* zombie.cpp */,
 			);
 			path = detail;
@@ -698,7 +698,7 @@
 			path = core;
 			sourceTree = "<group>";
 		};
-		D595B8F81BC9A4690051FF91 /* proxy */ = {
+		D595B8F81BC9A4690051FF91 /* traits */ = {
 			isa = PBXGroup;
 			children = (
 				D595B8F91BC9A4690051FF91 /* bytebuf.cpp */,
@@ -712,7 +712,7 @@
 				D595B9001BC9A4690051FF91 /* uri.cpp */,
 				D595B9011BC9A4690051FF91 /* ustring.cpp */,
 			);
-			path = proxy;
+			path = traits;
 			sourceTree = "<group>";
 		};
 		D5B09C891C35ED9F00AF0B9D /* builtins */ = {
@@ -900,7 +900,7 @@
 				D5B09CA01C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
 				D5B09CC41C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B09CD81C35ED9F00AF0B9D /* ustring_parsing.hxx in Headers */,
-				D595B8B71BC9A43A0051FF91 /* iterator.hpp in Headers */,
+				D595B8B71BC9A43A0051FF91 /* iterators.hpp in Headers */,
 				D595B8C91BC9A43A0051FF91 /* formatter.hpp in Headers */,
 				D595B8A91BC9A43A0051FF91 /* base64.hpp in Headers */,
 				D5B09CD01C35ED9F00AF0B9D /* ustring_compare_utf8.hxx in Headers */,
@@ -1077,7 +1077,7 @@
 				D5B09C9F1C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
 				D5B09CC31C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B09CD71C35ED9F00AF0B9D /* ustring_parsing.hxx in Headers */,
-				D595B8B61BC9A43A0051FF91 /* iterator.hpp in Headers */,
+				D595B8B61BC9A43A0051FF91 /* iterators.hpp in Headers */,
 				D595B8C81BC9A43A0051FF91 /* formatter.hpp in Headers */,
 				D595B8A81BC9A43A0051FF91 /* base64.hpp in Headers */,
 				D5B09CCF1C35ED9F00AF0B9D /* ustring_compare_utf8.hxx in Headers */,

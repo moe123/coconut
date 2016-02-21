@@ -4,10 +4,10 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/bytebuf.hpp>
-#include <coconut/runtime/detail/proxy/upath.hpp>
-#include <coconut/runtime/detail/proxy/irange.hpp>
-#include <coconut/runtime/detail/proxy/uri.hpp>
+#include <coconut/runtime/detail/traits/bytebuf.hpp>
+#include <coconut/runtime/detail/traits/upath.hpp>
+#include <coconut/runtime/detail/traits/irange.hpp>
+#include <coconut/runtime/detail/traits/uri.hpp>
 
 #include <coconut/runtime/detail/core/base64.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>

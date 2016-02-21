@@ -4,9 +4,9 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/ustring.hpp>
-#include <coconut/runtime/detail/proxy/locale.hpp>
-#include <coconut/runtime/detail/proxy/irange.hpp>
+#include <coconut/runtime/detail/traits/ustring.hpp>
+#include <coconut/runtime/detail/traits/locale.hpp>
+#include <coconut/runtime/detail/traits/irange.hpp>
 
 #include <coconut/runtime/detail/core/base64.hpp>
 #include <coconut/runtime/detail/core/hash.hpp>

@@ -4,7 +4,7 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/uri.hpp>
+#include <coconut/runtime/detail/traits/uri.hpp>
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
 #include <source/runtime/builtins/uri_escaping.hxx>

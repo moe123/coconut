@@ -5,7 +5,7 @@
 //
 
 #include <coconut/runtime/detail/core/types.hpp>
-#include <coconut/runtime/detail/core/iterator.hpp>
+#include <coconut/runtime/detail/core/iterators.hpp>
 
 #ifndef COCONUT_RUNTIME_IRANGE_HPP
 #define COCONUT_RUNTIME_IRANGE_HPP
@@ -45,11 +45,11 @@ namespace coconut
 			std::string to_string() const;
 		
 		private:
-			typedef iterator::range_adv_facet<std::size_t, irange> iter_adv_facet;
-			typedef const iterator::range_adv_facet<std::size_t, irange> const_iter_adv_facet;
+			typedef iterators::range_adv_facet<std::size_t, irange> iter_adv_facet;
+			typedef const iterators::range_adv_facet<std::size_t, irange> const_iter_adv_facet;
 			
-			typedef iterator::range_rev_facet<std::size_t, irange> iter_rev_facet;
-			typedef const iterator::range_rev_facet<std::size_t, irange> const_iter_rev_facet;
+			typedef iterators::range_rev_facet<std::size_t, irange> iter_rev_facet;
+			typedef const iterators::range_rev_facet<std::size_t, irange> const_iter_rev_facet;
 		
 		public:
 			typedef iter_adv_facet iterator;

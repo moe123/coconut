@@ -4,7 +4,7 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/numeric.hpp>
+#include <coconut/runtime/detail/traits/numeric.hpp>
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
 using namespace coconut::runtime;

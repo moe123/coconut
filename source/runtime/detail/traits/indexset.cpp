@@ -4,8 +4,8 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/detail/proxy/indexset.hpp>
-#include <coconut/runtime/detail/proxy/irange.hpp>
+#include <coconut/runtime/detail/traits/indexset.hpp>
+#include <coconut/runtime/detail/traits/irange.hpp>
 
 using namespace coconut::runtime;
 

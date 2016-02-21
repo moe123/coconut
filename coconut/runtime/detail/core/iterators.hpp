@@ -14,7 +14,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		namespace iterator
+		namespace iterators
 		{
 			template <class MapT>
 			class key_map_facet : public MapT::iterator
