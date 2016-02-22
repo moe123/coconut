@@ -99,16 +99,18 @@ namespace coconut
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float swpf(float x)
+			float swpf_v0(float x)
 			{
+			// Busting for testing
 				std::uint32_t * raw = reinterpret_cast<std::uint32_t *>(&x);
 				swpc32(*raw);
 				return *reinterpret_cast<float *>(raw);
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double swpd(double x)
+			double swpd_v0(double x)
 			{
+			// Busting for testing
 				std::uint64_t * raw = reinterpret_cast<std::uint64_t *>(&x);
 				swpc64(*raw);
 				return *reinterpret_cast<double *>(raw);
@@ -157,35 +159,37 @@ namespace coconut
 			{ return swpc64a(ar, 0, sz); }
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float * swpfa(float * ar, std::size_t start, std::size_t sz)
+			float * swpfa_v0(float * ar, std::size_t start, std::size_t sz)
 			{
+			// Busting for testing
 				for (std::size_t i = start ; i < sz - start ; i++) {
 					float x = ar[i];
-					ar[i] = swpf(x);
+					ar[i] = swpf_v0(x);
 				}
 				return ar;
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float * swpfa(float * ar, std::size_t sz)
-			{ return swpfa(ar, 0, sz); }
+			float * swpfa_v0(float * ar, std::size_t sz)
+			{ return swpfa_v0(ar, 0, sz); }
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double * swpda(double * ar, std::size_t start, std::size_t sz)
+			double * swpda_v0(double * ar, std::size_t start, std::size_t sz)
 			{
+			// Busting for testing
 				for (std::size_t i = start ; i < sz - start ; i++) {
 					double x = ar[i];
-					ar[i] = swpd(x);
+					ar[i] = swpd_v0(x);
 				}
 				return ar;
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double * swpda(double * ar, std::size_t sz)
-			{ return swpda(ar, 0, sz); }
+			double * swpda_v0(double * ar, std::size_t sz)
+			{ return swpda_v0(ar, 0, sz); }
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			std::uint16_t r16be_v1(const std::uint8_t (&r)[2])
+			std::uint16_t r16be_v0(const std::uint8_t (&r)[2])
 			{
 				std::uint16_t x = 0;
 				x |= unsafe_cast<std::uint16_t>(r[0]) << 8;
@@ -212,7 +216,7 @@ namespace coconut
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			std::uint32_t r32be_v1(const std::uint8_t (&r)[4])
+			std::uint32_t r32be_v0(const std::uint8_t (&r)[4])
 			{
 				std::uint32_t x = 0;
 				x |= unsafe_cast<std::uint32_t>(r[0]) << 24;
@@ -245,7 +249,7 @@ namespace coconut
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			std::uint64_t r64be_v1(const std::uint8_t (&r)[8])
+			std::uint64_t r64be_v0(const std::uint8_t (&r)[8])
 			{
 				std::uint64_t x = 0;
 				x |= unsafe_cast<std::uint64_t>(r[0]) << 56;
@@ -290,7 +294,7 @@ namespace coconut
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			std::uint16_t r16le_v1(const std::uint8_t (&r)[2])
+			std::uint16_t r16le_v0(const std::uint8_t (&r)[2])
 			{
 				std::uint16_t x = 0;
 				x |= unsafe_cast<std::uint16_t>(r[1]) << 8;
@@ -317,7 +321,7 @@ namespace coconut
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			std::uint32_t r32le_v1(const std::uint8_t (&r)[4])
+			std::uint32_t r32le_v0(const std::uint8_t (&r)[4])
 			{
 				std::uint32_t x = 0;
 				x |= unsafe_cast<std::uint32_t>(r[3]) << 24;
@@ -350,7 +354,7 @@ namespace coconut
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			std::uint64_t r64le_v1(const std::uint8_t (&r)[8])
+			std::uint64_t r64le_v0(const std::uint8_t (&r)[8])
 			{
 				std::uint64_t x = 0;
 				x |= unsafe_cast<std::uint64_t>(r[7]) << 56;
@@ -637,87 +641,95 @@ namespace coconut
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float be2hf(float x)
+			float be2hf_v0(float x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
-				return swpf(x);
+				return swpf_v0(x);
 			#else
 				return x;
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double be2hd(double x)
+			double be2hd_v0(double x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
-				return swpd(x);
+				return swpd_v0(x);
 			#else
 				return x;
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float h2bef(float x)
+			float h2bef_v0(float x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
-				return swpf(x);
+				return swpf_v0(x);
 			#else
 				return x;
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double h2bed(double x)
+			double h2bed_v0(double x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
-				return swpd(x);
+				return swpd_v0(x);
 			#else
 				return x;
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float le2hf(float x)
+			float le2hf_v0(float x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
 				return x;
 			#else
-				return swpf(x);
+				return swpf_v0(x);
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double le2hd(double x)
+			double le2hd_v0(double x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
 				return x;
 			#else
-				return swpd(x);
+				return swpd_v0(x);
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float h2lef(float x)
+			float h2lef_v0(float x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
 				return x;
 			#else
-				return swpf(x);
+				return swpf_v0(x);
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
 			double h2led(double x)
 			{
+			// Busting for testing
 			#if COCONUT_FPU_LITTLE_ENDIAN
 				return x;
 			#else
-				return swpd(x);
+				return swpd_v0(x);
 			#endif
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			fswp_t h2fswp(float x)
+			fswp_t h2fswp_v0(float x)
 			{
 				union swap { float v; fswp_t sv; } result;
 				result.v = x;
@@ -728,7 +740,7 @@ namespace coconut
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			float fswp2h(fswp_t x)
+			float fswp2h_v0(fswp_t x)
 			{
 				union swap { float v; fswp_t sv; } result;
 				result.sv = x;
@@ -739,7 +751,7 @@ namespace coconut
 			}
 			
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			dswp_t h2dswp(double x)
+			dswp_t h2dswp_v0(double x)
 			{
 				union swap { double v; dswp_t sv; } result;
 				result.v = x;
@@ -750,7 +762,7 @@ namespace coconut
 			}
 
 			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
-			double dswp2h(dswp_t x)
+			double dswp2h_v0(dswp_t x)
 			{
 				union swap { double v; dswp_t sv; } result;
 				result.sv = x;
