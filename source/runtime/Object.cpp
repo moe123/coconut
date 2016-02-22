@@ -125,7 +125,7 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 			parts = runtime::algorithm::split<std::string>(utf8_selkey, u8".");
 			if (parts.size() >= 2) {
 				if(parts[0] == u8"@self") {
-					result = kindCopy();
+					result = valueForKeyPath(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if(parts[0] == u8"@sum") {
 					parts.erase(parts.begin());
 					result = sum(runtime::algorithm::join<std::string>(parts, u8"."));
