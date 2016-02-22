@@ -1024,7 +1024,7 @@ int main(int argc, const char * argv[])
 	
 	std::cerr << "+ self : " << self << std::endl;
 	
-	// no silly recursion on selector operator
+	// selector operator recursion-proof
 	self = hello.valueForKey(u8"@self.@stringValue");
 	
 	std::cerr << "+ self : " << self << std::endl;
@@ -1033,14 +1033,7 @@ int main(int argc, const char * argv[])
 	self = hello.valueForKeyPath(u8"@self.@stringValue");
 	
 	std::cerr << "+ self : " << self << std::endl;
-	
-	// coconut is abstruse-proof to any "fundamental architectural problems" ;
-	// which common nerds like to argue but without having any experience of
-	// it rather than theorical B.S they learnt at school and continuously repeating
-	// "computer science basics" (especially regarding how data structures and trees are
-	// implemented today, ain't linear) which are totally outdated wrapped in sophism thinking
-	// (what blows the mind of `technical recruiters`), sad epoch.
-	
+
 	//test_stuff();
 	String s_0 = u"\u00f6";
 	String s_1 = u"o\u0308";
