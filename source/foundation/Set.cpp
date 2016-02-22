@@ -138,6 +138,7 @@ Owning<Any> Set::valueForKey(const std::string & utf8_key) const
 		// Fault();
 		return {};
 	}
+	
 	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);

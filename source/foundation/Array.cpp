@@ -136,6 +136,7 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 			runtime::algorithm::to_numeric<std::size_t>(utf8_key)
 		);
 	}
+	
 	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		Owning<Any> item = (*it);

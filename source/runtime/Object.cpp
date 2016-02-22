@@ -124,7 +124,9 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 			std::vector<std::string> parts;
 			parts = runtime::algorithm::split<std::string>(utf8_selkey, u8".");
 			if (parts.size() >= 2) {
-				if(parts[0] == u8"@sum") {
+				if(parts[0] == u8"@self") {
+					result = kindCopy();
+				} else if(parts[0] == u8"@sum") {
 					parts.erase(parts.begin());
 					result = sum(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if(parts[0] == u8"@min") {
@@ -162,7 +164,9 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 					result = unionOfSets(runtime::algorithm::join<std::string>(parts, u8"."));
 				}
 			} else {
-				if (utf8_selkey == u8"@count" || utf8_selkey == u8"@length" || utf8_selkey == u8"@size") {
+				if(utf8_selkey == u8"@self") {
+					result = kindCopy();
+				} else if (utf8_selkey == u8"@count" || utf8_selkey == u8"@length" || utf8_selkey == u8"@size") {
 					result = ptr_create<Number>(size());
 				} else if (utf8_selkey == u8"@floatValue") {
 					result = ptr_create<Number>(floatValue());

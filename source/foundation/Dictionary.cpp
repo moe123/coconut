@@ -140,6 +140,7 @@ Owning<Any> Dictionary::valueForKey(const std::string & utf8_key) const
 	} else if(isAttributeKey(utf8_key)) {
 		return Object::valueForKey(utf8_key);
 	}
+	
 	return objectForKey(utf8_key);
 }
 
