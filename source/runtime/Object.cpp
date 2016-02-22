@@ -165,7 +165,7 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 				}
 			} else {
 				if(utf8_selkey == u8"@self") {
-					result = kindCopy();
+					result = ptr_snatch<Any>(this);
 				} else if (utf8_selkey == u8"@count" || utf8_selkey == u8"@length" || utf8_selkey == u8"@size") {
 					result = ptr_create<Number>(size());
 				} else if (utf8_selkey == u8"@floatValue") {

@@ -12,13 +12,7 @@
 #define COCONUT_RUNTIME_TYPES_HPP
 
 namespace coconut
-{	
-	template <typename T> using ptr_declare = std::shared_ptr<T>;
-	
-	template <typename T1, typename... T2>
-	inline ptr_declare<T1> ptr_create(T2 &&... args)
-	{ return std::make_shared<T1>(std::forward<T2>(args)...); }
-	
+{
 	template <typename T1, typename T2>
 	inline T1 unsafe_cast(T2 && r)
 	{ return (T1)r; }
@@ -26,10 +20,21 @@ namespace coconut
 	template <typename T1, typename T2>
 	inline T1 & ref_cast(T2 && r)
 	{ return (T1 &)r; }
-		
+	
+	template <typename T> using ptr_declare = std::shared_ptr<T>;
+	
+	template <typename T1, typename... T2>
+	inline ptr_declare<T1> ptr_create(T2 &&... args)
+	{ return std::make_shared<T1>(std::forward<T2>(args)...); }
+	
+	template <typename T1, typename T2>
+	inline ptr_declare<T1> ptr_snatch(T2 && ptr)
+	{ return std::shared_ptr<T1>(unsafe_cast<T1 *>(ptr), [](T1 *) -> void { /* NOP */ }); }
+	
 	template <typename T1, typename T2>
 	inline ptr_declare<T1> ptr_static_cast(ptr_declare<T2> const & r)
 	{ return std::static_pointer_cast<T1>(r); }
+	
 	
 	template <typename T1, typename T2>
 	inline ptr_declare<T1> ptr_dynamic_cast(ptr_declare<T2> const & r)
