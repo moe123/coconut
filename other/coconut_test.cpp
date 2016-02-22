@@ -1018,22 +1018,32 @@ static void run_queue(void)
 int main(int argc, const char * argv[])
 {
 	String hello = u8"hello";
+	{
+		// public API to be considered off limit
+		auto self = hello.valueForKey(u8"@self");
+		
+		std::cerr << "+ self : " << self << std::endl;
+		
+		// selector operator recursion-proof
+		self = hello.valueForKey(u8"@self.@stringValue");
+		
+		std::cerr << "+ self : " << self << std::endl;
+		std::cerr << "+ self : " << self.unique() << std::endl;
+		// normal usage
+		self = hello.valueForKeyPath(u8"@self.@stringValue");
+		{
+			auto self1 = self;
+			std::cerr << "+ self : " << self.use_count() << std::endl;
+			std::cerr << "+ self : " << self.unique() << std::endl;
+			std::cerr << "+ self : " << self1 << std::endl;
+		}
+		std::cerr << "+ self : " << self << std::endl;
+		std::cerr << "+ self : " << self.unique() << std::endl;
+		std::cerr << "+ self : " << self.use_count() << std::endl;
+	}
 	
-	// public API to be considered off limit
-	auto self = hello.valueForKey(u8"@self");
+	std::cerr << "+ hello : " << hello << std::endl;
 	
-	std::cerr << "+ self : " << self << std::endl;
-	
-	// selector operator recursion-proof
-	self = hello.valueForKey(u8"@self.@stringValue");
-	
-	std::cerr << "+ self : " << self << std::endl;
-	
-	// normal usage
-	self = hello.valueForKeyPath(u8"@self.@stringValue");
-	
-	std::cerr << "+ self : " << self << std::endl;
-
 	//test_stuff();
 	String s_0 = u"\u00f6";
 	String s_1 = u"o\u0308";
