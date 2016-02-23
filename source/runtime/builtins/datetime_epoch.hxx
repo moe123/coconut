@@ -48,7 +48,7 @@ namespace coconut
 			std::int64_t datetime_nanotime()
 			{
 				std::int64_t result = 0LL;
-#if defined(TIME_UTC)
+#if defined(TIME_UTC) && (!defined(CLOCK_REALTIME) || !defined(__MACH__))
 				struct timespec tm;
 				if (TIME_UTC == timespec_get(&tm, TIME_UTC)) {
 					result = static_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
@@ -211,7 +211,7 @@ namespace coconut
 					return result;
 				}
 				
-				if (0 != clock_gettime(CLOCK_REALTIME, &tms)) {
+				if (0 != clock_gettime(CLOCK_REALTIME, tms)) {
 					tms->tv_sec = 0;
 					tms->tv_nsec = 0;
 				} else {
