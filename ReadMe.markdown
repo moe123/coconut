@@ -18,31 +18,32 @@ Coconut is designed with these goals in mind:
 
 - Provide a small set of basic utility classes optimized for use in a multi-threading environment.
 - Performances and memory footprint in mind <sup>(1)</sup>.
-- Exceptions are used as defects we don't recover from any exception, we let the propagation happening, it must crash.
-- Zero Fault tolerance, exceptions these days are used in a cargo-cult way hidding ton of bugs, we don't want that.
+- Exceptions are used as defects we don't recover from any exception, we let the propagation happening <sup>(2)</sup>. 
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
-- Not only reserved to desktops but also distributed systems <sup>(2)</sup>.
+- Not only reserved to desktops but also distributed systems <sup>(3)</sup>.
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
 - Traversable, iterable, sortable collections thru the KVC interface not relaying on binary comparison.
 - Make software development easier by introducing consistent conventions.
 - Code readability, syntax, allowing to express concepts in fewer lines of code.
-- Support Unicode strings <sup>(3)</sup> and other legacy encodings, UTF-8, i18n and locale comparison. 
-- Support for Path, Stream <sup>(4)</sup>, filesystem and network access on different platforms.
+- Support Unicode strings <sup>(4)</sup> and other legacy encodings, UTF-8, i18n and locale comparison. 
+- Support for Path, Stream <sup>(5)</sup>, filesystem and network access on different platforms.
 - Safe and transparent access to the main loop or UI loop queue of the platform e.g safely signaling the UI thread.
 - Object persistence, distribution, melt-in KVO notifications, event looper.
-- Provide a level of OS independence, to enhance portability <sup>(5)</sup>.
+- Provide a level of OS independence, to enhance portability <sup>(6)</sup>.
 
 -----------------------------------------------------------------------------------------------
 
 <sup>1 - The author has a background in embedded systems ; not in a limited sense of mobile software programming ; and real-time signal processing.</sup>
 
-<sup>2 - The author knows about fail-over clusters and everything in between.</sup>
+<sup>2 - It must crash, Zero Fault tolerance, exceptions these days are used in a cargo-cult way hidding ton of bugs because people tend to violate their own exception handling contract, we don't want that.
 
-<sup>3 - by default width insensitive ; e.g composed or precomposed insensitive.</sup>
+<sup>3 - The author knows about fail-over clusters and everything in between.</sup>
 
-<sup>4 - UTF-16, UTF-8 agnostic parsing and conversion.</sup>
+<sup>4 - by default width insensitive ; e.g composed or precomposed insensitive.</sup>
 
-<sup>5 - Without the temptation of becoming a cargobay and only using a small set of selected dependencies.</sup>
+<sup>5 - UTF-16, UTF-8 agnostic parsing and conversion.</sup>
+
+<sup>6 - Without the temptation of becoming a cargobay and only using a small set of selected dependencies.</sup>
 
 -----------------------------------------------------------------------------------------------
 
