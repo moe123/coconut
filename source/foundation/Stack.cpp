@@ -18,7 +18,7 @@ Stack::Stack(const Stack & stk) :
 	m_impl(stk.m_impl)
 { /* NOP */ }
 
-Stack::Stack(Stack && stk) :
+Stack::Stack(Stack && stk) noexcept :
 	Object(StackClass),
 	m_impl(std::move(stk.m_impl))
 { /* NOP */ }

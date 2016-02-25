@@ -20,7 +20,7 @@ namespace coconut
 		Set(const Set & set);
 		Set & operator = (const Set & set) = default;
 		Set(const Set & set, CopyOption option);
-		Set(Set && set);
+		Set(Set && set) noexcept;
 		Set(const std::initializer_list< Owning<Any> > & args);
 		Set(const std::initializer_list<Any *> & args);
 		

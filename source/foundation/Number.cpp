@@ -18,7 +18,7 @@ Number::Number(const Number & num) :
 	m_impl(num.m_impl)
 { /* NOP */ }
 
-Number::Number(Number && num) :
+Number::Number(Number && num) noexcept :
 	Object(NumberClass),
 	m_impl(std::move(num.m_impl))
 { /* NOP */ }

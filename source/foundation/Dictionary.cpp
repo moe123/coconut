@@ -30,7 +30,7 @@ Dictionary::Dictionary(const Dictionary & dict, CopyOption option) :
 	Dictionary(dict.cbegin(), dict.cend(), option)
 { /* NOP */ }
 
-Dictionary::Dictionary(Dictionary && dict) :
+Dictionary::Dictionary(Dictionary && dict) noexcept :
 	Object(DictionaryClass),
 	m_impl(std::move(dict.m_impl))
 { /* NOP */ }

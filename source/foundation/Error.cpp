@@ -18,7 +18,7 @@ Error::Error(const Error & err) :
 	m_impl(err.m_impl)
 { /* NOP */ }
 
-Error::Error(Error && err) :
+Error::Error(Error && err) noexcept :
 	Object(ErrorClass),
 	m_impl(std::move(err.m_impl))
 { /* NOP */ }

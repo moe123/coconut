@@ -18,7 +18,7 @@ Queue::Queue(const Queue & que) :
 	m_impl(que.m_impl)
 { /* NOP */ }
 
-Queue::Queue(Queue && que) :
+Queue::Queue(Queue && que) noexcept :
 	Object(QueueClass),
 	m_impl(std::move(que.m_impl))
 { /* NOP */ }

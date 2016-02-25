@@ -18,7 +18,7 @@ IndexPath::IndexPath(const IndexPath & idxp) :
 	m_impl(idxp.m_impl)
 { /* NOP */ }
 
-IndexPath::IndexPath(IndexPath && idxp) :
+IndexPath::IndexPath(IndexPath && idxp) noexcept :
 	Object(IndexPathClass),
 	m_impl(std::move(idxp.m_impl))
 { /* NOP */ }

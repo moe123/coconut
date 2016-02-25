@@ -20,7 +20,7 @@ namespace coconut
 		OrderedSet(const OrderedSet & set);
 		OrderedSet & operator = (const OrderedSet & set) = default;
 		OrderedSet(const OrderedSet & set, CopyOption option);
-		OrderedSet(OrderedSet && set);
+		OrderedSet(OrderedSet && set) noexcept;
 		OrderedSet(const std::initializer_list< Owning<Any> > & args);
 		OrderedSet(const std::initializer_list<Any *> & args);
 		

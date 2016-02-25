@@ -26,7 +26,7 @@ OrderedSet::OrderedSet(const OrderedSet & set, CopyOption option) :
 	OrderedSet(set.cbegin(), set.cend(), option)
 { /* NOP */ }
 
-OrderedSet::OrderedSet(OrderedSet && set) :
+OrderedSet::OrderedSet(OrderedSet && set) noexcept :
 	Object(OrderedSetClass),
 	m_impl(std::move(set.m_impl))
 { /* NOP */ }

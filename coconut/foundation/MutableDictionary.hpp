@@ -20,9 +20,9 @@ namespace coconut
 		MutableDictionary(const MutableDictionary & dict);
 		MutableDictionary & operator = (const MutableDictionary & dict) = default;
 		MutableDictionary(const MutableDictionary & dict, CopyOption option);
-		MutableDictionary(MutableDictionary && dict);
+		MutableDictionary(MutableDictionary && dict) noexcept;
 		MutableDictionary(const Dictionary & dict, CopyOption option = CopyNone);
-		MutableDictionary(Dictionary && dict);
+		MutableDictionary(Dictionary && dict) noexcept;
 		MutableDictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		MutableDictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
@@ -48,8 +48,8 @@ namespace coconut
 		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;
 		
-		void setDictionary(MutableDictionary && dict);
-		void setDictionary(Dictionary && dict);
+		void setDictionary(MutableDictionary && dict) noexcept;
+		void setDictionary(Dictionary && dict) noexcept;
 		
 		void setObjectsFromDictionary(const Dictionary & dict);
 		void setObjectsFromDictionary(const Dictionary & dict, CopyOption option);

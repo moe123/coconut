@@ -19,7 +19,7 @@ namespace coconut
 		Data();
 		Data(const Data & dat);
 		Data & operator = (const Data & dat) = default;
-		Data(Data && dat);
+		Data(Data && dat) noexcept;
 		Data(const Data & dat, bool b64_decode);
 		Data(const Data && dat, bool b64_decode);
 		Data(Data && dat, bool b64_decode);

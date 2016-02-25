@@ -22,7 +22,7 @@ MutableDictionary::MutableDictionary(const MutableDictionary & dict, CopyOption 
 	Dictionary(dict.cbegin(), dict.cend(), option)
 { setClassKind(MutableDictionaryClass, true); }
 
-MutableDictionary::MutableDictionary(MutableDictionary && dict) :
+MutableDictionary::MutableDictionary(MutableDictionary && dict) noexcept :
 	Dictionary(std::forward<Dictionary>(dict))
 { setClassKind(MutableDictionaryClass, true); }
 		
@@ -30,7 +30,7 @@ MutableDictionary::MutableDictionary(const Dictionary & dict, CopyOption option)
 	Dictionary(dict.cbegin(), dict.cend(), option)
 { setClassKind(MutableDictionaryClass, true); }
 
-MutableDictionary::MutableDictionary(Dictionary && dict) :
+MutableDictionary::MutableDictionary(Dictionary && dict) noexcept :
 	Dictionary(std::forward<Dictionary>(dict))
 { setClassKind(MutableDictionaryClass, true); }
 		
@@ -70,10 +70,10 @@ void MutableDictionary::setValueForKey(Owning<Any> ptr, const std::string & utf8
 
 #pragma mark -
 
-void MutableDictionary::setDictionary(MutableDictionary && dict)
+void MutableDictionary::setDictionary(MutableDictionary && dict) noexcept
 { m_impl = std::move(dict.m_impl); }
 
-void MutableDictionary::setDictionary(Dictionary && dict)
+void MutableDictionary::setDictionary(Dictionary && dict) noexcept
 { m_impl = std::move(dict.m_impl); }
 
 #pragma mark -

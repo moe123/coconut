@@ -19,7 +19,7 @@ namespace coconut
 		URL();
 		URL(const URL & url);
 		URL & operator = (const URL & url) = default;
-		URL(URL && url);
+		URL(URL && url) noexcept;
 		URL(const Path & path);
 		URL(const String & in);
 		URL(const String & in, const URL & base_url);

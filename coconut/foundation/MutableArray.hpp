@@ -20,9 +20,9 @@ namespace coconut
 		MutableArray(const MutableArray & arr);
 		MutableArray & operator = (const MutableArray & arr) = default;
 		MutableArray(const MutableArray & arr, CopyOption option);
-		MutableArray(MutableArray && arr);
+		MutableArray(MutableArray && arr) noexcept;
 		MutableArray(const Array & arr, CopyOption option = CopyNone);
-		MutableArray(Array && arr);
+		MutableArray(Array && arr) noexcept;
 		MutableArray(const std::initializer_list< Owning<Any> > & args);
 		MutableArray(const std::initializer_list<Any *> & args);
 		
@@ -43,8 +43,8 @@ namespace coconut
 		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;
 		
-		void setArray(MutableArray && arr);
-		void setArray(Array && arr);
+		void setArray(MutableArray && arr) noexcept;
+		void setArray(Array && arr) noexcept;
 		
 		void setObjectsFromArray(const Array & arr);
 		void setObjectsFromArray(const Array & arr, CopyOption option);

@@ -22,7 +22,7 @@ Data::Data(const Data & dat) :
 	m_impl(dat.m_impl)
 { /* NOP */ }
 
-Data::Data(Data && dat) :
+Data::Data(Data && dat) noexcept :
 	Object(DataClass),
 	m_impl(std::move(dat.m_impl))
 { /* NOP */ }

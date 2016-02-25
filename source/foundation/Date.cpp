@@ -19,7 +19,7 @@ Date::Date(const Date & dtm) :
 	m_impl(dtm.m_impl)
 { /* NOP */ }
 
-Date::Date(Date && dtm) :
+Date::Date(Date && dtm) noexcept :
 	Object(DateClass),
 	m_impl(std::move(dtm.m_impl))
 { /* NOP */ }

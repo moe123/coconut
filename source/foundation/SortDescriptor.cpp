@@ -21,7 +21,7 @@ SortDescriptor::SortDescriptor(const SortDescriptor & sdr) :
 	m_impl(sdr.m_impl)
 { /* NOP */ }
 
-SortDescriptor::SortDescriptor(SortDescriptor && sdr) :
+SortDescriptor::SortDescriptor(SortDescriptor && sdr) noexcept :
 	Object(SortDescriptorClass),
 	m_impl(std::move(sdr.m_impl))
 { /* NOP */ }

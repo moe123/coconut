@@ -19,7 +19,7 @@ namespace coconut
 		SortDescriptor();
 		SortDescriptor(const SortDescriptor & sdr);
 		SortDescriptor & operator = (const SortDescriptor & sdr) = default;
-		SortDescriptor(SortDescriptor && sdr);
+		SortDescriptor(SortDescriptor && sdr) noexcept;
 		SortDescriptor(const String & key, bool isasc = true);
 		SortDescriptor(const String & key, const String & selkey, bool isasc = true);		
 		virtual ~SortDescriptor();

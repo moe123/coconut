@@ -22,11 +22,11 @@ MutableArray::MutableArray(const MutableArray & arr, CopyOption option) :
 	Array(arr.cbegin(), arr.cend(), option)
 { setClassKind(MutableArrayClass, true); }
 
-MutableArray::MutableArray(MutableArray && arr) :
+MutableArray::MutableArray(MutableArray && arr) noexcept :
 	Array(std::forward<Array>(arr))
 { setClassKind(MutableArrayClass, true); }
 
-MutableArray::MutableArray(Array && arr) :
+MutableArray::MutableArray(Array && arr) noexcept :
 	Array(std::move(arr))
 { setClassKind(MutableArrayClass, true); }
 
@@ -66,10 +66,10 @@ void MutableArray::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 
 #pragma mark -
 
-void MutableArray::setArray(MutableArray && arr)
+void MutableArray::setArray(MutableArray && arr) noexcept
 { m_impl = std::move(arr.m_impl); }
 
-void MutableArray::setArray(Array && arr)
+void MutableArray::setArray(Array && arr) noexcept
 { m_impl = std::move(arr.m_impl); }
 
 #pragma mark -

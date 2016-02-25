@@ -21,9 +21,7 @@ namespace coconut
 		Dictionary(const Dictionary & dict);
 		Dictionary & operator = (const Dictionary & dict) = default;
 		Dictionary(const Dictionary & dict, CopyOption option);
-		
-		Dictionary(Dictionary && dict);
-		
+		Dictionary(Dictionary && dict) noexcept;
 		Dictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		Dictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		

@@ -22,7 +22,7 @@ URL::URL(const URL & url) :
 	m_impl(url.m_impl, false)
 { /* NOP */ }
 
-URL::URL(URL && url) :
+URL::URL(URL && url) noexcept :
 	Object(URLClass),
 	m_impl(std::move(url.m_impl), false)
 { /* NOP */ }

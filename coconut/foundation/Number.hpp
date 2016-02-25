@@ -19,7 +19,7 @@ namespace coconut
 		Number();
 		Number(const Number & num);
 		Number & operator = (const Number & num) = default;
-		Number(Number && num);
+		Number(Number && num) noexcept;
 		Number(const float & value);
 		Number(const double & value);
 		Number(const long double & value);

@@ -25,7 +25,7 @@ Set::Set(const Set & set, CopyOption option) :
 	Set(set.cbegin(), set.cend(), option)
 { /* NOP */ }
 
-Set::Set(Set && set) :
+Set::Set(Set && set) noexcept :
 	Object(SetClass),
 	m_impl(std::move(set.m_impl))
 { /* NOP */ }

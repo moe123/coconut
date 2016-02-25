@@ -31,7 +31,7 @@ Array::Array(const Array & arr, CopyOption option) :
 	Array(arr.cbegin(), arr.cend(), option)
 { /* NOP */ }
 
-Array::Array(Array && arr) :
+Array::Array(Array && arr) noexcept :
 	Object(ArrayClass),
 	m_impl(std::move(arr.m_impl))
 { /* NOP */ }

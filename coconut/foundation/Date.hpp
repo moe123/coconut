@@ -19,7 +19,7 @@ namespace coconut
 		Date();
 		Date(const Date & dtm);
 		Date & operator = (const Date & dtm) = default;
-		Date(Date && dtm);
+		Date(Date && dtm) noexcept;
 		Date(TimeInterval seconds, TimeReferenceOption ref_opt);
 		Date(TimeInterval seconds, const Date & since);
 		Date(TimeInterval interval, TimeUnitOption unit_opt, TimeReferenceOption ref_opt);
