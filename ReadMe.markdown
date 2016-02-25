@@ -8,7 +8,7 @@ Coconut implements type introspection (e.g knowing type [parent-type, properties
 a metaobject protocol (MOP).
 
 It has many avantages such as implementating multiple dispatch or multimethods in few lines and in an obvious manner 
-discarding any cumbersome construct, therefore by definition non-human readable ; for instance, a `visitor pattern` is a kind of multimethod approach 
+discarding any cumbersome construct, therefore by definition non-human readable ; for instance, a `visitor pattern` is a kind of multimethod recursive approach 
 solely based on the receiver single argument type. Coconut must look like `playschool` for the end-user, this is the whole concept e.g exposing 
 underlaying complexity in the most `childish way` ; so far, the best return the author had when exposing only naked calls without showing any interoperability: 
 `what language is it?`.
