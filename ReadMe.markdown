@@ -18,7 +18,7 @@ Coconut is designed with these goals in mind:
 
 - Provide a small set of basic utility classes optimized for use in a multi-threading environment.
 - Performances and memory footprint in mind <sup>(1)</sup>.
-- Exceptions are used as defects we don't recover from any exception, we let the propagation happening, it must crash.
+- Exceptions are used as defects we don't recover from any exception, we let the propagation happening, it must crash, zero Fault tolerance.
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
 - Not only reserved to desktops but also distributed systems <sup>(2)</sup>.
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
