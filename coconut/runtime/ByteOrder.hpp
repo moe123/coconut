@@ -48,15 +48,27 @@ namespace coconut
 	{ return runtime::byteorder::r64be(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
-	void WriteBigInt16(std::uint16_t in, std::uint8_t (&w)[2])
+	void WriteBigInt16(const std::uint16_t & in, std::uint8_t (&w)[2])
+	{ runtime::byteorder::w16be(in, w); }
+
+	COCONUT_ALWAYS_INLINE
+	void WriteBigInt16(const std::int16_t & in, std::uint8_t (&w)[2])
 	{ runtime::byteorder::w16be(in, w); }
 	
 	COCONUT_ALWAYS_INLINE
-	void WriteBigInt32(std::uint32_t in, std::uint8_t (&w)[4])
+	void WriteBigInt32(const std::uint32_t & in, std::uint8_t (&w)[4])
 	{ runtime::byteorder::w32be(in, w); }
 	
 	COCONUT_ALWAYS_INLINE
-	void WriteBigInt64(std::uint64_t in, std::uint8_t (&w)[8])
+	void WriteBigInt32(const std::int32_t & in, std::uint8_t (&w)[4])
+	{ runtime::byteorder::w32be(in, w); }
+	
+	COCONUT_ALWAYS_INLINE
+	void WriteBigInt64(const std::uint64_t & in, std::uint8_t (&w)[8])
+	{ runtime::byteorder::w64be(in, w); }
+	
+	COCONUT_ALWAYS_INLINE
+	void WriteBigInt64(const std::int64_t & in, std::uint8_t (&w)[8])
 	{ runtime::byteorder::w64be(in, w); }
 	
 	COCONUT_ALWAYS_INLINE
@@ -84,27 +96,51 @@ namespace coconut
 	{ runtime::byteorder::r64le(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
-	void WriteLittleInt16(std::uint16_t in, std::uint8_t (&w)[2])
+	void WriteLittleInt16(const std::uint16_t & in, std::uint8_t (&w)[2])
 	{ runtime::byteorder::w16le(in, w); }
 
 	COCONUT_ALWAYS_INLINE
-	void WriteLittleInt32(std::uint32_t in, std::uint8_t (&w)[4])
+	void WriteLittleInt16(const std::int16_t & in, std::uint8_t (&w)[2])
+	{ runtime::byteorder::w16le(in, w); }
+	
+	COCONUT_ALWAYS_INLINE
+	void WriteLittleInt32(const std::uint32_t & in, std::uint8_t (&w)[4])
+	{ runtime::byteorder::w32le(in, w); }
+
+	COCONUT_ALWAYS_INLINE
+	void WriteLittleInt32(const std::int32_t & in, std::uint8_t (&w)[4])
 	{ runtime::byteorder::w32le(in, w); }
 	
 	COCONUT_ALWAYS_INLINE
-	void WriteLittleInt64(std::uint64_t in, std::uint8_t (&w)[8])
+	void WriteLittleInt64(const std::uint64_t & in, std::uint8_t (&w)[8])
 	{ runtime::byteorder::w64le(in, w); }
 	
 	COCONUT_ALWAYS_INLINE
-	std::uint16_t SwapInt16(std::uint16_t x)
+	void WriteLittleInt64(const std::int64_t & in, std::uint8_t (&w)[8])
+	{ runtime::byteorder::w64le(in, w); }
+	
+	COCONUT_ALWAYS_INLINE
+	std::uint16_t SwapInt16(std::uint16_t & x)
+	{ return runtime::byteorder::swpc16(x); }
+
+	COCONUT_ALWAYS_INLINE
+	std::uint16_t SwapInt16(std::int16_t & x)
 	{ return runtime::byteorder::swpc16(x); }
 	
 	COCONUT_ALWAYS_INLINE
-	std::uint32_t SwapInt32(std::uint32_t x)
+	std::uint32_t SwapInt32(std::uint32_t & x)
+	{ return runtime::byteorder::swpc32(x); }
+
+	COCONUT_ALWAYS_INLINE
+	std::uint32_t SwapInt32(std::int32_t & x)
 	{ return runtime::byteorder::swpc32(x); }
 	
 	COCONUT_ALWAYS_INLINE
-	std::uint64_t SwapInt64(std::uint64_t x)
+	std::uint64_t SwapInt64(std::uint64_t & x)
+	{ return runtime::byteorder::swpc64(x); }
+	
+	COCONUT_ALWAYS_INLINE
+	std::uint64_t SwapInt64(std::int64_t & x)
 	{ return runtime::byteorder::swpc64(x); }
 	
 	COCONUT_ALWAYS_INLINE
