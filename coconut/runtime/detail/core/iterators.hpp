@@ -17,7 +17,7 @@ namespace coconut
 		namespace iterators
 		{
 			template <class MapT>
-			class key_map_facet : public MapT::iterator
+			COCONUT_PRIVATE class key_map_facet : public MapT::iterator
 			{
 			public:
 				typedef typename MapT::iterator facet;
@@ -49,16 +49,16 @@ namespace coconut
 			};
 
 			template <class MapT>
-			value_map_facet<MapT> value_begin(MapT & m)
+			COCONUT_PRIVATE value_map_facet<MapT> value_begin(MapT & m)
 			{ return value_map_facet<MapT>(m.begin()); }
 
 			template <class MapT>
-			value_map_facet<MapT> value_end(MapT & m)
+			COCONUT_PRIVATE value_map_facet<MapT> value_end(MapT & m)
 			{ return value_map_facet<MapT>(m.end()); }
 			
 			
 			template <typename ItemT, class FriendT>
-			class range_adv_facet
+			COCONUT_PRIVATE class range_adv_facet
 			{
 			friend FriendT;
 				
@@ -95,7 +95,7 @@ namespace coconut
 			};
 
 			template <typename ItemT, class FriendT>
-			class range_rev_facet
+			COCONUT_PRIVATE class range_rev_facet
 			{
 			friend FriendT;
 				

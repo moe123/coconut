@@ -54,7 +54,7 @@ namespace coconut
 						x = static_cast<long long>(ft.dwHighDateTime);
 						x <<= 32;
 						x |= static_cast<long long>(ft.dwLowDateTime);
-						x /=10;
+						x /= 10;
 						x -= 11644473600000000LL;
 						x *= 1000LL;
 						nanosecond = static_cast<std::int64_t>(x);
@@ -87,7 +87,7 @@ namespace coconut
 						x = static_cast<long long>(ft.dwHighDateTime);
 						x <<= 32;
 						x |= static_cast<long long>(ft.dwLowDateTime);
-						x /=10;
+						x /= 10;
 						x -= 11644473600000000LL;
 						x *= 1000LL;
 						nanosecond = static_cast<std::int64_t>(x);
@@ -174,7 +174,7 @@ namespace coconut
 							FILE_SHARE_READ|FILE_SHARE_WRITE,
 							NULL,
 							OPEN_EXISTING,
-							FILE_ATTRIBUTE_DIRECTORY|FILE_FLAG_BACKUP_SEMANTICS,
+							FILE_FLAG_BACKUP_SEMANTICS,
 							NULL
 						);
 						

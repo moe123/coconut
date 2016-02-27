@@ -61,7 +61,7 @@ namespace coconut
 				x = static_cast<long long>(ft.dwHighDateTime);
 				x <<= 32;
 				x |= static_cast<long long>(ft.dwLowDateTime);
-				x /=10;
+				x /= 10;
 				x -= 11644473600000000LL;
 				x *= 1000LL;
 				result = static_cast<std::int64_t>(x);
@@ -78,7 +78,7 @@ namespace coconut
 					}
 				}
 				mach_port_deallocate(mach_task_self(), mclk);
-#elif CLOCK_REALTIME
+#elif defined(CLOCK_REALTIME)
 				struct timespec tm;
 				if (0 == clock_gettime(CLOCK_REALTIME, &tm)) {
 					result = static_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
@@ -205,7 +205,7 @@ namespace coconut
 				}
 				mach_port_deallocate(mach_task_self(), mclk);
 				
-#elif CLOCK_REALTIME
+#elif defined(CLOCK_REALTIME)
 				
 				if (tms == nullptr) {
 					return result;

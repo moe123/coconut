@@ -35,7 +35,6 @@ namespace coconut
 	inline ptr_declare<T1> ptr_static_cast(ptr_declare<T2> const & r)
 	{ return std::static_pointer_cast<T1>(r); }
 	
-	
 	template <typename T1, typename T2>
 	inline ptr_declare<T1> ptr_dynamic_cast(ptr_declare<T2> const & r)
 	{ return std::dynamic_pointer_cast<T1>(r); }

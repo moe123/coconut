@@ -124,24 +124,24 @@ namespace coconut
 	{ return runtime::byteorder::swpc16(x); }
 
 	COCONUT_ALWAYS_INLINE
-	std::uint16_t SwapInt16(std::int16_t & x)
-	{ return runtime::byteorder::swpc16(x); }
+	std::int16_t SwapSInt16(std::int16_t & x)
+	{ return runtime::byteorder::swpcs16(x); }
 	
 	COCONUT_ALWAYS_INLINE
 	std::uint32_t SwapInt32(std::uint32_t & x)
 	{ return runtime::byteorder::swpc32(x); }
 
 	COCONUT_ALWAYS_INLINE
-	std::uint32_t SwapInt32(std::int32_t & x)
-	{ return runtime::byteorder::swpc32(x); }
+	std::int32_t SwapSInt32(std::int32_t & x)
+	{ return runtime::byteorder::swpcs32(x); }
 	
 	COCONUT_ALWAYS_INLINE
 	std::uint64_t SwapInt64(std::uint64_t & x)
 	{ return runtime::byteorder::swpc64(x); }
 	
 	COCONUT_ALWAYS_INLINE
-	std::uint64_t SwapInt64(std::int64_t & x)
-	{ return runtime::byteorder::swpc64(x); }
+	std::int64_t SwapSInt64(std::int64_t & x)
+	{ return runtime::byteorder::swpcs64(x); }
 	
 	COCONUT_ALWAYS_INLINE
 	unsigned short SwapShort(unsigned short x)

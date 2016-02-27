@@ -40,7 +40,7 @@ namespace coconut
 			inline T swpc(T x)
 			{ swpi(x); return x; }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t swpc16(const volatile std::uint16_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -57,8 +57,12 @@ namespace coconut
 				return v;
 			#endif
 			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			std::int16_t swpcs16(std::int16_t & x)
+			{ return swpc16(x); }
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t swpc32(const volatile std::uint32_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -73,8 +77,12 @@ namespace coconut
 				return v;
 			#endif
 			}
-
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			std::int32_t swpcs32(std::int32_t & x)
+			{ return swpc32(x); }
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t swpc64(const volatile std::uint64_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -97,8 +105,12 @@ namespace coconut
 				return v;
 			#endif
 			}
+			
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+			std::int64_t swpcs64(std::int64_t & x)
+			{ return swpc64(x); }
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float swpf_v0(float x)
 			{
 			// Busting for testing
@@ -107,7 +119,7 @@ namespace coconut
 				return *reinterpret_cast<float *>(raw);
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double swpd_v0(double x)
 			{
 			// Busting for testing
@@ -116,7 +128,7 @@ namespace coconut
 				return *reinterpret_cast<double *>(raw);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t * swpc16a(std::uint16_t * ar, std::size_t start, std::size_t sz)
 			{
 				for (std::size_t i = start ; i < sz - start ; i++) {
@@ -126,11 +138,11 @@ namespace coconut
 				return ar;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t * swpc16a(std::uint16_t * ar, std::size_t sz)
 			{ return swpc16a(ar, 0, sz); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t * swpc32a(std::uint32_t * ar, std::size_t start, std::size_t sz)
 			{
 				for (std::size_t i = start ; i < sz - start ; i++) {
@@ -140,11 +152,11 @@ namespace coconut
 				return ar;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t * swpc32a(std::uint32_t * ar, std::size_t sz)
 			{ return swpc32a(ar, 0, sz); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t * swpc64a(std::uint64_t * ar, std::size_t start, std::size_t sz)
 			{
 				for (std::size_t i = start ; i < sz - start ; i++) {
@@ -154,11 +166,11 @@ namespace coconut
 				return ar;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t * swpc64a(std::uint64_t * ar, std::size_t sz)
 			{ return swpc64a(ar, 0, sz); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float * swpfa_v0(float * ar, std::size_t start, std::size_t sz)
 			{
 			// Busting for testing
@@ -169,11 +181,11 @@ namespace coconut
 				return ar;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float * swpfa_v0(float * ar, std::size_t sz)
 			{ return swpfa_v0(ar, 0, sz); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double * swpda_v0(double * ar, std::size_t start, std::size_t sz)
 			{
 			// Busting for testing
@@ -184,11 +196,11 @@ namespace coconut
 				return ar;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double * swpda_v0(double * ar, std::size_t sz)
 			{ return swpda_v0(ar, 0, sz); }
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t r16be_v0(const std::uint8_t (&r)[2])
 			{
 				std::uint16_t x = 0;
@@ -197,7 +209,7 @@ namespace coconut
 				return x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r16be(const std::uint8_t (&r)[2], std::uint16_t & out)
 			{
 				std::uint16_t x = 0;
@@ -206,7 +218,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r16be(const std::uint8_t (&r)[2], std::int16_t & out)
 			{
 				std::uint16_t x = 0;
@@ -215,7 +227,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t r32be_v0(const std::uint8_t (&r)[4])
 			{
 				std::uint32_t x = 0;
@@ -226,7 +238,7 @@ namespace coconut
 				return x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r32be(const std::uint8_t (&r)[4], std::uint32_t & out)
 			{
 				std::uint32_t x = 0;
@@ -237,7 +249,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r32be(const std::uint8_t (&r)[4], std::int32_t & out)
 			{
 				std::uint32_t x = 0;
@@ -248,7 +260,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t r64be_v0(const std::uint8_t (&r)[8])
 			{
 				std::uint64_t x = 0;
@@ -263,7 +275,7 @@ namespace coconut
 				return x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r64be(const std::uint8_t (&r)[8], std::uint64_t & out)
 			{
 				std::uint64_t x = 0;
@@ -278,7 +290,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r64be(const std::uint8_t (&r)[8], std::int64_t & out)
 			{
 				std::uint64_t x = 0;
@@ -293,7 +305,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t r16le_v0(const std::uint8_t (&r)[2])
 			{
 				std::uint16_t x = 0;
@@ -302,7 +314,7 @@ namespace coconut
 				return x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r16le(const std::uint8_t (&r)[2], std::uint16_t & out)
 			{
 				std::uint16_t x = 0;
@@ -311,7 +323,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r16le(const std::uint8_t (&r)[2], std::int16_t & out)
 			{
 				std::uint16_t x = 0;
@@ -320,7 +332,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t r32le_v0(const std::uint8_t (&r)[4])
 			{
 				std::uint32_t x = 0;
@@ -331,7 +343,7 @@ namespace coconut
 				return x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r32le(const std::uint8_t (&r)[4], std::uint32_t & out)
 			{
 				std::uint32_t x = 0;
@@ -342,7 +354,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r32le(const std::uint8_t (&r)[4], std::int32_t & out)
 			{
 				std::uint32_t x = 0;
@@ -353,7 +365,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t r64le_v0(const std::uint8_t (&r)[8])
 			{
 				std::uint64_t x = 0;
@@ -368,7 +380,7 @@ namespace coconut
 				return x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r64le(const std::uint8_t (&r)[8], std::uint64_t & out)
 			{
 				std::uint64_t x = 0;
@@ -383,7 +395,7 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void r64le(const std::uint8_t (&r)[8], std::int64_t & out)
 			{
 				std::uint64_t x = 0;
@@ -398,18 +410,18 @@ namespace coconut
 				out = x;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w16be(std::uint16_t in, std::uint8_t (&w)[2])
 			{
 				w[0] = ((in >> 8) & 0xFF);
 				w[1] = (in & 0xFF);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w16be(std::int16_t in, std::uint8_t (&w)[2])
 			{ w16be(unsafe_cast<std::uint16_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w32be(std::uint32_t in, std::uint8_t (&w)[4])
 			{
 				w[0] = ((in & 0xFF000000UL) >> 24);
@@ -418,11 +430,11 @@ namespace coconut
 				w[3] = ((in & 0x000000FFUL));
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w32be(std::int32_t in, std::uint8_t (&w)[4])
 			{ w32be(unsafe_cast<std::uint32_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w64be(std::uint64_t in, std::uint8_t (&w)[8])
 			{
 				w[0] = ((in & 0xFF00000000000000ULL) >> 56);
@@ -435,30 +447,30 @@ namespace coconut
 				w[7] = ((in & 0x00000000000000FFULL));
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w64be(std::int64_t in, std::uint8_t (&w)[8])
 			{ w64be(unsafe_cast<std::uint64_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void wfbe(float in, std::uint8_t (&w)[4])
 			{ w32be(unsafe_cast<std::int32_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void wdbe(double in, std::uint8_t (&w)[8])
 			{ w64be(unsafe_cast<std::int64_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w16le(std::uint16_t & in, std::uint8_t (&w)[2])
 			{
 				w[0] = (in & 0xFF);
 				w[1] = ((in >> 8) & 0xFF);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w16le(std::int16_t in, std::uint8_t (&w)[2])
 			{ w16le(unsafe_cast<std::uint16_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w32le(std::uint32_t in, std::uint8_t (&w)[4])
 			{
 				w[0] = ((in & 0x000000FFUL));
@@ -467,11 +479,11 @@ namespace coconut
 				w[3] = ((in & 0xFF000000UL) >> 24);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w32le(std::int32_t in, std::uint8_t (&w)[4])
 			{ w32le(unsafe_cast<std::uint32_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w64le(std::uint64_t in, std::uint8_t (&w)[8])
 			{
 				w[0] = ((in & 0x00000000000000FFULL));
@@ -484,19 +496,19 @@ namespace coconut
 				w[7] = ((in & 0xFF00000000000000ULL) >> 56);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void w64le(std::int64_t in, std::uint8_t (&w)[8])
 			{ w64le(unsafe_cast<std::uint64_t>(in), w); }
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void wfle(float in, std::uint8_t (&w)[4])
 			{ w32le(static_cast<std::int32_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void wdle(double in, std::uint8_t (&w)[8])
 			{ w64le(static_cast<std::int64_t>(in), w); }
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t be2h16(std::uint16_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -508,7 +520,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t be2h32(std::uint32_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -520,7 +532,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t be2h64(std::uint64_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -532,7 +544,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t h2be16(std::uint16_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -544,7 +556,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t h2be32(std::uint32_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -556,7 +568,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t h2be64(std::uint64_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -568,7 +580,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t le2h16(std::uint16_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -580,7 +592,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t le2h32(std::uint32_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -592,7 +604,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t le2h64(std::uint64_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -604,7 +616,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t h2le16(std::uint16_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -616,7 +628,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint32_t h2le32(std::uint32_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -628,7 +640,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint64_t h2le64(std::uint64_t x)
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
@@ -640,7 +652,7 @@ namespace coconut
 			#endif
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float be2hf_v0(float x)
 			{
 			// Busting for testing
@@ -651,7 +663,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double be2hd_v0(double x)
 			{
 			// Busting for testing
@@ -662,7 +674,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float h2bef_v0(float x)
 			{
 			// Busting for testing
@@ -673,7 +685,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double h2bed_v0(double x)
 			{
 			// Busting for testing
@@ -684,7 +696,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float le2hf_v0(float x)
 			{
 			// Busting for testing
@@ -695,7 +707,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double le2hd_v0(double x)
 			{
 			// Busting for testing
@@ -706,7 +718,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float h2lef_v0(float x)
 			{
 			// Busting for testing
@@ -717,7 +729,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double h2led(double x)
 			{
 			// Busting for testing
@@ -728,7 +740,7 @@ namespace coconut
 			#endif
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			fswp_t h2fswp_v0(float x)
 			{
 				union swap { float v; fswp_t sv; } result;
@@ -739,7 +751,7 @@ namespace coconut
 				return result.sv;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			float fswp2h_v0(fswp_t x)
 			{
 				union swap { float v; fswp_t sv; } result;
@@ -750,7 +762,7 @@ namespace coconut
 				return result.v;
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			dswp_t h2dswp_v0(double x)
 			{
 				union swap { double v; dswp_t sv; } result;
@@ -761,7 +773,7 @@ namespace coconut
 				return result.sv;
 			}
 
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			double dswp2h_v0(dswp_t x)
 			{
 				union swap { double v; dswp_t sv; } result;

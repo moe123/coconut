@@ -16,7 +16,7 @@ namespace coconut
 		namespace unicode
 		{
 			template <typename T>
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void codeset_utf16_utf8(const std::basic_string<T, std::char_traits<T>, std::allocator<T> > & source, std::string & result)
 			{
 				typedef std::codecvt_utf8_utf16<T> codecvt_utf8_utf16;
@@ -25,7 +25,7 @@ namespace coconut
 			}
 			
 			template <typename T>
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			void codeset_utf8_utf16(const std::string & source, std::basic_string<T, std::char_traits<T>, std::allocator<T> > & result)
 			{
 				typedef std::codecvt_utf8_utf16<T> codecvt_utf8_utf16;
@@ -33,7 +33,7 @@ namespace coconut
 				result.swap(conv.from_bytes(source));
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::u16string utf8_to_ucs2(const std::string & utf8_in)
 			{
 				typedef std::codecvt_utf8<char16_t> codecvt_utf8_ucs2;
@@ -41,7 +41,7 @@ namespace coconut
 				return conv.from_bytes(utf8_in);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::u16string utf8_to_utf16(const std::string & utf8_in)
 			{
 				typedef std::codecvt_utf8_utf16<char16_t> codecvt_utf8_utf16;
@@ -49,7 +49,7 @@ namespace coconut
 				return conv.from_bytes(utf8_in);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::u32string utf8_to_ucs4(const std::string & utf8_in)
 			{
 				typedef std::codecvt_utf8<char32_t> codecvt_utf8_ucs4;
@@ -57,13 +57,13 @@ namespace coconut
 				return conv.from_bytes(utf8_in);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::u32string utf8_to_utf32(const std::string & utf8_in)
 			{
 				return utf8_to_ucs4(utf8_in);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string ucs2_to_utf8(const std::u16string & in_ucs2)
 			{
 				typedef std::codecvt_utf8<char16_t> codecvt_utf8_ucs2;
@@ -71,14 +71,14 @@ namespace coconut
 				return conv.to_bytes(in_ucs2);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::u16string ucs2_to_utf16(const std::u16string & in_ucs2)
 			{
 				std::string utf8_in = unicode::ucs2_to_utf8(in_ucs2);
 				return utf8_to_utf16(utf8_in);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string utf16_to_utf8(const std::u16string & utf16_in)
 			{
 				typedef std::codecvt_utf8_utf16<char16_t> codecvt_utf8_utf16;
@@ -86,7 +86,7 @@ namespace coconut
 				return conv.to_bytes(utf16_in);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string ucs4_to_utf8(const std::u32string & in_ucs4)
 			{
 				typedef std::codecvt_utf8<char32_t> codecvt_utf8_ucs4;
@@ -94,7 +94,7 @@ namespace coconut
 				return conv.to_bytes(in_ucs4);
 			}
 			
-			COCONUT_PROTECTED COCONUT_ALWAYS_INLINE
+			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string utf32_to_utf8(const std::u32string & in_utf32)
 			{
 				return ucs4_to_utf8(in_utf32);
