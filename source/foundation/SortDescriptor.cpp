@@ -26,14 +26,14 @@ SortDescriptor::SortDescriptor(SortDescriptor && sdr) noexcept :
 	m_impl(std::move(sdr.m_impl))
 { /* NOP */ }
 
-SortDescriptor::SortDescriptor(const std::string & utf8_key, bool isasc) :
+SortDescriptor::SortDescriptor(const String & key, bool isasc) :
 	Object(SortDescriptorClass),
-	m_impl{ utf8_key, u8"@compare:", isasc }
+	m_impl{ key.stringValue(), u8"@compare:", isasc }
 { /* NOP */ }
 
-SortDescriptor::SortDescriptor(const std::string & utf8_key, const std::string & utf8_selkey, bool isasc) :
+SortDescriptor::SortDescriptor(const String & key, const String & selkey, bool isasc) :
 	Object(SortDescriptorClass),
-	m_impl{ utf8_key, utf8_selkey, isasc }
+	m_impl{ key.stringValue(), selkey.stringValue(), isasc }
 { /* NOP */ }
 
 SortDescriptor::~SortDescriptor()
@@ -91,11 +91,11 @@ const SortDescriptor SortDescriptor::reversedSortDescriptor()
 
 #pragma mark -
 
-const std::string SortDescriptor::key() const
-{ return std::get<0>(m_impl); }
+const String SortDescriptor::key() const
+{ return String{std::get<0>(m_impl)}; }
 
-const std::string SortDescriptor::selectorKey() const
-{ return std::get<1>(m_impl); }
+const String SortDescriptor::selectorKey() const
+{ return String{std::get<1>(m_impl)}; }
 
 bool SortDescriptor::ascending() const
 { return std::get<2>(m_impl); }
