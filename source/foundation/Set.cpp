@@ -125,7 +125,7 @@ Owning<Any> Set::valueForKey(const std::string & utf8_key) const
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
 	} else if(isAttributeKey(utf8_key)) {
-		return Object::valueForKey(utf8_key);
+		return Object::attributeForKey(utf8_key);
 	} else if (runtime::algorithm::is_integer(utf8_key, true)) {
 		if (size()) {
 			size_t idx = runtime::algorithm::to_numeric<std::size_t>(utf8_key);

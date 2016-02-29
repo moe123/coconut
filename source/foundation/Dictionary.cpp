@@ -138,7 +138,7 @@ Owning<Any> Dictionary::valueForKey(const std::string & utf8_key) const
 	if(isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
 	} else if(isAttributeKey(utf8_key)) {
-		return Object::valueForKey(utf8_key);
+		return Object::attributeForKey(utf8_key);
 	}
 	
 	return objectForKey(utf8_key);

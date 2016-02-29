@@ -26,14 +26,14 @@ SortDescriptor::SortDescriptor(SortDescriptor && sdr) noexcept :
 	m_impl(std::move(sdr.m_impl))
 { /* NOP */ }
 
-SortDescriptor::SortDescriptor(const String & key, bool isasc) :
+SortDescriptor::SortDescriptor(const std::string & utf8_key, bool isasc) :
 	Object(SortDescriptorClass),
-	m_impl{ key.stringValue(), u8"@compare:", isasc }
+	m_impl{ utf8_key, u8"@compare:", isasc }
 { /* NOP */ }
 
-SortDescriptor::SortDescriptor(const String & key, const String & selkey, bool isasc) :
+SortDescriptor::SortDescriptor(const std::string & utf8_key, const std::string & utf8_selkey, bool isasc) :
 	Object(SortDescriptorClass),
-	m_impl{ key.stringValue(), selkey.stringValue(), isasc }
+	m_impl{ utf8_key, utf8_selkey, isasc }
 { /* NOP */ }
 
 SortDescriptor::~SortDescriptor()
@@ -52,15 +52,10 @@ ComparisonResult SortDescriptor::compare(const Any & ref) const
 		return OrderedSame;
 	}
 	if (ref.isKindOf(*this)) {
-		std::string binL = std::get<0>(m_impl);
-					binL += std::get<1>(m_impl);
-					binL += std::get<2>(m_impl);
-		
-		std::string binR = std::get<0>(ref_cast<SortDescriptor>(ref).m_impl);
-					binR += std::get<1>(ref_cast<SortDescriptor>(ref).m_impl);
-					binR += std::get<2>(ref_cast<SortDescriptor>(ref).m_impl);
-		
-		return runtime::algorithm::icmp(binL, binR);
+		if (std::get<0>(m_impl) == std::get<0>(ref_cast<SortDescriptor>(ref).m_impl) &&
+			std::get<1>(m_impl) == std::get<1>(ref_cast<SortDescriptor>(ref).m_impl) &&
+			std::get<2>(m_impl) == std::get<2>(ref_cast<SortDescriptor>(ref).m_impl)
+		) { return OrderedSame; }
 	}
 	return OrderedDescending;
 }
@@ -96,11 +91,11 @@ const SortDescriptor SortDescriptor::reversedSortDescriptor()
 
 #pragma mark -
 
-const String SortDescriptor::key() const
-{ return String(std::get<0>(m_impl)); }
+const std::string SortDescriptor::key() const
+{ return std::get<0>(m_impl); }
 
-const String SortDescriptor::selectorKey() const
-{ return String(std::get<1>(m_impl)); }
+const std::string SortDescriptor::selectorKey() const
+{ return std::get<1>(m_impl); }
 
 bool SortDescriptor::ascending() const
 { return std::get<2>(m_impl); }

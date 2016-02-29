@@ -1,6 +1,6 @@
 
 //
-// iterator.hpp
+// iterators.hpp
 //
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
@@ -29,15 +29,15 @@ namespace coconut
 			};
 
 			template <class MapT>
-			key_map_facet<MapT> key_begin(MapT & m)
+			COCONUT_PRIVATE key_map_facet<MapT> key_begin(MapT & m)
 			{ return key_map_facet<MapT>(m.begin()); }
 
 			template <class MapT>
-			key_map_facet<MapT> key_end(MapT & m)
+			COCONUT_PRIVATE key_map_facet<MapT> key_end(MapT & m)
 			{ return key_map_facet<MapT>(m.end()); }
 
 			template <class MapT>
-			class value_map_facet : public MapT::iterator
+			COCONUT_PRIVATE class value_map_facet : public MapT::iterator
 			{
 			public:
 				typedef typename MapT::iterator facet;

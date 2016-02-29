@@ -20,8 +20,8 @@ namespace coconut
 		SortDescriptor(const SortDescriptor & sdr);
 		SortDescriptor & operator = (const SortDescriptor & sdr) = default;
 		SortDescriptor(SortDescriptor && sdr) noexcept;
-		SortDescriptor(const String & key, bool isasc = true);
-		SortDescriptor(const String & key, const String & selkey, bool isasc = true);		
+		SortDescriptor(const std::string & utf8_key, bool isasc = true);
+		SortDescriptor(const std::string & utf8_key, const std::string & utf8_selkey, bool isasc = true);
 		virtual ~SortDescriptor();
 		
 		virtual Owning<Any> copy() const
@@ -34,8 +34,8 @@ namespace coconut
 		
 		const SortDescriptor reversedSortDescriptor();
 		
-		const String key() const;
-		const String selectorKey() const;
+		const std::string key() const;
+		const std::string selectorKey() const;
 		bool ascending() const;
 		
 	protected:

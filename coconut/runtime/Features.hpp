@@ -11,8 +11,14 @@
 
 namespace coconut
 {
-	template <class T> struct _is_ptr : std::false_type{};
-	template <class T> struct _is_ptr< ptr_declare<T> > : std::true_type{};
+	template <class T> struct _is_ptr : std::false_type {};
+	template <class T> struct _is_ptr< ptr_declare<T> > : std::true_type {};
+	
+	template<class T> struct _plain {
+		typedef typename std::remove_cv<
+			typename std::remove_reference<T>::type
+		>::type type;
+	};
 	
 	template <typename T1, typename T2>
 	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
@@ -305,40 +311,44 @@ namespace coconut
 	inline auto isParentOf(T2 && r) -> bool
 	{ return _parent_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
 	
-	template <typename TypeT>
+	template <typename TypeT,
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	>
 	inline auto With(void * no_param = nullptr)
 		-> Owning<TypeT>
 	{ COCONUT_UNUSED(no_param); return ptr_create<TypeT>(); }
 	
 	template <typename TypeT,
-		typename std::enable_if<
-			std::is_base_of<Any, TypeT>::value
-		>::type* = nullptr
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
 	>
 	inline auto With(const TypeT & arg)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(arg); }
 	
 	template <typename TypeT,
-		typename std::enable_if<
-			std::is_base_of<Any, typename std::decay<TypeT>::type>::value
-		>::type* = nullptr
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
 	>
 	inline auto With(TypeT && arg)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(std::move(arg)); }
 
-	template <typename TypeT>
+	template <typename TypeT,
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	>
 	inline auto With(const std::initializer_list< Owning<Any> > & args)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(args); }
 	
-	template <typename TypeT>
+	template <typename TypeT,
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	>
 	inline auto With(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(args); }
 
-	template <typename TypeT, typename... ArgsT>
+	template <typename TypeT, typename... ArgsT,
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	>
 	inline auto With(ArgsT &&... args)
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(std::forward<ArgsT>(args)...); }
