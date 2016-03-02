@@ -315,7 +315,21 @@ bool Set::isSubsetOfSet(const Set & set) const
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it)) {
 			result = true;
-			if((*it) && !set.member(*(*it))) {
+			if(!set.member(*(*it))) {
+				return false;
+			}
+		}
+	}
+	return result;
+}
+
+bool Set::isSupersetOfSet(const Set & set) const
+{
+	bool result = false;
+	for (const_iterator it = set.cbegin(); it != set.cend(); ++it) {
+		if ((*it)) {
+			result = true;
+			if(!member(*(*it))) {
 				return false;
 			}
 		}
@@ -334,7 +348,6 @@ const Owning<Any> Set::member(const Any & obj) const
 			return (*it);
 		}
 	}
-	// Fault();
 	return {};
 }
 

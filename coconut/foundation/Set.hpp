@@ -86,6 +86,7 @@ namespace coconut
 		
 		bool intersectsSet(const Set & set) const;
 		bool isSubsetOfSet(const Set & set) const;
+		bool isSupersetOfSet(const Set & set) const;
 		
 		const Owning<Any> member(const Any & obj) const;
 		const Owning<Any> member(const Owning<Any> & obj) const;

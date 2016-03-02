@@ -104,7 +104,7 @@ void MutableDictionary::setObject(Owning<Any> ptr, const Any & key)
 	setObject(ptr, key, CopyNone);
 }
 
-void MutableDictionary::setObject(Owning<Any> ptr, const Owning<Any> & key)
+void MutableDictionary::setObject(Owning<Any> ptr, Owning<Any> key)
 {
 	setObject(ptr, key, CopyNone);
 }
@@ -141,7 +141,7 @@ void MutableDictionary::setObject(Owning<Any> ptr, const Any & key, CopyOption o
 	}
 }
 
-void MutableDictionary::setObject(Owning<Any> ptr, const Owning<Any> & key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> ptr, Owning<Any> key, CopyOption option)
 {
 	std::lock_guard<spin_type> lck(spin());
 	if (ptr && key) {
@@ -154,6 +154,50 @@ void MutableDictionary::setObject(Owning<Any> ptr, const Owning<Any> & key, Copy
 			m_impl[k] = ptr;
 		}
 	}
+}
+
+#pragma mark -
+
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const std::string & utf8_key)
+{
+	Owning<Any> old = objectForKey(utf8_key);
+	setObject(ptr, utf8_key);
+	return old;
+}
+
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Any & key)
+{
+	Owning<Any> old = objectForKey(key);
+	setObject(ptr, key);
+	return old;
+}
+
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Owning<Any> & key)
+{
+	Owning<Any> old = objectForKey(key);
+	setObject(ptr, key);
+	return old;
+}
+
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const std::string & utf8_key, CopyOption option)
+{
+	Owning<Any> old = objectForKey(utf8_key);
+	setObject(ptr, utf8_key);
+	return old;
+}
+
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Any & key, CopyOption option)
+{
+	Owning<Any> old = objectForKey(key);
+	setObject(ptr, key, option);
+	return old;
+}
+
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Owning<Any> & key, CopyOption option)
+{
+	Owning<Any> old = objectForKey(key);
+	setObject(ptr, key, option);
+	return old;
 }
 
 #pragma mark -
