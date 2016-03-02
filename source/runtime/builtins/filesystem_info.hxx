@@ -1,5 +1,5 @@
 //
-// fs_info.hxx
+// filesystem_info.hxx
 //
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
