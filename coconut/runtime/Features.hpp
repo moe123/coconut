@@ -20,6 +20,18 @@ namespace coconut
 		>::type type;
 	};
 	
+	template <typename TypeT,
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	>
+	inline std::ostream & operator << (std::ostream & os, const TypeT & ref)
+	{ os << ref.stringValue(); return os; }
+
+	template <typename TypeT,
+		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	>
+	inline std::ostream & operator << (std::ostream & os, const Owning<TypeT> & ptr)
+	{ if (ptr) { os << ptr->stringValue(); } return os; }
+	
 	template <typename T1, typename T2>
 	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
 	{ const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(r)); return (ptr != nullptr); }
@@ -88,12 +100,22 @@ namespace coconut
 		-> Owning<T1>
 	{ return ptr_cast<T1>(r); }
 
-	template <typename T1, typename T2>
+	template <typename T1, typename T2,
+		typename std::enable_if<
+			std::is_base_of<Any, T1>::value &&
+			std::is_base_of<Any, T2>::value
+		>::type* = nullptr
+	>
 	inline auto _copy(const T2 & r, std::false_type)
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r.copyKind()); }
 	
-	template <typename T1, typename T2>
+	template <typename T1, typename T2,
+		typename std::enable_if<
+			std::is_base_of<Any, T1>::value &&
+			std::is_base_of<Any, T2>::value
+		>::type* = nullptr
+	>
 	inline auto _copy(ptr_declare<T2> const & r, std::true_type)
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r->copyKind()); }

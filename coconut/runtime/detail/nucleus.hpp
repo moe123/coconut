@@ -278,13 +278,6 @@ namespace coconut
 			
 			virtual std::size_t size() const;
 			
-		public:
-			friend inline std::ostream & operator << (std::ostream & os, const Any & ref)
-			{ os << ref.stringValue(); return os; }
-			
-			friend inline std::ostream & operator << (std::ostream & os, const Owning<Any> & ptr)
-			{ if (ptr) { os << ptr->stringValue(); } return os; }
-			
 		private:
 			std::ptrdiff_t sig() const;
 			const std::string addr() const;

@@ -94,10 +94,6 @@ namespace coconut
 	
 	public:
 		const std::uint8_t operator [] (std::size_t index) const;
-
-	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Data> & ptr)
-		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:
 		typedef runtime::bytebuf impl_trait;

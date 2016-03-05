@@ -1028,18 +1028,18 @@ int main(int argc, const char * argv[])
 		self = hello.valueForKey(u8"@self.@stringValue");
 		
 		std::cerr << "+ self : " << self << std::endl;
-		std::cerr << "+ self : " << self.unique() << std::endl;
+		std::cerr << "+ self unique ? : " << self.unique() << std::endl;
 		// normal usage
 		self = hello.valueForKeyPath(u8"@self.@stringValue");
 		{
 			auto self1 = self;
-			std::cerr << "+ self : " << self.use_count() << std::endl;
-			std::cerr << "+ self : " << self.unique() << std::endl;
-			std::cerr << "+ self : " << self1 << std::endl;
+			std::cerr << "+ self count ? : " << self.use_count() << std::endl;
+			std::cerr << "+ self unique ? : " << self.unique() << std::endl;
+			std::cerr << "+ self1 : " << self1 << std::endl;
 		}
 		std::cerr << "+ self : " << self << std::endl;
-		std::cerr << "+ self : " << self.unique() << std::endl;
-		std::cerr << "+ self : " << self.use_count() << std::endl;
+		std::cerr << "+ self unique ? : " << self.unique() << std::endl;
+		std::cerr << "+ self count ? : " << self.use_count() << std::endl;
 	}
 	
 	std::cerr << "+ hello : " << hello << std::endl;

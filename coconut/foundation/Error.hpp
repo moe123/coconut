@@ -41,10 +41,6 @@ namespace coconut
 		std::size_t code() const;
 		const String domain() const;
 		const Dictionary userInfo() const;
-
-	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Error> & ptr)
-		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	public:
 		typedef std::tuple<String, std::size_t, Dictionary> impl_trait;

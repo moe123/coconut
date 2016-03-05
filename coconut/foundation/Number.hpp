@@ -106,10 +106,6 @@ namespace coconut
 		bool operator >  (const Number & other_num) const;
 		bool operator >= (const Number & other_num) const;
 		
-	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Number> & ptr)
-		{ if (ptr) { os << ptr->stringValue(); } return os; }
-		
 	protected:
 		typedef runtime::numeric impl_trait;
 	

@@ -47,10 +47,6 @@ namespace coconut
 		bool locationInRange(std::size_t location) const;
 		const Range intersectionRange(const Range & other_rg) const;
 		const Range unionRange(const Range & other_rg) const;
-
-	public:
-		friend inline std::ostream & operator << (std::ostream & os, const Owning<Range> & ptr)
-		{ if (ptr) { os << ptr->stringValue(); } return os; }
 		
 	protected:
 		friend class Path;
