@@ -21,16 +21,22 @@ namespace coconut
 	};
 	
 	template <typename TypeT,
-		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value
+		>::type* = nullptr
 	>
-	inline std::ostream & operator << (std::ostream & os, const TypeT & ref)
-	{ os << ref.stringValue(); return os; }
+	inline auto operator << (std::ostream & os, const TypeT & r)
+		-> std::ostream &
+	{ os << r.stringValue(); return os; }
 
 	template <typename TypeT,
-		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value
+		>::type* = nullptr
 	>
-	inline std::ostream & operator << (std::ostream & os, const Owning<TypeT> & ptr)
-	{ if (ptr) { os << ptr->stringValue(); } return os; }
+	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+		-> std::ostream &
+	{ if (r) { os << r->stringValue(); } return os; }
 	
 	template <typename T1, typename T2>
 	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
