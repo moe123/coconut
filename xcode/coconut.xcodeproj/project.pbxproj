@@ -436,6 +436,7 @@
 		D5B09C981C35ED9F00AF0B9D /* ustring_encoding.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ustring_encoding.hxx; sourceTree = "<group>"; };
 		D5B09C991C35ED9F00AF0B9D /* ustring_parsing.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ustring_parsing.hxx; sourceTree = "<group>"; };
 		D5B09C9A1C35ED9F00AF0B9D /* ustring_searching.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ustring_searching.hxx; sourceTree = "<group>"; };
+		D5B245A11C8BBD82001F2376 /* Printifier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Printifier.hpp; sourceTree = "<group>"; };
 		D5B91FFD1C1F409C00829B3A /* Error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
 		D5B920001C1F721700829B3A /* Error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Error.cpp; sourceTree = "<group>"; };
 		D5DDFB0A1BC49F4B00E5328A /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
@@ -579,6 +580,7 @@
 				D595B8821BC9A43A0051FF91 /* detail */,
 				D523CA381C2A07B4007270F7 /* Features.hpp */,
 				D54322131BCC413900839B4B /* Object.hpp */,
+				D5B245A11C8BBD82001F2376 /* Printifier.hpp */,
 				D528D3061BC4928500D8087D /* Serialization.hpp */,
 				D528D3071BC4928500D8087D /* Types.hpp */,
 			);

@@ -1017,6 +1017,23 @@ static void run_queue(void)
 
 int main(int argc, const char * argv[])
 {
+	{
+		Array list = {
+			With<String>(u8"apple"),
+			With<String>(u8"Banana"),
+			With<String>(u8"Apple"),
+			With<String>(u8"baNana"),
+			With<String>(u8"bånAna"),
+			With<String>(u8"étourdie"),
+			With<String>(u8"éa"),
+			With<String>(u8"Cherry"),
+			With<String>(u8"åpple"),
+			With<String>(u8"Pear"),
+			With<String>(u8"epic"),
+			With<String>(u"\ub098\ub294\ud0dc\uc624")
+		};
+		std::cerr << "+ list : " << list << std::endl;
+	}
 	String hello = u8"hello";
 	{
 		// public API to be considered off limit
