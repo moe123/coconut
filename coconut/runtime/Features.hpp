@@ -38,6 +38,27 @@ namespace coconut
 		-> std::ostream &
 	{ if (r) { os << r->stringValue(); } return os; }
 	
+		
+	template<typename TypeT, template<typename, typename...> class CollT, typename... Args,
+		typename std::enable_if<
+			std::is_same<TypeT, std::vector<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
+			std::is_same<TypeT, std::deque<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
+			std::is_same<TypeT, std::list<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
+			std::is_same<TypeT, std::set<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
+			std::is_same<TypeT, std::unordered_set<typename TypeT::value_type, typename TypeT::allocator_type>>::value
+		>::type* = nullptr
+	>
+	inline auto operator << (std::ostream & os, const CollT<TypeT, Args...> & r)
+		-> std::ostream &
+	{
+		os << '[';
+		for(auto it = r.cbegin(); it != r.cend(); ++it) {
+			os << *it; if(std::next(it) == r.cend()) { os << ',' << ' '; }
+		}
+		os << ']';
+		return os;
+	}
+		
 	template <typename T1, typename T2>
 	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
 	{ const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(r)); return (ptr != nullptr); }
