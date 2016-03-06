@@ -71,6 +71,7 @@
 #include <chrono>
 #include <complex>
 #include <deque>
+#include <forward_list>
 #include <fstream>
 #include <functional>
 #include <future>

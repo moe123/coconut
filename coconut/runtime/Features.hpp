@@ -41,11 +41,42 @@ namespace coconut
 		
 	template<typename TypeT, template<typename, typename...> class CollT, typename... Args,
 		typename std::enable_if<
-			std::is_same<TypeT, std::vector<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
-			std::is_same<TypeT, std::deque<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
-			std::is_same<TypeT, std::list<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
-			std::is_same<TypeT, std::set<typename TypeT::value_type, typename TypeT::allocator_type>>::value ||
-			std::is_same<TypeT, std::unordered_set<typename TypeT::value_type, typename TypeT::allocator_type>>::value
+			std::is_same<TypeT,
+				std::deque<
+					typename TypeT::value_type,
+					typename TypeT::allocator_type
+				>
+			>::value ||
+			std::is_same<TypeT,
+				std::forward_list<
+					typename TypeT::value_type,
+					typename TypeT::allocator_type
+				>
+			>::value ||
+			std::is_same<TypeT,
+				std::list<
+					typename TypeT::value_type,
+					typename TypeT::allocator_type
+				>
+			>::value ||
+			std::is_same<TypeT,
+				std::set<
+					typename TypeT::value_type,
+					typename TypeT::allocator_type
+				>
+			>::value ||
+			std::is_same<TypeT,
+				std::unordered_set<
+					typename TypeT::value_type,
+					typename TypeT::allocator_type
+				>
+			>::value ||
+			std::is_same<TypeT,
+				std::vector<
+					typename TypeT::value_type,
+					typename TypeT::allocator_type
+				>
+			>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const CollT<TypeT, Args...> & r)
