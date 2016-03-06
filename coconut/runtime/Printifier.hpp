@@ -30,40 +30,16 @@ namespace coconut
 		if (r.isKindOf(StringClass) || r.isKindOf(PathClass) || r.isKindOf(URLClass)) {
 			os << '"' << r.stringValue() << '"';
 		} else if (r.isKindOf(ArrayClass)) {
-			os << '[';
-			for(auto it = ref_cast<Array>(r).cbegin(); it != ref_cast<Array>(r).cend(); ++it) {
-				if ((*it)) {
-					os << *it; if(std::next(it) != ref_cast<Array>(r).cend()) { os << ',' << ' '; }
-				}
-			}
-			os << ']';
+			os << ref_cast<Array>(r);
 			return os;
 		} else if (r.isKindOf(OrderedSetClass)) {
-			os << '[';
-			for(auto it = ref_cast<OrderedSet>(r).cbegin(); it != ref_cast<OrderedSet>(r).cend(); ++it) {
-				if ((*it)) {
-					os << *it; if(std::next(it) != ref_cast<OrderedSet>(r).cend()) { os << ',' << ' '; }
-				}
-			}
-			os << ']';
+			os << ref_cast<OrderedSet>(r);
 			return os;
 		} else if (r.isKindOf(SetClass)) {
-			os << '[';
-			for(auto it = ref_cast<Set>(r).cbegin(); it != ref_cast<Set>(r).cend(); ++it) {
-				if ((*it)) {
-					os << *it; if(std::next(it) != ref_cast<Set>(r).cend()) { os << ',' << ' '; }
-				}
-			}
-			os << ']';
+			os << ref_cast<Set>(r);
 			return os;
 		} else if (r.isKindOf(DictionaryClass)) {
-			os << '{';
-			for(auto it = ref_cast<Dictionary>(r).cbegin(); it != ref_cast<Dictionary>(r).cend(); ++it) {
-				if ((*it).first && (*it).second) {
-					os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != ref_cast<Dictionary>(r).cend()) { os << ',' << ' '; }
-				}
-			}
-			os << '}';
+			os << ref_cast<Dictionary>(r);
 			return os;
 		} else {
 			os << r.stringValue();
@@ -88,43 +64,19 @@ namespace coconut
 		-> std::ostream &
 	{
 		if (r) {
-			if (r->isKindOf(StringClass) || r->isKindOf(PathClass) || r->isKindOf(URLClass)) {
+			if (r->isKindOf(StringClass) || r->isKindOf(PathClass) || r->isKindOf(URLClass) || r->isKindOf(DateClass)) {
 				os << '"' << r->stringValue() << '"';
 			} else if (r->isKindOf(ArrayClass)) {
-				os << '[';
-				for(auto it = ptr_cast<Array>(r)->cbegin(); it != ptr_cast<Array>(r)->cend(); ++it) {
-					if ((*it)) {
-						os << *it; if(std::next(it) != ptr_cast<Array>(r)->cend()) { os << ',' << ' '; }
-					}
-				}
-				os << ']';
+				os << ptr_cast<Array>(r);
 				return os;
 			} else if (r->isKindOf(OrderedSetClass)) {
-				os << '[';
-				for(auto it = ptr_cast<OrderedSet>(r)->cbegin(); it != ptr_cast<OrderedSet>(r)->cend(); ++it) {
-					if ((*it)) {
-						os << *it; if(std::next(it) != ptr_cast<OrderedSet>(r)->cend()) { os << ',' << ' '; }
-					}
-				}
-				os << ']';
+				os << ptr_cast<OrderedSet>(r);
 				return os;
 			} else if (r->isKindOf(SetClass)) {
-				os << '[';
-				for(auto it = ptr_cast<Set>(r)->cbegin(); it != ptr_cast<Set>(r)->cend(); ++it) {
-					if ((*it)) {
-						os << *it; if(std::next(it) != ptr_cast<Set>(r)->cend()) { os << ',' << ' '; }
-					}
-				}
-				os << ']';
+				os << ptr_cast<Set>(r);
 				return os;
 			} else if (r->isKindOf(DictionaryClass)) {
-				os << '{';
-				for(auto it = ptr_cast<Dictionary>(r)->cbegin(); it != ptr_cast<Dictionary>(r)->cend(); ++it) {
-					if ((*it).first && (*it).second) {
-						os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != ptr_cast<Dictionary>(r)->cend()) { os << ',' << ' '; }
-					}
-				}
-				os << '}';
+				os << ptr_cast<Dictionary>(r);
 				return os;
 			} else {
 				os << r->stringValue();
