@@ -110,10 +110,10 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<Array, CollT>::value ||
-			std::is_same<MutableArray, CollT>::value ||
-			std::is_same<OrderedSet, CollT>::value ||
-			std::is_same<MutableOrderedSet, CollT>::value
+			std::is_same<CollT, Array>::value ||
+			std::is_same<CollT, MutableArray>::value ||
+			std::is_same<CollT, OrderedSet>::value ||
+			std::is_same<CollT, MutableOrderedSet>::value
 		>::type* = nullptr
 	>
 	inline void _enumerate_dispatch_aliasing
@@ -130,8 +130,8 @@ namespace coconut
 
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<Set, CollT>::value ||
-			std::is_same<MutableSet, CollT>::value
+			std::is_same<CollT, Set>::value ||
+			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto _enumerate_dispatch_aliasing
@@ -148,8 +148,8 @@ namespace coconut
 
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<Dictionary, CollT>::value ||
-			std::is_same<MutableDictionary, CollT>::value
+			std::is_same<CollT, Dictionary>::value ||
+			std::is_same<CollT, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	inline auto _enumerate_dispatch_aliasing
@@ -175,8 +175,8 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<Set, CollT>::value ||
-			std::is_same<MutableSet, CollT>::value
+			std::is_same<CollT, Set>::value ||
+			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto _enumerate_dispatch
@@ -189,10 +189,10 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<Array, CollT>::value ||
-			std::is_same<MutableArray, CollT>::value ||
-			std::is_same<OrderedSet, CollT>::value ||
-			std::is_same<MutableOrderedSet, CollT>::value
+			std::is_same<CollT, Array>::value ||
+			std::is_same<CollT, MutableArray>::value ||
+			std::is_same<CollT, OrderedSet>::value ||
+			std::is_same<CollT, MutableOrderedSet>::value
 		>::type* = nullptr
 	>
 	inline auto _enumerate_dispatch
@@ -205,8 +205,8 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<Dictionary, CollT>::value ||
-			std::is_same<MutableDictionary, CollT>::value
+			std::is_same<CollT, Dictionary>::value ||
+			std::is_same<CollT, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	inline auto _enumerate_dispatch

@@ -14,14 +14,14 @@ namespace coconut
 	template <typename TypeT,
 		typename std::enable_if<
 			std::is_base_of<Any, TypeT>::value &&
-			!std::is_same<Array, TypeT>::value &&
-			!std::is_same<MutableArray, TypeT>::value &&
-			!std::is_same<OrderedSet, TypeT>::value &&
-			!std::is_same<MutableOrderedSet, TypeT>::value &&
-			!std::is_same<Set, TypeT>::value &&
-			!std::is_same<MutableSet, TypeT>::value &&
-			!std::is_same<Dictionary, TypeT>::value &&
-			!std::is_same<MutableDictionary, TypeT>::value
+			!std::is_same<TypeT, Array>::value &&
+			!std::is_same<TypeT, MutableArray>::value &&
+			!std::is_same<TypeT, OrderedSet>::value &&
+			!std::is_same<TypeT, MutableOrderedSet>::value &&
+			!std::is_same<TypeT, Set>::value &&
+			!std::is_same<TypeT, MutableSet>::value &&
+			!std::is_same<TypeT, Dictionary>::value &&
+			!std::is_same<TypeT, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
@@ -50,14 +50,14 @@ namespace coconut
 	template <typename TypeT,
 		typename std::enable_if<
 			std::is_base_of<Any, TypeT>::value &&
-			!std::is_same<Array, TypeT>::value &&
-			!std::is_same<MutableArray, TypeT>::value &&
-			!std::is_same<OrderedSet, TypeT>::value &&
-			!std::is_same<MutableOrderedSet, TypeT>::value &&
-			!std::is_same<Set, TypeT>::value &&
-			!std::is_same<MutableSet, TypeT>::value &&
-			!std::is_same<Dictionary, TypeT>::value &&
-			!std::is_same<MutableDictionary, TypeT>::value
+			!std::is_same<TypeT, Array>::value &&
+			!std::is_same<TypeT, MutableArray>::value &&
+			!std::is_same<TypeT, OrderedSet>::value &&
+			!std::is_same<TypeT, MutableOrderedSet>::value &&
+			!std::is_same<TypeT, Set>::value &&
+			!std::is_same<TypeT, MutableSet>::value &&
+			!std::is_same<TypeT, Dictionary>::value &&
+			!std::is_same<TypeT, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
@@ -88,11 +88,11 @@ namespace coconut
 	template <typename TypeT,
 		typename std::enable_if<
 			std::is_same<Array, TypeT>::value ||
-			std::is_same<MutableArray, TypeT>::value ||
-			std::is_same<OrderedSet, TypeT>::value ||
-			std::is_same<MutableOrderedSet, TypeT>::value ||
-			std::is_same<Set, TypeT>::value ||
-			std::is_same<MutableSet, TypeT>::value
+			std::is_same<TypeT, MutableArray>::value ||
+			std::is_same<TypeT, OrderedSet>::value ||
+			std::is_same<TypeT, MutableOrderedSet>::value ||
+			std::is_same<TypeT, Set>::value ||
+			std::is_same<TypeT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
@@ -109,11 +109,11 @@ namespace coconut
 	template <typename TypeT,
 		typename std::enable_if<
 			std::is_same<Array, TypeT>::value ||
-			std::is_same<MutableArray, TypeT>::value ||
-			std::is_same<OrderedSet, TypeT>::value ||
-			std::is_same<MutableOrderedSet, TypeT>::value ||
-			std::is_same<Set, TypeT>::value ||
-			std::is_same<MutableSet, TypeT>::value
+			std::is_same<TypeT, MutableArray>::value ||
+			std::is_same<TypeT, OrderedSet>::value ||
+			std::is_same<TypeT, MutableOrderedSet>::value ||
+			std::is_same<TypeT, Set>::value ||
+			std::is_same<TypeT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
@@ -129,8 +129,8 @@ namespace coconut
 
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<Dictionary, TypeT>::value ||
-			std::is_same<MutableDictionary, TypeT>::value
+			std::is_same<TypeT, Dictionary>::value ||
+			std::is_same<TypeT, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
@@ -146,8 +146,8 @@ namespace coconut
 			
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<Dictionary, TypeT>::value ||
-			std::is_same<MutableDictionary, TypeT>::value
+			std::is_same<TypeT, Dictionary>::value ||
+			std::is_same<TypeT, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
