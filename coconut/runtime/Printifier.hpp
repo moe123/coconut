@@ -27,7 +27,7 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
-		if (r.isKindOf(StringClass) || r.isKindOf(PathClass) || r.isKindOf(URLClass)) {
+		if (r.isKindOf(StringClass) || r.isKindOf(PathClass) || r.isKindOf(URLClass) || r.isKindOf(DateClass)) {
 			os << '"' << r.stringValue() << '"';
 		} else if (r.isKindOf(ArrayClass)) {
 			os << ref_cast<Array>(r);
@@ -120,10 +120,8 @@ namespace coconut
 		-> std::ostream &
 	{
 		os << '[';
-		if (r) {
-			for(auto it = r->cbegin(); it != r->cend(); ++it) {
-				os << *it; if(std::next(it) != r->cend()) { os << ',' << ' '; }
-			}
+		for(auto it = r->cbegin(); it != r->cend(); ++it) {
+			os << *it; if(std::next(it) != r->cend()) { os << ',' << ' '; }
 		}
 		os << ']';
 		return os;
@@ -140,9 +138,7 @@ namespace coconut
 	{
 		os << '{';
 		for(auto it = r.cbegin(); it != r.cend(); ++it) {
-			if ((*it).first && (*it).second) {
-				os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != r.cend()) { os << ',' << ' '; }
-			}
+			os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != r.cend()) { os << ',' << ' '; }
 		}
 		os << '}';
 		return os;
@@ -159,9 +155,7 @@ namespace coconut
 	{
 		os << '{';
 		for(auto it = r->cbegin(); it != r->cend(); ++it) {
-			if ((*it).first && (*it).second) {
-				os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != r->cend()) { os << ',' << ' '; }
-			}
+			os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != r->cend()) { os << ',' << ' '; }
 		}
 		os << '}';
 		return os;
