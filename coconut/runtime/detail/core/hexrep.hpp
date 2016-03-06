@@ -21,10 +21,10 @@ namespace coconut
 				IterInT && beg,
 				IterInT && end,
 				std::size_t max_dump = std::numeric_limits<std::size_t>::max(),
-				std::string ellipses = "...",
-				std::string byte_sep = " ",
-				std::string halfword_sep = "  ",
-				std::string word_sep = " | ",
+				const char * ellipses = "...",
+				const char * byte_sep = " ",
+				const char * halfword_sep = "  ",
+				const char * word_sep = " | ",
 				bool row_jump = true
 			) {
 				std::size_t cnt = 0;
