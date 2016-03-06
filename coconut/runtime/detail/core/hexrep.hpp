@@ -21,10 +21,10 @@ namespace coconut
 				IterInT && beg,
 				IterInT && end,
 				std::size_t max_dump = std::numeric_limits<std::size_t>::max(),
-				const char * ellipses = "...",
-				const char * byte_sep = " ",
-				const char * halfword_sep = "  ",
-				const char * word_sep = " | ",
+				const char * b_sep = " ",
+				const char * w_sep = "  ",
+				const char * lw_sep = " | ",
+				const char * e_sep = "...",
 				bool row_jump = true
 			) {
 				std::size_t cnt = 0;
@@ -37,14 +37,14 @@ namespace coconut
 					if (cnt % 16 == 0 && row_jump) {
 						os << std::endl;
 					} else if (cnt % 8 == 0) {
-						os << word_sep;
+						os << lw_sep;
 					} else if (cnt % 4 == 0) {
-						os << halfword_sep;
+						os << w_sep;
 					} else {
-						os << byte_sep;
+						os << b_sep;
 					}
 					if (cnt > max_dump) {
-						os << ellipses;
+						os << e_sep;
 						break;
 					}
 				}
