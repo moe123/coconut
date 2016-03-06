@@ -1018,7 +1018,7 @@ static void run_queue(void)
 int main(int argc, const char * argv[])
 {
 	{
-		Array list = {
+		MutableArray list = {
 			With<String>(u8"apple"),
 			With<String>(u8"Banana"),
 			With<String>(u8"Apple"),
@@ -1032,8 +1032,25 @@ int main(int argc, const char * argv[])
 			With<String>(u8"epic"),
 			With<String>(u"\ub098\ub294\ud0dc\uc624")
 		};
+		list += list;
 		std::cerr << "+ list : " << list << std::endl;
 	}
+	
+	{
+		MutableArray indexTree;
+		
+		for (std::size_t i = 0; i < 10; i++ ) {
+			auto child = With<Dictionary>({
+				{ With<String>(u8"child"), With<Number>(i + 1) }
+			});
+			auto parent = With<Array>({
+				child
+			});
+			indexTree += parent;
+		}
+		std::cerr << "+ indexTree : " << indexTree << std::endl;
+	}
+	
 	String hello = u8"hello";
 	{
 		// public API to be considered off limit

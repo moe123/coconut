@@ -22,6 +22,7 @@
 #include <coconut/foundation/MutableString.hpp>
 #include <coconut/foundation/None.hpp>
 #include <coconut/foundation/Number.hpp>
+#include <coconut/foundation/OrderedSet.hpp>
 #include <coconut/foundation/Path.hpp>
 #include <coconut/foundation/Point.hpp>
 #include <coconut/foundation/Proxy.hpp>

@@ -277,7 +277,7 @@ namespace coconut
 			virtual unsigned long long unsignedLongLongValue() const;
 			
 			virtual std::size_t size() const;
-			
+
 		private:
 			std::ptrdiff_t sig() const;
 			const std::string addr() const;
