@@ -29,6 +29,8 @@ namespace coconut
 				long double : 8 bytes
 			 **/
 			
+			// TODO remove all *_v0
+			
 			typedef struct { std::uint32_t v; } fswp_t;
 			typedef struct { std::uint64_t v; } dswp_t;
 
@@ -418,7 +420,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w16be(std::int16_t in, std::uint8_t (&w)[2])
+			void w16be_v0(std::int16_t & in, std::uint8_t (&w)[2])
 			{ w16be(unsafe_cast<std::uint16_t>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -431,7 +433,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w32be(std::int32_t in, std::uint8_t (&w)[4])
+			void w32be_v0(std::int32_t & in, std::uint8_t (&w)[4])
 			{ w32be(unsafe_cast<std::uint32_t>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -448,26 +450,26 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w64be(std::int64_t in, std::uint8_t (&w)[8])
+			void w64be_v0(std::int64_t in, std::uint8_t (&w)[8])
 			{ w64be(unsafe_cast<std::uint64_t>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void wfbe(float in, std::uint8_t (&w)[4])
-			{ w32be(unsafe_cast<std::int32_t>(in), w); }
+			void wfbe_v0(float in, std::uint8_t (&w)[4])
+			{ w32be_v0(unsafe_cast<std::int32_t &>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void wdbe(double in, std::uint8_t (&w)[8])
-			{ w64be(unsafe_cast<std::int64_t>(in), w); }
+			void wdbe_v0(double in, std::uint8_t (&w)[8])
+			{ w64be_v0(unsafe_cast<std::int64_t>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w16le(std::uint16_t & in, std::uint8_t (&w)[2])
+			void w16le(std::uint16_t in, std::uint8_t (&w)[2])
 			{
 				w[0] = (in & 0xFF);
 				w[1] = ((in >> 8) & 0xFF);
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w16le(std::int16_t in, std::uint8_t (&w)[2])
+			void w16le_v0(std::int16_t & in, std::uint8_t (&w)[2])
 			{ w16le(unsafe_cast<std::uint16_t>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -480,7 +482,7 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w32le(std::int32_t in, std::uint8_t (&w)[4])
+			void w32le_v0(std::int32_t & in, std::uint8_t (&w)[4])
 			{ w32le(unsafe_cast<std::uint32_t>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -497,16 +499,16 @@ namespace coconut
 			}
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void w64le(std::int64_t in, std::uint8_t (&w)[8])
+			void w64le_v0(std::int64_t & in, std::uint8_t (&w)[8])
 			{ w64le(unsafe_cast<std::uint64_t>(in), w); }
 
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void wfle(float in, std::uint8_t (&w)[4])
-			{ w32le(static_cast<std::int32_t>(in), w); }
+			void wfle_v0(float in, std::uint8_t (&w)[4])
+			{ w32le_v0(unsafe_cast<std::int32_t &>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-			void wdle(double in, std::uint8_t (&w)[8])
-			{ w64le(static_cast<std::int64_t>(in), w); }
+			void wdle_v0(double in, std::uint8_t (&w)[8])
+			{ w64le_v0(unsafe_cast<std::int64_t &>(in), w); }
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::uint16_t be2h16(std::uint16_t x)
