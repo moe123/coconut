@@ -236,9 +236,7 @@ const Data Data::subdataWithRange(const Range & rg) const
 }
 
 const Data Data::subdataWithRange(std::size_t location, std::size_t length) const
-{
-	return subdataWithRange(Range(location, length));
-}
+{ return subdataWithRange(Range(location, length)); }
 
 #pragma mark -
 

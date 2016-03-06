@@ -1051,9 +1051,13 @@ void bytebuf::reverse()
 
 std::string bytebuf::to_string() const
 {
-	return std::string(m_bytes.cbegin(), m_bytes.cend());
+	std::vector<char> out;
+	get_base64(out, chunksplit_none);
+	return std::string(out.cbegin(), out.cend());
 }
-
+	
+#pragma mark -
+	
 std::size_t bytebuf::hash_code() const
 {
 	std::string h = hash_sha1();

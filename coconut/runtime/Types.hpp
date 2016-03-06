@@ -8,6 +8,7 @@
 #include <coconut/runtime/detail/core/async.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 #include <coconut/runtime/detail/core/hash.hpp>
+#include <coconut/runtime/detail/core/hexrep.hpp>
 #include <coconut/runtime/detail/core/iterators.hpp>
 #include <coconut/runtime/detail/core/spinlock.hpp>
 #include <coconut/runtime/detail/core/stream.hpp>

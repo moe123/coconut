@@ -99,7 +99,7 @@ namespace coconut
 					for(; (bytes < 3) && (it != end); ++bytes, ++it) {
 						input <<= 8; input += static_cast<std::uint8_t>(*it);
 					}
-					std::int32_t bits = bytes * 8;
+					std::int32_t bits = bytes * CHAR_BIT;
 					while (bits > 0) {
 						bits -= 6;
 						const std::uint8_t index = ((bits < 0) ? input << -bits : input >> bits) & 0x3F;

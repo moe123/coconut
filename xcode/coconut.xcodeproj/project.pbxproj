@@ -323,6 +323,7 @@
 		D5B920011C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
 		D5B920021C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
 		D5B920031C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
+		D5DBB1011C8CBF3D00F7367C /* hexrep.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5DBB1001C8CBF3D00F7367C /* hexrep.hpp */; };
 		D5DDFB5F1BC49F4B00E5328A /* foundation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5DDFB261BC49F4B00E5328A /* foundation.hpp */; };
 		D5DDFB601BC49F4B00E5328A /* foundation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5DDFB261BC49F4B00E5328A /* foundation.hpp */; };
 		D5DDFBAD1BC49FFD00E5328A /* coconut_dylib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5DDFBAA1BC49FFD00E5328A /* coconut_dylib.cpp */; };
@@ -439,6 +440,7 @@
 		D5B245A11C8BBD82001F2376 /* Printifier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Printifier.hpp; sourceTree = "<group>"; };
 		D5B91FFD1C1F409C00829B3A /* Error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
 		D5B920001C1F721700829B3A /* Error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Error.cpp; sourceTree = "<group>"; };
+		D5DBB1001C8CBF3D00F7367C /* hexrep.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hexrep.hpp; sourceTree = "<group>"; };
 		D5DDFB0A1BC49F4B00E5328A /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		D5DDFB0B1BC49F4B00E5328A /* Data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Data.hpp; sourceTree = "<group>"; };
 		D5DDFB0C1BC49F4B00E5328A /* Date.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 				D595B9401BC9A7710051FF91 /* byteorder.hpp */,
 				D595B8881BC9A43A0051FF91 /* defines.hpp */,
 				D595B88A1BC9A43A0051FF91 /* hash.hpp */,
+				D5DBB1001C8CBF3D00F7367C /* hexrep.hpp */,
 				D595B88D1BC9A43A0051FF91 /* iterators.hpp */,
 				D595B88E1BC9A43A0051FF91 /* spinlock.hpp */,
 				D595B8901BC9A43A0051FF91 /* stream.hpp */,
@@ -1051,6 +1054,7 @@
 				D5B09CCB1C35ED9F00AF0B9D /* ustring_compare_utf16.hxx in Headers */,
 				D595B8DC1BC9A43A0051FF91 /* ustring.hpp in Headers */,
 				D595B9411BC9A7710051FF91 /* byteorder.hpp in Headers */,
+				D5DBB1011C8CBF3D00F7367C /* hexrep.hpp in Headers */,
 				D5ACD1551C7272C90042E1F6 /* datetime_format.hxx in Headers */,
 				D595B8CE1BC9A43A0051FF91 /* irange.hpp in Headers */,
 				D595B8D81BC9A43A0051FF91 /* upath.hpp in Headers */,
