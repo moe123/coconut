@@ -23,8 +23,8 @@ namespace coconut
 				std::size_t max_dump = std::numeric_limits<std::size_t>::max(),
 				std::string ellipses = "...",
 				std::string byte_sep = " ",
-				std::string quad_sep = "  ",
-				std::string octo_sep = " | ",
+				std::string halfword_sep = "  ",
+				std::string word_sep = " | ",
 				bool row_jump = true
 			) {
 				std::size_t cnt = 0;
@@ -37,9 +37,9 @@ namespace coconut
 					if (cnt % 16 == 0 && row_jump) {
 						os << std::endl;
 					} else if (cnt % 8 == 0) {
-						os << octo_sep;
+						os << word_sep;
 					} else if (cnt % 4 == 0) {
-						os << quad_sep;
+						os << halfword_sep;
 					} else {
 						os << byte_sep;
 					}
