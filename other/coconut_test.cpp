@@ -1018,6 +1018,21 @@ static void run_queue(void)
 int main(int argc, const char * argv[])
 {
 	{
+		MutableArray tree;
+		for (std::size_t i = 0; i < 10; i++ ) {
+			auto child = With<Dictionary>({
+				{ With<String>(u8"child"), With<Number>(i + 1) }
+			});
+			auto parent = With<Dictionary>({
+				{ With<String>(u8"parent"), child }
+				
+			});
+			tree += parent;
+		}
+		std::cerr << "+ tree : " << tree << std::endl;
+	}
+	
+	{
 		MutableArray list = {
 			With<String>(u8"apple"),
 			With<String>(u8"Banana"),
