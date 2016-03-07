@@ -115,7 +115,6 @@ if (str < u8"Avion") {
 
 str = u"étourdissement 나는태오";
 std::cout << str << std::endl;
-std::cerr << firstNames << std::endl;
 //
 // output: "étourdissement 나는태오"
 //
