@@ -73,30 +73,6 @@ Forked and melted with significant changes:
 
 -----------------------------------------------------------------------------------------------
 
-```cpp
-
-/** @NOTE
-
-- Any :
-	is the super abstract class of any Object (including Object itself),
-	it holds all the backend mechanism, interfaces/protocols.
-
-- Owning<Any> template :
-	is a ref-counted container holding a pointer, could be seen as "__strong id" in Objective-C.
-
-acquiring:
-
-	Owning<Class> ptr = With<Class>(...);
-
-interoperability between:
-	std::string, String, literal string ; UTF-8/UTF-16 everywhere policy.
-
-**/
-
-```
-
------------------------------------------------------------------------------------------------
-
 # Few examples
 
 ```cpp
@@ -145,35 +121,6 @@ Number n0 = 10;
 Number n1 = 5;
 
 std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
-
-// @NOTE Any objects answer to the following without the need of casting
-/*
-const std::string description() const;
-
-std::string stringValue() const;
-std::u16string string16Value() const;
-std::u32string string32Value() const;
-
-float floatValue() const;
-double doubleValue() const;
-long double longDoubleValue() const;
-
-bool boolValue() const;
-char charValue() const;
-
-short shortValue() const;
-int intValue() const;
-long longValue() const;
-long long longLongValue() const;
-
-unsigned char unsignedCharValue() const;
-unsigned short unsignedShortValue() const;
-unsigned int unsignedIntValue() const;
-unsigned long unsignedLongValue() const;
-unsigned long long unsignedLongLongValue() const;
-
-std::size_t size() const;
-*/
 
 ```
 ```cpp
@@ -269,13 +216,9 @@ Enumerate<Array>(firstNames,
 	);
 }, EnumerationConcurrent);
 
-SortDescriptor s0(u8"firstName", false);
-SortDescriptor s1(u8"lastName", false);
-SortDescriptor s2(u8"age");
-
-// TODO adding user defined Locale option to sort-calls, mostly missing in Cocoa,
-// despite the exhaustive i18n interface, this is poorly designed ; e.g you feel 
-// the heavy hand of the regular self-centered native english speaker.
+SortDescriptor s0 {u8"firstName", false};
+SortDescriptor s1 {u8"lastName", false};
+SortDescriptor s2 = u8"age";
 
 auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
@@ -316,7 +259,7 @@ bool test = people.someObjectPassingTest(
 
 // unlike in Cocoa, Collections are traversable by index-key-path : 
 // read and write (if the destination object is mutable), mostly
-// the coconut KVC interface is more complex TODO explain. 
+// the coconut KVC interface is more advanced and complex. 
 
 MutableArray indexTree;
 for (std::size_t i = 0; i < 10; i++ ) {
