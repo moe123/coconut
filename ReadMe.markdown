@@ -76,18 +76,17 @@ Forked and melted with significant changes:
 # Few examples
 
 ```cpp
+
+// String, literal, locale and lexical comparison
+
 String str = u8"étourdie";
 if (str == u8"étourdie") {
 ...
 }
 
-// literal, locale and lexical comparison
-
 if (str < u8"Avion") {
 ...
 }
-
-...
 
 str = u"étourdissement 나는태오";
 std::cout << str << std::endl;
