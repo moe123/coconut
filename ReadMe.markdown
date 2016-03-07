@@ -166,8 +166,7 @@ Array firstNames = {
 std::cerr << firstNames << std::endl;
 //
 // output: ["Alice", "Bob", "Charlie", "Quentin"]
-// 
-
+//
 
 Array lastNames = {
 	With<String>(u8"Smith"),
