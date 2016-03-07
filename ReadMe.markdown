@@ -106,6 +106,8 @@ std::cout << "[ oUmlaut == oPlusUmlaut " << (oUmlaut == u"o\u0308") << "] " << s
 ```
 ```cpp
 
+// Number to String
+
 String s = u8"-15";
 
 Number x1 = s.intValue();
@@ -125,6 +127,8 @@ std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
 ```
 ```cpp
 
+// Traversing collections by key-path.
+
 MutableArray tree;
 for (std::size_t i = 0; i < 10; i++ ) {
 	auto child = With<Dictionary>({
@@ -133,10 +137,6 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	auto parent = With<Dictionary>({
 		{ With<String>(u8"parent"), child }
 	});
-	tree.addObject(parent);
-
-	// or 
-
 	tree += parent;
 }
 
@@ -154,6 +154,8 @@ if (KindOf<Array>(values)) {
 
 ```
 ```cpp
+
+// Sorting nested collections
 
 Array firstNames = {
 	With<String>(u8"Alice"),
@@ -188,6 +190,11 @@ Array keys = {
 	With<String>(u8"age")
 };
 
+```
+```cpp
+
+// Enumerating and aggregating
+
 MutableArray people;
 
 firstNames.enumerateObjectsUsingFunction(
@@ -215,6 +222,11 @@ Enumerate<Array>(firstNames,
 		})
 	);
 }, EnumerationConcurrent);
+
+```
+```cpp
+
+// Traversing and sorting
 
 SortDescriptor s0 {u8"firstName", false};
 SortDescriptor s1 {u8"lastName", false};
@@ -257,7 +269,7 @@ bool test = people.someObjectPassingTest(
 ```
 ```cpp
 
-// unlike in Cocoa, Collections are traversable by index-key-path : 
+// Unlike in Cocoa, collections are traversable by index-key-path : 
 // read and write (if the destination object is mutable), mostly
 // the coconut KVC interface is more advanced and complex. 
 
