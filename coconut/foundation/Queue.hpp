@@ -30,8 +30,9 @@ namespace coconut
 		COCONUT_FINAL_OVERRIDE;
 	
 	public:
-		Owning<Any> dequeue();
 		void enqueue(const Owning<Any> & ptr);
+		const Owning<Any> dequeue();
+		const Owning<Any> peek() const;
 		
 		void clear();
 		

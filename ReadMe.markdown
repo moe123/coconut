@@ -75,7 +75,7 @@ Forked and melted with significant changes:
 
 ```cpp
 
-/** @Notes
+/** @NOTE
 
 - Any :
 	is the super abstract class of any Object (including Object itself),
@@ -105,7 +105,7 @@ if (str == u8"étourdie") {
 ...
 }
 
-// literal and lexical comparison
+// literal, locale and lexical comparison
 
 if (str < u8"Avion") {
 ...
@@ -114,11 +114,11 @@ if (str < u8"Avion") {
 ...
 
 str = u"étourdissement 나는태오";
-std::cout << str.stringValue(); << std::endl;
-
-// or simply, in coconut, std::string(s) are UTF8 everywhere, works on windows too.
-
 std::cout << str << std::endl;
+std::cerr << firstNames << std::endl;
+//
+// output: "étourdissement 나는태오"
+//
 
 String oUmlaut = u"\u00f6";
 String oPlusUmlaut = u"o\u0308";
@@ -147,7 +147,7 @@ Number n1 = 5;
 
 std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
 
-// NOTE Any objects answer to the following without the need of casting
+// @NOTE Any objects answer to the following without the need of casting
 /*
 const std::string description() const;
 
@@ -210,6 +210,12 @@ Array firstNames = {
 	With<String>(u8"Charlie"),
 	With<String>(u8"Quentin")
 };
+
+std::cerr << firstNames << std::endl;
+//
+// output: ["Alice", "Bob", "Charlie", "Quentin"]
+// 
+
 
 Array lastNames = {
 	With<String>(u8"Smith"),
@@ -318,6 +324,11 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	});
 	indexTree.addObject(parent);
 }
+
+std::cerr << indexTree << std::endl;
+//
+// output: [[{"child": 1}], [{"child": 2}], [{"child": 3}], [{"child": 4}], [{"child": 5}], [{"child": 6}], [{"child": 7}], [{"child": 8}], [{"child": 9}], [{"child": 10}]]
+//
 
 for (std::size_t i = 0; i < 10; i++ ) {
 	auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");

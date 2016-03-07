@@ -38,7 +38,12 @@ std::size_t Stack::size() const
 
 #pragma mark -
 
-Owning<Any> Stack::pop()
+void Stack::push(const Owning<Any> & ptr)
+{ if (ptr) { m_impl.push(ptr); } }
+
+#pragma mark -
+
+const Owning<Any> Stack::pop()
 {
 	Owning<Any> head;
 	if (m_impl.size()) {
@@ -48,8 +53,16 @@ Owning<Any> Stack::pop()
 	return head;
 }
 
-void Stack::push(const Owning<Any> & ptr)
-{ if (ptr) { m_impl.push(ptr); } }
+#pragma mark -
+
+const Owning<Any> Stack::peek() const
+{
+	Owning<Any> last;
+	if (m_impl.size()) {
+		last = m_impl.top();
+	}
+	return last;
+}
 
 #pragma mark -
 

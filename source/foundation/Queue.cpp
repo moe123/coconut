@@ -38,7 +38,10 @@ std::size_t Queue::size() const
 
 #pragma mark -
 
-Owning<Any> Queue::dequeue()
+void Queue::enqueue(const Owning<Any> & ptr)
+{ if (ptr) { m_impl.push(ptr); } }
+
+const Owning<Any> Queue::dequeue()
 {
 	Owning<Any> head;
 	if (m_impl.size()) {
@@ -48,8 +51,16 @@ Owning<Any> Queue::dequeue()
 	return head;
 }
 
-void Queue::enqueue(const Owning<Any> & ptr)
-{ if (ptr) { m_impl.push(ptr); } }
+#pragma mark -
+
+const Owning<Any> Queue::peek() const
+{
+	Owning<Any> first;
+	if (m_impl.size()) {
+		first = m_impl.front();
+	}
+	return first;
+}
 
 #pragma mark -
 
