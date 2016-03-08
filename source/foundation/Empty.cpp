@@ -32,4 +32,9 @@ ComparisonResult Empty::compare(const Any & ref) const
 	return OrderedDescending;
 }
 
+#pragma mark -
+
+std::string Empty::stringValue() const
+{ return u8"<empty>"; }
+
 /* EOF */

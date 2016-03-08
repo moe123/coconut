@@ -26,7 +26,7 @@ irange::irange(const std::string & rg_string) :
 	try {
 		std::regex regex
 		{
-			R"(\{\"location\" : ([0-9]+), \"length\" : ([0-9]+)\})",
+			R"(\{\"location\": ([0-9]+), \"length\": ([0-9]+)\})",
 			std::regex::icase
 		};
 		std::smatch match;
@@ -80,7 +80,7 @@ std::string irange::to_string() const
 {
 	return algorithm::format
 	(
-		"{\"location\" : %lu, \"length\" : %lu}",
+		"{\"location\": %lu, \"length\": %lu}",
 		m_loc,
 		m_len
 	 );

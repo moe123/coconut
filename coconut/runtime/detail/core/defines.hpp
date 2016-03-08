@@ -220,7 +220,7 @@
 			virtual const std::string class_tree() const COCONUT_OVERRIDE { return (#TR_KLASS); }
 
 	#define COCONUT_DESCRIPTION_FMT(KNAME, KTREE, SIZE, SIG, ADDR) \
-		u8"{\"name\" : \"" + (KNAME) + "\", \"tree\" : \"" + (KTREE) + "\", \"size\" : " + (SIZE) + ", \"sig\" : " + (SIG) + ", \"addr\" : \"" + (ADDR) + "\"}"
+		u8"{\"name\": \"" + (KNAME) + "\", \"tree\": \"" + (KTREE) + "\", \"size\": " + (SIZE) + ", \"sig\": " + (SIG) + ", \"addr\": \"" + (ADDR) + "\"}"
 
 	#define COCONUT_WEAK_ENUM_TYPED(NAME, TYPE) typedef TYPE NAME; enum
 	#define COCONUT_WEAK_ENUM(NAME) COCONUT_WEAK_ENUM_TYPED(NAME, std::size_t)

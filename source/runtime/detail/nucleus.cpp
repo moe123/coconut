@@ -562,7 +562,7 @@ const std::string nucleus::description() const
 
 #pragma mark -
 
-std::string nucleus::stringValue() const { return u8"<none>"; }
+std::string nucleus::stringValue() const { return u8""; }
 std::u16string nucleus::string16Value() const { return unicode::utf8_to_utf16(stringValue()); }
 std::u32string nucleus::string32Value() const { return unicode::utf8_to_utf32(stringValue()); }
 

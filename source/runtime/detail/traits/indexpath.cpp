@@ -145,9 +145,7 @@ std::string indexpath::to_string() const
 }
 
 std::size_t indexpath::hash_code() const
-{
-	return std::hash<std::string>()(to_string());
-}
+{ return std::hash<std::string>()(to_string()); }
 
 #pragma mark -
 

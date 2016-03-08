@@ -25,6 +25,9 @@ namespace coconut
 		
 		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
+		
+		virtual std::string stringValue() const
+		COCONUT_FINAL_OVERRIDE;
 	};
 }
 

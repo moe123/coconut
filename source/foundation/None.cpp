@@ -34,4 +34,9 @@ ComparisonResult None::compare(const Any & ref) const
 	return OrderedDescending;
 }
 
+#pragma mark -
+
+std::string None::stringValue() const
+{ return u8"<none>"; }
+
 /* EOF */
