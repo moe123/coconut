@@ -117,7 +117,12 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
-	{ os << '"'; runtime::hexrep::dump(os, ref_cast<Data>(r).cbegin(), ref_cast<Data>(r).cend(), 256); os << '"'; return os; }
+	{
+		os << '"';
+		runtime::hexrep::dump(os, ref_cast<Data>(r).cbegin(), ref_cast<Data>(r).cend(), 24, "<", ">", "", " ", "", "...", false);
+		os << '"';
+		return os;
+	}
 	
 	template <typename TypeT,
 		typename std::enable_if<

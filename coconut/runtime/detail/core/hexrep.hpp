@@ -15,12 +15,14 @@ namespace coconut
 	{
 		namespace hexrep
 		{
-			template <typename IterInT>
+			template <typename IterT>
 			inline void dump(
 				std::ostream & os,
-				IterInT && beg,
-				IterInT && end,
+				IterT && beg,
+				IterT && end,
 				std::size_t max_dump = std::numeric_limits<std::size_t>::max(),
+				const char * s_delim = "",
+				const char * e_delim = "",
 				const char * b_sep = " ",
 				const char * w_sep = "  ",
 				const char * lw_sep = " | ",
@@ -30,6 +32,7 @@ namespace coconut
 				std::size_t cnt = 0;
 				std::ios ios_fmt(nullptr);
 				ios_fmt.copyfmt(os);
+				os << s_delim;
 				for (; beg != end; ++beg) {
 					std::uint8_t c = unsafe_cast<std::uint8_t>(*beg);
 					os << std::hex << std::setw(2) << std::setfill('0') << (c & 0xff);
@@ -43,14 +46,12 @@ namespace coconut
 					} else {
 						os << b_sep;
 					}
-					if (cnt > max_dump) {
+					if (cnt >= max_dump) {
 						os << e_sep;
 						break;
 					}
 				}
-				if (row_jump) {
-					os << std::endl;
-				}
+				os << e_delim;
 				os.copyfmt(ios_fmt);
 			}
 		}
