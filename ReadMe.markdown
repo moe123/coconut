@@ -54,6 +54,8 @@ scope ref-counting system but without getting in the way, as you can work on the
 acquiring ref-counted containers on the fly. Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy 
 but purily written in modern-portable C++.
 
+-----------------------------------------------------------------------------------------------
+
 Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, 
 we did not templatized collections (which are underneath templates containing Any Objects) like in Rust or Swift because it has not advantages
 in our context except making initialization syntax complex for `nada`. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
