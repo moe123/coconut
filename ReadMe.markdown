@@ -5,8 +5,11 @@ Coconut is an object-oriented cross-platform runtime written in modern C++ that 
 with a strong emphasis on concurrency ability and the subscripting side of things, `feel like scripting`, but Coconut is more than just yet-another-Object 
 framework, it adds a syntax within the syntax, somehow, close to a meta-programming approach (or embedded meta-language) what we named mainly Features.
 Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
-a metaobject protocol (MOP). Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism but is written in C++11, C++14
-is not widely and fully implemented yet.
+a metaobject protocol (MOP).
+
+Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, we did not templatized collections (which are underneath 
+templates containing Any Objects) like in Rust or Swift because it has not advantages in our context except making initialization syntax complex 
+for `nada`. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
 
 -----------------------------------------------------------------------------------------------
 
