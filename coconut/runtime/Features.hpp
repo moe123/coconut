@@ -163,6 +163,33 @@ namespace coconut
 			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
 		{ func(key); }, options);
 	}
+	
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<CollT, Dictionary>::value ||
+			std::is_same<CollT, MutableDictionary>::value
+		>::type* = nullptr
+	>
+	inline auto _enumerate_dispatch_aliasing
+	(
+	 const CollT & r,
+		const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	 ) -> void
+	{
+		ref_cast<CollT>(r).enumerateKeysAndObjectsUsingFunction(
+			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+		{ func(key, obj); }, options);
+	}
+	
+	template <typename TypeT, typename CollT>
+	inline auto _enumerate_dispatch
+	(
+		const CollT & r,
+		const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func,
+		EnumerationOptions options
+	) -> void
+	{ _enumerate_dispatch_aliasing<TypeT, CollT>(r, func, options); }
 
 	template <typename TypeT, typename CollT>
 	inline auto _enumerate_dispatch
