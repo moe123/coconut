@@ -1,15 +1,15 @@
 Coconut
 =======
 
-Coconut is an object-oriented cross-platform runtime written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
-with a strong emphasis on concurrency ability and the subscripting side of things, `feel like scripting`, but Coconut is more than just yet-another-Object 
-framework, it adds a syntax within the syntax, somehow, close to a meta-programming approach (or embedded meta-language) what we named mainly Features.
+Coconut is a object-oriented runtime, cross-platform, written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
+with a strong emphasis on concurrency ability, the subscripting side of things and `feel like scripting`, Coconut is more than just yet-another-Object 
+framework: it adds a syntax within the syntax, close to a meta-programming approach (or embedded meta-language) what we named mainly Features.
 Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
-a metaobject protocol (MOP).
+a meta-object protocol (MOP).
 
 -----------------------------------------------------------------------------------------------
 
-Coconut defines a base layer of classes fully integrated to the host-lang: C++, the data-structures hold ref-counted objects
+Coconut defines a base layer of classes, fully integrated to the host-lang: C++, the data-structures hold ref-counted objects
 and have a STL like interface regarding iterators, subscript operators, streams and other common features. In addition to providing a set of useful primitive object classes, 
 it introduces several paradigms that define functionality not covered by the C++ language. 
 
@@ -17,9 +17,9 @@ it introduces several paradigms that define functionality not covered by the C++
 
 Coconut is designed with these goals in mind:
 
-- Provide a small set of basic utility classes optimized for use in a multi-threading environment.
+- To offer a small set of basic utility classes optimized for use in a multi-threading environment.
 - Performances and memory footprint in mind <sup>(1)</sup>.
-- Exceptions are used as defects we don't recover from any exception, we let the propagation happening <sup>(2)</sup>. 
+- Exceptions are used as defects: we don't recover from any exception, we let the propagation happening <sup>(2)</sup>. 
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
 - Not only reserved to desktops but also distributed systems <sup>(3)</sup>.
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
@@ -49,7 +49,7 @@ Coconut is designed with these goals in mind:
 -----------------------------------------------------------------------------------------------
 
 Coconut supports multiple programming paradigms, including object-oriented, imperative and functional programming or procedural styles and 
-other specifics such as the selector-key interface.It features a dynamic type system and automatic memory management using the built-in 
+other specifics such as the selector-key interface. It features a dynamic type system and automatic memory management using the built-in 
 scope ref-counting system but without getting in the way, as you can work on the stack as well as on the heap ; you may copy and/or move, 
 acquiring ref-counted containers on the fly. Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy 
 but purily written in modern-portable C++.
@@ -58,7 +58,7 @@ but purily written in modern-portable C++.
 
 Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, 
 we did not templatized collections (which are underneath templates containing Any Objects) like in Rust or Swift because it has not advantages
-over than making initialization trivial, then useless. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
+over than making initialization trivial, hence useless. Note that Coconut is written in C++11. C++14 is not widely and fully implemented yet.
 
 -----------------------------------------------------------------------------------------------
 
