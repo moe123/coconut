@@ -7,10 +7,6 @@ framework, it adds a syntax within the syntax, somehow, close to a meta-programm
 Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
 a metaobject protocol (MOP).
 
-Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, we did not templatized collections (which are underneath 
-templates containing Any Objects) like in Rust or Swift because it has not advantages in our context except making initialization syntax complex 
-for `nada`. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
-
 -----------------------------------------------------------------------------------------------
 
 Coconut defines a base layer of classes fully integrated to the host-lang: C++, the data-structures hold ref-counted objects
@@ -52,13 +48,16 @@ Coconut is designed with these goals in mind:
 
 -----------------------------------------------------------------------------------------------
 
-Coconut supports multiple programming paradigms, including object-oriented, imperative and 
-functional programming or procedural styles and other specifics such as the selector-key interface.
-It features a dynamic type system and automatic memory management using the built-in scope ref-counting system but without getting in the way, as you can work 
-on the stack as well as on the heap ; you may copy and/or move, acquiring ref-counted containers on the fly. 
-Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy but purily written in modern-portable C++.
+Coconut supports multiple programming paradigms, including object-oriented, imperative and functional programming or procedural styles and 
+other specifics such as the selector-key interface.It features a dynamic type system and automatic memory management using the built-in 
+scope ref-counting system but without getting in the way, as you can work on the stack as well as on the heap ; you may copy and/or move, 
+acquiring ref-counted containers on the fly. Coconut is really similar to Smalltalk, Ruby, Python, Swift and the Objective-C philosophy 
+but purily written in modern-portable C++. Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, 
+we did not templatized collections (which are underneath templates containing Any Objects) like in Rust or Swift because it has not advantages
+in our context except making initialization syntax complex for `nada`. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
 
 -----------------------------------------------------------------------------------------------
+
 Builtin runtime dependencies:
 
 - ASIO (Looper/Timer/Events) http://think-async.com
