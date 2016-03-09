@@ -40,7 +40,7 @@ Coconut is designed with these goals in mind:
 
 <sup>3 - The author knows about fail-over clusters and everything in between.</sup>
 
-<sup>4 - by default width insensitive ; e.g composed or precomposed insensitive.</sup>
+<sup>4 - By default width insensitive ; e.g composed or precomposed insensitive.</sup>
 
 <sup>5 - UTF-16, UTF-8 agnostic parsing and conversion.</sup>
 
@@ -58,7 +58,7 @@ but purily written in modern-portable C++.
 
 Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, 
 we did not templatized collections (which are underneath templates containing Any Objects) like in Rust or Swift because it has not advantages
-in our context except making initialization syntax complex for `nada`. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
+over than making initialization trivial, then useless. Note that Coconut is written in C++11, C++14 is not widely and fully implemented yet.
 
 -----------------------------------------------------------------------------------------------
 
