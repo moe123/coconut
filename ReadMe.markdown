@@ -143,7 +143,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	auto parent = With<Dictionary>({
 		{ With<String>(u8"parent"), child }
 	});
-	tree += parent;
+	tree + parent;
 }
 
 std::cerr << tree << std::endl;
@@ -286,7 +286,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	auto parent = With<Array>({
 		child
 	});
-	indexTree.addObject(parent);
+	indexTree + parent;
 }
 
 std::cerr << indexTree << std::endl;

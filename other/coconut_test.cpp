@@ -1027,7 +1027,7 @@ int main(int argc, const char * argv[])
 				{ With<String>(u8"parent"), child }
 				
 			});
-			tree += parent;
+			tree + parent;
 		}
 		std::cerr << "+ tree : " << tree << std::endl;
 	}
