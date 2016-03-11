@@ -237,7 +237,7 @@ SortDescriptor s0 {u8"firstName", false};
 SortDescriptor s1 {u8"lastName", false};
 SortDescriptor s2 = u8"age";
 
-// Sorting on lastname first both descending.
+// Sorting on "lastName", "firstName" both descending.
 auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
 std::cerr << sorted << std::endl;
