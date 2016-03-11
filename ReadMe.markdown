@@ -264,7 +264,7 @@ std::cerr << sorted << std::endl;
 ```
 ```cpp
 
-// Pythonic
+// Pythonic slicing like operator
 
 std::cout << people[1] << std::endl;
 std::cout << people[{ -1, 1, 2 }] << std::endl;
@@ -272,7 +272,7 @@ std::cout << people[{ -1, 1, 2 }] << std::endl;
 ```
 ```cpp
 
-// Javascriptic
+// Javascriptic testing like syntax
 
 bool test = people.someObjectPassingTest(
 	[] (const Owning<Any> & obj, std::size_t index, bool & stop) -> bool
