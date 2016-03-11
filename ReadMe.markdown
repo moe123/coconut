@@ -202,16 +202,19 @@ Array keys = {
 
 MutableArray people;
 
+// Building an Array of Dictionary
 firstNames.enumerateObjectsUsingFunction(
 	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
-	people.addObject(
-		With<Dictionary>({
-			{ keys[0], obj },
-			{ keys[1], lastNames[index] },
-			{ keys[2], ages[index] }
-		})
-	);
+	// Creating an individual person
+	auto person = With<Dictionary>({
+		{ keys[0], obj },
+		{ keys[1], lastNames[index] },
+		{ keys[2], ages[index] }
+	});
+	// Adding person to people
+	people + person;
+
 }, EnumerationConcurrent);
 
 // or
