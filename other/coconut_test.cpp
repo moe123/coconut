@@ -1051,6 +1051,10 @@ int main(int argc, const char * argv[])
 		};
 		list += list;
 		std::cerr << "+ list : " << list << std::endl;
+		
+		auto sorted = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
+		
+		std::cerr << "+ sorted : " << sorted << std::endl;
 	}
 	
 	{

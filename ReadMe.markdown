@@ -292,20 +292,17 @@ std::cerr << tree << std::endl;
 // output: [[{"child": 1}], [{"child": 2}], [{"child": 3}], [{"child": 4}], [{"child": 5}], [{"child": 6}], [{"child": 7}], [{"child": 8}], [{"child": 9}], [{"child": 10}]]
 //
 
-for (std::size_t i = 0; i < 10; i++ ) {
-	auto num = indexTree.valueForKeyPath(Number(i).stringValue() + u8".0.child");
-	std::cerr << "    + : " << num << std::endl;
-}
-
-indexTree.enumerateObjectsUsingFunction(
-	[&indexTree] (const Owning<Any> & obj, std::size_t index, bool & stop)
+tree.enumerateObjectsUsingFunction(
+	[&tree] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
-	auto num = indexTree.valueForKeyPath(Number(index).stringValue() + u8".0.child");
+	auto num = tree.valueForKeyPath(Number(index).stringValue() + u8".0.child");
 	std::cerr << "+ index : " << index << "], valueForKeyPath : " << num << std::endl;
 }, EnumerationConcurrent|EnumerationReverse);
 
 ```
 ```cpp
+
+// Using selector key
 
 Array list = {
 	With<String>(u8"Banana"),
@@ -319,9 +316,11 @@ Array list = {
 };
 
 auto sorted = list.sortedArrayUsingSelectorKey(u8"@localizedCaseInsensitiveCompare:");
-for (const auto & str : Thus<Array>(sorted)) {
-	std::cerr << "+ sorted : " << str << std::endl;
-}
+
+std::cerr << sorted << std::endl;
+//
+// output: ["å", "Apple", "Banana", "Cherry", "éa", "epic", "étourdie", "Pear"]
+//
 
 ```
 ```cpp
