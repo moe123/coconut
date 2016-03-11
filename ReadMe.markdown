@@ -57,8 +57,9 @@ but purily written in modern-portable C++.
 -----------------------------------------------------------------------------------------------
 
 Coconut Objects sit between runtime (dynamic) and compile-time (static) polymorphism, however, 
-we did not templatized collections (which are underneath templates containing Any Objects) like in Rust or Swift because it has not advantages
-over than making initialization trivial, hence useless. Note that Coconut is written in C++11. C++14 is not widely and fully implemented yet.
+we did not templatized collections (which are underneath templates containing Any Objects) like in Rust or Swift because it has no advantages 
+in our configuration regarding performances over than making initialization trivial and breaking the self-reference design, hence useless.
+Note that Coconut is written in C++11. C++14 is not widely and fully implemented yet.
 
 -----------------------------------------------------------------------------------------------
 
