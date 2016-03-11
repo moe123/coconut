@@ -98,7 +98,6 @@ void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx)
 
 void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
 		std::size_t sz = m_impl.size();
 		if (at_idx < sz) {
@@ -134,7 +133,6 @@ void MutableArray::addObject(Owning<Any> obj)
 
 void MutableArray::addObject(Owning<Any> obj, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
 		if (option == CopyNone) {
 			m_impl.push_back(obj);
@@ -160,7 +158,6 @@ void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx)
 
 void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (obj) {
 		std::size_t sz = m_impl.size();
 		if (at_idx <= sz) {
@@ -180,7 +177,6 @@ void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption 
 
 void MutableArray::exchangeObjectAtIndex(std::size_t idx1, std::size_t idx2)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (idx1 < size() && idx2 < m_impl.size()) {
 		std::swap(m_impl.at(idx1), m_impl.at(idx2));
 	}
@@ -193,7 +189,6 @@ void MutableArray::addObjectsFromArray(const Array & arr)
 
 void MutableArray::addObjectsFromArray(const Array & arr, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = arr.cbegin(); it != arr.cend(); ++it) {
 		addObject((*it), option);
 	}
@@ -203,7 +198,6 @@ void MutableArray::addObjectsFromArray(const Array & arr, CopyOption option)
 
 void MutableArray::removeObjectAtIndex(std::size_t index)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (index < m_impl.size()) { m_impl.erase(m_impl.begin() + static_cast<difference_type>(index)); }
 }
 
@@ -211,7 +205,6 @@ void MutableArray::removeObjectAtIndex(std::size_t index)
 
 void MutableArray::removeObject(const Any & obj)
 {
-	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isEqual(obj)) { m_impl.erase(it); }
 	}
@@ -219,7 +212,6 @@ void MutableArray::removeObject(const Any & obj)
 
 void MutableArray::removeObject(const Any & obj, const Range & in_rg)
 {
-	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		std::size_t loc, max;
@@ -247,7 +239,6 @@ void MutableArray::removeObject(const Owning<Any> & obj, const Range & in_rg)
 
 void MutableArray::removeObjectIdenticalTo(const Any & obj)
 {
-	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isIdenticalTo(obj)) { m_impl.erase(it); }
 	}
@@ -255,7 +246,6 @@ void MutableArray::removeObjectIdenticalTo(const Any & obj)
 
 void MutableArray::removeObjectIdenticalTo(const Any & obj, const Range & in_rg)
 {
-	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		std::size_t loc, max;
@@ -284,7 +274,6 @@ void MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj, const Range 
 
 void MutableArray::removeObjectsInArray(const Array & arr)
 {
-	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = arr.cbegin(); it != arr.cend(); ++it) {
 		if ((*it)) { removeObject(*(*it)); }
 	}
@@ -292,7 +281,6 @@ void MutableArray::removeObjectsInArray(const Array & arr)
 
 void MutableArray::removeObjectsInRange(const Range & in_rg)
 {
-	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		std::size_t loc, max;
@@ -313,13 +301,11 @@ void MutableArray::removeObjectsInRange(const Range & in_rg)
 
 void MutableArray::removeLastObject()
 {
-	std::lock_guard<spin_type> lck(spin());
 	m_impl.pop_back();
 }
 
 void MutableArray::removeAllObjects()
 {
-	std::lock_guard<spin_type> lck(spin());
 	m_impl.clear();
 }
 
@@ -336,7 +322,6 @@ void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from
 
 void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, const Range & from_rg, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
 		if(from.size() && from_rg.maxRange() <= from.size()) {
@@ -431,7 +416,6 @@ void MutableArray::sortUsingDescriptors(const Array & descriptors, SortOptions o
 
 Owning<Any> & MutableArray::operator [] (std::size_t index)
 {
-	std::lock_guard<spin_type> lck(spin());
 	std::size_t sz = m_impl.size();
 	if (index  == MaxFound || index >= sz) {
 		m_impl.resize(sz + 1);

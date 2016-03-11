@@ -278,18 +278,16 @@ bool test = people.someObjectPassingTest(
 // read and write (if the destination object is mutable), mostly
 // the coconut KVC interface is more advanced and complex. 
 
-MutableArray indexTree;
+MutableArray tree;
 for (std::size_t i = 0; i < 10; i++ ) {
-	auto child = With<Dictionary>({
-		{ With<String>(u8"child"), With<Number>(i + 1) }
+	tree + With<Array>({
+		With<Dictionary>({
+			{ With<String>(u8"child"), With<Number>(i + 1) }
+		})
 	});
-	auto parent = With<Array>({
-		child
-	});
-	indexTree + parent;
 }
 
-std::cerr << indexTree << std::endl;
+std::cerr << tree << std::endl;
 //
 // output: [[{"child": 1}], [{"child": 2}], [{"child": 3}], [{"child": 4}], [{"child": 5}], [{"child": 6}], [{"child": 7}], [{"child": 8}], [{"child": 9}], [{"child": 10}]]
 //

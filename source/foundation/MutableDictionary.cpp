@@ -85,7 +85,6 @@ void MutableDictionary::setObjectsFromDictionary(const Dictionary & dict)
 
 void MutableDictionary::setObjectsFromDictionary(const Dictionary & dict, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	m_impl.clear();
 	for (const_iterator it = dict.cbegin(); it != dict.cend(); ++it) {
 		setObject((*it).second, (*it).first, option);
@@ -113,7 +112,6 @@ void MutableDictionary::setObject(Owning<Any> ptr, Owning<Any> key)
 
 void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (ptr) {
 		if (option != CopyNone) {
 			Owning<Any> k = ptr_create<String>(utf8_key);
@@ -128,7 +126,6 @@ void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key,
 
 void MutableDictionary::setObject(Owning<Any> ptr, const Any & key, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (ptr) {
 		if (option != CopyNone) {
 			Owning<Any> k = key.kindCopy();
@@ -143,7 +140,6 @@ void MutableDictionary::setObject(Owning<Any> ptr, const Any & key, CopyOption o
 
 void MutableDictionary::setObject(Owning<Any> ptr, Owning<Any> key, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (ptr && key) {
 		if (option != CopyNone) {
 			Owning<Any> k = Object::copyObject(key, option);
@@ -209,7 +205,6 @@ void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict)
 
 void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict, CopyOption option)
 {
-	std::lock_guard<spin_type> lck(spin());
 	for (const_iterator it = dict.cbegin(); it != dict.cend(); ++it) {
 		setObject((*it).second, (*it).first, option);
 	}
@@ -219,21 +214,18 @@ void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict, CopyOp
 
 void MutableDictionary::removeObjectForKey(const std::string & utf8_key)
 {
-	std::lock_guard<spin_type> lck(spin());
 	Owning<Any> k = ptr_create<String>(utf8_key);
 	m_impl.erase(k);
 }
 
 void MutableDictionary::removeObjectForKey(const Any & key)
 {
-	std::lock_guard<spin_type> lck(spin());
 	Owning<Any> k = key.kindCopy();
 	m_impl.erase(k);
 }
 
 void MutableDictionary::removeObjectForKey(const Owning<Any> & key)
 {
-	std::lock_guard<spin_type> lck(spin());
 	if (key) {
 		Owning<Any> k = key;
 		m_impl.erase(k);
@@ -244,7 +236,6 @@ void MutableDictionary::removeObjectForKey(const Owning<Any> & key)
 
 void MutableDictionary::removeAllObjects()
 {
-	std::lock_guard<spin_type> lck(spin());
 	m_impl.clear();
 }
 
@@ -252,7 +243,6 @@ void MutableDictionary::removeAllObjects()
 
 void MutableDictionary::removeObjectsForKeys(const Array & keys)
 {
-	std::lock_guard<spin_type> lck(spin());
 	for (Array::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) { removeObjectForKey((*it)); }
 	}

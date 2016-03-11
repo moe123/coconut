@@ -64,10 +64,7 @@ std::size_t Set::hash() const
 #pragma mark -
 
 Owning<Any> Set::copy() const
-{
-	//std::unique_lock<spinlock>();
-	return ptr_create<Set>(cbegin(), cend(), CopyKind);
-}
+{ return ptr_create<Set>(cbegin(), cend(), CopyKind); }
 
 /*
 Owning<Any> Set::mutableCopy() const

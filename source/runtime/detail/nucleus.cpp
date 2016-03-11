@@ -19,8 +19,7 @@ nucleus::nucleus() :
 	m_addr("0x00"),
 	m_kind(classkind_anon),
 	m_tag(-1000LL),
-	m_ismutable(false),
-	m_spinlock()
+	m_ismutable(false)
 { /* NOP */ }
 
 nucleus::nucleus(const nucleus & ref) :
@@ -29,8 +28,7 @@ nucleus::nucleus(const nucleus & ref) :
 	m_addr("0x00"),
 	m_kind(classkind_anon),
 	m_tag(-1000LL),
-	m_ismutable(false),
-	m_spinlock()
+	m_ismutable(false)
 { COCONUT_UNUSED(ref); }
 
 nucleus & nucleus::operator = (const nucleus & ref)
@@ -42,8 +40,7 @@ nucleus::nucleus(ClassKind root, ClassKind kind) :
 	m_addr(),
 	m_kind(kind),
 	m_tag(-1000LL),
-	m_ismutable(false),
-	m_spinlock()
+	m_ismutable(false)
 {
 	m_kinds.push_back(classkind_nucleus);
 	m_kinds.push_back(root);

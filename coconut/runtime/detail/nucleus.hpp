@@ -282,11 +282,6 @@ namespace coconut
 			std::ptrdiff_t sig() const;
 			const std::string addr() const;
 			bool mutability() const;
-
-		protected:
-			typedef spinlock spin_type;
-			spin_type & spin() { return m_spinlock; }
-			spin_type m_spinlock;
 			
 		private:
 			std::unordered_map<std::string, Owning<Any> > m_attrs;
