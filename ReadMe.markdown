@@ -182,6 +182,11 @@ Array lastNames = {
 	With<String>(u8"Alberts")
 };
 
+std::cerr << lastNames << std::endl;
+//
+// output: ["Smith", "Jones", "Smith", "Alberts"]
+//
+
 Array ages = {
 	With<Number>(24),
 	With<Number>(27),
@@ -189,11 +194,21 @@ Array ages = {
 	With<Number>(31)
 };
 
+std::cerr << ages << std::endl;
+//
+// output: [24, 27, 33, 31]
+//
+
 Array keys = {
 	With<String>(u8"firstName"),
 	With<String>(u8"lastName"),
 	With<String>(u8"age")
 };
+
+std::cerr << keys << std::endl;
+//
+// output: ["firstName", "lastName", "age"]
+//
 
 ```
 ```cpp
@@ -202,11 +217,11 @@ Array keys = {
 
 MutableArray people;
 
-// Building an Array of Dictionary
+// Building an Array of Dictionary objects
 firstNames.enumerateObjectsUsingFunction(
 	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
-	// Creating an individual person
+	// Creating, mapping an individual person
 	auto person = With<Dictionary>({
 		{ keys[0], obj },
 		{ keys[1], lastNames[index] },
@@ -222,13 +237,11 @@ firstNames.enumerateObjectsUsingFunction(
 Enumerate<Array>(firstNames,
 	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
-	people.addObject(
-		With<Dictionary>({
-			{ keys[0], obj },
-			{ keys[1], lastNames[index] },
-			{ keys[2], ages[index] }
-		})
-	);
+	people + With<Dictionary>({
+		{ keys[0], obj },
+		{ keys[1], lastNames[index] },
+		{ keys[2], ages[index] }
+	});
 }, EnumerationConcurrent);
 
 ```
