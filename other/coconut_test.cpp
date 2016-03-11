@@ -1018,6 +1018,57 @@ static void run_queue(void)
 int main(int argc, const char * argv[])
 {
 	{
+		Array firstNames = {
+			With<String>(u8"Alice"),
+			With<String>(u8"Bob"),
+			With<String>(u8"Charlie"),
+			With<String>(u8"Quentin")
+		};
+		
+		Array lastNames = {
+			With<String>(u8"Smith"),
+			With<String>(u8"Jones"),
+			With<String>(u8"Smith"),
+			With<String>(u8"Alberts")
+		};
+		
+		Array ages = {
+			With<Number>(24),
+			With<Number>(27),
+			With<Number>(33),
+			With<Number>(31)
+		};
+
+		Array keys = {
+			With<String>(u8"firstName"),
+			With<String>(u8"lastName"),
+			With<String>(u8"age")
+		};
+		
+		MutableArray people;
+		
+		Enumerate<Array>(firstNames,
+		[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		{
+		 	people.addObject(
+				With<Dictionary>({
+					{ keys[0], obj },
+					{ keys[1], lastNames[index] },
+					{ keys[2], ages[index] }
+				})
+			);
+		}, EnumerationConcurrent);
+		
+		SortDescriptor s0(u8"firstName", false);
+		SortDescriptor s1(u8"lastName", false);
+		SortDescriptor s2(u8"age");
+		
+		auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
+		
+		std::cerr << "+ sorted : " << sorted << std::endl;
+	}
+	
+	{
 		MutableArray tree;
 		for (std::size_t i = 0; i < 10; i++ ) {
 			auto child = With<Dictionary>({

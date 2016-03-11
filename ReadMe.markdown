@@ -237,17 +237,13 @@ SortDescriptor s0 {u8"firstName", false};
 SortDescriptor s1 {u8"lastName", false};
 SortDescriptor s2 = u8"age";
 
+// Sorting on lastname first both descending.
 auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 
-for (Array::const_iterator it = sorted.cbegin(); it != sorted.cend(); ++it) {
-	std::cerr << " + sorted: " << Thus<Dictionary>(*it)[u8"firstName"] << std::endl;
-	std::cerr << " + sorted: " << Then<Dictionary>(*it)->objectForKey(u8"lastName") << std::endl;
-}
-
-for (const auto & item : Thus<Array>(sorted)) {
-	std::cerr << " + sorted: " << Thus<Dictionary>(item)[u8"firstName"] << std::endl;
-	std::cerr << " + sorted: " << Then<Dictionary>(item)->objectForKey(u8"lastName") << std::endl;
-}
+std::cerr << sorted << std::endl;
+//
+// output: [{"age": 33, "firstName": "Charlie", "lastName": "Smith"}, {"age": 24, "firstName": "Alice", "lastName": "Smith"}, {"age": 27, "firstName": "Bob", "lastName": "Jones"}, {"age": 31, "firstName": "Quentin", "lastName": "Alberts"}]
+//
 
 ```
 ```cpp
