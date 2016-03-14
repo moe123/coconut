@@ -245,27 +245,27 @@ void bytebuf::unpack(const std::uint8_t (&in)[8], std::uint64_t & out, unpacking
 void bytebuf::unpack(const std::uint8_t (&in)[2], std::int16_t & out, unpacking_option option)
 {
 	if (option == unpacking_littleendian) {
-		byteorder::r16le(in, out);
+		byteorder::rs16le(in, out);
 	} else {
-		byteorder::r16be(in, out);
+		byteorder::rs16be(in, out);
 	}
 }
 
 void bytebuf::unpack(const std::uint8_t (&in)[4], std::int32_t & out, unpacking_option option)
 {
 	if (option == unpacking_littleendian) {
-		byteorder::r32le(in, out);
+		byteorder::rs32le(in, out);
 	} else {
-		byteorder::r32be(in, out);
+		byteorder::rs32be(in, out);
 	}
 }
 
 void bytebuf::unpack(const std::uint8_t (&in)[8], std::int64_t & out, unpacking_option option)
 {
 	if (option == unpacking_littleendian) {
-		byteorder::r64le(in, out);
+		byteorder::rs64le(in, out);
 	} else {
-		byteorder::r64be(in, out);
+		byteorder::rs64be(in, out);
 	}
 }
 

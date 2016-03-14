@@ -29,7 +29,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadBigInt16(const std::uint8_t (&r)[2], std::int16_t & out)
-	{ runtime::byteorder::r16be(r, out); }
+	{ runtime::byteorder::rs16be(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadBigInt32(const std::uint8_t (&r)[4], std::uint32_t & out)
@@ -37,7 +37,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadBigInt32(const std::uint8_t (&r)[4], std::int32_t & out)
-	{ return runtime::byteorder::r32be(r, out); }
+	{ return runtime::byteorder::rs32be(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadBigInt64(const std::uint8_t (&r)[8], std::uint64_t & out)
@@ -45,7 +45,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadBigInt64(const std::uint8_t (&r)[8], std::int64_t & out)
-	{ return runtime::byteorder::r64be(r, out); }
+	{ return runtime::byteorder::rs64be(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
 	void WriteBigInt16(const std::uint16_t & in, std::uint8_t (&w)[2])
@@ -77,7 +77,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadLittleInt16(const std::uint8_t (&r)[2], std::int16_t & out)
-	{ runtime::byteorder::r16le(r, out); }
+	{ runtime::byteorder::rs16le(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadLittleInt32(const std::uint8_t (&r)[4], std::uint32_t & out)
@@ -85,7 +85,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadLittleInt32(const std::uint8_t (&r)[4], std::int32_t & out)
-	{ runtime::byteorder::r32le(r, out); }
+	{ runtime::byteorder::rs32le(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadLittleInt64(const std::uint8_t (&r)[8], std::uint64_t & out)
@@ -93,7 +93,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	void ReadLittleInt64(const std::uint8_t (&r)[8], std::int64_t & out)
-	{ runtime::byteorder::r64le(r, out); }
+	{ runtime::byteorder::rs64le(r, out); }
 	
 	COCONUT_ALWAYS_INLINE
 	void WriteLittleInt16(const std::uint16_t & in, std::uint8_t (&w)[2])

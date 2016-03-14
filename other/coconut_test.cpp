@@ -1213,7 +1213,7 @@ int main(int argc, const char * argv[])
 	
 	std::uint8_t in_1[4] = { out_0[0], out_0[1], out_0[2], out_0[3] };
 	std::int32_t out_1;
-	runtime::byteorder::r32be(in_1, out_1);
+	runtime::byteorder::rs32be(in_1, out_1);
 	
 	std::cerr << "+ out_1 " << out_1 << std::endl;
 	
