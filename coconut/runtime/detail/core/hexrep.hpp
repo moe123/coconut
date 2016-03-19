@@ -15,44 +15,63 @@ namespace coconut
 	{
 		namespace hexrep
 		{
+			struct format_option
+			{
+				format_option() :
+					m_start_delim(""),
+					m_end_delim(""),
+					m_byte_sep(" "),
+					m_word_sep("  "),
+					m_dword_sep(" | "),
+					m_ellipsis_sep("..."),
+					m_max_dump(std::numeric_limits<std::size_t>::max()),
+					m_row_jump(true)
+				{ /* NOP */ }
+				
+				const char * m_start_delim;
+				const char * m_end_delim;
+				const char * m_byte_sep;
+				const char * m_word_sep;
+				const char * m_dword_sep;
+				const char * m_ellipsis_sep;
+				std::size_t m_max_dump;
+				bool m_row_jump;
+			};
+			
 			template <typename IterT>
-			inline void dump(
+			inline void format(
 				std::ostream & os,
 				IterT && beg,
 				IterT && end,
-				std::size_t max_dump = std::numeric_limits<std::size_t>::max(),
-				const char * s_delim = "",
-				const char * e_delim = "",
-				const char * b_sep = " ",
-				const char * w_sep = "  ",
-				const char * lw_sep = " | ",
-				const char * e_sep = "...",
-				bool row_jump = true
+				format_option * opt
 			) {
 				std::size_t cnt = 0;
-				std::ios ios_fmt(nullptr);
-				ios_fmt.copyfmt(os);
-				os << s_delim;
+				std::ios saved_fmt(nullptr);
+				std::ios default_fmt(nullptr);
+				saved_fmt.copyfmt(os);
+				os.copyfmt(default_fmt);
+				if (!opt) { return; }
+				os << opt->m_start_delim;
 				for (; beg != end; ++beg) {
 					std::uint8_t c = unsafe_cast<std::uint8_t>(*beg);
 					os << std::hex << std::setw(2) << std::setfill('0') << (c & 0xff);
 					++cnt;
-					if (cnt % 16 == 0 && row_jump) {
+					if (cnt % 16 == 0 && opt->m_row_jump) {
 						os << std::endl;
 					} else if (cnt % 8 == 0) {
-						os << lw_sep;
+						os <<  opt->m_dword_sep;
 					} else if (cnt % 4 == 0) {
-						os << w_sep;
+						os << opt->m_word_sep;
 					} else {
-						os << b_sep;
+						os << opt->m_byte_sep;
 					}
-					if (cnt >= max_dump) {
-						os << e_sep;
+					if (cnt >= opt->m_max_dump) {
+						os << opt->m_ellipsis_sep;
 						break;
 					}
 				}
-				os << e_delim;
-				os.copyfmt(ios_fmt);
+				os << opt->m_end_delim;
+				os.copyfmt(saved_fmt);
 			}
 		}
 	}

@@ -358,7 +358,7 @@ ustring & ustring::operator = (const ustring & ustr)
 #pragma mark -
 
 int ustring::compare(const ustring & other_ustr) const
-{ return compare(other_ustr, search_literal); }
+{ return compare(other_ustr, search_literal|search_nowidth); }
 
 int ustring::compare(const ustring & other_ustr, search_options options) const
 {

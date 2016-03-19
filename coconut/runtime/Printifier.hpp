@@ -118,8 +118,19 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
+		runtime::hexrep::format_option opt;
 		os << '"';
-		runtime::hexrep::dump(os, ref_cast<Data>(r).cbegin(), ref_cast<Data>(r).cend(), 24, "<", ">", "", " ", "", "...", false);
+		
+		opt.m_start_delim = "<";
+		opt.m_end_delim = ">";
+		opt.m_byte_sep = "";
+		opt.m_word_sep = " ";
+		opt.m_dword_sep = "";
+		opt.m_ellipsis_sep = "...";
+		opt.m_max_dump = 24;
+		opt.m_row_jump = false;
+
+		runtime::hexrep::format(os, ref_cast<Data>(r).cbegin(), ref_cast<Data>(r).cend(), &opt);
 		os << '"';
 		return os;
 	}
@@ -153,7 +164,7 @@ namespace coconut
 	
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<Array, TypeT>::value ||
+			std::is_same<TypeT, Array>::value ||
 			std::is_same<TypeT, MutableArray>::value ||
 			std::is_same<TypeT, OrderedSet>::value ||
 			std::is_same<TypeT, MutableOrderedSet>::value ||
@@ -174,7 +185,7 @@ namespace coconut
 		
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<Array, TypeT>::value ||
+			std::is_same<TypeT, Array>::value ||
 			std::is_same<TypeT, MutableArray>::value ||
 			std::is_same<TypeT, OrderedSet>::value ||
 			std::is_same<TypeT, MutableOrderedSet>::value ||

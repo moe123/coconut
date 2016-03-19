@@ -6,6 +6,7 @@
 
 #include <coconut/runtime/Types.hpp>
 #include <coconut/runtime/Features.hpp>
+#include <coconut/runtime/JobBroker.hpp>
 #include <coconut/runtime/Printifier.hpp>
 #include <coconut/runtime/ByteOrder.hpp>
 

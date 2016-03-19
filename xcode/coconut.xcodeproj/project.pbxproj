@@ -368,6 +368,7 @@
 		D528D43F1BC4930700D8087D /* liburiparser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liburiparser.a; path = ../sdk/darwin_x86_64/liburiparser.a; sourceTree = "<group>"; };
 		D52B86C11A8ECA200086CB97 /* libruntime_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libruntime_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54322131BCC413900839B4B /* Object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		D54EBAED1C9DE46500B7256F /* JobBroker.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JobBroker.hpp; sourceTree = "<group>"; };
 		D56A57241BC4BC520056B40C /* libfoundation_dylib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libfoundation_dylib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56A57AB1BC4BC630056B40C /* libfoundation_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfoundation_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D595B8841BC9A43A0051FF91 /* algorithm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
@@ -581,6 +582,7 @@
 				D528D2F31BC4928500D8087D /* ByteOrder.hpp */,
 				D595B8821BC9A43A0051FF91 /* detail */,
 				D523CA381C2A07B4007270F7 /* Features.hpp */,
+				D54EBAED1C9DE46500B7256F /* JobBroker.hpp */,
 				D54322131BCC413900839B4B /* Object.hpp */,
 				D5B245A11C8BBD82001F2376 /* Printifier.hpp */,
 				D528D3061BC4928500D8087D /* Serialization.hpp */,

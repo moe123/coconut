@@ -277,52 +277,6 @@ namespace coconut
 		ErrT m_error;
 		bool m_valid;
 	};
-	
-	template <typename T>
-	struct COCONUT_VISIBLE JobReturn COCONUT_FINAL
-	{
-		explicit JobReturn(std::future<T> && f) : m_fut(std::move(f)) { /* NOP */ }
-		
-		T operator () () { return m_fut.get(); }
-		
-	private:
-		std::future<T> m_fut;
-	};
-	
-	template <typename FuncT, typename... ArgsT>
-	inline auto _JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
-		-> decltype(runtime::async::exec(option, std::forward<FuncT>(func), std::forward<ArgsT>(args)...))
-	{ return runtime::async::exec(option, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
-	
-	template <typename FuncT, typename... ArgsT>
-	inline auto JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
-		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
-	{
-		return JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
-		(
-			_JobExec(option, std::forward<FuncT>(func), std::forward<ArgsT>(args)...)
-		);
-	}
-	
-	template <typename FuncT, typename... ArgsT>
-	inline auto JobExec(FuncT && func, ArgsT &&... args)
-		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
-	{
-		return JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
-		(
-			_JobExec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...)
-		);
-	}
-	
-	template <typename FuncT, typename... ArgsT>
-	inline auto JobRun(FuncT && func, ArgsT &&... args)
-		-> typename std::result_of<FuncT(ArgsT...)>::type
-	{ auto job = JobExec(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); return job(); }
-		
-	template <typename FuncT, typename... ArgsT>
-	inline auto JobDetach(FuncT && func, ArgsT &&... args)
-		-> void
-	{ runtime::async::detach(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
 
 	template <typename T1, typename T2>
 	inline auto ConformsTo(T2 && r) -> bool
