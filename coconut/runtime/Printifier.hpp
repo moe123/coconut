@@ -119,19 +119,23 @@ namespace coconut
 		-> std::ostream &
 	{
 		runtime::hexrep::format_option opt;
-		os << '"';
 		
-		opt.m_start_delim = "<";
-		opt.m_end_delim = ">";
-		opt.m_byte_sep = "";
-		opt.m_word_sep = " ";
-		opt.m_dword_sep = "";
-		opt.m_ellipsis_sep = "...";
-		opt.m_max_dump = 24;
-		opt.m_row_jump = false;
+		opt.m_start = R"("<)";
+		opt.m_stop = R"(>")";
+		opt.m_byte = R"()";
+		opt.m_word = R"( )";
+		opt.m_dword = R"()";
+		opt.m_max = 24;
+		opt.m_row = false;
 
-		runtime::hexrep::format(os, ref_cast<Data>(r).cbegin(), ref_cast<Data>(r).cend(), &opt);
-		os << '"';
+		runtime::hexrep::format
+		(
+			os,
+			ref_cast<Data>(r).cbegin(),
+			ref_cast<Data>(r).cend(),
+			&opt
+		);
+		
 		return os;
 	}
 	

@@ -18,24 +18,24 @@ namespace coconut
 			struct format_option
 			{
 				format_option() :
-					m_start_delim(""),
-					m_end_delim(""),
-					m_byte_sep(" "),
-					m_word_sep("  "),
-					m_dword_sep(" | "),
-					m_ellipsis_sep("..."),
-					m_max_dump(std::numeric_limits<std::size_t>::max()),
-					m_row_jump(true)
+					m_start(R"()"),
+					m_stop(R"()"),
+					m_byte(R"( )"),
+					m_word(R"(  )"),
+					m_dword(R"( | )"),
+					m_ellipsis(R"(...)"),
+					m_max(std::numeric_limits<std::size_t>::max()),
+					m_row(true)
 				{ /* NOP */ }
 				
-				const char * m_start_delim;
-				const char * m_end_delim;
-				const char * m_byte_sep;
-				const char * m_word_sep;
-				const char * m_dword_sep;
-				const char * m_ellipsis_sep;
-				std::size_t m_max_dump;
-				bool m_row_jump;
+				const char * m_start;
+				const char * m_stop;
+				const char * m_byte;
+				const char * m_word;
+				const char * m_dword;
+				const char * m_ellipsis;
+				std::size_t m_max;
+				bool m_row;
 			};
 			
 			template <typename IterT>
@@ -51,26 +51,26 @@ namespace coconut
 				saved_fmt.copyfmt(os);
 				os.copyfmt(default_fmt);
 				if (!opt) { return; }
-				os << opt->m_start_delim;
+				os << opt->m_start;
 				for (; beg != end; ++beg) {
 					std::uint8_t c = unsafe_cast<std::uint8_t>(*beg);
 					os << std::hex << std::setw(2) << std::setfill('0') << (c & 0xff);
 					++cnt;
-					if (cnt % 16 == 0 && opt->m_row_jump) {
+					if (cnt % 16 == 0 && opt->m_row) {
 						os << std::endl;
 					} else if (cnt % 8 == 0) {
-						os <<  opt->m_dword_sep;
+						os <<  opt->m_dword;
 					} else if (cnt % 4 == 0) {
-						os << opt->m_word_sep;
+						os << opt->m_word;
 					} else {
-						os << opt->m_byte_sep;
+						os << opt->m_byte;
 					}
-					if (cnt >= opt->m_max_dump) {
-						os << opt->m_ellipsis_sep;
+					if (cnt >= opt->m_max) {
+						os << opt->m_ellipsis;
 						break;
 					}
 				}
-				os << opt->m_end_delim;
+				os << opt->m_stop;
 				os.copyfmt(saved_fmt);
 			}
 		}
