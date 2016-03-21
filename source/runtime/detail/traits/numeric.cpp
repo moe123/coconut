@@ -64,6 +64,8 @@ numeric::numeric(const numeric & num)
 	}
 	m_type = num.m_type;
 	m_sizeof = num.m_sizeof;
+	m_signed = num.m_signed;
+	m_floating = num.m_floating;
 }
 
 numeric::numeric(const float & value)
@@ -71,6 +73,8 @@ numeric::numeric(const float & value)
 	m_val_float = value;
 	m_type = numeric_float;
 	m_sizeof = sizeof(m_val_float);
+	m_signed = true;
+	m_floating = true;
 }
 
 numeric::numeric(const double & value)
@@ -78,6 +82,8 @@ numeric::numeric(const double & value)
 	m_val_double = value;
 	m_type = numeric_double;
 	m_sizeof = sizeof(m_val_double);
+	m_signed = true;
+	m_floating = true;
 }
 
 numeric::numeric(const long double & value)
@@ -85,6 +91,8 @@ numeric::numeric(const long double & value)
 	m_val_long_double = value;
 	m_type = numeric_long_double;
 	m_sizeof = sizeof(m_val_long_double);
+	m_signed = true;
+	m_floating = false;
 }
 
 numeric::numeric(const bool & value)
@@ -92,6 +100,8 @@ numeric::numeric(const bool & value)
 	m_val_bool = value;
 	m_type = numeric_bool;
 	m_sizeof = sizeof(m_val_bool);
+	m_signed = false;
+	m_floating = false;
 }
 
 numeric::numeric(const char & value)
@@ -99,6 +109,8 @@ numeric::numeric(const char & value)
 	m_val_char = value;
 	m_type = numeric_char;
 	m_sizeof = sizeof(m_val_char);
+	m_signed = true;
+	m_floating = false;
 }
 
 numeric::numeric(const short & value)
@@ -106,6 +118,8 @@ numeric::numeric(const short & value)
 	m_val_short = value;
 	m_type = numeric_short;
 	m_sizeof = sizeof(m_val_short);
+	m_signed = true;
+	m_floating = false;
 }
 
 numeric::numeric(const int & value)
@@ -113,6 +127,8 @@ numeric::numeric(const int & value)
 	m_val_int = value;
 	m_type = numeric_int;
 	m_sizeof = sizeof(m_val_int);
+	m_signed = true;
+	m_floating = false;
 }
 
 numeric::numeric(const long & value)
@@ -120,6 +136,8 @@ numeric::numeric(const long & value)
 	m_val_long = value;
 	m_type = numeric_long;
 	m_sizeof = sizeof(m_val_long);
+	m_signed = true;
+	m_floating = false;
 }
 
 numeric::numeric(const long long & value)
@@ -127,6 +145,8 @@ numeric::numeric(const long long & value)
 	m_val_longlong = value;
 	m_type = numeric_longlong;
 	m_sizeof = sizeof(m_val_longlong);
+	m_signed = true;
+	m_floating = false;
 }
 
 numeric::numeric(const unsigned char & value)
@@ -134,12 +154,16 @@ numeric::numeric(const unsigned char & value)
 	m_val_unsigned_char = value;
 	m_type = numeric_unsigned_char;
 	m_sizeof = sizeof(m_val_unsigned_char);
+	m_signed = false;
+	m_floating = false;
 }
 numeric::numeric(const unsigned short & value)
 {
 	m_val_unsigned_short = value;
 	m_type = numeric_unsigned_short;
 	m_sizeof = sizeof(m_val_unsigned_short);
+	m_signed = false;
+	m_floating = false;
 }
 
 numeric::numeric(const unsigned int & value)
@@ -147,6 +171,8 @@ numeric::numeric(const unsigned int & value)
 	m_val_unsigned_int = value;
 	m_type = numeric_unsigned_int;
 	m_sizeof = sizeof(m_val_unsigned_int);
+	m_signed = false;
+	m_floating = false;
 }
 
 numeric::numeric(const unsigned long & value)
@@ -154,6 +180,8 @@ numeric::numeric(const unsigned long & value)
 	m_val_unsigned_long = value;
 	m_type = numeric_unsigned_long;
 	m_sizeof = sizeof(m_val_unsigned_long);
+	m_signed = false;
+	m_floating = false;
 }
 
 numeric::numeric(const unsigned long long & value)
@@ -161,6 +189,8 @@ numeric::numeric(const unsigned long long & value)
 	m_val_unsigned_longlong = value;
 	m_type = numeric_unsigned_longlong;
 	m_sizeof = sizeof(m_val_unsigned_longlong);
+	m_signed = false;
+	m_floating = false;
 }
 
 numeric::~numeric()
@@ -220,6 +250,8 @@ numeric & numeric::operator = (const numeric & num)
 	}
 	m_type = num.m_type;
 	m_sizeof = num.m_sizeof;
+	m_signed = num.m_signed;
+	m_floating = num.m_floating;
 	
 	return *this;
 }
@@ -230,10 +262,27 @@ int numeric::compare(const numeric & other_num) const
 {
 	if (this == &other_num) {
 		return cmp_same;
-	} else if (to_double() < other_num.to_double()) {
-		return cmp_ascending;
-	} else if (to_double() > other_num.to_double()) {
-		return cmp_descending;
+	}
+	if (m_signed) {
+		if (m_floating) {
+			if (to_double() < other_num.to_double()) {
+				return cmp_ascending;
+			} else if (to_double() > other_num.to_double()) {
+				return cmp_descending;
+			}
+		} else {
+			if (to_longlong() < other_num.to_longlong()) {
+				return cmp_ascending;
+			} else if (to_longlong() > other_num.to_longlong()) {
+				return cmp_descending;
+			}
+		}
+	} else {
+		if (to_unsigned_longlong() < other_num.to_unsigned_longlong()) {
+			return cmp_ascending;
+		} else if (to_unsigned_longlong() > other_num.to_unsigned_longlong()) {
+			return cmp_descending;
+		}
 	}
 	return cmp_same;
 }
@@ -241,19 +290,13 @@ int numeric::compare(const numeric & other_num) const
 #pragma mark -
 
 float numeric::to_float() const
-{
-	return get<float>();
-}
+{ return get<float>(); }
 
 double numeric::to_double() const
-{
-	return get<double>();
-}
+{ return get<double>(); }
 
 long double numeric::to_long_double() const
-{
-	return get<long double>();
-}
+{ return get<long double>(); }
 
 #pragma mark -
 
@@ -262,62 +305,48 @@ bool numeric::to_bool() const
 	if (m_type == numeric_bool) {
 		return get<bool>();
 	}
-	return get<double>() > 0.0 ? true : false;
+	if (m_signed) {
+		if (m_floating) {
+			return get<double>() > 0.0 ? true : false;
+		}
+		return get<long long>() > 0 ? true : false;
+	}
+	return get<unsigned long long>() > 0 ? true : false;
 }
 
 #pragma mark -
 
 char numeric::to_char() const
-{
-	return get<char>();
-}
+{ return get<char>(); }
 
 short numeric::to_short() const
-{
-	return get<short>();
-}
+{ return get<short>(); }
 
 int numeric::to_int() const
-{
-	return get<int>();
-}
+{ return get<int>(); }
 
 long numeric::to_long() const
-{
-	return get<long>();
-}
+{ return get<long>(); }
 
 long long numeric::to_longlong() const
-{
-	return get<long long>();
-}
+{ return get<long long>(); }
 
 #pragma mark -
 
 unsigned char numeric::to_unsigned_char() const
-{
-	return get<unsigned char>();
-}
+{ return get<unsigned char>(); }
 
 unsigned short numeric::to_unsigned_short() const
-{
-	return get<unsigned short>();
-}
+{ return get<unsigned short>(); }
 
 unsigned int numeric::to_unsigned_int() const
-{
-	return get<unsigned int>();
-}
+{ return get<unsigned int>(); }
 
 unsigned long numeric::to_unsigned_long() const
-{
-	return get<unsigned long>();
-}
+{ return get<unsigned long>(); }
 
 unsigned long long numeric::to_unsigned_longlong() const
-{
-	return get<unsigned long long>();
-}
+{ return get<unsigned long long>(); }
 
 #pragma mark -
 
@@ -359,25 +388,25 @@ std::string numeric::to_string() const
 
 std::size_t numeric::hash_code() const
 {
-	return std::hash<double>()(to_double() + static_cast<double>(m_type));
+	if (m_signed) {
+		if (m_floating) {
+			return std::hash<double>()(to_double() + static_cast<double>(m_type));
+		}
+		return std::hash<long long>()(to_longlong() + static_cast<long long>(m_type));
+	}
+	return std::hash<unsigned long long>()(to_longlong() + static_cast<unsigned long long>(m_type));
 }
 
 #pragma mark -
 
 double numeric::to_real() const
-{
-	return get<double>();
-}
+{ return get<double>(); }
 
 std::int64_t numeric::to_integer() const
-{
-	return get<std::int64_t>();
-}
+{ return get<std::int64_t>(); }
 
 std::uint64_t numeric::to_unsigned_integer() const
-{
-	return get<std::uint64_t>();
-}
+{ return get<std::uint64_t>(); }
 
 #pragma mark -
 

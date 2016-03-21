@@ -130,6 +130,9 @@ namespace coconut
 		private:
 			std::size_t m_type;
 			std::size_t m_sizeof;
+			
+			bool m_signed;
+			bool m_floating;
 		};
 	}
 }
