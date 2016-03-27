@@ -12,16 +12,29 @@
 namespace coconut
 {
 	template <typename CallableT>
-	struct COCONUT_VISIBLE JobReturn COCONUT_FINAL
+	class COCONUT_VISIBLE JobReturn COCONUT_FINAL
 	{
-		explicit JobReturn(std::future<CallableT> && promise) :
-			m_promise(std::move(promise))
+	public:
+		JobReturn(const JobReturn &) = delete;
+		JobReturn & operator = (const JobReturn &) = delete;
+		
+		~JobReturn() { /* NOP */ }
+		
+		JobReturn(JobReturn && jret) noexcept :
+			m_fut(std::move(jret.m_fut))
 		{ /* NOP */ }
 		
-		CallableT operator () () { return m_promise.get(); }
+		JobReturn & operator = (JobReturn && jret) noexcept
+		{ JobReturn(std::move(jret)).swap(*this); return *this; }
+		
+		explicit JobReturn(std::future<CallableT> && fut) noexcept :
+			m_fut(std::move(fut))
+		{ /* NOP */ }
+		
+		CallableT operator () () noexcept { return m_fut.get(); }
 		
 	private:
-		std::future<CallableT> m_promise;
+		std::future<CallableT> m_fut;
 	};
 	
 	template <typename FuncT, typename... ArgsT>

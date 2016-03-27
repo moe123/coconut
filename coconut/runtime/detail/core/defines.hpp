@@ -22,6 +22,7 @@
 
 #ifdef _MSC_VER
 	#define __MICROSOFT_VS__ 1
+	#pragma execution_character_set("utf-8")
 #endif
 
 #if __MICROSOFT_VS__ || __MICROSOFT_XBOX__ || __MICROSOFT_MINGW__

@@ -104,15 +104,22 @@ namespace coconut
 		
 		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj) const;
 		std::size_t indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg) const;
-
+		
+		std::size_t lastIndexOfObject(const Any & obj) const;
+		std::size_t lastIndexOfObject(const Owning<Any> & obj) const;
+		
+		std::size_t lastIndexOfObjectIdenticalTo(const Any & obj) const;
+		std::size_t lastIndexOfObjectIdenticalTo(const Owning<Any> & obj) const;
+		
+		const Owning<Any> firstObjectCommonWithArray(const Array & arr) const;
+		const Owning<Any> lastObjectCommonWithArray(const Array & arr) const;
+		
 		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		std::size_t indexOfObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
 		bool everyObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		bool noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		bool someObjectPassingTest(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
-		
-		const Owning<Any> firstObjectCommonWithArray(const Array & arr) const;
 	
 		const Array reversedArray(CopyOption option = CopyNone) const;
 		const Array uniquedArray(CopyOption option = CopyNone) const;

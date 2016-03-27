@@ -328,6 +328,14 @@ const Owning<Any> Array::objectAtIndex(std::size_t index) const
 
 #pragma mark -
 
+const Array Array::objectsInRange(const Range & rg, CopyOption option) const
+{ return subarrayWithRange(rg, option); }
+
+const Array Array::objectsInSlice(const Slice & slc, CopyOption option) const
+{ return subarrayWithSlice(slc, option); }
+
+#pragma mark -
+
 std::size_t Array::indexOfObject(const Any & obj) const
 {
 	std::size_t idx = 0;
@@ -341,14 +349,6 @@ std::size_t Array::indexOfObject(const Any & obj) const
 	}
 	return NotFound;
 }
-
-#pragma mark -
-
-const Array Array::objectsInRange(const Range & rg, CopyOption option) const
-{ return subarrayWithRange(rg, option); }
-
-const Array Array::objectsInSlice(const Slice & slc, CopyOption option) const
-{ return subarrayWithSlice(slc, option); }
 
 #pragma mark -
 
@@ -428,6 +428,40 @@ std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range
 
 #pragma mark -
 
+std::size_t Array::lastIndexOfObject(const Any & obj) const
+{
+	return indexOfObjectPassingTest([&obj] (const Owning<Any> & item, std::size_t index, bool & stop) -> bool {
+		if (item->isIdenticalTo(obj) || item->isEqual(obj)) {
+			return true;
+		}
+		return false;
+	}, EnumerationReverse);
+}
+
+#pragma mark -
+
+std::size_t Array::lastIndexOfObject(const Owning<Any> & obj) const
+{ if (obj) { return lastIndexOfObject(*obj); } return NotFound; }
+
+#pragma mark -
+
+std::size_t Array::lastIndexOfObjectIdenticalTo(const Any & obj) const
+{
+	return indexOfObjectPassingTest([&obj] (const Owning<Any> & item, std::size_t index, bool & stop) -> bool {
+		if (item->isIdenticalTo(obj)) {
+			return true;
+		}
+		return false;
+	}, EnumerationReverse);
+}
+
+#pragma mark -
+
+std::size_t Array::lastIndexOfObjectIdenticalTo(const Owning<Any> & obj) const
+{ if (obj) { return lastIndexOfObjectIdenticalTo(*obj); } return NotFound; }
+
+#pragma mark -
+
 const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 {
 	Owning<Any> item;
@@ -435,6 +469,23 @@ const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 		std::size_t idx = 0;
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
 			idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
+			if ((item = arr.objectAtIndex(idx))) {
+				if ((*it) && (*it)->isEqual(item)) { return (*it); }
+			} else { break; }
+		}
+	}
+	return item;
+}
+
+#pragma mark -
+
+const Owning<Any> Array::lastObjectCommonWithArray(const Array & arr) const
+{
+	Owning<Any> item;
+	if (size()) {
+		std::size_t idx = 0;
+		for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+			idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, crend() -1));
 			if ((item = arr.objectAtIndex(idx))) {
 				if ((*it) && (*it)->isEqual(item)) { return (*it); }
 			} else { break; }

@@ -120,13 +120,13 @@ namespace coconut
 	{
 		runtime::hexrep::format_option opt;
 		
-		opt.m_start = R"("<)";
-		opt.m_stop = R"(>")";
-		opt.m_byte = R"()";
-		opt.m_word = R"( )";
-		opt.m_dword = R"()";
-		opt.m_max = 24;
-		opt.m_row = false;
+		opt.u_start = "<";
+		opt.u_stop = ">";
+		opt.u_byte = "";
+		opt.u_word = " ";
+		opt.u_dword = "";
+		opt.u_max = 24;
+		opt.u_row = false;
 
 		runtime::hexrep::format
 		(
