@@ -255,9 +255,28 @@ namespace coconut
 	{ if (r) { _enumerate_dispatch<TypeT>(*r, func, options); }; }
 
 	template <typename RetT, typename ErrT>
-	struct COCONUT_VISIBLE OptionalReturn COCONUT_FINAL
+	class COCONUT_VISIBLE OptionalReturn COCONUT_FINAL
 	{
-		explicit OptionalReturn() : m_success{}, m_error{}, m_valid(false) { /* NOP */ }
+	public:
+		OptionalReturn(const OptionalReturn &) = delete;
+		OptionalReturn & operator = (const OptionalReturn &) = delete;
+		
+		~OptionalReturn() { /* NOP */ }
+		
+		OptionalReturn(OptionalReturn && oret) noexcept :
+			m_success{std::move(oret.m_success)},
+			m_error{std::move(oret.m_error)},
+			m_valid{oret.m_valid}
+		{ /* NOP */ }
+		
+		OptionalReturn & operator = (OptionalReturn && oret) noexcept
+		{ OptionalReturn(std::move(oret)).swap(*this); return *this; }
+		
+		explicit OptionalReturn() :
+			m_success{},
+			m_error{},
+			m_valid(false)
+		{ /* NOP */ }
 		
 		const RetT & success() const { return m_success; }
 		const ErrT & error() const { return m_error; }

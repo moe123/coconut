@@ -21,14 +21,14 @@ namespace coconut
 		~JobReturn() { /* NOP */ }
 		
 		JobReturn(JobReturn && jret) noexcept :
-			m_fut(std::move(jret.m_fut))
+			m_fut{std::move(jret.m_fut)}
 		{ /* NOP */ }
 		
 		JobReturn & operator = (JobReturn && jret) noexcept
 		{ JobReturn(std::move(jret)).swap(*this); return *this; }
 		
 		explicit JobReturn(std::future<CallableT> && fut) noexcept :
-			m_fut(std::move(fut))
+			m_fut{std::move(fut)}
 		{ /* NOP */ }
 		
 		CallableT operator () () noexcept { return m_fut.get(); }
