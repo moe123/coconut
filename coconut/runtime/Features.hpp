@@ -335,12 +335,14 @@ namespace coconut
 		-> Owning<TypeT>
 	{ return ptr_create<TypeT>(arg); }
 	
-	template <typename TypeT,
-		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
+	template <typename T1, typename T2,
+		typename std::enable_if<
+			std::is_base_of<Any, typename std::decay<T2>
+		>::value>::type* = nullptr
 	>
-	inline auto With(TypeT && arg)
-		-> Owning<TypeT>
-	{ return ptr_create<TypeT>(std::move(arg)); }
+	inline auto With(T2 && arg)
+		-> Owning<T1>
+	{ return ptr_create<T1>(std::move(arg)); }
 
 	template <typename TypeT,
 		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
@@ -372,6 +374,14 @@ namespace coconut
 	inline auto Then(T2 && r)
 		-> decltype(_then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}))
 	{ return _then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	
+	template <typename T1, typename T2,
+		typename std::enable_if<
+			std::is_base_of<Any, typename std::decay<T2>::type
+		>::value>::type* = nullptr
+	>
+	inline auto Shift(T2 && r) -> decltype(std::move(r))
+	{ return std::move(r); }
 	
 	template <typename T1, typename T2>
 	inline auto Copy(T2 && r)

@@ -1066,6 +1066,12 @@ int main(int argc, const char * argv[])
 		auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 		
 		std::cerr << "+ sorted : " << sorted << std::endl;
+		
+		Array people_ = Shift<MutableArray>(people);
+		
+		std::cerr << "+ people : " << people << std::endl;
+		
+		std::cerr << "+ people_ : " << people_ << std::endl;
 	}
 	
 	{
