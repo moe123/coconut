@@ -95,7 +95,7 @@ void hash::sha_base::add(const void * bytes, std::size_t length)
 	}
 }
 
-const std::string hash::sha_base::hex()
+const std::vector<char> hash::sha_base::hex()
 {
 	std::string result;
 	static const char dec2hex[16 + 1] = "0123456789abcdef";
@@ -121,8 +121,10 @@ const std::string hash::sha_base::hex()
 		m_hash[i] = old_hash[i];
 	}
 	hash_buf[offset] = 0;
-	result = hash_buf.data();
-	return result;
+	hash_buf.resize(offset);
+	hash_buf.pop_back();
+	
+	return hash_buf;
 }
 
 const std::vector<std::uint8_t> hash::sha_base::raw()
@@ -215,27 +217,27 @@ void hash::sha_base::process_buffer()
 	}
 }
 
-const char * hash::sha1_hex(const void * bytes, std::size_t len)
+const std::vector<char> hash::sha1_hex(const void * bytes, std::size_t len)
 {
 	sha1 h;
 	h.add(bytes, len);
-	return h.hex().c_str();
+	return h.hex();
 }
 
-const char * hash::sha1_hex(stream::imstream & in_binary)
+const std::vector<char> hash::sha1_hex(stream::imstream & in_binary)
 {
 	sha1 h;
 	builtins::hash_sha_hex(in_binary, &h);
-	return h.hex().c_str();
+	return h.hex();
 }
 
-const char * hash::sha1_hex(stream::ifstream & in_binary)
+const std::vector<char> hash::sha1_hex(stream::ifstream & in_binary)
 {
 	sha1 h;
 	if (in_binary.is_open()) {
 		builtins::hash_sha_hex(in_binary, &h);
 	}
-	return h.hex().c_str();
+	return h.hex();
 }
 
 #pragma mark -
@@ -265,27 +267,27 @@ const std::vector<std::uint8_t> hash::sha1_raw(stream::ifstream & in_binary)
 
 #pragma mark -
 
-const char * hash::sha256_hex(const void * bytes, std::size_t len)
+const std::vector<char> hash::sha256_hex(const void * bytes, std::size_t len)
 {
 	sha256 h;
 	h.add(bytes, len);
-	return h.hex().c_str();
+	return h.hex();
 }
 
-const char * hash::sha256_hex(stream::imstream & in_binary)
+const std::vector<char> hash::sha256_hex(stream::imstream & in_binary)
 {
 	sha256 h;
 	builtins::hash_sha_hex(in_binary, &h);
-	return h.hex().c_str();
+	return h.hex();
 }
 
-const char * hash::sha256_hex(stream::ifstream & in_binary)
+const std::vector<char> hash::sha256_hex(stream::ifstream & in_binary)
 {
 	sha256 h;
 	if (in_binary.is_open()) {
 		builtins::hash_sha_hex(in_binary, &h);
 	}
-	return h.hex().c_str();
+	return h.hex();
 }
 
 #pragma mark -

@@ -26,7 +26,7 @@ namespace coconut
 			
 			public:
 				void add(const void * bytes, std::size_t length);
-				const std::string hex();
+				const std::vector<char> hex();
 				const std::vector<std::uint8_t> raw();
 				
 			private:
@@ -83,13 +83,13 @@ namespace coconut
 			};
 			
 			COCONUT_VISIBLE
-			const char * sha1_hex(const void * bytes, std::size_t len);
+			const std::vector<char> sha1_hex(const void * bytes, std::size_t len);
 			
 			COCONUT_VISIBLE
-			const char * sha1_hex(stream::imstream & in_binary);
+			const std::vector<char> sha1_hex(stream::imstream & in_binary);
 			
 			COCONUT_VISIBLE
-			const char * sha1_hex(stream::ifstream & in_binary);
+			const std::vector<char> sha1_hex(stream::ifstream & in_binary);
 			
 			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha1_raw(const void * bytes, std::size_t len);
@@ -101,13 +101,13 @@ namespace coconut
 			const std::vector<std::uint8_t> sha1_raw(stream::ifstream & in_binary);
 			
 			COCONUT_VISIBLE
-			const char * sha256_hex(const void * bytes, std::size_t len);
+			const std::vector<char> sha256_hex(const void * bytes, std::size_t len);
 			
 			COCONUT_VISIBLE
-			const char * sha256_hex(stream::imstream & in_binary);
+			const std::vector<char> sha256_hex(stream::imstream & in_binary);
 			
 			COCONUT_VISIBLE
-			const char * sha256_hex(stream::ifstream & in_binary);
+			const std::vector<char> sha256_hex(stream::ifstream & in_binary);
 			
 			COCONUT_VISIBLE
 			const std::vector<std::uint8_t> sha256_raw(const void * bytes, std::size_t len);

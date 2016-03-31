@@ -226,7 +226,7 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Ow
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -241,7 +241,7 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Ow
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationDescending:
@@ -497,7 +497,7 @@ std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const 
 					}
 					return NotFound;
 				});
-				return op.get();
+				return op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -514,7 +514,7 @@ std::size_t OrderedSet::indexOfObjectPassingTest(const std::function<bool(const 
 					}
 					return NotFound;
 				});
-				return op.get();
+				return op();
 			}
 			break;
 			case IterationDescending:
@@ -554,7 +554,7 @@ bool OrderedSet::everyObjectPassingTest(const std::function<bool(const Owning<An
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return ret;
 }
@@ -575,7 +575,7 @@ bool OrderedSet::noneObjectPassingTest(const std::function<bool(const Owning<Any
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return !ret;
 }
@@ -596,7 +596,7 @@ bool OrderedSet::someObjectPassingTest(const std::function<bool(const Owning<Any
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return ret;
 }
@@ -666,7 +666,7 @@ const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function
 					}
 				}
 			});
-			op.get();
+			op();
 			return OrderedSet(buf.cbegin(), buf.cend(), option);
 			
 		}
@@ -684,7 +684,7 @@ const OrderedSet OrderedSet::filteredOrderedSetUsingFunction(const std::function
 					}
 				}
 			});
-			op.get();
+			op();
 			return OrderedSet(buf.cbegin(), buf.cend(), option);
 		}
 		break;

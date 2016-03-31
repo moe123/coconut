@@ -181,21 +181,21 @@ static void test_array(void)
 	
 	Array a =
 	{
-		&n0,
-		&n1,
-		&n2,
-		&n3,
-		&n4,
-		&n5,
-		&n6,
-		&n7,
-		&n8,
-		&n3,
-		&n4,
-		&n5,
-		&n6,
-		&n7,
-		&n8
+		Copy<Number>(n0),
+		Copy<Number>(n1),
+		Copy<Number>(n2),
+		Copy<Number>(n3),
+		Copy<Number>(n4),
+		Copy<Number>(n5),
+		Copy<Number>(n6),
+		Copy<Number>(n7),
+		Copy<Number>(n8),
+		Copy<Number>(n3),
+		Copy<Number>(n4),
+		Copy<Number>(n5),
+		Copy<Number>(n6),
+		Copy<Number>(n7),
+		Copy<Number>(n8)
 	};
 	
 	if (ConformsTo<Array>(a)) {
@@ -349,7 +349,7 @@ static void test_stuff(void)
 	String now = Date::UTC();
 	std::cerr << " now = " << now << std::endl;
 	
-	Path path = u8"/usr/bin";
+	Path path = { u8"/usr/bin" };
 	
 	std::cerr << " path = " << path << std::endl;
 	
@@ -883,7 +883,7 @@ static void test_getlocale()
 	
 	std::cerr << "+ id " << id << std::endl;
 }
-	
+
 static void parse_path(void)
 {
 	runtime::irange rg(u8"{\"location\" : 45, \"length\" : 78}");
@@ -1015,8 +1015,42 @@ static void run_queue(void)
 	}*/
 }
 
+int Σ0() {
+	return 0;
+}
+
+// ȡ
+
 int main(int argc, const char * argv[])
 {
+	{
+		std::int32_t in_0 = -888888888;
+		std::uint8_t out_0[4];
+		runtime::byteorder::w32le(in_0, out_0);
+		
+		std::cerr << "+ out_0 " << out_0 << std::endl;
+		
+		for (std::size_t i = 0 ; i < 4 ; i++) {
+			std::cerr << "+ out_0[] " << unsafe_cast<std::uint32_t>(out_0[i]) << std::endl;
+		}
+		
+		runtime::byteorder::w32be(in_0, out_0);
+		
+		for (std::size_t i = 0 ; i < 4 ; i++) {
+			std::cerr << "+ out_0[] " << unsafe_cast<std::uint32_t>(out_0[i]) << std::endl;
+		}
+		
+		std::uint8_t in_1[4] = { out_0[0], out_0[1], out_0[2], out_0[3] };
+		std::int32_t out_1;
+		runtime::byteorder::r32be(in_1, unsafe_cast<std::uint32_t &>(out_1));
+		
+		std::cerr << "+ out_1 " << out_1 << std::endl;
+		
+		runtime::byteorder::rs32be(in_1, out_1);
+		
+		std::cerr << "+ out_1 " << out_1 << std::endl;
+	}
+	
 	{
 		Array firstNames = {
 			With<String>(u8"Alice"),
@@ -1059,9 +1093,9 @@ int main(int argc, const char * argv[])
 			);
 		}, EnumerationConcurrent);
 		
-		SortDescriptor s0(u8"firstName", false);
-		SortDescriptor s1(u8"lastName", false);
-		SortDescriptor s2(u8"age");
+		SortDescriptor s0 {u8"firstName", false};
+		SortDescriptor s1 {u8"lastName", false};
+		SortDescriptor s2 {u8"age"};
 		
 		auto sorted = people.sortedArrayUsingDescriptors({ &s1, &s0 });
 		

@@ -96,7 +96,7 @@ namespace coconut
 	>
 	inline auto _copy(const T2 & r, std::false_type)
 		-> ptr_declare<T1>
-	{ return ptr_cast<T1>(r.copyKind()); }
+	{ return ptr_cast<T1>(r.kindCopy()); }
 	
 	template <typename T1, typename T2,
 		typename std::enable_if<
@@ -106,7 +106,7 @@ namespace coconut
 	>
 	inline auto _copy(ptr_declare<T2> const & r, std::true_type)
 		-> ptr_declare<T1>
-	{ return ptr_cast<T1>(r->copyKind()); }
+	{ return ptr_cast<T1>(r->kindCopy()); }
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<

@@ -97,7 +97,7 @@ void nucleus::performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, con
 				if (microseconds) { std::this_thread::sleep_for(std::chrono::microseconds(microseconds)); }
 				valueForSelectorKey(utf8_selkey, arg);
 			});
-			op.get();
+			op();
 		} else {
 			runtime::async::detach([this, microseconds, utf8_selkey, arg]
 			{
@@ -118,7 +118,7 @@ Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<
 	if (isSelectorKey(utf8_selkey)) {
 		auto op = runtime::async::exec(runtime::launch_any, [this, &utf8_selkey, &arg]
 		{ return valueForSelectorKey(utf8_selkey, arg); });
-		return op.get();
+		return op();
 	}
 	// Fault();
 	return {};

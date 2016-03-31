@@ -254,7 +254,7 @@ void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -269,7 +269,7 @@ void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationDescending:
@@ -548,7 +548,7 @@ std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const Ownin
 					}
 					return NotFound;
 				});
-				return op.get();
+				return op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -565,7 +565,7 @@ std::size_t Array::indexOfObjectPassingTest(const std::function<bool(const Ownin
 					}
 					return NotFound;
 				});
-				return op.get();
+				return op();
 			}
 			break;
 			case IterationDescending:
@@ -605,7 +605,7 @@ bool Array::everyObjectPassingTest(const std::function<bool(const Owning<Any> & 
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return ret;
 }
@@ -626,7 +626,7 @@ bool Array::noneObjectPassingTest(const std::function<bool(const Owning<Any> & o
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return !ret;
 }
@@ -647,7 +647,7 @@ bool Array::someObjectPassingTest(const std::function<bool(const Owning<Any> & o
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return ret;
 }
@@ -748,7 +748,7 @@ const Array Array::filteredArrayUsingFunction(const std::function<bool(const Own
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 		break;
 		case IterationAsyncDescending:
@@ -764,7 +764,7 @@ const Array Array::filteredArrayUsingFunction(const std::function<bool(const Own
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 		break;
 		case IterationDescending:
@@ -806,7 +806,7 @@ const Array Array::sortedArrayUsingFunction(const std::function<bool(const Ownin
 			}
 			return;
 		});
-		op.get();
+		op();
 	} else {
 		buf.assign(cbegin(), cend());
 		if (buf.size() > 1) {

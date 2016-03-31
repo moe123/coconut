@@ -213,7 +213,7 @@ void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(c
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -229,7 +229,7 @@ void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(c
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationDescending:
@@ -511,7 +511,7 @@ const Set Dictionary::keysOfEntriesPassingTest(const std::function<bool(const Ow
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return Set(buf.cbegin(), buf.cend(), option);
 }

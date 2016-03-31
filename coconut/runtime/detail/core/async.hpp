@@ -15,8 +15,34 @@ namespace coconut
 	{
 		namespace async
 		{
+			template <typename T>
+			class COCONUT_VISIBLE return_wrapper COCONUT_FINAL
+			{
+			public:
+				return_wrapper(const return_wrapper &) = delete;
+				return_wrapper & operator = (const return_wrapper &) = delete;
+				
+				~return_wrapper() { /* NOP */ }
+				
+				return_wrapper(return_wrapper && jret) noexcept :
+				m_fut{std::move(jret.m_fut)}
+				{ /* NOP */ }
+				
+				return_wrapper & operator = (return_wrapper && jret) noexcept
+				{ return_wrapper(std::move(jret)).swap(*this); return *this; }
+				
+				explicit return_wrapper(std::future<T> && fut) noexcept :
+				m_fut{std::move(fut)}
+				{ /* NOP */ }
+				
+				T operator () () noexcept { return m_fut.get(); }
+				
+			private:
+				std::future<T> m_fut;
+			};
+			
 			template <typename FuncT, typename... ArgsT>
-			inline std::future<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option, FuncT && func, ArgsT &&... args)
+			inline return_wrapper<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option, FuncT && func, ArgsT &&... args)
 			{
 				std::launch policy = (std::launch::async | std::launch::deferred);
 				switch (option) {
@@ -33,7 +59,9 @@ namespace coconut
 						break;
 				}
 				auto bind = std::bind(std::forward<FuncT>(func), std::forward<ArgsT>(args)...);
-				return std::async(std::move(policy), std::move(bind));
+				return return_wrapper<typename std::result_of<FuncT(ArgsT...)>::type>(
+					std::async(std::move(policy), std::move(bind))
+				);
 			}
 			
 			template <typename FuncT, typename... ArgsT>

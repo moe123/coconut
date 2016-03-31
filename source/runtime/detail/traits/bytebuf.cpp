@@ -1121,7 +1121,7 @@ std::string bytebuf::hash_sha1() const
 	if (m_bytes.size()) {
 		hash::sha1 h;
 		h.add(m_bytes.data(), m_bytes.size());
-		return h.hex();
+		return { h.hex().data() };
 	}
 	return {};
 }
@@ -1131,7 +1131,7 @@ std::string bytebuf::hash_sha256() const
 	if (m_bytes.size()) {
 		hash::sha256 h;
 		h.add(m_bytes.data(), m_bytes.size());
-		return h.hex();
+		return { h.hex().data() };
 	}
 	return {};
 }

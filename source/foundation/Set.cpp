@@ -248,7 +248,7 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -262,7 +262,7 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationDescending:
@@ -448,7 +448,7 @@ const Set Set::objectsPassingTest(const std::function<bool(const Owning<Any> & o
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationAsyncDescending:
@@ -463,7 +463,7 @@ const Set Set::objectsPassingTest(const std::function<bool(const Owning<Any> & o
 						}
 					}
 				});
-				op.get();
+				op();
 			}
 			break;
 			case IterationDescending:
@@ -500,7 +500,7 @@ bool Set::everyObjectPassingTest(const std::function<bool(const Owning<Any> & ob
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return ret;
 }
@@ -519,7 +519,7 @@ bool Set::noneObjectPassingTest(const std::function<bool(const Owning<Any> & obj
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return !ret;
 }
@@ -538,7 +538,7 @@ bool Set::someObjectPassingTest(const std::function<bool(const Owning<Any> & obj
 				}
 			}
 		});
-		op.get();
+		op();
 	}
 	return ret;
 }
@@ -594,7 +594,7 @@ const Set Set::filteredSetUsingFunction(const std::function<bool(const Owning<An
 					}
 				}
 			});
-			op.get();
+			op();
 			return Set(buf.cbegin(), buf.cend(), option);
 			
 		}
@@ -611,7 +611,7 @@ const Set Set::filteredSetUsingFunction(const std::function<bool(const Owning<An
 					}
 				}
 			});
-			op.get();
+			op();
 			return Set(buf.cbegin(), buf.cend(), option);
 		}
 		break;

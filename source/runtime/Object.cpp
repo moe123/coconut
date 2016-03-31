@@ -224,7 +224,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 				}
 			}
 		});
-		op.get();
+		op();
 	} else if (v && v->isKindOf(SetClass)) {
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
@@ -237,7 +237,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 				}
 			}
 		});
-		op.get();
+		op();
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
@@ -250,7 +250,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 				}
 			}
 		});
-		op.get();
+		op();
 	} else {
 		// Fault();
 	}
@@ -277,7 +277,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else if (v && v->isKindOf(SetClass)) {
 		min = ptr_static_cast<Set>(v)->lastObject();
@@ -295,7 +295,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		min = ptr_static_cast<OrderedSet>(v)->lastObject();
@@ -313,7 +313,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else {
 		// Fault();
@@ -341,7 +341,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else if (v && v->isKindOf(SetClass)) {
 		max = ptr_static_cast<Set>(v)->lastObject();
@@ -359,7 +359,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		max = ptr_static_cast<OrderedSet>(v)->lastObject();
@@ -377,7 +377,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else {
 		// Fault();
@@ -403,7 +403,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
@@ -419,7 +419,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
@@ -435,7 +435,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 					}
 				}
 			});
-			op.get();
+			op();
 		}
 	} else {
 		// Fault();
