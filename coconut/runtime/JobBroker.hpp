@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	template <typename T> using JobReturn = runtime::async::return_wrapper<T>;
+	template <typename T> using JobReturn = runtime::async::shall<T>;
 	
 	template <typename FuncT, typename... ArgsT>
 	inline auto _JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)
