@@ -16,7 +16,7 @@ namespace coconut
 		namespace async
 		{
 			template <typename T>
-			class COCONUT_VISIBLE shall COCONUT_FINAL
+			COCONUT_PRIVATE class COCONUT_VISIBLE shall COCONUT_FINAL
 			{
 			public:
 				shall(const shall &) = delete;
@@ -80,39 +80,68 @@ namespace coconut
 			// @see https://github.com/Tyler-Hardin/thread_pool
 			//
 			
-			class pool
+			COCONUT_PRIVATE class COCONUT_VISIBLE pool COCONUT_FINAL
 			{
 			public:
-				pool(std::size_t count) :
-					m_count(count),
-					m_stop(false),
+				pool() :
 					m_mutex(),
 					m_cond(),
 					m_tasks(),
-					m_threads()
+					m_threads(),
+					m_count(2),
+					m_stop(false),
+					m_run(false)
+				{ /* NOP */ }
+				
+				pool(std::size_t count) :
+					m_mutex(),
+					m_cond(),
+					m_tasks(),
+					m_threads(),
+					m_count(count ? count : 2),
+					m_stop(false),
+					m_run(false)
+				{ /* NOP */ }
+				
+				void start()
 				{
-					std::unique_lock<std::mutex> lock(m_mutex);
-					for (std::size_t i = 0; i < m_count; i++) {
-						std::function<void(void)> f = std::bind(&pool::main, this);
-						m_threads.push_back(std::move(std::thread(f)));
+					if (!m_run) {
+						std::unique_lock<std::mutex> lock(m_mutex);
+						if (!m_run) {
+							m_run = true;
+							for (std::size_t i = 0; i < m_count; i++) {
+								std::function<void(void)> f = std::bind(&pool::main, this);
+								m_threads.push_back(std::move(std::thread(f)));
+							}
+						}
 					}
 				}
 				
-				~pool()
+				void stop()
 				{
 					{
 						std::unique_lock<std::mutex> lock(m_mutex);
 						m_stop = true;
 					}
 					m_cond.notify_all();
+					
 					for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
 						(*it).join();
 					}
+					{
+						std::unique_lock<std::mutex> lock(m_mutex);
+						m_threads.clear();
+						m_tasks.clear();
+						m_run = false;
+					}
 				}
+				
+				~pool() { /* NOP */ }
 				
 				template<typename FuncT, typename... ArgsT>
 				shall<typename std::result_of<FuncT(ArgsT...)>::type> push(FuncT && f, ArgsT... args)
 				{
+					if (!m_run) { throw; }
 					using Ret = typename std::result_of<FuncT(ArgsT...)>::type;
 					std::shared_ptr< std::promise<Ret> > p = std::make_shared< std::promise<Ret> >();
 					auto task_wrapper = [p](FuncT && ff, ArgsT &&... aargs) { p->set_value(ff(aargs...)); };
@@ -132,6 +161,7 @@ namespace coconut
 				template<typename FuncT>
 				shall<typename std::result_of<FuncT()>::type> push(FuncT && f)
 				{
+					if (!m_run) { throw; }
 					using Ret = typename std::result_of<FuncT()>::type;
 					std::shared_ptr< std::promise<Ret> > p = std::make_shared< std::promise<Ret> >();
 					auto task_wrapper = [p](FuncT && ff) { p->set_value(ff()); };
@@ -151,9 +181,11 @@ namespace coconut
 				template<typename... ArgsT>
 				shall<void> push(const std::function<void(ArgsT...)> & f, ArgsT... args)
 				{
-					std::shared_ptr< std::promise<void> > p = std::make_shared< std::promise<void> >();
-					auto task_wrapper = [p](const std::function<void(ArgsT...)> & ff, ArgsT... aargs) { ff(aargs...); p->set_value(); };
-					auto ret_wrapper = [p]() -> void { p->get_future().get(); };
+					if (!m_run) { throw; }
+					using Ret = void;
+					std::shared_ptr< std::promise<Ret> > p = std::make_shared< std::promise<Ret> >();
+					auto task_wrapper = [p](const std::function<Ret(ArgsT...)> & ff, ArgsT... aargs) { ff(aargs...); p->set_value(); };
+					auto ret_wrapper = [p]() -> Ret { p->get_future().get(); };
 					{
 						std::unique_lock<std::mutex> lock(m_mutex);
 						m_tasks.emplace_back(
@@ -161,16 +193,18 @@ namespace coconut
 						);
 					}
 					m_cond.notify_one();
-					return shall<void>(
+					return shall<Ret>(
 						std::async(std::launch::deferred, ret_wrapper)
 					);
 				}
 				
 				shall<void> push(const std::function<void()> & f)
 				{
-					std::shared_ptr< std::promise<void> > p = std::make_shared< std::promise<void> >();
-					auto task_wrapper = [p](const std::function<void()> & ff) { ff(); p->set_value(); };
-					auto ret_wrapper = [p]() -> void { p->get_future().get(); };
+					if (!m_run) { throw; }
+					using Ret = void;
+					std::shared_ptr< std::promise<Ret> > p = std::make_shared< std::promise<Ret> >();
+					auto task_wrapper = [p](const std::function<Ret()> & ff) { ff(); p->set_value(); };
+					auto ret_wrapper = [p]() -> Ret { p->get_future().get(); };
 					{
 						std::unique_lock<std::mutex> lock(m_mutex);
 						m_tasks.emplace_back(
@@ -178,7 +212,7 @@ namespace coconut
 						);
 					}
 					m_cond.notify_one();
-					return shall<void>(
+					return shall<Ret>(
 						std::async(std::launch::deferred, ret_wrapper)
 					);
 				}
@@ -206,13 +240,14 @@ namespace coconut
 				}
 				
 			private:
-				std::size_t m_count;
-				bool m_stop;
-				
 				std::mutex m_mutex;
 				std::condition_variable m_cond;
 				std::deque<std::future<void>> m_tasks;
 				std::list<std::thread> m_threads;
+				
+				std::size_t m_count;
+				bool m_stop;
+				bool m_run;
 			};
 		}
 	}

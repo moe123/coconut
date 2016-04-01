@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_VISIBLE spinlock
+		COCONUT_PRIVATE class COCONUT_VISIBLE spinlock COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.spinlock, spinlock)
 		

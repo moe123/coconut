@@ -12,12 +12,24 @@
 namespace coconut
 {
 	template <typename T> using JobReturn = runtime::async::shall<T>;
-	using JobPool = runtime::async::pool;
-			
-	template <typename FuncT, typename... ArgsT>
-	inline auto JobPush(JobPool & pool, FuncT && func, ArgsT &&... args)
-		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
-	{ return pool.push(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+	
+	COCONUT_PUBLIC class COCONUT_VISIBLE JobPool COCONUT_FINAL
+	{
+	public:
+		JobPool(std::size_t count) :
+			m_queue(count)
+		{  m_queue.start(); }
+		
+		~JobPool() { m_queue.stop(); }
+		
+		template <typename FuncT, typename... ArgsT>
+		inline auto add(FuncT && func, ArgsT &&... args)
+			-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
+		{ return m_queue.push(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+		
+	private:
+		runtime::async::pool m_queue;
+	};
 
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobExec(JobPolicyOption option, FuncT && func, ArgsT &&... args)

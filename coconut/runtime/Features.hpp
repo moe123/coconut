@@ -255,7 +255,7 @@ namespace coconut
 	{ if (r) { _enumerate_dispatch<TypeT>(*r, func, options); }; }
 
 	template <typename RetT, typename ErrT>
-	class COCONUT_VISIBLE OptionalReturn COCONUT_FINAL
+	COCONUT_PUBLIC class COCONUT_VISIBLE OptionalReturn COCONUT_FINAL
 	{
 	public:
 		OptionalReturn(const OptionalReturn &) = delete;

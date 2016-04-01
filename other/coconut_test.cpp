@@ -1000,7 +1000,7 @@ static void run_queue(void)
 	JobPool pool(4);
 	std::vector< JobReturn< std::pair<int, bool> > > tasks;
 	for (int i = 0; i < 10; i++) {
-		tasks.push_back(JobPush(pool, 
+		tasks.push_back(pool.add(
 			[i] () -> std::pair<int, bool> {
 				return std::make_pair(i, i % 2);
 			}
