@@ -249,7 +249,7 @@ std::uint32_t String::characterAtIndex(std::size_t index) const
 
 void String::getCodeUnits(std::vector<std::uint16_t> & bv, const Range & rg)
 {
-	if(m_impl.size() && rg.maxRange() <= m_impl.size()) {
+	if (m_impl.size() && rg.maxRange() <= m_impl.size()) {
 		std::size_t loc = rg.location();
 		for (std::size_t i = 0; i < rg.length(); i++) {
 			bv.push_back(m_impl.code_unit_at(loc + i));
@@ -259,7 +259,7 @@ void String::getCodeUnits(std::vector<std::uint16_t> & bv, const Range & rg)
 
 void String::getCodePoints(std::vector<std::uint32_t> & bv, const Range & rg)
 {
-	if(m_impl.count() && rg.maxRange() <= m_impl.count()) {
+	if (m_impl.count() && rg.maxRange() <= m_impl.count()) {
 		std::size_t loc = rg.location();
 		for (std::size_t i = 0; i < rg.length(); i++) {
 			bv.push_back(m_impl.code_point_at(loc + i));

@@ -60,7 +60,7 @@ void MutableDictionary::setValueForKey(Owning<Any> ptr, const std::string & utf8
 	if (ptr) {
 		if (isAttributeKey(utf8_key)) {
 			setAttributeForKey(ptr, utf8_key);
-		} else if(isSelectorKey(utf8_key)) {
+		} else if (isSelectorKey(utf8_key)) {
 			// Fault();
 		} else {
 			setObject(ptr, utf8_key);

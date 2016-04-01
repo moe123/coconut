@@ -180,8 +180,8 @@ namespace coconut
 		-> std::ostream &
 	{
 		os << '[';
-		for(auto it = r.cbegin(); it != r.cend(); ++it) {
-			os << *it; if(std::next(it) != r.cend()) { os << ',' << ' '; }
+		for (auto it = r.cbegin(); it != r.cend(); ++it) {
+			os << *it; if (std::next(it) != r.cend()) { os << ',' << ' '; }
 		}
 		os << ']';
 		return os;
@@ -211,8 +211,8 @@ namespace coconut
 		-> std::ostream &
 	{
 		os << '{';
-		for(auto it = r.cbegin(); it != r.cend(); ++it) {
-			os << (*it).first << ':' << ' ' << (*it).second; if(std::next(it) != r.cend()) { os << ',' << ' '; }
+		for (auto it = r.cbegin(); it != r.cend(); ++it) {
+			os << (*it).first << ':' << ' ' << (*it).second; if (std::next(it) != r.cend()) { os << ',' << ' '; }
 		}
 		os << '}';
 		return os;

@@ -136,7 +136,7 @@ namespace coconut
 	
 				uri_state.uri = &uri_parse;
 	
-				if(URI_SUCCESS == uriParseUriA(&uri_state, in.c_str())) {
+				if (URI_SUCCESS == uriParseUriA(&uri_state, in.c_str())) {
 					#define COCONUT_URI_CPY_RANGE(OUT, RG) \
 						if (RG.first && RG.afterLast) { \
 							OUT.assign(RG.first, RG.afterLast); \
@@ -195,7 +195,7 @@ namespace coconut
 					COCONUT_URI_CPY_RANGE(out_map.at("host"), uri_parse.hostText)
 					COCONUT_URI_CPY_RANGE(buf, uri_parse.userInfo)
 					if (buf.size()) {
-						if(std::string::npos != buf.find_first_of(":")) {
+						if (std::string::npos != buf.find_first_of(":")) {
 							std::vector<std::string> out;
 							algorithm::explode(out, ":", buf, 2);
 							if (out.size() == 2) {
@@ -215,7 +215,7 @@ namespace coconut
 					COCONUT_URI_CPY_PATH(buf, uri_parse.pathHead)
 					if (buf.size()) {
 						std::size_t found = buf.find_first_of(";");
-						if(std::string::npos != found) {
+						if (std::string::npos != found) {
 							out_map.at("path").assign(buf.begin(), buf.begin() + static_cast<std::string::difference_type>(found));
 							if (buf.size() > found) {
 								out_map.at("parameter").assign(buf.begin() + (static_cast<std::string::difference_type>(found) + 1), buf.end());

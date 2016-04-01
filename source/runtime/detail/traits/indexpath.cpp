@@ -24,7 +24,7 @@ indexpath::indexpath(std::size_t index) :
 indexpath::indexpath(std::size_t * indexes, std::size_t length) :
 	m_indexes()
 {
-	for(std::size_t i = 0; i < length; i++) {
+	for (std::size_t i = 0; i < length; i++) {
 		m_indexes.push_back(indexes[i]);
 	}
 }
@@ -40,7 +40,7 @@ indexpath::indexpath(const std::vector<std::size_t> & indexes, std::size_t numit
 	if (length > indexes.size()) {
 		length = indexes.size();
 	}
-	for(std::size_t i = 0; i < length; i++) {
+	for (std::size_t i = 0; i < length; i++) {
 		m_indexes.push_back(indexes[i]);
 	}
 }

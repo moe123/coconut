@@ -135,9 +135,9 @@ std::size_t Dictionary::size() const
 
 Owning<Any> Dictionary::valueForKey(const std::string & utf8_key) const
 {
-	if(isSelectorKey(utf8_key)) {
+	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
-	} else if(isAttributeKey(utf8_key)) {
+	} else if (isAttributeKey(utf8_key)) {
 		return Object::attributeForKey(utf8_key);
 	}
 	
@@ -259,7 +259,7 @@ bool Dictionary::containsKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
-			if((*it).first->compare(key) == OrderedSame) {
+			if ((*it).first->compare(key) == OrderedSame) {
 				return true;
 			}
 		} else {
@@ -281,7 +281,7 @@ const Owning<Any> Dictionary::objectForKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
-			if((*it).first->compare(key) == OrderedSame) {
+			if ((*it).first->compare(key) == OrderedSame) {
 				return (*it).second;
 			}
 		} else {
@@ -306,12 +306,12 @@ const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Any & key) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it).first && (*it).second) {
-			if((*it).first->isKindOf(StringClass) && key.isKindOf(StringClass)) {
-				if(ref_cast<String>(*((*it).first)).caseInsensitiveCompare(ref_cast<String>(key)) == OrderedSame) {
+			if ((*it).first->isKindOf(StringClass) && key.isKindOf(StringClass)) {
+				if (ref_cast<String>(*((*it).first)).caseInsensitiveCompare(ref_cast<String>(key)) == OrderedSame) {
 					return (*it).second;
 				}
 			} else {
-				if((*it).first->compare(key) == OrderedSame) {
+				if ((*it).first->compare(key) == OrderedSame) {
 					return (*it).second;
 				}
 			}

@@ -84,7 +84,7 @@ namespace coconut
 				q = setlocale(LC_TIME, NULL);
 				lc.push_back((q != NULL ? q : ""));
 				
-				for(std::vector<std::string>::const_iterator it = lc.begin(); it != lc.end(); ++it) {
+				for (std::vector<std::string>::const_iterator it = lc.begin(); it != lc.end(); ++it) {
 					if ((*it).size() >= 5) {
 						std::size_t found = (*it).find_first_of(".");
 						if (found != std::string::npos) {

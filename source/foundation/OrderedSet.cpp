@@ -121,7 +121,7 @@ Owning<Any> OrderedSet::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
-	} else if(isAttributeKey(utf8_key)) {
+	} else if (isAttributeKey(utf8_key)) {
 		return Object::attributeForKey(utf8_key);
 	} else if (runtime::algorithm::is_integer(utf8_key, true)) {
 		return objectAtIndex(
@@ -277,7 +277,7 @@ bool OrderedSet::containsObject(const Owning<Any> & obj) const
 bool OrderedSet::intersectsOrderedSet(const OrderedSet & set) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		if((*it) && set.indexOfObject(*(*it)) != NotFound) {
+		if ((*it) && set.indexOfObject(*(*it)) != NotFound) {
 			return true;
 		}
 	}
@@ -290,7 +290,7 @@ bool OrderedSet::isSubsetOfOrderedSet(const OrderedSet & set) const
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it)) {
 			result = true;
-			if((*it) && set.indexOfObject(*(*it)) == NotFound) {
+			if ((*it) && set.indexOfObject(*(*it)) == NotFound) {
 				return false;
 			}
 		}
@@ -303,7 +303,7 @@ bool OrderedSet::isSubsetOfOrderedSet(const OrderedSet & set) const
 bool OrderedSet::intersectsSet(const Set & set) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		if((*it) && set.member(*(*it))) {
+		if ((*it) && set.member(*(*it))) {
 			return true;
 		}
 	}
@@ -316,7 +316,7 @@ bool OrderedSet::isSubsetOfSet(const Set & set) const
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it)) {
 			result = true;
-			if((*it) && !set.member(*(*it))) {
+			if ((*it) && !set.member(*(*it))) {
 				return false;
 			}
 		}

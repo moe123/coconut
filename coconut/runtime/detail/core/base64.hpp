@@ -96,7 +96,7 @@ namespace coconut
 				do {
 					std::uint32_t input = 0;
 					bytes = 0;
-					for(; (bytes < 3) && (it != end); ++bytes, ++it) {
+					for (; (bytes < 3) && (it != end); ++bytes, ++it) {
 						input <<= 8; input += static_cast<std::uint8_t>(*it);
 					}
 					std::int32_t bits = bytes * CHAR_BIT;
@@ -114,7 +114,7 @@ namespace coconut
 				} while (bytes == 3);
 
 				if (bytes > 0) {
-					for(std::int32_t i = bytes; i < 3; ++i) {
+					for (std::int32_t i = bytes; i < 3; ++i) {
 						*out = '=';
 						++out;
 					}

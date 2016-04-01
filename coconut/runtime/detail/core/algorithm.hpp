@@ -94,7 +94,7 @@ namespace coconut
 				bool result;
 				try {
 					std::regex regex;
-					if(is_unsigned) {
+					if (is_unsigned) {
 						regex.assign("[[:digit:]]+");
 					} else {
 						regex.assign("(\\+|-)?[[:digit:]]+");
@@ -110,7 +110,7 @@ namespace coconut
 				bool result;
 				try {
 					std::wregex regex;
-					if(is_unsigned) {
+					if (is_unsigned) {
 						regex.assign(L"[[:digit:]]+");
 					} else {
 						regex.assign(L"(\\+|-)?[[:digit:]]+");

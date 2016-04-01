@@ -37,7 +37,7 @@ namespace coconut
 			Owning<Any> xmlplist_read_array(const pugi::xml_node & node, SerializationReadOption option)
 			{
 				std::vector< Owning<Any> > buf;
-				for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
+				for (pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
 					pugi::xml_node v = (*it);
 					Owning<Any> vv = xmlplist_read(v, option);
 					if (vv) { buf.push_back(vv); }
@@ -75,15 +75,15 @@ namespace coconut
 			Owning<Any> xmlplist_read_dictionary(const pugi::xml_node & node, SerializationReadOption option)
 			{
 				std::vector< Owning<Any> > kk, vv;
-				for(pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
-					if(std::string("key") != it->name()) {
+				for (pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it) {
+					if (std::string("key") != it->name()) {
 						throw std::invalid_argument("coconut parsing xmlplist");
 					}
 					std::string key(it->first_child().value());
 					++it;
-					if(it == node.end()) {
+					if (it == node.end()) {
 						throw std::invalid_argument("coconut parsing xmlplist");
-					} else if(std::string("key") == std::string(it->name())) {
+					} else if (std::string("key") == std::string(it->name())) {
 						throw std::invalid_argument("coconut parsing xmlplist");
 					}
 					Owning<Any> k = ptr_create<String>(key);
@@ -106,14 +106,14 @@ namespace coconut
 			Owning<Any> xmlplist_read_number(const pugi::xml_node & node)
 			{
 				std::string type = node.name();
-				if("false" == type) {
+				if ("false" == type) {
 					return ptr_create<Number>(false);
-				} else if("true" == type) {
+				} else if ("true" == type) {
 					return ptr_create<Number>(true);
-				} else if("integer" == type) {
+				} else if ("integer" == type) {
 					std::string val = node.first_child().value();
 					return ptr_create<Number>(runtime::algorithm::to_numeric<std::int64_t>(val));
-				} else if("real" == type) {
+				} else if ("real" == type) {
 					std::string val = node.first_child().value();
 					return ptr_create<Number>(runtime::algorithm::to_numeric<double>(val));
 				}
@@ -135,17 +135,17 @@ namespace coconut
 			{
 				std::string type(node.name());
 				
-				if("dict" == type) {
+				if ("dict" == type) {
 					return xmlplist_read_dictionary(node, option);
-				} else if("array" == type) {
+				} else if ("array" == type) {
 					return xmlplist_read_array(node, option);
-				} else if("string" == type) {
+				} else if ("string" == type) {
 					return xmlplist_read_string(node, option);
-				} else if("integer" == type || "real" == type || "false" == type || "true" == type) {
+				} else if ("integer" == type || "real" == type || "false" == type || "true" == type) {
 					return xmlplist_read_number(node);
-				} else if("data" == type) {
+				} else if ("data" == type) {
 					return xmlplist_read_data(node, option);
-				} else if("date" == type) {
+				} else if ("date" == type) {
 					return xmlplist_read_date(node);
 				} else {
 					throw std::invalid_argument("coconut parsing xmlplist");
@@ -168,7 +168,7 @@ namespace coconut
 						pugi::encoding_utf8
 					);
 				#endif
-					if(result) {
+					if (result) {
 						pugi::xml_node tree = document.child("plist").first_child();
 						return xmlplist_read(tree, option);
 					}

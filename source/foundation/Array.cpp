@@ -129,7 +129,7 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
-	} else if(isAttributeKey(utf8_key)) {
+	} else if (isAttributeKey(utf8_key)) {
 		return Object::attributeForKey(utf8_key);
 	} else if (runtime::algorithm::is_integer(utf8_key, true)) {
 		return objectAtIndex(
@@ -985,7 +985,7 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 {
 	impl_trait buf;
 	std::size_t sz = size();
-	if(sz) {
+	if (sz) {
 		std::size_t loc, len;
 		Range src(0, sz);
 		Range dest = src.intersectionRange(rg);
@@ -1012,7 +1012,7 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 {
 	impl_trait buf;
 	std::size_t sz = size();
-	if(sz) {
+	if (sz) {
 		if (slc.start() >= 0 && slc.stop() >= 0 && slc.step() == 1) {
 			return subarrayWithRange({
 				static_cast<std::size_t>(slc.start()),
@@ -1021,7 +1021,7 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 		} else {
 			std::vector<std::size_t> idxs;
 			slc.m_impl.get_indexes(idxs, sz);
-			for(std::vector<std::size_t>::const_iterator it = idxs.cbegin(); it != idxs.cend(); ++it) {
+			for (std::vector<std::size_t>::const_iterator it = idxs.cbegin(); it != idxs.cend(); ++it) {
 				Owning<Any> item = objectAtIndex(*it);
 				if (item) { buf.push_back(item); }
 			}

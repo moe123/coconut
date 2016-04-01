@@ -129,7 +129,7 @@ int indexset::compare(const indexset & other_idxset) const
 		return cmp_descending;
 	}
 	
-	for(std::size_t i = 0 ; i < m_len ; i++) {
+	for (std::size_t i = 0 ; i < m_len ; i++) {
 		int cmp = m_ranges[i].compare(other_idxset.m_ranges[i]);
 		if (cmp != cmp_same) {
 			return cmp;
@@ -148,7 +148,7 @@ std::string indexset::to_string() const
 std::size_t indexset::count() const
 {
 	std::size_t count = 0;
-	for(std::size_t i = 0 ; i < m_len ; i++) {
+	for (std::size_t i = 0 ; i < m_len ; i++) {
 		count += m_ranges[i].length();
 	}
 	return count;
@@ -157,7 +157,7 @@ std::size_t indexset::count() const
 std::size_t indexset::count_in(const irange & rg) const
 {
 	std::size_t count = 0;
-	for(std::size_t i = 0 ; i < m_len ; i++) {
+	for (std::size_t i = 0 ; i < m_len ; i++) {
 		count += m_ranges[i].intxn(rg).length();
 	}
 	return count;

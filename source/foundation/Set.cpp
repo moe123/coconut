@@ -121,7 +121,7 @@ Owning<Any> Set::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
-	} else if(isAttributeKey(utf8_key)) {
+	} else if (isAttributeKey(utf8_key)) {
 		return Object::attributeForKey(utf8_key);
 	} else if (runtime::algorithm::is_integer(utf8_key, true)) {
 		if (size()) {
@@ -299,7 +299,7 @@ bool Set::containsObject(const Owning<Any> & obj) const
 bool Set::intersectsSet(const Set & set) const
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		if((*it) && set.member(*(*it))) {
+		if ((*it) && set.member(*(*it))) {
 			return true;
 		}
 	}
@@ -312,7 +312,7 @@ bool Set::isSubsetOfSet(const Set & set) const
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it)) {
 			result = true;
-			if(!set.member(*(*it))) {
+			if (!set.member(*(*it))) {
 				return false;
 			}
 		}
@@ -326,7 +326,7 @@ bool Set::isSupersetOfSet(const Set & set) const
 	for (const_iterator it = set.cbegin(); it != set.cend(); ++it) {
 		if ((*it)) {
 			result = true;
-			if(!member(*(*it))) {
+			if (!member(*(*it))) {
 				return false;
 			}
 		}
@@ -341,7 +341,7 @@ const Owning<Any> Set::member(const Any & obj) const
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isIdenticalTo(obj)) {
 			return (*it);
-		} else if((*it) && (*it)->isEqual(obj)) {
+		} else if ((*it) && (*it)->isEqual(obj)) {
 			return (*it);
 		}
 	}

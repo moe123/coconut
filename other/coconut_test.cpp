@@ -133,22 +133,22 @@ static void print_array(const Array & a)
 	
 	// + chaining dict.array.dict.mutable_array:
 	auto sz = d.valueForKeyPath(u8"unicøde.3.ßtring.@size");
-	if(sz && sz->unsignedLongValue() > 5UL) {
+	if (sz && sz->unsignedLongValue() > 5UL) {
 		d.setValueForKeyPath(u8"unicøde.3.ßtring.5", ...);
 	}
 	
 	// or
 	auto arr = d.valueForKeyPath(u8"unicøde.3.ßtring");
-	if(arr && arr->isKindOf(MutableArrayClass)) {
-		if(ref_cast<MutableArray>(*arr).size() > 5) {
+	if (arr && arr->isKindOf(MutableArrayClass)) {
+		if (ref_cast<MutableArray>(*arr).size() > 5) {
 			d.setValueForKeyPath(u8"unicøde.3.ßtring.5", ...);
 		}
 	}
 	
 	// or
 	auto arr = d.valueForKeyPath(u8"unicøde.3.ßtring");
-	if(arr && arr->isKindOf(MutableArrayClass)) {
-		if(ref_cast<MutableArray>(*arr).size() > 5UL) {
+	if (arr && arr->isKindOf(MutableArrayClass)) {
+		if (ref_cast<MutableArray>(*arr).size() > 5UL) {
 			ref_cast<MutableArray>(*arr).replaceObjectAtIndex(
 				5,
 				With<String>(u8"an unicøde ßtring")
@@ -812,7 +812,7 @@ static void test_stuff(void)
 	
 	{
 		std::set<std::string> codepages;
-		if(ustring::get_codepages(codepages)) {
+		if (ustring::get_codepages(codepages)) {
 			for (auto & codepage : codepages) {
 				std::cerr << "+ get_codepages : " << codepage << std::endl;
 			}
@@ -821,7 +821,7 @@ static void test_stuff(void)
 	std::cerr << "+-+"  << std::endl;
 	{
 		std::vector<std::string> codepages;
-		if(ustring::get_sys_codepages(codepages)) {
+		if (ustring::get_sys_codepages(codepages)) {
 			for (auto & codepage : codepages) {
 				std::cerr << "+ get_sys_codepages : " << codepage << std::endl;
 			}
@@ -862,7 +862,7 @@ static void test_getlocale()
 	q = setlocale(LC_TIME, NULL);
 	lc.push_back((q != NULL ? q : ""));
 	
-	for(std::vector<std::string>::const_iterator it = lc.begin(); it != lc.end(); it++) {
+	for (std::vector<std::string>::const_iterator it = lc.begin(); it != lc.end(); it++) {
 		if ((*it).size() >= 5) {
 			std::size_t found = (*it).find_first_of(".");
 			if (found != std::string::npos) {
@@ -989,8 +989,8 @@ static void parse_path(void)
 
 static std::pair<int, bool> is_prime(int n)
 {
-	for(int i = 2; i < n; i++) {
-		if(n % i == 0) { return std::make_pair(i, false); }
+	for (int i = 2; i < n; i++) {
+		if (n % i == 0) { return std::make_pair(i, false); }
 	}
 	return std::make_pair(n, true);
 }
@@ -1000,7 +1000,7 @@ static void run_queue(void)
 	/*
 	runtime::async::queue queue(4);
 	std::vector< std::future< bool > > tasks;
-	for(int i = 2; i < 400; i++) {
+	for (int i = 2; i < 400; i++) {
 		tasks.push_back(queue.add(
 			[] (int y) -> bool {
 				std::cerr << " + hello:" << std::endl;
@@ -1009,7 +1009,7 @@ static void run_queue(void)
 		));
 	}
 	*/
-	/*for(auto i = tasks.begin(); i != tasks.end(); i++) {
+	/*for (auto i = tasks.begin(); i != tasks.end(); i++) {
 		std::pair<int, bool> n = (*i).get();
 		std::cout << n.first << ": " << (n.second ? "is prime" : "is composite") << std::endl;
 	}*/
