@@ -82,7 +82,7 @@ namespace coconut
 			
 			/**
 				@note:
-					However we keept the std::promise workaround ; that is still
+					However we kept the std::promise workaround ; that is still
 					happening on older vers. TODO explain: moved join flag to
 					an atomic barrier, some stuff are now overkilling, but doesn't
 					hurt much.
@@ -137,8 +137,7 @@ namespace coconut
 					};
 					
 					m_mutex.lock();
-					m_tasks.emplace_back(std::async(std::launch::deferred,
-													task_wrapper, std::move(f), args...));
+					m_tasks.emplace_back(std::async(std::launch::deferred, task_wrapper, std::move(f), args...));
 					m_mutex.unlock();
 					
 					return shall<Ret>(
@@ -152,7 +151,7 @@ namespace coconut
 					typedef std::function<Ret()> F;
 					
 					std::shared_ptr< std::atomic<bool> > ready = std::make_shared< std::atomic<bool> >(false);
-					std::promise<Ret> *p = new std::promise<Ret>;
+					std::shared_ptr< std::promise<Ret> > p = std::make_shared< std::promise<Ret> >();
 					
 					auto task_wrapper = [p, ready](F && ff) {
 						p->set_value(ff());
@@ -182,7 +181,7 @@ namespace coconut
 					typedef std::function<void(Args...)> F;
 					
 					std::shared_ptr< std::atomic<bool> > ready = std::make_shared< std::atomic<bool> >(false);
-					std::promise<void> *p = new std::promise<void>;
+					std::shared_ptr< std::promise<void> > p = std::make_shared< std::promise<void> >();
 					
 					auto task_wrapper = [p, ready](F && ff, Args... aargs){
 						ff(aargs...);
@@ -212,7 +211,7 @@ namespace coconut
 					typedef std::function<void()> F;
 					
 					std::shared_ptr< std::atomic<bool> > ready = std::make_shared< std::atomic<bool> >(false);
-					std::promise<void> *p = new std::promise<void>;
+					std::shared_ptr< std::promise<void> > p = std::make_shared< std::promise<void> >();
 					
 					auto task_wrapper = [p, ready](F && ff){
 						ff();
