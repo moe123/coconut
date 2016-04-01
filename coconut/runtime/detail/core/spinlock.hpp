@@ -13,7 +13,7 @@ namespace coconut
 {
 	namespace runtime
 	{
-		COCONUT_PRIVATE class COCONUT_VISIBLE spinlock COCONUT_FINAL
+		COCONUT_PRIVATE class COCONUT_VISIBLE COCONUT_ALIGNAS(64) spinlock COCONUT_FINAL
 		{
 		COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.spinlock, spinlock)
 		
@@ -26,7 +26,7 @@ namespace coconut
 			void lock();
 			bool try_lock();
 			void unlock();
- 
+		
 		private:
 			std::int32_t m_cycle;
 			std::int32_t m_loop;

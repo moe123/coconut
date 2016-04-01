@@ -141,7 +141,11 @@
 
 	#if !defined(COCONUT_ALIGNAS)
 		#if __MICROSOFT_VS__
-			#define COCONUT_ALIGNAS(x) __declspec( align(x) )
+			#if _MSC_VER <= 1700
+				#define COCONUT_ALIGNAS(x) __declspec( align(x) )
+			#else
+				#define COCONUT_ALIGNAS(x) alignas(x)
+			#endif
 		#elif ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__)))
 			#if defined(__clang__) || defined(__llvm__)
 				#if __has_feature(cxx_alignas)
@@ -152,7 +156,7 @@
 				#define COCONUT_ALIGNAS(x) __attribute__((aligned(x)))
 			#endif
 		#else
-			#define COCONUT_ALIGNAS
+			#define COCONUT_ALIGNAS(x)
 		#endif
 	#endif
 
