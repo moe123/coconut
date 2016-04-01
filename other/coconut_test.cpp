@@ -1022,6 +1022,7 @@ int main(int argc, const char * argv[])
 {
 	run_queue();
 	{
+		// testing if right shifting not screwing up signed e.g prefilling unsigned cast.
 		std::int32_t in_0 = -888888888;
 		std::uint8_t out_0[4];
 		runtime::byteorder::w32le(in_0, out_0);
