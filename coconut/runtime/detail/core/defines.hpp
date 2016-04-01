@@ -54,6 +54,10 @@
 	#endif
 #endif
 
+#if ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__))) || defined(_MSC_VER)
+	#define COCONUT_HAVE_PRAGMA_ONCE 1
+#endif
+
 #include <cfloat>
 #include <cmath>
 #include <ctgmath>

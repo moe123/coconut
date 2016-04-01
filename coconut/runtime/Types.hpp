@@ -4,6 +4,10 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+#if defined(COCONUT_HAVE_PRAGMA_ONCE) && COCONUT_HAVE_PRAGMA_ONCE
+	#pragma once
+#endif
+
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/async.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>

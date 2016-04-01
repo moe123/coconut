@@ -63,9 +63,9 @@ Note that Coconut is written in C++11. C++14 is not widely and fully implemented
 
 -----------------------------------------------------------------------------------------------
 
-Builtin runtime dependencies:
+Credits && builtin runtime dependencies:
 
-- ASIO (Looper/Timer/Events) http://think-async.com
+- ASIO (Looper/Timer/Periodic/Events) http://think-async.com
 - ICU (Unicode/Punycode/Localization) http://site.icu-project.org
 - NLOHMANN JSON (Serialization) http://nlohmann.me, https://github.com/nlohmann/json
 - PUGI XML (Serialization/DOM) http://zeuxcg.org, http://pugixml.org
@@ -78,6 +78,7 @@ Forked and melted with significant changes:
 
 - BASE64 (RFC 2045, Ryan Petrie) http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml, https://www.ietf.org/rfc/rfc2045.txt
 - SHA1/SHA256 (Stephan Brumme) http://create.stephan-brumme.com/hash-library
+- THREAD_POOL (Tyler Hardin) https://github.com/Tyler-Hardin/thread_pool
 
 -----------------------------------------------------------------------------------------------
 

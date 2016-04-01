@@ -4,6 +4,10 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+#if defined(COCONUT_HAVE_PRAGMA_ONCE) && COCONUT_HAVE_PRAGMA_ONCE
+	#pragma once
+#endif
+
 #include <coconut/runtime/Types.hpp>
 #include <coconut/runtime/Features.hpp>
 #include <coconut/runtime/JobBroker.hpp>

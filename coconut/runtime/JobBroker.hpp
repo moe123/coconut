@@ -16,19 +16,26 @@ namespace coconut
 	COCONUT_PUBLIC class COCONUT_VISIBLE JobPool COCONUT_FINAL
 	{
 	public:
-		JobPool(std::size_t count) :
-			m_queue(count)
-		{  m_queue.start(); }
+		JobPool() :
+			m_pool()
+		{  m_pool.start(); }
 		
-		~JobPool() { m_queue.stop(); }
+		JobPool(const JobPool &) = delete;
+		JobPool & operator = (const JobPool &) = delete;
+		
+		JobPool(std::size_t count) :
+			m_pool(count)
+		{  m_pool.start(); }
+		
+		~JobPool() { m_pool.stop(); }
 		
 		template <typename FuncT, typename... ArgsT>
 		inline auto add(FuncT && func, ArgsT &&... args)
 			-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
-		{ return m_queue.push(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+		{ return m_pool.push(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
 		
 	private:
-		runtime::async::pool m_queue;
+		runtime::async::pool m_pool;
 	};
 
 	template <typename FuncT, typename... ArgsT>
