@@ -997,22 +997,19 @@ static std::pair<int, bool> is_prime(int n)
 	
 static void run_queue(void)
 {
-	/*
-	runtime::async::queue queue(4);
-	std::vector< std::future< bool > > tasks;
-	for (int i = 2; i < 400; i++) {
-		tasks.push_back(queue.add(
-			[] (int y) -> bool {
-				std::cerr << " + hello:" << std::endl;
-				return y;
-			}, 3
+	JobPool pool(4);
+	std::vector< JobReturn< std::pair<int, bool> > > tasks;
+	for (int i = 0; i < 10; i++) {
+		tasks.push_back(JobPush(pool, 
+			[i] () -> std::pair<int, bool> {
+				return std::make_pair(i, i % 2);
+			}
 		));
 	}
-	*/
-	/*for (auto i = tasks.begin(); i != tasks.end(); i++) {
-		std::pair<int, bool> n = (*i).get();
-		std::cout << n.first << ": " << (n.second ? "is prime" : "is composite") << std::endl;
-	}*/
+	for (auto i = tasks.begin(); i != tasks.end(); i++) {
+		auto n = (*i)();
+		std::cout << "+ is_odd : " <<  n.first << " -> " << std::boolalpha << n.second << std::endl;
+	}
 }
 
 int Σ0() {
@@ -1023,6 +1020,7 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
+	run_queue();
 	{
 		std::int32_t in_0 = -888888888;
 		std::uint8_t out_0[4];
