@@ -57,6 +57,7 @@ namespace coconut
 		ArrayClass,
 		DataClass,
 		DateClass,
+		DequeClass,
 		DictionaryClass,
 		DimClass,
 		EmptyClass,
@@ -89,6 +90,7 @@ namespace coconut
 	COCONUT_CLASSFORWARD_DCL(Array)
 	COCONUT_CLASSFORWARD_DCL(Data)
 	COCONUT_CLASSFORWARD_DCL(Date)
+	COCONUT_CLASSFORWARD_DCL(Deque)
 	COCONUT_CLASSFORWARD_DCL(Dictionary)
 	COCONUT_CLASSFORWARD_DCL(Dim)
 	COCONUT_CLASSFORWARD_DCL(Empty)

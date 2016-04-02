@@ -323,6 +323,10 @@
 		D5B920011C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
 		D5B920021C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
 		D5B920031C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
+		D5CF017E1CAF3F0F00C383CD /* Deque.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5CF017D1CAF3F0500C383CD /* Deque.hpp */; };
+		D5CF017F1CAF3F1000C383CD /* Deque.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5CF017D1CAF3F0500C383CD /* Deque.hpp */; };
+		D5CF01811CAF468700C383CD /* Deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5CF01801CAF468700C383CD /* Deque.cpp */; };
+		D5CF01831CAF469C00C383CD /* Deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5CF01801CAF468700C383CD /* Deque.cpp */; };
 		D5DBB1011C8CBF3D00F7367C /* hexrep.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5DBB1001C8CBF3D00F7367C /* hexrep.hpp */; };
 		D5DDFB5F1BC49F4B00E5328A /* foundation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5DDFB261BC49F4B00E5328A /* foundation.hpp */; };
 		D5DDFB601BC49F4B00E5328A /* foundation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5DDFB261BC49F4B00E5328A /* foundation.hpp */; };
@@ -441,6 +445,8 @@
 		D5B245A11C8BBD82001F2376 /* Printifier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Printifier.hpp; sourceTree = "<group>"; };
 		D5B91FFD1C1F409C00829B3A /* Error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
 		D5B920001C1F721700829B3A /* Error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Error.cpp; sourceTree = "<group>"; };
+		D5CF017D1CAF3F0500C383CD /* Deque.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Deque.hpp; sourceTree = "<group>"; };
+		D5CF01801CAF468700C383CD /* Deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Deque.cpp; sourceTree = "<group>"; };
 		D5DBB1001C8CBF3D00F7367C /* hexrep.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hexrep.hpp; sourceTree = "<group>"; };
 		D5DDFB0A1BC49F4B00E5328A /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		D5DDFB0B1BC49F4B00E5328A /* Data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Data.hpp; sourceTree = "<group>"; };
@@ -755,6 +761,7 @@
 				D5DDFB0A1BC49F4B00E5328A /* Array.hpp */,
 				D5DDFB0B1BC49F4B00E5328A /* Data.hpp */,
 				D5DDFB0C1BC49F4B00E5328A /* Date.hpp */,
+				D5CF017D1CAF3F0500C383CD /* Deque.hpp */,
 				D5DDFB0D1BC49F4B00E5328A /* Dictionary.hpp */,
 				D5DDFB0E1BC49F4B00E5328A /* Dim.hpp */,
 				D5DDFB0F1BC49F4B00E5328A /* Empty.hpp */,
@@ -793,6 +800,7 @@
 				D5DDFB621BC49F7F00E5328A /* Array.cpp */,
 				D5DDFB631BC49F7F00E5328A /* Data.cpp */,
 				D5DDFB641BC49F7F00E5328A /* Date.cpp */,
+				D5CF01801CAF468700C383CD /* Deque.cpp */,
 				D5DDFB651BC49F7F00E5328A /* Dictionary.cpp */,
 				D5DDFB661BC49F7F00E5328A /* Empty.cpp */,
 				D5B920001C1F721700829B3A /* Error.cpp */,
@@ -934,6 +942,7 @@
 				D5B09CC51C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B91FFE1C1F409C00829B3A /* Error.hpp in Headers */,
 				D5B09CA11C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
+				D5CF017E1CAF3F0F00C383CD /* Deque.hpp in Headers */,
 				D56A56E61BC4BC520056B40C /* Proxy.hpp in Headers */,
 				D56A56E71BC4BC520056B40C /* Dictionary.hpp in Headers */,
 				D56A56E81BC4BC520056B40C /* Types.hpp in Headers */,
@@ -993,6 +1002,7 @@
 				D5B09CC61C35ED9F00AF0B9D /* uri_joining.hxx in Headers */,
 				D5B91FFF1C1F409C00829B3A /* Error.hpp in Headers */,
 				D5B09CA21C35ED9F00AF0B9D /* hash_sha1_func.hxx in Headers */,
+				D5CF017F1CAF3F1000C383CD /* Deque.hpp in Headers */,
 				D56A576D1BC4BC630056B40C /* Proxy.hpp in Headers */,
 				D56A576E1BC4BC630056B40C /* Dictionary.hpp in Headers */,
 				D56A576F1BC4BC630056B40C /* Types.hpp in Headers */,
@@ -1282,6 +1292,7 @@
 				D56A56C51BC4BC520056B40C /* MutableArray.cpp in Sources */,
 				D56A56C61BC4BC520056B40C /* Stack.cpp in Sources */,
 				D56A56C71BC4BC520056B40C /* MutableDictionary.cpp in Sources */,
+				D5CF01811CAF468700C383CD /* Deque.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1317,6 +1328,7 @@
 				D56A574C1BC4BC630056B40C /* Stack.cpp in Sources */,
 				D56A574D1BC4BC630056B40C /* coconut_static.cpp in Sources */,
 				D56A574E1BC4BC630056B40C /* MutableDictionary.cpp in Sources */,
+				D5CF01831CAF469C00C383CD /* Deque.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
