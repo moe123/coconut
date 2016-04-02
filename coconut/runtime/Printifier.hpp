@@ -23,6 +23,7 @@ namespace coconut
 			!std::is_same<TypeT, Number>::value &&
 			!std::is_same<TypeT, Array>::value &&
 			!std::is_same<TypeT, MutableArray>::value &&
+			!std::is_same<TypeT, Deque>::value &&
 			!std::is_same<TypeT, OrderedSet>::value &&
 			!std::is_same<TypeT, MutableOrderedSet>::value &&
 			!std::is_same<TypeT, Set>::value &&
@@ -46,6 +47,8 @@ namespace coconut
 			os << ref_cast<Date>(r);
 		} else if (r.isKindOf(ArrayClass)) {
 			os << ref_cast<Array>(r);
+		} else if (r.isKindOf(DequeClass)) {
+			os << ref_cast<Deque>(r);
 		} else if (r.isKindOf(OrderedSetClass)) {
 			os << ref_cast<OrderedSet>(r);
 		} else if (r.isKindOf(SetClass)) {
@@ -72,6 +75,7 @@ namespace coconut
 			!std::is_same<TypeT, Number>::value &&
 			!std::is_same<TypeT, Array>::value &&
 			!std::is_same<TypeT, MutableArray>::value &&
+			!std::is_same<TypeT, Deque>::value &&
 			!std::is_same<TypeT, OrderedSet>::value &&
 			!std::is_same<TypeT, MutableOrderedSet>::value &&
 			!std::is_same<TypeT, Set>::value &&
@@ -170,6 +174,7 @@ namespace coconut
 		typename std::enable_if<
 			std::is_same<TypeT, Array>::value ||
 			std::is_same<TypeT, MutableArray>::value ||
+			std::is_same<TypeT, Deque>::value ||
 			std::is_same<TypeT, OrderedSet>::value ||
 			std::is_same<TypeT, MutableOrderedSet>::value ||
 			std::is_same<TypeT, Set>::value ||
@@ -191,6 +196,7 @@ namespace coconut
 		typename std::enable_if<
 			std::is_same<TypeT, Array>::value ||
 			std::is_same<TypeT, MutableArray>::value ||
+			std::is_same<TypeT, Deque>::value ||
 			std::is_same<TypeT, OrderedSet>::value ||
 			std::is_same<TypeT, MutableOrderedSet>::value ||
 			std::is_same<TypeT, Set>::value ||

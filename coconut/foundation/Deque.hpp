@@ -6,8 +6,8 @@
 
 #include <coconut/runtime/Object.hpp>
 
-#ifndef COCONUT_FOUNDATION_DATE_HPP
-#define COCONUT_FOUNDATION_DATE_HPP
+#ifndef COCONUT_FOUNDATION_DEQUE_HPP
+#define COCONUT_FOUNDATION_DEQUE_HPP
 
 namespace coconut
 {
@@ -81,6 +81,6 @@ namespace coconut
 	};
 }
 
-#endif /* !COCONUT_FOUNDATION_DATE_HPP */
+#endif /* !COCONUT_FOUNDATION_DEQUE_HPP */
 
 /* EOF */

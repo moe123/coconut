@@ -7,6 +7,7 @@
 #include <coconut/foundation/Array.hpp>
 #include <coconut/foundation/Data.hpp>
 #include <coconut/foundation/Date.hpp>
+#include <coconut/foundation/Deque.hpp>
 #include <coconut/foundation/Dictionary.hpp>
 #include <coconut/foundation/Dim.hpp>
 #include <coconut/foundation/Empty.hpp>
