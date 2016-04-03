@@ -20,9 +20,37 @@ namespace coconut
 		Deque(const Deque & deq);
 		Deque & operator = (const Deque & deq) = default;
 		Deque(Deque && deq) noexcept;
+		Deque(const std::initializer_list< Owning<Any> > & args);
+		Deque(const std::initializer_list<Any *> & args);
+		
+		template <typename IterT>
+		Deque(IterT && beg, IterT && end) :
+			Deque(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		{ /* NOP */ }
+		
+		template <typename IterT>
+		Deque(IterT && beg, IterT && end, CopyOption option) :
+			Object(DequeClass),
+			m_impl()
+		{
+			for (; beg != end; ++beg) {
+				if ((*beg)) {
+					if (option != CopyNone) {
+						Owning<Any> copy = Object::copyObject((*beg), option);
+						if (copy) { m_impl.push_back(copy); }
+					} else {
+						m_impl.push_back((*beg));
+					}
+				}
+			}
+		}
+		
 		virtual ~Deque();
 		
 		virtual Owning<Any> copy() const
+		COCONUT_FINAL_OVERRIDE;
+		
+		virtual ComparisonResult compare(const Any & ref) const
 		COCONUT_FINAL_OVERRIDE;
 		
 		virtual std::size_t size() const

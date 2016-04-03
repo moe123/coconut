@@ -19,9 +19,9 @@
 
 namespace coconut
 {
-	COCONUT_ABSTRACT class COCONUT_VISIBLE Object : public runtime::nucleus
+	COCONUT_PROTECTED class COCONUT_ABSTRACT COCONUT_VISIBLE Object : public Any
 	{
-	COCONUT_CLASSDECLARE(coconut.Object, nucleus.Object)
+	COCONUT_CLASSDECLARE(coconut.Object, Any.Object)
 		
 	public:
 	/*

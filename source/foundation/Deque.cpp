@@ -24,13 +24,50 @@ Deque::Deque(Deque && deq) noexcept :
 	m_impl(std::move(deq.m_impl))
 { /* NOP */ }
 
+Deque::Deque(const std::initializer_list< Owning<Any> > & args) :
+	Deque(args.begin(), args.end(), CopyNone)
+{ /* NOP */ }
+
+Deque::Deque(const std::initializer_list<Any *> & args) :
+	Object(DequeClass),
+	m_impl()
+{
+	for (Any * item : args) {
+		if (dynamic_cast<Any *>(item) != nullptr) { m_impl.push_back(item->kindCopy()); }
+	}
+}
+
 Deque::~Deque()
 { /* NOP */ }
 
 #pragma mark -
 
 Owning<Any> Deque::copy() const
-{ return ptr_create<Deque>(*this); }
+{ return ptr_create<Deque>(cbegin(), cend(), CopyKind); }
+
+#pragma mark -
+
+ComparisonResult Deque::compare(const Any & ref) const
+{
+	if (isIdenticalTo(ref)) {
+		return OrderedSame;
+	}
+	if (ref.isKindOf(*this)) {
+		if (size() < ref_cast<Deque>(ref).size()) {
+			return OrderedAscending;
+		} else if (size() > ref_cast<Deque>(ref).size()) {
+			return OrderedDescending;
+		} else if (
+			std::equal(cbegin(), cend(), ref_cast<Deque>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
+			{
+				if (a && b) { return (a->compare(*b) == OrderedSame); } return false;
+			})
+		) {
+			return OrderedSame;
+		}
+	}
+	return OrderedDescending;
+}
 
 #pragma mark -
 

@@ -118,15 +118,17 @@
 	#define COCONUT_STRINGIZE_NX(A) #A
 	#define COCONUT_STRINGIZE(A) COCONUT_STRINGIZE_NX(A)
 
-	#ifndef coconut
+	#ifndef COCONUT_NAMESPACE
 		#if DEBUG || _DEBUG
-			#define coconut \
+			#define COCONUT_NAMESPACE \
 				COCONUT_PPCAT(coconut_debug_, COCONUT_API_VERSION)
 		#else
-			#define coconut \
+			#define COCONUT_NAMESPACE \
 				COCONUT_PPCAT(coconut_, COCONUT_API_VERSION)
 		#endif
 	#endif
+	
+	#define coconut COCONUT_NAMESPACE
 
 	#define COCONUT_UNUSED(S) (void)(S) /* unused */
 	// #define COCONUT_UNUSED(S) do { (void)(S); } while (0) /* unused */
