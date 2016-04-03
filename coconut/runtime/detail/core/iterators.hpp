@@ -73,7 +73,10 @@ namespace coconut
 				range_adv_facet(value_type beg) : m_val (beg) { /* NOP */ }
 				
 			public:
+				value_type & operator * () { return m_val; }
 				value_type operator * () const { return m_val; }
+				
+				value_type * operator -> () const { return &(operator*()); }
 				
 				const_facet & operator ++ () { ++m_val; return *this; }
 				facet operator ++ (int) { facet cpy(*this); ++m_val; return cpy; }
@@ -110,7 +113,10 @@ namespace coconut
 				range_rev_facet(value_type beg) : m_val (beg) { /* NOP */ }
 				
 			public:
+				value_type & operator * () { value_type cpy = m_val; return --cpy; }
 				value_type operator * () const { value_type cpy = m_val; return --cpy; }
+				
+				value_type * operator -> () const { return &(operator*()); }
 				
 				const_facet & operator ++ () { --m_val; return *this; }
 				facet operator ++ (int) { facet cpy(*this); --m_val; return cpy; }
