@@ -13,7 +13,7 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_VISIBLE Deque : public Object
 	{
-		COCONUT_CLASSDECLARE(coconut.Deque, Object.Deque)
+	COCONUT_CLASSDECLARE(coconut.Deque, Object.Deque)
 		
 	public:
 		Deque();
