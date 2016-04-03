@@ -17,20 +17,23 @@ namespace coconut
 	{
 	public:
 		JobPool() :
-			m_pool()
-		{  m_pool.start(); }
+			m_pool(2)
+		{ /* NOP */ }
 		
 		JobPool(const JobPool &) = delete;
 		JobPool & operator = (const JobPool &) = delete;
 		
-		JobPool(std::size_t count) :
+		JobPool(std::size_t count, bool start = true) :
 			m_pool(count)
-		{  m_pool.start(); }
+		{  if (start) { m_pool.start(); } }
+		
+		void start() {  m_pool.start(); }
+		void stop() {  m_pool.stop(); }
 		
 		~JobPool() { m_pool.stop(); }
 		
 		template <typename FuncT, typename... ArgsT>
-		inline auto add(FuncT && func, ArgsT &&... args)
+		inline auto operator () (FuncT && func, ArgsT &&... args)
 			-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
 		{ return m_pool.push(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
 		

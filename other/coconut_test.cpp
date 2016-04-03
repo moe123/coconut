@@ -997,10 +997,10 @@ static std::pair<int, bool> is_prime(int n)
 	
 static void run_queue(void)
 {
-	JobPool pool(4);
+	JobPool pool {4};
 	std::vector< JobReturn< std::pair<int, bool> > > tasks;
 	for (int i = 0; i < 10; i++) {
-		tasks.push_back(pool.add(
+		tasks.push_back(pool(
 			[i] () -> std::pair<int, bool> {
 				return std::make_pair(i, i % 2);
 			}

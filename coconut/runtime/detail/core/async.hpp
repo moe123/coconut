@@ -67,7 +67,7 @@ namespace coconut
 			template <typename FuncT, typename... ArgsT>
 			inline void detach(FuncT && func, ArgsT &&... args)
 			{
-				typedef typename std::result_of<FuncT(ArgsT...)>::type R;
+				using R = typename std::result_of<FuncT(ArgsT...)>::type;
 				auto bind = std::bind(std::forward<FuncT>(func), std::forward<ArgsT>(args)...);
 				std::packaged_task<R()> task(std::move(bind));
 				std::thread thr(std::move(task));
@@ -88,7 +88,7 @@ namespace coconut
 					m_cond(),
 					m_tasks(),
 					m_threads(),
-					m_count(2),
+					m_count(0),
 					m_stop(false),
 					m_run(false)
 				{ /* NOP */ }
@@ -98,16 +98,19 @@ namespace coconut
 					m_cond(),
 					m_tasks(),
 					m_threads(),
-					m_count(count ? count : 2),
+					m_count(count),
 					m_stop(false),
 					m_run(false)
 				{ /* NOP */ }
+				
+				void set_count(std::size_t count)
+				{ m_count = count; }
 				
 				void start()
 				{
 					if (!m_run) {
 						std::unique_lock<std::mutex> lock(m_mutex);
-						if (!m_run) {
+						if (!m_run && m_count) {
 							m_run = true;
 							for (std::size_t i = 0; i < m_count; i++) {
 								std::function<void(void)> f = std::bind(&pool::main, this);
@@ -119,20 +122,17 @@ namespace coconut
 				
 				void stop()
 				{
-					{
-						std::unique_lock<std::mutex> lock(m_mutex);
-						m_stop = true;
-					}
-					m_cond.notify_all();
-					
-					for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
-						(*it).join();
-					}
-					{
-						std::unique_lock<std::mutex> lock(m_mutex);
-						m_threads.clear();
-						m_tasks.clear();
-						m_run = false;
+					if (m_run) {
+						{
+							std::unique_lock<std::mutex> lock(m_mutex);
+							m_stop = true;
+							m_run = false;
+						}
+						m_cond.notify_all();
+						
+						for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
+							(*it).join();
+						}
 					}
 				}
 				
