@@ -1100,9 +1100,9 @@ int main(int argc, const char * argv[])
 		
 		std::cerr << "+ sorted : " << sorted << std::endl;
 		
-		Array people_ = Shift<MutableArray>(people);
+		Array people_ = Shift<Array>(sorted);
 		
-		std::cerr << "+ people : " << people << std::endl;
+		std::cerr << "+ sorted : " << sorted << std::endl;
 		
 		std::cerr << "+ people_ : " << people_ << std::endl;
 	}

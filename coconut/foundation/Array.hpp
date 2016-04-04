@@ -24,7 +24,7 @@ namespace coconut
 		Array(Array && arr) noexcept;
 		Array(const std::initializer_list< Owning<Any> > & args);
 		Array(const std::initializer_list<Any *> & args);
-		
+
 		template <typename IterT>
 		Array(IterT && beg, IterT && end) :
 			Array(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)

@@ -24,7 +24,7 @@ namespace coconut
 		{  if (start) { m_pool.start(); } }
 		
 		void start() { m_pool.start(); }
-		void stop() {  m_pool.stop(); }
+		void stop() { m_pool.stop(); }
 		
 		~JobPool() { m_pool.stop(); }
 		

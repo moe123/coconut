@@ -126,12 +126,15 @@ namespace coconut
 						{
 							std::unique_lock<std::mutex> lock(m_mutex);
 							m_stop = true;
-							m_run = false;
 						}
 						m_cond.notify_all();
 						
 						for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
 							(*it).join();
+						}
+						{
+							std::unique_lock<std::mutex> lock(m_mutex);
+							m_run = false;
 						}
 					}
 				}
