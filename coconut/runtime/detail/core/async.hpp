@@ -108,23 +108,28 @@ namespace coconut
 				
 				void start()
 				{
-					if (!m_run) {
+					bool can_start = false;
+					{
 						std::unique_lock<std::mutex> lock(m_mutex);
-						if (!m_run && m_count) {
-							m_run = true;
-							for (std::size_t i = 0; i < m_count; i++) {
-								std::function<void(void)> f = std::bind(&pool::main, this);
-								m_threads.push_back(std::move(std::thread(f)));
-							}
+						can_start = !m_run && m_count && !m_threads.size();
+					}
+					if (can_start) {
+						for (std::size_t i = 0; i < m_count; i++) {
+							std::function<void(void)> f = std::bind(&pool::main, this);
+							m_threads.push_back(std::move(std::thread(f)));
 						}
+						m_run = true;
 					}
 				}
+				
+				bool is_running() { return m_run; }
 				
 				void stop()
 				{
 					if (m_run) {
 						{
 							std::unique_lock<std::mutex> lock(m_mutex);
+							m_run = false;
 							m_stop = true;
 						}
 						m_cond.notify_all();
@@ -132,10 +137,8 @@ namespace coconut
 						for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
 							(*it).join();
 						}
-						{
-							std::unique_lock<std::mutex> lock(m_mutex);
-							m_run = false;
-						}
+						m_threads.clear();
+						m_tasks.clear();
 					}
 				}
 				
