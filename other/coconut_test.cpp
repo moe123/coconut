@@ -1136,7 +1136,7 @@ int main(int argc, const char * argv[])
 			With<String>(u8"Pear"),
 			With<String>(u8"epic"),
 			With<Date>(),
-			With<Data>(unsafe_cast<const std::uint16_t *>(u"\ub098\ub294\ud0dc\uc624"), 4, DataPackingLittleEndian),
+			With<Data>(reinterpret_cast<const std::uint16_t *>(u"\ub098\ub294\ud0dc\uc624"), 4, DataPackingLittleEndian),
 			With<String>(u"\ub098\ub294\ud0dc\uc624")
 		};
 		list += list;
