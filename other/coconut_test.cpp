@@ -1001,10 +1001,9 @@ static void run_queue(void)
 	std::vector< JobReturn< std::pair<int, bool> > > tasks;
 	for (int i = 0; i < 10; i++) {
 		tasks.push_back(pool(
-			[i] () -> std::pair<int, bool> {
-				return std::make_pair(i, i % 2);
-			}
-		));
+			[i] (int ii) -> std::pair<int, bool> {
+				return std::make_pair(i * ii, (i * ii) % 2);
+			}, i));
 	}
 	for (auto i = tasks.begin(); i != tasks.end(); i++) {
 		auto n = (*i)();

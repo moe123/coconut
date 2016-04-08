@@ -135,6 +135,7 @@ namespace coconut
 						m_cond.notify_all();
 						
 						for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
+							m_cond.notify_one();
 							(*it).join();
 						}
 						m_threads.clear();
@@ -145,7 +146,7 @@ namespace coconut
 				~pool() { /* NOP */ }
 				
 				template<typename FuncT, typename... ArgsT>
-				shall<typename std::result_of<FuncT(ArgsT...)>::type> push(FuncT && f, ArgsT... args)
+				shall<typename std::result_of<FuncT(ArgsT...)>::type> push(FuncT f, ArgsT... args)
 				{
 					if (!m_run) { throw; }
 					using Ret = typename std::result_of<FuncT(ArgsT...)>::type;
@@ -165,7 +166,7 @@ namespace coconut
 				}
 				
 				template<typename FuncT>
-				shall<typename std::result_of<FuncT()>::type> push(FuncT && f)
+				shall<typename std::result_of<FuncT()>::type> push(FuncT f)
 				{
 					if (!m_run) { throw; }
 					using Ret = typename std::result_of<FuncT()>::type;
@@ -185,7 +186,7 @@ namespace coconut
 				}
 				
 				template<typename... ArgsT>
-				shall<void> push(const std::function<void(ArgsT...)> & f, ArgsT... args)
+				shall<void> push(const std::function<void(ArgsT...)> f, ArgsT... args)
 				{
 					if (!m_run) { throw; }
 					using Ret = void;
@@ -204,7 +205,7 @@ namespace coconut
 					);
 				}
 				
-				shall<void> push(const std::function<void()> & f)
+				shall<void> push(const std::function<void()> f)
 				{
 					if (!m_run) { throw; }
 					using Ret = void;
