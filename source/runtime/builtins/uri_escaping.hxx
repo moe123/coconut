@@ -10,9 +10,9 @@ namespace coconut
 	{
 		namespace builtins
 		{
-		__COCONUT_BEGIN_DECLS
+		___COCONUT_BEGIN_DECLS
 			#include "uriparser/Uri.h"
-		__COCONUT_END_DECLS
+		___COCONUT_END_DECLS
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			std::string uri_escape(const std::string & in, bool space_as_plus)

@@ -4,59 +4,76 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#if defined(__CYGWIN__)
-	#error __CYGWIN__
-#endif
+#ifndef ___COCONUT_PREDEFINES
+#define ___COCONUT_PREDEFINES
 
-#if defined(__MINGW32__)
-	#if !defined(__MINGW64__)
-		#error __MINGW32__
-	#else
-		#define __MICROSOFT_MINGW__ 1
-	#endif
-#endif
-
-#if XBOXONE || defined(_XBOX_VER)
-	#define __MICROSOFT_XBOX__ 1
-#endif
-
-#ifdef _MSC_VER
-	#define __MICROSOFT_VS__ 1
-	#pragma execution_character_set("utf-8")
-#endif
-
-#if __MICROSOFT_VS__ || __MICROSOFT_XBOX__ || __MICROSOFT_MINGW__
-
-	#ifndef __MICROSOFT__
-		#define __MICROSOFT__ 1
+	#if defined(__CYGWIN__)
+		#error __CYGWIN__
 	#endif
 
-	#if __MICROSOFT_MINGW__
-		#include <sys/param.h>
-		#include <sys/types.h>
+	#if defined(__MINGW32__)
+		#if !defined(__MINGW64__)
+			#error __MINGW32__
+		#else
+			#define __MICROSOFT_MINGW__ 1
+		#endif
 	#endif
 
-	#ifdef __MICROSOFT_VS__
-		#ifndef SIZE_MAX
-			#if defined(WIN64) || defined(_WIN64)
-				#define SIZE_MAX _UI64_MAX
-			#else
-				#define SIZE_MAX _UI32_MAX
+	#if XBOXONE || defined(_XBOX_VER)
+		#define __MICROSOFT_XBOX__ 1
+	#endif
+
+	#ifdef _MSC_VER
+		#define __MICROSOFT_VS__ 1
+		#pragma execution_character_set("utf-8")
+
+		#define __MICROSOFT_VS_2015__ 1900
+		#define __MICROSOFT_VS_2013__ 1800
+		#define __MICROSOFT_VS_2012__ 1700
+		#define __MICROSOFT_VS_2010__ 1600
+		#define __MICROSOFT_VS_2008__ 1500
+		#define __MICROSOFT_VS_2005__ 1400
+		#define __MICROSOFT_VS_2003__ 1310
+
+		#define __MICROSOFT_VS_VERSION__ _MSC_VER
+	#endif
+
+	#if __MICROSOFT_VS__ || __MICROSOFT_XBOX__ || __MICROSOFT_MINGW__
+
+		#ifndef __MICROSOFT__
+			#define __MICROSOFT__ 1
+		#endif
+
+		#if __MICROSOFT_MINGW__
+			#include <sys/param.h>
+			#include <sys/types.h>
+		#endif
+
+		#ifdef __MICROSOFT_VS__
+			#ifndef SIZE_MAX
+				#if defined(WIN64) || defined(_WIN64)
+					#define SIZE_MAX _UI64_MAX
+				#else
+					#define SIZE_MAX _UI32_MAX
+				#endif
+			#endif
+
+			#ifndef _SCL_SECURE_NO_WARNINGS
+				#define _SCL_SECURE_NO_WARNINGS 1
+			#endif
+			#ifndef _CRT_SECURE_NO_WARNINGS
+				#define _CRT_SECURE_NO_WARNINGS 1
 			#endif
 		#endif
+	#endif
 
-		#ifndef _SCL_SECURE_NO_WARNINGS
-			#define _SCL_SECURE_NO_WARNINGS 1
-		#endif
-		#ifndef _CRT_SECURE_NO_WARNINGS
-			#define _CRT_SECURE_NO_WARNINGS 1
+	#if ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__) || defined(_MSC_VER)))
+		#ifndef COCONUT_HAVE_PRAGMA_ONCE
+			#define COCONUT_HAVE_PRAGMA_ONCE 1
 		#endif
 	#endif
-#endif
 
-#if ((defined(__GNUC__) || defined(__clang__) || defined(__llvm__))) || defined(_MSC_VER)
-	#define COCONUT_HAVE_PRAGMA_ONCE 1
-#endif
+#endif /* !___COCONUT_PREDEFINES */
 
 #include <cfloat>
 #include <cmath>
@@ -138,12 +155,12 @@
 	#define COCONUT_PROTECTED
 	#define COCONUT_ABSTRACT
 
-	#define __COCONUT_BEGIN_DECLS extern "C" {
-	#define __COCONUT_END_DECLS }
+	#define ___COCONUT_BEGIN_DECLS extern "C" {
+	#define ___COCONUT_END_DECLS }
 
 	#if !defined(COCONUT_ALIGNAS)
-		#if __MICROSOFT_VS__
-			#if _MSC_VER <= 1700
+		#if defined(__MICROSOFT_VS__) && __MICROSOFT_VS__
+			#if __MICROSOFT_VS_VERSION__ <= __MICROSOFT_VS_2012__
 				#define COCONUT_ALIGNAS(x) __declspec( align(x) )
 			#else
 				#define COCONUT_ALIGNAS(x) alignas(x)
@@ -233,14 +250,14 @@
 	#define COCONUT_DESCRIPTION_FMT(KNAME, KTREE, SIZE, SIG, ADDR) \
 		u8"{\"name\": \"" + (KNAME) + "\", \"tree\": \"" + (KTREE) + "\", \"size\": " + (SIZE) + ", \"sig\": " + (SIG) + ", \"addr\": \"" + (ADDR) + "\"}"
 
-	#define COCONUT_WEAK_ENUM_TYPED(NAME, TYPE) typedef TYPE NAME; enum
-	#define COCONUT_WEAK_ENUM(NAME) COCONUT_WEAK_ENUM_TYPED(NAME, std::size_t)
+	#define ___COCONUT_WEAK_ENUM_TYPED(NAME, TYPE) typedef TYPE NAME; enum
+	#define ___COCONUT_WEAK_ENUM(NAME) ___COCONUT_WEAK_ENUM_TYPED(NAME, std::size_t)
 
-	#define COCONUT_STRONG_ENUM_TYPED(NAME, TYPE) enum class NAME : TYPE
-	#define COCONUT_STRONG_ENUM(NAME) COCONUT_STRONG_ENUM_TYPE(NAME, std::size_t)
+	#define ___COCONUT_STRONG_ENUM_TYPED(NAME, TYPE) enum class NAME : TYPE
+	#define ___COCONUT_STRONG_ENUM(NAME) ___COCONUT_STRONG_ENUM_TYPE(NAME, std::size_t)
 
-	#define COCONUT_OPT COCONUT_WEAK_ENUM
-	#define COCONUT_OPT_TYPED COCONUT_WEAK_ENUM_TYPED
+	#define COCONUT_OPT ___COCONUT_WEAK_ENUM
+	#define COCONUT_OPT_TYPED ___COCONUT_WEAK_ENUM_TYPED
 
 #endif /* !COCONUT_RUNTIME_DEFINE_HPP */
 

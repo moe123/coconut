@@ -10,9 +10,9 @@ namespace coconut
 	{
 		namespace builtins
 		{
-		__COCONUT_BEGIN_DECLS
+		___COCONUT_BEGIN_DECLS
 			#include "uriparser/Uri.h"
-		__COCONUT_END_DECLS
+		___COCONUT_END_DECLS
 			
 			COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 			bool uri_join(const std::string & relative, const std::string & base, std::string & out, bool normalize)

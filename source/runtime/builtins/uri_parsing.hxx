@@ -10,9 +10,9 @@ namespace coconut
 	{
 		namespace builtins
 		{
-		__COCONUT_BEGIN_DECLS
+		___COCONUT_BEGIN_DECLS
 			#include "uriparser/Uri.h"
-		__COCONUT_END_DECLS
+		___COCONUT_END_DECLS
 			
 			static struct { const char * scheme; } const uri_schemes[] =
 			{
