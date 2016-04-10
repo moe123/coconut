@@ -58,10 +58,10 @@ URL::~URL()
 #pragma mark -
 
 const String URL::percentEscapesEncode(const String & in, bool space_as_plus)
-{ return String(impl_trait::escape(in.stringValue(), space_as_plus)); }
+{ return {impl_trait::escape(in.stringValue(), space_as_plus)}; }
 
 const String URL::percentEscapesDecode(const String & in, bool plus_as_space)
-{ return String(impl_trait::unescape(in.stringValue(), plus_as_space)); }
+{ return {impl_trait::unescape(in.stringValue(), plus_as_space)}; }
 
 #pragma mark -
 
@@ -106,31 +106,31 @@ const String URL::specifier() const
 #pragma mark -
 
 const String URL::scheme() const
-{ return String{m_impl.scheme()}; }
+{ return {m_impl.scheme()}; }
 
 const String URL::host() const
-{ return String{m_impl.scheme()}; }
+{ return {m_impl.scheme()}; }
 
 std::size_t URL::port() const
 { return m_impl.port(); }
 
 const String URL::user() const
-{ return String{m_impl.user()}; }
+{ return {m_impl.user()}; }
 
 const String URL::password() const
-{ return String{m_impl.password()}; }
+{ return {m_impl.password()}; }
 
 const String URL::path() const
-{ return String{m_impl.path()}; }
+{ return {m_impl.path()}; }
 
 const String URL::parameter() const
-{ return String{m_impl.parameter()}; }
+{ return {m_impl.parameter()}; }
 
 const String URL::query() const
-{ return String{m_impl.query()}; }
+{ return {m_impl.query()}; }
 
 const String URL::fragment() const
-{ return String{m_impl.fragment()}; }
+{ return {m_impl.fragment()}; }
 
 #pragma mark -
 
@@ -147,6 +147,6 @@ const Dictionary URL::queryParameters() const
 #pragma mark -
 
 const Path URL::fileSystemRepresentation() const
-{ return Path(m_impl.path().c_str()); }
+{ return {m_impl.path().c_str()}; }
 
 /* EOF */

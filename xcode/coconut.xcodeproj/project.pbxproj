@@ -1536,6 +1536,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-fsanitize=signed-integer-overflow,null,alignment",
+					"-fno-sanitize-recover=null",
+					"-fsanitize-undefined-trap-on-error",
+				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/..\" \"${SRCROOT}/../sdk/include\"";
 			};
@@ -1590,6 +1595,11 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = (
+					"-fsanitize=signed-integer-overflow,null,alignment",
+					"-fno-sanitize-recover=null",
+					"-fsanitize-undefined-trap-on-error",
+				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/..\" \"${SRCROOT}/../sdk/include\"";
 			};

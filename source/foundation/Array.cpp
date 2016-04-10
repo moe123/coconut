@@ -1041,7 +1041,7 @@ const String Array::componentsJoinedByString(const String & separator)
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it)) { buf.push_back((*it)->stringValue()); }
 	}
-	return String(runtime::algorithm::join<std::string>(buf, separator.stringValue()));
+	return {runtime::algorithm::join<std::string>(buf, separator.stringValue())};
 }
 
 #pragma mark -

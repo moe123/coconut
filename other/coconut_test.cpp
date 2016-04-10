@@ -994,7 +994,7 @@ static std::pair<int, bool> is_prime(int n)
 	}
 	return std::make_pair(n, true);
 }
-	
+
 static void run_queue(void)
 {
 	JobPool pool {4};

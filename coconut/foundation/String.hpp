@@ -34,11 +34,11 @@ namespace coconut
 		
 		template <typename... ArgsT>
 		COCONUT_CLASSMETHOD String format(const char * utf8_fmt, ArgsT &&... args)
-		{ return String(impl_trait::uformat(utf8_fmt, std::forward<ArgsT>(args)...)); }
+		{ return {impl_trait::uformat(utf8_fmt, std::forward<ArgsT>(args)...)}; }
 		
 		template <typename... ArgsT>
 		COCONUT_CLASSMETHOD String format(const char16_t * utf16_fmt, ArgsT &&... args)
-		{ return String(impl_trait::uformat(utf16_fmt, std::forward<ArgsT>(args)...)); }
+		{ return {impl_trait::uformat(utf16_fmt, std::forward<ArgsT>(args)...)}; }
 
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;

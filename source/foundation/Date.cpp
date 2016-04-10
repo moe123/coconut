@@ -50,10 +50,10 @@ Date::~Date()
 #pragma mark -
 
 const String Date::UTC()
-{ return String(impl_trait::utc_now()); }
+{ return {impl_trait::utc_now()}; }
 
 const String Date::UTC(const Date & dtm)
-{ return String(dtm.stringValue()); }
+{ return {dtm.stringValue()}; }
 
 #pragma mark -
 

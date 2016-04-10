@@ -253,7 +253,7 @@ void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(c
 #pragma mark -
 
 bool Dictionary::containsKey(const std::string & utf8_key) const
-{ return containsKey(String(utf8_key)); }
+{ return containsKey(String{utf8_key}); }
 
 bool Dictionary::containsKey(const Any & key) const
 {
@@ -275,7 +275,7 @@ bool Dictionary::containsKey(const Owning<Any> & key) const
 #pragma mark -
 
 const Owning<Any> Dictionary::objectForKey(const std::string & utf8_key) const
-{ return objectForKey(String(utf8_key)); }
+{ return objectForKey(String{utf8_key}); }
 
 const Owning<Any> Dictionary::objectForKey(const Any & key) const
 {
@@ -299,7 +299,7 @@ const Owning<Any> Dictionary::objectForKey(const Owning<Any> & key) const
 
 const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const std::string & utf8_key) const
 {
-	return objectForCaseInsensitiveKey(String(utf8_key));
+	return objectForCaseInsensitiveKey(String{utf8_key});
 }
 
 const Owning<Any> Dictionary::objectForCaseInsensitiveKey(const Any & key) const
@@ -531,7 +531,7 @@ bool Dictionary::writeToURL(const URL & url, bool atomically) const
 #pragma mark -
 
 const Owning<Any> Dictionary::operator [] (const std::string & utf8_key) const
-{ return objectForKey(String(utf8_key)); }
+{ return objectForKey(String{utf8_key}); }
 
 const Owning<Any> Dictionary::operator [] (const Any & key) const
 { return objectForKey(key); }
