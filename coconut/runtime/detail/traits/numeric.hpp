@@ -110,22 +110,24 @@ namespace coconut
 			std::size_t size() const;
 			
 		private:
-			float m_val_float;
-			double m_val_double;
-			long double m_val_long_double;
-			bool m_val_bool;
-			
-			char m_val_char;
-			short m_val_short;
-			int m_val_int;
-			long m_val_long;
-			long long m_val_longlong;
-			
-			unsigned char m_val_unsigned_char;
-			unsigned short m_val_unsigned_short;
-			unsigned int m_val_unsigned_int;
-			unsigned long m_val_unsigned_long;
-			unsigned long long m_val_unsigned_longlong;
+			union {
+				float m_val_float;
+				double m_val_double;
+				long double m_val_long_double;
+				bool m_val_bool;
+				
+				char m_val_char;
+				short m_val_short;
+				int m_val_int;
+				long m_val_long;
+				long long m_val_longlong;
+				
+				unsigned char m_val_unsigned_char;
+				unsigned short m_val_unsigned_short;
+				unsigned int m_val_unsigned_int;
+				unsigned long m_val_unsigned_long;
+				unsigned long long m_val_unsigned_longlong;
+			};
 			
 		private:
 			std::size_t m_type;

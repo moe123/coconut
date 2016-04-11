@@ -56,6 +56,25 @@ namespace coconut
 	inline auto JobDetach(FuncT && func, ArgsT &&... args)
 		-> void
 	{ runtime::async::detach(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+	
+	template <typename FuncT, typename... ArgsT>
+	inline auto JobDefer(FuncT && func, ArgsT &&... args)
+	-> void
+	{ runtime::async::detach(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+	
+	template <typename FuncT>
+	struct _defer_handler {
+		_defer_handler(FuncT && f) : m_func(std::move(f)) {}
+		~_defer_handler() { m_func(); }
+		FuncT m_func;
+	};
+	
+	template <typename FuncT>
+	auto _defer_block(FuncT && f) -> _defer_handler<FuncT> {
+		return _defer_handler<FuncT>(f);
+	};
+	
+	
 }
 
 #endif /* !COCONUT_RUNTIME_TO_FOUNDATION_JOBBROKER_HPP */
