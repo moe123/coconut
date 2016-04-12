@@ -118,10 +118,6 @@
 #include <unordered_set>
 #include <vector>
 
-#include <coconut/runtime/detail/core/_endian.hpp>
-#include <coconut/runtime/detail/core/_intrinsic.hpp>
-#include <coconut/runtime/detail/core/_inifini.hpp>
-
 #ifndef COCONUT_RUNTIME_DEFINE_HPP
 #define COCONUT_RUNTIME_DEFINE_HPP
 
@@ -264,6 +260,13 @@
 
 	#define COCONUT_OPT ___COCONUT_WEAK_ENUM
 	#define COCONUT_OPT_TYPED ___COCONUT_WEAK_ENUM_TYPED
+
+	#include <coconut/runtime/detail/core/_endian.hpp>
+	#include <coconut/runtime/detail/core/_intrinsic.hpp>
+	#include <coconut/runtime/detail/core/_inifini.hpp>
+	#include <coconut/runtime/detail/core/_defer.hpp>
+
+	#define COCONUT_DEFER auto COCONUT_PPCAT_3(_defer, __LINE__, block) = ::COCONUT_NAMESPACE::runtime::_defer_dispatch{}
 
 #endif /* !COCONUT_RUNTIME_DEFINE_HPP */
 
