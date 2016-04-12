@@ -36,8 +36,10 @@ namespace coconut
 		
 		struct _defer_dispatch
 		{
-			inline _defer_placeholder< std::function<void()> > operator () (std::function<void()> & f)
-			{ return _defer_placeholder< std::function<void()> >(std::move(f)); }
+			template <typename FuncT>
+			inline auto operator () (FuncT && f)
+				-> _defer_placeholder<typename std::decay<FuncT>::type>
+			{ return _defer_placeholder<typename std::decay<FuncT>::type>(std::move(f)); }
 			
 			template <typename FuncT, typename... ArgsT>
 			inline auto operator () (FuncT && f, ArgsT &&... args)

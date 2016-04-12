@@ -998,7 +998,8 @@ static std::pair<int, bool> is_prime(int n)
 
 static void run_queue(void)
 {
-	COCONUT_DEFER ([] { std::cout << "lambda" << std::endl; });
+	// testing any return types even if only void makes sense.
+	COCONUT_DEFER ([]() -> int { std::cout << "lambda" << std::endl; return 1; });
 	
 	for (std::size_t i = 0 ; i < 10 ; i++) {
 		// not working in loop scope, same effect than calling the function
