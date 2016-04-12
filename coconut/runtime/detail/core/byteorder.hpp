@@ -31,7 +31,7 @@ namespace coconut
 			{
 			#if defined(__APPLE__) && !defined(__clang__)
 				return OSSwapInt16(x);
-			#elif defined(__INTEL_COMPILER)
+			#elif defined(__ICL)
 				return _bswap16(x);
 			#elif defined(__GNUC__) || defined(__clang__)
 				return __builtin_bswap16(x);

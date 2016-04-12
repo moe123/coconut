@@ -211,7 +211,7 @@
 	#endif
 
 	#if !defined(COCONUT_ALWAYS_INLINE)
-		#if __MICROSOFT_VS__ || defined(__INTEL_COMPILER)
+		#if __MICROSOFT_VS__ || defined(__ICL)
 			#define COCONUT_ALWAYS_INLINE __forceinline
 		#elif (((defined(__GNUC__) && __GNUC__ >= 4) || defined(__clang__) || defined(__llvm__)))
 			#define COCONUT_ALWAYS_INLINE __inline__ __attribute__((always_inline))
@@ -266,7 +266,10 @@
 	#include <coconut/runtime/detail/core/_inifini.hpp>
 	#include <coconut/runtime/detail/core/_defer.hpp>
 
-	#define COCONUT_DEFER auto COCONUT_PPCAT_3(_defer, __LINE__, block) = ::COCONUT_NAMESPACE::runtime::_defer_dispatch{}
+	#ifndef __COUNTER__
+		#define __COUNTER__ 0
+	#endif
+	#define COCONUT_DEFER auto COCONUT_PPCAT_4(_defer, __COUNTER__, __LINE__, block) = ::COCONUT_NAMESPACE::runtime::_defer_dispatch{}
 
 #endif /* !COCONUT_RUNTIME_DEFINE_HPP */
 
