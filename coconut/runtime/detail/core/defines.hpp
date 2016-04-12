@@ -129,8 +129,14 @@
 		#define COCONUT_API_VERSION 1_0_0
 	#endif
 
-	#define COCONUT_PPCAT_NX(A, B) A ## B
-	#define COCONUT_PPCAT(A, B) COCONUT_PPCAT_NX(A, B)
+	#define COCONUT_PPCAT_NX_2(A, B) A ## B
+	#define COCONUT_PPCAT_2(A, B) COCONUT_PPCAT_NX_2(A, B)
+
+	#define COCONUT_PPCAT_NX_3(A, B, C) A ## B ## C
+	#define COCONUT_PPCAT_3(A, B, C) COCONUT_PPCAT_NX_3(A, B, C)
+
+	#define COCONUT_PPCAT_NX_4(A, B, C, D) A ## B ## C ## D
+	#define COCONUT_PPCAT_4(A, B, C, D) COCONUT_PPCAT_NX_4(A, B, C, D)
 
 	#define COCONUT_STRINGIZE_NX(A) #A
 	#define COCONUT_STRINGIZE(A) COCONUT_STRINGIZE_NX(A)
@@ -138,10 +144,10 @@
 	#ifndef COCONUT_NAMESPACE
 		#if DEBUG || _DEBUG
 			#define COCONUT_NAMESPACE \
-				COCONUT_PPCAT(coconut_debug_, COCONUT_API_VERSION)
+				COCONUT_PPCAT_2(coconut_debug_, COCONUT_API_VERSION)
 		#else
 			#define COCONUT_NAMESPACE \
-				COCONUT_PPCAT(coconut_, COCONUT_API_VERSION)
+				COCONUT_PPCAT_2(coconut_, COCONUT_API_VERSION)
 		#endif
 	#endif
 	

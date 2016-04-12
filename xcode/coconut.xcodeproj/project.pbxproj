@@ -423,6 +423,7 @@
 		D59B55881C25DA5F00739192 /* Slice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Slice.hpp; sourceTree = "<group>"; };
 		D59B558B1C25DA7600739192 /* Slice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slice.cpp; sourceTree = "<group>"; };
 		D5A0E4761BFFA5A2003E566D /* coconut_test_attrs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = coconut_test_attrs.hpp; sourceTree = "<group>"; };
+		D5AC383C1CBC68FF0054D468 /* Defer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Defer.hpp; sourceTree = "<group>"; };
 		D5ACD14E1C7268730042E1F6 /* filesystem_info.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = filesystem_info.hxx; sourceTree = "<group>"; };
 		D5ACD1511C7272C90042E1F6 /* datetime_epoch.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime_epoch.hxx; sourceTree = "<group>"; };
 		D5ACD1521C7272C90042E1F6 /* datetime_format.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime_format.hxx; sourceTree = "<group>"; };
@@ -586,6 +587,7 @@
 			isa = PBXGroup;
 			children = (
 				D528D2F31BC4928500D8087D /* ByteOrder.hpp */,
+				D5AC383C1CBC68FF0054D468 /* Defer.hpp */,
 				D595B8821BC9A43A0051FF91 /* detail */,
 				D523CA381C2A07B4007270F7 /* Features.hpp */,
 				D54EBAED1C9DE46500B7256F /* JobBroker.hpp */,

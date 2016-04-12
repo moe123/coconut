@@ -16,9 +16,8 @@ namespace coconut
 		namespace async
 		{
 			template <typename T>
-			COCONUT_PRIVATE class COCONUT_VISIBLE shall COCONUT_FINAL
+			COCONUT_PRIVATE struct shall
 			{
-			public:
 				shall(const shall &) = delete;
 				shall & operator = (const shall &) = delete;
 				

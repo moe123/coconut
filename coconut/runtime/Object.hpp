@@ -13,6 +13,7 @@
 #include <coconut/runtime/JobBroker.hpp>
 #include <coconut/runtime/Printifier.hpp>
 #include <coconut/runtime/ByteOrder.hpp>
+#include <coconut/runtime/Defer.hpp>
 
 #ifndef COCONUT_RUNTIME_TO_FOUNDATION_OBJECT_HPP
 #define COCONUT_RUNTIME_TO_FOUNDATION_OBJECT_HPP

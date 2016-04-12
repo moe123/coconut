@@ -989,6 +989,7 @@ static void parse_path(void)
 
 static std::pair<int, bool> is_prime(int n)
 {
+	std::cout << "is_prime" << std::endl;
 	for (int i = 2; i < n; i++) {
 		if (n % i == 0) { return std::make_pair(i, false); }
 	}
@@ -997,6 +998,9 @@ static std::pair<int, bool> is_prime(int n)
 
 static void run_queue(void)
 {
+	COCONUT_DEFER ([] { std::cout << "lambda" << std::endl; });
+	COCONUT_DEFER (is_prime, 1);
+	
 	JobPool pool {4};
 	std::vector< JobReturn< std::pair<int, bool> > > tasks;
 	for (int i = 0; i < 10; i++) {
