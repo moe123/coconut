@@ -55,7 +55,7 @@ namespace coconut
 			}
 			
 			template <typename StrT>
-			static inline StrT & trim(StrT & s) {
+			inline StrT & trim(StrT & s) {
 				return ltrim<StrT>(rtrim<StrT>(s));
 			}
 			

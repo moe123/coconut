@@ -1000,6 +1000,7 @@ static void run_queue(void)
 {
 	// testing any return types even if only void makes sense.
 	COCONUT_DEFER ([]() -> int { std::cout << "lambda" << std::endl; return 1; });
+	COCONUT_DEFER (is_prime, 300);
 	
 	for (std::size_t i = 0 ; i < 10 ; i++) {
 		// not working in loop scope, same effect than calling the function
@@ -1019,6 +1020,8 @@ static void run_queue(void)
 		auto n = (*i)();
 		std::cout << "+ is_odd : " <<  n.first << " -> " << std::boolalpha << n.second << std::endl;
 	}
+	
+	return;
 }
 
 int Σ0() {

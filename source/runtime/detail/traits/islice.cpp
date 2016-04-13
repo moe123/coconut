@@ -124,18 +124,19 @@ void islice::get_indexes(std::vector<std::size_t> & idxes, std::size_t forlen) c
 	std::int64_t start = m_start < 0 ? m_start + forlen : m_start;
 	std::int64_t stop = start + (m_stop < 0 ? m_stop + forlen : m_stop);
 	std::int64_t step = m_step;
-	
+#if COCONUT_DEBUG
 	std::cerr << " + start  + : " << start << std::endl;
 	std::cerr << " + stop  + : " << stop << std::endl;
-	
+#endif
 	idxes.clear();
 	for(std::int64_t i = start; (i < stop && step > 0) || (i > stop && step < 0); i += step) {
 		idxes.push_back(unsafe_cast<std::size_t>(i));
 	}
-	
+#if COCONUT_DEBUG
 	for (const auto & idx : idxes) {
 		std::cerr << " + idx  + : " << idx << std::endl;
 	}
+#endif
 }
 
 /* EOF */

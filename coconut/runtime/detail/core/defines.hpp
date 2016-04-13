@@ -134,11 +134,19 @@
 	#define COCONUT_PPCAT_NX_4(A, B, C, D) A ## B ## C ## D
 	#define COCONUT_PPCAT_4(A, B, C, D) COCONUT_PPCAT_NX_4(A, B, C, D)
 
+	#define COCONUT_PPCAT_NX_5(A, B, C, D, E) A ## B ## C ## D ## E
+	#define COCONUT_PPCAT_5(A, B, C, D, E) COCONUT_PPCAT_NX_5(A, B, C, D, E)
+
 	#define COCONUT_STRINGIZE_NX(A) #A
 	#define COCONUT_STRINGIZE(A) COCONUT_STRINGIZE_NX(A)
 
+	#if DEBUG || _DEBUG
+		#undef COCONUT_DEBUG
+		#define COCONUT_DEBUG 1
+	#endif
+
 	#ifndef COCONUT_NAMESPACE
-		#if DEBUG || _DEBUG
+		#if COCONUT_DEBUG
 			#define COCONUT_NAMESPACE \
 				COCONUT_PPCAT_2(coconut_debug_, COCONUT_API_VERSION)
 		#else
@@ -266,10 +274,8 @@
 	#include <coconut/runtime/detail/core/_inifini.hpp>
 	#include <coconut/runtime/detail/core/_defer.hpp>
 
-	#ifndef __COUNTER__
-		#define __COUNTER__ 0
-	#endif
-	#define COCONUT_DEFER auto COCONUT_PPCAT_4(_defer, __COUNTER__, __LINE__, block) = ::COCONUT_NAMESPACE::runtime::_defer_dispatch{}
+	#define COCONUT_DEFER auto COCONUT_PPCAT_5(__defer_, coconut,__COUNTER__, _block_, __LINE__) = \
+		::coconut::runtime::_defer_dispatch()
 
 #endif /* !COCONUT_RUNTIME_DEFINE_HPP */
 

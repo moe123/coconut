@@ -95,10 +95,13 @@ void hash::sha_base::add(const void * bytes, std::size_t length)
 	}
 }
 
-const std::vector<char> hash::sha_base::hex()
+const std::vector<char> hash::sha_base::hex(bool uppercase)
 {
 	std::string result;
-	static const char dec2hex[16 + 1] = "0123456789abcdef";
+	static const char dec2hex_lc[] = "0123456789abcdef";
+	static const char dec2hex_uc[] = "0123456789ABCDEF";
+	const char * dec2hex = uppercase ? dec2hex_uc : dec2hex_lc;
+
 	std::vector<std::uint32_t> old_hash(m_digestsize);
 	std::vector<char> hash_buf(m_digestsize * 8 + 1);
 	std::size_t offset = 0;

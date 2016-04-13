@@ -26,7 +26,7 @@ namespace coconut
 			
 			public:
 				void add(const void * bytes, std::size_t length);
-				const std::vector<char> hex();
+				const std::vector<char> hex(bool uppercase = false);
 				const std::vector<std::uint8_t> raw();
 				
 			private:

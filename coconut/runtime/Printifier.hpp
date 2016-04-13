@@ -35,6 +35,9 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
+#if COCONUT_DEBUG
+		// std::cout << "+++ printifier dynamic fetch +++" << std::endl;
+#endif
 		if (r.isKindOf(StringClass)) {
 			os << ref_cast<String>(r);
 		} else if (r.isKindOf(NumberClass)) {
@@ -90,11 +93,12 @@ namespace coconut
 	
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<TypeT, String>::value ||
+			std::is_base_of<Any, TypeT>::value &&
+			(std::is_same<TypeT, String>::value ||
 			std::is_same<TypeT, Path>::value ||
 			std::is_same<TypeT, MutablePath>::value ||
 			std::is_same<TypeT, URL>::value ||
-			std::is_same<TypeT, Date>::value
+			std::is_same<TypeT, Date>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
@@ -103,11 +107,12 @@ namespace coconut
 
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<TypeT, String>::value ||
+			std::is_base_of<Any, TypeT>::value &&
+			(std::is_same<TypeT, String>::value ||
 			std::is_same<TypeT, Path>::value ||
 			std::is_same<TypeT, MutablePath>::value ||
 			std::is_same<TypeT, URL>::value ||
-			std::is_same<TypeT, Date>::value
+			std::is_same<TypeT, Date>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
@@ -116,6 +121,7 @@ namespace coconut
 
 	template <typename TypeT,
 		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value &&
 			std::is_same<TypeT, Data>::value
 		>::type* = nullptr
 	>
@@ -145,6 +151,7 @@ namespace coconut
 	
 	template <typename TypeT,
 		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value &&
 			std::is_same<TypeT, Data>::value
 		>::type* = nullptr
 	>
@@ -154,6 +161,7 @@ namespace coconut
 	
 	template <typename TypeT,
 		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value &&
 			std::is_same<TypeT, Number>::value
 		>::type* = nullptr
 	>
@@ -163,6 +171,7 @@ namespace coconut
 
 	template <typename TypeT,
 		typename std::enable_if<
+			std::is_base_of<Any, TypeT>::value &&
 			std::is_same<TypeT, Number>::value
 		>::type* = nullptr
 	>
@@ -172,13 +181,14 @@ namespace coconut
 	
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<TypeT, Array>::value ||
+			std::is_base_of<Any, TypeT>::value &&
+			(std::is_same<TypeT, Array>::value ||
 			std::is_same<TypeT, MutableArray>::value ||
 			std::is_same<TypeT, Deque>::value ||
 			std::is_same<TypeT, OrderedSet>::value ||
 			std::is_same<TypeT, MutableOrderedSet>::value ||
 			std::is_same<TypeT, Set>::value ||
-			std::is_same<TypeT, MutableSet>::value
+			std::is_same<TypeT, MutableSet>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
@@ -194,13 +204,14 @@ namespace coconut
 		
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<TypeT, Array>::value ||
+			std::is_base_of<Any, TypeT>::value &&
+			(std::is_same<TypeT, Array>::value ||
 			std::is_same<TypeT, MutableArray>::value ||
 			std::is_same<TypeT, Deque>::value ||
 			std::is_same<TypeT, OrderedSet>::value ||
 			std::is_same<TypeT, MutableOrderedSet>::value ||
 			std::is_same<TypeT, Set>::value ||
-			std::is_same<TypeT, MutableSet>::value
+			std::is_same<TypeT, MutableSet>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
@@ -226,8 +237,9 @@ namespace coconut
 			
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<TypeT, Dictionary>::value ||
-			std::is_same<TypeT, MutableDictionary>::value
+			std::is_base_of<Any, TypeT>::value &&
+			(std::is_same<TypeT, Dictionary>::value ||
+			std::is_same<TypeT, MutableDictionary>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
