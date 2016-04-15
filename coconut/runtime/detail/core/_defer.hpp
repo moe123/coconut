@@ -59,8 +59,12 @@ namespace coconut
 				
 				template <typename FuncT, typename... ArgsT>
 				inline auto operator () (FuncT && f, ArgsT &&... args)
-					-> scope_holder<decltype(std::bind(f, std::forward<ArgsT>(args)...))>
-				{ return scope_holder<decltype(std::bind(f, std::forward<ArgsT>(args)...))>(std::bind(f, std::forward<ArgsT>(args)...)); }
+					-> scope_holder<decltype(std::bind(std::forward<FuncT>(f), std::forward<ArgsT>(args)...))>
+				{
+					return scope_holder<
+						decltype(std::bind(std::forward<FuncT>(f), std::forward<ArgsT>(args)...))
+					>(std::bind(std::forward<FuncT>(f), std::forward<ArgsT>(args)...));
+				}
 			};
 		}
 	}
