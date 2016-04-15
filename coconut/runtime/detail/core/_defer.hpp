@@ -11,54 +11,58 @@ namespace coconut
 {
 	namespace runtime
 	{
-		template <typename CallableT>
-		struct _defer_placeholder
+		namespace defer
 		{
-			_defer_placeholder(const _defer_placeholder &) = delete;
-			_defer_placeholder & operator = (const _defer_placeholder &) = delete;
+			template <typename CallableT>
+			COCONUT_PRIVATE struct COCONUT_VISIBLE scope_holder COCONUT_FINAL
+			{
+				scope_holder(const scope_holder &) = delete;
+				scope_holder & operator = (const scope_holder &) = delete;
+				
+				~scope_holder() { commit(); }
+				
+				scope_holder(scope_holder && sh) noexcept :
+					m_callable{std::move(sh.m_callable)},
+					m_called(false)
+				{ /* NOP */ }
+				
+				scope_holder & operator = (scope_holder && sh) noexcept
+				{ scope_holder(std::move(sh)).swap(*this); return *this; }
 			
-			~_defer_placeholder() { commit(); }
+				scope_holder(CallableT && c) :
+					m_callable{std::move(c)},
+					m_called(false)
+				{ /* NOP */ }
 			
-			_defer_placeholder(_defer_placeholder && dph) noexcept :
-				m_callable{std::move(dph.m_callable)},
-				m_called(false)
-			{ /* NOP */ }
-			
-			_defer_placeholder & operator = (_defer_placeholder && dph) noexcept
-			{ _defer_placeholder(std::move(dph)).swap(*this); return *this; }
-		
-			_defer_placeholder(CallableT && c) :
-				m_callable{std::move(c)},
-				m_called(false)
-			{ /* NOP */ }
-		
-		private:
-			void commit() noexcept {
-				if (!m_called) {
-					m_called = true;
-					try { m_callable(); }
-					catch(const std::exception &) { /* NOP */ }
-					catch(...) { /* NOP */ }
+			private:
+				void commit() noexcept
+				{
+					if (!m_called) {
+						m_called = true;
+						try { m_callable(); }
+						catch(const std::exception &) { /* NOP */ }
+						catch(...) { /* NOP */ }
+					}
 				}
-			}
+				
+			private:
+				CallableT m_callable;
+				bool m_called;
+			};
 			
-		private:
-			CallableT m_callable;
-			bool m_called;
-		};
-		
-		struct _defer_dispatch
-		{
-			template <typename FuncT>
-			inline auto operator () (FuncT && f)
-				-> _defer_placeholder<typename std::decay<FuncT>::type>
-			{ return _defer_placeholder<typename std::decay<FuncT>::type>(std::move(f)); }
-			
-			template <typename FuncT, typename... ArgsT>
-			inline auto operator () (FuncT && f, ArgsT &&... args)
-				-> _defer_placeholder<decltype(std::bind(f, std::forward<ArgsT>(args)...))>
-			{ return _defer_placeholder<decltype(std::bind(f, std::forward<ArgsT>(args)...))>(std::bind(f, std::forward<ArgsT>(args)...)); }
-		};
+			COCONUT_PRIVATE struct COCONUT_VISIBLE dispatcher COCONUT_FINAL
+			{
+				template <typename FuncT>
+				inline auto operator () (FuncT && f)
+					-> scope_holder<typename std::decay<FuncT>::type>
+				{ return scope_holder<typename std::decay<FuncT>::type>(std::move(f)); }
+				
+				template <typename FuncT, typename... ArgsT>
+				inline auto operator () (FuncT && f, ArgsT &&... args)
+					-> scope_holder<decltype(std::bind(f, std::forward<ArgsT>(args)...))>
+				{ return scope_holder<decltype(std::bind(f, std::forward<ArgsT>(args)...))>(std::bind(f, std::forward<ArgsT>(args)...)); }
+			};
+		}
 	}
 }
 

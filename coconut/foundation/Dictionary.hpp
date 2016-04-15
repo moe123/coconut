@@ -58,8 +58,8 @@ namespace coconut
 			using key_diff_t = typename IterKeyT::difference_type;
 			using val_diff_t = typename IterValT::difference_type;
 			
-			key_diff_t dist_k = std::distance<IterKeyT>(beg_key, end_key);
-			val_diff_t dist_v = std::distance<IterValT>(beg_val, end_val);
+			key_diff_t dist_k = std::distance<typename std::decay<IterKeyT>::type>(beg_key, end_key);
+			val_diff_t dist_v = std::distance<typename std::decay<IterValT>::type>(beg_val, end_val);
 			
 			typedef std::pair<
 				typename std::decay<IterKeyT>::type,

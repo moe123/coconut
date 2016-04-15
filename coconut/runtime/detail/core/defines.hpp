@@ -275,7 +275,7 @@
 	#include <coconut/runtime/detail/core/_defer.hpp>
 
 	#define COCONUT_DEFER auto COCONUT_PPCAT_5(__defer_, coconut,__COUNTER__, _block_, __LINE__) = \
-		::coconut::runtime::_defer_dispatch()
+		::coconut::runtime::defer::dispatcher{}
 
 #endif /* !COCONUT_RUNTIME_DEFINE_HPP */
 
