@@ -115,9 +115,7 @@ const upath upath::dirname(dirsep_option option) const
 }
 
 const std::vector<std::string> upath::components() const
-{
-	return m_components;
-}
+{ return m_components; }
 
 const std::string upath::to_utf8_string(dirsep_option option) const
 {
@@ -135,8 +133,6 @@ const std::string upath::to_utf8_string(dirsep_option option) const
 }
 
 const std::u16string upath::to_utf16_string(dirsep_option option) const
-{
-	return unicode::utf8_to_utf16(to_utf8_string(option));
-}
+{ return unicode::utf8_to_utf16(to_utf8_string(option)); }
 
 /* EOF */
