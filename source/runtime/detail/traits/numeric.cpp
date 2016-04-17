@@ -8,12 +8,10 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
 using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
 
 numeric::numeric()
-{
-	m_type = numeric_zero;
-	m_sizeof = 0;
-}
+{ m_type = numeric_zero; }
 
 numeric::numeric(const numeric & num)
 {
@@ -63,7 +61,6 @@ numeric::numeric(const numeric & num)
 		break;
 	}
 	m_type = num.m_type;
-	m_sizeof = num.m_sizeof;
 	m_signed = num.m_signed;
 	m_floating = num.m_floating;
 }
@@ -72,7 +69,6 @@ numeric::numeric(const float & value)
 {
 	m_val_float = value;
 	m_type = numeric_float;
-	m_sizeof = sizeof(m_val_float);
 	m_signed = true;
 	m_floating = true;
 }
@@ -81,7 +77,6 @@ numeric::numeric(const double & value)
 {
 	m_val_double = value;
 	m_type = numeric_double;
-	m_sizeof = sizeof(m_val_double);
 	m_signed = true;
 	m_floating = true;
 }
@@ -90,7 +85,6 @@ numeric::numeric(const long double & value)
 {
 	m_val_long_double = value;
 	m_type = numeric_long_double;
-	m_sizeof = sizeof(m_val_long_double);
 	m_signed = true;
 	m_floating = false;
 }
@@ -99,7 +93,6 @@ numeric::numeric(const bool & value)
 {
 	m_val_bool = value;
 	m_type = numeric_bool;
-	m_sizeof = sizeof(m_val_bool);
 	m_signed = false;
 	m_floating = false;
 }
@@ -108,7 +101,6 @@ numeric::numeric(const char & value)
 {
 	m_val_char = value;
 	m_type = numeric_char;
-	m_sizeof = sizeof(m_val_char);
 	m_signed = true;
 	m_floating = false;
 }
@@ -117,7 +109,6 @@ numeric::numeric(const short & value)
 {
 	m_val_short = value;
 	m_type = numeric_short;
-	m_sizeof = sizeof(m_val_short);
 	m_signed = true;
 	m_floating = false;
 }
@@ -126,7 +117,6 @@ numeric::numeric(const int & value)
 {
 	m_val_int = value;
 	m_type = numeric_int;
-	m_sizeof = sizeof(m_val_int);
 	m_signed = true;
 	m_floating = false;
 }
@@ -135,7 +125,6 @@ numeric::numeric(const long & value)
 {
 	m_val_long = value;
 	m_type = numeric_long;
-	m_sizeof = sizeof(m_val_long);
 	m_signed = true;
 	m_floating = false;
 }
@@ -144,7 +133,6 @@ numeric::numeric(const long long & value)
 {
 	m_val_longlong = value;
 	m_type = numeric_longlong;
-	m_sizeof = sizeof(m_val_longlong);
 	m_signed = true;
 	m_floating = false;
 }
@@ -153,15 +141,14 @@ numeric::numeric(const unsigned char & value)
 {
 	m_val_unsigned_char = value;
 	m_type = numeric_unsigned_char;
-	m_sizeof = sizeof(m_val_unsigned_char);
 	m_signed = false;
 	m_floating = false;
 }
+
 numeric::numeric(const unsigned short & value)
 {
 	m_val_unsigned_short = value;
 	m_type = numeric_unsigned_short;
-	m_sizeof = sizeof(m_val_unsigned_short);
 	m_signed = false;
 	m_floating = false;
 }
@@ -170,7 +157,6 @@ numeric::numeric(const unsigned int & value)
 {
 	m_val_unsigned_int = value;
 	m_type = numeric_unsigned_int;
-	m_sizeof = sizeof(m_val_unsigned_int);
 	m_signed = false;
 	m_floating = false;
 }
@@ -179,7 +165,6 @@ numeric::numeric(const unsigned long & value)
 {
 	m_val_unsigned_long = value;
 	m_type = numeric_unsigned_long;
-	m_sizeof = sizeof(m_val_unsigned_long);
 	m_signed = false;
 	m_floating = false;
 }
@@ -188,7 +173,6 @@ numeric::numeric(const unsigned long long & value)
 {
 	m_val_unsigned_longlong = value;
 	m_type = numeric_unsigned_longlong;
-	m_sizeof = sizeof(m_val_unsigned_longlong);
 	m_signed = false;
 	m_floating = false;
 }
@@ -249,7 +233,6 @@ numeric & numeric::operator = (const numeric & num)
 		break;
 	}
 	m_type = num.m_type;
-	m_sizeof = num.m_sizeof;
 	m_signed = num.m_signed;
 	m_floating = num.m_floating;
 	
@@ -410,7 +393,6 @@ std::uint64_t numeric::to_unsigned_integer() const
 
 #pragma mark -
 
-std::size_t numeric::type() const { return m_type; };
-std::size_t numeric::size() const { return m_sizeof; }
+std::uint16_t numeric::type() const { return m_type; };
 
 /* EOF */

@@ -9,24 +9,25 @@
 #include <coconut/runtime/detail/traits/locale.hpp>
 #include <coconut/runtime/detail/traits/timezone.hpp>
 
+using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
+
 #include <source/runtime/builtins/datetime_epoch.hxx>
 #include <source/runtime/builtins/datetime_format.hxx>
 
-using namespace coconut::runtime;
-
-datetime::datetime() :
-	m_type(datekind_default),
-	m_millitime(0.0)
+datetime::datetime()
+: m_type(datekind_default)
+, m_millitime(0.0)
 { /* NOP */ }
 
-datetime::datetime(const datetime & dtm) :
-	m_type(dtm.m_type),
-	m_millitime(dtm.m_millitime)
+datetime::datetime(const datetime & dtm)
+: m_type(dtm.m_type)
+, m_millitime(dtm.m_millitime)
 { /* NOP */ }
 
-datetime::datetime(double milliseconds, timeref_option ref_opt) :
-	m_type(datekind_default),
-	m_millitime(0.0)
+datetime::datetime(double milliseconds, timeref_option ref_opt)
+: m_type(datekind_default)
+, m_millitime(0.0)
 {
 	switch (ref_opt)
 	{
@@ -50,9 +51,9 @@ datetime::datetime(double milliseconds, timeref_option ref_opt) :
 	}
 }
 
-datetime::datetime(double interval, timeunit_option unit_opt, timeref_option ref_opt) :
-	m_type(datekind_default),
-	m_millitime(0.0)
+datetime::datetime(double interval, timeunit_option unit_opt, timeref_option ref_opt)
+: m_type(datekind_default)
+, m_millitime(0.0)
 {
 	double milliseconds = 0.0;
 	switch (unit_opt)
@@ -104,9 +105,9 @@ datetime::datetime(double interval, timeunit_option unit_opt, timeref_option ref
 	}
 }
 
-datetime::datetime(double interval, timeunit_option unit_opt, const datetime & dtm) :
-	m_type(datekind_default),
-	m_millitime(0.0)
+datetime::datetime(double interval, timeunit_option unit_opt, const datetime & dtm)
+: m_type(datekind_default)
+, m_millitime(0.0)
 {
 	double milliseconds = 0.0;
 	switch (unit_opt)

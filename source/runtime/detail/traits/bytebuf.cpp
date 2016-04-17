@@ -14,33 +14,34 @@
 #include <coconut/runtime/detail/core/hash.hpp>
 
 using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
 
-bytebuf::bytebuf() :
-	m_bytes()
+bytebuf::bytebuf()
+: m_bytes()
 { /* NOP */ }
 
-bytebuf::bytebuf(const bytebuf & dat) :
-	m_bytes(dat.m_bytes)
+bytebuf::bytebuf(const bytebuf & dat)
+: m_bytes(dat.m_bytes)
 { /* NOP */ }
 
-bytebuf::bytebuf(bytebuf && dat) :
-	m_bytes(std::move(dat.m_bytes))
+bytebuf::bytebuf(bytebuf && dat)
+	: m_bytes(std::move(dat.m_bytes))
 { /* NOP */ }
 
-bytebuf::bytebuf(const bytebuf & dat, bool b64dec) :
-	m_bytes(dat.m_bytes)
+bytebuf::bytebuf(const bytebuf & dat, bool b64dec)
+: m_bytes(dat.m_bytes)
 { if (b64dec) { b64_decode(); } }
 
-bytebuf::bytebuf(bytebuf && dat, bool b64dec) :
-	m_bytes(std::move(dat.m_bytes))
+bytebuf::bytebuf(bytebuf && dat, bool b64dec)
+: m_bytes(std::move(dat.m_bytes))
 { if (b64dec) { b64_decode(); } }
 
-bytebuf::bytebuf(std::size_t capacity) :
-	m_bytes(capacity)
+bytebuf::bytebuf(std::size_t capacity)
+: m_bytes(capacity)
 { /* NOP */ }
 
-bytebuf::bytebuf(const std::uint8_t * membytes, std::size_t length, bool b64dec) :
-	m_bytes()
+bytebuf::bytebuf(const std::uint8_t * membytes, std::size_t length, bool b64dec)
+: m_bytes()
 {
 	if (membytes && length) {
 		for (std::size_t i = 0; i < length; i++) {
@@ -52,8 +53,8 @@ bytebuf::bytebuf(const std::uint8_t * membytes, std::size_t length, bool b64dec)
 	}
 }
 
-bytebuf::bytebuf(const char * membytes, std::size_t length, bool b64dec) :
-	m_bytes()
+bytebuf::bytebuf(const char * membytes, std::size_t length, bool b64dec)
+: m_bytes()
 {
 	if (membytes && length) {
 		for (std::size_t i = 0; i < length; i++) {
@@ -65,8 +66,8 @@ bytebuf::bytebuf(const char * membytes, std::size_t length, bool b64dec) :
 	}
 }
 
-bytebuf::bytebuf(const std::uint16_t * membytes, std::size_t length, packing_option option) :
-	m_bytes()
+bytebuf::bytebuf(const std::uint16_t * membytes, std::size_t length, packing_option option)
+: m_bytes()
 {
 	if (membytes) {
 		for (std::size_t i = 0 ; i < length ; i++) {
@@ -75,8 +76,8 @@ bytebuf::bytebuf(const std::uint16_t * membytes, std::size_t length, packing_opt
 	}
 }
 
-bytebuf::bytebuf(const std::uint32_t * membytes, std::size_t length, packing_option option) :
-	m_bytes()
+bytebuf::bytebuf(const std::uint32_t * membytes, std::size_t length, packing_option option)
+: m_bytes()
 {
 	if (membytes) {
 		for (std::size_t i = 0 ; i < length ; i++) {
@@ -85,8 +86,8 @@ bytebuf::bytebuf(const std::uint32_t * membytes, std::size_t length, packing_opt
 	}
 }
 
-bytebuf::bytebuf(const std::uint64_t * membytes, std::size_t length, packing_option option) :
-	m_bytes()
+bytebuf::bytebuf(const std::uint64_t * membytes, std::size_t length, packing_option option)
+: m_bytes()
 {
 	if (membytes) {
 		for (std::size_t i = 0 ; i < length ; i++) {
@@ -95,8 +96,8 @@ bytebuf::bytebuf(const std::uint64_t * membytes, std::size_t length, packing_opt
 	}
 }
 
-bytebuf::bytebuf(const std::int16_t * membytes, std::size_t length, packing_option option) :
-	m_bytes()
+bytebuf::bytebuf(const std::int16_t * membytes, std::size_t length, packing_option option)
+: m_bytes()
 {
 	if (membytes) {
 		for (std::size_t i = 0 ; i < length ; i++) {
@@ -105,8 +106,8 @@ bytebuf::bytebuf(const std::int16_t * membytes, std::size_t length, packing_opti
 	}
 }
 
-bytebuf::bytebuf(const std::int32_t * membytes, std::size_t length, packing_option option) :
-	m_bytes()
+bytebuf::bytebuf(const std::int32_t * membytes, std::size_t length, packing_option option)
+: m_bytes()
 {
 	if (membytes) {
 		for (std::size_t i = 0 ; i < length ; i++) {
@@ -115,8 +116,8 @@ bytebuf::bytebuf(const std::int32_t * membytes, std::size_t length, packing_opti
 	}
 }
 
-bytebuf::bytebuf(const std::int64_t * membytes, std::size_t length, packing_option option) :
-	m_bytes()
+bytebuf::bytebuf(const std::int64_t * membytes, std::size_t length, packing_option option)
+: m_bytes()
 {
 	if (membytes) {
 		for (std::size_t i = 0 ; i < length ; i++) {
@@ -125,16 +126,16 @@ bytebuf::bytebuf(const std::int64_t * membytes, std::size_t length, packing_opti
 	}
 }
 
-bytebuf::bytebuf(stream::ifstream & in_binary) :
-	m_bytes()
+bytebuf::bytebuf(stream::ifstream & in_binary)
+: m_bytes()
 {
 	if (in_binary.is_open()) {
 		rb_fin(in_binary);
 	}
 }
 
-bytebuf::bytebuf(const upath & path, bool b64dec) :
-	m_bytes()
+bytebuf::bytebuf(const upath & path, bool b64dec)
+: m_bytes()
 {
 	stream::ifstream in_binary(path.to_utf8_string());
 	if (in_binary.is_open()) {
@@ -146,8 +147,8 @@ bytebuf::bytebuf(const upath & path, bool b64dec) :
 	}
 }
 
-bytebuf::bytebuf(const uri & url, bool b64dec) :
-	m_bytes()
+bytebuf::bytebuf(const uri & url, bool b64dec)
+: m_bytes()
 {
 	if (url.is_file_url()) {
 		upath path(url.path());
@@ -162,8 +163,8 @@ bytebuf::bytebuf(const uri & url, bool b64dec) :
 	}
 }
 
-bytebuf::bytebuf(const std::string & utf8_path, bool b64dec) :
-	m_bytes()
+bytebuf::bytebuf(const std::string & utf8_path, bool b64dec)
+: m_bytes()
 {
 	stream::ifstream in_binary(utf8_path);
 	if (in_binary.is_open()) {
@@ -175,8 +176,8 @@ bytebuf::bytebuf(const std::string & utf8_path, bool b64dec) :
 	}
 }
 
-bytebuf::bytebuf(const std::u16string & utf16_path, bool b64dec) :
-	m_bytes()
+bytebuf::bytebuf(const std::u16string & utf16_path, bool b64dec)
+: m_bytes()
 {
 	stream::ifstream in_binary(utf16_path);
 	if (in_binary.is_open()) {
@@ -188,16 +189,16 @@ bytebuf::bytebuf(const std::u16string & utf16_path, bool b64dec) :
 	}
 }
 
-bytebuf::bytebuf(stream::ifstream & in_binary, std::size_t location, std::size_t length) :
-	m_bytes()
+bytebuf::bytebuf(stream::ifstream & in_binary, std::size_t location, std::size_t length)
+: m_bytes()
 {
 	if (in_binary.is_open()) {
 		rb_fin(in_binary, location, length);
 	}
 }
 
-bytebuf::bytebuf(const std::string & utf8_path, std::size_t location, std::size_t length) :
-	m_bytes()
+bytebuf::bytebuf(const std::string & utf8_path, std::size_t location, std::size_t length)
+: m_bytes()
 {
 	stream::ifstream in_binary(utf8_path);
 	if (in_binary.is_open()) {
@@ -207,9 +208,7 @@ bytebuf::bytebuf(const std::string & utf8_path, std::size_t location, std::size_
 }
 
 bytebuf::~bytebuf()
-{
-	m_bytes.clear();
-}
+{ m_bytes.clear(); }
 
 #pragma mark -
 
@@ -870,14 +869,10 @@ void bytebuf::push_front(const std::int64_t * membytes, std::size_t length, pack
 #pragma mark -
 
 void bytebuf::push_back(std::uint8_t v)
-{
-	m_bytes.push_back(v);
-}
+{ m_bytes.push_back(v); }
 
 void bytebuf::push_back(char v)
-{
-	m_bytes.push_back(unsafe_cast<std::uint8_t>(v));
-}
+{ m_bytes.push_back(unsafe_cast<std::uint8_t>(v)); }
 
 #pragma mark -
 
@@ -1019,9 +1014,7 @@ void bytebuf::replace(const std::uint8_t * membytes, std::size_t location, std::
 #pragma mark -
 
 void bytebuf::remove(std::size_t index)
-{
-	remove(index, 1);
-}
+{ remove(index, 1); }
 
 void bytebuf::remove(std::size_t location, std::size_t length)
 {
@@ -1036,16 +1029,12 @@ void bytebuf::remove(std::size_t location, std::size_t length)
 }
 
 void bytebuf::remove_last()
-{
-	m_bytes.pop_back();
-}
+{ m_bytes.pop_back(); }
 
 #pragma mark -
 
 void bytebuf::reverse()
-{
-	std::reverse(m_bytes.begin(), m_bytes.end());
-}
+{ std::reverse(m_bytes.begin(), m_bytes.end()); }
 
 #pragma mark -
 
@@ -1139,21 +1128,15 @@ std::string bytebuf::hash_sha256() const
 #pragma mark -
 
 void bytebuf::clear()
-{
-	m_bytes.clear();
-}
+{ m_bytes.clear(); }
 
 void bytebuf::reset()
-{
-	m_bytes.clear();
-}
+{ m_bytes.clear(); }
 
 #pragma mark -
 
 bool bytebuf::write(stream::ofstream & out_binary) const
-{
-	return wb_fout(out_binary);
-}
+{ return wb_fout(out_binary); }
 
 bool bytebuf::write(const std::string & utf8_path, bool atomically) const
 {

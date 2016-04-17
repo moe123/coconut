@@ -178,7 +178,7 @@ namespace coconut
 		friend class Path;
 		
 	protected:
-		typedef runtime::ustring impl_trait;
+		typedef runtime::traits::ustring impl_trait;
 
 	protected:
 		impl_trait m_impl;

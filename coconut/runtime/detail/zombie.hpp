@@ -9,22 +9,20 @@
 #ifndef COCONUT_RUNTIME_ZOMBIE_HPP
 #define COCONUT_RUNTIME_ZOMBIE_HPP
 
-namespace coconut
+namespace coconut { namespace runtime {
+
+COCONUT_PRIVATE class COCONUT_VISIBLE zombie : public nucleus
 {
-	namespace runtime
-	{
-		COCONUT_PRIVATE class COCONUT_VISIBLE zombie : public nucleus
-		{
-		COCONUT_CLASSDECLARE(coconut.runtime.zombie, nucleus.zombie)
-		
-		public:
-			zombie();
-			zombie(const zombie & undead) = delete;
-			zombie(ClassKind hunter, bool ismutable = false);
-			virtual ~zombie();
-		};
-	}
-}
+COCONUT_CLASSDECLARE(coconut.runtime.zombie, nucleus.zombie)
+
+public:
+	zombie();
+	zombie(const zombie & undead) = delete;
+	zombie(ClassKind hunter, bool ismutable = false);
+	virtual ~zombie();
+};
+
+}} /* EONS */
 
 #endif /* !COCONUT_RUNTIME_ZOMBIE_HPP */
 

@@ -576,8 +576,8 @@
 			isa = PBXGroup;
 			children = (
 				D5DDFB091BC49F4B00E5328A /* foundation */,
-				D5DDFB261BC49F4B00E5328A /* foundation.hpp */,
 				D528D2E11BC4928500D8087D /* runtime */,
+				D5DDFB261BC49F4B00E5328A /* foundation.hpp */,
 			);
 			name = coconut;
 			path = ../coconut;
@@ -586,8 +586,8 @@
 		D528D2E11BC4928500D8087D /* runtime */ = {
 			isa = PBXGroup;
 			children = (
-				D528D2F31BC4928500D8087D /* ByteOrder.hpp */,
 				D595B8821BC9A43A0051FF91 /* detail */,
+				D528D2F31BC4928500D8087D /* ByteOrder.hpp */,
 				D523CA381C2A07B4007270F7 /* Features.hpp */,
 				D54EBAED1C9DE46500B7256F /* JobBroker.hpp */,
 				D54322131BCC413900839B4B /* Object.hpp */,
@@ -639,8 +639,8 @@
 			isa = PBXGroup;
 			children = (
 				D595B8831BC9A43A0051FF91 /* core */,
-				D595B8931BC9A43A0051FF91 /* nucleus.hpp */,
 				D595B8941BC9A43A0051FF91 /* traits */,
+				D595B8931BC9A43A0051FF91 /* nucleus.hpp */,
 				D595B8A31BC9A43A0051FF91 /* zombie.hpp */,
 			);
 			path = detail;
@@ -694,8 +694,8 @@
 			isa = PBXGroup;
 			children = (
 				D595B8F11BC9A4690051FF91 /* core */,
-				D595B8F71BC9A4690051FF91 /* nucleus.cpp */,
 				D595B8F81BC9A4690051FF91 /* traits */,
+				D595B8F71BC9A4690051FF91 /* nucleus.cpp */,
 				D595B9021BC9A4690051FF91 /* zombie.cpp */,
 			);
 			path = detail;

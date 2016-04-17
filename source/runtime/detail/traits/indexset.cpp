@@ -8,36 +8,37 @@
 #include <coconut/runtime/detail/traits/irange.hpp>
 
 using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
 
-indexset::indexset() :
-	m_len(0),
-	m_ranges()
+indexset::indexset()
+: m_len(0)
+, m_ranges()
 { m_ranges.push_back(irange(0, 0)); }
 
-indexset::indexset(const indexset & idxset) :
-	m_len(idxset.m_len),
-	m_ranges(idxset.m_ranges.cbegin(), idxset.m_ranges.cend())
+indexset::indexset(const indexset & idxset)
+: m_len(idxset.m_len)
+, m_ranges(idxset.m_ranges.cbegin(), idxset.m_ranges.cend())
 { /* NOP */ }
 
-indexset::indexset(const irange & rg) :
-	m_len(0),
-	m_ranges()
+indexset::indexset(const irange & rg)
+: m_len(0)
+, m_ranges()
 {
 	m_len = rg.length() == 0 ? 0 : 1;
 	m_ranges.push_back(rg);
 }
 
-indexset::indexset(std::size_t loc, std::size_t len) :
-	m_len(0),
-	m_ranges()
+indexset::indexset(std::size_t loc, std::size_t len)
+: m_len(0)
+, m_ranges()
 {
 	m_len = len == 0 ? 0 : 1;
 	m_ranges.push_back(irange(loc, len));
 }
 
-indexset::indexset(std::size_t idx) :
-	m_len(1),
-	m_ranges()
+indexset::indexset(std::size_t idx)
+: m_len(1)
+, m_ranges()
 {
 	m_ranges.push_back(irange(idx, m_len));
 }

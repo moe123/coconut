@@ -13,24 +13,25 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
+using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
+
 #include <source/runtime/builtins/ustring_compare_utf8.hxx>
 #include <source/runtime/builtins/ustring_compare_utf16.hxx>
 #include <source/runtime/builtins/ustring_encoding.hxx>
 #include <source/runtime/builtins/ustring_parsing.hxx>
 #include <source/runtime/builtins/ustring_searching.hxx>
 
-using namespace coconut::runtime;
-
-ustring::ustring() :
-	m_ustr()
+ustring::ustring()
+: m_ustr()
 { /* NOP */ }
 
-ustring::ustring(const ustring & ustr) :
-	m_ustr(ustr.m_ustr)
+ustring::ustring(const ustring & ustr)
+: m_ustr(ustr.m_ustr)
 { /* NOP */ }
 
-ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding) :
-	m_ustr()
+ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding)
+: m_ustr()
 {
 	if (bytes && length) {
 		switch (encoding)
@@ -119,8 +120,8 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 	}
 }
 
-ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_option encoding) :
-	m_ustr()
+ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_option encoding)
+: m_ustr()
 {
 	if (bytes && length) {
 		switch (encoding)
@@ -161,8 +162,8 @@ ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_optio
 	}
 }
 
-ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_option encoding) :
-	m_ustr()
+ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_option encoding)
+: m_ustr()
 {
 	if (bytes && length) {
 		switch (encoding)
@@ -193,52 +194,52 @@ ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_optio
 	}
 }
 
-ustring::ustring(const std::string & in, encoding_option encoding) :
-	ustring(
-		unsafe_cast<const std::uint8_t *>(in.data()),
-		in.size(),
-		encoding
-	)
+ustring::ustring(const std::string & in, encoding_option encoding)
+: ustring(
+	unsafe_cast<const std::uint8_t *>(in.data()),
+	in.size(),
+	encoding
+)
 { /* NOP */ }
 
-ustring::ustring(const std::u16string & in, encoding_option encoding) :
-	ustring(
-		unsafe_cast<const std::uint16_t *>(in.data()),
-		in.size(),
-		encoding
-	)
+ustring::ustring(const std::u16string & in, encoding_option encoding)
+: ustring(
+	unsafe_cast<const std::uint16_t *>(in.data()),
+	in.size(),
+	encoding
+)
 { /* NOP */ }
 
-ustring::ustring(const std::u32string & in, encoding_option encoding) :
-	ustring(
-		unsafe_cast<const std::uint32_t *>(in.data()),
-		in.size(),
-		encoding
-	)
+ustring::ustring(const std::u32string & in, encoding_option encoding)
+: ustring(
+	unsafe_cast<const std::uint32_t *>(in.data()),
+	in.size(),
+	encoding
+)
 { /* NOP */ }
 
-ustring::ustring(const char * utf8_str) :
-	ustring(
-		unsafe_cast<const std::uint8_t *>(utf8_str),
-		std::char_traits<char>::length(utf8_str),
-		encoding_utf8
-	)
+ustring::ustring(const char * utf8_str)
+: ustring(
+	unsafe_cast<const std::uint8_t *>(utf8_str),
+	std::char_traits<char>::length(utf8_str),
+	encoding_utf8
+)
 { /* NOP */ }
 
-ustring::ustring(const char16_t * utf16_str) :
-	ustring(
-		unsafe_cast<const std::uint16_t *>(utf16_str),
-		std::char_traits<char16_t>::length(utf16_str),
-		encoding_utf16
-	)
+ustring::ustring(const char16_t * utf16_str)
+: ustring(
+	unsafe_cast<const std::uint16_t *>(utf16_str),
+	std::char_traits<char16_t>::length(utf16_str),
+	encoding_utf16
+)
 { /* NOP */ }
 
-ustring::ustring(const char32_t * utf32_str) :
-	ustring(
-		unsafe_cast<const std::uint32_t *>(utf32_str),
-		std::char_traits<char32_t>::length(utf32_str),
-		encoding_utf32
-	)
+ustring::ustring(const char32_t * utf32_str)
+: ustring(
+	unsafe_cast<const std::uint32_t *>(utf32_str),
+	std::char_traits<char32_t>::length(utf32_str),
+	encoding_utf32
+)
 { /* NOP */ }
 
 ustring::~ustring()
@@ -247,19 +248,13 @@ ustring::~ustring()
 #pragma mark -
 
 std::string ustring::get_codepage(encoding_option encoding)
-{
-	return builtins::ustring_getcodepage(encoding);
-}
+{ return builtins::ustring_getcodepage(encoding); }
 
 bool ustring::get_sys_codepages(std::vector<std::string> & codepages)
-{
-	return builtins::ustring_syscodepages(codepages);
-}
+{ return builtins::ustring_syscodepages(codepages); }
 
 bool ustring::get_codepages(std::set<std::string> & codepages)
-{
-	return builtins::ustring_getcodepages(codepages);
-}
+{ return builtins::ustring_getcodepages(codepages); }
 
 #pragma mark -
 
@@ -713,24 +708,16 @@ bool ustring::icase_has_suffix(const ustring & ustr) const
 #pragma mark -
 
 irange ustring::range_of(const ustring & ustr) const
-{
-	return range_of(ustr, irange(0, unsafe_cast<std::size_t>(m_ustr.length())), search_literal);
-}
+{ return range_of(ustr, irange(0, unsafe_cast<std::size_t>(m_ustr.length())), search_literal); }
 
 irange ustring::range_of(const ustring & ustr, const irange & in_rg) const
-{
-	return range_of(ustr, in_rg, search_literal);
-}
+{ return range_of(ustr, in_rg, search_literal); }
 
 irange ustring::range_of(const ustring & ustr, search_options options) const
-{
-	return range_of(ustr, irange(0, unsafe_cast< std::size_t>(m_ustr.length())), options);
-}
+{ return range_of(ustr, irange(0, unsafe_cast< std::size_t>(m_ustr.length())), options); }
 
 irange ustring::range_of(const ustring & ustr, const irange & in_rg, search_options options) const
-{
-	return builtins::ustring_rangeof(m_ustr, in_rg.location(), in_rg.length(), ustr.m_ustr, options);
-}
+{ return builtins::ustring_rangeof(m_ustr, in_rg.location(), in_rg.length(), ustr.m_ustr, options); }
 
 #pragma mark -
 
@@ -751,9 +738,7 @@ std::uint32_t ustring::code_point_at(std::size_t index) const
 #pragma mark -
 
 void ustring::append(const ustring & ustr)
-{
-	m_ustr.append(ustr.m_ustr);
-}
+{ m_ustr.append(ustr.m_ustr); }
 
 void ustring::capitalized()
 { m_ustr.toTitle(nullptr); }

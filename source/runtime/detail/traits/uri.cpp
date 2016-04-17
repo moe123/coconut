@@ -7,47 +7,48 @@
 #include <coconut/runtime/detail/traits/uri.hpp>
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
+using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
+
 #include <source/runtime/builtins/uri_escaping.hxx>
 #include <source/runtime/builtins/uri_joining.hxx>
 #include <source/runtime/builtins/uri_parsing.hxx>
 
-using namespace coconut::runtime;
-
-uri::uri() :
-	m_components
-	{
-		{ "string", "" },
-		{ "specifier", "" },
-		{ "scheme", "" },
-		{ "user", "" },
-		{ "password", "" },
-		{ "host", "" },
-		{ "port", "" },
-		{ "path", "" },
-		{ "parameter", "" },
-		{ "query", "" },
-		{ "fragment", "" }
-	},
-	m_parameters(),
-	m_port(0),
-	m_isfile_url(false),
-	m_isvalid_url(false)
+uri::uri()
+: m_components
+{
+	{ "string", "" },
+	{ "specifier", "" },
+	{ "scheme", "" },
+	{ "user", "" },
+	{ "password", "" },
+	{ "host", "" },
+	{ "port", "" },
+	{ "path", "" },
+	{ "parameter", "" },
+	{ "query", "" },
+	{ "fragment", "" }
+}
+, m_parameters()
+, m_port(0)
+, m_isfile_url(false)
+, m_isvalid_url(false)
 { /* NOP */ }
 
-uri::uri(const uri & url) :
-	m_components(url.m_components),
-	m_parameters(url.m_parameters),
-	m_port(url.m_port),
-	m_isfile_url(url.m_isfile_url),
-	m_isvalid_url(url.m_isvalid_url)
+uri::uri(const uri & url)
+: m_components(url.m_components)
+, m_parameters(url.m_parameters)
+, m_port(url.m_port)
+, m_isfile_url(url.m_isfile_url)
+, m_isvalid_url(url.m_isvalid_url)
 { /* NOP */ }
 
-uri::uri(const uri & url, bool normalize) :
-	m_components(url.m_components),
-	m_parameters(url.m_parameters),
-	m_port(url.m_port),
-	m_isfile_url(url.m_isfile_url),
-	m_isvalid_url(url.m_isvalid_url)
+uri::uri(const uri & url, bool normalize)
+: m_components(url.m_components)
+, m_parameters(url.m_parameters)
+, m_port(url.m_port)
+, m_isfile_url(url.m_isfile_url)
+, m_isvalid_url(url.m_isvalid_url)
 {
 	if (normalize) {
 		m_components.clear();
@@ -81,25 +82,25 @@ uri::uri(const uri & url, bool normalize) :
 	}
 }
 
-uri::uri(const std::string & str_url, const uri & url, bool normalize) :
-	m_components
-	{
-		{ "string", "" },
-		{ "specifier", "" },
-		{ "scheme", "" },
-		{ "user", "" },
-		{ "password", "" },
-		{ "host", "" },
-		{ "port", "" },
-		{ "path", "" },
-		{ "parameter", "" },
-		{ "query", "" },
-		{ "fragment", "" }
-	},
-	m_parameters(),
-	m_port(0),
-	m_isfile_url(false),
-	m_isvalid_url(false)
+uri::uri(const std::string & str_url, const uri & url, bool normalize)
+: m_components
+{
+	{ "string", "" },
+	{ "specifier", "" },
+	{ "scheme", "" },
+	{ "user", "" },
+	{ "password", "" },
+	{ "host", "" },
+	{ "port", "" },
+	{ "path", "" },
+	{ "parameter", "" },
+	{ "query", "" },
+	{ "fragment", "" }
+}
+, m_parameters()
+, m_port(0)
+, m_isfile_url(false)
+, m_isvalid_url(false)
 {
 	std::string str_abs_url;
 	if (builtins::uri_join(str_url, url.to_string(), str_abs_url, normalize)) {
@@ -117,25 +118,25 @@ uri::uri(const std::string & str_url, const uri & url, bool normalize) :
 	}
 }
 
-uri::uri(const std::string & str_url, const std::string & str_base_url, bool normalize) :
-	m_components
-	{
-		{ "string", "" },
-		{ "specifier", "" },
-		{ "scheme", "" },
-		{ "user", "" },
-		{ "password", "" },
-		{ "host", "" },
-		{ "port", "" },
-		{ "path", "" },
-		{ "parameter", "" },
-		{ "query", "" },
-		{ "fragment", "" }
-	},
-	m_parameters(),
-	m_port(0),
-	m_isfile_url(false),
-	m_isvalid_url(false)
+uri::uri(const std::string & str_url, const std::string & str_base_url, bool normalize)
+: m_components
+{
+	{ "string", "" },
+	{ "specifier", "" },
+	{ "scheme", "" },
+	{ "user", "" },
+	{ "password", "" },
+	{ "host", "" },
+	{ "port", "" },
+	{ "path", "" },
+	{ "parameter", "" },
+	{ "query", "" },
+	{ "fragment", "" }
+}
+, m_parameters()
+, m_port(0)
+, m_isfile_url(false)
+, m_isvalid_url(false)
 {
 	std::string str_abs_url;
 	if (builtins::uri_join(str_url, str_base_url, str_abs_url, normalize)) {
@@ -153,25 +154,25 @@ uri::uri(const std::string & str_url, const std::string & str_base_url, bool nor
 	}
 }
 
-uri::uri(const std::string & str_url, bool is_filepath, bool normalize) :
-	m_components
-	{
-		{ "string", "" },
-		{ "specifier", "" },
-		{ "scheme", "" },
-		{ "user", "" },
-		{ "password", "" },
-		{ "host", "" },
-		{ "port", "" },
-		{ "path", "" },
-		{ "parameter", "" },
-		{ "query", "" },
-		{ "fragment", "" }
-	},
-	m_parameters(),
-	m_port(0),
-	m_isfile_url(false),
-	m_isvalid_url(false)
+uri::uri(const std::string & str_url, bool is_filepath, bool normalize)
+: m_components
+{
+	{ "string", "" },
+	{ "specifier", "" },
+	{ "scheme", "" },
+	{ "user", "" },
+	{ "password", "" },
+	{ "host", "" },
+	{ "port", "" },
+	{ "path", "" },
+	{ "parameter", "" },
+	{ "query", "" },
+	{ "fragment", "" }
+}
+, m_parameters()
+, m_port(0)
+, m_isfile_url(false)
+, m_isvalid_url(false)
 {
 	if (is_filepath) {
 		std::string abs_uri;
@@ -201,25 +202,25 @@ uri::uri(const std::string & str_url, bool is_filepath, bool normalize) :
 	}
 }
 
-uri::uri(const std::string & scheme, const std::string & host, const std::string & path, bool normalize) :
-	m_components
-	{
-		{ "string", "" },
-		{ "specifier", "" },
-		{ "scheme", "" },
-		{ "user", "" },
-		{ "password", "" },
-		{ "host", "" },
-		{ "port", "" },
-		{ "path", "" },
-		{ "parameter", "" },
-		{ "query", "" },
-		{ "fragment", "" }
-	},
-	m_parameters(),
-	m_port(0),
-	m_isfile_url(false),
-	m_isvalid_url(false)
+uri::uri(const std::string & scheme, const std::string & host, const std::string & path, bool normalize)
+: m_components
+{
+	{ "string", "" },
+	{ "specifier", "" },
+	{ "scheme", "" },
+	{ "user", "" },
+	{ "password", "" },
+	{ "host", "" },
+	{ "port", "" },
+	{ "path", "" },
+	{ "parameter", "" },
+	{ "query", "" },
+	{ "fragment", "" }
+}
+, m_parameters()
+, m_port(0)
+, m_isfile_url(false)
+, m_isvalid_url(false)
 {
 	std::string in = scheme;
 	in += "://";
@@ -238,8 +239,8 @@ uri::uri(const std::string & scheme, const std::string & host, const std::string
 	}
 }
 
-uri::uri(const std::string & str_url) :
-	uri(str_url, !builtins::uri_asscheme(str_url), true)
+uri::uri(const std::string & str_url)
+: uri(str_url, !builtins::uri_asscheme(str_url), true)
 { /* NOP */ }
 
 uri::~uri()

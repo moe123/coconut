@@ -8,33 +8,34 @@
 #include <coconut/runtime/detail/core/stream.hpp>
 
 using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
 
-indexpath::indexpath() :
-	m_indexes()
+indexpath::indexpath()
+: m_indexes()
 { /* NOP */ }
 
-indexpath::indexpath(const indexpath & idxpath) :
-	m_indexes(idxpath.cbegin(), idxpath.cend())
+indexpath::indexpath(const indexpath & idxpath)
+: m_indexes(idxpath.cbegin(), idxpath.cend())
 { /* NOP */ }
 
-indexpath::indexpath(std::size_t index) :
-	m_indexes()
+indexpath::indexpath(std::size_t index)
+: m_indexes()
 { m_indexes.push_back(index); }
 
-indexpath::indexpath(std::size_t * indexes, std::size_t length) :
-	m_indexes()
+indexpath::indexpath(std::size_t * indexes, std::size_t length)
+: m_indexes()
 {
 	for (std::size_t i = 0; i < length; i++) {
 		m_indexes.push_back(indexes[i]);
 	}
 }
 
-indexpath::indexpath(const std::vector<std::size_t> & indexes) :
-	m_indexes(indexes.cbegin(), indexes.cend())
+indexpath::indexpath(const std::vector<std::size_t> & indexes)
+: m_indexes(indexes.cbegin(), indexes.cend())
 { /* NOP */ }
 
-indexpath::indexpath(const std::vector<std::size_t> & indexes, std::size_t numitems) :
-	m_indexes()
+indexpath::indexpath(const std::vector<std::size_t> & indexes, std::size_t numitems)
+: m_indexes()
 {
 	std::size_t length = numitems;
 	if (length > indexes.size()) {
@@ -94,14 +95,10 @@ std::size_t indexpath::index_at(std::size_t position) const
 #pragma mark -
 
 const std::vector<std::size_t> indexpath::indexes() const
-{
-	return m_indexes;
-}
+{ return m_indexes; }
 
 const std::size_t * indexpath::raw() const
-{
-	return m_indexes.data();
-}
+{ return m_indexes.data(); }
 
 #pragma mark -
 

@@ -49,7 +49,7 @@ namespace coconut
 	using runtime::NotFound;
 	using runtime::MaxFound;
 	
-	enum
+	COCONUT_OPT_TYPED(_classkind_opt, std::uint16_t)
 	{
 		ObjectClass = runtime::classkind_object,
 		ProxyClass,
@@ -119,7 +119,7 @@ namespace coconut
 	COCONUT_CLASSFORWARD_DCL(String)
 	COCONUT_CLASSFORWARD_DCL(URL)
 	
-	COCONUT_OPT_TYPED(OrderedOption, int)
+	COCONUT_OPT_TYPED(_ordered_opt, int)
 	{
 		OrderedAscending = runtime::cmp_ascending,
 		OrderedSame = runtime::cmp_same,
@@ -218,7 +218,7 @@ namespace coconut
 		ChunkSplit76LF = runtime::chunksplit_76lf
 	};
 	
-	COCONUT_OPT(NumberType)
+	COCONUT_OPT_TYPED(NumberType, std::uint16_t)
 	{
 		NumberZero = runtime::numeric_zero,
 		NumberFloat = runtime::numeric_float,

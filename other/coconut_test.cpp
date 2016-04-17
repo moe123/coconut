@@ -886,7 +886,7 @@ static void test_getlocale()
 
 static void parse_path(void)
 {
-	runtime::irange rg(u8"{\"location\" : 45, \"length\" : 78}");
+	runtime::traits::irange rg(u8"{\"location\" : 45, \"length\" : 78}");
 	
 	std::cerr << "+ rg " << rg.to_string() << std::endl;
 	
@@ -998,6 +998,27 @@ static std::pair<int, bool> is_prime(int n)
 
 static void run_queue(void)
 {
+	
+	
+	std::cout << "sizeof(class runtime::traits::bytebuf) : " << sizeof(runtime::traits::bytebuf) << std::endl;
+	std::cout << "sizeof(class runtime::traits::uri) : " << sizeof(runtime::traits::uri) << std::endl;
+	std::cout << "sizeof(class runtime::traits::ustring) : " << sizeof(runtime::traits::ustring) << std::endl;
+	std::cout << "sizeof(class runtime::traits::numeric) : " << sizeof(runtime::traits::numeric) << std::endl;
+	
+	std::cout << "sizeof(class icu::UnicodeString) : " << sizeof(icu::UnicodeString) << std::endl;
+	
+	std::cout << "sizeof(class runtime::nucleus) : " << sizeof(runtime::nucleus) << std::endl;
+	std::cout << "sizeof(class Object) : " << sizeof(Object) << std::endl;
+	std::cout << "sizeof(class Array) : " << sizeof(Array) << std::endl;
+	std::cout << "sizeof(class MutableArray) : " << sizeof(MutableArray) << std::endl;
+	std::cout << "sizeof(class Dictionary) : " << sizeof(Dictionary) << std::endl;
+	std::cout << "sizeof(class MutableDictionary) : " << sizeof(MutableDictionary) << std::endl;
+	std::cout << "sizeof(class String) : " << sizeof(String) << std::endl;
+	std::cout << "sizeof(class Number) : " << sizeof(Number) << std::endl;
+	std::cout << "sizeof(class Date) : " << sizeof(Date) << std::endl;
+	std::cout << "sizeof(class Data) : " << sizeof(Data) << std::endl;
+	std::cout << "sizeof(class URL) : " << sizeof(URL) << std::endl;
+	
 	// testing any return types even if only void makes sense.
 	COCONUT_DEFER ([]() -> int { std::cout << "lambda" << std::endl; return 1; });
 	COCONUT_DEFER (is_prime, 300);

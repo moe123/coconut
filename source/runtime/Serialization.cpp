@@ -17,8 +17,8 @@
 #include <coconut/foundation/String.hpp>
 #include <coconut/foundation/URL.hpp>
 
-#include <source/runtime/builtins/serialization_xmlplist.hxx>
-
 using namespace coconut;
+
+#include <source/runtime/builtins/serialization_xmlplist.hxx>
 
 /* EOF */

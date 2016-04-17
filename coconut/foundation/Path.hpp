@@ -54,7 +54,7 @@ namespace coconut
 		friend class Dictionary;
 		
 	public:
-		typedef runtime::upath impl_trait;
+		typedef runtime::traits::upath impl_trait;
 	
 	protected:
 		impl_trait m_impl;

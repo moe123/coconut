@@ -7,9 +7,9 @@
 #include <coconut/runtime/detail/core/hash.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 
-#include <source/runtime/builtins/hash_sha256_func.hxx>
-
 using namespace coconut::runtime;
+
+#include <source/runtime/builtins/hash_sha256_func.hxx>
 
 hash::sha256::sha256() :
 	sha_base(512 / 8, 8)

@@ -8,23 +8,24 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
 using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
 
-islice::islice() :
-	m_start(0),
-	m_stop(0),
-	m_step(1)
+islice::islice()
+: m_start(0)
+, m_stop(0)
+, m_step(1)
 { /* NOP */ }
 
-islice::islice(const islice & slc) :
-	m_start(slc.m_start),
-	m_stop(slc.m_stop),
-	m_step(slc.m_step)
+islice::islice(const islice & slc)
+: m_start(slc.m_start)
+, m_stop(slc.m_stop)
+, m_step(slc.m_step)
 { /* NOP */ }
 
-islice::islice(const std::string & slc_string) :
-	m_start(0),
-	m_stop(0),
-	m_step(1)
+islice::islice(const std::string & slc_string)
+: m_start(0)
+, m_stop(0)
+, m_step(1)
 {
 	try {
 		std::regex regex
@@ -47,16 +48,16 @@ islice::islice(const std::string & slc_string) :
 	catch (std::regex_error e) { /* NOP */ }
 }
 
-islice::islice(std::int64_t start, std::int64_t stop) :
-	m_start(start),
-	m_stop(stop),
-	m_step(1)
+islice::islice(std::int64_t start, std::int64_t stop)
+: m_start(start)
+, m_stop(stop)
+, m_step(1)
 { /* NOP */ }
 
-islice::islice(std::int64_t start, std::int64_t stop, std::int64_t step) :
-	m_start(start),
-	m_stop(stop),
-m_step(step == 0 ? 1 : step)
+islice::islice(std::int64_t start, std::int64_t stop, std::int64_t step)
+: m_start(start)
+, m_stop(stop)
+, m_step(step == 0 ? 1 : step)
 { /* NOP */ }
 
 islice::~islice()

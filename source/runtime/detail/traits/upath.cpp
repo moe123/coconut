@@ -10,26 +10,27 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
+using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
+
 #include <source/runtime/builtins/filesystem_info.hxx>
 #include <source/runtime/builtins/upath_absolute.hxx>
 #include <source/runtime/builtins/upath_detection.hxx>
 
-using namespace coconut::runtime;
-
-upath::upath() :
-	m_components()
+upath::upath()
+: m_components()
 { /* NOP */ }
 
-upath::upath(const upath & path) :
-	m_components(path.m_components)
+upath::upath(const upath & path)
+: m_components(path.m_components)
 { /* NOP */ }
 
-upath::upath(const ustring & path, dirsep_option option) :
-	upath(path.to_utf8(), encoding_utf8, option)
+upath::upath(const ustring & path, dirsep_option option)
+: upath(path.to_utf8(), encoding_utf8, option)
 { /* NOP */ }
 
-upath::upath(const std::string & str_path, encoding_option encoding, dirsep_option option) :
-	m_components()
+upath::upath(const std::string & str_path, encoding_option encoding, dirsep_option option)
+: m_components()
 {
 	std::string path;
 	if (encoding != encoding_utf8) {
@@ -45,8 +46,8 @@ upath::upath(const std::string & str_path, encoding_option encoding, dirsep_opti
 	}
 }
 
-upath::upath(const std::u16string & str_path, encoding_option encoding, dirsep_option option) :
-	upath(unicode::utf16_to_utf8(str_path), encoding_utf8, option)
+upath::upath(const std::u16string & str_path, encoding_option encoding, dirsep_option option)
+: upath(unicode::utf16_to_utf8(str_path), encoding_utf8, option)
 { /* NOP */ }
 
 upath::~upath()

@@ -8,20 +8,21 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
 using namespace coconut::runtime;
+using namespace coconut::runtime::traits;
 
-irange::irange() :
-	m_loc(0),
-	m_len(0)
+irange::irange()
+: m_loc(0)
+, m_len(0)
 { /* NOP */ }
 
-irange::irange(const irange & rg) :
-	m_loc(rg.m_loc),
-	m_len(rg.m_len)
+irange::irange(const irange & rg)
+: m_loc(rg.m_loc)
+, m_len(rg.m_len)
 { /* NOP */ }
 
-irange::irange(const std::string & rg_string) :
-	m_loc(0),
-	m_len(0)
+irange::irange(const std::string & rg_string)
+: m_loc(0)
+, m_len(0)
 {
 	try {
 		std::regex regex
@@ -43,9 +44,9 @@ irange::irange(const std::string & rg_string) :
 	catch (std::regex_error e) { /* NOP */ }
 }
 
-irange::irange(std::size_t location, std::size_t length) :
-	m_loc(location),
-	m_len(length)
+irange::irange(std::size_t location, std::size_t length)
+: m_loc(location)
+, m_len(length)
 { /* NOP */ }
 
 irange::~irange()

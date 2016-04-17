@@ -13,42 +13,37 @@
 
 using namespace coconut::runtime;
 
-nucleus::nucleus() :
-	m_attrs(),
-	m_kinds(),
-	m_addr("0x00"),
-	m_kind(classkind_anon),
-	m_tag(-1000LL),
-	m_ismutable(false)
+nucleus::nucleus()
+: m_attrs()
+, m_kinds()
+, m_kind(classkind_anon)
+, m_tag(-1000)
+, m_ismutable(false)
 { /* NOP */ }
 
-nucleus::nucleus(const nucleus & ref) :
-	m_attrs(),
-	m_kinds(),
-	m_addr("0x00"),
-	m_kind(classkind_anon),
-	m_tag(-1000LL),
-	m_ismutable(false)
+nucleus::nucleus(const nucleus & ref)
+: m_attrs()
+, m_kinds()
+, m_kind(classkind_anon)
+, m_tag(-1000)
+, m_ismutable(false)
 { COCONUT_UNUSED(ref); }
 
 nucleus & nucleus::operator = (const nucleus & ref)
 { COCONUT_UNUSED(ref); return *this; }
 
-nucleus::nucleus(ClassKind root, ClassKind kind) :
-	m_attrs(),
-	m_kinds(),
-	m_addr(),
-	m_kind(kind),
-	m_tag(-1000LL),
-	m_ismutable(false)
+nucleus::nucleus(ClassKind root, ClassKind kind)
+: m_attrs()
+, m_kinds()
+, m_kind(kind)
+, m_tag(-1000)
+, m_ismutable(false)
 {
 	m_kinds.push_back(classkind_nucleus);
 	m_kinds.push_back(root);
 	if (m_kind != classkind_nucleus && m_kind != root) {
 		m_kinds.push_back(m_kind);
 	}
-	std::stringstream ss; ss << std::hex << std::showbase << this;
-	m_addr.assign(ss.str());
 }
 
 nucleus::~nucleus()
@@ -168,23 +163,19 @@ Owning<Any> nucleus::attributeForKey(const std::string & utf8_attrkey) const
 
 #pragma mark -
 
-void nucleus::setTag(std::int64_t tag)
+void nucleus::setTag(std::int16_t tag)
 { m_tag = tag; }
 
-std::int64_t nucleus::tag() const
+std::int16_t nucleus::tag() const
 { return m_tag; }
 
 #pragma mark -
 
 const std::string nucleus::className() const
-{
-	return class_name();
-}
+{ return class_name(); }
 
 const std::string nucleus::classTree() const
-{
-	return class_tree();
-}
+{ return class_tree(); }
 
 #pragma mark -
 
@@ -200,14 +191,10 @@ std::size_t nucleus::hash() const
 #pragma mark -
 
 bool nucleus::isKindOf(ClassKind kind) const
-{
-	return !(std::find(m_kinds.begin(), m_kinds.end(), kind) == m_kinds.end());
-}
+{ return !(std::find(m_kinds.begin(), m_kinds.end(), kind) == m_kinds.end()); }
 
 bool nucleus::isKindOf(const Any & ref, const Any & other_ref) const
-{
-	return (ref.isKindOf(other_ref.classKind()));
-}
+{ return (ref.isKindOf(other_ref.classKind())); }
 
 bool nucleus::isKindOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const
 {
@@ -218,9 +205,7 @@ bool nucleus::isKindOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) c
 }
 
 bool nucleus::isKindOf(const Any & ref) const
-{
-	return isKindOf(ref.classKind());
-}
+{ return isKindOf(ref.classKind()); }
 
 bool nucleus::isKindOf(const Owning<Any> & ptr) const
 {
@@ -233,14 +218,10 @@ bool nucleus::isKindOf(const Owning<Any> & ptr) const
 #pragma mark -
 
 bool nucleus::isSubclassOf(ClassKind kind) const
-{
-	return (parentClassKind() == kind);
-}
+{ return (parentClassKind() == kind); }
 
 bool nucleus::isSubclassOf(const Any & ref, const Any & other_ref) const
-{
-	return (ref.isSubclassOf(other_ref.classKind()));
-}
+{ return (ref.isSubclassOf(other_ref.classKind())); }
 
 bool nucleus::isSubclassOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const
 {
@@ -251,9 +232,7 @@ bool nucleus::isSubclassOf(const Owning<Any> & ptr, const Owning<Any> & other_pt
 }
 
 bool nucleus::isSubclassOf(const Any & ref) const
-{
-	return isSubclassOf(ref.classKind());
-}
+{ return isSubclassOf(ref.classKind()); }
 
 bool nucleus::isSubclassOf(const Owning<Any> & ptr) const
 {
@@ -266,14 +245,10 @@ bool nucleus::isSubclassOf(const Owning<Any> & ptr) const
 #pragma mark -
 
 bool nucleus::isMemberOf(ClassKind kind) const
-{
-	return (m_kind == kind);
-}
+{ return (m_kind == kind); }
 
 bool nucleus::isMemberOf(const Any & ref, const Any & other_ref) const
-{
-	return (ref.classKind() == other_ref.classKind());
-}
+{ return (ref.classKind() == other_ref.classKind()); }
 
 bool nucleus::isMemberOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr) const
 {
@@ -284,9 +259,7 @@ bool nucleus::isMemberOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr)
 }
 
 bool nucleus::isMemberOf(const Any & ref) const
-{
-	return (m_kind == ref.classKind());
-}
+{ return (m_kind == ref.classKind()); }
 
 bool nucleus::isMemberOf(const Owning<Any> & ptr) const
 {
@@ -299,9 +272,7 @@ bool nucleus::isMemberOf(const Owning<Any> & ptr) const
 #pragma mark -
 
 bool nucleus::isAncestorOf(const Any & ref) const
-{
-	return ref.isKindOf(*this);
-}
+{ return ref.isKindOf(*this); }
 
 bool nucleus::isAncestorOf(const Owning<Any> & ptr) const
 {
@@ -314,9 +285,7 @@ bool nucleus::isAncestorOf(const Owning<Any> & ptr) const
 #pragma mark -
 
 bool nucleus::isParentOf(const Any & ref) const
-{
-	return (ref.parentClassKind() == classKind());
-}
+{ return (ref.parentClassKind() == classKind()); }
 
 bool nucleus::isParentOf(const Owning<Any> & ptr) const
 {
@@ -593,7 +562,10 @@ std::ptrdiff_t nucleus::sig() const
 { return unsafe_cast<std::ptrdiff_t>(this); }
 
 const std::string nucleus::addr() const
-{ return m_addr; }
+{
+	std::stringstream ss; ss << std::hex << std::showbase << this;
+	return ss.str();
+}
 
 #pragma mark -
 
