@@ -46,6 +46,11 @@ namespace coconut
 	inline auto JobExec(FuncT && func, ArgsT &&... args)
 		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
 	{ return runtime::async::exec(JobPolicyAsync, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
+
+	template <typename FuncT, typename... ArgsT>
+	inline auto JobDefer(FuncT && func, ArgsT &&... args)
+		-> JobReturn<typename std::result_of<FuncT(ArgsT...)>::type>
+	{ return runtime::async::exec(JobPolicyDeferred, std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
 	
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobRun(FuncT && func, ArgsT &&... args)
@@ -55,11 +60,6 @@ namespace coconut
 	template <typename FuncT, typename... ArgsT>
 	inline auto JobDetach(FuncT && func, ArgsT &&... args)
 		-> void
-	{ runtime::async::detach(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
-	
-	template <typename FuncT, typename... ArgsT>
-	inline auto JobDefer(FuncT && func, ArgsT &&... args)
-	-> void
 	{ runtime::async::detach(std::forward<FuncT>(func), std::forward<ArgsT>(args)...); }
 }
 
