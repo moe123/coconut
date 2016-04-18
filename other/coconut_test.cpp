@@ -1002,6 +1002,7 @@ static void run_queue(void)
 	std::cout << "sizeof(class Owning<Any>) : " << sizeof(Owning<Any>) << std::endl;
 	std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) << std::endl;
 	std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b) >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b) >) << std::endl;
+	std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, bool (*)(const Owning<Any> & a, const Owning<Any> & b) >) << std::endl;
 	
 	std::cout << "sizeof(class runtime::traits::bytebuf) : " << sizeof(runtime::traits::bytebuf) << std::endl;
 	std::cout << "sizeof(class runtime::traits::uri) : " << sizeof(runtime::traits::uri) << std::endl;
