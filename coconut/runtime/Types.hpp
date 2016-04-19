@@ -119,13 +119,13 @@ namespace coconut
 	COCONUT_CLASSFORWARD_DCL(String)
 	COCONUT_CLASSFORWARD_DCL(URL)
 	
-	COCONUT_OPT_TYPED(_ordered_opt, int)
+	COCONUT_OPT_TYPED(ComparisonResultAlias, int)
 	{
 		OrderedAscending = runtime::cmp_ascending,
 		OrderedSame = runtime::cmp_same,
 		OrderedDescending = runtime::cmp_descending
 	};
-	
+		
 	COCONUT_OPT(JobPolicyOption)
 	{
 		JobPolicyAsync = runtime::launch_async,
