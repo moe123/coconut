@@ -53,7 +53,7 @@ namespace coconut
 		friend class String;
 		
 	protected:
-		typedef runtime::traits::irange impl_trait;
+		typedef coconut::runtime::traits::irange impl_trait;
 
 	public:
 		typedef impl_trait::iterator iterator;

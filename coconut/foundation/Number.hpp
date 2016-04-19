@@ -107,7 +107,7 @@ namespace coconut
 		bool operator >= (const Number & other_num) const;
 		
 	protected:
-		typedef runtime::traits::numeric impl_trait;
+		typedef coconut::runtime::traits::numeric impl_trait;
 	
 	private:
 		impl_trait m_impl;

@@ -125,7 +125,7 @@ bool uri_parse(
 	std::map<std::string, std::string> & out_map,
 	std::map<std::string, std::string> & out_params,
 	bool & is_file,
-	std::size_t & port,
+	std::uint16_t & port,
 	bool normalize)
 {
 	bool result = false;

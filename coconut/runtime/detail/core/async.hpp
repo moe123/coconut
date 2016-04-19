@@ -56,7 +56,7 @@ inline shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option 
 	}
 	auto bind = std::bind(std::forward<FuncT>(func), std::forward<ArgsT>(args)...);
 	return shall<typename std::result_of<FuncT(ArgsT...)>::type>(
-		std::async(std::move(policy), std::move(bind))
+		std::async(policy, std::move(bind))
 	);
 }
 
@@ -130,7 +130,7 @@ public:
 			}
 			m_cond.notify_all();
 			
-			for (std::list<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
+			for (std::vector<std::thread>::iterator it = m_threads.begin(); it != m_threads.end(); ++it) {
 				m_cond.notify_one();
 				(*it).join();
 			}
@@ -246,7 +246,7 @@ private:
 	std::mutex m_mutex;
 	std::condition_variable m_cond;
 	std::deque<std::future<void>> m_tasks;
-	std::list<std::thread> m_threads;
+	std::vector<std::thread> m_threads;
 	
 	std::size_t m_count;
 	bool m_stop;

@@ -25,7 +25,7 @@ namespace coconut
 		
 	public:
 	/*
-	* Bridge adapter late and early runtime bindings @see runtime::nucleus.
+	* Bridge adapter late and early runtime bindings.
 	*/
 		Object();
 		virtual ~Object();
@@ -36,8 +36,8 @@ namespace coconut
 		explicit Object(ClassKind kind);
 	
 	public:
-		COCONUT_CLASSMETHOD Owning<Any> copyObject(const Any & ref, CopyOption option);
-		COCONUT_CLASSMETHOD Owning<Any> copyObject(const Owning<Any> & ptr, CopyOption option);
+		COCONUT_CLASSMETHOD Owning<Any> copyObject(const Any & obj, CopyOption option);
+		COCONUT_CLASSMETHOD Owning<Any> copyObject(const Owning<Any> & obj, CopyOption option);
 	
 	public:
 	/*

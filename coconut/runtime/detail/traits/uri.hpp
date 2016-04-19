@@ -46,7 +46,7 @@ public:
 	const std::string user() const;
 	const std::string password() const;
 	const std::string host() const;
-	std::size_t port() const;
+	std::uint16_t port() const;
 	const std::string path() const;
 	const std::string parameter() const;
 	const std::string query() const;
@@ -59,7 +59,7 @@ private:
 	std::map<std::string, std::string> m_components;
 	std::map<std::string, std::string> m_parameters;
 	
-	std::size_t m_port;
+	std::uint16_t m_port;
 	bool m_isfile_url;
 	bool m_isvalid_url;
 };

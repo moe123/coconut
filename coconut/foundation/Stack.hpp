@@ -30,7 +30,7 @@ namespace coconut
 		COCONUT_FINAL_OVERRIDE;
 	
 	public:
-		void push(const Owning<Any> & ptr);
+		void push(const Owning<Any> & obj);
 		const Owning<Any> pop();
 		const Owning<Any> peek() const;
 		

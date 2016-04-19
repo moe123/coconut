@@ -43,11 +43,11 @@ public:
 	std::string to_string() const;
 
 private:
-	typedef iterators::range_adv_facet<std::size_t, irange> iter_adv_facet;
-	typedef const iterators::range_adv_facet<std::size_t, irange> const_iter_adv_facet;
+	typedef coconut::runtime::iterators::range_adv_facet<std::size_t, irange> iter_adv_facet;
+	typedef const coconut::runtime::iterators::range_adv_facet<std::size_t, irange> const_iter_adv_facet;
 	
-	typedef iterators::range_rev_facet<std::size_t, irange> iter_rev_facet;
-	typedef const iterators::range_rev_facet<std::size_t, irange> const_iter_rev_facet;
+	typedef coconut::runtime::iterators::range_rev_facet<std::size_t, irange> iter_rev_facet;
+	typedef const coconut::runtime::iterators::range_rev_facet<std::size_t, irange> const_iter_rev_facet;
 
 public:
 	typedef iter_adv_facet iterator;

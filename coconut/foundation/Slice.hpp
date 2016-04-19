@@ -46,7 +46,7 @@ namespace coconut
 		friend class String;
 		
 	protected:
-		typedef runtime::traits::islice impl_trait;
+		typedef coconut::runtime::traits::islice impl_trait;
 	
 	protected:
 		impl_trait m_impl;

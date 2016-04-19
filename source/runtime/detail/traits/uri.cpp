@@ -337,7 +337,7 @@ const std::string uri::host() const
 	return m_components.at("host");
 }
 
-std::size_t uri::port() const
+std::uint16_t uri::port() const
 {
 	return m_port;
 }

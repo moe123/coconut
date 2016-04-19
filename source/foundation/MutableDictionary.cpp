@@ -93,106 +93,106 @@ void MutableDictionary::setObjectsFromDictionary(const Dictionary & dict, CopyOp
 
 #pragma mark -
 
-void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key)
+void MutableDictionary::setObject(const Owning<Any> & obj, const std::string & utf8_key)
 {
-	setObject(ptr, utf8_key, CopyNone);
+	setObject(obj, utf8_key, CopyNone);
 }
 
-void MutableDictionary::setObject(Owning<Any> ptr, const Any & key)
+void MutableDictionary::setObject(const Owning<Any> & obj, const Any & key)
 {
-	setObject(ptr, key, CopyNone);
+	setObject(obj, key, CopyNone);
 }
 
-void MutableDictionary::setObject(Owning<Any> ptr, Owning<Any> key)
+void MutableDictionary::setObject(const Owning<Any> & obj, Owning<Any> key)
 {
-	setObject(ptr, key, CopyNone);
+	setObject(obj, key, CopyNone);
 }
 
 #pragma mark -
 
-void MutableDictionary::setObject(Owning<Any> ptr, const std::string & utf8_key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> obj, const std::string & utf8_key, CopyOption option)
 {
-	if (ptr) {
+	if (obj) {
 		if (option != CopyNone) {
 			Owning<Any> k = ptr_create<String>(utf8_key);
-			Owning<Any> v = Object::copyObject(ptr, option);
+			Owning<Any> v = Object::copyObject(obj, option);
 			m_impl[k] = v;
 		} else {
 			Owning<Any> k = ptr_create<String>(utf8_key);
-			m_impl[k] = ptr;
+			m_impl[k] = obj;
 		}
 	}
 }
 
-void MutableDictionary::setObject(Owning<Any> ptr, const Any & key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> obj, const Any & key, CopyOption option)
 {
-	if (ptr) {
+	if (obj) {
 		if (option != CopyNone) {
 			Owning<Any> k = key.kindCopy();
-			Owning<Any> v = Object::copyObject(ptr, option);
+			Owning<Any> v = Object::copyObject(obj, option);
 			m_impl[k] = v;
 		} else {
 			Owning<Any> k = key.kindCopy();
-			m_impl[k] = ptr;
+			m_impl[k] = obj;
 		}
 	}
 }
 
-void MutableDictionary::setObject(Owning<Any> ptr, Owning<Any> key, CopyOption option)
+void MutableDictionary::setObject(Owning<Any> obj, Owning<Any> key, CopyOption option)
 {
-	if (ptr && key) {
+	if (obj && key) {
 		if (option != CopyNone) {
 			Owning<Any> k = Object::copyObject(key, option);
-			Owning<Any> v = Object::copyObject(ptr, option);
+			Owning<Any> v = Object::copyObject(obj, option);
 			m_impl[k] = v;
 		} else {
 			Owning<Any> k = key;
-			m_impl[k] = ptr;
+			m_impl[k] = obj;
 		}
 	}
 }
 
 #pragma mark -
 
-Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const std::string & utf8_key)
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const std::string & utf8_key)
 {
 	Owning<Any> old = objectForKey(utf8_key);
-	setObject(ptr, utf8_key);
+	setObject(obj, utf8_key);
 	return old;
 }
 
-Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Any & key)
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const Any & key)
 {
 	Owning<Any> old = objectForKey(key);
-	setObject(ptr, key);
+	setObject(obj, key);
 	return old;
 }
 
-Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Owning<Any> & key)
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const Owning<Any> & key)
 {
 	Owning<Any> old = objectForKey(key);
-	setObject(ptr, key);
+	setObject(obj, key);
 	return old;
 }
 
-Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const std::string & utf8_key, CopyOption option)
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const std::string & utf8_key, CopyOption option)
 {
 	Owning<Any> old = objectForKey(utf8_key);
-	setObject(ptr, utf8_key);
+	setObject(obj, utf8_key);
 	return old;
 }
 
-Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Any & key, CopyOption option)
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const Any & key, CopyOption option)
 {
 	Owning<Any> old = objectForKey(key);
-	setObject(ptr, key, option);
+	setObject(obj, key, option);
 	return old;
 }
 
-Owning<Any> MutableDictionary::updateObject(const Owning<Any> & ptr, const Owning<Any> & key, CopyOption option)
+Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const Owning<Any> & key, CopyOption option)
 {
 	Owning<Any> old = objectForKey(key);
-	setObject(ptr, key, option);
+	setObject(obj, key, option);
 	return old;
 }
 

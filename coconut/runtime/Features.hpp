@@ -85,7 +85,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	inline auto _then(ptr_declare<T2> const & r, std::true_type)
-		-> Owning<T1>
+		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r); }
 
 	template <typename T1, typename T2,

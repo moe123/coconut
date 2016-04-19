@@ -62,21 +62,21 @@ namespace coconut
 		void setObjects(IterT && beg, IterT && end, CopyOption option)
 		{ setObjectsFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
-		void setObject(Owning<Any> ptr, const std::string & utf8_key);
-		void setObject(Owning<Any> ptr, const Any & key);
-		void setObject(Owning<Any> ptr, Owning<Any> key);
+		void setObject(const Owning<Any> & obj, const std::string & utf8_key);
+		void setObject(const Owning<Any> & obj, const Any & key);
+		void setObject(const Owning<Any> & obj, Owning<Any> key);
 		
-		void setObject(Owning<Any> ptr, const std::string & utf8_key, CopyOption option);
-		void setObject(Owning<Any> ptr, const Any & key, CopyOption option);
-		void setObject(Owning<Any> ptr, const Owning<Any> key, CopyOption option);
+		void setObject(Owning<Any> obj, const std::string & utf8_key, CopyOption option);
+		void setObject(Owning<Any> obj, const Any & key, CopyOption option);
+		void setObject(Owning<Any> obj, const Owning<Any> key, CopyOption option);
 		
-		Owning<Any> updateObject(const Owning<Any> & ptr, const std::string & utf8_key);
-		Owning<Any> updateObject(const Owning<Any> & ptr, const Any & key);
-		Owning<Any> updateObject(const Owning<Any> & ptr, const Owning<Any> & key);
+		Owning<Any> updateObject(const Owning<Any> & obj, const std::string & utf8_key);
+		Owning<Any> updateObject(const Owning<Any> & obj, const Any & key);
+		Owning<Any> updateObject(const Owning<Any> & obj, const Owning<Any> & key);
 		
-		Owning<Any> updateObject(const Owning<Any> & ptr, const std::string & utf8_key, CopyOption option);
-		Owning<Any> updateObject(const Owning<Any> & ptr, const Any & key, CopyOption option);
-		Owning<Any> updateObject(const Owning<Any> & ptr, const Owning<Any> & key, CopyOption option);
+		Owning<Any> updateObject(const Owning<Any> & obj, const std::string & utf8_key, CopyOption option);
+		Owning<Any> updateObject(const Owning<Any> & obj, const Any & key, CopyOption option);
+		Owning<Any> updateObject(const Owning<Any> & obj, const Owning<Any> & key, CopyOption option);
 		
 		void addEntriesFromDictionary(const Dictionary & dict);
 		void addEntriesFromDictionary(const Dictionary & dict, CopyOption option);

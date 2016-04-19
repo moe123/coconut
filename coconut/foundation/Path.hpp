@@ -53,8 +53,8 @@ namespace coconut
 		friend class Data;
 		friend class Dictionary;
 		
-	public:
-		typedef runtime::traits::upath impl_trait;
+	protected:
+		typedef coconut::runtime::traits::upath impl_trait;
 	
 	protected:
 		impl_trait m_impl;

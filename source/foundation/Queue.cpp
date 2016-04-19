@@ -38,8 +38,8 @@ std::size_t Queue::size() const
 
 #pragma mark -
 
-void Queue::enqueue(const Owning<Any> & ptr)
-{ if (ptr) { m_impl.push(ptr); } }
+void Queue::enqueue(const Owning<Any> & obj)
+{ if (obj) { m_impl.push(obj); } }
 
 const Owning<Any> Queue::dequeue()
 {

@@ -35,20 +35,20 @@ Object::~Object()
 
 #pragma mark -
 
-Owning<Any> Object::copyObject(const Any & ref, CopyOption option)
+Owning<Any> Object::copyObject(const Any & obj, CopyOption option)
 {
 	Owning<Any> copy;
 	switch (option)
 	{
 		case CopyMutable:
-			copy = ref.mutableCopy();
+			copy = obj.mutableCopy();
 		break;
 		case CopyImmutable:
-			copy = ref.copy();
+			copy = obj.copy();
 		break;
 		case CopyNone:
 		case CopyKind:
-			copy = ref.kindCopy();
+			copy = obj.kindCopy();
 		break;
 		default:
 			break;
@@ -56,23 +56,23 @@ Owning<Any> Object::copyObject(const Any & ref, CopyOption option)
 	return copy;
 }
 
-Owning<Any> Object::copyObject(const Owning<Any> & ptr, CopyOption option)
+Owning<Any> Object::copyObject(const Owning<Any> & obj, CopyOption option)
 {
-	if (ptr) {
+	if (obj) {
 		if (option == CopyNone) {
-			return ptr;
+			return obj;
 		} else {
 			Owning<Any> copy;
 			switch (option)
 			{
 				case CopyMutable:
-					copy = ptr->mutableCopy();
+					copy = obj->mutableCopy();
 				break;
 				case CopyImmutable:
-					copy = ptr->copy();
+					copy = obj->copy();
 				break;
 				case CopyKind:
-					copy = ptr->kindCopy();
+					copy = obj->kindCopy();
 				break;
 				default:
 					break;

@@ -38,8 +38,8 @@ std::size_t Stack::size() const
 
 #pragma mark -
 
-void Stack::push(const Owning<Any> & ptr)
-{ if (ptr) { m_impl.push(ptr); } }
+void Stack::push(const Owning<Any> & obj)
+{ if (obj) { m_impl.push(obj); } }
 
 #pragma mark -
 
