@@ -13,7 +13,6 @@
 #include <coconut/runtime/detail/core/byteorder.hpp>
 #include <coconut/runtime/detail/core/hash.hpp>
 
-using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 bytebuf::bytebuf()

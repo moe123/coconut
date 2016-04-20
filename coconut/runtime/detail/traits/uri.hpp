@@ -52,8 +52,8 @@ public:
 	const std::string query() const;
 	const std::string fragment() const;
 	
-	const std::map<std::string, std::string> parameters() const;
 	const std::map<std::string, std::string> components() const;
+	const std::map<std::string, std::string> parameters() const;
 
 private:
 	std::map<std::string, std::string> m_components;

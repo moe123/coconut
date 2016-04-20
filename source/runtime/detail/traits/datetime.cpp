@@ -9,7 +9,6 @@
 #include <coconut/runtime/detail/traits/locale.hpp>
 #include <coconut/runtime/detail/traits/timezone.hpp>
 
-using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 #include <source/runtime/builtins/datetime_epoch.hxx>

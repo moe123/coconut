@@ -62,7 +62,7 @@ namespace coconut
 		const Date & laterDate(const Date & dtm) const;
 		
 	protected:
-		typedef coconut::runtime::traits::datetime impl_trait;
+		typedef runtime::traits::datetime impl_trait;
 	
 	protected:
 		impl_trait m_impl;

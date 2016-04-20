@@ -63,7 +63,7 @@ namespace coconut
 		friend class Dictionary;
 		
 	protected:
-		typedef coconut::runtime::traits::uri impl_trait;
+		typedef runtime::traits::uri impl_trait;
 		
 	private:
 		impl_trait m_impl;

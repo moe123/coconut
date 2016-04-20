@@ -7,7 +7,7 @@
 namespace coconut { namespace runtime { namespace builtins {
 
 ___COCONUT_BEGIN_DECLS
-	#include "uriparser/Uri.h"
+#include "uriparser/Uri.h"
 ___COCONUT_END_DECLS
 
 namespace {	

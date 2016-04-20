@@ -13,7 +13,6 @@
 #include <coconut/runtime/detail/core/algorithm.hpp>
 #include <coconut/runtime/detail/core/unicode.hpp>
 
-using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 #include <source/runtime/builtins/ustring_compare_utf8.hxx>

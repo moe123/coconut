@@ -302,7 +302,7 @@ inline std::string format(const char * fmt, ArgsT &&... args)
 {
 	int sz = std::snprintf(nullptr, 0, fmt, std::forward<ArgsT>(args)...);
 	if (sz) {
-		std::vector<char> buf(static_cast<std::size_t>(sz) + 1);
+		std::vector<char> buf(static_cast<std::size_t>(sz));
 		std::snprintf(buf.data(), buf.size(), fmt, std::forward<ArgsT>(args)...);
 		if (buf.back() == '\0') { buf.pop_back(); }
 		return std::string(buf.begin(), buf.end());

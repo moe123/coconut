@@ -1023,6 +1023,7 @@ static void run_queue(void)
 	std::cout << "sizeof(class URL) : " << sizeof(URL) << std::endl;
 	
 	// testing any return types even if only void makes sense.
+	
 	COCONUT_DEFER ([]() -> int { std::cout << "lambda" << std::endl; return 1; });
 	COCONUT_DEFER (is_prime, 300);
 	

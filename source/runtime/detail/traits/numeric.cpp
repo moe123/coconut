@@ -7,7 +7,6 @@
 #include <coconut/runtime/detail/traits/numeric.hpp>
 #include <coconut/runtime/detail/core/algorithm.hpp>
 
-using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 numeric::numeric()

@@ -7,7 +7,6 @@
 #include <coconut/runtime/detail/traits/indexset.hpp>
 #include <coconut/runtime/detail/traits/irange.hpp>
 
-using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 indexset::indexset()
