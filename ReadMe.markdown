@@ -338,6 +338,65 @@ std::cerr << sorted << std::endl;
 
 ```
 ```cpp
+// Coconut Easy Concurrent Jobs: similar to a Callable 
+// in Java but purely lambda expressions driven :
+
+auto job = JobExec(JobPolicyAsync, []() -> bool
+{
+	bool result = false;
+	//
+	// do something;
+	// 
+	return result;
+});
+
+// Acquiring. Note the function operator access.
+
+bool whathappened = job();
+
+//
+// Shortcut asynchronous handler.
+//
+
+bool job = JobRun([]() -> bool
+{
+	bool result = false;
+	//
+	// do something;
+	// 
+	return result;
+});
+
+// continue...
+
+//
+// Using a thread pool to perform pseudo-parallel computations.
+//
+
+JobPool pool {4}; // spawning 4 Job-workers.
+
+// Storing promise-results.
+
+std::vector< JobReturn< std::pair<int, bool> > > tasks;
+
+for (int i = 0; i < 10; i++) {
+	// Note the function operator access.
+	tasks.push_back(pool(
+		[i] (int ii) -> std::pair<int, bool> {
+			return std::make_pair(i * ii, (i * ii) % 2);
+		}, i)
+	);
+}
+
+// Acquiring.
+
+for (auto i = tasks.begin(); i != tasks.end(); i++) {
+	auto n = (*i)();
+	std::cout << "+ is_odd : " <<  n.first << " -> " << std::boolalpha << n.second << std::endl;
+}
+
+```
+```cpp
 
 // STL bindings, Coconut collections (or data structures) already implement 
 // those algorithms but adding concurrency options among other things 
