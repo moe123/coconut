@@ -18,13 +18,13 @@ std::string datetime_format_utc(double milliseconds)
 	
 	icu::SimpleDateFormat dtf = icu::SimpleDateFormat
 	(
-		UnicodeString::fromUTF8(icu::StringPiece(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")),
-		Locale::getRoot(),
+		icu::UnicodeString::fromUTF8(icu::StringPiece(u8"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")),
+		icu::Locale::getRoot(),
 		status
 	);
 	
 	dtf.setTimeZone(*(icu::TimeZone::getGMT()));
-	UnicodeString buf;
+	icu::UnicodeString buf;
 	dtf.format(milliseconds, buf);
 	
 	std::string result;
@@ -43,12 +43,12 @@ double datetime_parse_utc(const std::string & utc)
 	
 	icu::SimpleDateFormat dtf = icu::SimpleDateFormat
 	(
-		UnicodeString::fromUTF8(
+		icu::UnicodeString::fromUTF8(
 			icu::StringPiece(
 				(utc.find(".") != std::string::npos) ? fmt_long : fmt_short
 			)
 		),
-		Locale::getRoot(),
+		icu::Locale::getRoot(),
 		status
 	);
 	
@@ -66,7 +66,7 @@ double datetime_parse_utc(const std::string & utc)
 	if (!milliseconds) {
 		status = U_ZERO_ERROR;
 		dtf.applyLocalizedPattern(
-			UnicodeString::fromUTF8(icu::StringPiece(fmt_short)),
+			icu::UnicodeString::fromUTF8(icu::StringPiece(fmt_short)),
 			status
 		);
 		if (U_FAILURE(status)) {

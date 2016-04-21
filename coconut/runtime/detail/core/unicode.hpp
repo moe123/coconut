@@ -55,9 +55,7 @@ std::u32string utf8_to_ucs4(const std::string & utf8_in)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u32string utf8_to_utf32(const std::string & utf8_in)
-{
-	return utf8_to_ucs4(utf8_in);
-}
+{ return utf8_to_ucs4(utf8_in); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string ucs2_to_utf8(const std::u16string & in_ucs2)
@@ -92,9 +90,7 @@ std::string ucs4_to_utf8(const std::u32string & in_ucs4)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string utf32_to_utf8(const std::u32string & in_utf32)
-{
-	return ucs4_to_utf8(in_utf32);
-}
+{ return ucs4_to_utf8(in_utf32); }
 
 }}} /* EONS */
 

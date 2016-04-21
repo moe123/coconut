@@ -78,8 +78,9 @@ std::string upath::to_string() const
 const upath upath::absolute(dirsep_option option) const
 {
 	// be smarter about separator
+	// builtins::upath_absolute(to_utf8_string(option)),
 	return upath(
-		builtins::upath_absolute(to_utf8_string(option)),
+		"",
 		encoding_utf8,
 		option
 	);
