@@ -221,6 +221,7 @@ const char * ustring_detectcodepage(const std::uint8_t * in, std::size_t len, fl
 	}
 	
 	for (i = 0; i < num; i++) {
+		status = U_ZERO_ERROR;
 		c = ucsdet_getConfidence(chmts[i], &status);
 		if (U_FAILURE(status)) {
 			ucsdet_close(dctr);

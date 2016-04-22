@@ -69,8 +69,13 @@ Credits && builtin runtime dependencies:
 - ICU (Unicode/Punycode/Localization) http://site.icu-project.org
 - NLOHMANN JSON (Serialization) http://nlohmann.me, https://github.com/nlohmann/json
 - PUGI XML (Serialization/DOM) http://zeuxcg.org, http://pugixml.org
-- MBED TLS (SSL/TLS) https://github.com/ARMmbed/mbedtls, https://www.mbed.com
+- MBED TLS (SSL/TLS) (1) https://github.com/ARMmbed/mbedtls, https://www.mbed.com
 - URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
+
+-----------------------------------------------------------------------------------------------
+
+<sup>1 - We have an experimental unpublished yet frontent for ASIO, covering more than the actual OpenSSL bindings. 
+We won't lie we always found cpp-netlib ridiculous, unecessary and totally immature: banned from boost repo.</sup>
 
 -----------------------------------------------------------------------------------------------
 
