@@ -74,7 +74,7 @@ Credits && builtin runtime dependencies:
 
 -----------------------------------------------------------------------------------------------
 
-<sup>1 - We have an experimental unpublished yet frontent for ASIO, covering more than the actual OpenSSL bindings.</sup>
+<sup>1 - Formally PolarSSL. We have an experimental unpublished yet frontent for ASIO, covering a lot more than the actual OpenSSL bindings.</sup>
 
 -----------------------------------------------------------------------------------------------
 
