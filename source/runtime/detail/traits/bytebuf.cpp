@@ -23,7 +23,7 @@ bytebuf::bytebuf(const bytebuf & dat)
 : m_bytes(dat.m_bytes)
 { /* NOP */ }
 
-bytebuf::bytebuf(bytebuf && dat)
+bytebuf::bytebuf(bytebuf && dat) noexcept
 	: m_bytes(std::move(dat.m_bytes))
 { /* NOP */ }
 
@@ -31,7 +31,7 @@ bytebuf::bytebuf(const bytebuf & dat, bool b64dec)
 : m_bytes(dat.m_bytes)
 { if (b64dec) { b64_decode(); } }
 
-bytebuf::bytebuf(bytebuf && dat, bool b64dec)
+bytebuf::bytebuf(bytebuf && dat, bool b64dec) noexcept
 : m_bytes(std::move(dat.m_bytes))
 { if (b64dec) { b64_decode(); } }
 

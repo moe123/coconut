@@ -9,7 +9,9 @@
 #ifndef COCONUT_RUNTIME_ALGORITHM_HPP
 #define COCONUT_RUNTIME_ALGORITHM_HPP
 
-namespace coconut { namespace runtime { namespace algorithm {
+namespace coconut {
+	namespace runtime {
+		namespace algorithm {
 
 template <typename StrT>
 inline bool starts_with(const StrT & haystack, const StrT & needle) {

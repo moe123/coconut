@@ -10,7 +10,9 @@
 #ifndef COCONUT_RUNTIME_IRANGE_HPP
 #define COCONUT_RUNTIME_IRANGE_HPP
 
-namespace coconut { namespace runtime { namespace traits {
+namespace coconut {
+	namespace runtime {
+		namespace traits {
 
 COCONUT_PRIVATE class COCONUT_VISIBLE irange COCONUT_FINAL
 {

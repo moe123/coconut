@@ -9,7 +9,8 @@
 #ifndef COCONUT_RUNTIME_ZOMBIE_HPP
 #define COCONUT_RUNTIME_ZOMBIE_HPP
 
-namespace coconut { namespace runtime {
+namespace coconut {
+	namespace runtime {
 
 COCONUT_PRIVATE class COCONUT_VISIBLE zombie : public nucleus
 {

@@ -9,7 +9,9 @@
 #ifndef COCONUT_RUNTIME_HEXREP_HPP
 #define COCONUT_RUNTIME_HEXREP_HPP
 
-namespace coconut { namespace runtime { namespace hexrep {
+namespace coconut {
+	namespace runtime {
+		namespace hexrep {
 
 struct format_option
 {

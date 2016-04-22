@@ -9,7 +9,9 @@
 #ifndef COCONUT_RUNTIME_ISLICE_HPP
 #define COCONUT_RUNTIME_ISLICE_HPP
 
-namespace coconut { namespace runtime { namespace traits {
+namespace coconut {
+	namespace runtime {
+		namespace traits {
 
 COCONUT_PRIVATE class COCONUT_VISIBLE islice COCONUT_FINAL
 {

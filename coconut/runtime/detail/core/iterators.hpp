@@ -10,7 +10,9 @@
 #ifndef COCONUT_RUNTIME_ITERATOR_HPP
 #define COCONUT_RUNTIME_ITERATOR_HPP
 
-namespace coconut { namespace runtime { namespace iterators {
+namespace coconut {
+	namespace runtime {
+		namespace iterators {
 
 template <class MapT>
 COCONUT_PRIVATE class key_map_facet : public MapT::iterator

@@ -9,7 +9,9 @@
 #ifndef COCONUT_RUNTIME_UPATH_HPP
 #define COCONUT_RUNTIME_UPATH_HPP
 
-namespace coconut { namespace runtime { namespace traits {
+namespace coconut {
+	namespace runtime {
+		namespace traits {
 	
 COCONUT_CLASSFORWARD_DCL(ustring)
 		

@@ -9,7 +9,9 @@
 #ifndef COCONUT_RUNTIME_UNICODE_HPP
 #define COCONUT_RUNTIME_UNICODE_HPP
 
-namespace coconut { namespace runtime { namespace unicode {
+namespace coconut {
+	namespace runtime {
+		namespace unicode {
 
 template <typename T>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

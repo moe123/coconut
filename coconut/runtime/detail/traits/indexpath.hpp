@@ -9,7 +9,9 @@
 #ifndef COCONUT_RUNTIME_INDEXPATH_HPP
 #define COCONUT_RUNTIME_INDEXPATH_HPP
 
-namespace coconut { namespace runtime { namespace traits {
+namespace coconut {
+	namespace runtime {
+		namespace traits {
 	
 COCONUT_PRIVATE class COCONUT_VISIBLE indexpath COCONUT_FINAL
 {

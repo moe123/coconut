@@ -45,7 +45,8 @@ inline ptr_declare<T1> ptr_cast(ptr_declare<T2> const & r)
 
 } /* EONS */
 
-namespace coconut { namespace runtime {
+namespace coconut {
+	namespace runtime {
 	
 COCONUT_OPT_TYPED(ComparisonResult, int)
 {

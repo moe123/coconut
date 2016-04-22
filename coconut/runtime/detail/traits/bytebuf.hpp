@@ -10,7 +10,9 @@
 #ifndef COCONUT_RUNTIME_BYTEBUF_HPP
 #define COCONUT_RUNTIME_BYTEBUF_HPP
 
-namespace coconut { namespace runtime { namespace traits {
+namespace coconut {
+	namespace runtime {
+		namespace traits {
 
 COCONUT_CLASSFORWARD_DCL(upath)
 COCONUT_CLASSFORWARD_DCL(uri)
@@ -22,10 +24,10 @@ COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.bytebuf, bytebuf)
 public:
 	bytebuf();
 	bytebuf(const bytebuf & dat);
-	bytebuf(bytebuf && dat);
+	bytebuf(bytebuf && dat) noexcept;
 	
 	bytebuf(const bytebuf & dat, bool b64dec);
-	bytebuf(bytebuf && dat, bool b64dec);
+	bytebuf(bytebuf && dat, bool b64dec) noexcept;
 	
 	bytebuf(std::size_t capacity);
 	

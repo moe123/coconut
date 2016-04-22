@@ -13,7 +13,9 @@
 #ifndef COCONUT_RUNTIME_USTRING_HPP
 #define COCONUT_RUNTIME_USTRING_HPP
 
-namespace coconut { namespace runtime { namespace traits {
+namespace coconut {
+	namespace runtime {
+		namespace traits {
 
 COCONUT_CLASSFORWARD_DCL(locale)
 COCONUT_CLASSFORWARD_DCL(irange)
