@@ -35,8 +35,8 @@ public:
 	bytebuf(const char * membytes, std::size_t length, bool b64dec = false);
 	
 	template <typename IterT>
-	bytebuf(IterT && beg, IterT && end, bool b64dec) :
-		m_bytes()
+	bytebuf(IterT && beg, IterT && end, bool b64dec)
+	: m_bytes()
 	{ IterT it = beg; while (it != end) { push_back((*it)); ++it; } if (b64dec) { b64_decode(); } }
 	
 	bytebuf(const std::uint16_t * membytes, std::size_t length, packing_option option = packing_bigendian);
@@ -48,9 +48,14 @@ public:
 	bytebuf(const std::int64_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	
 	template <typename IterT>
-	bytebuf(IterT && beg, IterT && end, packing_option option) :
-		m_bytes()
+	bytebuf(IterT && beg, IterT && end, packing_option option)
+	: m_bytes()
 	{ IterT it = beg; while (it != end) { push_back((*it), option); ++it; } }
+	
+	template <typename IterT>
+	bytebuf(IterT && beg, IterT && end)
+	: m_bytes()
+	{ IterT it = beg; while (it != end) { push_back((*it)); ++it; } }
 	
 	bytebuf(stream::fstream & in_binary);
 	bytebuf(stream::ifstream & in_binary);
