@@ -7,7 +7,9 @@
 #include "unicode/coll.h"
 #include "unicode/ucsdet.h"
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 namespace {
 	

@@ -10,7 +10,9 @@
 // @see http://create.stephan-brumme.com/disclaimer.html
 //
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint32_t hash_sha256_rot(std::uint32_t a, std::uint32_t c)

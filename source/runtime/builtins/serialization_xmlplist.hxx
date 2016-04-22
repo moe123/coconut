@@ -7,7 +7,9 @@
 //#define pugi COCONUT_PPCAT(coconut, builtins0pugi)
 #define PUGIXML_HEADER_ONLY
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 #include "pugixml.hpp"
 

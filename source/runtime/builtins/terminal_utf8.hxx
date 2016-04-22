@@ -12,7 +12,9 @@
 	#include <windows.h>
 #endif
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool terminal_setfont()

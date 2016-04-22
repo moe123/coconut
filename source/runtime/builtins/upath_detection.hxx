@@ -4,7 +4,9 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool upath_isposix(const std::string & utf8_path, std::string & utf8_drive, dirsep_option & dsep, bool & isabs)

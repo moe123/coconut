@@ -7,7 +7,9 @@
 #include "unicode/locid.h"
 #include "unicode/coll.h"
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int ustring_compare_utf16(const icu::UnicodeString & a, const icu::UnicodeString & b, search_options options, icu::Locale * locale = nullptr)

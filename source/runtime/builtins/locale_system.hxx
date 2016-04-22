@@ -19,7 +19,9 @@
 #include "unicode/locid.h"
 #include "unicode/uloc.h"
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string locale_gui_id()

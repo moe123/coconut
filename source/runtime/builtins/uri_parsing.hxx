@@ -4,7 +4,9 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 ___COCONUT_BEGIN_DECLS
 #include "uriparser/Uri.h"

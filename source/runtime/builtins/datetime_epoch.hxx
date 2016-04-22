@@ -27,7 +27,9 @@
 #include "unicode/smpdtfmt.h"
 #include "unicode/fieldpos.h"
 
-namespace coconut { namespace runtime { namespace builtins {
+namespace coconut {
+	namespace runtime {
+		namespace builtins {
 
 #if defined(__MICROSOFT__) && !defined(TIME_UTC)
 
