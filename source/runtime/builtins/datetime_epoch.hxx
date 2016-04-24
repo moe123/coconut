@@ -16,7 +16,7 @@
 	#include <rpcdce.h>
 	#include <wincrypt.h>
 	#include <windows.h>
-#elif __MACH__
+#elif defined(__APPLE__)
 	#include <mach/clock.h>
 	#include <mach/mach.h>
 	#include <mach/mach_error.h>
@@ -50,7 +50,7 @@ std::int64_t datetime_nanotime()
 {
 	std::int64_t result = 0LL;
 
-#if defined(TIME_UTC) && (!defined(CLOCK_REALTIME) || !defined(__MACH__))
+#if defined(TIME_UTC) && (!defined(CLOCK_REALTIME) || !defined(__APPLE__))
 
 	struct timespec tm;
 	if (TIME_UTC == timespec_get(&tm, TIME_UTC)) {
@@ -70,7 +70,7 @@ std::int64_t datetime_nanotime()
 	x *= 1000LL;
 	result = static_cast<std::int64_t>(x);
 
-#elif __MACH__
+#elif defined(__APPLE__)
 
 	kern_return_t mret;
 	clock_serv_t mclk;
@@ -196,7 +196,7 @@ bool datetime_epoch_v0(time_spec * tms)
 	
 	result = true;
 
-#elif __MACH__
+#elif defined(__APPLE__)
 	
 	kern_return_t mret;
 	clock_serv_t mclk;

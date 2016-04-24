@@ -4,12 +4,6 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-// //////////////////////////////////////////////////////////
-// @based on base64.hpp, base64.cpp
-// Copyright (C) 2002 Ryan Petrie. All rights reserved.
-// @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
-//
-
 #include <coconut/runtime/detail/core/defines.hpp>
 
 #ifndef COCONUT_RUNTIME_BASE64_HPP
@@ -18,7 +12,13 @@
 namespace coconut {
 	namespace runtime {
 		namespace base64 {
-	
+
+// //////////////////////////////////////////////////////////
+// @based on base64.hpp, base64.cpp
+// Copyright (C) 2002 Ryan Petrie. All rights reserved.
+// @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
+//
+
 namespace
 {
 	struct lookup_table
@@ -61,7 +61,8 @@ namespace
 }
 
 template <typename IterInT, typename IterOutT>
-inline void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option option = chunksplit_none)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option option = chunksplit_none)
 {
 	lookup_table lt;
 	IterInT it = beg;
@@ -120,7 +121,8 @@ inline void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_o
 }
 
 template <typename IterInT, typename IterOutT>
-inline void decode(IterInT && beg, IterInT && end, IterOutT && out)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void decode(IterInT && beg, IterInT && end, IterOutT && out)
 {
 	lookup_table lt;
 	IterInT it = beg;

@@ -13,21 +13,25 @@ namespace coconut {
 	namespace runtime {
 		namespace unicode {
 
-template <typename T>
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void codeset_utf16_utf8(const std::basic_string<T, std::char_traits<T>, std::allocator<T> > & source, std::string & result)
-{
-	typedef std::codecvt_utf8_utf16<T> codecvt_utf8_utf16;
-	std::wstring_convert<codecvt_utf8_utf16, T> conv;
+void codeset_utf16_utf8(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & source,
+	std::string & result
+) {
+	typedef std::codecvt_utf8_utf16<CharT> codecvt_utf8_utf16;
+	std::wstring_convert<codecvt_utf8_utf16, CharT> conv;
 	result.swap(conv.to_bytes(source));
 }
 
-template <typename T>
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void codeset_utf8_utf16(const std::string & source, std::basic_string<T, std::char_traits<T>, std::allocator<T> > & result)
-{
-	typedef std::codecvt_utf8_utf16<T> codecvt_utf8_utf16;
-	std::wstring_convert<codecvt_utf8_utf16, T> conv;
+void codeset_utf8_utf16(
+	const std::string & source, std::basic_string<CharT, std::char_traits<CharT>,
+	std::allocator<CharT> > & result
+) {
+	typedef std::codecvt_utf8_utf16<CharT> codecvt_utf8_utf16;
+	std::wstring_convert<codecvt_utf8_utf16, CharT> conv;
 	result.swap(conv.from_bytes(source));
 }
 

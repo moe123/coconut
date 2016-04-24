@@ -88,14 +88,14 @@ void indexset::insert_range_at_pos(std::vector<irange> & rgs, const irange & rg,
 std::size_t indexset::find_pos_for_index(const std::vector<irange> & rgs, std::size_t index)
 {
 	std::size_t cnt = rgs.size();
-	std::size_t upper_idx = cnt;
-	std::size_t lower_idx = 0;
+	std::size_t end = cnt;
+	std::size_t beg = 0;
 	std::size_t pos = 0;
-	for (pos = (upper_idx / 2); upper_idx != lower_idx; pos = ((upper_idx + lower_idx) / 2)) {
+	for (pos = (end / 2); end != beg; pos = ((end + beg) / 2)) {
 		if (index < rgs[pos].location()) {
-			upper_idx = pos;
+			end = pos;
 		} else if (index > rgs[pos].max()) {
-			lower_idx = pos + 1;
+			beg = pos + 1;
 		} else {
 			break;
 		}

@@ -20,6 +20,7 @@ COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.indexpath, indexpath)
 public:
 	indexpath();
 	indexpath(const indexpath & idxpath);
+	indexpath(indexpath && idxpath) noexcept;
 	indexpath(std::size_t index);
 	indexpath(std::size_t * indexes, std::size_t length);
 	indexpath(const std::vector<std::size_t> & indexes);

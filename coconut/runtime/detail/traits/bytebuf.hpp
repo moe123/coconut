@@ -71,8 +71,7 @@ public:
 	bytebuf(stream::imstream & in_binary, std::size_t location, std::size_t length);
 	
 	bytebuf(const std::string & utf8_path, std::size_t location, std::size_t length);
-	bytebuf(const std::u16string & utf16_path, std::size_t location, std::size_t length);
-	
+	bytebuf(const std::u16string & utf16_path, std::size_t location, std::size_t length);	
 	~bytebuf();
 
 public:

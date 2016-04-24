@@ -172,7 +172,7 @@ namespace coconut
 	>
 	inline auto _enumerate_dispatch_aliasing
 	(
-	 const CollT & r,
+		const CollT & r,
 		const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func,
 		EnumerationOptions options
 	 ) -> void
@@ -260,7 +260,6 @@ namespace coconut
 	public:
 		OptionalReturn(const OptionalReturn &) = delete;
 		OptionalReturn & operator = (const OptionalReturn &) = delete;
-		
 		~OptionalReturn() { /* NOP */ }
 		
 		OptionalReturn(OptionalReturn && oret) noexcept :

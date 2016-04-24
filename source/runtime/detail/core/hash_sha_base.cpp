@@ -4,12 +4,6 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-// //////////////////////////////////////////////////////////
-// @based on sha1.cpp, sha256.cpp
-// Copyright (c) 2014 Stephan Brumme. All rights reserved.
-// @see http://create.stephan-brumme.com/disclaimer.html
-//
-
 #include <coconut/runtime/detail/core/hash.hpp>
 #include <coconut/runtime/detail/core/byteorder.hpp>
 
@@ -18,6 +12,12 @@ using namespace coconut::runtime;
 #include <source/runtime/builtins/hash_sha_base.hxx>
 
 #pragma mark -
+
+// //////////////////////////////////////////////////////////
+// @based on sha1.cpp, sha256.cpp
+// Copyright (c) 2014 Stephan Brumme. All rights reserved.
+// @see http://create.stephan-brumme.com/disclaimer.html
+//
 
 hash::sha_base::sha_base() :
 	m_blocksize(0),

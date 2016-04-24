@@ -12,57 +12,49 @@ using namespace coconut::runtime;
 
 #include <source/runtime/builtins/stream_convpath.hxx>
 
-stream::ifstream::ifstream() :
-	std::ifstream()
+stream::ifstream::ifstream()
+: std::ifstream()
 { /* NOP */ }
 
-stream::ifstream::ifstream(const std::string & utf8_path, std::ios_base::open_mode mode) :
-	std::ifstream(builtins::stream_convpath(utf8_path).c_str(), mode)
+stream::ifstream::ifstream(const std::string & utf8_path, std::ios_base::open_mode mode)
+: std::ifstream(builtins::stream_convpath(utf8_path).c_str(), mode)
 { /* NOP */ }
 
-stream::ifstream::ifstream(const std::u16string & utf16_path, std::ios_base::open_mode mode) :
-	std::ifstream(builtins::stream_convpath(utf16_path).c_str(), mode)
+stream::ifstream::ifstream(const std::u16string & utf16_path, std::ios_base::open_mode mode)
+: std::ifstream(builtins::stream_convpath(utf16_path).c_str(), mode)
 { /* NOP */ }
 
 stream::ifstream::~ifstream()
 { /* NOP */ }
 
 void stream::ifstream::open(const std::string & utf8_path, std::ios_base::open_mode mode)
-{
-	std::ifstream::open(builtins::stream_convpath(utf8_path).c_str(), mode);
-}
+{ std::ifstream::open(builtins::stream_convpath(utf8_path).c_str(), mode); }
 
 void stream::ifstream::open(const std::u16string & utf16_path, std::ios_base::open_mode mode)
-{
-	std::ifstream::open(builtins::stream_convpath(utf16_path).c_str(), mode);
-}
+{ std::ifstream::open(builtins::stream_convpath(utf16_path).c_str(), mode); }
 
 #pragma mark -
 
-stream::ofstream::ofstream() :
-	std::ofstream()
+stream::ofstream::ofstream()
+: std::ofstream()
 { /* NOP */ }
 
-stream::ofstream::ofstream(const std::string & utf8_path, std::ios_base::open_mode mode) :
-	std::ofstream(builtins::stream_convpath(utf8_path).c_str(), mode)
+stream::ofstream::ofstream(const std::string & utf8_path, std::ios_base::open_mode mode)
+: std::ofstream(builtins::stream_convpath(utf8_path).c_str(), mode)
 { /* NOP */ }
 
-stream::ofstream::ofstream(const std::u16string & utf16_path, std::ios_base::open_mode mode) :
-	std::ofstream(builtins::stream_convpath(utf16_path).c_str(), mode)
+stream::ofstream::ofstream(const std::u16string & utf16_path, std::ios_base::open_mode mode)
+: std::ofstream(builtins::stream_convpath(utf16_path).c_str(), mode)
 { /* NOP */ }
 
 stream::ofstream::~ofstream()
 { /* NOP */ }
 
 void stream::ofstream::open(const std::string & utf8_path, std::ios_base::open_mode mode)
-{
-	std::ofstream::open(builtins::stream_convpath(utf8_path).c_str(), mode);
-}
+{ std::ofstream::open(builtins::stream_convpath(utf8_path).c_str(), mode); }
 
 void stream::ofstream::open(const std::u16string & utf16_path, std::ios_base::open_mode mode)
-{
-	std::ofstream::open(builtins::stream_convpath(utf16_path).c_str(), mode);
-}
+{ std::ofstream::open(builtins::stream_convpath(utf16_path).c_str(), mode); }
 
 #pragma mark -
 
@@ -70,59 +62,55 @@ stream::fstream::fstream() :
 	std::fstream()
 { /* NOP */ }
 
-stream::fstream::fstream(const std::string & utf8_path, std::ios_base::open_mode mode) :
-	std::fstream(builtins::stream_convpath(utf8_path).c_str(), mode)
+stream::fstream::fstream(const std::string & utf8_path, std::ios_base::open_mode mode)
+: std::fstream(builtins::stream_convpath(utf8_path).c_str(), mode)
 { /* NOP */ }
 
-stream::fstream::fstream(const std::u16string & utf16_path, std::ios_base::open_mode mode) :
-	std::fstream(builtins::stream_convpath(utf16_path).c_str(), mode)
+stream::fstream::fstream(const std::u16string & utf16_path, std::ios_base::open_mode mode)
+: std::fstream(builtins::stream_convpath(utf16_path).c_str(), mode)
 { /* NOP */ }
 
 stream::fstream::~fstream()
 { /* NOP */ }
 
 void stream::fstream::open(const std::string & utf8_path, std::ios_base::open_mode mode)
-{
-	std::fstream::open(builtins::stream_convpath(utf8_path).c_str(), mode);
-}
+{ std::fstream::open(builtins::stream_convpath(utf8_path).c_str(), mode); }
 
 void stream::fstream::open(const std::u16string & utf16_path, std::ios_base::open_mode mode)
-{
-	std::fstream::open(builtins::stream_convpath(utf16_path).c_str(), mode);
-}
+{ std::fstream::open(builtins::stream_convpath(utf16_path).c_str(), mode); }
 
 #pragma mark -
 
-stream::imstreambuf::imstreambuf() :
-	std::streambuf(),
-	m_begin(0),
-	m_size(0),
-	m_end(0),
-	m_current(0)
+stream::imstreambuf::imstreambuf()
+: std::streambuf()
+, m_begin(0)
+, m_size(0)
+, m_end(0)
+, m_current(0)
 { /* NOP */ }
 
-stream::imstreambuf::imstreambuf(imstreambuf &) :
-	std::streambuf(),
-	m_begin(0),
-	m_size(0),
-	m_end(0),
-	m_current(0)
+stream::imstreambuf::imstreambuf(imstreambuf &)
+: std::streambuf()
+, m_begin(0)
+, m_size(0)
+, m_end(0)
+, m_current(0)
 { /* NOP */ }
 
-stream::imstreambuf::imstreambuf(const char * membytes, std::size_t size) :
-	std::streambuf(),
-	m_begin(unsafe_cast<char *>(membytes)),
-	m_size(size),
-	m_end(m_begin + size),
-	m_current(m_begin)
+stream::imstreambuf::imstreambuf(const char * membytes, std::size_t size)
+: std::streambuf()
+, m_begin(unsafe_cast<char *>(membytes))
+, m_size(size)
+, m_end(m_begin + size)
+, m_current(m_begin)
 { setg(m_begin, m_current, m_end); }
 
-stream::imstreambuf::imstreambuf(const std::uint8_t * membytes, std::size_t size) :
-	std::streambuf(),
-	m_begin(unsafe_cast<char *>(membytes)),
-	m_size(size),
-	m_end(m_begin + size),
-	m_current(m_begin)
+stream::imstreambuf::imstreambuf(const std::uint8_t * membytes, std::size_t size)
+: std::streambuf()
+, m_begin(unsafe_cast<char *>(membytes))
+, m_size(size)
+, m_end(m_begin + size)
+, m_current(m_begin)
 { setg(m_begin, m_current, m_end); }
 
 stream::imstreambuf::~imstreambuf()
@@ -152,14 +140,10 @@ void stream::imstreambuf::setmem(const std::uint8_t * membytes, std::size_t size
 }
 
 const char * stream::imstreambuf::membytes()
-{
-	return m_begin;
-}
+{ return m_begin; }
 
 std::size_t stream::imstreambuf::memsize()
-{
-	return m_size;
-}
+{ return m_size; }
 
 std::streambuf::int_type stream::imstreambuf::uflow()
 {
@@ -191,38 +175,41 @@ std::streambuf::int_type stream::imstreambuf::pbackfail(std::streambuf::int_type
 	return *--m_current;
 }
 
-std::size_t stream::imstreambuf::output_bytes() {
-	return static_cast<std::size_t>(pptr() - pbase());
-}
+std::size_t stream::imstreambuf::output_bytes()
+{ return unsafe_cast<std::size_t>(pptr() - pbase()); }
 
-std::streambuf::pos_type stream::imstreambuf::seekoff(std::streambuf::off_type off, std::ios_base::seekdir dir, std::ios_base::openmode which)
-{
+std::streambuf::pos_type stream::imstreambuf::seekoff(
+	std::streambuf::off_type off,
+	std::ios_base::seekdir dir,
+	std::ios_base::openmode which
+) {
 	COCONUT_UNUSED(which);
-	off_type offset = (std::ios::beg == dir) ? off : (std::ios::end == dir) ? (static_cast<off_type>(m_size) - off) : (gptr() - m_begin) + off;
+	off_type offset = (std::ios::beg == dir) ? off :
+		(std::ios::end == dir) ? (unsafe_cast<off_type>(m_size) - off) : (gptr() - m_begin) + off;
 	setg(m_begin, m_begin + offset, m_begin + m_size);
 	return gptr() - m_begin;
 }
 
 #pragma mark -
 
-stream::imstream::imstream() :
-	std::istream(&m_imstreambuf),
-	m_imstreambuf(unsafe_cast<std::uint8_t *>(nullptr), 0)
+stream::imstream::imstream()
+: std::istream(&m_imstreambuf)
+, m_imstreambuf(unsafe_cast<std::uint8_t *>(nullptr), 0)
 { /* NOP */ }
 
-stream::imstream::imstream(imstream & im) :
-	std::istream(&m_imstreambuf),
-	m_imstreambuf()
+stream::imstream::imstream(imstream & im)
+: std::istream(&m_imstreambuf)
+, m_imstreambuf()
 { m_imstreambuf.setmem(im.m_imstreambuf.membytes(), im.m_imstreambuf.memsize()); }
 
-stream::imstream::imstream(const char * membytes, std::size_t size) :
-	std::istream(&m_imstreambuf),
-	m_imstreambuf(membytes, size)
+stream::imstream::imstream(const char * membytes, std::size_t size)
+: std::istream(&m_imstreambuf)
+, m_imstreambuf(membytes, size)
 { /* NOP */ }
 
-stream::imstream::imstream(const std::uint8_t * membytes, std::size_t size) :
-	std::istream(&m_imstreambuf),
-	m_imstreambuf(membytes, size)
+stream::imstream::imstream(const std::uint8_t * membytes, std::size_t size)
+: std::istream(&m_imstreambuf)
+, m_imstreambuf(membytes, size)
 { /* NOP */ }
 
 stream::imstream::~imstream()

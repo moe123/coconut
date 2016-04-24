@@ -53,7 +53,7 @@ nucleus::~nucleus()
 
 bool nucleus::isSelectorKey(const std::string & utf8_in)
 {
-	if (algorithm::starts_with<std::string>(utf8_in, u8"@") && !algorithm::starts_with<std::string>(utf8_in, u8"@@")) {
+	if (algorithm::starts_with<char>(utf8_in, u8"@") && !algorithm::starts_with<char>(utf8_in, u8"@@")) {
 		return true;
 	}
 	return false;
@@ -61,7 +61,7 @@ bool nucleus::isSelectorKey(const std::string & utf8_in)
 
 bool nucleus::isAttributeKey(const std::string & utf8_attrkey)
 {
-	if (algorithm::starts_with<std::string>(utf8_attrkey, u8"$") && !algorithm::starts_with<std::string>(utf8_attrkey, u8"$$")) {
+	if (algorithm::starts_with<char>(utf8_attrkey, u8"$") && !algorithm::starts_with<char>(utf8_attrkey, u8"$$")) {
 		return true;
 	}
 	return false;
@@ -73,7 +73,7 @@ bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 {
 	if (isSelectorKey(utf8_selkey)) {
 		Owning<Any> ptr;
-		if (runtime::algorithm::ends_with<std::string>(utf8_selkey, u8":")) {
+		if (runtime::algorithm::ends_with<char>(utf8_selkey, u8":")) {
 			ptr = valueForSelectorKey(utf8_selkey, ptr_create<zombie>());
 		} else {
 			ptr = valueForSelectorKey(utf8_selkey);
@@ -517,12 +517,14 @@ bool nucleus::operator >= (Owning<Any> & ptr) const { return isGreaterThanOrEqua
 
 const std::string nucleus::description() const
 {
+	std::stringstream ss; ss << std::hex << std::showbase << this;
+	
 	return COCONUT_DESCRIPTION_FMT(
 		class_name(),
 		class_tree(),
 		algorithm::to_string<std::string>(size()),
 		algorithm::to_string<std::string>(sig()),
-		addr()
+		ss.str()
 	);
 }
 
@@ -560,12 +562,6 @@ std::size_t nucleus::size() const { return sizeof(*this); }
 
 std::ptrdiff_t nucleus::sig() const
 { return unsafe_cast<std::ptrdiff_t>(this); }
-
-const std::string nucleus::addr() const
-{
-	std::stringstream ss; ss << std::hex << std::showbase << this;
-	return ss.str();
-}
 
 #pragma mark -
 

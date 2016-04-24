@@ -249,6 +249,11 @@
 
 	#define COCONUT_RUNTIME_CLASSDECLARE(NS_KLASS, TR_KLASS) \
 		public: \
+			const std::string class_name() const { return (#NS_KLASS); } \
+			const std::string class_tree() const { return (#TR_KLASS); }
+
+	#define COCONUT_ROOT_CLASSDECLARE(NS_KLASS, TR_KLASS) \
+		public: \
 			virtual const std::string class_name() const { return (#NS_KLASS); } \
 			virtual const std::string class_tree() const { return (#TR_KLASS); }
 

@@ -13,13 +13,12 @@ namespace coconut {
 	namespace runtime {
 		namespace async {
 	
-template <typename T>
+template <typename RpT>
 COCONUT_PRIVATE class COCONUT_VISIBLE shall COCONUT_FINAL
 {
 public:
 	shall(const shall &) = delete;
 	shall & operator = (const shall &) = delete;
-	
 	~shall() { /* NOP */ }
 	
 	shall(shall && res) noexcept
@@ -29,18 +28,19 @@ public:
 	shall & operator = (shall && res) noexcept
 	{ shall(std::move(res)).swap(*this); return *this; }
 	
-	explicit shall(std::future<T> && fut) noexcept
+	explicit shall(std::future<RpT> && fut) noexcept
 	: m_fut{std::move(fut)}
 	{ /* NOP */ }
 	
-	T operator () () noexcept { return m_fut.get(); }
+	RpT operator () () noexcept { return m_fut.get(); }
 	
 private:
-	std::future<T> m_fut;
+	std::future<RpT> m_fut;
 };
 
 template <typename FuncT, typename... ArgsT>
-inline shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option, FuncT && func, ArgsT &&... args)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option, FuncT && func, ArgsT &&... args)
 {
 	std::launch policy = (std::launch::async | std::launch::deferred);
 	switch (option) {
@@ -63,7 +63,8 @@ inline shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option 
 }
 
 template <typename FuncT, typename... ArgsT>
-inline void detach(FuncT && func, ArgsT &&... args)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void detach(FuncT && func, ArgsT &&... args)
 {
 	using R = typename std::result_of<FuncT(ArgsT...)>::type;
 	auto bind = std::bind(std::forward<FuncT>(func), std::forward<ArgsT>(args)...);

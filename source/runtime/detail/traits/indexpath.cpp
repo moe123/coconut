@@ -17,6 +17,10 @@ indexpath::indexpath(const indexpath & idxpath)
 : m_indexes(idxpath.cbegin(), idxpath.cend())
 { /* NOP */ }
 
+indexpath::indexpath(indexpath && idxpath) noexcept
+: m_indexes(std::move(idxpath.m_indexes))
+{ /* NOP */ }
+
 indexpath::indexpath(std::size_t index)
 : m_indexes()
 { m_indexes.push_back(index); }

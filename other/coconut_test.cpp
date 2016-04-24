@@ -55,7 +55,6 @@ static void print_ref(const Any & ref)
 	
 	std::cerr << "+ floatValue() : " << ref.floatValue() << std::endl;
 	std::cerr << "+ doubleValue() : " << ref.doubleValue() << std::endl;
-	std::cerr << "+ longDoubleValue() : " << ref.longDoubleValue() << std::endl;
 	std::cerr << "+ boolValue() : " << ref.boolValue() << std::endl;
 	std::cerr << "+ charValue() : " << static_cast<short>(ref.charValue()) << std::endl;
 	std::cerr << "+ shortValue() : " << ref.shortValue() << std::endl;
@@ -998,17 +997,19 @@ static std::pair<int, bool> is_prime(int n)
 
 static void run_queue(void)
 {
-	std::cout << "sizeof(class std::string) : " << sizeof(std::string) << std::endl;
-	std::cout << "sizeof(class Owning<Any>) : " << sizeof(Owning<Any>) << std::endl;
-	std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) << std::endl;
-	std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b) >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b) >) << std::endl;
+	//std::cout << "sizeof(class std::string) : " << sizeof(std::string) << std::endl;
+	//std::cout << "sizeof(class Owning<Any>) : " << sizeof(Owning<Any>) << std::endl;
+	//std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> >) << std::endl;
+	//std::cout << "sizeof(std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b) >) : " << sizeof(std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b) >) << std::endl;
 	
 	std::cout << "sizeof(class runtime::traits::bytebuf) : " << sizeof(runtime::traits::bytebuf) << std::endl;
 	std::cout << "sizeof(class runtime::traits::uri) : " << sizeof(runtime::traits::uri) << std::endl;
 	std::cout << "sizeof(class runtime::traits::ustring) : " << sizeof(runtime::traits::ustring) << std::endl;
+	std::cout << "sizeof(class runtime::traits::upath) : " << sizeof(runtime::traits::upath) << std::endl;
 	std::cout << "sizeof(class runtime::traits::numeric) : " << sizeof(runtime::traits::numeric) << std::endl;
+	std::cout << "sizeof(class runtime::traits::datetime) : " << sizeof(runtime::traits::datetime) << std::endl;
 	
-	std::cout << "sizeof(class icu::UnicodeString) : " << sizeof(icu::UnicodeString) << std::endl;
+	//std::cout << "sizeof(class icu::UnicodeString) : " << sizeof(icu::UnicodeString) << std::endl;
 	
 	std::cout << "sizeof(class runtime::nucleus) : " << sizeof(runtime::nucleus) << std::endl;
 	std::cout << "sizeof(class Object) : " << sizeof(Object) << std::endl;
@@ -1118,7 +1119,7 @@ int main(int argc, const char * argv[])
 		MutableArray people;
 		
 		Enumerate<Array>(firstNames,
-		[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
+			[&] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 		 	people.addObject(
 				With<Dictionary>({

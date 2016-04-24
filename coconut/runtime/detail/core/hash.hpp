@@ -48,7 +48,7 @@ protected:
 
 COCONUT_PRIVATE class COCONUT_VISIBLE sha1 COCONUT_FINAL : public sha_base
 {
-COCONUT_CLASSDECLARE(coconut.runtime.hash.sha1, hash.sha_base.sha1)
+COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.hash.sha1, hash.sha_base.sha1)
 	
 public:
 	sha1();
@@ -65,7 +65,7 @@ protected:
 
 COCONUT_PRIVATE class COCONUT_VISIBLE sha256 COCONUT_FINAL : public sha_base
 {
-COCONUT_CLASSDECLARE(coconut.runtime.hash.sha256, hash.sha_base.sha256)
+COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.hash.sha256, hash.sha_base.sha256)
 
 public:
 	sha256();

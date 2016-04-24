@@ -13,26 +13,35 @@ namespace coconut {
 	namespace runtime {
 		namespace algorithm {
 
-template <typename StrT>
-inline bool starts_with(const StrT & haystack, const StrT & needle) {
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
+) {
 	return needle.size() <= haystack.size() &&
 		std::equal(needle.cbegin(), needle.cend(), haystack.cbegin());
 }
 
-template <typename StrT>
-inline bool ends_with(const StrT & haystack, const StrT & needle)
-{
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
+) {
 	return needle.size() <= haystack.size() &&
 		std::equal(needle.crbegin(), needle.crend(), haystack.crbegin());
 }
 
-inline bool is_alpha(char a)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_alpha(char a)
 {
 	std::locale loc;
 	return std::use_facet< std::ctype<char> >(loc).is(std::ctype<char>::alpha, a);
 }
 
-inline bool is_ascii(const std::string & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_ascii(const std::string & in)
 {
 	for (std::string::const_iterator it= in.cbegin(); it!= in.cend(); ++it) {
 		if (!((static_cast<int>(*it) & ~0x7F) == 0)) { return false; }
@@ -40,24 +49,36 @@ inline bool is_ascii(const std::string & in)
 	return true;
 }
 
-template <typename StrT>
-inline StrT & ltrim(StrT & s) {
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & ltrim(
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+) {
 	s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
 	return s;
 }
 
-template <typename StrT>
-inline StrT & rtrim(std::string &s) {
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & rtrim(
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+) {
 	s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
 	return s;
 }
 
-template <typename StrT>
-inline StrT & trim(StrT & s) {
-	return ltrim<StrT>(rtrim<StrT>(s));
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & trim(
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+) {
+	return ltrim<std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > >(
+		rtrim<std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > >(s)
+	);
 }
 
-inline std::string to_upper(const std::string & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string to_upper(const std::string & in)
 {
 	std::locale loc;
 	std::string out;
@@ -67,7 +88,8 @@ inline std::string to_upper(const std::string & in)
 	return out;
 }
 
-inline std::string to_lower(const std::string & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string to_lower(const std::string & in)
 {
 	std::locale loc;
 	std::string out;
@@ -77,17 +99,20 @@ inline std::string to_lower(const std::string & in)
 	return out;
 }
 
-inline bool cmp(const std::string & left, const std::string & right)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool cmp(const std::string & left, const std::string & right)
 {
 	return left.compare(right);
 }
 
-inline int icmp(const std::string & left, const std::string & right)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(const std::string & left, const std::string & right)
 {
 	return cmp(to_upper(left), to_upper(right));
 }
 
-inline bool is_integer(const std::string & in, bool is_unsigned = false)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_integer(const std::string & in, bool is_unsigned = false)
 {
 	bool result;
 	try {
@@ -103,7 +128,8 @@ inline bool is_integer(const std::string & in, bool is_unsigned = false)
 	return result;
 }
 
-inline bool is_integer(const std::wstring & in, bool is_unsigned = false)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_integer(const std::wstring & in, bool is_unsigned = false)
 {
 	bool result;
 	try {
@@ -119,7 +145,8 @@ inline bool is_integer(const std::wstring & in, bool is_unsigned = false)
 	return result;
 }
 
-inline bool is_number(const std::string & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_number(const std::string & in)
 {
 	bool result;
 	try {
@@ -129,7 +156,8 @@ inline bool is_number(const std::string & in)
 	return result;
 }
 
-inline bool is_number(const std::wstring & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_number(const std::wstring & in)
 {
 	bool result;
 	try {
@@ -139,32 +167,38 @@ inline bool is_number(const std::wstring & in)
 	return result;
 }
 
-inline bool is_numeric(const std::string & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_numeric(const std::string & in)
 {
 	bool result;
 	try {
-		result = std::regex_match(in, std::regex("((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
+		result = std::regex_match(in,
+			std::regex("((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
 }
 
-inline bool is_numeric(const std::wstring & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool is_numeric(const std::wstring & in)
 {
 	bool result;
 	try {
-		result = std::regex_match(in, std::wregex(L"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
+		result = std::regex_match(in,
+			std::wregex(L"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
 }
 
 template <typename NumT>
-inline std::string to_binary(const NumT & x)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string to_binary(const NumT & x)
 { std::bitset<(sizeof(x) * CHAR_BIT)> bits(x); return bits.to_string(); }
 
 template <typename NumT, typename StrT>
-inline NumT to_numeric(const StrT & in)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+NumT to_numeric(const StrT & in)
 {
 	NumT t = 0;
 	using char_type = typename StrT::value_type;
@@ -182,7 +216,8 @@ inline NumT to_numeric(const StrT & in)
 }
 
 template <typename StrT, typename NumT>
-inline StrT to_string(const NumT & n, std::size_t p = 6)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+StrT to_string(const NumT & n, std::size_t p = 6)
 {
 	using char_type = typename StrT::value_type;
 	using traits_type = typename StrT::traits_type;
@@ -198,7 +233,8 @@ inline StrT to_string(const NumT & n, std::size_t p = 6)
 }
 
 template <typename StrT, typename IterT>
-inline StrT joiner(IterT && beg, IterT && end, const StrT & sep)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+StrT joiner(IterT && beg, IterT && end, const StrT & sep)
 {
 	using char_type = typename StrT::value_type;
 	using traits_type = typename StrT::traits_type;
@@ -218,7 +254,8 @@ inline StrT joiner(IterT && beg, IterT && end, const StrT & sep)
 }
 
 template <typename StrT, typename VecT>
-inline void tokenizer(const StrT & in, VecT & tokens, const StrT & delimiter)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void tokenizer(const StrT & in, VecT & tokens, const StrT & delimiter)
 {
 	using value_type = typename VecT::value_type;
 	using size_type = typename VecT::size_type;
@@ -244,15 +281,21 @@ inline void tokenizer(const StrT & in, VecT & tokens, const StrT & delimiter)
 }
 
 template <typename StrT>
-inline std::vector<StrT> split(const StrT & in, const StrT & delimiter)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::vector<StrT> split(const StrT & in, const StrT & delimiter)
 {
 	std::vector<StrT> out;
 	tokenizer<StrT>(in, out, delimiter);
 	return out;
 }
 
-inline size_t explode(std::vector<std::string> & out, const std::string & delimiter, const std::string & in, int limit = std::numeric_limits<int>::max())
-{
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t explode(
+	std::vector<std::string> & out,
+	const std::string & delimiter,
+	const std::string & in,
+	int limit = std::numeric_limits<int>::max()
+) {
 	std::vector<std::string>::size_type begin = 0;
 	std::vector<std::string>::size_type end = 0;
 	
@@ -296,11 +339,13 @@ inline size_t explode(std::vector<std::string> & out, const std::string & delimi
 }
 
 template <typename StrT>
-inline StrT join(const std::vector<StrT> & parts, const StrT & separator)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+StrT join(const std::vector<StrT> & parts, const StrT & separator)
 { return joiner(parts.cbegin(), parts.cend(), separator); }
 
 template <typename... ArgsT>
-inline std::string format(const char * fmt, ArgsT &&... args)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string format(const char * fmt, ArgsT &&... args)
 {
 	int sz = std::snprintf(nullptr, 0, fmt, std::forward<ArgsT>(args)...);
 	if (sz) {

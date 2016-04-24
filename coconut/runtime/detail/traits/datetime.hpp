@@ -22,8 +22,7 @@ public:
 	datetime(const datetime & dtm);
 	datetime(double milliseconds, timeref_option ref_opt = timeref_since_ref);
 	datetime(double interval, timeunit_option unit_opt, timeref_option ref_opt);
-	datetime(double interval, timeunit_option unit_opt, const datetime & dtm);
-	
+	datetime(double interval, timeunit_option unit_opt, const datetime & dtm);	
 	~datetime();
 
 public:

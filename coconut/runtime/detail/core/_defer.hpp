@@ -14,7 +14,6 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE scope_holder COCONUT_FINAL
 {
 	scope_holder(const scope_holder &) = delete;
 	scope_holder & operator = (const scope_holder &) = delete;
-	
 	~scope_holder() { commit(); }
 	
 	scope_holder(scope_holder && sh) noexcept

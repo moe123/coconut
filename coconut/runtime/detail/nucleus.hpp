@@ -14,11 +14,11 @@ namespace coconut {
 
 COCONUT_PRIVATE class COCONUT_VISIBLE nucleus 
 {
-COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.nucleus, nucleus)
+COCONUT_ROOT_CLASSDECLARE(coconut.runtime.nucleus, nucleus)
 	
-public:
+private:
 	nucleus();
-protected:
+private:
 	nucleus(const nucleus & ref);
 	nucleus & operator = (const nucleus & ref);
 	
@@ -279,13 +279,11 @@ public:
 
 private:
 	std::ptrdiff_t sig() const;
-	const std::string addr() const;
 	bool mutability() const;
 	
 private:
 	std::map<std::string, Owning<Any> > m_attrs;
 	std::vector<ClassKind> m_kinds;
-	// std::string m_addr;
 	ClassKind m_kind;
 	std::int16_t m_tag;
 	bool m_ismutable;

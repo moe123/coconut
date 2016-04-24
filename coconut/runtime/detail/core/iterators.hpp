@@ -27,11 +27,13 @@ public:
 };
 
 template <class MapT>
-COCONUT_PRIVATE key_map_facet<MapT> key_begin(MapT & m)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+key_map_facet<MapT> key_begin(MapT & m)
 { return key_map_facet<MapT>(m.begin()); }
 
 template <class MapT>
-COCONUT_PRIVATE key_map_facet<MapT> key_end(MapT & m)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+key_map_facet<MapT> key_end(MapT & m)
 { return key_map_facet<MapT>(m.end()); }
 
 template <class MapT>
@@ -47,13 +49,14 @@ public:
 };
 
 template <class MapT>
-COCONUT_PRIVATE value_map_facet<MapT> value_begin(MapT & m)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+value_map_facet<MapT> value_begin(MapT & m)
 { return value_map_facet<MapT>(m.begin()); }
 
 template <class MapT>
-COCONUT_PRIVATE value_map_facet<MapT> value_end(MapT & m)
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+value_map_facet<MapT> value_end(MapT & m)
 { return value_map_facet<MapT>(m.end()); }
-
 
 template <typename ItemT, class FriendT>
 COCONUT_PRIVATE class range_adv_facet

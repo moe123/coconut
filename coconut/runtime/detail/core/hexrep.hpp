@@ -35,9 +35,14 @@ struct format_option
 	std::size_t u_max;
 	bool u_row;
 };
+			
+namespace {
+	format_option default_option{};
+}
 
 template <typename IterT>
-inline void format(
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void format(
 	std::ostream & os,
 	IterT && beg,
 	IterT && end,
@@ -48,7 +53,7 @@ inline void format(
 	std::ios default_fmt(nullptr);
 	saved_fmt.copyfmt(os);
 	os.copyfmt(default_fmt);
-	if (!opt) { return; }
+	if (!opt) { opt = &default_option; }
 	os << opt->u_start;
 	for (; beg != end; ++beg) {
 		std::uint8_t c = unsafe_cast<std::uint8_t>(*beg);

@@ -27,8 +27,8 @@ public:
 	void unlock();
 
 private:
-	std::int32_t m_cycle;
-	std::int32_t m_loop;
+	std::int16_t m_cycle;
+	std::int16_t m_loop;
 	std::atomic_flag m_lock;
 	std::atomic<bool> m_out;
 };
