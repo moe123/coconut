@@ -1013,18 +1013,10 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 	impl_trait buf;
 	std::size_t sz = size();
 	if (sz) {
-		if (slc.start() >= 0 && slc.stop() >= 0 && slc.step() == 1) {
-			return subarrayWithRange({
-				static_cast<std::size_t>(slc.start()),
-				static_cast<std::size_t>(slc.stop())
-			});
-		} else {
-			std::vector<std::size_t> idxs;
-			slc.m_impl.get_indexes(idxs, sz);
-			for (std::vector<std::size_t>::const_iterator it = idxs.cbegin(); it != idxs.cend(); ++it) {
-				Owning<Any> item = objectAtIndex(*it);
-				if (item) { buf.push_back(item); }
-			}
+		slc.indexesForLength(sz);
+		for (Slice::const_iterator it = slc.cbegin(); it != slc.cend(); ++it) {
+			Owning<Any> item = objectAtIndex(*it);
+			if (item) { buf.push_back(item); }
 		}
 	} else {
 		// Fault();

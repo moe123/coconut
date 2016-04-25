@@ -1058,6 +1058,22 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
+	{
+		runtime::traits::irange rg0{3, 15};
+		std::cerr << "+ to_string " << rg0.to_string() << std::endl;
+		
+		runtime::traits::irange rg1{rg0.to_string()};
+		
+		std::cerr << "+ to_string " << rg1.to_string() << std::endl;
+		
+		runtime::traits::islice slc0{3, 15};
+		std::cerr << "+ to_string " << slc0.to_string() << std::endl;
+		
+		runtime::traits::islice slc1{slc0.to_string()};
+		
+		std::cerr << "+ to_string " << slc1.to_string() << std::endl;
+		
+	}
 	run_queue();
 	{
 		// testing if right shifting not screwing up signed e.g prefilling unsigned cast.

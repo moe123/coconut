@@ -78,4 +78,29 @@ std::int64_t Slice::stop() const
 std::int64_t Slice::step() const
 { return m_impl.step(); }
 
+#pragma mark -
+
+void Slice::indexesForLength(std::size_t length) const
+{ m_impl.do_indexes(length); }
+
+#pragma mark -
+
+Slice::iterator Slice::begin() { return m_impl.begin(); }
+Slice::iterator Slice::end() { return m_impl.end(); }
+
+Slice::const_iterator Slice::begin() const { return m_impl.begin(); }
+Slice::const_iterator Slice::end() const { return m_impl.end(); }
+
+Slice::const_iterator Slice::cbegin() const { return m_impl.cbegin(); }
+Slice::const_iterator Slice::cend() const { return m_impl.cend(); }
+
+Slice::reverse_iterator Slice::rbegin() { return m_impl.rbegin(); }
+Slice::reverse_iterator Slice::rend() { return m_impl.rend(); }
+
+Slice::const_reverse_iterator Slice::rbegin() const { return m_impl.rbegin(); }
+Slice::const_reverse_iterator Slice::rend() const { return m_impl.rend(); }
+
+Slice::const_reverse_iterator Slice::crbegin() const { return m_impl.crbegin(); }
+Slice::const_reverse_iterator Slice::crend() const { return m_impl.crend(); }
+
 /* EOF */

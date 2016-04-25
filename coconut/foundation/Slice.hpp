@@ -39,14 +39,41 @@ namespace coconut
 		std::int64_t start() const;
 		std::int64_t stop() const;
 		std::int64_t step() const;
-	
-	protected:
-		friend class Array;
-		friend class MutableArray;
-		friend class String;
 		
+		void indexesForLength(std::size_t length) const;
+
 	protected:
 		typedef runtime::traits::islice impl_trait;
+		
+	public:
+		typedef impl_trait::iterator iterator;
+		typedef impl_trait::const_iterator const_iterator;
+		
+		typedef impl_trait::reverse_iterator reverse_iterator;
+		typedef impl_trait::const_reverse_iterator const_reverse_iterator;
+		
+		typedef impl_trait::value_type value_type;
+		typedef impl_trait::size_type size_type;
+		typedef impl_trait::difference_type difference_type;
+		
+	public:
+		iterator begin();
+		iterator end();
+		
+		const_iterator begin() const;
+		const_iterator end() const;
+		
+		const_iterator cbegin() const;
+		const_iterator cend() const;
+		
+		reverse_iterator rbegin();
+		reverse_iterator rend();
+		
+		const_reverse_iterator rbegin() const;
+		const_reverse_iterator rend() const;
+		
+		const_reverse_iterator crbegin() const;
+		const_reverse_iterator crend() const;
 	
 	protected:
 		impl_trait m_impl;

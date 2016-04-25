@@ -37,11 +37,42 @@ public:
 	void set_stop(std::int64_t stop);
 	void set_step(std::int64_t step);
 	
-	void get_indexes(std::vector<std::size_t> & idxes, std::size_t forlen) const;
+	void do_indexes(std::size_t forlen) const;
 	
 	std::string to_string() const;
 
+public:
+	typedef std::vector<std::size_t>::iterator iterator;
+	typedef std::vector<std::size_t>::const_iterator const_iterator;
+	
+	typedef std::vector<std::size_t>::reverse_iterator reverse_iterator;
+	typedef std::vector<std::size_t>::const_reverse_iterator const_reverse_iterator;
+	
+	typedef std::vector<std::size_t>::value_type value_type;
+	typedef std::vector<std::size_t>::size_type size_type;
+	typedef std::vector<std::size_t>::difference_type difference_type;
+	
+public:
+	iterator begin();
+	iterator end();
+	
+	const_iterator begin() const;
+	const_iterator end() const;
+	
+	const_iterator cbegin() const;
+	const_iterator cend() const;
+	
+	reverse_iterator rbegin();
+	reverse_iterator rend();
+	
+	const_reverse_iterator rbegin() const;
+	const_reverse_iterator rend() const;
+	
+	const_reverse_iterator crbegin() const;
+	const_reverse_iterator crend() const;
+	
 private:
+	mutable std::vector<std::size_t> m_indexes;
 	std::int64_t m_start;
 	std::int64_t m_stop;
 	std::int64_t m_step;

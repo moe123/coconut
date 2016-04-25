@@ -10,25 +10,28 @@
 using namespace coconut::runtime::traits;
 
 islice::islice()
-: m_start(0)
+: m_indexes()
+, m_start(0)
 , m_stop(0)
 , m_step(1)
 { /* NOP */ }
 
 islice::islice(const islice & slc)
-: m_start(slc.m_start)
+: m_indexes()
+, m_start(slc.m_start)
 , m_stop(slc.m_stop)
 , m_step(slc.m_step)
 { /* NOP */ }
 
 islice::islice(const std::string & slc_string)
-: m_start(0)
+: m_indexes()
+, m_start(0)
 , m_stop(0)
 , m_step(1)
 {
 	try {
 		std::regex regex
-		{	R"(\{\"start\": ([0-9]+), \"stop\": ([0-9]+), \"step\": ([0-9]+)\})",
+		{	R"(\{\"\$\{slice\}\": \{\"start\": ([0-9]+), \"stop\": ([0-9]+), \"step\": ([0-9]+)\}\})",
 			std::regex::icase
 		};
 		std::smatch match;
@@ -48,15 +51,17 @@ islice::islice(const std::string & slc_string)
 }
 
 islice::islice(std::int64_t start, std::int64_t stop)
-: m_start(start)
+: m_indexes()
+, m_start(start)
 , m_stop(stop)
 , m_step(1)
 { /* NOP */ }
 
 islice::islice(std::int64_t start, std::int64_t stop, std::int64_t step)
-: m_start(start)
+: m_indexes()
+, m_start(start)
 , m_stop(stop)
-, m_step(step == 0 ? 1 : step)
+, m_step(step <= 0 ? 1 : step)
 { /* NOP */ }
 
 islice::~islice()
@@ -90,10 +95,10 @@ std::string islice::to_string() const
 {
 	return algorithm::format
 	(
-		"{\"start\": %ll, \"stop\": %ll, \"step\": %u}",
-			m_start,
-			m_stop,
-	 		m_step
+		u8"{\"${slice}\": {\"start\": %" PRId64 ", \"stop\": %" PRId64 ", \"step\": %" PRId64 "}}}",
+		m_start,
+		m_stop,
+		m_step
 	 );
 }
 
@@ -119,7 +124,7 @@ void islice::set_step(std::int64_t step)
 
 #pragma mark -
 
-void islice::get_indexes(std::vector<std::size_t> & idxes, std::size_t forlen) const
+void islice::do_indexes(std::size_t forlen) const
 {
 	std::int64_t start = m_start < 0 ? m_start + forlen : m_start;
 	std::int64_t stop = start + (m_stop < 0 ? m_stop + forlen : m_stop);
@@ -128,15 +133,35 @@ void islice::get_indexes(std::vector<std::size_t> & idxes, std::size_t forlen) c
 	std::cerr << " + start  + : " << start << std::endl;
 	std::cerr << " + stop  + : " << stop << std::endl;
 #endif
-	idxes.clear();
+	m_indexes.clear();
 	for(std::int64_t i = start; (i < stop && step > 0) || (i > stop && step < 0); i += step) {
-		idxes.push_back(unsafe_cast<std::size_t>(i));
+		m_indexes.push_back(unsafe_cast<std::size_t>(i));
 	}
 #if COCONUT_DEBUG
-	for (const auto & idx : idxes) {
+	for (const auto & idx : m_indexes) {
 		std::cerr << " + idx  + : " << idx << std::endl;
 	}
 #endif
 }
+
+#pragma mark -
+
+islice::iterator islice::begin() { return m_indexes.begin(); }
+islice::iterator islice::end() { return m_indexes.end(); }
+
+islice::const_iterator islice::begin() const { return m_indexes.begin(); }
+islice::const_iterator islice::end() const { return m_indexes.end(); }
+
+islice::const_iterator islice::cbegin() const { return m_indexes.cbegin(); }
+islice::const_iterator islice::cend() const { return m_indexes.cend(); }
+
+islice::reverse_iterator islice::rbegin() { return m_indexes.rbegin(); }
+islice::reverse_iterator islice::rend() { return m_indexes.rend(); }
+
+islice::const_reverse_iterator islice::rbegin() const { return m_indexes.rbegin(); }
+islice::const_reverse_iterator islice::rend() const { return m_indexes.rend(); }
+
+islice::const_reverse_iterator islice::crbegin() const { return m_indexes.crbegin(); }
+islice::const_reverse_iterator islice::crend() const { return m_indexes.crend(); }
 
 /* EOF */
