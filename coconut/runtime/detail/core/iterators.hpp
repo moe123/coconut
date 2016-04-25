@@ -58,20 +58,22 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 value_map_facet<MapT> value_end(MapT & m)
 { return value_map_facet<MapT>(m.end()); }
 
-template <typename ItemT, class FriendT>
-COCONUT_PRIVATE class range_adv_facet
+template <typename ItemT, class FriendT,
+	typename std::enable_if<std::numeric_limits<ItemT>::is_integer>::type* = nullptr
+>
+COCONUT_PRIVATE class range_facet
 {
 friend FriendT;
 	
 protected:
-	typedef range_adv_facet<ItemT, FriendT> facet;
-	typedef const range_adv_facet<ItemT, FriendT> const_facet;
+	typedef range_facet<ItemT, FriendT> facet;
+	typedef const range_facet<ItemT, FriendT> const_facet;
 	typedef ItemT value_type;
 	typedef ItemT size_type;
 	typedef std::ptrdiff_t difference_type;
 	
 protected:
-	range_adv_facet(value_type beg) : m_val (beg) { /* NOP */ }
+	range_facet(value_type beg) : m_val (beg) { /* NOP */ }
 	
 public:
 	value_type & operator * () { return m_val; }
@@ -98,20 +100,22 @@ private:
 	value_type m_val;
 };
 
-template <typename ItemT, class FriendT>
-COCONUT_PRIVATE class range_rev_facet
+template <typename ItemT, class FriendT,
+	typename std::enable_if<std::numeric_limits<ItemT>::is_integer>::type* = nullptr
+>
+COCONUT_PRIVATE class range_rfacet
 {
 friend FriendT;
 	
 protected:
-	typedef range_rev_facet<ItemT, FriendT> facet;
-	typedef const range_rev_facet<ItemT, FriendT> const_facet;
+	typedef range_rfacet<ItemT, FriendT> facet;
+	typedef const range_rfacet<ItemT, FriendT> const_facet;
 	typedef ItemT value_type;
 	typedef ItemT size_type;
 	typedef std::ptrdiff_t difference_type;
 	
 protected:
-	range_rev_facet(value_type beg) : m_val (beg) { /* NOP */ }
+	range_rfacet(value_type beg) : m_val (beg) { /* NOP */ }
 	
 public:
 	value_type & operator * () { value_type cpy = m_val; return --cpy; }

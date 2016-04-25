@@ -19,6 +19,11 @@ Range::Range(const Range & rg) :
 	m_impl(rg.m_impl)
 { /* NOP */ }
 
+Range::Range(Range && rg) noexcept :
+	Object(RangeClass),
+	m_impl(std::move(rg.m_impl))
+{ /* NOP */ }
+
 Range::Range(std::size_t location, std::size_t length) :
 	Object(RangeClass),
 	m_impl(location, length)

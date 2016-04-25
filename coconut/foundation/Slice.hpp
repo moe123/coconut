@@ -19,6 +19,7 @@ namespace coconut
 		Slice();
 		Slice(const Slice & slc);
 		Slice & operator = (const Slice & slc) = default;
+		Slice(Slice && slc) noexcept;
 		Slice(std::int64_t start, std::int64_t stop);
 		Slice(std::int64_t start, std::int64_t stop, std::int64_t step);
 		Slice(const Range & rg);

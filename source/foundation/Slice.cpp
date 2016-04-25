@@ -19,6 +19,11 @@ Slice::Slice(const Slice & slc) :
 	m_impl(slc.m_impl)
 { /* NOP */ }
 
+Slice::Slice(Slice && slc) noexcept :
+	Object(SliceClass),
+	m_impl(std::move(slc.m_impl))
+{ /* NOP */ }
+
 Slice::Slice(std::int64_t start, std::int64_t stop) :
 	Slice(start, stop, 1)
 { /* NOP */ }

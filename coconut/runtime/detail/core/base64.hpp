@@ -13,12 +13,6 @@ namespace coconut {
 	namespace runtime {
 		namespace base64 {
 
-// //////////////////////////////////////////////////////////
-// @based on base64.hpp, base64.cpp
-// Copyright (C) 2002 Ryan Petrie. All rights reserved.
-// @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
-//
-
 namespace
 {
 	struct lookup_table
@@ -60,6 +54,12 @@ namespace
 	};
 }
 
+// //////////////////////////////////////////////////////////
+// @based on base64.hpp, base64.cpp
+// Copyright (C) 2002 Ryan Petrie. All rights reserved.
+// @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
+//
+			
 template <typename IterInT, typename IterOutT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option option = chunksplit_none)

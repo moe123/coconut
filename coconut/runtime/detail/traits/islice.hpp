@@ -20,6 +20,7 @@ COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.islice, islice)
 public:
 	islice();
 	islice(const islice & slc);
+	islice(islice && slc) noexcept;
 	islice(const std::string & slc_string);
 	islice(std::int64_t start, std::int64_t stop);
 	islice(std::int64_t start, std::int64_t stop, std::int64_t step);

@@ -19,6 +19,11 @@ irange::irange(const irange & rg)
 , m_len(rg.m_len)
 { /* NOP */ }
 
+irange::irange(irange && rg) noexcept
+: m_loc(rg.m_loc)
+, m_len(rg.m_len)
+{ /* NOP */ }
+
 irange::irange(const std::string & rg_string)
 : m_loc(0)
 , m_len(0)

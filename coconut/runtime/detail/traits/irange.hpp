@@ -21,6 +21,7 @@ COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.irange, irange)
 public:
 	irange();
 	irange(const irange & rg);
+	irange(irange && rg) noexcept;
 	irange(const std::string & rg_string);
 	irange(std::size_t location, std::size_t length);
 	~irange();
@@ -45,22 +46,22 @@ public:
 	std::string to_string() const;
 
 private:
-	typedef iterators::range_adv_facet<std::size_t, irange> iter_adv_facet;
-	typedef const iterators::range_adv_facet<std::size_t, irange> const_iter_adv_facet;
+	typedef iterators::range_facet<std::size_t, irange> iter_facet;
+	typedef const iterators::range_facet<std::size_t, irange> const_iter_facet;
 	
-	typedef iterators::range_rev_facet<std::size_t, irange> iter_rev_facet;
-	typedef const iterators::range_rev_facet<std::size_t, irange> const_iter_rev_facet;
+	typedef iterators::range_rfacet<std::size_t, irange> iter_rfacet;
+	typedef const iterators::range_rfacet<std::size_t, irange> const_iter_rfacet;
 
 public:
-	typedef iter_adv_facet iterator;
-	typedef const_iter_adv_facet const_iterator;
+	typedef iter_facet iterator;
+	typedef const_iter_facet const_iterator;
 	
-	typedef iter_rev_facet reverse_iterator;
-	typedef const_iter_rev_facet const_reverse_iterator;
+	typedef iter_rfacet reverse_iterator;
+	typedef const_iter_rfacet const_reverse_iterator;
 
-	typedef std::size_t value_type;
-	typedef std::size_t size_type;
-	typedef std::size_t difference_type;
+	typedef iter_facet::value_type value_type;
+	typedef iter_facet::size_type size_type;
+	typedef iter_facet::difference_type difference_type;
 	
 	iterator begin();
 	iterator end();

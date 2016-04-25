@@ -21,70 +21,86 @@ namespace coconut
 	};
 		
 	template <typename T1, typename T2>
-	inline auto _conforms_to(const T2 & r, std::false_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _conforms_to(const T2 & r, std::false_type) -> bool
 	{ const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(r)); return (ptr != nullptr); }
 	
 	template <typename T1, typename T2>
-	inline auto _conforms_to(ptr_declare<T2> const & r, std::true_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _conforms_to(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ if (r) { const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(*r)); return (ptr != nullptr); }; return false; }
 	
 	template <typename T1, typename T2>
-	inline auto _kind_of(const T2 & r, std::false_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _kind_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isKindOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _kind_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _kind_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isKindOf<T1>()); }
 	
 	template <typename T1, typename T2>
-	inline auto _subclass_of(const T2 & r, std::false_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _subclass_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isSubclassOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _subclass_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _subclass_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isSubclassOf<T1>()); }
 
 	template <typename T1, typename T2>
-	inline auto _member_of(const T2 & r, std::false_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _member_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isMemberOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _member_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _member_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isMemberOf<T1>()); }
 
 	template <typename T1, typename T2>
-	inline auto _ancestor_of(const T2 & r, std::false_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _ancestor_of(const T2 & r, std::false_type) -> bool
 	{ return r . template  isAncestorOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _ancestor_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _ancestor_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isAncestorOf<T1>()); }
 
 	template <typename T1, typename T2>
-	inline auto _parent_of(const T2 & r, std::false_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _parent_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isParenOf<T1>(); }
 	
 	template <typename T1, typename T2>
-	inline auto _parent_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _parent_of(ptr_declare<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isParenOf<T1>()); }
 	
 	template <typename T1, typename T2>
-	inline auto _thus(const T2 & r, std::false_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _thus(const T2 & r, std::false_type)
 		-> T1 &
 	{ return ref_cast<T1>(r); }
 	
 	template <typename T1, typename T2>
-	inline auto _thus(ptr_declare<T2> const & r, std::true_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _thus(ptr_declare<T2> const & r, std::true_type)
 		-> T1 &
 	{ return (*(ptr_cast<T1>(r))); }
 
 	template <typename T1, typename T2>
-	inline auto _then(const T2 & r, std::false_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _then(const T2 & r, std::false_type)
 		-> T1 *
 	{ return std::addressof(ref_cast<T1>(r)); }
 	
 	template <typename T1, typename T2>
-	inline auto _then(ptr_declare<T2> const & r, std::true_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _then(ptr_declare<T2> const & r, std::true_type)
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r); }
 
@@ -94,7 +110,8 @@ namespace coconut
 			std::is_base_of<Any, T2>::value
 		>::type* = nullptr
 	>
-	inline auto _copy(const T2 & r, std::false_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _copy(const T2 & r, std::false_type)
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r.kindCopy()); }
 	
@@ -104,7 +121,8 @@ namespace coconut
 			std::is_base_of<Any, T2>::value
 		>::type* = nullptr
 	>
-	inline auto _copy(ptr_declare<T2> const & r, std::true_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _copy(ptr_declare<T2> const & r, std::true_type)
 		-> ptr_declare<T1>
 	{ return ptr_cast<T1>(r->kindCopy()); }
 	
@@ -116,7 +134,8 @@ namespace coconut
 			std::is_same<CollT, MutableOrderedSet>::value
 		>::type* = nullptr
 	>
-	inline void _enumerate_dispatch_aliasing
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	void _enumerate_dispatch_aliasing
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -134,7 +153,8 @@ namespace coconut
 			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_dispatch_aliasing
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch_aliasing
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -152,7 +172,8 @@ namespace coconut
 			std::is_same<CollT, MutableDictionary>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_dispatch_aliasing
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch_aliasing
 	(
 	 	const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -170,7 +191,8 @@ namespace coconut
 			std::is_same<CollT, MutableDictionary>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_dispatch_aliasing
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch_aliasing
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func,
@@ -183,7 +205,8 @@ namespace coconut
 	}
 	
 	template <typename TypeT, typename CollT>
-	inline auto _enumerate_dispatch
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func,
@@ -192,7 +215,8 @@ namespace coconut
 	{ _enumerate_dispatch_aliasing<TypeT, CollT>(r, func, options); }
 
 	template <typename TypeT, typename CollT>
-	inline auto _enumerate_dispatch
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch
 	(
 		const CollT & r,
 		const std::function<void(const Owning<Any> & obj)> & func,
@@ -206,7 +230,8 @@ namespace coconut
 			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_dispatch
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch
 	(
 	 	const CollT & r,
 	 	const std::function<void(const Owning<Any> & obj, bool & stop)> & func,
@@ -222,7 +247,8 @@ namespace coconut
 			std::is_same<CollT, MutableOrderedSet>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_dispatch
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch
 	(
 	 	const CollT & r,
 	 	const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func,
@@ -236,7 +262,8 @@ namespace coconut
 			std::is_same<CollT, MutableDictionary>::value
 		>::type* = nullptr
 	>
-	inline auto _enumerate_dispatch
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate_dispatch
 	(
 		const CollT & r,
 	 	const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func,
@@ -245,12 +272,14 @@ namespace coconut
 	{ ref_cast<TypeT>(r).enumerateKeysAndObjectsUsingFunction(func, options); }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
-	inline auto _enumerate(const CollT & r, const FuncT & func, EnumerationOptions options, std::false_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate(const CollT & r, const FuncT & func, EnumerationOptions options, std::false_type)
 		-> void
 	{ _enumerate_dispatch<TypeT>(r, func, options); }
 	
 	template <typename TypeT, typename CollT, typename FuncT>
-	inline auto _enumerate(Owning<CollT> const & r, const FuncT & func, EnumerationOptions options, std::true_type)
+	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	auto _enumerate(Owning<CollT> const & r, const FuncT & func, EnumerationOptions options, std::true_type)
 		-> void
 	{ if (r) { _enumerate_dispatch<TypeT>(*r, func, options); }; }
 

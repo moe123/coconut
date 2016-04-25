@@ -17,7 +17,14 @@ islice::islice()
 { /* NOP */ }
 
 islice::islice(const islice & slc)
-: m_indexes()
+: m_indexes(slc.m_indexes)
+, m_start(slc.m_start)
+, m_stop(slc.m_stop)
+, m_step(slc.m_step)
+{ /* NOP */ }
+
+islice::islice(islice && slc) noexcept
+: m_indexes(std::move(slc.m_indexes))
 , m_start(slc.m_start)
 , m_stop(slc.m_stop)
 , m_step(slc.m_step)

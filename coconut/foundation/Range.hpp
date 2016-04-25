@@ -19,6 +19,7 @@ namespace coconut
 		Range();
 		Range(const Range & rg);
 		Range & operator = (const Range & rg) = default;
+		Range(Range && rg) noexcept;
 		Range(std::size_t location, std::size_t length);
 		virtual ~Range();
 		
