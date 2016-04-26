@@ -21,8 +21,7 @@ namespace coconut
 		Data & operator = (const Data & dat) = default;
 		Data(Data && dat) noexcept;
 		Data(const Data & dat, bool b64_decode);
-		Data(const Data && dat, bool b64_decode);
-		Data(Data && dat, bool b64_decode);
+		Data(Data && dat, bool b64_decode) noexcept;
 		Data(const std::uint8_t * in, std::size_t length, bool b64_decode = false);
 		Data(const char * in, std::size_t length, bool b64_decode = false);
 		

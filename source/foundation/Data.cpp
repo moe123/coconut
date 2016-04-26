@@ -32,12 +32,7 @@ Data::Data(const Data & dat, bool b64_decode) :
 	m_impl(dat.m_impl, b64_decode)
 { /* NOP */ }
 
-Data::Data(const Data && dat, bool b64_decode) :
-	Object(DataClass),
-	m_impl(dat.m_impl, b64_decode)
-{ /* NOP */ }
-
-Data::Data(Data && dat, bool b64_decode) :
+Data::Data(Data && dat, bool b64_decode) noexcept :
 	Object(DataClass),
 	m_impl(std::move(dat.m_impl), b64_decode)
 { /* NOP */ }
