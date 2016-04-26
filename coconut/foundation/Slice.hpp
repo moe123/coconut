@@ -44,7 +44,7 @@ namespace coconut
 		void indexesForLength(std::size_t length) const;
 
 	protected:
-		typedef runtime::traits::islice impl_trait;
+		typedef ::coconut::runtime::traits::islice impl_trait;
 		
 	public:
 		typedef impl_trait::iterator iterator;

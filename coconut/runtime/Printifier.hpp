@@ -128,7 +128,7 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
-		runtime::hexrep::format_option opt;
+		::coconut::runtime::hexrep::format_option opt;
 		
 		opt.u_start = "<";
 		opt.u_stop = ">";
@@ -138,7 +138,7 @@ namespace coconut
 		opt.u_max = 24;
 		opt.u_row = false;
 
-		runtime::hexrep::format
+		::coconut::runtime::hexrep::format
 		(
 			os,
 			ref_cast<Data>(r).cbegin(),

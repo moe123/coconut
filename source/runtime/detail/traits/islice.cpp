@@ -38,7 +38,7 @@ islice::islice(const std::string & slc_string)
 {
 	try {
 		std::regex regex
-		{	R"(\{\"\$\{slice\}\": \{\"start\": ([0-9]+), \"stop\": ([0-9]+), \"step\": ([0-9]+)\}\})",
+		{	R"(\{\"\#\{slice\}\": \{\"start\": ([0-9]+), \"stop\": ([0-9]+), \"step\": ([0-9]+)\}\})",
 			std::regex::icase
 		};
 		std::smatch match;
@@ -102,7 +102,7 @@ std::string islice::to_string() const
 {
 	return algorithm::format
 	(
-		u8"{\"${slice}\": {\"start\": %" PRId64 ", \"stop\": %" PRId64 ", \"step\": %" PRId64 "}}}",
+		u8"{\"#{slice}\": {\"start\": %" PRId64 ", \"stop\": %" PRId64 ", \"step\": %" PRId64 "}}}",
 		m_start,
 		m_stop,
 		m_step

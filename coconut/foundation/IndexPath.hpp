@@ -53,7 +53,7 @@ namespace coconut
 		bool getIndexes(std::vector<std::size_t> & indexes) const;
 		
 	protected:
-		typedef runtime::traits::indexpath impl_trait;
+		typedef ::coconut::runtime::traits::indexpath impl_trait;
 
 	public:
 		typedef impl_trait::iterator iterator;

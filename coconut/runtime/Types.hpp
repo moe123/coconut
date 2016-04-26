@@ -41,17 +41,17 @@
 
 namespace coconut
 {	
-	using runtime::Owning;
-	using runtime::Any;
+	using ::coconut::runtime::Owning;
+	using ::coconut::runtime::Any;
 	
-	using runtime::ClassKind;
-	using runtime::ComparisonResult;
-	using runtime::NotFound;
-	using runtime::MaxFound;
+	using ::coconut::runtime::ClassKind;
+	using ::coconut::runtime::ComparisonResult;
+	using ::coconut::runtime::NotFound;
+	using ::coconut::runtime::MaxFound;
 	
 	COCONUT_OPT_TYPED(_classkind_opt, std::uint16_t)
 	{
-		ObjectClass = runtime::classkind_object,
+		ObjectClass = ::coconut::runtime::classkind_object,
 		ProxyClass,
 		
 		ArrayClass,
@@ -121,132 +121,132 @@ namespace coconut
 	
 	COCONUT_OPT_TYPED(ComparisonResultAlias, int)
 	{
-		OrderedAscending = runtime::cmp_ascending,
-		OrderedSame = runtime::cmp_same,
-		OrderedDescending = runtime::cmp_descending
+		OrderedAscending = ::coconut::runtime::cmp_ascending,
+		OrderedSame = ::coconut::runtime::cmp_same,
+		OrderedDescending = ::coconut::runtime::cmp_descending
 	};
 		
 	COCONUT_OPT(JobPolicyOption)
 	{
-		JobPolicyAsync = runtime::launch_async,
-		JobPolicyDeferred = runtime::launch_deferred,
-		JobPolicyAny = runtime::launch_any
+		JobPolicyAsync = ::coconut::runtime::launch_async,
+		JobPolicyDeferred = ::coconut::runtime::launch_deferred,
+		JobPolicyAny = ::coconut::runtime::launch_any
 	};
 	
 	COCONUT_OPT(StringEncodingOption)
 	{
-		StringEncodingAuto = runtime::encoding_auto,
-		StringEncodingUniversal = runtime::encoding_universal,
-		StringEncodingUnicode = runtime::encoding_unicode,
+		StringEncodingAuto = ::coconut::runtime::encoding_auto,
+		StringEncodingUniversal = ::coconut::runtime::encoding_universal,
+		StringEncodingUnicode = ::coconut::runtime::encoding_unicode,
 		
-		StringEncodingUTF8 = runtime::encoding_utf8,
+		StringEncodingUTF8 = ::coconut::runtime::encoding_utf8,
 		
-		StringEncodingUTF16 = runtime::encoding_utf16,
-		StringEncodingUTF16BE = runtime::encoding_utf16be,
-		StringEncodingUTF16LE = runtime::encoding_utf16le,
+		StringEncodingUTF16 = ::coconut::runtime::encoding_utf16,
+		StringEncodingUTF16BE = ::coconut::runtime::encoding_utf16be,
+		StringEncodingUTF16LE = ::coconut::runtime::encoding_utf16le,
 		
-		StringEncodingUTF32 = runtime::encoding_utf32,
-		StringEncodingUTF32BE = runtime::encoding_utf32be,
-		StringEncodingUTF32LE = runtime::encoding_utf32le,
+		StringEncodingUTF32 = ::coconut::runtime::encoding_utf32,
+		StringEncodingUTF32BE = ::coconut::runtime::encoding_utf32be,
+		StringEncodingUTF32LE = ::coconut::runtime::encoding_utf32le,
 		
-		StringEncodingUCS2 = runtime::encoding_ucs2,
-		StringEncodingUCS2BE = runtime::encoding_ucs2be,
-		StringEncodingUCS2LE = runtime::encoding_ucs2le,
+		StringEncodingUCS2 = ::coconut::runtime::encoding_ucs2,
+		StringEncodingUCS2BE = ::coconut::runtime::encoding_ucs2be,
+		StringEncodingUCS2LE = ::coconut::runtime::encoding_ucs2le,
 		
-		StringEncodingUCS4 = runtime::encoding_ucs4,
-		StringEncodingUCS4BE = runtime::encoding_ucs4be,
-		StringEncodingUCS4LE = runtime::encoding_ucs4le,
+		StringEncodingUCS4 = ::coconut::runtime::encoding_ucs4,
+		StringEncodingUCS4BE = ::coconut::runtime::encoding_ucs4be,
+		StringEncodingUCS4LE = ::coconut::runtime::encoding_ucs4le,
 		
-		StringEncodingSHIFTJIS = runtime::encoding_shiftjis,
+		StringEncodingSHIFTJIS = ::coconut::runtime::encoding_shiftjis,
 		
-		StringEncodingISO2022JP = runtime::encoding_iso2022jp,
-		StringEncodingISO2022CN = runtime::encoding_iso2022cn,
-		StringEncodingISO2022KR = runtime::encoding_iso2022kr,
+		StringEncodingISO2022JP = ::coconut::runtime::encoding_iso2022jp,
+		StringEncodingISO2022CN = ::coconut::runtime::encoding_iso2022cn,
+		StringEncodingISO2022KR = ::coconut::runtime::encoding_iso2022kr,
 		
-		StringEncodingGB18030 = runtime::encoding_gb18030,
-		StringEncodingBIG5 = runtime::encoding_big5,
+		StringEncodingGB18030 = ::coconut::runtime::encoding_gb18030,
+		StringEncodingBIG5 = ::coconut::runtime::encoding_big5,
 		
-		StringEncodingEUCJP = runtime::encoding_eucjp,
-		StringEncodingEUCKR = runtime::encoding_euckr,
+		StringEncodingEUCJP = ::coconut::runtime::encoding_eucjp,
+		StringEncodingEUCKR = ::coconut::runtime::encoding_euckr,
 		
-		StringEncodingISO88591 = runtime::encoding_iso88591,
-		StringEncodingISO88592 = runtime::encoding_iso88592,
-		StringEncodingISO88595 = runtime::encoding_iso88595,
-		StringEncodingISO88596 = runtime::encoding_iso88596,
-		StringEncodingISO88597 = runtime::encoding_iso88597,
-		StringEncodingISO88598 = runtime::encoding_iso88598,
-		StringEncodingISO88598I = runtime::encoding_iso88598i,
-		StringEncodingISO88599 = runtime::encoding_iso88599,
+		StringEncodingISO88591 = ::coconut::runtime::encoding_iso88591,
+		StringEncodingISO88592 = ::coconut::runtime::encoding_iso88592,
+		StringEncodingISO88595 = ::coconut::runtime::encoding_iso88595,
+		StringEncodingISO88596 = ::coconut::runtime::encoding_iso88596,
+		StringEncodingISO88597 = ::coconut::runtime::encoding_iso88597,
+		StringEncodingISO88598 = ::coconut::runtime::encoding_iso88598,
+		StringEncodingISO88598I = ::coconut::runtime::encoding_iso88598i,
+		StringEncodingISO88599 = ::coconut::runtime::encoding_iso88599,
 		
-		StringEncodingWINDOWS1250 = runtime::encoding_windows1250,
-		StringEncodingWINDOWS1251 = runtime::encoding_windows1251,
-		StringEncodingWINDOWS1252 = runtime::encoding_windows1252,
-		StringEncodingWINDOWS1253 = runtime::encoding_windows1253,
-		StringEncodingWINDOWS1254 = runtime::encoding_windows1254,
-		StringEncodingWINDOWS1255 = runtime::encoding_windows1255,
-		StringEncodingWINDOWS1256 = runtime::encoding_windows1256,
+		StringEncodingWINDOWS1250 = ::coconut::runtime::encoding_windows1250,
+		StringEncodingWINDOWS1251 = ::coconut::runtime::encoding_windows1251,
+		StringEncodingWINDOWS1252 = ::coconut::runtime::encoding_windows1252,
+		StringEncodingWINDOWS1253 = ::coconut::runtime::encoding_windows1253,
+		StringEncodingWINDOWS1254 = ::coconut::runtime::encoding_windows1254,
+		StringEncodingWINDOWS1255 = ::coconut::runtime::encoding_windows1255,
+		StringEncodingWINDOWS1256 = ::coconut::runtime::encoding_windows1256,
 		
-		StringEncodingKOI8R = runtime::encoding_koi8r,
+		StringEncodingKOI8R = ::coconut::runtime::encoding_koi8r,
 		
-		StringEncodingIBM420 = runtime::encoding_ibm420,
-		StringEncodingIBM420LTR = runtime::encoding_ibm420ltr,
-		StringEncodingIBM420RTL = runtime::encoding_ibm420rtl,
+		StringEncodingIBM420 = ::coconut::runtime::encoding_ibm420,
+		StringEncodingIBM420LTR = ::coconut::runtime::encoding_ibm420ltr,
+		StringEncodingIBM420RTL = ::coconut::runtime::encoding_ibm420rtl,
 		
-		StringEncodingIBM424 = runtime::encoding_ibm424,
-		StringEncodingIBM424LTR = runtime::encoding_ibm424ltr,
-		StringEncodingIBM424RTL = runtime::encoding_ibm424rtl
+		StringEncodingIBM424 = ::coconut::runtime::encoding_ibm424,
+		StringEncodingIBM424LTR = ::coconut::runtime::encoding_ibm424ltr,
+		StringEncodingIBM424RTL = ::coconut::runtime::encoding_ibm424rtl
 	};
 	
 	COCONUT_OPT(StringSearchOptions)
 	{
-		StringSearchLiteral = runtime::search_literal,
-		StringSearchWidthInsensitive = runtime::search_nowidth,
-		StringSearchCaseInsensitive = runtime::search_insensitive,
-		StringSearchDiacriticInsensitive = runtime::search_diacritic,
-		StringSearchBackwards = runtime::search_backwards,
-		StringSearchForcedOrdering = runtime::search_forceorder,
-		StringSearchAnchored = runtime::search_anchored,
-		StringSearchNumeric = runtime::search_numeric
+		StringSearchLiteral = ::coconut::runtime::search_literal,
+		StringSearchWidthInsensitive = ::coconut::runtime::search_nowidth,
+		StringSearchCaseInsensitive = ::coconut::runtime::search_insensitive,
+		StringSearchDiacriticInsensitive = ::coconut::runtime::search_diacritic,
+		StringSearchBackwards = ::coconut::runtime::search_backwards,
+		StringSearchForcedOrdering = ::coconut::runtime::search_forceorder,
+		StringSearchAnchored = ::coconut::runtime::search_anchored,
+		StringSearchNumeric = ::coconut::runtime::search_numeric
 	};
 		
 	COCONUT_OPT(ChunkSplitOption)
 	{
-		ChunkSplitNone = runtime::chunksplit_none,
-		ChunkSplit64CRLF = runtime::chunksplit_64crlf,
-		ChunkSplit64LF = runtime::chunksplit_64lf,
-		ChunkSplit76CRLF = runtime::chunksplit_76crlf,
-		ChunkSplit76LF = runtime::chunksplit_76lf
+		ChunkSplitNone = ::coconut::runtime::chunksplit_none,
+		ChunkSplit64CRLF = ::coconut::runtime::chunksplit_64crlf,
+		ChunkSplit64LF = ::coconut::runtime::chunksplit_64lf,
+		ChunkSplit76CRLF = ::coconut::runtime::chunksplit_76crlf,
+		ChunkSplit76LF = ::coconut::runtime::chunksplit_76lf
 	};
 	
 	COCONUT_OPT_TYPED(NumberType, std::uint16_t)
 	{
-		NumberZero = runtime::numeric_zero,
-		NumberFloat = runtime::numeric_float,
-		NumberDouble = runtime::numeric_double,
-		NumberLongDouble = runtime::numeric_long_double,
-		NumberBool = runtime::numeric_bool,
-		NumberChar = runtime::numeric_char,
-		NumberShort = runtime::numeric_short,
-		NumberInt = runtime::numeric_int,
-		NumberLong = runtime::numeric_long,
-		NumberLongLong = runtime::numeric_longlong,
-		NumberUnsignedChar = runtime::numeric_unsigned_char,
-		NumberUnsignedShort = runtime::numeric_unsigned_short,
-		NumberUnsignedInt = runtime::numeric_unsigned_int,
-		NumberUnsignedLong = runtime::numeric_unsigned_long,
-		NumberUnsignedLongLong = runtime::numeric_unsigned_longlong
+		NumberZero = ::coconut::runtime::numeric_zero,
+		NumberFloat = ::coconut::runtime::numeric_float,
+		NumberDouble = ::coconut::runtime::numeric_double,
+		NumberLongDouble = ::coconut::runtime::numeric_long_double,
+		NumberBool = ::coconut::runtime::numeric_bool,
+		NumberChar = ::coconut::runtime::numeric_char,
+		NumberShort = ::coconut::runtime::numeric_short,
+		NumberInt = ::coconut::runtime::numeric_int,
+		NumberLong = ::coconut::runtime::numeric_long,
+		NumberLongLong = ::coconut::runtime::numeric_longlong,
+		NumberUnsignedChar = ::coconut::runtime::numeric_unsigned_char,
+		NumberUnsignedShort = ::coconut::runtime::numeric_unsigned_short,
+		NumberUnsignedInt = ::coconut::runtime::numeric_unsigned_int,
+		NumberUnsignedLong = ::coconut::runtime::numeric_unsigned_long,
+		NumberUnsignedLongLong = ::coconut::runtime::numeric_unsigned_longlong
 	};
 	
 	COCONUT_OPT(DataPackingOption)
 	{
-		DataPackingBigEndian = runtime::packing_bigendian,
-		DataPackingLittleEndian = runtime::packing_littleendian
+		DataPackingBigEndian = ::coconut::runtime::packing_bigendian,
+		DataPackingLittleEndian = ::coconut::runtime::packing_littleendian
 	};
 		
 	COCONUT_OPT(DataUnpackingOption)
 	{
-		DataUnpackingBigEndian = runtime::unpacking_bigendian,
-		DataUnpackingLittleEndian = runtime::unpacking_littleendian
+		DataUnpackingBigEndian = ::coconut::runtime::unpacking_bigendian,
+		DataUnpackingLittleEndian = ::coconut::runtime::unpacking_littleendian
 	};
 	
 	COCONUT_OPT(ByteOrderType)
@@ -256,14 +256,14 @@ namespace coconut
 		ByteOrderLittleEndian
 	};
 	
-	using SwappedFloat = runtime::byteorder::fswp_t;
-	using SwappedDouble = runtime::byteorder::dswp_t;
+	using SwappedFloat = ::coconut::runtime::byteorder::fswp_t;
+	using SwappedDouble = ::coconut::runtime::byteorder::dswp_t;
 	
 	COCONUT_OPT(DirectorySeparatorOption)
 	{
-		DirectorySeparatorAuto = runtime::dirsep_auto,
-		DirectorySeparatorBackslash = runtime::dirsep_slack,
-		DirectorySeparatorSlash = runtime::dirsep_whack,
+		DirectorySeparatorAuto = ::coconut::runtime::dirsep_auto,
+		DirectorySeparatorBackslash = ::coconut::runtime::dirsep_slack,
+		DirectorySeparatorSlash = ::coconut::runtime::dirsep_whack,
 	};
 	
 	COCONUT_OPT(CopyOption)
@@ -313,24 +313,24 @@ namespace coconut
 	
 	COCONUT_OPT(TimeUnitOption)
 	{
-		TimeUnitPlainSeconds = runtime::timeunit_plainseconds,
-		TimeUnitDoubleSeconds = runtime::timeunit_doubleseconds,
-		TimeUnitMilliSeconds = runtime::timeunit_milliseconds,
-		TimeUnitMicroSeconds = runtime::timeunit_microseconds,
-		TimeUnitNanoSeconds = runtime::timeunit_nanoseconds
+		TimeUnitPlainSeconds = ::coconut::runtime::timeunit_plainseconds,
+		TimeUnitDoubleSeconds = ::coconut::runtime::timeunit_doubleseconds,
+		TimeUnitMilliSeconds = ::coconut::runtime::timeunit_milliseconds,
+		TimeUnitMicroSeconds = ::coconut::runtime::timeunit_microseconds,
+		TimeUnitNanoSeconds = ::coconut::runtime::timeunit_nanoseconds
 	};
 	
 	COCONUT_OPT(TimeReferenceOption)
 	{
-		TimeReferenceSinceCurrentTime = runtime::timeref_since_now,
-		TimeReferenceSinceReferenceDate = runtime::timeref_since_ref,
-		TimeReferenceSinceJanuary1970 = runtime::timeref_since_1970
+		TimeReferenceSinceCurrentTime = ::coconut::runtime::timeref_since_now,
+		TimeReferenceSinceReferenceDate = ::coconut::runtime::timeref_since_ref,
+		TimeReferenceSinceJanuary1970 = ::coconut::runtime::timeref_since_1970
 	};
 	
 	COCONUT_OPT(TimestampOption)
 	{
-		TimestampSinceReferenceDate = runtime::timeref_since_ref,
-		TimestampSinceJanuary1970 = runtime::timeref_since_1970
+		TimestampSinceReferenceDate = ::coconut::runtime::timeref_since_ref,
+		TimestampSinceJanuary1970 = ::coconut::runtime::timeref_since_1970
 	};
 	
 	typedef double TimeInterval;
