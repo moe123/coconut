@@ -252,8 +252,8 @@ std::string ustring::get_codepage(encoding_option encoding)
 bool ustring::get_sys_codepages(std::vector<std::string> & codepages)
 { return builtins::ustring_syscodepages(codepages); }
 
-bool ustring::get_codepages(std::set<std::string> & codepages)
-{ return builtins::ustring_getcodepages(codepages); }
+void ustring::get_codepages(std::set<std::string> & codepages)
+{ builtins::ustring_getcodepages(codepages); }
 
 #pragma mark -
 
@@ -313,7 +313,7 @@ std::string ustring::make_utf8(const std::string & in8bits, float & confidence, 
 
 #pragma mark -
 
-int ustring::compare_utf8(const std::string & utf8_a, const std::string & utf8_r, search_options options)
+int ustring::compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options)
 {
 	if (options == search_literal || options & search_literal) {
 		options &= ~search_literal;
@@ -321,7 +321,7 @@ int ustring::compare_utf8(const std::string & utf8_a, const std::string & utf8_r
 	}
 	//icu::Locale loc = icu::Locale::getDefault();
 	icu::Locale loc = icu::Locale::getEnglish();
-	return builtins::ustring_compare_utf8(utf8_a, utf8_r, options, &loc);
+	return builtins::ustring_compare_utf8(utf8_a, utf8_b, options, &loc);
 }
 
 #pragma mark -

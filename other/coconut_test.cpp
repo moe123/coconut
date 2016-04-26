@@ -811,7 +811,8 @@ static void test_stuff(void)
 	
 	{
 		std::set<std::string> codepages;
-		if (ustring::get_codepages(codepages)) {
+		ustring::get_codepages(codepages);
+		{
 			for (auto & codepage : codepages) {
 				std::cerr << "+ get_codepages : " << codepage << std::endl;
 			}

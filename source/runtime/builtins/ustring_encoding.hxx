@@ -140,19 +140,13 @@ bool ustring_syscodepages(std::vector<std::string> & codepages)
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool ustring_getcodepages(std::set<std::string> & codepages)
+void ustring_getcodepages(std::set<std::string> & codepages)
 {
-	std::set<std::string> * cp = std::addressof(codepages);
-	if (cp) {
-		std::size_t i = 0;
-		do {
-			cp->insert(ustring_codepages[i].codepage);
-			++i;
-		} while(nullptr != ustring_codepages[i].codepage);
-		
-		return true;
-	}
-	return false;
+	std::size_t i = 0;
+	do {
+		codepages.insert({ustring_codepages[i].codepage});
+		++i;
+	} while(nullptr != ustring_codepages[i].codepage);
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
