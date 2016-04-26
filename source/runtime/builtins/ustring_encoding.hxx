@@ -156,16 +156,16 @@ bool ustring_getcodepages(std::set<std::string> & codepages)
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-const char * ustring_getcodepage(encoding_option encoding)
+std::string ustring_getcodepage(encoding_option encoding)
 {
 	std::size_t i = 0;
 	do {
 		if (ustring_codepages[i].encoding == encoding) {
-			return ustring_codepages[i].codepage;
+			return {ustring_codepages[i].codepage};
 		}
 		++i;
 	} while(nullptr != ustring_codepages[i].codepage);
-	return "";
+	return {};
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -186,9 +186,9 @@ bool ustring_getencoding(const char * codepage, encoding_option & encoding)
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-const char * ustring_detectcodepage(const std::uint8_t * in, std::size_t len, float & confidence)
+std::string ustring_detectcodepage(const std::uint8_t * in, std::size_t len, float & confidence)
 {
-	const char * result = "";
+	std::string result;
 	UCharsetDetector * dctr;
 	const UCharsetMatch * chmt;
 	const UCharsetMatch ** chmts;
@@ -239,7 +239,7 @@ const char * ustring_detectcodepage(const std::uint8_t * in, std::size_t len, fl
 		if (result == NULL || U_FAILURE(status)) {
 			ucsdet_close(dctr);
 			confidence = 0.0;
-			return "";
+			return {};
 		}
 		confidence = static_cast<float>(best) / 100.0;
 		return result;
@@ -258,7 +258,7 @@ const char * ustring_detectcodepage(const std::uint8_t * in, std::size_t len, fl
 	if (result == NULL || U_FAILURE(status)) {
 		ucsdet_close(dctr);
 		confidence = 0.0;
-		return "";
+		return {};
 	}
 	c = ucsdet_getConfidence(chmt, &status);
 	if (U_FAILURE(status)) {

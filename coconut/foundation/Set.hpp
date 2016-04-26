@@ -120,7 +120,7 @@ namespace coconut
 		{ return setByAddingObjectsFromSet(Set(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 	
 	protected:
-		typedef std::set<Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b)> impl_trait;
+		typedef std::set< Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b)> impl_trait;
 		
 	public:
 		typedef impl_trait::iterator iterator;

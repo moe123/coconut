@@ -169,7 +169,7 @@ namespace coconut
 		const Owning<Any> operator [] (const Owning<Any> & key) const;
 	
 	protected:
-		typedef std::map<Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b)> impl_trait;
+		typedef std::map< Owning<Any>, Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b)> impl_trait;
 	
 	public:
 		typedef impl_trait::iterator iterator;
