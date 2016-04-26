@@ -75,21 +75,21 @@ public:
 	~bytebuf();
 
 public:
-	static void unpack(const std::uint8_t (&in)[2], std::uint16_t & out, unpacking_option option);
-	static void unpack(const std::uint8_t (&in)[4], std::uint32_t & out, unpacking_option option);
-	static void unpack(const std::uint8_t (&in)[8], std::uint64_t & out, unpacking_option option);
+	COCONUT_CLASSMETHOD void unpack(const std::uint8_t (&in)[2], std::uint16_t & out, unpacking_option option);
+	COCONUT_CLASSMETHOD void unpack(const std::uint8_t (&in)[4], std::uint32_t & out, unpacking_option option);
+	COCONUT_CLASSMETHOD void unpack(const std::uint8_t (&in)[8], std::uint64_t & out, unpacking_option option);
 	
-	static void unpack(const std::uint8_t (&in)[2], std::int16_t & out, unpacking_option option);
-	static void unpack(const std::uint8_t (&in)[4], std::int32_t & out, unpacking_option option);
-	static void unpack(const std::uint8_t (&in)[8], std::int64_t & out, unpacking_option option);
+	COCONUT_CLASSMETHOD void unpack(const std::uint8_t (&in)[2], std::int16_t & out, unpacking_option option);
+	COCONUT_CLASSMETHOD void unpack(const std::uint8_t (&in)[4], std::int32_t & out, unpacking_option option);
+	COCONUT_CLASSMETHOD void unpack(const std::uint8_t (&in)[8], std::int64_t & out, unpacking_option option);
 
-	static void pack(const std::uint16_t & in, std::uint8_t (&out)[2], packing_option option);
-	static void pack(const std::uint32_t & in, std::uint8_t (&out)[4], packing_option option);
-	static void pack(const std::uint64_t & in, std::uint8_t (&out)[8], packing_option option);
+	COCONUT_CLASSMETHOD void pack(const std::uint16_t & in, std::uint8_t (&out)[2], packing_option option);
+	COCONUT_CLASSMETHOD void pack(const std::uint32_t & in, std::uint8_t (&out)[4], packing_option option);
+	COCONUT_CLASSMETHOD void pack(const std::uint64_t & in, std::uint8_t (&out)[8], packing_option option);
 	
-	static void pack(const std::int16_t & in, std::uint8_t (&out)[2], packing_option option);
-	static void pack(const std::int32_t & in, std::uint8_t (&out)[4], packing_option option);
-	static void pack(const std::int64_t & in, std::uint8_t (&out)[8], packing_option option);
+	COCONUT_CLASSMETHOD void pack(const std::int16_t & in, std::uint8_t (&out)[2], packing_option option);
+	COCONUT_CLASSMETHOD void pack(const std::int32_t & in, std::uint8_t (&out)[4], packing_option option);
+	COCONUT_CLASSMETHOD void pack(const std::int64_t & in, std::uint8_t (&out)[8], packing_option option);
 	
 private:
 	bool rb_fin(stream::fstream & in_binary);

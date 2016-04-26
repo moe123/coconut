@@ -26,18 +26,18 @@ public:
 	~datetime();
 
 public:
-	static double absolute(timeunit_option unit_opt);
+	COCONUT_CLASSMETHOD double absolute(timeunit_option unit_opt);
 	
-	static std::string utc_now();
-	static datetime utc_parse(const std::string & utc);
+	COCONUT_CLASSMETHOD std::string utc_now();
+	COCONUT_CLASSMETHOD datetime utc_parse(const std::string & utc);
 	
-	static bool get_now(std::pair<std::int64_t, std::int64_t> & tm);
+	COCONUT_CLASSMETHOD bool get_now(std::pair<std::int64_t, std::int64_t> & tm);
 	
-	static double timestamp_1970(timeunit_option unit_opt);
-	static double reference_time(timeunit_option unit_opt);
+	COCONUT_CLASSMETHOD double timestamp_1970(timeunit_option unit_opt);
+	COCONUT_CLASSMETHOD double reference_time(timeunit_option unit_opt);
 	
-	static datetime past();
-	static datetime future();
+	COCONUT_CLASSMETHOD datetime past();
+	COCONUT_CLASSMETHOD datetime future();
 
 public:
 	datetime & operator = (const datetime & dtm);

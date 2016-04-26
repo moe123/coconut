@@ -62,8 +62,8 @@ COCONUT_OPT_TYPED(ComparisonResult, int)
 	cmp_descending = 1
 };
 
-static constexpr std::size_t NotFound = std::numeric_limits<std::size_t>::max();
-static constexpr std::size_t MaxFound = (NotFound - 1);
+static constexpr std::size_t const NotFound  = std::numeric_limits<std::size_t>::max();
+static constexpr std::size_t const MaxFound = (NotFound - 1);
 
 COCONUT_OPT_TYPED(ClassKind, std::uint16_t)
 {

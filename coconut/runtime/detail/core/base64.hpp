@@ -52,6 +52,7 @@ namespace
 			49, 50, 51, -1, -1, -1, -1, -1  // 120
 		};
 	};
+	static const lookup_table lt{};
 }
 
 // //////////////////////////////////////////////////////////
@@ -64,7 +65,6 @@ template <typename IterInT, typename IterOutT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option option = chunksplit_none)
 {
-	lookup_table lt;
 	IterInT it = beg;
 	std::size_t chunk_size = 0, line_size = 0;
 	std::int32_t bytes = 0;
@@ -124,7 +124,6 @@ template <typename IterInT, typename IterOutT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void decode(IterInT && beg, IterInT && end, IterOutT && out)
 {
-	lookup_table lt;
 	IterInT it = beg;
 	std::int32_t chars;
 	

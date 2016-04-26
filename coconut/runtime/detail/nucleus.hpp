@@ -32,8 +32,8 @@ protected:
 /*
 * Sending messages.
 */
-	static bool isSelectorKey(const std::string & utf8_in);
-	static bool isAttributeKey(const std::string & utf8_attrkey);
+	COCONUT_CLASSMETHOD bool isSelectorKey(const std::string & utf8_in);
+	COCONUT_CLASSMETHOD bool isAttributeKey(const std::string & utf8_attrkey);
 
 public:
 	bool respondsToSelectorKey(const std::string & utf8_selkey) const;

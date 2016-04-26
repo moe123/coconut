@@ -29,9 +29,9 @@ public:
 	~uri();
 	
 public:
-	static std::string escape(const std::string & in, bool space_as_plus = false);
-	static std::string unescape(const std::string & in, bool plus_as_space = false);
-	static bool is_scheme(const std::string & scheme);
+	COCONUT_CLASSMETHOD std::string escape(const std::string & in, bool space_as_plus = false);
+	COCONUT_CLASSMETHOD std::string unescape(const std::string & in, bool plus_as_space = false);
+	COCONUT_CLASSMETHOD bool is_scheme(const std::string & scheme);
 	
 public:
 	uri & operator = (const uri & url);

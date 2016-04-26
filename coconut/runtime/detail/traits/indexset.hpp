@@ -28,11 +28,11 @@ public:
 	~indexset();
 
 private:
-	static std::size_t pos_greater_eq_loc(const std::vector<irange> & rgs, std::size_t location);
-	static std::size_t pos_greater_less_loc(const std::vector<irange> & rgs, std::size_t location);
-	static void remove_range_at_pos(std::vector<irange> & rgs, std::size_t position);
-	static void insert_range_at_pos(std::vector<irange> & rgs, const irange & rg, std::size_t position);
-	static std::size_t find_pos_for_index(const std::vector<irange> & rgs, std::size_t index);
+	COCONUT_CLASSMETHOD std::size_t pos_greater_eq_loc(const std::vector<irange> & rgs, std::size_t location);
+	COCONUT_CLASSMETHOD std::size_t pos_greater_less_loc(const std::vector<irange> & rgs, std::size_t location);
+	COCONUT_CLASSMETHOD void remove_range_at_pos(std::vector<irange> & rgs, std::size_t position);
+	COCONUT_CLASSMETHOD void insert_range_at_pos(std::vector<irange> & rgs, const irange & rg, std::size_t position);
+	COCONUT_CLASSMETHOD std::size_t find_pos_for_index(const std::vector<irange> & rgs, std::size_t index);
 	
 public:
 	indexset & operator = (const indexset & idxset);

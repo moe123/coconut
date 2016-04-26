@@ -39,20 +39,20 @@ public:
 	~ustring();
 
 public:
-	static bool get_sys_codepages(std::vector<std::string> & codepages);
-	static void get_codepages(std::set<std::string> & codepages);
-	static std::string get_codepage(encoding_option encoding);
+	COCONUT_CLASSMETHOD bool get_sys_codepages(std::vector<std::string> & codepages);
+	COCONUT_CLASSMETHOD void get_codepages(std::set<std::string> & codepages);
+	COCONUT_CLASSMETHOD std::string get_codepage(encoding_option encoding);
 	
-	static bool guess_encoding(const std::string & in8bits, encoding_option & encoding, float & confidence);
-	static std::string make_utf8(const std::string & in8bits, float & confidence, encoding_option from = encoding_auto);
-	static int compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options);
+	COCONUT_CLASSMETHOD bool guess_encoding(const std::string & in8bits, encoding_option & encoding, float & confidence);
+	COCONUT_CLASSMETHOD std::string make_utf8(const std::string & in8bits, float & confidence, encoding_option from = encoding_auto);
+	COCONUT_CLASSMETHOD int compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options);
 	
 	template <typename... ArgsT>
-	static std::string format(const std::string & fmt, ArgsT &&... args)
+	COCONUT_CLASSMETHOD std::string format(const std::string & fmt, ArgsT &&... args)
 	{ return algorithm::format(fmt.c_str(), std::forward<ArgsT>(args)...); }
 	
 	template <typename... ArgsT>
-	static std::u16string uformat(const char * utf8_fmt, ArgsT &&... args)
+	COCONUT_CLASSMETHOD std::u16string uformat(const char * utf8_fmt, ArgsT &&... args)
 	{
 		std::u16string result;
 		if (utf8_fmt) {
@@ -66,7 +66,7 @@ public:
 	}
 	
 	template <typename... ArgsT>
-	static std::u16string uformat(const char16_t * utf16_fmt, ArgsT &&... args)
+	COCONUT_CLASSMETHOD std::u16string uformat(const char16_t * utf16_fmt, ArgsT &&... args)
 	{
 		std::u16string result;
 		if (utf16_fmt) {
@@ -79,7 +79,7 @@ public:
 		return result;
 	}
 	
-	static ustring unescaped(const ustring & ustr);
+	COCONUT_CLASSMETHOD ustring unescaped(const ustring & ustr);
 
 public:
 	ustring & operator = (const ustring & ustr);
