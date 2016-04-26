@@ -149,7 +149,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	auto parent = With<Dictionary>({
 		{ With<String>(u8"parent"), child }
 	});
-	tree + parent;
+	tree += parent;
 }
 
 std::cerr << tree << std::endl;
@@ -234,7 +234,7 @@ firstNames.enumerateObjectsUsingFunction(
 		{ keys[2], ages[index] }
 	});
 	// Adding person to people
-	people + person;
+	people += person;
 
 }, EnumerationConcurrent);
 
@@ -243,7 +243,7 @@ firstNames.enumerateObjectsUsingFunction(
 Enumerate<Array>(firstNames,
 	[&lastNames, &ages, &keys, &people] (const Owning<Any> & obj, std::size_t index, bool & stop)
 {
-	people + With<Dictionary>({
+	people += With<Dictionary>({
 		{ keys[0], obj },
 		{ keys[1], lastNames[index] },
 		{ keys[2], ages[index] }
@@ -298,7 +298,7 @@ bool test = people.someObjectPassingTest(
 
 MutableArray tree;
 for (std::size_t i = 0; i < 10; i++ ) {
-	tree + With<Array>({
+	tree += With<Array>({
 		With<Dictionary>({
 			{ With<String>(u8"child"), With<Number>(i + 1) }
 		})
