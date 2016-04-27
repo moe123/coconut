@@ -27,8 +27,6 @@ namespace coconut {
 
 #if defined(__MICROSOFT__)
 
-namespace { std::mutex fs_mtx; }
-
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::wstring fs_lname_prefix(const std::wstring & utf16_fullpath)
 {
@@ -241,7 +239,6 @@ bool fs_resolve_v1(const std::wstring & utf16_path_in, std::wstring & utf16_full
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool fs_resolve_v0(const std::wstring & utf16_path_in, std::wstring & utf16_fullpath_out)
 {
-	std::unique_lock<std::mutex> auto_lock(fs_mtx);
 	bool result = false;
 	WCHAR buf[1024 + 1];
 	DWORD len;
