@@ -81,20 +81,20 @@ public:
 	
 	value_type * operator -> () const { return &(operator*()); }
 	
-	const_facet & operator ++ () { ++m_val; return *this; }
-	facet operator ++ (int) { facet cpy(*this); ++m_val; return cpy; }
+	const_facet & operator ++ () noexcept { ++m_val; return *this; }
+	facet operator ++ (int) noexcept { facet cpy(*this); ++m_val; return cpy; }
 	
-	const_facet & operator -- () { --m_val; return *this; }
-	facet operator -- (int) { facet cpy(*this); --m_val; return cpy; }
+	const_facet & operator -- () noexcept { --m_val; return *this; }
+	facet operator -- (int) noexcept { facet cpy(*this); --m_val; return cpy; }
 	
-	facet operator + (value_type n) const { return facet(m_val + n); }
-	const_facet & operator += (value_type n) { m_val += n; return *this; }
+	facet operator + (value_type n) const noexcept { return facet(m_val + n); }
+	const_facet & operator += (value_type n) noexcept { m_val += n; return *this; }
 	
-	facet operator - (value_type n) const { return facet(m_val -n); }
-	const_facet & operator -= (value_type n) { m_val -= n; return *this; }
+	facet operator - (value_type n) const noexcept { return facet(m_val -n); }
+	const_facet & operator -= (value_type n) noexcept { m_val -= n; return *this; }
 	
-	bool operator == (const_facet & other_it) const { return m_val == other_it.m_val; }
-	bool operator != (const_facet & other_it) const { return m_val != other_it.m_val; }
+	bool operator == (const_facet & other_it) const noexcept { return m_val == other_it.m_val; }
+	bool operator != (const_facet & other_it) const noexcept { return m_val != other_it.m_val; }
 	
 private:
 	value_type m_val;
@@ -123,20 +123,20 @@ public:
 	
 	value_type * operator -> () const { return &(operator*()); }
 	
-	const_facet & operator ++ () { --m_val; return *this; }
-	facet operator ++ (int) { facet cpy(*this); --m_val; return cpy; }
+	const_facet & operator ++ () noexcept { --m_val; return *this; }
+	facet operator ++ (int) noexcept { facet cpy(*this); --m_val; return cpy; }
 	
-	const_facet & operator -- () { ++m_val; return *this; }
-	facet operator -- (int) { facet cpy(*this); ++m_val; return cpy; }
+	const_facet & operator -- () noexcept { ++m_val; return *this; }
+	facet operator -- (int) noexcept { facet cpy(*this); ++m_val; return cpy; }
 	
-	facet operator + (value_type n) const { return facet(m_val - n); }
-	const_facet & operator += (value_type n) { m_val -= n; return *this; }
+	facet operator + (value_type n) const noexcept { return facet(m_val - n); }
+	const_facet & operator += (value_type n) noexcept { m_val -= n; return *this; }
 	
-	facet operator - (value_type n) const { return facet(m_val + n); }
+	facet operator - (value_type n) const noexcept { return facet(m_val + n); }
 	const_facet & operator -= (value_type n) { m_val += n; return *this; }
 	
-	bool operator == (const_facet & other_it) const { return m_val == other_it.m_val; }
-	bool operator != (const_facet & other_it) const { return m_val != other_it.m_val; }
+	bool operator == (const_facet & other_it) const noexcept { return m_val == other_it.m_val; }
+	bool operator != (const_facet & other_it) const noexcept { return m_val != other_it.m_val; }
 	
 private:
 	value_type m_val;

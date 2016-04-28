@@ -17,9 +17,13 @@
 	#include <wincrypt.h>
 	#include <windows.h>
 #elif defined(__APPLE__)
+
+___COCONUT_BEGIN_DECLS
 	#include <mach/clock.h>
 	#include <mach/mach.h>
 	#include <mach/mach_error.h>
+___COCONUT_END_DECLS
+
 #endif
 
 #include "unicode/calendar.h"
@@ -41,7 +45,9 @@ struct time_spec
 
 #else
 
+___COCONUT_BEGIN_DECLS
 typedef struct timespec time_spec;
+___COCONUT_END_DECLS
 
 #endif
 

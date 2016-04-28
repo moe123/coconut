@@ -342,8 +342,8 @@ std::cerr << sorted << std::endl;
 
 ```
 ```cpp
-// Coconut Easy Concurrent Jobs: similar to a Callable 
-// in Java but purely lambda expressions driven :
+// Easy concurrent Jobs: similar to a Callable 
+// in Java but purely lambda expression driven :
 
 auto job = JobExec(JobPolicyAsync, []() -> bool
 {
@@ -367,7 +367,32 @@ bool job = JobRun([]() -> bool
 	bool result = false;
 	//
 	// do something;
-	// 
+	//
+    { // also handling nested tasks.
+		// preparing
+		auto other1 = JobExec(JobPolicyDeferred, []() -> bool
+		{
+			bool result = false;
+			//
+			// do something other1;
+			//
+			return result;
+		}
+		// preparing
+		auto other2 = JobExec(JobPolicyDeferred, []() -> bool
+		{
+			bool result = false;
+			//
+			// do something other2;
+			//
+			return result;
+		}
+		// execute and fetch;
+		bool a = other1();
+		bool b = other2();
+		
+		return a || b;
+	}
 	return result;
 });
 
@@ -394,8 +419,8 @@ for (int i = 0; i < 10; i++) {
 
 // Acquiring.
 
-for (auto i = tasks.begin(); i != tasks.end(); i++) {
-	auto n = (*i)();
+for (auto jobs = tasks.begin(); jobs != tasks.end(); ++jobs) {
+	auto n = (*jobs)();
 	std::cout << "+ is_odd : " <<  n.first << " -> " << std::boolalpha << n.second << std::endl;
 }
 

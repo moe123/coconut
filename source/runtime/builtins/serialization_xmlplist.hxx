@@ -4,7 +4,6 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-//#define pugi COCONUT_PPCAT(coconut, builtins0pugi)
 #define PUGIXML_HEADER_ONLY
 
 namespace coconut {
