@@ -23,13 +23,13 @@ Coconut is designed with these goals in mind:
 - The internal implementation doesn't use any 'auto type constructs everything must stay explicit.
 - Not only reserved to desktops but also distributed systems <sup>(3)</sup>.
 - Concurrent block/lambda executions, concurrency, multi-threading, asynchronous dispatch, IPC.
-- Traversable, iterable, sortable collections thru the KVC interface not relaying on binary comparison.
+- Traversable, iterable, sortable collections thru the Key-Value Coding interface not relaying on binary comparison.
 - Make software development easier by introducing consistent conventions.
 - Code readability, syntax, allowing to express concepts in fewer lines of code.
 - Support Unicode strings <sup>(4)</sup> and other legacy encodings, UTF-8, i18n and locale comparison. 
 - Support for Path, Stream <sup>(5)</sup>, filesystem and network access on different platforms.
 - Safe and transparent access to the main loop or UI loop queue of the platform e.g safely signaling the UI thread.
-- Object persistence, distribution, melt-in KVO notifications, event looper.
+- Object persistence, distribution, melt-in Key-Value Observing notifications, event looper.
 - Provide a level of OS independence, to enhance portability <sup>(6)</sup>.
 
 -----------------------------------------------------------------------------------------------

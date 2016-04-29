@@ -144,7 +144,16 @@ ClassKind nucleus::parentClassKind() const
 #pragma mark -
 
 void nucleus::conveyAttributesFrom(const Any & ref)
-{ m_attrs.insert(ref.m_attrs.cbegin(), ref.m_attrs.cend()); }
+{ m_attrs.insert(ref.m_attrs.begin(), ref.m_attrs.end()); }
+
+void nucleus::copyAttributesFrom(const Any & ref)
+{
+	for (std::map<std::string, Owning<Any> >::const_iterator it = ref.m_attrs.cbegin(); it != ref.m_attrs.cend(); ++it) {
+		if ((*it).second) {
+			m_attrs.insert(std::make_pair((*it).first, ((*it).second)->kindCopy()));
+		}
+	}
+}
 
 void nucleus::removeAllAttributes()
 { m_attrs.clear();}

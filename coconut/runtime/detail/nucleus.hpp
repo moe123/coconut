@@ -53,9 +53,10 @@ protected:
 
 protected:
 /*
-* Dynamic attributes.
+* Interface/Protocol @iDynamicAttributes.
 */
 	void conveyAttributesFrom(const Any & ref);
+	void copyAttributesFrom(const Any & ref);
 	void removeAllAttributes();
 	
 	bool setAttributeForKey(Owning<Any> ptr, const std::string & utf8_attrkey);
@@ -77,7 +78,7 @@ public:
 	
 public:
 /*
-* Interface iConformance: Object inheritance and behavior. 
+* Interface/Protocol @iConformance: Object inheritance and behavior.
 */
 	template <typename T>
 	bool conformsTo(void * no_param = nullptr) const
@@ -124,7 +125,7 @@ public:
 	
 public:
 /*
-* Interface/Protocol iCopying: Copying object.
+* Interface/Protocol @iCopying: Copying object.
 */
 	virtual Owning<Any> copy() const;
 	virtual Owning<Any> mutableCopy() const;
@@ -132,7 +133,7 @@ public:
 
 public:
 /*
-* Interface/Protocol iKeyValueCoding: A mechanism by which you can access the properties of an object indirectly by key.
+* Interface/Protocol @iKeyValueCoding: A mechanism by which you can access the properties of an object indirectly by key.
 */
 	virtual Owning<Any> valueForKey(const std::string & utf8_key) const;
 	virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key);
@@ -159,7 +160,7 @@ public:
 	
 private:
 /*
-* Interface/Protocol iComparison: Comparing objects.
+* Interface/Protocol @iComparison: Comparing objects.
 */
 	/* default placeholders for compare */
 	template <typename T> int compareTo(T && a, T && b) const
@@ -248,7 +249,7 @@ public:
 
 public:
 /*
-* Interface/Protocol iRepresentation: accessing string representations and numeric values.
+* Interface/Protocol @iRepresentation: accessing string representations and numeric values.
 */
 	
 	const std::string description() const;

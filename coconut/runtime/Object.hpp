@@ -41,7 +41,7 @@ namespace coconut
 	
 	public:
 	/*
-	* iKeyValueCoding compliant.
+	* @iKeyValueCoding compliant.
 	*/
 		virtual Owning<Any> valueForKey(const std::string & utf8_key) const
 		COCONUT_OVERRIDE;
@@ -54,7 +54,7 @@ namespace coconut
 		
 	private:
 	/*
-	* iKeyValueCoding collection operators.
+	* @iKeyValueCoding collection operators.
 	*/
 		Owning<Any> sum(const std::string & utf8_key) const;
 		Owning<Any> min(const std::string & utf8_key) const;

@@ -87,7 +87,12 @@ Owning<Any> Object::copyObject(const Owning<Any> & obj, CopyOption option)
 #pragma mark -
 
 Owning<Any> Object::valueForKey(const std::string & utf8_key) const
-{ return nucleus::valueForKey(utf8_key); }
+{
+	if (utf8_key == u8"self") {
+		return ptr_snatch<Any>(this);
+	}
+	return nucleus::valueForKey(utf8_key);
+}
 
 void Object::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 { nucleus::setValueForKey(ptr, utf8_key); }
@@ -215,7 +220,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 	if (v && v->isKindOf(ArrayClass)) {
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
-			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+			for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					sum += vv->doubleValue();
@@ -228,7 +233,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(SetClass)) {
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
-			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+			for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					sum += vv->doubleValue();
@@ -241,7 +246,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
 		{
-			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+			for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					sum += vv->doubleValue();
@@ -266,7 +271,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 		if (min) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
 			{
-				for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+				for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedDescending == min->compare(*vv)) {
@@ -284,7 +289,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 		if (min) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
 			{
-				for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+				for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedDescending == min->compare(*vv)) {
@@ -302,7 +307,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 		if (min) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
 			{
-				for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+				for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedDescending == min->compare(*vv)) {
@@ -330,7 +335,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 		if (max) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
 			{
-				for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+				for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedAscending == max->compare(*vv)) {
@@ -348,7 +353,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 		if (max) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
 			{
-				for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+				for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedAscending == max->compare(*vv)) {
@@ -366,7 +371,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 		if (max) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
 			{
-				for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+				for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						if (OrderedAscending == max->compare(*vv)) {
@@ -394,7 +399,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 		if (count > 0) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
 			{
-				for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+				for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						avg += (vv->doubleValue() / static_cast<double>(count));
@@ -410,7 +415,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 		if (count > 0) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
 			{
-				for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+				for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						avg += (vv->doubleValue() / static_cast<double>(count));
@@ -426,7 +431,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 		if (count > 0) {
 			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
 			{
-				for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+				for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
 					if (vv) {
 						avg += (vv->doubleValue() / static_cast<double>(count));
@@ -452,7 +457,7 @@ Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
-			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+			for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
@@ -468,7 +473,7 @@ Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
-			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+			for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
@@ -484,7 +489,7 @@ Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
-			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+			for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
@@ -510,7 +515,7 @@ Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
-			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+			for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
@@ -526,7 +531,7 @@ Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
-			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+			for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
@@ -542,7 +547,7 @@ Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
-			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+			for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv) {
 					if (!vv->isMemberOf(NoneClass)) {
@@ -570,7 +575,7 @@ Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
-			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+			for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(ArrayClass)) {
 					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
@@ -601,7 +606,7 @@ Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) con
 	if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
-			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+			for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(OrderedSetClass)) {
 					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
@@ -632,7 +637,7 @@ Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
 	if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
-			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+			for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(SetClass)) {
 					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
@@ -665,7 +670,7 @@ Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
-			for (Array::const_iterator it = ptr_static_cast<Array>(v)->cbegin(); it != ptr_static_cast<Array>(v)->cend(); ++it) {
+			for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(ArrayClass)) {
 					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
@@ -696,7 +701,7 @@ Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
 	if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
-			for (OrderedSet::const_iterator it = ptr_static_cast<OrderedSet>(v)->cbegin(); it != ptr_static_cast<OrderedSet>(v)->cend(); ++it) {
+			for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(OrderedSetClass)) {
 					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
@@ -727,7 +732,7 @@ Owning<Any> Object::unionOfSets(const std::string & utf8_key) const
 	if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
-			for (Set::const_iterator it = ptr_static_cast<Set>(v)->cbegin(); it != ptr_static_cast<Set>(v)->cend(); ++it) {
+			for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
 				if (vv && vv->isKindOf(SetClass)) {
 					Owning<Any> vvv = vv->valueForKeyPath(utf8_key);
