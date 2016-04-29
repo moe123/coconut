@@ -25,10 +25,10 @@ namespace coconut
 		MutablePath(const char16_t * utf16_path);
 		virtual ~MutablePath();
 		
-		void append(const Path & path);
-		void appendComponents(const Array & components);
+		MutablePath & append(const Path & path);
+		MutablePath & appendComponents(const Array & components);
 		
-		void removeLastComponent();
+		MutablePath & removeLastComponent();
 	};
 }
 

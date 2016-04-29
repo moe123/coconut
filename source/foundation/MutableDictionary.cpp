@@ -70,47 +70,40 @@ void MutableDictionary::setValueForKey(Owning<Any> ptr, const std::string & utf8
 
 #pragma mark -
 
-void MutableDictionary::setDictionary(MutableDictionary && dict) noexcept
-{ m_impl = std::move(dict.m_impl); }
+MutableDictionary & MutableDictionary::setDictionary(MutableDictionary && dict) noexcept
+{ m_impl = std::move(dict.m_impl); return *this; }
 
-void MutableDictionary::setDictionary(Dictionary && dict) noexcept
-{ m_impl = std::move(dict.m_impl); }
+MutableDictionary & MutableDictionary::setDictionary(Dictionary && dict) noexcept
+{ m_impl = std::move(dict.m_impl); return *this; }
 
 #pragma mark -
 
-void MutableDictionary::setObjectsFromDictionary(const Dictionary & dict)
-{
-	setObjectsFromDictionary(dict, CopyNone);
-}
+MutableDictionary & MutableDictionary::setObjectsFromDictionary(const Dictionary & dict)
+{ setObjectsFromDictionary(dict, CopyNone); return *this; }
 
-void MutableDictionary::setObjectsFromDictionary(const Dictionary & dict, CopyOption option)
+MutableDictionary & MutableDictionary::setObjectsFromDictionary(const Dictionary & dict, CopyOption option)
 {
 	m_impl.clear();
 	for (const_iterator it = dict.cbegin(); it != dict.cend(); ++it) {
 		setObject((*it).second, (*it).first, option);
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableDictionary::setObject(const Owning<Any> & obj, const std::string & utf8_key)
-{
-	setObject(obj, utf8_key, CopyNone);
-}
+MutableDictionary & MutableDictionary::setObject(const Owning<Any> & obj, const std::string & utf8_key)
+{ setObject(obj, utf8_key, CopyNone); return *this; }
 
-void MutableDictionary::setObject(const Owning<Any> & obj, const Any & key)
-{
-	setObject(obj, key, CopyNone);
-}
+MutableDictionary & MutableDictionary::setObject(const Owning<Any> & obj, const Any & key)
+{ setObject(obj, key, CopyNone); return *this; }
 
-void MutableDictionary::setObject(const Owning<Any> & obj, Owning<Any> key)
-{
-	setObject(obj, key, CopyNone);
-}
+MutableDictionary & MutableDictionary::setObject(const Owning<Any> & obj, Owning<Any> key)
+{ setObject(obj, key, CopyNone); return *this; }
 
 #pragma mark -
 
-void MutableDictionary::setObject(Owning<Any> obj, const std::string & utf8_key, CopyOption option)
+MutableDictionary & MutableDictionary::setObject(Owning<Any> obj, const std::string & utf8_key, CopyOption option)
 {
 	if (obj) {
 		if (option != CopyNone) {
@@ -122,9 +115,10 @@ void MutableDictionary::setObject(Owning<Any> obj, const std::string & utf8_key,
 			m_impl[k] = obj;
 		}
 	}
+	return *this;
 }
 
-void MutableDictionary::setObject(Owning<Any> obj, const Any & key, CopyOption option)
+MutableDictionary & MutableDictionary::setObject(Owning<Any> obj, const Any & key, CopyOption option)
 {
 	if (obj) {
 		if (option != CopyNone) {
@@ -136,9 +130,10 @@ void MutableDictionary::setObject(Owning<Any> obj, const Any & key, CopyOption o
 			m_impl[k] = obj;
 		}
 	}
+	return *this;
 }
 
-void MutableDictionary::setObject(Owning<Any> obj, Owning<Any> key, CopyOption option)
+MutableDictionary & MutableDictionary::setObject(Owning<Any> obj, Owning<Any> key, CopyOption option)
 {
 	if (obj && key) {
 		if (option != CopyNone) {
@@ -150,6 +145,7 @@ void MutableDictionary::setObject(Owning<Any> obj, Owning<Any> key, CopyOption o
 			m_impl[k] = obj;
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
@@ -198,54 +194,58 @@ Owning<Any> MutableDictionary::updateObject(const Owning<Any> & obj, const Ownin
 
 #pragma mark -
 
-void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict)
-{
-	addEntriesFromDictionary(dict, CopyNone);
-}
+MutableDictionary & MutableDictionary::addEntriesFromDictionary(const Dictionary & dict)
+{ addEntriesFromDictionary(dict, CopyNone); return *this; }
 
-void MutableDictionary::addEntriesFromDictionary(const Dictionary & dict, CopyOption option)
+MutableDictionary & MutableDictionary::addEntriesFromDictionary(const Dictionary & dict, CopyOption option)
 {
 	for (const_iterator it = dict.cbegin(); it != dict.cend(); ++it) {
 		setObject((*it).second, (*it).first, option);
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableDictionary::removeObjectForKey(const std::string & utf8_key)
+MutableDictionary & MutableDictionary::removeObjectForKey(const std::string & utf8_key)
 {
 	Owning<Any> k = ptr_create<String>(utf8_key);
 	m_impl.erase(k);
+	return *this;
 }
 
-void MutableDictionary::removeObjectForKey(const Any & key)
+MutableDictionary & MutableDictionary::removeObjectForKey(const Any & key)
 {
 	Owning<Any> k = key.kindCopy();
 	m_impl.erase(k);
+	return *this;
 }
 
-void MutableDictionary::removeObjectForKey(const Owning<Any> & key)
+MutableDictionary & MutableDictionary::removeObjectForKey(const Owning<Any> & key)
 {
 	if (key) {
 		Owning<Any> k = key;
 		m_impl.erase(k);
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableDictionary::removeAllObjects()
+MutableDictionary & MutableDictionary::removeAllObjects()
 {
 	m_impl.clear();
+	return *this;
 }
 
 #pragma mark -
 
-void MutableDictionary::removeObjectsForKeys(const Array & keys)
+MutableDictionary & MutableDictionary::removeObjectsForKeys(const Array & keys)
 {
 	for (Array::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) { removeObjectForKey((*it)); }
 	}
+	return *this;
 }
 
 #pragma mark -

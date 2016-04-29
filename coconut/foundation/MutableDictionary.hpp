@@ -48,27 +48,27 @@ namespace coconut
 		virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 		COCONUT_FINAL_OVERRIDE;
 		
-		void setDictionary(MutableDictionary && dict) noexcept;
-		void setDictionary(Dictionary && dict) noexcept;
+		MutableDictionary & setDictionary(MutableDictionary && dict) noexcept;
+		MutableDictionary & setDictionary(Dictionary && dict) noexcept;
 		
-		void setObjectsFromDictionary(const Dictionary & dict);
-		void setObjectsFromDictionary(const Dictionary & dict, CopyOption option);
-		
-		template <typename IterT>
-		void setObjects(IterT && beg, IterT && end)
-		{ setObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		MutableDictionary & setObjectsFromDictionary(const Dictionary & dict);
+		MutableDictionary & setObjectsFromDictionary(const Dictionary & dict, CopyOption option);
 		
 		template <typename IterT>
-		void setObjects(IterT && beg, IterT && end, CopyOption option)
-		{ setObjectsFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		MutableDictionary & setObjects(IterT && beg, IterT && end)
+		{ return setObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
 		
-		void setObject(const Owning<Any> & obj, const std::string & utf8_key);
-		void setObject(const Owning<Any> & obj, const Any & key);
-		void setObject(const Owning<Any> & obj, Owning<Any> key);
+		template <typename IterT>
+		MutableDictionary & setObjects(IterT && beg, IterT && end, CopyOption option)
+		{ return setObjectsFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
-		void setObject(Owning<Any> obj, const std::string & utf8_key, CopyOption option);
-		void setObject(Owning<Any> obj, const Any & key, CopyOption option);
-		void setObject(Owning<Any> obj, const Owning<Any> key, CopyOption option);
+		MutableDictionary & setObject(const Owning<Any> & obj, const std::string & utf8_key);
+		MutableDictionary & setObject(const Owning<Any> & obj, const Any & key);
+		MutableDictionary & setObject(const Owning<Any> & obj, Owning<Any> key);
+		
+		MutableDictionary & setObject(Owning<Any> obj, const std::string & utf8_key, CopyOption option);
+		MutableDictionary & setObject(Owning<Any> obj, const Any & key, CopyOption option);
+		MutableDictionary & setObject(Owning<Any> obj, const Owning<Any> key, CopyOption option);
 		
 		Owning<Any> updateObject(const Owning<Any> & obj, const std::string & utf8_key);
 		Owning<Any> updateObject(const Owning<Any> & obj, const Any & key);
@@ -78,23 +78,23 @@ namespace coconut
 		Owning<Any> updateObject(const Owning<Any> & obj, const Any & key, CopyOption option);
 		Owning<Any> updateObject(const Owning<Any> & obj, const Owning<Any> & key, CopyOption option);
 		
-		void addEntriesFromDictionary(const Dictionary & dict);
-		void addEntriesFromDictionary(const Dictionary & dict, CopyOption option);
+		MutableDictionary & addEntriesFromDictionary(const Dictionary & dict);
+		MutableDictionary & addEntriesFromDictionary(const Dictionary & dict, CopyOption option);
 		
 		template <typename IterT>
-		void addEntries(IterT && beg, IterT && end) const
-		{ addEntries(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		MutableDictionary & addEntries(IterT && beg, IterT && end) const
+		{ return addEntries(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
 		
 		template <typename IterT>
-		void addEntries(IterT && beg, IterT && end, CopyOption option)
-		{ addEntriesFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		MutableDictionary & addEntries(IterT && beg, IterT && end, CopyOption option)
+		{ return addEntriesFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
 		
-		void removeObjectForKey(const std::string & utf8_key);
-		void removeObjectForKey(const Any & key);
-		void removeObjectForKey(const Owning<Any> & key);
+		MutableDictionary & removeObjectForKey(const std::string & utf8_key);
+		MutableDictionary & removeObjectForKey(const Any & key);
+		MutableDictionary & removeObjectForKey(const Owning<Any> & key);
 		
-		void removeAllObjects();
-		void removeObjectsForKeys(const Array & keys);
+		MutableDictionary & removeAllObjects();
+		MutableDictionary & removeObjectsForKeys(const Array & keys);
 		
 	public:
 		Owning<Any> & operator [] (const std::string & utf8_key);

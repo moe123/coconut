@@ -66,37 +66,38 @@ void MutableArray::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 
 #pragma mark -
 
-void MutableArray::setArray(MutableArray && arr) noexcept
-{ m_impl = std::move(arr.m_impl); }
+MutableArray & MutableArray::setArray(MutableArray && arr) noexcept
+{ m_impl = std::move(arr.m_impl); return *this; }
 
-void MutableArray::setArray(Array && arr) noexcept
-{ m_impl = std::move(arr.m_impl); }
+MutableArray & MutableArray::setArray(Array && arr) noexcept
+{ m_impl = std::move(arr.m_impl); return *this; }
 
 #pragma mark -
 
-void MutableArray::setObjectsFromArray(const Array & arr)
-{ setObjectsFromArray(arr, CopyNone); }
+MutableArray & MutableArray::setObjectsFromArray(const Array & arr)
+{ setObjectsFromArray(arr, CopyNone); return *this; }
 
-void MutableArray::setObjectsFromArray(const Array & arr, CopyOption option)
+MutableArray & MutableArray::setObjectsFromArray(const Array & arr, CopyOption option)
 {
 	removeAllObjects();
 	addObjectsFromArray(arr, option);
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::setObject(const Any & obj, std::size_t at_idx)
-{ setObject(Object::copyObject(obj, CopyKind), at_idx, CopyNone); }
+MutableArray & MutableArray::setObject(const Any & obj, std::size_t at_idx)
+{ setObject(Object::copyObject(obj, CopyKind), at_idx, CopyNone); return *this; }
 
-void MutableArray::setObject(const Any & obj, std::size_t at_idx, CopyOption option)
-{ setObject(Object::copyObject(obj, option), at_idx, CopyNone); }
+MutableArray & MutableArray::setObject(const Any & obj, std::size_t at_idx, CopyOption option)
+{ setObject(Object::copyObject(obj, option), at_idx, CopyNone); return *this; }
 
 #pragma mark -
 
-void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx)
-{ setObject(obj, at_idx, CopyNone); }
+MutableArray & MutableArray::setObject(Owning<Any> obj, std::size_t at_idx)
+{ setObject(obj, at_idx, CopyNone); return *this; }
 
-void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
+MutableArray & MutableArray::setObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
 {
 	if (obj) {
 		std::size_t sz = m_impl.size();
@@ -116,22 +117,23 @@ void MutableArray::setObject(Owning<Any> obj, std::size_t at_idx, CopyOption opt
 			}
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::addObject(const Any & obj)
-{ addObject(Object::copyObject(obj, CopyKind), CopyNone); }
+MutableArray & MutableArray::addObject(const Any & obj)
+{ addObject(Object::copyObject(obj, CopyKind), CopyNone); return *this; }
 
-void MutableArray::addObject(const Any & obj, CopyOption option)
-{ addObject(Object::copyObject(obj, option), CopyNone); }
+MutableArray & MutableArray::addObject(const Any & obj, CopyOption option)
+{ addObject(Object::copyObject(obj, option), CopyNone); return *this; }
 
 #pragma mark -
 
-void MutableArray::addObject(Owning<Any> obj)
-{ addObject(obj, CopyNone); }
+MutableArray & MutableArray::addObject(Owning<Any> obj)
+{ addObject(obj, CopyNone); return *this; }
 
-void MutableArray::addObject(Owning<Any> obj, CopyOption option)
+MutableArray & MutableArray::addObject(Owning<Any> obj, CopyOption option)
 {
 	if (obj) {
 		if (option == CopyNone) {
@@ -141,22 +143,23 @@ void MutableArray::addObject(Owning<Any> obj, CopyOption option)
 			if (copy) { m_impl.push_back(copy); }
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::insertObject(const Any & obj, std::size_t at_idx)
-{ insertObject(Object::copyObject(obj, CopyKind), at_idx, CopyNone); }
+MutableArray & MutableArray::insertObject(const Any & obj, std::size_t at_idx)
+{ insertObject(Object::copyObject(obj, CopyKind), at_idx, CopyNone); return *this; }
 
-void MutableArray::insertObject(const Any & obj, std::size_t at_idx, CopyOption option)
-{ insertObject(Object::copyObject(obj, option), at_idx, CopyNone); }
+MutableArray & MutableArray::insertObject(const Any & obj, std::size_t at_idx, CopyOption option)
+{ insertObject(Object::copyObject(obj, option), at_idx, CopyNone); return *this; }
 
 #pragma mark -
 
-void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx)
-{ insertObject(obj, at_idx, CopyNone); }
+MutableArray & MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx)
+{ insertObject(obj, at_idx, CopyNone); return *this; }
 
-void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
+MutableArray & MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption option)
 {
 	if (obj) {
 		std::size_t sz = m_impl.size();
@@ -171,46 +174,53 @@ void MutableArray::insertObject(Owning<Any> obj, std::size_t at_idx, CopyOption 
 			}
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::exchangeObjectAtIndex(std::size_t idx1, std::size_t idx2)
+MutableArray & MutableArray::exchangeObjectAtIndex(std::size_t idx1, std::size_t idx2)
 {
 	if (idx1 < size() && idx2 < m_impl.size()) {
 		std::swap(m_impl.at(idx1), m_impl.at(idx2));
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::addObjectsFromArray(const Array & arr)
-{ addObjectsFromArray(arr, CopyNone); }
+MutableArray & MutableArray::addObjectsFromArray(const Array & arr)
+{ addObjectsFromArray(arr, CopyNone); return *this; }
 
-void MutableArray::addObjectsFromArray(const Array & arr, CopyOption option)
+MutableArray & MutableArray::addObjectsFromArray(const Array & arr, CopyOption option)
 {
 	for (const_iterator it = arr.cbegin(); it != arr.cend(); ++it) {
 		addObject((*it), option);
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::removeObjectAtIndex(std::size_t index)
+MutableArray & MutableArray::removeObjectAtIndex(std::size_t index)
 {
-	if (index < m_impl.size()) { m_impl.erase(m_impl.begin() + static_cast<difference_type>(index)); }
+	if (index < m_impl.size()) {
+		m_impl.erase(m_impl.begin() + static_cast<difference_type>(index));
+	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::removeObject(const Any & obj)
+MutableArray & MutableArray::removeObject(const Any & obj)
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isEqual(obj)) { m_impl.erase(it); }
 	}
+	return *this;
 }
 
-void MutableArray::removeObject(const Any & obj, const Range & in_rg)
+MutableArray & MutableArray::removeObject(const Any & obj, const Range & in_rg)
 {
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -225,26 +235,28 @@ void MutableArray::removeObject(const Any & obj, const Range & in_rg)
 			if ((*it) && (*it)->isEqual(obj)) { m_impl.erase(it); }
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::removeObject(const Owning<Any> & obj)
-{ if (obj) { removeObject(*obj); } }
+MutableArray & MutableArray::removeObject(const Owning<Any> & obj)
+{ if (obj) { removeObject(*obj); } return *this; }
 
-void MutableArray::removeObject(const Owning<Any> & obj, const Range & in_rg)
-{ if (obj) { removeObject(*obj, in_rg); } }
+MutableArray & MutableArray::removeObject(const Owning<Any> & obj, const Range & in_rg)
+{ if (obj) { removeObject(*obj, in_rg); } return *this; }
 
 #pragma mark -
 
-void MutableArray::removeObjectIdenticalTo(const Any & obj)
+MutableArray & MutableArray::removeObjectIdenticalTo(const Any & obj)
 {
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it) && (*it)->isIdenticalTo(obj)) { m_impl.erase(it); }
 	}
+	return *this;
 }
 
-void MutableArray::removeObjectIdenticalTo(const Any & obj, const Range & in_rg)
+MutableArray & MutableArray::removeObjectIdenticalTo(const Any & obj, const Range & in_rg)
 {
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -260,26 +272,28 @@ void MutableArray::removeObjectIdenticalTo(const Any & obj, const Range & in_rg)
 			if ((*it) && (*it)->isIdenticalTo(obj)) { m_impl.erase(it); }
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj)
-{ if (obj) { removeObjectIdenticalTo(*obj); } }
+MutableArray & MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj)
+{ if (obj) { removeObjectIdenticalTo(*obj); } return *this; }
 
-void MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg)
-{ if (obj) { removeObjectIdenticalTo(*obj, in_rg); } }
+MutableArray & MutableArray::removeObjectIdenticalTo(const Owning<Any> & obj, const Range & in_rg)
+{ if (obj) { removeObjectIdenticalTo(*obj, in_rg); } return *this; }
 
 #pragma mark -
 
-void MutableArray::removeObjectsInArray(const Array & arr)
+MutableArray & MutableArray::removeObjectsInArray(const Array & arr)
 {
 	for (const_iterator it = arr.cbegin(); it != arr.cend(); ++it) {
 		if ((*it)) { removeObject(*(*it)); }
 	}
+	return *this;
 }
 
-void MutableArray::removeObjectsInRange(const Range & in_rg)
+MutableArray & MutableArray::removeObjectsInRange(const Range & in_rg)
 {
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -295,32 +309,29 @@ void MutableArray::removeObjectsInRange(const Range & in_rg)
 			m_impl.erase(it);
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::removeLastObject()
-{
-	m_impl.pop_back();
-}
+MutableArray & MutableArray::removeLastObject()
+{ m_impl.pop_back(); return *this; }
 
-void MutableArray::removeAllObjects()
-{
-	m_impl.clear();
-}
+MutableArray & MutableArray::removeAllObjects()
+{ m_impl.clear(); return *this; }
 
 #pragma mark -
 
-void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from)
-{ replaceObjectsInRange(in_rg, from, Range(0, from.size()), CopyNone); }
+MutableArray & MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from)
+{ replaceObjectsInRange(in_rg, from, Range(0, from.size()), CopyNone); return *this; }
 
-void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, CopyOption option)
-{ replaceObjectsInRange(in_rg, from, Range(0, from.size()), option); }
+MutableArray & MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, CopyOption option)
+{ replaceObjectsInRange(in_rg, from, Range(0, from.size()), option); return *this; }
 
-void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, const Range & from_rg)
-{ replaceObjectsInRange(in_rg, from, from_rg, CopyNone); }
+MutableArray & MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, const Range & from_rg)
+{ replaceObjectsInRange(in_rg, from, from_rg, CopyNone); return *this; }
 
-void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, const Range & from_rg, CopyOption option)
+MutableArray & MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from, const Range & from_rg, CopyOption option)
 {
 	std::size_t sz = m_impl.size();
 	if (sz && in_rg.maxRange() <= sz) {
@@ -347,70 +358,71 @@ void MutableArray::replaceObjectsInRange(const Range & in_rg, const Array & from
 			}
 		}
 	}
+	return *this;
 }
 
 #pragma mark -
 
-void MutableArray::reverse()
-{ setObjectsFromArray(reversedArray()); }
+MutableArray & MutableArray::reverse()
+{ setObjectsFromArray(reversedArray()); return *this; }
 
-void MutableArray::unique()
-{ setObjectsFromArray(uniquedArray()); }
-
-#pragma mark -
-
-void MutableArray::filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func)
-{ filterUsingFunction(func, EnumerationDefault); }
-
-void MutableArray::filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options)
-{ setObjectsFromArray(filteredArrayUsingFunction(func, CopyNone, options)); }
+MutableArray & MutableArray::unique()
+{ setObjectsFromArray(uniquedArray()); return *this; }
 
 #pragma mark -
 
-void MutableArray::sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func)
-{ sortUsingFunction(func, SortConcurrent); }
+MutableArray & MutableArray::filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func)
+{ filterUsingFunction(func, EnumerationDefault); return *this; }
 
-void MutableArray::sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, SortOptions options)
-{ setObjectsFromArray(sortedArrayUsingFunction(func, CopyNone, options)); }
-
-void MutableArray::sortAscending()
-{ sortAscending(SortConcurrent); }
-
-void MutableArray::sortAscending(SortOptions options)
-{ setObjectsFromArray(sortedArrayAscending(CopyNone, options)); }
-
-void MutableArray::sortDescending()
-{ sortDescending(SortConcurrent); }
-
-void MutableArray::sortDescending(SortOptions options)
-{ setObjectsFromArray(sortedArrayDescending(CopyNone, options)); }
+MutableArray & MutableArray::filterUsingFunction(const std::function<bool(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options)
+{ setObjectsFromArray(filteredArrayUsingFunction(func, CopyNone, options)); return *this; }
 
 #pragma mark -
 
-void MutableArray::sortUsingSelectorKey(const std::string & utf8_selkey)
-{ sortUsingSelectorKey(utf8_selkey, false, SortConcurrent); }
+MutableArray & MutableArray::sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func)
+{ sortUsingFunction(func, SortConcurrent); return *this; }
 
-void MutableArray::sortUsingSelectorKey(const std::string & utf8_selkey, bool descending)
-{ sortUsingSelectorKey(utf8_selkey, descending, SortConcurrent); }
+MutableArray & MutableArray::sortUsingFunction(const std::function<bool(const Owning<Any> & a, const Owning<Any> & b)> & func, SortOptions options)
+{ setObjectsFromArray(sortedArrayUsingFunction(func, CopyNone, options)); return *this; }
 
-void MutableArray::sortUsingSelectorKey(const std::string & utf8_selkey, bool descending, SortOptions options)
-{ setObjectsFromArray(sortedArrayUsingSelectorKey(utf8_selkey, CopyNone, descending, options)); }
+MutableArray & MutableArray::sortAscending()
+{ sortAscending(SortConcurrent); return *this; }
+
+MutableArray & MutableArray::sortAscending(SortOptions options)
+{ setObjectsFromArray(sortedArrayAscending(CopyNone, options)); return *this; }
+
+MutableArray & MutableArray::sortDescending()
+{ sortDescending(SortConcurrent); return *this; }
+
+MutableArray & MutableArray::sortDescending(SortOptions options)
+{ setObjectsFromArray(sortedArrayDescending(CopyNone, options)); return *this; }
 
 #pragma mark -
 
-void MutableArray::sortUsingDescriptor(const SortDescriptor & descriptor)
-{ sortUsingDescriptor(descriptor, SortStable|SortConcurrent); }
+MutableArray & MutableArray::sortUsingSelectorKey(const std::string & utf8_selkey)
+{ sortUsingSelectorKey(utf8_selkey, false, SortConcurrent); return *this; }
 
-void MutableArray::sortUsingDescriptor(const SortDescriptor & descriptor, SortOptions options)
-{ setObjectsFromArray(sortedArrayUsingDescriptor(descriptor, CopyNone, options)); }
+MutableArray & MutableArray::sortUsingSelectorKey(const std::string & utf8_selkey, bool descending)
+{ sortUsingSelectorKey(utf8_selkey, descending, SortConcurrent); return *this; }
+
+MutableArray & MutableArray::sortUsingSelectorKey(const std::string & utf8_selkey, bool descending, SortOptions options)
+{ setObjectsFromArray(sortedArrayUsingSelectorKey(utf8_selkey, CopyNone, descending, options)); return *this; }
 
 #pragma mark -
 
-void MutableArray::sortUsingDescriptors(const Array & descriptors)
-{ sortUsingDescriptors(descriptors, SortStable|SortConcurrent); }
+MutableArray & MutableArray::sortUsingDescriptor(const SortDescriptor & descriptor)
+{ sortUsingDescriptor(descriptor, SortStable|SortConcurrent); return *this; }
 
-void MutableArray::sortUsingDescriptors(const Array & descriptors, SortOptions options)
-{ setObjectsFromArray(sortedArrayUsingDescriptors(descriptors, CopyNone, options)); }
+MutableArray & MutableArray::sortUsingDescriptor(const SortDescriptor & descriptor, SortOptions options)
+{ setObjectsFromArray(sortedArrayUsingDescriptor(descriptor, CopyNone, options)); return *this;}
+
+#pragma mark -
+
+MutableArray & MutableArray::sortUsingDescriptors(const Array & descriptors)
+{ sortUsingDescriptors(descriptors, SortStable|SortConcurrent); return *this; }
+
+MutableArray & MutableArray::sortUsingDescriptors(const Array & descriptors, SortOptions options)
+{ setObjectsFromArray(sortedArrayUsingDescriptors(descriptors, CopyNone, options)); return *this; }
 
 #pragma mark -
 

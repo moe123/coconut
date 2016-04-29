@@ -22,8 +22,8 @@ namespace coconut
 		MutableRange(std::size_t location, std::size_t length);
 		virtual ~MutableRange();
 		
-		void setLocation(std::size_t location);
-		void setLength(std::size_t length);
+		MutableRange & setLocation(std::size_t location);
+		MutableRange & setLength(std::size_t length);
 	};
 }
 

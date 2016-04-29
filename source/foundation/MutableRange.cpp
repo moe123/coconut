@@ -29,14 +29,10 @@ MutableRange::~MutableRange()
 
 #pragma mark -
 
-void MutableRange::setLocation(std::size_t location)
-{
-	m_impl.set_location(location);
-}
+MutableRange & MutableRange::setLocation(std::size_t location)
+{ m_impl.set_location(location); return *this;}
 
-void MutableRange::setLength(std::size_t length)
-{
-	m_impl.set_length(length);
-}
+MutableRange & MutableRange::setLength(std::size_t length)
+{ m_impl.set_length(length); return *this; }
 
 /* EOF */
