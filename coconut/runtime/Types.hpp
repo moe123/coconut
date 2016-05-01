@@ -8,33 +8,33 @@
 	#pragma once
 #endif
 
-#include <coconut/runtime/detail/core/algorithm.hpp>
-#include <coconut/runtime/detail/core/async.hpp>
-#include <coconut/runtime/detail/core/byteorder.hpp>
-#include <coconut/runtime/detail/core/hash.hpp>
-#include <coconut/runtime/detail/core/hexrep.hpp>
-#include <coconut/runtime/detail/core/iterators.hpp>
-#include <coconut/runtime/detail/core/spinlock.hpp>
-#include <coconut/runtime/detail/core/stream.hpp>
-#include <coconut/runtime/detail/core/unicode.hpp>
+#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-async.hpp>
+#include <coconut/runtime/details/nutrt-byteorder.hpp>
+#include <coconut/runtime/details/nutrt-hash.hpp>
+#include <coconut/runtime/details/nutrt-hexrep.hpp>
+#include <coconut/runtime/details/nutrt-iterators.hpp>
+#include <coconut/runtime/details/nutrt-spinlock.hpp>
+#include <coconut/runtime/details/nutrt-stream.hpp>
+#include <coconut/runtime/details/nutrt-unicode.hpp>
 
-#include <coconut/runtime/detail/traits/bytebuf.hpp>
-#include <coconut/runtime/detail/traits/datetime.hpp>
-#include <coconut/runtime/detail/traits/formatter.hpp>
-#include <coconut/runtime/detail/traits/indexpath.hpp>
-#include <coconut/runtime/detail/traits/indexset.hpp>
-#include <coconut/runtime/detail/traits/irange.hpp>
-#include <coconut/runtime/detail/traits/islice.hpp>
-#include <coconut/runtime/detail/traits/locale.hpp>
-#include <coconut/runtime/detail/traits/mapbuf.hpp>
-#include <coconut/runtime/detail/traits/numeric.hpp>
-#include <coconut/runtime/detail/traits/timezone.hpp>
-#include <coconut/runtime/detail/traits/upath.hpp>
-#include <coconut/runtime/detail/traits/uri.hpp>
-#include <coconut/runtime/detail/traits/ustring.hpp>
+#include <coconut/runtime/details/traits/nutrt-bytebuf.hpp>
+#include <coconut/runtime/details/traits/nutrt-datetime.hpp>
+#include <coconut/runtime/details/traits/nutrt-formatter.hpp>
+#include <coconut/runtime/details/traits/nutrt-indexpath.hpp>
+#include <coconut/runtime/details/traits/nutrt-indexset.hpp>
+#include <coconut/runtime/details/traits/nutrt-irange.hpp>
+#include <coconut/runtime/details/traits/nutrt-islice.hpp>
+#include <coconut/runtime/details/traits/nutrt-locale.hpp>
+#include <coconut/runtime/details/traits/nutrt-mapbuf.hpp>
+#include <coconut/runtime/details/traits/nutrt-numeric.hpp>
+#include <coconut/runtime/details/traits/nutrt-timezone.hpp>
+#include <coconut/runtime/details/traits/nutrt-upath.hpp>
+#include <coconut/runtime/details/traits/nutrt-uri.hpp>
+#include <coconut/runtime/details/traits/nutrt-ustring.hpp>
 
-#include <coconut/runtime/detail/nucleus.hpp>
-#include <coconut/runtime/detail/zombie.hpp>
+#include <coconut/runtime/details/nutrt-nucleus.hpp>
+#include <coconut/runtime/details/nutrt-zombie.hpp>
 
 #ifndef COCONUT_RUNTIME_TO_FOUNDATION_TYPES_HPP
 #define COCONUT_RUNTIME_TO_FOUNDATION_TYPES_HPP

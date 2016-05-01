@@ -19,6 +19,6 @@
 
 using namespace coconut;
 
-#include <source/runtime/builtins/serialization_xmlplist.hxx>
+#include <source/runtime/builtins/nutrt-serialization_xmlplist.hxx>
 
 /* EOF */
