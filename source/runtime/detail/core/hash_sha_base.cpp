@@ -63,7 +63,7 @@ hash::sha_base::~sha_base()
 
 void hash::sha_base::add(const void * bytes, std::size_t length)
 {
-	const std::uint8_t * current = unsafe_cast<const std::uint8_t *>(bytes);
+	const std::uint8_t * current = weak_cast<const std::uint8_t *>(bytes);
 
 	if (m_bufsize > 0) {
 		while (length > 0 && m_bufsize < m_blocksize) {

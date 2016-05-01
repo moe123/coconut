@@ -256,28 +256,28 @@ namespace coconut
 	SwappedFloat ConvertHostFloatToSwapped(float x)
 	{
 		union nv { float n; SwappedFloat v; };
-		return (unsafe_cast<union nv *>(&x))->v;
+		return (weak_cast<union nv *>(&x))->v;
 	}
 	
 	COCONUT_ALWAYS_INLINE
 	float ConvertSwappedFloatToHost(SwappedFloat x)
 	{
 		union nv { float n; SwappedFloat v; };
-		return (unsafe_cast<union nv *>(&x))->n;
+		return (weak_cast<union nv *>(&x))->n;
 	}
 	
 	COCONUT_ALWAYS_INLINE
 	SwappedDouble ConvertHostDoubleToSwapped(double x)
 	{
 		union nv { double n; SwappedDouble v; };
-		return (unsafe_cast<union nv *>(&x))->v;
+		return (weak_cast<union nv *>(&x))->v;
 	}
 	
 	COCONUT_ALWAYS_INLINE
 	double ConvertSwappedDoubleToHost(SwappedDouble x)
 	{
 		union nv { double n; SwappedDouble v; };
-		return (unsafe_cast<union nv *>(&x))->n;
+		return (weak_cast<union nv *>(&x))->n;
 	}
 	
 	COCONUT_ALWAYS_INLINE

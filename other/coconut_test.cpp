@@ -1101,18 +1101,18 @@ int main(int argc, const char * argv[])
 		std::cerr << "+ out_0 " << out_0 << std::endl;
 		
 		for (std::size_t i = 0 ; i < 4 ; i++) {
-			std::cerr << "+ out_0[] " << unsafe_cast<std::uint32_t>(out_0[i]) << std::endl;
+			std::cerr << "+ out_0[] " << weak_cast<std::uint32_t>(out_0[i]) << std::endl;
 		}
 		
 		runtime::byteorder::w32be(in_0, out_0);
 		
 		for (std::size_t i = 0 ; i < 4 ; i++) {
-			std::cerr << "+ out_0[] " << unsafe_cast<std::uint32_t>(out_0[i]) << std::endl;
+			std::cerr << "+ out_0[] " << weak_cast<std::uint32_t>(out_0[i]) << std::endl;
 		}
 		
 		std::uint8_t in_1[4] = { out_0[0], out_0[1], out_0[2], out_0[3] };
 		std::int32_t out_1;
-		runtime::byteorder::r32be(in_1, unsafe_cast<std::uint32_t &>(out_1));
+		runtime::byteorder::r32be(in_1, weak_cast<std::uint32_t &>(out_1));
 		
 		std::cerr << "+ out_1 " << out_1 << std::endl;
 		

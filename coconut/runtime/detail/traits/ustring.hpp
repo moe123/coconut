@@ -72,7 +72,7 @@ public:
 		if (utf16_fmt) {
 			UChar ubuf[1024];
 			std::int32_t written = 0;
-			if ((written = u_snprintf_u(ubuf, 1024, unsafe_cast<UChar *>(utf16_fmt), args...)) > 0) {
+			if ((written = u_snprintf_u(ubuf, 1024, weak_cast<UChar *>(utf16_fmt), args...)) > 0) {
 				result.assign(ubuf, (ubuf + written));
 			}
 		}

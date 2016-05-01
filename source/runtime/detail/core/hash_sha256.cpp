@@ -38,7 +38,7 @@ void hash::sha256::reset()
 
 void hash::sha256::process_block(const void * block)
 {
-	const std::uint32_t * input = unsafe_cast<const std::uint32_t *>(block);
+	const std::uint32_t * input = weak_cast<const std::uint32_t *>(block);
 	std::uint32_t words[64];
 	std::size_t i;
 	std::uint32_t x, y;

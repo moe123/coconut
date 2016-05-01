@@ -86,7 +86,7 @@ namespace coconut
 			!std::is_same<TypeT, MutableDictionary>::value
 		>::type* = nullptr
 	>
-	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
 		-> std::ostream &
 	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 	
@@ -114,7 +114,7 @@ namespace coconut
 			std::is_same<TypeT, Date>::value)
 		>::type* = nullptr
 	>
-	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
 		-> std::ostream &
 	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 
@@ -156,7 +156,7 @@ namespace coconut
 			std::is_same<TypeT, Data>::value
 		>::type* = nullptr
 	>
-	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
 		-> std::ostream &
 	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 	
@@ -176,7 +176,7 @@ namespace coconut
 			std::is_same<TypeT, Number>::value
 		>::type* = nullptr
 	>
-	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
 		-> std::ostream &
 	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 	
@@ -216,7 +216,7 @@ namespace coconut
 			std::is_same<TypeT, MutableSet>::value)
 		>::type* = nullptr
 	>
-	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
 		-> std::ostream &
 	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 
@@ -246,7 +246,7 @@ namespace coconut
 			std::is_same<TypeT, MutableDictionary>::value)
 		>::type* = nullptr
 	>
-	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
+	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
 		-> std::ostream &
 	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 }

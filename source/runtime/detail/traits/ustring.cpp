@@ -42,8 +42,8 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 				if (codepage.size()) {
 					if (confidence >= 0.10f) {
 						m_ustr = icu::UnicodeString(
-							unsafe_cast<const char *>(bytes),
-							unsafe_cast<std::int32_t>(length),
+							weak_cast<const char *>(bytes),
+							weak_cast<std::int32_t>(length),
 							codepage.c_str()
 						);
 						if (!is_valid() || !size()) {
@@ -100,8 +100,8 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 			{
 				std::string codepage = builtins::ustring_getcodepage(encoding);
 				m_ustr = icu::UnicodeString(
-					unsafe_cast<const char *>(bytes),
-					unsafe_cast<std::int32_t>(length),
+					weak_cast<const char *>(bytes),
+					weak_cast<std::int32_t>(length),
 					codepage.c_str()
 				);
 				if (!is_valid() || !size()) {
@@ -143,8 +143,8 @@ ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_optio
 			case encoding_utf16be:
 			{
 				m_ustr = icu::UnicodeString(
-					unsafe_cast<const UChar *>(bytes),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<const UChar *>(bytes),
+					weak_cast<std::int32_t>(length)
 				);
 				if (!is_valid() || !size()) {
 					clear();
@@ -175,8 +175,8 @@ ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_optio
 			case encoding_ucs4be:
 			{
 				m_ustr = icu::UnicodeString::fromUTF32(
-					unsafe_cast<const UChar32 *>(bytes),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<const UChar32 *>(bytes),
+					weak_cast<std::int32_t>(length)
 				);
 				if (!is_valid() || !size()) {
 					clear();
@@ -195,7 +195,7 @@ ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_optio
 
 ustring::ustring(const std::string & in, encoding_option encoding)
 : ustring(
-	unsafe_cast<const std::uint8_t *>(in.data()),
+	weak_cast<const std::uint8_t *>(in.data()),
 	in.size(),
 	encoding
 )
@@ -203,7 +203,7 @@ ustring::ustring(const std::string & in, encoding_option encoding)
 
 ustring::ustring(const std::u16string & in, encoding_option encoding)
 : ustring(
-	unsafe_cast<const std::uint16_t *>(in.data()),
+	weak_cast<const std::uint16_t *>(in.data()),
 	in.size(),
 	encoding
 )
@@ -211,7 +211,7 @@ ustring::ustring(const std::u16string & in, encoding_option encoding)
 
 ustring::ustring(const std::u32string & in, encoding_option encoding)
 : ustring(
-	unsafe_cast<const std::uint32_t *>(in.data()),
+	weak_cast<const std::uint32_t *>(in.data()),
 	in.size(),
 	encoding
 )
@@ -219,7 +219,7 @@ ustring::ustring(const std::u32string & in, encoding_option encoding)
 
 ustring::ustring(const char * utf8_str)
 : ustring(
-	unsafe_cast<const std::uint8_t *>(utf8_str),
+	weak_cast<const std::uint8_t *>(utf8_str),
 	std::char_traits<char>::length(utf8_str),
 	encoding_utf8
 )
@@ -227,7 +227,7 @@ ustring::ustring(const char * utf8_str)
 
 ustring::ustring(const char16_t * utf16_str)
 : ustring(
-	unsafe_cast<const std::uint16_t *>(utf16_str),
+	weak_cast<const std::uint16_t *>(utf16_str),
 	std::char_traits<char16_t>::length(utf16_str),
 	encoding_utf16
 )
@@ -235,7 +235,7 @@ ustring::ustring(const char16_t * utf16_str)
 
 ustring::ustring(const char32_t * utf32_str)
 : ustring(
-	unsafe_cast<const std::uint32_t *>(utf32_str),
+	weak_cast<const std::uint32_t *>(utf32_str),
 	std::char_traits<char32_t>::length(utf32_str),
 	encoding_utf32
 )
@@ -260,7 +260,7 @@ void ustring::get_codepages(std::set<std::string> & codepages)
 bool ustring::guess_encoding(const std::string & in8bits, encoding_option & encoding, float & confidence)
 {
 	bool result = false;
-	std::string codepage = builtins::ustring_detectcodepage(unsafe_cast<const std::uint8_t *>(in8bits.data()), in8bits.length(), confidence);
+	std::string codepage = builtins::ustring_detectcodepage(weak_cast<const std::uint8_t *>(in8bits.data()), in8bits.length(), confidence);
 	if (codepage.size()) {
 		if (builtins::ustring_getencoding(codepage.c_str(), encoding)) {
 			result = true;
@@ -428,7 +428,7 @@ std::size_t ustring::size() const
 {
 	std::int32_t sz = m_ustr.length();
 	if (sz) {
-		return unsafe_cast<std::size_t>(sz);
+		return weak_cast<std::size_t>(sz);
 	}
 	return 0;
 }
@@ -436,7 +436,7 @@ std::size_t ustring::size() const
 std::size_t ustring::count() const
 {
 	if (size()) {
-		return unsafe_cast<std::size_t>(m_ustr.countChar32());
+		return weak_cast<std::size_t>(m_ustr.countChar32());
 	}
 	return 0;
 }
@@ -452,7 +452,7 @@ std::size_t ustring::size_for(encoding_option encoding) const
 			return 0;
 		}
 		std::int32_t nb = m_ustr.extract(0, sz, NULL, codepage.c_str());
-		if (nb) { return unsafe_cast<std::size_t>(nb); }
+		if (nb) { return weak_cast<std::size_t>(nb); }
 	}
 	return 0;
 }
@@ -612,7 +612,7 @@ std::string ustring::to_string() const
 std::size_t ustring::hash_code() const
 {
 	std::int32_t hc = m_ustr.hashCode();
-	return hc > 0 ? unsafe_cast<std::size_t>(hc) : 0UL;
+	return hc > 0 ? weak_cast<std::size_t>(hc) : 0UL;
 }
 
 #pragma mark -
@@ -676,7 +676,7 @@ bool ustring::icase_has_prefix(const ustring & ustr) const
 		return (
 			m_ustr.caseCompare(
 				0,
-				unsafe_cast<std::int32_t>(ustr.size()),
+				weak_cast<std::int32_t>(ustr.size()),
 				ustr.m_ustr,
 				U_FOLD_CASE_DEFAULT
 			) == 0
@@ -693,8 +693,8 @@ bool ustring::icase_has_suffix(const ustring & ustr) const
 	if (size() >= ustr.size()) { // bit_cmp norms not wanted
 		return (
 			m_ustr.caseCompare(
-				unsafe_cast<std::int32_t>(size() - ustr.size()),
-				unsafe_cast<std::int32_t>(ustr.size()),
+				weak_cast<std::int32_t>(size() - ustr.size()),
+				weak_cast<std::int32_t>(ustr.size()),
 				ustr.m_ustr,
 				U_FOLD_CASE_DEFAULT
 			) == 0
@@ -707,13 +707,13 @@ bool ustring::icase_has_suffix(const ustring & ustr) const
 #pragma mark -
 
 irange ustring::range_of(const ustring & ustr) const
-{ return range_of(ustr, irange(0, unsafe_cast<std::size_t>(m_ustr.length())), search_literal); }
+{ return range_of(ustr, irange(0, weak_cast<std::size_t>(m_ustr.length())), search_literal); }
 
 irange ustring::range_of(const ustring & ustr, const irange & in_rg) const
 { return range_of(ustr, in_rg, search_literal); }
 
 irange ustring::range_of(const ustring & ustr, search_options options) const
-{ return range_of(ustr, irange(0, unsafe_cast< std::size_t>(m_ustr.length())), options); }
+{ return range_of(ustr, irange(0, weak_cast< std::size_t>(m_ustr.length())), options); }
 
 irange ustring::range_of(const ustring & ustr, const irange & in_rg, search_options options) const
 { return builtins::ustring_rangeof(m_ustr, in_rg.location(), in_rg.length(), ustr.m_ustr, options); }
@@ -722,15 +722,15 @@ irange ustring::range_of(const ustring & ustr, const irange & in_rg, search_opti
 
 std::uint16_t ustring::code_unit_at(std::size_t index) const
 {
-	return unsafe_cast<std::uint16_t>(
-		m_ustr.charAt(unsafe_cast<std::int32_t>(index))
+	return weak_cast<std::uint16_t>(
+		m_ustr.charAt(weak_cast<std::int32_t>(index))
 	);
 }
 
 std::uint32_t ustring::code_point_at(std::size_t index) const
 {
-	return unsafe_cast<std::uint32_t>(
-		m_ustr.char32At(unsafe_cast<std::int32_t>(index))
+	return weak_cast<std::uint32_t>(
+		m_ustr.char32At(weak_cast<std::int32_t>(index))
 	);
 }
 

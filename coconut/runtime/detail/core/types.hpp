@@ -12,10 +12,23 @@
 #define COCONUT_RUNTIME_TYPES_HPP
 
 namespace coconut {
+	namespace runtime {
+		
+COCONUT_CLASSFORWARD_DCL(nucleus)
 
+using Any = nucleus;
+template <typename T> using Owning = std::shared_ptr<T>;
+
+}} /* EONS */
+
+namespace coconut {
+
+using runtime::Any;
+using runtime::Owning;
+	
 template <typename T1, typename T2>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-T1 unsafe_cast(T2 && r)
+T1 weak_cast(T2 && r)
 { return (T1)r; }
 
 template <typename T1, typename T2>
@@ -23,35 +36,33 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 T1 & ref_cast(T2 && r)
 { return (T1 &)r; }
 
-template <typename T> using ptr_declare = std::shared_ptr<T>;
-
 template <typename T1, typename... T2>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-ptr_declare<T1> ptr_create(T2 &&... args)
+Owning<T1> ptr_create(T2 &&... args)
 { return std::make_shared<T1>(std::forward<T2>(args)...); }
 
 template <typename T1, typename T2>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-ptr_declare<T1> ptr_snatch(T2 && ptr)
-{ return std::shared_ptr<T1>(unsafe_cast<T1 *>(ptr), [](T1 *) -> void { /* NOP */ }); }
+Owning<T1> ptr_snatch(T2 && ptr)
+{ return std::shared_ptr<T1>(weak_cast<T1 *>(ptr), [](T1 *) -> void { /* NOP */ }); }
 
 template <typename T1, typename T2>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-ptr_declare<T1> ptr_static_cast(ptr_declare<T2> const & r)
+Owning<T1> ptr_static_cast(Owning<T2> const & r)
 { return std::static_pointer_cast<T1>(r); }
 
 template <typename T1, typename T2>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-ptr_declare<T1> ptr_dynamic_cast(ptr_declare<T2> const & r)
+Owning<T1> ptr_dynamic_cast(Owning<T2> const & r)
 { return std::dynamic_pointer_cast<T1>(r); }
 
 template <typename T1, typename T2>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-ptr_declare<T1> ptr_cast(ptr_declare<T2> const & r)
+Owning<T1> ptr_cast(Owning<T2> const & r)
 { return std::dynamic_pointer_cast<T1>(r); }
 
 template <class T> struct tag_is_ptr : std::false_type {};
-template <class T> struct tag_is_ptr< ptr_declare<T> > : std::true_type {};
+template <class T> struct tag_is_ptr< Owning<T> > : std::true_type {};
 
 template<class T> struct do_plain_type {
 	typedef typename std::remove_cv<
@@ -63,17 +74,17 @@ template<class T> struct do_plain_type {
 
 namespace coconut {
 	namespace runtime {
-	
+
+constexpr std::size_t const NotFound = std::numeric_limits<std::size_t>::max();
+constexpr std::size_t const MaxFound = (NotFound - 1);
+		
 COCONUT_OPT_TYPED(ComparisonResult, int)
 {
 	cmp_ascending = -1,
 	cmp_same = 0,
 	cmp_descending = 1
 };
-
-constexpr std::size_t const NotFound = std::numeric_limits<std::size_t>::max();
-constexpr std::size_t const MaxFound = (NotFound - 1);
-
+		
 COCONUT_OPT_TYPED(ClassKind, std::uint16_t)
 {
 	classkind_anon = 0,
@@ -236,10 +247,6 @@ COCONUT_OPT(launch_option)
 	launch_deferred,
 	launch_any
 };
-
-COCONUT_CLASSFORWARD_DCL(nucleus)
-using Any = nucleus;
-template <typename T> using Owning = ptr_declare<T>;
 
 }} /* EONS */
 

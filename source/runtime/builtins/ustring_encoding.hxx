@@ -196,7 +196,7 @@ std::string ustring_detectcodepage(const std::uint8_t * in, std::size_t len, flo
 	}
 	
 	status = U_ZERO_ERROR;
-	ucsdet_setText(dctr, unsafe_cast<const char *>(in), unsafe_cast<std::int32_t>(len), &status);
+	ucsdet_setText(dctr, weak_cast<const char *>(in), weak_cast<std::int32_t>(len), &status);
 	if (U_FAILURE(status)) {
 		ucsdet_close(dctr);
 		confidence = 0.0;

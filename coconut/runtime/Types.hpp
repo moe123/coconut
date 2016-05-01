@@ -40,10 +40,7 @@
 #define COCONUT_RUNTIME_TO_FOUNDATION_TYPES_HPP
 
 namespace coconut
-{	
-	using runtime::Owning;
-	using runtime::Any;
-	
+{
 	using runtime::ClassKind;
 	using runtime::ComparisonResult;
 	using runtime::NotFound;

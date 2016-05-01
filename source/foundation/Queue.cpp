@@ -43,7 +43,7 @@ void Queue::enqueue(const Owning<Any> & obj)
 
 const Owning<Any> Queue::dequeue()
 {
-	ptr_declare<Any> head;
+	Owning<Any> head;
 	if (m_impl.size()) {
 		head = m_impl.front();
 		m_impl.pop();
@@ -55,7 +55,7 @@ const Owning<Any> Queue::dequeue()
 
 const Owning<Any> Queue::peek() const
 {
-	ptr_declare<Any> first;
+	Owning<Any> first;
 	if (m_impl.size()) {
 		first = m_impl.front();
 	}

@@ -102,7 +102,7 @@ ComparisonResult Dictionary::compare(const Any & ref) const
 		} else if (size() > ref_cast<Dictionary>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Dictionary>(ref).cbegin(), [] (const std::pair< ptr_declare<Any>, ptr_declare<Any> > & a, const std::pair< ptr_declare<Any>, ptr_declare<Any> > & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<Dictionary>(ref).cbegin(), [] (const std::pair< Owning<Any>, Owning<Any> > & a, const std::pair< Owning<Any>, Owning<Any> > & b) -> bool
 			{
 				if (a.first && a.second && b.first && b.second) {
 					if (((a.first)->compare(*(b.first)) == OrderedSame)) {
@@ -150,8 +150,8 @@ const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selk
 {
 	Array::impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		ptr_declare<Any> k = (*it).first;
-		ptr_declare<Any> v;
+		Owning<Any> k = (*it).first;
+		Owning<Any> v;
 		if (k) {
 			v = k->valueForSelectorKey(utf8_selkey, arg);
 		}
@@ -333,7 +333,7 @@ const Array Dictionary::objectsForKeys(const Array & keys, Owning<Any> notFoundM
 	Array::impl_trait buf;
 	for (Array::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) {
-			ptr_declare<Any> v;
+			Owning<Any> v;
 			if (!(v = objectForKey(*(*it)))) {
 				if (notFoundMarker) { v = notFoundMarker; } else { v = ptr_create<None>(); }
 			}
@@ -352,7 +352,7 @@ const Array Dictionary::objectsForKeys(const Set & keys, Owning<Any> notFoundMar
 	Array::impl_trait buf;
 	for (Set::const_iterator it = keys.cbegin(); it != keys.cend(); ++it) {
 		if ((*it)) {
-			ptr_declare<Any> v;
+			Owning<Any> v;
 			if (!(v = objectForKey(*(*it)))) {
 				if (notFoundMarker) { v = notFoundMarker; } else { v = ptr_create<None>(); }
 			}

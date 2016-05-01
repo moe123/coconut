@@ -142,7 +142,7 @@ void islice::do_indexes(std::size_t forlen) const
 #endif
 	m_indexes.clear();
 	for(std::int64_t i = start; (i < stop && step > 0) || (i > stop && step < 0); i += step) {
-		m_indexes.push_back(unsafe_cast<std::size_t>(i));
+		m_indexes.push_back(weak_cast<std::size_t>(i));
 	}
 #if COCONUT_DEBUG
 	for (const auto & idx : m_indexes) {

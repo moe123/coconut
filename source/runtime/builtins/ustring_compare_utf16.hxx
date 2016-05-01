@@ -32,9 +32,9 @@ int ustring_compare_utf16(const icu::UnicodeString & a, const icu::UnicodeString
 		);
 		if (U_FAILURE(status)) {
 			if (insensitive || diacritic) {
-				cmp = unsafe_cast<int>(a.caseCompare(b, U_FOLD_CASE_DEFAULT));
+				cmp = weak_cast<int>(a.caseCompare(b, U_FOLD_CASE_DEFAULT));
 			} else {
-				cmp = unsafe_cast<int>(a.compare(b));
+				cmp = weak_cast<int>(a.compare(b));
 			}
 		} else {
 			if (diacritic) {
@@ -63,15 +63,15 @@ int ustring_compare_utf16(const icu::UnicodeString & a, const icu::UnicodeString
 			}
 			status = U_ZERO_ERROR;
 			coll->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, status);
-			cmp = unsafe_cast<int>(coll->compare(a, b));
+			cmp = weak_cast<int>(coll->compare(a, b));
 		}
 		delete coll;
 		return cmp;
 	} else {
 		if (insensitive || diacritic) {
-			cmp = unsafe_cast<int>(a.caseCompare(b, U_FOLD_CASE_DEFAULT));
+			cmp = weak_cast<int>(a.caseCompare(b, U_FOLD_CASE_DEFAULT));
 		} else {
-			cmp = unsafe_cast<int>(a.compare(b));
+			cmp = weak_cast<int>(a.compare(b));
 		}
 	}
 	return cmp;

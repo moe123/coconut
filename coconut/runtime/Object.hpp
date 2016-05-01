@@ -56,20 +56,20 @@ namespace coconut
 	/*
 	* @iKeyValueCoding collection operators.
 	*/
-		Owning<Any> kvcop_len(const std::string & utf8_key) const;
-		Owning<Any> kvcop_sum(const std::string & utf8_key) const;
-		Owning<Any> kvcop_min(const std::string & utf8_key) const;
-		Owning<Any> kvcop_max(const std::string & utf8_key) const;
-		Owning<Any> kvcop_avg(const std::string & utf8_key) const;
+		Owning<Any> KVClen(const std::string & utf8_key) const;
+		Owning<Any> KVCsum(const std::string & utf8_key) const;
+		Owning<Any> KVCmin(const std::string & utf8_key) const;
+		Owning<Any> KVCmax(const std::string & utf8_key) const;
+		Owning<Any> KVCavg(const std::string & utf8_key) const;
 		
-		Owning<Any> kvcop_distinctUnionOfObjects(const std::string & utf8_key) const;
-		Owning<Any> kvcop_unionOfObjects(const std::string & utf8_key) const;
-		Owning<Any> kvcop_distinctUnionOfArrays(const std::string & utf8_key) const;
-		Owning<Any> kvcop_distinctUnionOfOrderedSets(const std::string & utf8_key) const;
-		Owning<Any> kvcop_distinctUnionOfSets(const std::string & utf8_key) const;
-		Owning<Any> kvcop_unionOfArrays(const std::string & utf8_key) const;
-		Owning<Any> kvcop_unionOfOrderedSets(const std::string & utf8_key) const;
-		Owning<Any> kvcop_unionOfSets(const std::string & utf8_key) const;
+		Owning<Any> KVCdistinctUnionOfObjects(const std::string & utf8_key) const;
+		Owning<Any> KVCunionOfObjects(const std::string & utf8_key) const;
+		Owning<Any> KVCdistinctUnionOfArrays(const std::string & utf8_key) const;
+		Owning<Any> KVCdistinctUnionOfOrderedSets(const std::string & utf8_key) const;
+		Owning<Any> KVCdistinctUnionOfSets(const std::string & utf8_key) const;
+		Owning<Any> KVCunionOfArrays(const std::string & utf8_key) const;
+		Owning<Any> KVCunionOfOrderedSets(const std::string & utf8_key) const;
+		Owning<Any> KVCunionOfSets(const std::string & utf8_key) const;
 	};
 }
 

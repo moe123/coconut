@@ -355,7 +355,7 @@ bool bytebuf::rb_fin(stream::ifstream & in_binary)
 				if (cnt) {
 					chunksize = static_cast<std::size_t>(cnt);
 					for (std::size_t i = 0; i < chunksize; i++) {
-						m_bytes.push_back(unsafe_cast<std::uint8_t>(buffer[i]));
+						m_bytes.push_back(weak_cast<std::uint8_t>(buffer[i]));
 					}
 					result = true;
 				}
@@ -395,7 +395,7 @@ bool bytebuf::rb_fin(stream::ifstream & in_binary, std::size_t location, std::si
 			if (cnt) {
 				chunksize = static_cast<std::size_t>(cnt);
 				for (std::size_t i = 0; i < chunksize; i++) {
-					m_bytes.push_back(unsafe_cast<std::uint8_t>(buffer[i]));
+					m_bytes.push_back(weak_cast<std::uint8_t>(buffer[i]));
 				}
 				result = true;
 			}
@@ -436,7 +436,7 @@ bool bytebuf::wb_fout(stream::ofstream & out_binary, std::size_t location, std::
 			const void * bytes = buf.data();
 			if (bytes) {
 				std::streampos before = out_binary.tellp();
-				out_binary.write(unsafe_cast<const char *>(bytes), static_cast<std::streamsize>(sz));
+				out_binary.write(weak_cast<const char *>(bytes), static_cast<std::streamsize>(sz));
 				if ((out_binary.tellp() - before) == static_cast<std::streamoff>(sz)) {
 					result = true;
 				}
@@ -630,7 +630,7 @@ void bytebuf::put(const std::uint8_t v, std::size_t index)
 void bytebuf::put(const char v, std::size_t index)
 {
 	if (index < m_bytes.size()) {
-		m_bytes[index] = unsafe_cast<std::uint8_t>(v);
+		m_bytes[index] = weak_cast<std::uint8_t>(v);
 	}
 }
 
@@ -655,7 +655,7 @@ std::size_t bytebuf::size() const
 
 std::uint8_t * bytebuf::raw() const
 {
-	return unsafe_cast<std::uint8_t *>(m_bytes.data());
+	return weak_cast<std::uint8_t *>(m_bytes.data());
 }
 
 const std::vector<std::uint8_t> & bytebuf::bytes() const
@@ -688,12 +688,12 @@ bool bytebuf::get_raw(std::uint8_t * membytes, std::size_t location, std::size_t
 
 bool bytebuf::get_raw(char * membytes, std::size_t length) const
 {
-	return get_raw(unsafe_cast<std::uint8_t *>(membytes), 0, length);
+	return get_raw(weak_cast<std::uint8_t *>(membytes), 0, length);
 }
 
 bool bytebuf::get_raw(char * membytes, std::size_t location, std::size_t length) const
 {
-	return get_raw(unsafe_cast<std::uint8_t *>(membytes), location, length);
+	return get_raw(weak_cast<std::uint8_t *>(membytes), location, length);
 }
 
 #pragma mark -
@@ -742,7 +742,7 @@ void bytebuf::push_front(std::uint8_t v)
 
 void bytebuf::push_front(char v)
 {
-	m_bytes.insert(m_bytes.begin(), unsafe_cast<std::uint8_t>(v));
+	m_bytes.insert(m_bytes.begin(), weak_cast<std::uint8_t>(v));
 }
 
 #pragma mark -
@@ -871,7 +871,7 @@ void bytebuf::push_back(std::uint8_t v)
 { m_bytes.push_back(v); }
 
 void bytebuf::push_back(char v)
-{ m_bytes.push_back(unsafe_cast<std::uint8_t>(v)); }
+{ m_bytes.push_back(weak_cast<std::uint8_t>(v)); }
 
 #pragma mark -
 

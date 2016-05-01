@@ -99,7 +99,7 @@ stream::imstreambuf::imstreambuf(imstreambuf &)
 
 stream::imstreambuf::imstreambuf(const char * membytes, std::size_t size)
 : std::streambuf()
-, m_begin(unsafe_cast<char *>(membytes))
+, m_begin(weak_cast<char *>(membytes))
 , m_size(size)
 , m_end(m_begin + size)
 , m_current(m_begin)
@@ -107,7 +107,7 @@ stream::imstreambuf::imstreambuf(const char * membytes, std::size_t size)
 
 stream::imstreambuf::imstreambuf(const std::uint8_t * membytes, std::size_t size)
 : std::streambuf()
-, m_begin(unsafe_cast<char *>(membytes))
+, m_begin(weak_cast<char *>(membytes))
 , m_size(size)
 , m_end(m_begin + size)
 , m_current(m_begin)
@@ -123,7 +123,7 @@ stream::imstreambuf::~imstreambuf()
 
 void stream::imstreambuf::setmem(const char * membytes, std::size_t size)
 {
-	m_begin = unsafe_cast<char *>(membytes);
+	m_begin = weak_cast<char *>(membytes);
 	m_size = size;
 	m_end = m_begin + size;
 	m_current = m_begin;
@@ -132,7 +132,7 @@ void stream::imstreambuf::setmem(const char * membytes, std::size_t size)
 
 void stream::imstreambuf::setmem(const std::uint8_t * membytes, std::size_t size)
 {
-	m_begin = unsafe_cast<char *>(membytes);
+	m_begin = weak_cast<char *>(membytes);
 	m_size = size;
 	m_end = m_begin + size;
 	m_current = m_begin;
@@ -176,7 +176,7 @@ std::streambuf::int_type stream::imstreambuf::pbackfail(std::streambuf::int_type
 }
 
 std::size_t stream::imstreambuf::output_bytes()
-{ return unsafe_cast<std::size_t>(pptr() - pbase()); }
+{ return weak_cast<std::size_t>(pptr() - pbase()); }
 
 std::streambuf::pos_type stream::imstreambuf::seekoff(
 	std::streambuf::off_type off,
@@ -185,7 +185,7 @@ std::streambuf::pos_type stream::imstreambuf::seekoff(
 ) {
 	COCONUT_UNUSED(which);
 	off_type offset = (std::ios::beg == dir) ? off :
-		(std::ios::end == dir) ? (unsafe_cast<off_type>(m_size) - off) : (gptr() - m_begin) + off;
+		(std::ios::end == dir) ? (weak_cast<off_type>(m_size) - off) : (gptr() - m_begin) + off;
 	setg(m_begin, m_begin + offset, m_begin + m_size);
 	return gptr() - m_begin;
 }
@@ -194,7 +194,7 @@ std::streambuf::pos_type stream::imstreambuf::seekoff(
 
 stream::imstream::imstream()
 : std::istream(&m_imstreambuf)
-, m_imstreambuf(unsafe_cast<std::uint8_t *>(nullptr), 0)
+, m_imstreambuf(weak_cast<std::uint8_t *>(nullptr), 0)
 { /* NOP */ }
 
 stream::imstream::imstream(imstream & im)

@@ -49,33 +49,33 @@ private:
 		switch (m_type)
 		{
 			case numeric_float :
-				return unsafe_cast<T>(m_val_float);
+				return weak_cast<T>(m_val_float);
 			case numeric_double :
-				return unsafe_cast<T>(m_val_double);
+				return weak_cast<T>(m_val_double);
 			case numeric_long_double :
-				return unsafe_cast<T>(m_val_long_double);
+				return weak_cast<T>(m_val_long_double);
 			case numeric_bool :
-				return unsafe_cast<T>(m_val_bool);
+				return weak_cast<T>(m_val_bool);
 			case numeric_char :
-				return unsafe_cast<T>(m_val_char);
+				return weak_cast<T>(m_val_char);
 			case numeric_short :
-				return unsafe_cast<T>(m_val_short);
+				return weak_cast<T>(m_val_short);
 			case numeric_int :
-				return unsafe_cast<T>(m_val_int);
+				return weak_cast<T>(m_val_int);
 			case numeric_long :
-				return unsafe_cast<T>(m_val_long);
+				return weak_cast<T>(m_val_long);
 			case numeric_longlong :
-				return unsafe_cast<T>(m_val_longlong);
+				return weak_cast<T>(m_val_longlong);
 			case numeric_unsigned_char :
-				return unsafe_cast<T>(m_val_unsigned_char);
+				return weak_cast<T>(m_val_unsigned_char);
 			case numeric_unsigned_short :
-				return unsafe_cast<T>(m_val_unsigned_short);
+				return weak_cast<T>(m_val_unsigned_short);
 			case numeric_unsigned_int :
-				return unsafe_cast<T>(m_val_unsigned_int);
+				return weak_cast<T>(m_val_unsigned_int);
 			case numeric_unsigned_long :
-				return unsafe_cast<T>(m_val_unsigned_long);
+				return weak_cast<T>(m_val_unsigned_long);
 			case numeric_unsigned_longlong :
-				return unsafe_cast<T>(m_val_unsigned_longlong);
+				return weak_cast<T>(m_val_unsigned_longlong);
 		}
 		return result;
 	}

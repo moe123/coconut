@@ -97,7 +97,7 @@ ComparisonResult Array::compare(const Any & ref) const
 		} else if (size() > ref_cast<Array>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(begin(), end(), ref_cast<Array>(ref).begin(), [] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
+			std::equal(begin(), end(), ref_cast<Array>(ref).begin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{
 				if (a && b) { return (a->compare(*b) == OrderedSame); } return false;
 			})
@@ -139,8 +139,8 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 	
 	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		ptr_declare<Any> item = (*it);
-		ptr_declare<Any> v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
 		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
@@ -163,7 +163,7 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 	} else if (parts.size() >= 2) {
 		
 		if (runtime::algorithm::is_integer(parts[0], true)) {
-			ptr_declare<Any> item = valueForKey(parts[0]);
+			Owning<Any> item = valueForKey(parts[0]);
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
@@ -176,8 +176,8 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 		}
 		
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			ptr_declare<Any> item = (*it);
-			ptr_declare<Any> v;
+			Owning<Any> item = (*it);
+			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
 			if (!v) { v =  ptr_create<None>(); }
 			buf.push_back(v);
@@ -192,8 +192,8 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 {
 	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		ptr_declare<Any> item = (*it);
-		ptr_declare<Any> v;
+		Owning<Any> item = (*it);
+		Owning<Any> v;
 		if (item) {
 			v = item->valueForSelectorKey(utf8_selkey, arg);
 		}
@@ -430,7 +430,7 @@ std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range
 
 std::size_t Array::lastIndexOfObject(const Any & obj) const
 {
-	return indexOfObjectPassingTest([&obj] (const ptr_declare<Any> & item, std::size_t index, bool & stop) -> bool {
+	return indexOfObjectPassingTest([&obj] (const Owning<Any> & item, std::size_t index, bool & stop) -> bool {
 		if (item->isIdenticalTo(obj) || item->isEqual(obj)) {
 			return true;
 		}
@@ -447,7 +447,7 @@ std::size_t Array::lastIndexOfObject(const Owning<Any> & obj) const
 
 std::size_t Array::lastIndexOfObjectIdenticalTo(const Any & obj) const
 {
-	return indexOfObjectPassingTest([&obj] (const ptr_declare<Any> & item, std::size_t index, bool & stop) -> bool {
+	return indexOfObjectPassingTest([&obj] (const Owning<Any> & item, std::size_t index, bool & stop) -> bool {
 		if (item->isIdenticalTo(obj)) {
 			return true;
 		}
@@ -464,7 +464,7 @@ std::size_t Array::lastIndexOfObjectIdenticalTo(const Owning<Any> & obj) const
 
 const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 {
-	ptr_declare<Any> item;
+	Owning<Any> item;
 	if (size()) {
 		std::size_t idx = 0;
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -481,7 +481,7 @@ const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 
 const Owning<Any> Array::lastObjectCommonWithArray(const Array & arr) const
 {
-	ptr_declare<Any> item;
+	Owning<Any> item;
 	if (size()) {
 		std::size_t idx = 0;
 		for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
@@ -666,7 +666,7 @@ const Array Array::uniquedArray(CopyOption option) const
 	impl_trait buf;
 	for (const_iterator it0 = cbegin(); it0 != cend(); ++it0) {
 		const_iterator it1 = std::find_if(buf.cbegin(), buf.cend(),
-			[&it0] (const ptr_declare<Any> & item) -> bool {
+			[&it0] (const Owning<Any> & item) -> bool {
 				return (item->compare(*(*it0)) == OrderedSame);
 			});
 		if (it1 == buf.cend()) { buf.push_back(*it0); }
@@ -827,7 +827,7 @@ const Array Array::sortedArrayAscending(CopyOption option) const
 
 const Array Array::sortedArrayAscending(CopyOption option, SortOptions options) const
 {
-	return sortedArrayUsingFunction([] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
+	return sortedArrayUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedAscending); } return false;
 	}, option, options);
@@ -840,7 +840,7 @@ const Array Array::sortedArrayDescending(CopyOption option) const
 
 const Array Array::sortedArrayDescending(CopyOption option, SortOptions options) const
 {
-	return sortedArrayUsingFunction([] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
+	return sortedArrayUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedDescending); } return false;
 	}, option, options);
@@ -857,10 +857,10 @@ const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, 
 const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, CopyOption option, bool descending, SortOptions options) const
 {
 	ComparisonResult cmp_result = descending ? OrderedDescending : OrderedAscending;
-	return sortedArrayUsingFunction([&utf8_selkey, cmp_result](const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
+	return sortedArrayUsingFunction([&utf8_selkey, cmp_result](const Owning<Any> & a, const Owning<Any> & b) -> bool
 	{
 		if (a && b) {
-			ptr_declare<Any> sel_cmp = a->valueForSelectorKey(utf8_selkey, b);
+			Owning<Any> sel_cmp = a->valueForSelectorKey(utf8_selkey, b);
 			if (sel_cmp) {
 				return (static_cast<ComparisonResult>(sel_cmp->intValue()) == cmp_result);
 			} else {
@@ -887,7 +887,7 @@ const Array Array::sortedArrayUsingDescriptors(const Array & descriptors, CopyOp
 {
 	if (descriptors.size()) {
 		ComparisonResult cmp_result = OrderedAscending;
-		return sortedArrayUsingFunction([&descriptors, cmp_result](const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
+		return sortedArrayUsingFunction([&descriptors, cmp_result](const Owning<Any> & a, const Owning<Any> & b) -> bool
 		{
 			if (a && b) {
 				ComparisonResult result = OrderedSame;
@@ -994,7 +994,7 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 		
 		if (loc && len) {
 			for (std::size_t i = 0; i < len; i++) {
-				ptr_declare<Any> item = objectAtIndex(loc + i);
+				Owning<Any> item = objectAtIndex(loc + i);
 				if (item) { buf.push_back(item); }
 			}
 		} else {
@@ -1015,7 +1015,7 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 	if (sz) {
 		slc.indexesForLength(sz);
 		for (Slice::const_iterator it = slc.cbegin(); it != slc.cend(); ++it) {
-			ptr_declare<Any> item = objectAtIndex(*it);
+			Owning<Any> item = objectAtIndex(*it);
 			if (item) { buf.push_back(item); }
 		}
 	} else {

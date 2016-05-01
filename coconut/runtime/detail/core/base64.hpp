@@ -134,7 +134,7 @@ void decode(IterInT && beg, IterInT && end, IterOutT && out)
 		char input[4] = { 0, 0, 0, 0 };
 		chars = 0;
 		while ((chars < 4) && (it != end)) {
-			char c = unsafe_cast<char>(*it);
+			char c = weak_cast<char>(*it);
 			if (c == '=') { break; } ++it;
 			//if (c == 13 || c == 10) { continue; }
 			if (std::find(lt.ascii_beg, lt.ascii_end, c) != lt.ascii_end) {

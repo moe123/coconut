@@ -60,7 +60,7 @@ std::int64_t datetime_nanotime()
 
 	struct timespec tm;
 	if (TIME_UTC == timespec_get(&tm, TIME_UTC)) {
-		result = unsafe_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
+		result = weak_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
 	}
 	
 #elif defined(__MICROSOFT__)
@@ -68,13 +68,13 @@ std::int64_t datetime_nanotime()
 	FILETIME ft;
 	GetSystemTimeAsFileTime(&ft);
 	long long x;
-	x = unsafe_cast<long long>(ft.dwHighDateTime);
+	x = weak_cast<long long>(ft.dwHighDateTime);
 	x <<= 32;
-	x |= unsafe_cast<long long>(ft.dwLowDateTime);
+	x |= weak_cast<long long>(ft.dwLowDateTime);
 	x /= 10;
 	x -= 11644473600000000LL;
 	x *= 1000LL;
-	result = unsafe_cast<std::int64_t>(x);
+	result = weak_cast<std::int64_t>(x);
 
 #elif defined(__APPLE__)
 
@@ -86,7 +86,7 @@ std::int64_t datetime_nanotime()
 	if (KERN_SUCCESS == mret) {
 		mret = clock_get_time(mclk, &tm);
 		if (KERN_SUCCESS == mret) {
-			result = unsafe_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
+			result = weak_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
 		}
 	}
 	mach_port_deallocate(mach_task_self(), mclk);
@@ -95,14 +95,14 @@ std::int64_t datetime_nanotime()
 	
 	struct timespec tm;
 	if (0 == clock_gettime(CLOCK_REALTIME, &tm)) {
-		result = unsafe_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
+		result = weak_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + tm.tv_nsec);
 	}
 
 #else
 
 	struct timeval tm;
 	gettimeofday(&tm, NULL);
-	result = unsafe_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + (tm.tv_usec * 1000LL));
+	result = weak_cast<std::int64_t>((tm.tv_sec * 1000000000LL) + (tm.tv_usec * 1000LL));
 	
 #endif
 	
@@ -197,8 +197,8 @@ bool datetime_epoch_v0(time_spec * tms)
 	GetSystemTimeAsFileTime(&now.ft);
 	now.ns100 -= (11644473600000000ULL * 10ULL);
 	
-	tms->tv_sec = unsafe_cast<std::int64_t>(now.ns100 / 10000000ULL);
-	tms->tv_nsec = unsafe_cast<std::int64_t>(now.ns100 % 10000000ULL) * 100;
+	tms->tv_sec = weak_cast<std::int64_t>(now.ns100 / 10000000ULL);
+	tms->tv_nsec = weak_cast<std::int64_t>(now.ns100 % 10000000ULL) * 100;
 	
 	result = true;
 
@@ -245,10 +245,10 @@ bool datetime_epoch_v0(time_spec * tms)
 		return result;
 	}
 	
-	double utc_milli = unsafe_cast<double>(icu::Calendar::getNow());
+	double utc_milli = weak_cast<double>(icu::Calendar::getNow());
 	if (utc_milli) {
 		result = true;
-		tms->tv_sec = unsafe_cast<std::int64_t>(utc_milli) / 1000;
+		tms->tv_sec = weak_cast<std::int64_t>(utc_milli) / 1000;
 		tms->tv_nsec = 0;
 	} else {
 		tms->tv_sec = 0;

@@ -64,7 +64,7 @@ int ustring_compare_utf8(const std::string & utf8_a, const std::string & utf8_b,
 			coll->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, status);
 			status = U_ZERO_ERROR;
 			
-			cmp = unsafe_cast<int>(coll->compareUTF8(icu::StringPiece(utf8_a), icu::StringPiece(utf8_b), status));
+			cmp = weak_cast<int>(coll->compareUTF8(icu::StringPiece(utf8_a), icu::StringPiece(utf8_b), status));
 			if (U_FAILURE(status)) {
 				if (insensitive || diacritic) {
 					cmp = algorithm::icmp(utf8_a, utf8_b);

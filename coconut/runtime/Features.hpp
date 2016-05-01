@@ -18,7 +18,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _conforms_to(ptr_declare<T2> const & r, std::true_type) -> bool
+	auto _conforms_to(Owning<T2> const & r, std::true_type) -> bool
 	{ if (r) { const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(*r)); return (ptr != nullptr); }; return false; }
 	
 	template <typename T1, typename T2>
@@ -28,7 +28,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _kind_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	auto _kind_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isKindOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -38,7 +38,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _subclass_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	auto _subclass_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isSubclassOf<T1>()); }
 
 	template <typename T1, typename T2>
@@ -48,7 +48,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _member_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	auto _member_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isMemberOf<T1>()); }
 
 	template <typename T1, typename T2>
@@ -58,7 +58,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _ancestor_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	auto _ancestor_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isAncestorOf<T1>()); }
 
 	template <typename T1, typename T2>
@@ -68,7 +68,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _parent_of(ptr_declare<T2> const & r, std::true_type) -> bool
+	auto _parent_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isParenOf<T1>()); }
 	
 	template <typename T1, typename T2>
@@ -79,7 +79,7 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _thus(ptr_declare<T2> const & r, std::true_type)
+	auto _thus(Owning<T2> const & r, std::true_type)
 		-> T1 &
 	{ return (*(ptr_cast<T1>(r))); }
 
@@ -91,8 +91,8 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _then(ptr_declare<T2> const & r, std::true_type)
-		-> ptr_declare<T1>
+	auto _then(Owning<T2> const & r, std::true_type)
+		-> Owning<T1>
 	{ return ptr_cast<T1>(r); }
 
 	template <typename T1, typename T2,
@@ -103,7 +103,7 @@ namespace coconut
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _copy(const T2 & r, std::false_type)
-		-> ptr_declare<T1>
+		-> Owning<T1>
 	{ return ptr_cast<T1>(r.kindCopy()); }
 	
 	template <typename T1, typename T2,
@@ -113,8 +113,8 @@ namespace coconut
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _copy(ptr_declare<T2> const & r, std::true_type)
-		-> ptr_declare<T1>
+	auto _copy(Owning<T2> const & r, std::true_type)
+		-> Owning<T1>
 	{ return ptr_cast<T1>(r->kindCopy()); }
 	
 	template <typename TypeT, typename CollT,

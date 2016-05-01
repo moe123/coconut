@@ -72,16 +72,12 @@ String::~String()
 #pragma mark -
 
 std::size_t String::hash() const
-{
-	return m_impl.hash_code();
-}
+{ return m_impl.hash_code(); }
 
 #pragma mark -
 
 Owning<Any> String::copy() const
-{
-	return ptr_create<String>(*this);
-}
+{ return ptr_create<String>(*this); }
 
 #pragma mark -
 

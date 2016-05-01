@@ -35,7 +35,7 @@ void hash::sha1::reset()
 
 void hash::sha1::process_block(const void * block)
 {
-	const std::uint32_t * input = unsafe_cast<const std::uint32_t *>(block);
+	const std::uint32_t * input = weak_cast<const std::uint32_t *>(block);
 	std::uint32_t words[80];
 	std::size_t i;
 	std::uint32_t a = m_hash[0];

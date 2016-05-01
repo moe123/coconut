@@ -35,7 +35,7 @@ irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, s
 		
 		// TODO CACHING COLLATORS
 		UErrorCode status = U_ZERO_ERROR;
-		icu::RuleBasedCollator * coll = unsafe_cast<RuleBasedCollator *>(icu::Collator::createInstance(
+		icu::RuleBasedCollator * coll = weak_cast<RuleBasedCollator *>(icu::Collator::createInstance(
 			((locale == nullptr) ? icu::Locale::getRoot() : *locale),
 			status
 		));
@@ -44,34 +44,34 @@ irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, s
 				if (backwards) {
 					idx = icu::UnicodeString(haystack).toUpper().lastIndexOf(
 						icu::UnicodeString(needle).toUpper(),
-						unsafe_cast<std::int32_t>(start),
-						unsafe_cast<std::int32_t>(length)
+						weak_cast<std::int32_t>(start),
+						weak_cast<std::int32_t>(length)
 					);
 				} else {
 					idx = icu::UnicodeString(haystack).toUpper().indexOf(
 						icu::UnicodeString(needle).toUpper(),
-						unsafe_cast<std::int32_t>(start),
-						unsafe_cast<std::int32_t>(length)
+						weak_cast<std::int32_t>(start),
+						weak_cast<std::int32_t>(length)
 					);
 				}
 			} else {
 				if (backwards) {
 					idx = haystack.lastIndexOf(
 						needle,
-						unsafe_cast<std::int32_t>(start),
-						unsafe_cast<std::int32_t>(length)
+						weak_cast<std::int32_t>(start),
+						weak_cast<std::int32_t>(length)
 					);
 				} else {
 					idx = haystack.indexOf(needle,
-						unsafe_cast<std::int32_t>(start),
-						unsafe_cast<std::int32_t>(length)
+						weak_cast<std::int32_t>(start),
+						weak_cast<std::int32_t>(length)
 					);
 				}
 			}
 			if (idx == -1) {
 				return irange(NotFound, 0);
 			}
-			return irange(idx, unsafe_cast<std::size_t>(needle.length()));
+			return irange(idx, weak_cast<std::size_t>(needle.length()));
 		} else {
 			if (diacritic) {
 				coll->setStrength(icu::Collator::TERTIARY);
@@ -101,8 +101,8 @@ irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, s
 			icu::StringSearch iter(
 				needle,
 				haystack.tempSubString(
-					unsafe_cast<std::int32_t>(start),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<std::int32_t>(start),
+					weak_cast<std::int32_t>(length)
 				),
 				coll,
 				NULL,
@@ -126,7 +126,7 @@ irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, s
 			if (U_FAILURE(status)) {
 				return irange(NotFound, 0);
 			}
-			return irange(idx, unsafe_cast<std::size_t>(len));
+			return irange(idx, weak_cast<std::size_t>(len));
 		}
 		delete coll;
 	} else {
@@ -134,34 +134,34 @@ irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, s
 			if (backwards) {
 				idx = icu::UnicodeString(haystack).toUpper().lastIndexOf(
 					icu::UnicodeString(needle).toUpper(),
-					unsafe_cast<std::int32_t>(start),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<std::int32_t>(start),
+					weak_cast<std::int32_t>(length)
 				);
 			} else {
 				idx = icu::UnicodeString(haystack).toUpper().indexOf(
 					icu::UnicodeString(needle).toUpper(),
-					unsafe_cast<std::int32_t>(start),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<std::int32_t>(start),
+					weak_cast<std::int32_t>(length)
 				);
 			}
 		} else {
 			if (backwards) {
 				idx = haystack.lastIndexOf(
 					needle,
-					unsafe_cast<std::int32_t>(start),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<std::int32_t>(start),
+					weak_cast<std::int32_t>(length)
 				);
 			} else {
 				idx = haystack.indexOf(needle,
-					unsafe_cast<std::int32_t>(start),
-					unsafe_cast<std::int32_t>(length)
+					weak_cast<std::int32_t>(start),
+					weak_cast<std::int32_t>(length)
 				);
 			}
 		}
 		if (idx == -1) {
 			return irange(NotFound, 0);
 		}
-		return irange(idx, unsafe_cast<std::size_t>(needle.length()));
+		return irange(idx, weak_cast<std::size_t>(needle.length()));
 	}
 	return irange(NotFound, 0);
 }

@@ -56,7 +56,7 @@ void format(
 	if (!opt) { opt = &default_option; }
 	os << opt->u_start;
 	for (; beg != end; ++beg) {
-		std::uint8_t c = unsafe_cast<std::uint8_t>(*beg);
+		std::uint8_t c = weak_cast<std::uint8_t>(*beg);
 		os << std::hex << std::setw(2) << std::setfill('0') << (c & 0xff);
 		++cnt;
 		if (cnt % 16 == 0 && opt->u_row) {

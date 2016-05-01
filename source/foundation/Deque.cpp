@@ -58,7 +58,7 @@ ComparisonResult Deque::compare(const Any & ref) const
 		} else if (size() > ref_cast<Deque>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Deque>(ref).cbegin(), [] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<Deque>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{
 				if (a && b) { return (a->compare(*b) == OrderedSame); } return false;
 			})
