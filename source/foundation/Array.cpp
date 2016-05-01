@@ -24,11 +24,11 @@ Array::Array() :
 { /* NOP */ }
 
 Array::Array(const Array & arr) :
-	Array(arr.cbegin(), arr.cend(), CopyNone)
+	Array(arr.begin(), arr.end(), CopyNone)
 { /* NOP */ }
 
 Array::Array(const Array & arr, CopyOption option) :
-	Array(arr.cbegin(), arr.cend(), option)
+	Array(arr.begin(), arr.end(), option)
 { /* NOP */ }
 
 Array::Array(Array && arr) noexcept :
@@ -79,10 +79,10 @@ std::size_t Array::hash() const
 #pragma mark -
 
 Owning<Any> Array::copy() const
-{ return ptr_create<Array>(cbegin(), cend(), CopyKind); }
+{ return ptr_create<Array>(begin(), end(), CopyKind); }
 
 Owning<Any> Array::mutableCopy() const
-{ return ptr_create<MutableArray>(cbegin(), cend(), CopyKind); }
+{ return ptr_create<MutableArray>(begin(), end(), CopyKind); }
 
 #pragma mark -
 
@@ -97,7 +97,7 @@ ComparisonResult Array::compare(const Any & ref) const
 		} else if (size() > ref_cast<Array>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<Array>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
+			std::equal(begin(), end(), ref_cast<Array>(ref).begin(), [] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
 			{
 				if (a && b) { return (a->compare(*b) == OrderedSame); } return false;
 			})
@@ -139,13 +139,13 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 	
 	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		Owning<Any> item = (*it);
-		Owning<Any> v;
+		ptr_declare<Any> item = (*it);
+		ptr_declare<Any> v;
 		if (item) { v = item->valueForKey(utf8_key); }
-		if (!v) { v =  ptr_create<None>(); }
+		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return  ptr_create<Array>(buf.cbegin(), buf.cend());
+	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 
 #pragma mark -
@@ -163,7 +163,7 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 	} else if (parts.size() >= 2) {
 		
 		if (runtime::algorithm::is_integer(parts[0], true)) {
-			Owning<Any> item = valueForKey(parts[0]);
+			ptr_declare<Any> item = valueForKey(parts[0]);
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
@@ -176,14 +176,14 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 		}
 		
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
-			Owning<Any> item = (*it);
-			Owning<Any> v;
+			ptr_declare<Any> item = (*it);
+			ptr_declare<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
 			if (!v) { v =  ptr_create<None>(); }
 			buf.push_back(v);
 		}
 	}
-	return  ptr_create<Array>(buf.cbegin(), buf.cend());
+	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 
 #pragma mark -
@@ -192,15 +192,15 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 {
 	impl_trait buf;
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
-		Owning<Any> item = (*it);
-		Owning<Any> v;
+		ptr_declare<Any> item = (*it);
+		ptr_declare<Any> v;
 		if (item) {
 			v = item->valueForSelectorKey(utf8_selkey, arg);
 		}
 		if (!v) { v =  ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return Array(buf.begin(), buf.end());
+	return {buf.begin(), buf.end()};
 }
 
 #pragma mark -
@@ -430,7 +430,7 @@ std::size_t Array::indexOfObjectIdenticalTo(const Owning<Any> & obj, const Range
 
 std::size_t Array::lastIndexOfObject(const Any & obj) const
 {
-	return indexOfObjectPassingTest([&obj] (const Owning<Any> & item, std::size_t index, bool & stop) -> bool {
+	return indexOfObjectPassingTest([&obj] (const ptr_declare<Any> & item, std::size_t index, bool & stop) -> bool {
 		if (item->isIdenticalTo(obj) || item->isEqual(obj)) {
 			return true;
 		}
@@ -447,7 +447,7 @@ std::size_t Array::lastIndexOfObject(const Owning<Any> & obj) const
 
 std::size_t Array::lastIndexOfObjectIdenticalTo(const Any & obj) const
 {
-	return indexOfObjectPassingTest([&obj] (const Owning<Any> & item, std::size_t index, bool & stop) -> bool {
+	return indexOfObjectPassingTest([&obj] (const ptr_declare<Any> & item, std::size_t index, bool & stop) -> bool {
 		if (item->isIdenticalTo(obj)) {
 			return true;
 		}
@@ -464,7 +464,7 @@ std::size_t Array::lastIndexOfObjectIdenticalTo(const Owning<Any> & obj) const
 
 const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 {
-	Owning<Any> item;
+	ptr_declare<Any> item;
 	if (size()) {
 		std::size_t idx = 0;
 		for (const_iterator it = cbegin(); it != cend(); ++it) {
@@ -481,7 +481,7 @@ const Owning<Any> Array::firstObjectCommonWithArray(const Array & arr) const
 
 const Owning<Any> Array::lastObjectCommonWithArray(const Array & arr) const
 {
-	Owning<Any> item;
+	ptr_declare<Any> item;
 	if (size()) {
 		std::size_t idx = 0;
 		for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
@@ -656,9 +656,9 @@ bool Array::someObjectPassingTest(const std::function<bool(const Owning<Any> & o
 
 const Array Array::reversedArray(CopyOption option) const
 {
-	impl_trait buf(cbegin(), cend());
+	impl_trait buf(begin(), end());
 	if (size() > 1) { std::reverse(buf.begin(), buf.end()); }
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 const Array Array::uniquedArray(CopyOption option) const
@@ -666,17 +666,17 @@ const Array Array::uniquedArray(CopyOption option) const
 	impl_trait buf;
 	for (const_iterator it0 = cbegin(); it0 != cend(); ++it0) {
 		const_iterator it1 = std::find_if(buf.cbegin(), buf.cend(),
-			[&it0] (const Owning<Any> & item) -> bool {
+			[&it0] (const ptr_declare<Any> & item) -> bool {
 				return (item->compare(*(*it0)) == OrderedSame);
 			});
 		if (it1 == buf.cend()) { buf.push_back(*it0); }
 	}
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 const Array Array::shuffledArray(CopyOption option) const
 {
-	impl_trait buf(cbegin(), cend());
+	impl_trait buf(begin(), end());
 	if (size() > 1) {
 		std::mt19937 mt{ std::random_device{}() };
 		std::size_t maxidx = buf.size() -1;
@@ -692,7 +692,7 @@ const Array Array::shuffledArray(CopyOption option) const
 			std::swap(buf.at(idx1), buf.at(idx2));
 		}
 	}
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -
@@ -782,7 +782,7 @@ const Array Array::filteredArrayUsingFunction(const std::function<bool(const Own
 		default:
 			break;
 	}
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -
@@ -796,7 +796,7 @@ const Array Array::sortedArrayUsingFunction(const std::function<bool(const Ownin
 	if (options == SortConcurrent || options & SortConcurrent) {
 		auto op = runtime::async::exec(runtime::launch_async, [this, &options, &buf, &func]
 		{
-			buf.assign(cbegin(), cend());
+			buf.assign(begin(), end());
 			if (buf.size() > 1) {
 				if (options & SortStable) {
 					std::stable_sort(buf.begin(), buf.end(), func);
@@ -808,7 +808,7 @@ const Array Array::sortedArrayUsingFunction(const std::function<bool(const Ownin
 		});
 		op();
 	} else {
-		buf.assign(cbegin(), cend());
+		buf.assign(begin(), end());
 		if (buf.size() > 1) {
 			if (options == SortStable || options & SortStable) {
 				std::stable_sort(buf.begin(), buf.end(), func);
@@ -817,7 +817,7 @@ const Array Array::sortedArrayUsingFunction(const std::function<bool(const Ownin
 			}
 		}
 	}
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -
@@ -827,7 +827,7 @@ const Array Array::sortedArrayAscending(CopyOption option) const
 
 const Array Array::sortedArrayAscending(CopyOption option, SortOptions options) const
 {
-	return sortedArrayUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
+	return sortedArrayUsingFunction([] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedAscending); } return false;
 	}, option, options);
@@ -840,7 +840,7 @@ const Array Array::sortedArrayDescending(CopyOption option) const
 
 const Array Array::sortedArrayDescending(CopyOption option, SortOptions options) const
 {
-	return sortedArrayUsingFunction([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
+	return sortedArrayUsingFunction([] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
 	{
 		if (a && b) { return (a->compare(*b) == OrderedDescending); } return false;
 	}, option, options);
@@ -857,10 +857,10 @@ const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, 
 const Array Array::sortedArrayUsingSelectorKey(const std::string & utf8_selkey, CopyOption option, bool descending, SortOptions options) const
 {
 	ComparisonResult cmp_result = descending ? OrderedDescending : OrderedAscending;
-	return sortedArrayUsingFunction([&utf8_selkey, cmp_result](const Owning<Any> & a, const Owning<Any> & b) -> bool
+	return sortedArrayUsingFunction([&utf8_selkey, cmp_result](const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
 	{
 		if (a && b) {
-			Owning<Any> sel_cmp = a->valueForSelectorKey(utf8_selkey, b);
+			ptr_declare<Any> sel_cmp = a->valueForSelectorKey(utf8_selkey, b);
 			if (sel_cmp) {
 				return (static_cast<ComparisonResult>(sel_cmp->intValue()) == cmp_result);
 			} else {
@@ -887,7 +887,7 @@ const Array Array::sortedArrayUsingDescriptors(const Array & descriptors, CopyOp
 {
 	if (descriptors.size()) {
 		ComparisonResult cmp_result = OrderedAscending;
-		return sortedArrayUsingFunction([&descriptors, cmp_result](const Owning<Any> & a, const Owning<Any> & b) -> bool
+		return sortedArrayUsingFunction([&descriptors, cmp_result](const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
 		{
 			if (a && b) {
 				ComparisonResult result = OrderedSame;
@@ -924,8 +924,8 @@ const Array Array::arrayByPushingObject(Owning<Any> obj, CopyOption option) cons
 	if (obj) {
 		impl_trait buf;
 		buf.push_back(obj);
-		buf.insert(buf.cend(), cbegin(), cend());
-		return Array(buf.cbegin(), buf.cend(), option);
+		buf.insert(buf.end(), begin(), end());
+		return {buf.begin(), buf.end(), option};
 	}
 	// Fault();
 	return {};
@@ -938,9 +938,9 @@ const Array Array::arrayByPushingObjectsFromArray(const Array & arr) const
 
 const Array Array::arrayByPushingObjectsFromArray(const Array & arr, CopyOption option) const
 {
-	impl_trait buf(arr.cbegin(), arr.cend());
-	buf.insert(buf.cend(), cbegin(), cend());
-	return Array(buf.cbegin(), buf.cend(), option);
+	impl_trait buf(arr.begin(), arr.end());
+	buf.insert(buf.end(), begin(), end());
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -
@@ -959,9 +959,9 @@ const Array Array::arrayByAddingObject(Owning<Any> obj) const
 const Array Array::arrayByAddingObject(Owning<Any> obj, CopyOption option) const
 {
 	if (obj) {
-		impl_trait buf(cbegin(), cend());
+		impl_trait buf(begin(), end());
 		buf.push_back(obj);
-		return Array(buf.cbegin(), buf.cend(), option);
+		return {buf.begin(), buf.end(), option};
 	}
 	// Fault();
 	return {};
@@ -974,9 +974,9 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr) const
 
 const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption option) const
 {
-	impl_trait buf(cbegin(), cend());
-	buf.insert(buf.cend(), arr.cbegin(), arr.cend());
-	return Array(buf.cbegin(), buf.cend(), option);
+	impl_trait buf(begin(), end());
+	buf.insert(buf.end(), arr.begin(), arr.end());
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -
@@ -994,7 +994,7 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 		
 		if (loc && len) {
 			for (std::size_t i = 0; i < len; i++) {
-				Owning<Any> item = objectAtIndex(loc + i);
+				ptr_declare<Any> item = objectAtIndex(loc + i);
 				if (item) { buf.push_back(item); }
 			}
 		} else {
@@ -1003,7 +1003,7 @@ const Array Array::subarrayWithRange(const Range & rg, CopyOption option) const
 	} else {
 		// Fault();
 	}
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -
@@ -1015,13 +1015,13 @@ const Array Array::subarrayWithSlice(const Slice & slc, CopyOption option) const
 	if (sz) {
 		slc.indexesForLength(sz);
 		for (Slice::const_iterator it = slc.cbegin(); it != slc.cend(); ++it) {
-			Owning<Any> item = objectAtIndex(*it);
+			ptr_declare<Any> item = objectAtIndex(*it);
 			if (item) { buf.push_back(item); }
 		}
 	} else {
 		// Fault();
 	}
-	return Array(buf.cbegin(), buf.cend(), option);
+	return {buf.begin(), buf.end(), option};
 }
 
 #pragma mark -

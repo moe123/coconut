@@ -59,7 +59,9 @@ value_map_facet<MapT> value_end(MapT & m)
 { return value_map_facet<MapT>(m.end()); }
 
 template <typename ItemT, class FriendT,
-	typename std::enable_if<std::numeric_limits<ItemT>::is_integer>::type* = nullptr
+	typename std::enable_if<
+		std::numeric_limits<ItemT>::is_integer
+	>::type* = nullptr
 >
 COCONUT_PRIVATE class range_facet
 {
@@ -101,7 +103,9 @@ private:
 };
 
 template <typename ItemT, class FriendT,
-	typename std::enable_if<std::numeric_limits<ItemT>::is_integer>::type* = nullptr
+	typename std::enable_if<
+		std::numeric_limits<ItemT>::is_integer
+	>::type* = nullptr
 >
 COCONUT_PRIVATE class range_rfacet
 {

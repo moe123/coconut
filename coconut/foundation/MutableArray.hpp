@@ -55,7 +55,7 @@ namespace coconut
 		
 		template <typename IterT>
 		MutableArray &  setObjects(IterT && beg, IterT && end, CopyOption option)
-		{ return setObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		{ return setObjectsFromArray({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
 		
 		MutableArray & setObject(const Any & obj, std::size_t at_idx);
 		MutableArray & setObject(const Any & obj, std::size_t at_idx, CopyOption option);
@@ -86,7 +86,7 @@ namespace coconut
 		
 		template <typename IterT>
 		MutableArray & addObjects(IterT && beg, IterT && end, CopyOption option)
-		{ return addObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		{ return addObjectsFromArray({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
 		
 		MutableArray & removeObjectAtIndex(std::size_t index);
 		
@@ -107,7 +107,7 @@ namespace coconut
 		
 		template <typename IterT>
 		MutableArray & removeObjects(IterT && beg, IterT && end)
-		{ return removeObjectsInArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end))); }
+		{ return removeObjectsInArray({std::forward<IterT>(beg), std::forward<IterT>(end)}); }
 		
 		MutableArray & removeLastObject();
 		MutableArray & removeAllObjects();

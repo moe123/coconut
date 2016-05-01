@@ -86,7 +86,7 @@ ComparisonResult OrderedSet::compare(const Any & ref) const
 		} else if (size() > ref_cast<OrderedSet>(ref).size()) {
 			return OrderedDescending;
 		} else if (
-			std::equal(cbegin(), cend(), ref_cast<OrderedSet>(ref).cbegin(), [] (const Owning<Any> & a, const Owning<Any> & b) -> bool
+			std::equal(cbegin(), cend(), ref_cast<OrderedSet>(ref).cbegin(), [] (const ptr_declare<Any> & a, const ptr_declare<Any> & b) -> bool
 			{
 				if (a && b) {
 					return (a->compare(*b) == OrderedSame);

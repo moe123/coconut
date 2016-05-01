@@ -78,9 +78,9 @@ std::size_t Error::code() const
 { return std::get<1>(m_impl); }
 
 const String Error::domain() const
-{ return std::get<0>(m_impl); }
+{ return {std::get<0>(m_impl)}; }
 
 const Dictionary Error::userInfo() const
-{ return std::get<2>(m_impl); }
+{ return {std::get<2>(m_impl)}; }
 
 /* EOF */

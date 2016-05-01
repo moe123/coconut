@@ -129,7 +129,7 @@ namespace coconut
 	{
 		using ::coconut::operator<<;
 		
-		::coconut::runtime::hexrep::format_option opt;
+		runtime::hexrep::format_option opt;
 		
 		opt.u_start = "<";
 		opt.u_stop = ">";
@@ -139,7 +139,7 @@ namespace coconut
 		opt.u_max = 24;
 		opt.u_row = false;
 
-		::coconut::runtime::hexrep::format
+		runtime::hexrep::format
 		(
 			os,
 			ref_cast<Data>(r).cbegin(),

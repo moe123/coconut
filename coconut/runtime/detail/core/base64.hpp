@@ -52,7 +52,10 @@ namespace
 			49, 50, 51, -1, -1, -1, -1, -1  // 120
 		};
 	};
-	static const lookup_table lt{};
+}
+			
+namespace {
+	const lookup_table lt{};
 }
 
 // //////////////////////////////////////////////////////////

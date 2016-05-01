@@ -95,7 +95,7 @@ namespace coconut
 		const std::uint8_t operator [] (std::size_t index) const;
 		
 	protected:
-		typedef ::coconut::runtime::traits::bytebuf impl_trait;
+		typedef runtime::traits::bytebuf impl_trait;
 		
 	public:
 		typedef impl_trait::iterator iterator;

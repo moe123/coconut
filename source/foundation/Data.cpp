@@ -218,7 +218,7 @@ const Data Data::base64EncodedData(ChunkSplitOption option) const
 {
 	std::vector<char> out;
 	m_impl.get_base64(out, option);
-	return Data(out.begin(), out.end(), false);
+	return {out.begin(), out.end(), false};
 }
 
 #pragma mark -
@@ -227,7 +227,7 @@ const Data Data::subdataWithRange(const Range & rg) const
 {
 	std::vector<std::uint8_t> bv;
 	getBytes(bv, rg);
-	return Data(bv.data(), bv.size());
+	return {bv.data(), bv.size()};
 }
 
 const Data Data::subdataWithRange(std::size_t location, std::size_t length) const

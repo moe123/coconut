@@ -60,7 +60,7 @@ namespace coconut
 		
 		template <typename IterT>
 		MutableDictionary & setObjects(IterT && beg, IterT && end, CopyOption option)
-		{ return setObjectsFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		{ return setObjectsFromDictionary({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
 		
 		MutableDictionary & setObject(const Owning<Any> & obj, const std::string & utf8_key);
 		MutableDictionary & setObject(const Owning<Any> & obj, const Any & key);
@@ -87,7 +87,7 @@ namespace coconut
 		
 		template <typename IterT>
 		MutableDictionary & addEntries(IterT && beg, IterT && end, CopyOption option)
-		{ return addEntriesFromDictionary(Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		{ return addEntriesFromDictionary({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
 		
 		MutableDictionary & removeObjectForKey(const std::string & utf8_key);
 		MutableDictionary & removeObjectForKey(const Any & key);

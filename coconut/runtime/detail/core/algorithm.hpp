@@ -223,7 +223,7 @@ StrT to_string(const NumT & n, std::size_t p = 6)
 	using traits_type = typename StrT::traits_type;
 	using allocator_type = typename StrT::allocator_type;
 	
-	typedef std::basic_ostringstream<char_type, traits_type, allocator_type> ostringstream_type;
+	using ostringstream_type = std::basic_ostringstream<char_type, traits_type, allocator_type>;
 	
 	ostringstream_type ostr;
 	ostr.setf(std::ios::fixed, std::ios::floatfield);
@@ -240,7 +240,8 @@ StrT joiner(IterT && beg, IterT && end, const StrT & sep)
 	using traits_type = typename StrT::traits_type;
 	using allocator_type = typename StrT::allocator_type;
 	
-	typedef std::basic_ostringstream<char_type, traits_type, allocator_type> ostringstream_type;
+	using ostringstream_type = std::basic_ostringstream<char_type, traits_type, allocator_type>;
+	
 	ostringstream_type result;
 
 	if (beg != end) {

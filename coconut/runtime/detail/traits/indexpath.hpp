@@ -27,8 +27,8 @@ public:
 	indexpath(const std::vector<std::size_t> & indexes, std::size_t numitems);
 	
 	template <typename IterT>
-	indexpath(IterT && beg, IterT && end) :
-		m_indexes(std::forward<IterT>(beg), std::forward<IterT>(end))
+	indexpath(IterT && beg, IterT && end)
+	: m_indexes(std::forward<IterT>(beg), std::forward<IterT>(end))
 	{ /* NOP */ }
 	
 	~indexpath();

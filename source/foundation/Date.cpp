@@ -96,7 +96,7 @@ const Date Date::distantPast()
 #pragma mark -
 
 const Date Date::now()
-{ return Date(); }
+{ return {}; }
 
 #pragma mark -
 

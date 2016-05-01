@@ -50,6 +50,15 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 ptr_declare<T1> ptr_cast(ptr_declare<T2> const & r)
 { return std::dynamic_pointer_cast<T1>(r); }
 
+template <class T> struct tag_is_ptr : std::false_type {};
+template <class T> struct tag_is_ptr< ptr_declare<T> > : std::true_type {};
+
+template<class T> struct do_plain_type {
+	typedef typename std::remove_cv<
+	typename std::remove_reference<T>::type
+	>::type type;
+};
+	
 } /* EONS */
 
 namespace coconut {
@@ -62,8 +71,8 @@ COCONUT_OPT_TYPED(ComparisonResult, int)
 	cmp_descending = 1
 };
 
-static constexpr std::size_t const NotFound  = std::numeric_limits<std::size_t>::max();
-static constexpr std::size_t const MaxFound = (NotFound - 1);
+constexpr std::size_t const NotFound = std::numeric_limits<std::size_t>::max();
+constexpr std::size_t const MaxFound = (NotFound - 1);
 
 COCONUT_OPT_TYPED(ClassKind, std::uint16_t)
 {

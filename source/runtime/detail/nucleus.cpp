@@ -72,7 +72,7 @@ bool nucleus::isAttributeKey(const std::string & utf8_attrkey)
 bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 {
 	if (isSelectorKey(utf8_selkey)) {
-		Owning<Any> ptr;
+		ptr_declare<Any> ptr;
 		if (runtime::algorithm::ends_with<char>(utf8_selkey, u8":")) {
 			ptr = valueForSelectorKey(utf8_selkey, ptr_create<zombie>());
 		} else {
@@ -148,7 +148,7 @@ void nucleus::conveyAttributesFrom(const Any & ref)
 
 void nucleus::copyAttributesFrom(const Any & ref)
 {
-	for (std::map<std::string, Owning<Any> >::const_iterator it = ref.m_attrs.cbegin(); it != ref.m_attrs.cend(); ++it) {
+	for (std::map<std::string, ptr_declare<Any> >::const_iterator it = ref.m_attrs.cbegin(); it != ref.m_attrs.cend(); ++it) {
 		if ((*it).second) {
 			m_attrs.insert(std::make_pair((*it).first, ((*it).second)->kindCopy()));
 		}
@@ -316,7 +316,7 @@ Owning<Any> nucleus::kindCopy() const
 
 Owning<Any> nucleus::valueForKey(const std::string & utf8_key) const
 {
-	Owning<Any> v;
+	ptr_declare<Any> v;
 	if (isSelectorKey(utf8_key)) {
 		v = valueForSelectorKey(utf8_key, nullptr);
 	} else if (isAttributeKey(utf8_key)) {
@@ -336,11 +336,11 @@ void nucleus::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 
 Owning<Any> nucleus::valueForKeyPath(const std::string & utf8_keypath) const
 {
-	Owning<Any> v;
+	ptr_declare<Any> v;
 	std::vector<std::string> parts;
 	parts = algorithm::split<std::string>(utf8_keypath, u8".");
 	if (parts.size() >= 2) {
-		Owning<Any> vv = valueForKey(parts[0]);
+		ptr_declare<Any> vv = valueForKey(parts[0]);
 		if (vv) {
 			parts.erase(parts.begin());
 			if (parts.size() >= 2) {
@@ -361,7 +361,7 @@ void nucleus::setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypa
 		std::vector<std::string> parts;
 		parts = algorithm::split<std::string>(utf8_keypath, u8".");
 		if (parts.size() >= 2) {
-			Owning<Any> vv = valueForKey(parts[0]);
+			ptr_declare<Any> vv = valueForKey(parts[0]);
 			if (vv) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {

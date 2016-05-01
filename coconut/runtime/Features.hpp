@@ -10,16 +10,7 @@
 #define COCONUT_RUNTIME_TO_FOUNDATION_FEATURES_HPP
 
 namespace coconut
-{
-	template <class T> struct _is_ptr : std::false_type {};
-	template <class T> struct _is_ptr< ptr_declare<T> > : std::true_type {};
-	
-	template<class T> struct _plain {
-		typedef typename std::remove_cv<
-			typename std::remove_reference<T>::type
-		>::type type;
-	};
-		
+{		
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _conforms_to(const T2 & r, std::false_type) -> bool
@@ -327,27 +318,27 @@ namespace coconut
 
 	template <typename T1, typename T2>
 	inline auto ConformsTo(T2 && r) -> bool
-	{ return _conforms_to<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _conforms_to<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
 	inline auto KindOf(T2 && r) -> bool
-	{ return _kind_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _kind_of<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 
 	template <typename T1, typename T2>
 	inline auto SubclassOf(T2 && r) -> bool
-	{ return _subclass_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _subclass_of<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
 	inline auto MemberOf(T2 && r) -> bool
-	{ return _member_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _member_of<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
 	inline auto AncestorOf(T2 && r) -> bool
-	{ return _ancestor_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _ancestor_of<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
 	inline auto isParentOf(T2 && r) -> bool
-	{ return _parent_of<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _parent_of<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename TypeT,
 		typename std::enable_if<std::is_base_of<Any, TypeT>::value>::type* = nullptr
@@ -395,13 +386,13 @@ namespace coconut
 	
 	template <typename T1, typename T2>
 	inline auto Thus(T2 && r)
-		-> decltype(_thus<T1>(r, _is_ptr<typename std::decay<T2>::type>{}))
-	{ return _thus<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+		-> decltype(_thus<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}))
+	{ return _thus<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2>
 	inline auto Then(T2 && r)
-		-> decltype(_then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}))
-	{ return _then<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+		-> decltype(_then<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}))
+	{ return _then<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 	
 	template <typename T1, typename T2,
 		typename std::enable_if<
@@ -414,12 +405,12 @@ namespace coconut
 	template <typename T1, typename T2>
 	inline auto Copy(T2 && r)
 		-> Owning<T1>
-	{ return _copy<T1>(r, _is_ptr<typename std::decay<T2>::type>{}); }
+	{ return _copy<T1>(r, tag_is_ptr<typename std::decay<T2>::type>{}); }
 
 	template <typename TypeT, typename CollT, typename FuncT>
 	inline auto Enumerate(CollT && r, FuncT && func, EnumerationOptions options = EnumerationDefault)
 		-> void
-	{ _enumerate<TypeT>(r, func, options, _is_ptr<typename std::decay<CollT>::type>{}); }
+	{ _enumerate<TypeT>(r, func, options, tag_is_ptr<typename std::decay<CollT>::type>{}); }
 }
 
 #endif /* !COCONUT_RUNTIME_TO_FOUNDATION_FEATURES_HPP */

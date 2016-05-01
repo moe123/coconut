@@ -101,7 +101,7 @@ const URL URL::normalizedURL() const
 }
 
 const String URL::specifier() const
-{ return String{m_impl.specifier()}; }
+{ return {m_impl.specifier()}; }
 
 #pragma mark -
 
@@ -141,12 +141,12 @@ const Dictionary URL::queryParameters() const
 	for (auto & kv : parameters) {
 		buf.insert(std::make_pair(ptr_create<String>(kv.first), ptr_create<String>(kv.second)));
 	}
-	return Dictionary(buf.cbegin(), buf.cend());
+	return {buf.begin(), buf.end()};
 }
 
 #pragma mark -
 
 const Path URL::fileSystemRepresentation() const
-{ return {m_impl.path().c_str()}; }
+{ return {m_impl.path()}; }
 
 /* EOF */

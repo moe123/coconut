@@ -279,7 +279,11 @@
 	#include <coconut/runtime/detail/core/_inifini.hpp>
 	#include <coconut/runtime/detail/core/_defer.hpp>
 
-	#define COCONUT_DEFER auto COCONUT_PPCAT_5(__defer_, coconut,__COUNTER__, _block_, __LINE__) = \
+	#ifndef __COUNTER__
+		#define __COUNTER__ 0
+	#endif
+
+	#define COCONUT_DEFER auto COCONUT_PPCAT_5(___defer_, coconut, __COUNTER__, _block___, __LINE__) = \
 		::coconut::runtime::defer::dispatcher{}
 
 #endif /* !COCONUT_RUNTIME_DEFINE_HPP */
