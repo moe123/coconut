@@ -134,40 +134,42 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 					result = valueForKeyPath(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@sum") {
 					parts.erase(parts.begin());
-					result = sum(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_sum(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@min") {
 					parts.erase(parts.begin());
-					result = min(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_min(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@max") {
 					parts.erase(parts.begin());
-					result = max(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_max(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@avg") {
 					parts.erase(parts.begin());
-					result = avg(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_avg(runtime::algorithm::join<std::string>(parts, u8"."));
+				} else if (parts[0] == u8"@count" || parts[0] == u8"@length" || parts[0] == u8"@size") {
+					result = kvcop_len(runtime::algorithm::join<std::string>(parts, u8"."));
 				}else if (parts[0] == u8"@distinctUnionOfObjects") {
 					parts.erase(parts.begin());
-					result = distinctUnionOfObjects(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_distinctUnionOfObjects(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfObjects") {
 					parts.erase(parts.begin());
-					result = unionOfObjects(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_unionOfObjects(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@distinctUnionOfArrays") {
 					parts.erase(parts.begin());
-					result = distinctUnionOfArrays(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_distinctUnionOfArrays(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@distinctUnionOfOrderedSets") {
 					parts.erase(parts.begin());
-					result = distinctUnionOfOrderedSets(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_distinctUnionOfOrderedSets(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@distinctUnionOfSets") {
 					parts.erase(parts.begin());
-					result = distinctUnionOfSets(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_distinctUnionOfSets(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfArrays") {
 					parts.erase(parts.begin());
-					result = unionOfArrays(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_unionOfArrays(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfOrderedSets") {
 					parts.erase(parts.begin());
-					result = unionOfOrderedSets(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_unionOfOrderedSets(runtime::algorithm::join<std::string>(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfSets") {
 					parts.erase(parts.begin());
-					result = unionOfSets(runtime::algorithm::join<std::string>(parts, u8"."));
+					result = kvcop_unionOfSets(runtime::algorithm::join<std::string>(parts, u8"."));
 				}
 			} else {
 				if (utf8_selkey == u8"@self") {
@@ -213,12 +215,20 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 
 #pragma mark -
 
-Owning<Any> Object::sum(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_len(const std::string & utf8_key) const
+{
+	// @TODO MAKE TRAVERSABLE
+	return ptr_create<Number>(size());
+}
+
+#pragma mark -
+
+Owning<Any> Object::kvcop_sum(const std::string & utf8_key) const
 {
 	double sum = 0.0;
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
-		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
+		auto op = runtime::async::exec(runtime::launch_any, [&v, &sum]
 		{
 			for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
@@ -231,7 +241,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 		});
 		op();
 	} else if (v && v->isKindOf(SetClass)) {
-		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
+		auto op = runtime::async::exec(runtime::launch_any, [&v, &sum]
 		{
 			for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
@@ -244,7 +254,7 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 		});
 		op();
 	} else if (v && v->isKindOf(OrderedSetClass)) {
-		auto op = runtime::async::exec(runtime::launch_async, [&v, &sum]
+		auto op = runtime::async::exec(runtime::launch_any, [&v, &sum]
 		{
 			for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 				Owning<Any> vv = (*it);
@@ -262,14 +272,14 @@ Owning<Any> Object::sum(const std::string & utf8_key) const
 	return ptr_create<Number>(sum);
 }
 
-Owning<Any> Object::min(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_min(const std::string & utf8_key) const
 {
 	Owning<Any> min;
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		min = ptr_static_cast<Array>(v)->lastObject();
 		if (min) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &min]
 			{
 				for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -287,7 +297,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(SetClass)) {
 		min = ptr_static_cast<Set>(v)->lastObject();
 		if (min) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &min]
 			{
 				for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -305,7 +315,7 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		min = ptr_static_cast<OrderedSet>(v)->lastObject();
 		if (min) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &min]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &min]
 			{
 				for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -326,14 +336,14 @@ Owning<Any> Object::min(const std::string & utf8_key) const
 	return min;
 }
 
-Owning<Any> Object::max(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_max(const std::string & utf8_key) const
 {
 	Owning<Any> max;
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		max = ptr_static_cast<Array>(v)->lastObject();
 		if (max) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &max]
 			{
 				for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -351,7 +361,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(SetClass)) {
 		max = ptr_static_cast<Set>(v)->lastObject();
 		if (max) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &max]
 			{
 				for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -369,7 +379,7 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		max = ptr_static_cast<OrderedSet>(v)->lastObject();
 		if (max) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &max]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &max]
 			{
 				for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -390,14 +400,14 @@ Owning<Any> Object::max(const std::string & utf8_key) const
 	return max;
 }
 
-Owning<Any> Object::avg(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_avg(const std::string & utf8_key) const
 {
 	double avg = 0.0;
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	if (v && v->isKindOf(ArrayClass)) {
 		std::size_t count = ptr_static_cast<Array>(v)->size();
 		if (count > 0) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &count, &avg]
 			{
 				for (Array::iterator it = ptr_static_cast<Array>(v)->begin(); it != ptr_static_cast<Array>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -413,7 +423,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(SetClass)) {
 		std::size_t count = ptr_static_cast<Set>(v)->size();
 		if (count > 0) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &count, &avg]
 			{
 				for (Set::iterator it = ptr_static_cast<Set>(v)->begin(); it != ptr_static_cast<Set>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -429,7 +439,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 	} else if (v && v->isKindOf(OrderedSetClass)) {
 		std::size_t count = ptr_static_cast<OrderedSet>(v)->size();
 		if (count > 0) {
-			auto op = runtime::async::exec(runtime::launch_async, [&v, &count, &avg]
+			auto op = runtime::async::exec(runtime::launch_any, [&v, &count, &avg]
 			{
 				for (OrderedSet::iterator it = ptr_static_cast<OrderedSet>(v)->begin(); it != ptr_static_cast<OrderedSet>(v)->end(); ++it) {
 					Owning<Any> vv = (*it);
@@ -450,7 +460,7 @@ Owning<Any> Object::avg(const std::string & utf8_key) const
 
 #pragma mark -
 
-Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_distinctUnionOfObjects(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Set::impl_trait buf;
@@ -508,7 +518,7 @@ Owning<Any> Object::distinctUnionOfObjects(const std::string & utf8_key) const
 	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
-Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_unionOfObjects(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_trait buf;
@@ -568,7 +578,7 @@ Owning<Any> Object::unionOfObjects(const std::string & utf8_key) const
 
 #pragma mark -
 
-Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_distinctUnionOfArrays(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Set::impl_trait buf;
@@ -599,7 +609,7 @@ Owning<Any> Object::distinctUnionOfArrays(const std::string & utf8_key) const
 	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
-Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_distinctUnionOfOrderedSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	OrderedSet::impl_trait buf;
@@ -630,7 +640,7 @@ Owning<Any> Object::distinctUnionOfOrderedSets(const std::string & utf8_key) con
 	return ptr_create<OrderedSet>(buf.begin(), buf.end());
 }
 
-Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_distinctUnionOfSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Set::impl_trait buf;
@@ -663,7 +673,7 @@ Owning<Any> Object::distinctUnionOfSets(const std::string & utf8_key) const
 
 #pragma mark -
 
-Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_unionOfArrays(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_trait buf;
@@ -694,7 +704,7 @@ Owning<Any> Object::unionOfArrays(const std::string & utf8_key) const
 	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 
-Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_unionOfOrderedSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_trait buf;
@@ -725,7 +735,7 @@ Owning<Any> Object::unionOfOrderedSets(const std::string & utf8_key) const
 	return  ptr_create<Array>(buf.begin(), buf.end());
 }
 
-Owning<Any> Object::unionOfSets(const std::string & utf8_key) const
+Owning<Any> Object::kvcop_unionOfSets(const std::string & utf8_key) const
 {
 	Owning<Any> v = valueForKeyPath(utf8_key);
 	Array::impl_trait buf;

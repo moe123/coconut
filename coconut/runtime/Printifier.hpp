@@ -35,9 +35,8 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
-#if COCONUT_DEBUG
-		// std::cout << "+++ printifier dynamic fetch +++" << std::endl;
-#endif
+		using ::coconut::operator<<;
+
 		if (r.isKindOf(StringClass)) {
 			os << ref_cast<String>(r);
 		} else if (r.isKindOf(NumberClass)) {
@@ -89,7 +88,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
 		-> std::ostream &
-	{ if (r) { os << *r; } return os; }
+	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 	
 	template <typename TypeT,
 		typename std::enable_if<
@@ -103,7 +102,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
-	{ os << '"' << r.stringValue() << '"'; return os; }
+	{ using ::coconut::operator<<; os << '"' << r.stringValue() << '"'; return os; }
 
 	template <typename TypeT,
 		typename std::enable_if<
@@ -117,7 +116,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
 		-> std::ostream &
-	{ if (r) { os << *r; } return os; }
+	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 
 	template <typename TypeT,
 		typename std::enable_if<
@@ -128,6 +127,8 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
+		using ::coconut::operator<<;
+		
 		::coconut::runtime::hexrep::format_option opt;
 		
 		opt.u_start = "<";
@@ -157,7 +158,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
 		-> std::ostream &
-	{ if (r) { os << *r; } return os; }
+	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 	
 	template <typename TypeT,
 		typename std::enable_if<
@@ -167,7 +168,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
-	{ os << r.stringValue(); return os; }
+	{ using ::coconut::operator<<; os << r.stringValue(); return os; }
 
 	template <typename TypeT,
 		typename std::enable_if<
@@ -177,7 +178,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
 		-> std::ostream &
-	{ if (r) { os << *r; } return os; }
+	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 	
 	template <typename TypeT,
 		typename std::enable_if<
@@ -194,6 +195,7 @@ namespace coconut
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
+		using ::coconut::operator<<;
 		os << '[';
 		for (auto it = r.cbegin(); it != r.cend(); ++it) {
 			os << *it; if (std::next(it) != r.cend()) { os << ',' << ' '; }
@@ -216,17 +218,19 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
 		-> std::ostream &
-	{ if (r) { os << *r; } return os; }
+	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 
 	template <typename TypeT,
 		typename std::enable_if<
-			std::is_same<TypeT, Dictionary>::value ||
-			std::is_same<TypeT, MutableDictionary>::value
+			std::is_base_of<Any, TypeT>::value &&
+			(std::is_same<TypeT, Dictionary>::value ||
+			std::is_same<TypeT, MutableDictionary>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
 		-> std::ostream &
 	{
+		using ::coconut::operator<<;
 		os << '{';
 		for (auto it = r.cbegin(); it != r.cend(); ++it) {
 			os << (*it).first << ':' << ' ' << (*it).second; if (std::next(it) != r.cend()) { os << ',' << ' '; }
@@ -244,7 +248,7 @@ namespace coconut
 	>
 	inline auto operator << (std::ostream & os, ptr_declare<TypeT> const & r)
 		-> std::ostream &
-	{ if (r) { os << *r; } return os; }
+	{ using ::coconut::operator<<; if (r) { os << *r; } return os; }
 }
 
 #endif /* !COCONUT_RUNTIME_TO_FOUNDATION_PRINTIFIER_HPP */

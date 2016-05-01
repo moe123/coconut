@@ -1060,6 +1060,22 @@ int Σ0() {
 int main(int argc, const char * argv[])
 {
 	{
+		Array nums = {
+			With<Number>(1),
+			With<Number>(2),
+			With<Number>(3),
+			With<Number>(4),
+			With<Number>(5)
+		};
+		
+		std::cerr << "+ avg.self: " << nums.valueForKeyPath(u8"@avg.self") << std::endl;
+		std::cerr << "+ count.self: " << nums.valueForKeyPath(u8"@count.self") << std::endl;
+		std::cerr << "+ min.self: " << nums.valueForKeyPath(u8"@min.self") << std::endl;
+		std::cerr << "+ max.self: " << nums.valueForKeyPath(u8"@max.self") << std::endl;
+		std::cerr << "+ sum.self: " << nums.valueForKeyPath(u8"@sum.self") << std::endl;
+	}
+	
+	{
 		runtime::traits::irange rg0{3, 15};
 		std::cerr << "+ to_string " << rg0.to_string() << std::endl;
 		
