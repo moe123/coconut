@@ -266,6 +266,7 @@
 		D5DDFBAC1BC49FFD00E5328A /* coconut_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = coconut_test.cpp; sourceTree = "<group>"; };
 		D5DDFC3F1BC4A11700E5328A /* coconut_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = coconut_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F5AB5F1BC9C9CC00902D69 /* Serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Serialization.cpp; sourceTree = "<group>"; };
+		D5F5D2271CD6FE1000C414D6 /* nutrt-ustring_transliterate.hxx */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-ustring_transliterate.hxx"; sourceTree = "<group>"; };
 		D5F819A61BE7EC0500AE4EBD /* MutableSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MutableSet.hpp; sourceTree = "<group>"; };
 		D5FC0E451CD6C71E00F2E75B /* nutrt-_defer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-_defer.hpp"; sourceTree = "<group>"; };
 		D5FC0E461CD6C71E00F2E75B /* nutrt-_endian.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-_endian.hpp"; sourceTree = "<group>"; };
@@ -618,6 +619,7 @@
 				D5FC0E781CD6C73C00F2E75B /* nutrt-ustring_encoding.hxx */,
 				D5FC0E791CD6C73C00F2E75B /* nutrt-ustring_parsing.hxx */,
 				D5FC0E7A1CD6C73C00F2E75B /* nutrt-ustring_searching.hxx */,
+				D5F5D2271CD6FE1000C414D6 /* nutrt-ustring_transliterate.hxx */,
 			);
 			path = builtins;
 			sourceTree = "<group>";

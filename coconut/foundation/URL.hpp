@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_VISIBLE URL : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE URL COCONUT_FINAL : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.URL, Object.URL)
 		

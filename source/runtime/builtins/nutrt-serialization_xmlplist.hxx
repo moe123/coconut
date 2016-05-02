@@ -169,7 +169,7 @@ Owning<Any> xmlplist_from_raw(const std::uint8_t * in, std::size_t len, Serializ
 			pugi::xml_node tree = document.child("plist").first_child();
 			return xmlplist_read(tree, option);
 		}
-	} catch (...) { /**/ }
+	} catch (...) { /* NOP */ }
 	return {};
 }
 

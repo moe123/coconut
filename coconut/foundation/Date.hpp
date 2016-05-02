@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_VISIBLE Date : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Date COCONUT_FINAL : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Date, Object.Date)
 		

@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_VISIBLE Slice : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Slice COCONUT_FINAL : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Slice, Object.Slice)
 		

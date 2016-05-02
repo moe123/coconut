@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_VISIBLE MutableArray : public Array
+	COCONUT_PUBLIC class COCONUT_VISIBLE MutableArray COCONUT_FINAL : public Array
 	{
 	COCONUT_CLASSDECLARE(coconut.MutableArray, Object.Array.MutableArray)
 		

@@ -17,6 +17,12 @@ namespace coconut {
 COCONUT_CLASSFORWARD_DCL(upath)
 COCONUT_CLASSFORWARD_DCL(uri)
 
+/**
+ * The bytebuf class provides methods and properties to optimize reading,
+ * writing while working with binary data: a safe representation of an 
+ * in-memory packed array which is mutable. It does own the underlying
+ * data.
+ */
 COCONUT_PRIVATE class COCONUT_VISIBLE bytebuf COCONUT_FINAL
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.bytebuf, bytebuf)

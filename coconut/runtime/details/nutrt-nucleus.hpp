@@ -29,9 +29,9 @@ public:
 	virtual ~nucleus();
 
 protected:
-/*
-* Sending messages.
-*/
+/**
+ * Attributes and Selectors.
+ */
 	COCONUT_CLASSMETHOD bool isSelectorKey(const std::string & utf8_in);
 	COCONUT_CLASSMETHOD bool isAttributeKey(const std::string & utf8_attrkey);
 
@@ -43,18 +43,18 @@ public:
 	Owning<Any> performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 	
 protected:
-/*
-* Instance identity settings.
-*/
+/**
+ * Instance identity settings.
+ */
 	void pushKind(ClassKind kind);
 	void setClassKind(ClassKind kind, bool ismutable);
 	ClassKind classKind() const;
 	ClassKind parentClassKind() const;
 
 protected:
-/*
-* Interface/Protocol @iDynamicAttributes.
-*/
+/**
+ * Attributes.
+ */
 	void conveyAttributesFrom(const Any & ref);
 	void copyAttributesFrom(const Any & ref);
 	void removeAllAttributes();
@@ -77,9 +77,9 @@ public:
 	virtual std::size_t hash() const;
 	
 public:
-/*
-* Interface/Protocol @iConformance: Object inheritance and behavior.
-*/
+/**
+ * Interface/Protocol @iConformance: Object inheritance and behavior.
+ */
 	template <typename T>
 	bool conformsTo(void * no_param = nullptr) const
 	{ COCONUT_UNUSED(no_param); T * ptr = dynamic_cast<T *>(this); return (ptr != nullptr); }
@@ -124,17 +124,18 @@ public:
 	{ COCONUT_UNUSED(no_param); return isParentOf(T{}); }
 	
 public:
-/*
-* Interface/Protocol @iCopying: Copying object.
-*/
+/**
+ * Interface/Protocol @iCopying: Copying object.
+ */
 	virtual Owning<Any> copy() const;
 	virtual Owning<Any> mutableCopy() const;
 	Owning<Any> kindCopy() const;
 
 public:
-/*
-* Interface/Protocol @iKeyValueCoding: A mechanism by which you can access the properties of an object indirectly by key.
-*/
+/**
+ * Interface/Protocol @iKeyValueCoding: A mechanism by which you can access the 
+ * properties of an object indirectly by key.
+ */
 	virtual Owning<Any> valueForKey(const std::string & utf8_key) const;
 	virtual void setValueForKey(Owning<Any> ptr, const std::string & utf8_key);
 	
@@ -159,9 +160,9 @@ public:
 	Owning<Any> valueForSelectorKey(const Owning<Any> & selkey, Owning<Any> arg = {}) const;
 	
 private:
-/*
-* Interface/Protocol @iComparison: Comparing objects.
-*/
+/**
+ * Interface/Protocol @iComparison: Comparing objects.
+ */
 	/* default placeholders for compare */
 	template <typename T> int compareTo(T && a, T && b) const
 	{
@@ -248,9 +249,9 @@ public:
 	bool operator >= (Owning<Any> & ptr) const;
 
 public:
-/*
-* Interface/Protocol @iRepresentation: accessing string representations and numeric values.
-*/
+/**
+ * Interface/Protocol @iRepresentation: accessing string representations and numeric values.
+ */
 	
 	const std::string description() const;
 	

@@ -20,6 +20,7 @@ using namespace coconut::runtime::traits;
 #include <source/runtime/builtins/nutrt-ustring_encoding.hxx>
 #include <source/runtime/builtins/nutrt-ustring_parsing.hxx>
 #include <source/runtime/builtins/nutrt-ustring_searching.hxx>
+#include <source/runtime/builtins/nutrt-ustring_transliterate.hxx>
 
 ustring::ustring()
 : m_ustr()
@@ -254,6 +255,11 @@ bool ustring::get_sys_codepages(std::vector<std::string> & codepages)
 
 void ustring::get_codepages(std::set<std::string> & codepages)
 { builtins::ustring_getcodepages(codepages); }
+
+#pragma mark -
+
+bool ustring::transliterate(const std::string & utf8_in, std::string & translit_out)
+{ return builtins::ustring_transliterate(utf8_in, translit_out); }
 
 #pragma mark -
 

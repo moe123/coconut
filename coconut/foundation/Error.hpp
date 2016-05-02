@@ -12,7 +12,7 @@
 
 namespace coconut
 {
-	COCONUT_PUBLIC class COCONUT_VISIBLE Error : public Object
+	COCONUT_PUBLIC class COCONUT_VISIBLE Error COCONUT_FINAL : public Object
 	{
 	COCONUT_CLASSDECLARE(coconut.Error, Object.Error)
 		

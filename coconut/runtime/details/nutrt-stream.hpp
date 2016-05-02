@@ -13,7 +13,7 @@ namespace coconut {
 	namespace runtime {
 		namespace stream {
 
-COCONUT_PRIVATE class COCONUT_VISIBLE ifstream : public std::ifstream
+COCONUT_PRIVATE class COCONUT_VISIBLE ifstream COCONUT_FINAL : public std::ifstream
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.ifstream, stream.ifstream)
 
@@ -27,7 +27,7 @@ public:
 	void open(const std::u16string & utf16_path, std::ios_base::open_mode mode = std::ios_base::in|std::ios_base::binary);
 };
 
-COCONUT_PRIVATE class COCONUT_VISIBLE ofstream : public std::ofstream
+COCONUT_PRIVATE class COCONUT_VISIBLE ofstream COCONUT_FINAL : public std::ofstream
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.ofstream, stream.ofstream)
 
@@ -41,7 +41,7 @@ public:
 	void open(const std::u16string & utf16_path, std::ios_base::open_mode mode = std::ios_base::out|std::ios_base::binary);
 };
 
-COCONUT_PRIVATE class COCONUT_VISIBLE fstream : public std::fstream
+COCONUT_PRIVATE class COCONUT_VISIBLE fstream COCONUT_FINAL : public std::fstream
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.fstream, stream.fstream)
 
@@ -55,7 +55,7 @@ public:
 	void open(const std::u16string & utf16_path, std::ios_base::open_mode mode = std::ios_base::in|std::ios_base::out|std::ios_base::binary);
 };
 
-COCONUT_PRIVATE class COCONUT_VISIBLE imstreambuf : public std::streambuf
+COCONUT_PRIVATE class COCONUT_VISIBLE imstreambuf COCONUT_FINAL : public std::streambuf
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.imstreambuf, stream.imstreambuf)
 
@@ -73,17 +73,17 @@ public:
 	std::size_t memsize();
 	
 protected:
-	int_type uflow() COCONUT_OVERRIDE;
-	int_type underflow() COCONUT_OVERRIDE;
-	std::streamsize showmanyc() COCONUT_OVERRIDE;
-	int_type pbackfail(int_type ch) COCONUT_OVERRIDE;
+	int_type uflow() COCONUT_FINAL_OVERRIDE;
+	int_type underflow() COCONUT_FINAL_OVERRIDE;
+	std::streamsize showmanyc() COCONUT_FINAL_OVERRIDE;
+	int_type pbackfail(int_type ch) COCONUT_FINAL_OVERRIDE;
 	std::size_t output_bytes();
 	pos_type seekoff
 	(
 		off_type off,
 		std::ios_base::seekdir dir,
 		std::ios_base::openmode which = std::ios_base::in|std::ios_base::out
-	) COCONUT_OVERRIDE;
+	) COCONUT_FINAL_OVERRIDE;
 	
 private:
 	char * m_begin;
@@ -92,7 +92,7 @@ private:
 	char * m_current;
 };
 
-COCONUT_PRIVATE class COCONUT_VISIBLE imstream : public std::istream
+COCONUT_PRIVATE class COCONUT_VISIBLE imstream COCONUT_FINAL : public std::istream
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.stream.imstream, stream.imstream)
 

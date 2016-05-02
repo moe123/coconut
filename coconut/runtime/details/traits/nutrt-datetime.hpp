@@ -13,6 +13,14 @@ namespace coconut {
 	namespace runtime {
 		namespace traits {
 
+/**
+ * The datetime class encapsulates a single point in time, independent
+ * of any particular calendrical system or time-zone. Represents an
+ * invariant time relative to an absolute reference date: POSIX or Apple.
+ * Leap second, e.g time correction, depends on the Host and its
+ * synchronizion with a remote NTP service. The internal time interval
+ * representation is in milliseconds.
+ */
 COCONUT_PRIVATE class COCONUT_VISIBLE datetime COCONUT_FINAL
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.datetime, datetime)

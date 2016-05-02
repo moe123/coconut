@@ -44,6 +44,8 @@ public:
 	COCONUT_CLASSMETHOD std::string get_codepage(encoding_option encoding);
 	
 	COCONUT_CLASSMETHOD bool guess_encoding(const std::string & in8bits, encoding_option & encoding, float & confidence);
+	COCONUT_CLASSMETHOD bool transliterate(const std::string & utf8_in, std::string & translit_out);
+	
 	COCONUT_CLASSMETHOD std::string make_utf8(const std::string & in8bits, float & confidence, encoding_option from = encoding_auto);
 	COCONUT_CLASSMETHOD int compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options);
 	
