@@ -117,13 +117,13 @@ public:
 	short to_short() const;
 	int to_int() const;
 	long to_long() const;
-	long long to_longlong() const;
+	long long to_long_long() const;
 	
 	unsigned char to_unsigned_char() const;
 	unsigned short to_unsigned_short() const;
 	unsigned int to_unsigned_int() const;
 	unsigned long to_unsigned_long() const;
-	unsigned long long to_unsigned_longlong() const;
+	unsigned long long to_unsigned_long_long() const;
 	
 	std::string to_string() const;
 	std::size_t hash_code() const;

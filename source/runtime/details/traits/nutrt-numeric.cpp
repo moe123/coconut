@@ -40,8 +40,8 @@ numeric::numeric(const numeric & num)
 		case numeric_long :
 			m_val_long = num.m_val_long;
 		break;
-		case numeric_longlong :
-			m_val_longlong = num.m_val_longlong;
+		case numeric_long_long :
+			m_val_long_long = num.m_val_long_long;
 		break;
 		case numeric_unsigned_char :
 			m_val_unsigned_char = num.m_val_unsigned_char;
@@ -55,8 +55,8 @@ numeric::numeric(const numeric & num)
 		case numeric_unsigned_long :
 			m_val_unsigned_long = num.m_val_unsigned_long;
 		break;
-		case numeric_unsigned_longlong :
-			m_val_unsigned_longlong = num.m_val_unsigned_longlong;
+		case numeric_unsigned_long_long :
+			m_val_unsigned_long_long = num.m_val_unsigned_long_long;
 		break;
 	}
 	m_type = num.m_type;
@@ -130,8 +130,8 @@ numeric::numeric(const long & value)
 
 numeric::numeric(const long long & value)
 {
-	m_val_longlong = value;
-	m_type = numeric_longlong;
+	m_val_long_long = value;
+	m_type = numeric_long_long;
 	m_signed = true;
 	m_floating = false;
 }
@@ -170,8 +170,8 @@ numeric::numeric(const unsigned long & value)
 
 numeric::numeric(const unsigned long long & value)
 {
-	m_val_unsigned_longlong = value;
-	m_type = numeric_unsigned_longlong;
+	m_val_unsigned_long_long = value;
+	m_type = numeric_unsigned_long_long;
 	m_signed = false;
 	m_floating = false;
 }
@@ -212,8 +212,8 @@ numeric & numeric::operator = (const numeric & num)
 		case numeric_long :
 			m_val_long = num.m_val_long;
 		break;
-		case numeric_longlong :
-			m_val_longlong = num.m_val_longlong;
+		case numeric_long_long :
+			m_val_long_long = num.m_val_long_long;
 		break;
 		case numeric_unsigned_char :
 			m_val_unsigned_char = num.m_val_unsigned_char;
@@ -227,8 +227,8 @@ numeric & numeric::operator = (const numeric & num)
 		case numeric_unsigned_long :
 			m_val_unsigned_long = num.m_val_unsigned_long;
 		break;
-		case numeric_unsigned_longlong :
-			m_val_unsigned_longlong = num.m_val_unsigned_longlong;
+		case numeric_unsigned_long_long :
+			m_val_unsigned_long_long = num.m_val_unsigned_long_long;
 		break;
 	}
 	m_type = num.m_type;
@@ -253,16 +253,16 @@ int numeric::compare(const numeric & other_num) const
 				return cmp_descending;
 			}
 		} else {
-			if (to_longlong() < other_num.to_longlong()) {
+			if (to_long_long() < other_num.to_long_long()) {
 				return cmp_ascending;
-			} else if (to_longlong() > other_num.to_longlong()) {
+			} else if (to_long_long() > other_num.to_long_long()) {
 				return cmp_descending;
 			}
 		}
 	} else {
-		if (to_unsigned_longlong() < other_num.to_unsigned_longlong()) {
+		if (to_unsigned_long_long() < other_num.to_unsigned_long_long()) {
 			return cmp_ascending;
-		} else if (to_unsigned_longlong() > other_num.to_unsigned_longlong()) {
+		} else if (to_unsigned_long_long() > other_num.to_unsigned_long_long()) {
 			return cmp_descending;
 		}
 	}
@@ -310,7 +310,7 @@ int numeric::to_int() const
 long numeric::to_long() const
 { return get<long>(); }
 
-long long numeric::to_longlong() const
+long long numeric::to_long_long() const
 { return get<long long>(); }
 
 #pragma mark -
@@ -327,7 +327,7 @@ unsigned int numeric::to_unsigned_int() const
 unsigned long numeric::to_unsigned_long() const
 { return get<unsigned long>(); }
 
-unsigned long long numeric::to_unsigned_longlong() const
+unsigned long long numeric::to_unsigned_long_long() const
 { return get<unsigned long long>(); }
 
 #pragma mark -
@@ -352,8 +352,8 @@ std::string numeric::to_string() const
 			return algorithm::to_string<std::string>(m_val_int);
 		case numeric_long :
 			return algorithm::to_string<std::string>(m_val_long);
-		case numeric_longlong :
-			return algorithm::to_string<std::string>(m_val_longlong);
+		case numeric_long_long :
+			return algorithm::to_string<std::string>(m_val_long_long);
 		case numeric_unsigned_char :
 			return algorithm::to_string<std::string>(m_val_unsigned_char);
 		case numeric_unsigned_short :
@@ -362,8 +362,8 @@ std::string numeric::to_string() const
 			return algorithm::to_string<std::string>(m_val_unsigned_int);
 		case numeric_unsigned_long :
 			return algorithm::to_string<std::string>(m_val_unsigned_long);
-		case numeric_unsigned_longlong :
-			return algorithm::to_string<std::string>(m_val_unsigned_longlong);
+		case numeric_unsigned_long_long :
+			return algorithm::to_string<std::string>(m_val_unsigned_long_long);
 	}
 	return u8"0";
 }
@@ -374,21 +374,33 @@ std::size_t numeric::hash_code() const
 		if (m_floating) {
 			return std::hash<double>()(to_double() + static_cast<double>(m_type));
 		}
-		return std::hash<long long>()(to_longlong() + static_cast<long long>(m_type));
+		return std::hash<long long>()(to_long_long() + static_cast<long long>(m_type));
 	}
-	return std::hash<unsigned long long>()(to_longlong() + static_cast<unsigned long long>(m_type));
+	return std::hash<unsigned long long>()(to_long_long() + static_cast<unsigned long long>(m_type));
 }
 
 #pragma mark -
 
 double numeric::to_real() const
-{ return get<double>(); }
+{ return to_double(); }
 
 std::int64_t numeric::to_integer() const
-{ return get<std::int64_t>(); }
+{
+#if __LP64__
+	return to_long();
+#else
+	return to_long_long();
+#endif
+}
 
 std::uint64_t numeric::to_unsigned_integer() const
-{ return get<std::uint64_t>(); }
+{
+#if __LP64__
+	return to_unsigned_long();
+#else
+	return to_unsigned_long_long();
+#endif
+}
 
 #pragma mark -
 

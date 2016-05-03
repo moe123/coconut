@@ -75,7 +75,7 @@ static struct { const char * scheme; } const uri_schemes[] =
 }  /* EONS */
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool uri_validscheme(const std::string & scheme)
+bool uri_valid_scheme(const std::string & scheme)
 {
 	std::size_t i = 0;
 	do {
@@ -88,7 +88,7 @@ bool uri_validscheme(const std::string & scheme)
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool uri_asscheme(const std::string & in)
+bool uri_have_scheme(const std::string & in)
 {
 	std::size_t i = 0;
 	do {
@@ -181,7 +181,7 @@ bool uri_parse(
 
 		COCONUT_URI_CPY_RANGE(out_map.at("scheme"), uri_parse.scheme)
 		if (out_map.at("scheme").size()) {
-			result = uri_validscheme(out_map.at("scheme"));
+			result = uri_valid_scheme(out_map.at("scheme"));
 		}
 
 		if (!result) {

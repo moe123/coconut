@@ -182,12 +182,12 @@ COCONUT_OPT_TYPED(numeric_option, std::uint16_t)
 	numeric_short,
 	numeric_int,
 	numeric_long,
-	numeric_longlong,
+	numeric_long_long,
 	numeric_unsigned_char,
 	numeric_unsigned_short,
 	numeric_unsigned_int,
 	numeric_unsigned_long,
-	numeric_unsigned_longlong
+	numeric_unsigned_long_long
 };
 
 COCONUT_OPT(unpacking_option)

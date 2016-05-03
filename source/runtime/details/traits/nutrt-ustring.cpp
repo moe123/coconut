@@ -546,7 +546,7 @@ long ustring::to_long() const
 	return 0;
 }
 
-long long ustring::to_longlong() const
+long long ustring::to_long_long() const
 {
 	std::string out;
 	bool isfp = false;
@@ -596,7 +596,7 @@ unsigned long ustring::to_unsigned_long() const
 	return 0;
 }
 
-unsigned long long ustring::to_unsigned_longlong() const
+unsigned long long ustring::to_unsigned_long_long() const
 {
 	std::string out;
 	bool isfp = false;
@@ -757,9 +757,8 @@ void ustring::uppercase()
 ustring ustring::by_appending(const ustring & ustr) const
 {
 	ustring result;
-	icu::UnicodeString cpy(m_ustr);
-	cpy.append(ustr.m_ustr);
-	result.m_ustr = std::move(cpy);
+	result.m_ustr.append(m_ustr);
+	result.m_ustr.append(ustr.m_ustr);
 	return result;
 }
 

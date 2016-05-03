@@ -159,7 +159,7 @@ long String::longValue() const
 { return m_impl.to_long(); }
 
 long long String::longLongValue() const
-{ return m_impl.to_longlong(); }
+{ return m_impl.to_long_long(); }
 
 unsigned char String::unsignedCharValue() const
 { return m_impl.to_unsigned_char(); }
@@ -174,7 +174,7 @@ unsigned long String::unsignedLongValue() const
 { return m_impl.to_unsigned_long(); }
 
 unsigned long long String::unsignedLongLongValue() const
-{ return m_impl.to_unsigned_longlong(); }
+{ return m_impl.to_unsigned_long_long(); }
 
 #pragma mark -
 

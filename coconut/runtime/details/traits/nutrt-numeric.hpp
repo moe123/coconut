@@ -64,8 +64,8 @@ private:
 				return weak_cast<T>(m_val_int);
 			case numeric_long :
 				return weak_cast<T>(m_val_long);
-			case numeric_longlong :
-				return weak_cast<T>(m_val_longlong);
+			case numeric_long_long :
+				return weak_cast<T>(m_val_long_long);
 			case numeric_unsigned_char :
 				return weak_cast<T>(m_val_unsigned_char);
 			case numeric_unsigned_short :
@@ -74,8 +74,8 @@ private:
 				return weak_cast<T>(m_val_unsigned_int);
 			case numeric_unsigned_long :
 				return weak_cast<T>(m_val_unsigned_long);
-			case numeric_unsigned_longlong :
-				return weak_cast<T>(m_val_unsigned_longlong);
+			case numeric_unsigned_long_long :
+				return weak_cast<T>(m_val_unsigned_long_long);
 		}
 		return result;
 	}
@@ -91,13 +91,13 @@ public:
 	short to_short() const;
 	int to_int() const;
 	long to_long() const;
-	long long to_longlong() const;
+	long long to_long_long() const;
 	
 	unsigned char to_unsigned_char() const;
 	unsigned short to_unsigned_short() const;
 	unsigned int to_unsigned_int() const;
 	unsigned long to_unsigned_long() const;
-	unsigned long long to_unsigned_longlong() const;
+	unsigned long long to_unsigned_long_long() const;
 	
 	std::string to_string() const;
 	std::size_t hash_code() const;
@@ -120,13 +120,13 @@ private:
 		short m_val_short;
 		int m_val_int;
 		long m_val_long;
-		long long m_val_longlong;
+		long long m_val_long_long;
 		
 		unsigned char m_val_unsigned_char;
 		unsigned short m_val_unsigned_short;
 		unsigned int m_val_unsigned_int;
 		unsigned long m_val_unsigned_long;
-		unsigned long long m_val_unsigned_longlong;
+		unsigned long long m_val_unsigned_long_long;
 	};
 	
 private:

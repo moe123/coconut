@@ -226,12 +226,12 @@ namespace coconut
 		NumberShort = runtime::numeric_short,
 		NumberInt = runtime::numeric_int,
 		NumberLong = runtime::numeric_long,
-		NumberLongLong = runtime::numeric_longlong,
+		NumberLongLong = runtime::numeric_long_long,
 		NumberUnsignedChar = runtime::numeric_unsigned_char,
 		NumberUnsignedShort = runtime::numeric_unsigned_short,
 		NumberUnsignedInt = runtime::numeric_unsigned_int,
 		NumberUnsignedLong = runtime::numeric_unsigned_long,
-		NumberUnsignedLongLong = runtime::numeric_unsigned_longlong
+		NumberUnsignedLongLong = runtime::numeric_unsigned_long_long
 	};
 	
 	COCONUT_OPT(DataPackingOption)

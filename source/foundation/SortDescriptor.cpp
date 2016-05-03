@@ -92,10 +92,10 @@ const SortDescriptor SortDescriptor::reversedSortDescriptor()
 #pragma mark -
 
 const String SortDescriptor::key() const
-{ return String{std::get<0>(m_impl)}; }
+{ return {std::get<0>(m_impl)}; }
 
 const String SortDescriptor::selectorKey() const
-{ return String{std::get<1>(m_impl)}; }
+{ return {std::get<1>(m_impl)}; }
 
 bool SortDescriptor::ascending() const
 { return std::get<2>(m_impl); }
