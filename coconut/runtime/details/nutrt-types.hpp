@@ -66,7 +66,7 @@ template <class T> struct tag_is_ptr< Owning<T> > : std::true_type {};
 
 template<class T> struct do_plain_type {
 	typedef typename std::remove_cv<
-	typename std::remove_reference<T>::type
+		typename std::remove_reference<T>::type
 	>::type type;
 };
 	

@@ -24,7 +24,7 @@ bytebuf::bytebuf(const bytebuf & dat)
 { /* NOP */ }
 
 bytebuf::bytebuf(bytebuf && dat) noexcept
-	: m_bytes(std::move(dat.m_bytes))
+: m_bytes(std::move(dat.m_bytes))
 { /* NOP */ }
 
 bytebuf::bytebuf(const bytebuf & dat, bool b64dec)

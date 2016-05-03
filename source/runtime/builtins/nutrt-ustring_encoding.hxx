@@ -182,7 +182,7 @@ bool ustring_getencoding(const char * codepage, encoding_option & encoding)
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string ustring_detectcodepage(const std::uint8_t * in, std::size_t len, float & confidence)
 {
-	std::string result;
+	std::string result{u8"utf-8"};
 	UCharsetDetector * dctr;
 	const UCharsetMatch * chmt;
 	const UCharsetMatch ** chmts;

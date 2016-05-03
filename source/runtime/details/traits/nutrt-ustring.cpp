@@ -30,6 +30,10 @@ ustring::ustring(const ustring & ustr)
 : m_ustr(ustr.m_ustr)
 { /* NOP */ }
 
+ustring::ustring(ustring && ustr) noexcept
+: m_ustr(ustr.m_ustr)
+{ ustr.m_ustr.remove(); }
+
 ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding)
 : m_ustr()
 {
@@ -40,20 +44,16 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 			{
 				float confidence = 0.0f;
 				std::string codepage = builtins::ustring_detectcodepage(bytes, length, confidence);
-				if (codepage.size()) {
-					if (confidence >= 0.10f) {
-						m_ustr = icu::UnicodeString(
-							weak_cast<const char *>(bytes),
-							weak_cast<std::int32_t>(length),
-							codepage.c_str()
-						);
-						if (!is_valid() || !size()) {
-							clear();
-							m_ustr.setToBogus();
-						}
+				if (confidence >= 0.10f) {
+					m_ustr = icu::UnicodeString(
+						weak_cast<const char *>(bytes),
+						weak_cast<std::int32_t>(length),
+						codepage.c_str()
+					);
+					if (!is_valid() || !size()) {
+						clear();
+						m_ustr.setToBogus();
 					}
-				} else {
-					m_ustr.setToBogus();
 				}
 			}
 			break;
@@ -129,16 +129,6 @@ ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_optio
 			case encoding_ucs2:
 			case encoding_ucs2le:
 			case encoding_ucs2be:
-			{
-				std::u16string in(bytes, bytes + length);
-				std::string data = unicode::ucs2_to_utf8(in);
-				m_ustr = icu::UnicodeString::fromUTF8(icu::StringPiece(data));
-				if (!is_valid() || !size()) {
-					clear();
-					m_ustr.setToBogus();
-				}
-			}
-			break;
 			case encoding_utf16:
 			case encoding_utf16le:
 			case encoding_utf16be:
@@ -267,14 +257,10 @@ bool ustring::guess_encoding(const std::string & in8bits, encoding_option & enco
 {
 	bool result = false;
 	std::string codepage = builtins::ustring_detectcodepage(weak_cast<const std::uint8_t *>(in8bits.data()), in8bits.length(), confidence);
-	if (codepage.size()) {
-		if (builtins::ustring_getencoding(codepage.c_str(), encoding)) {
-			result = true;
-		} else {
-			confidence = 0.0f;
-		}
+	if (builtins::ustring_getencoding(codepage.c_str(), encoding)) {
+		result = true;
 	} else {
-		encoding = encoding_auto;
+		encoding = encoding_utf8;
 		confidence = 0.0f;
 	}
 	return result;
@@ -357,6 +343,21 @@ ustring & ustring::operator = (const ustring & ustr)
 
 #pragma mark -
 
+ustring & ustring::assign(const ustring & ustr)
+{ m_ustr = ustr.m_ustr ; return *this; }
+
+ustring & ustring::assign(ustring && ustr)
+{ *this = std::move(ustr); return *this; }
+
+void ustring::swap(ustring & ustr)
+{
+	icu::UnicodeString tmp(m_ustr);
+	m_ustr = ustr.m_ustr;
+	ustr.m_ustr = tmp;
+}
+
+#pragma mark -
+
 int ustring::compare(const ustring & other_ustr) const
 { return compare(other_ustr, search_literal|search_nowidth); }
 
@@ -430,6 +431,15 @@ bool ustring::is_valid() const
 
 #pragma mark -
 
+std::size_t ustring::capacity() const
+{
+	std::int32_t sz = m_ustr.getCapacity();
+	if (sz) {
+		return weak_cast<std::size_t>(sz);
+	}
+	return 0;
+}
+
 std::size_t ustring::size() const
 {
 	std::int32_t sz = m_ustr.length();
@@ -438,6 +448,9 @@ std::size_t ustring::size() const
 	}
 	return 0;
 }
+
+std::size_t ustring::length() const
+{ return size(); }
 
 std::size_t ustring::count() const
 {

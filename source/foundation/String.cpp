@@ -21,6 +21,11 @@ String::String(const String & str) :
 	m_impl(str.m_impl)
 { /* NOP */ }
 
+String::String(String && str) noexcept :
+	Object(StringClass),
+	m_impl(std::move(str.m_impl))
+{ /* NOP */ }
+
 String::String(const std::string & str, StringEncodingOption encoding) :
 	Object(StringClass),
 	m_impl(str, encoding)

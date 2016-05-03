@@ -27,6 +27,7 @@ COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.ustring, ustring)
 public:
 	ustring();
 	ustring(const ustring & ustr);
+	ustring(ustring && ustr) noexcept;
 	ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding);
 	ustring(const std::uint16_t * bytes, std::size_t length, encoding_option encoding);
 	ustring(const std::uint32_t * bytes, std::size_t length, encoding_option encoding);
@@ -86,6 +87,11 @@ public:
 public:
 	ustring & operator = (const ustring & ustr);
 	
+	ustring & assign(const ustring & ustr);
+	ustring & assign(ustring && ustr);
+	
+	void swap(ustring & ustr);
+	
 	int compare(const ustring & other_ustr) const;
 	int compare(const ustring & other_ustr, search_options options) const;
 	
@@ -100,7 +106,9 @@ public:
 	
 	bool is_valid() const;
 	
+	std::size_t capacity() const;
 	std::size_t size() const;
+	std::size_t length() const;
 	std::size_t count() const;
 	
 	std::size_t size_for(encoding_option encoding) const;

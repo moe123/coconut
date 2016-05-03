@@ -19,6 +19,7 @@ namespace coconut
 		String();
 		String(const String & str);
 		String & operator = (const String & str) = default;
+		String(String && str) noexcept;
 		String(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
 		String(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16);
 		String(const std::u32string & str, StringEncodingOption encoding = StringEncodingUTF32);
