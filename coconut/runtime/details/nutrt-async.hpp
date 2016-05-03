@@ -13,7 +13,7 @@ namespace coconut {
 	namespace runtime {
 		namespace async {
 	
-template <typename RpT>
+template <typename PromT>
 COCONUT_PRIVATE class COCONUT_VISIBLE shall COCONUT_FINAL
 {
 public:
@@ -28,14 +28,14 @@ public:
 	shall & operator = (shall && res) noexcept
 	{ shall(std::move(res)).swap(*this); return *this; }
 	
-	explicit shall(std::future<RpT> && fut) noexcept
+	explicit shall(std::future<PromT> && fut) noexcept
 	: m_fut{std::move(fut)}
 	{ /* NOP */ }
 	
-	RpT operator () () noexcept { return m_fut.get(); }
+	PromT operator () () noexcept { return m_fut.get(); }
 	
 private:
-	std::future<RpT> m_fut;
+	std::future<PromT> m_fut;
 };
 
 template <typename FuncT, typename... ArgsT>
@@ -150,7 +150,7 @@ public:
 		if (!m_run) { throw; }
 		using Ret = typename std::result_of<FuncT(ArgsT...)>::type;
 		std::shared_ptr< std::promise<Ret> > p = std::make_shared< std::promise<Ret> >();
-		auto task_wrapper = [p](FuncT && ff, ArgsT &&... aargs) { p->set_value(ff(aargs...)); };
+		auto task_wrapper = [p](FuncT && ff, ArgsT... aargs) { p->set_value(ff(aargs...)); };
 		auto ret_wrapper = [p]() -> Ret { return p->get_future().get(); };
 		{
 			std::unique_lock<std::mutex> lock(m_mutex);
