@@ -47,9 +47,14 @@ URL::URL(const String & scheme, const String & host, const String & path) :
 	m_impl(scheme.stringValue(), host.stringValue(), path.stringValue(), false)
 { /* NOP */ }
 
-URL::URL(const char * in) :
+URL::URL(const char * utf8_url) :
 	Object(URLClass),
-	m_impl(in)
+	m_impl(utf8_url)
+{ /* NOP */ }
+
+URL::URL(const char16_t * utf16_url) :
+	Object(URLClass),
+	m_impl(utf16_url)
 { /* NOP */ }
 
 URL::~URL()
@@ -148,5 +153,31 @@ const Dictionary URL::queryParameters() const
 
 const Path URL::fileSystemRepresentation() const
 { return {m_impl.path()}; }
+
+#pragma mark -
+
+bool URL::operator == (const URL & other_url) const
+{ return (compare(other_url) == OrderedSame); }
+
+bool URL::operator != (const URL & other_url) const
+{ return (compare(other_url) != OrderedSame); }
+
+bool URL::operator < (const URL & other_url) const
+{ return (compare(other_url) == OrderedAscending); }
+
+bool URL::operator <= (const URL & other_url) const
+{
+	ComparisonResult cmp = compare(other_url);
+	return (cmp == OrderedAscending || cmp == OrderedSame);
+}
+
+bool URL::operator > (const URL & other_url) const
+{ return (compare(other_url) == OrderedDescending); }
+
+bool URL::operator >= (const URL & other_url) const
+{
+	ComparisonResult cmp = compare(other_url);
+	return (cmp == OrderedDescending || cmp == OrderedSame);
+}
 
 /* EOF */

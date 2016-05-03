@@ -24,7 +24,8 @@ namespace coconut
 		URL(const String & in);
 		URL(const String & in, const URL & base_url);
 		URL(const String & scheme, const String & host, const String & path);
-		URL(const char * utf8_str);
+		URL(const char * utf8_url);
+		URL(const char16_t * utf16_url);
 		virtual ~URL();
 		
 		COCONUT_CLASSMETHOD const String percentEscapesEncode(const String & in, bool space_as_plus = false);
@@ -56,7 +57,15 @@ namespace coconut
 		
 		const Dictionary queryParameters() const;
 		const Path fileSystemRepresentation() const;
-	
+		
+	public:
+		bool operator == (const URL & other_url) const;
+		bool operator != (const URL & other_url) const;
+		bool operator <  (const URL & other_url) const;
+		bool operator <= (const URL & other_url) const;
+		bool operator >  (const URL & other_url) const;
+		bool operator >= (const URL & other_url) const;
+		
 	protected:
 		friend class Array;
 		friend class Data;

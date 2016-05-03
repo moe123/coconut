@@ -41,6 +41,21 @@ String::String(const std::u32string & str, StringEncodingOption encoding) :
 	m_impl(str, encoding)
 { /* NOP */ }
 
+String::String(const std::int8_t * bytes, std::size_t length, StringEncodingOption encoding) :
+	Object(StringClass),
+	m_impl(bytes, length, encoding)
+{ /* NOP */ }
+
+String::String(const std::int16_t * bytes, std::size_t length, StringEncodingOption encoding) :
+	Object(StringClass),
+	m_impl(bytes, length, encoding)
+{ /* NOP */ }
+
+String::String(const std::int32_t * bytes, std::size_t length, StringEncodingOption encoding) :
+	Object(StringClass),
+	m_impl(bytes, length, encoding)
+{ /* NOP */ }
+
 String::String(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding) :
 	Object(StringClass),
 	m_impl(bytes, length, encoding)
@@ -391,6 +406,14 @@ const std::uint32_t String::operator [] (std::size_t index) const
 
 #pragma mark -
 
+const String String::operator + (const String & str) const
+{ return stringByAppendingString(str); }
+
+const String String::operator + (const Owning<String> & str) const
+{ if (str) { return stringByAppendingString(*str); } return String(*this); }
+
+#pragma mark -
+
 bool String::operator == (const String & other_str) const
 { return (compare(other_str) == OrderedSame); }
 
@@ -414,13 +437,5 @@ bool String::operator >= (const String & other_str) const
 	ComparisonResult cmp = compare(other_str);
 	return (cmp == OrderedDescending || cmp == OrderedSame);
 }
-
-#pragma mark -
-
-const String String::operator + (const String & str) const
-{ return stringByAppendingString(str); }
-
-const String String::operator + (const Owning<String> & str) const
-{ if (str) { return stringByAppendingString(*str); } return String(*this); }
 
 /* EOF */

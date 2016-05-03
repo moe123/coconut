@@ -242,6 +242,14 @@ uri::uri(const std::string & str_url)
 : uri(str_url, !builtins::uri_have_scheme(str_url), true)
 { /* NOP */ }
 
+uri::uri(const char * str_url)
+: uri(str_url, !builtins::uri_have_scheme(str_url), true)
+{ /* NOP */ }
+
+uri::uri(const char16_t * str_url)
+: uri()
+{ /* NOP */ }
+
 uri::~uri()
 { /* NOP */ }
 

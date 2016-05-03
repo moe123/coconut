@@ -23,6 +23,9 @@ namespace coconut
 		String(const std::string & str, StringEncodingOption encoding = StringEncodingUTF8);
 		String(const std::u16string & str, StringEncodingOption encoding = StringEncodingUTF16);
 		String(const std::u32string & str, StringEncodingOption encoding = StringEncodingUTF32);
+		String(const std::int8_t * bytes, std::size_t length, StringEncodingOption encoding);
+		String(const std::int16_t * bytes, std::size_t length, StringEncodingOption encoding);
+		String(const std::int32_t * bytes, std::size_t length, StringEncodingOption encoding);
 		String(const std::uint8_t * bytes, std::size_t length, StringEncodingOption encoding);
 		String(const std::uint16_t * bytes, std::size_t length, StringEncodingOption encoding);
 		String(const std::uint32_t * bytes, std::size_t length, StringEncodingOption encoding);

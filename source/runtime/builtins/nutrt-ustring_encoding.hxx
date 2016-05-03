@@ -180,7 +180,7 @@ bool ustring_getencoding(const char * codepage, encoding_option & encoding)
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string ustring_detectcodepage(const std::uint8_t * in, std::size_t len, float & confidence)
+std::string ustring_detectcodepage(const char * in, std::size_t len, float & confidence)
 {
 	std::string result{u8"utf-8"};
 	UCharsetDetector * dctr;
@@ -196,7 +196,7 @@ std::string ustring_detectcodepage(const std::uint8_t * in, std::size_t len, flo
 	}
 	
 	status = U_ZERO_ERROR;
-	ucsdet_setText(dctr, weak_cast<const char *>(in), weak_cast<std::int32_t>(len), &status);
+	ucsdet_setText(dctr, in, weak_cast<std::int32_t>(len), &status);
 	if (U_FAILURE(status)) {
 		ucsdet_close(dctr);
 		confidence = 0.0;

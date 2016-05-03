@@ -26,6 +26,8 @@ public:
 	uri(const std::string & str_url, bool is_filepath, bool normalize);
 	uri(const std::string & scheme, const std::string & host, const std::string & path, bool normalize);
 	uri(const std::string & str_url);
+	uri(const char * str_url);
+	uri(const char16_t * str_url);
 	~uri();
 	
 public:

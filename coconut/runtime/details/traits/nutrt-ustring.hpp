@@ -28,6 +28,9 @@ public:
 	ustring();
 	ustring(const ustring & ustr);
 	ustring(ustring && ustr) noexcept;
+	ustring(const std::int8_t * bytes, std::size_t length, encoding_option encoding);
+	ustring(const std::int16_t * bytes, std::size_t length, encoding_option encoding);
+	ustring(const std::int32_t * bytes, std::size_t length, encoding_option encoding);
 	ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding);
 	ustring(const std::uint16_t * bytes, std::size_t length, encoding_option encoding);
 	ustring(const std::uint32_t * bytes, std::size_t length, encoding_option encoding);
@@ -91,6 +94,9 @@ public:
 	ustring & assign(ustring && ustr);
 	
 	void swap(ustring & ustr);
+	
+	std::uint16_t at(std::size_t index) const;
+	std::uint32_t char_at(std::size_t index) const;
 	
 	int compare(const ustring & other_ustr) const;
 	int compare(const ustring & other_ustr, search_options options) const;

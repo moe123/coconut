@@ -34,7 +34,7 @@ ustring::ustring(ustring && ustr) noexcept
 : m_ustr(ustr.m_ustr)
 { ustr.m_ustr.remove(); }
 
-ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding)
+ustring::ustring(const std::int8_t * bytes, std::size_t length, encoding_option encoding)
 : m_ustr()
 {
 	if (bytes && length) {
@@ -43,7 +43,7 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 			case encoding_auto:
 			{
 				float confidence = 0.0f;
-				std::string codepage = builtins::ustring_detectcodepage(bytes, length, confidence);
+				std::string codepage = builtins::ustring_detectcodepage(weak_cast<const char *>(bytes), length, confidence);
 				if (confidence >= 0.10f) {
 					m_ustr = icu::UnicodeString(
 						weak_cast<const char *>(bytes),
@@ -120,7 +120,7 @@ ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option
 	}
 }
 
-ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_option encoding)
+ustring::ustring(const std::int16_t * bytes, std::size_t length, encoding_option encoding)
 : m_ustr()
 {
 	if (bytes && length) {
@@ -152,7 +152,7 @@ ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_optio
 	}
 }
 
-ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_option encoding)
+ustring::ustring(const std::int32_t * bytes, std::size_t length, encoding_option encoding)
 : m_ustr()
 {
 	if (bytes && length) {
@@ -184,9 +184,21 @@ ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_optio
 	}
 }
 
+ustring::ustring(const std::uint8_t * bytes, std::size_t length, encoding_option encoding)
+: ustring(weak_cast<const std::int8_t *>(bytes), length, encoding)
+{ /* NOP */ }
+
+ustring::ustring(const std::uint16_t * bytes, std::size_t length, encoding_option encoding)
+: ustring(weak_cast<const std::int16_t *>(bytes), length, encoding)
+{ /* NOP */ }
+
+ustring::ustring(const std::uint32_t * bytes, std::size_t length, encoding_option encoding)
+: ustring(weak_cast<const std::int32_t *>(bytes), length, encoding)
+{ /* NOP */ }
+
 ustring::ustring(const std::string & in, encoding_option encoding)
 : ustring(
-	weak_cast<const std::uint8_t *>(in.data()),
+	weak_cast<const std::int8_t *>(in.data()),
 	in.size(),
 	encoding
 )
@@ -194,7 +206,7 @@ ustring::ustring(const std::string & in, encoding_option encoding)
 
 ustring::ustring(const std::u16string & in, encoding_option encoding)
 : ustring(
-	weak_cast<const std::uint16_t *>(in.data()),
+	weak_cast<const std::int16_t *>(in.data()),
 	in.size(),
 	encoding
 )
@@ -202,7 +214,7 @@ ustring::ustring(const std::u16string & in, encoding_option encoding)
 
 ustring::ustring(const std::u32string & in, encoding_option encoding)
 : ustring(
-	weak_cast<const std::uint32_t *>(in.data()),
+	weak_cast<const std::int32_t *>(in.data()),
 	in.size(),
 	encoding
 )
@@ -210,7 +222,7 @@ ustring::ustring(const std::u32string & in, encoding_option encoding)
 
 ustring::ustring(const char * utf8_str)
 : ustring(
-	weak_cast<const std::uint8_t *>(utf8_str),
+	weak_cast<const std::int8_t *>(utf8_str),
 	std::char_traits<char>::length(utf8_str),
 	encoding_utf8
 )
@@ -218,7 +230,7 @@ ustring::ustring(const char * utf8_str)
 
 ustring::ustring(const char16_t * utf16_str)
 : ustring(
-	weak_cast<const std::uint16_t *>(utf16_str),
+	weak_cast<const std::int16_t *>(utf16_str),
 	std::char_traits<char16_t>::length(utf16_str),
 	encoding_utf16
 )
@@ -226,7 +238,7 @@ ustring::ustring(const char16_t * utf16_str)
 
 ustring::ustring(const char32_t * utf32_str)
 : ustring(
-	weak_cast<const std::uint32_t *>(utf32_str),
+	weak_cast<const std::int32_t *>(utf32_str),
 	std::char_traits<char32_t>::length(utf32_str),
 	encoding_utf32
 )
@@ -256,7 +268,7 @@ bool ustring::transliterate(const std::string & utf8_in, std::string & translit_
 bool ustring::guess_encoding(const std::string & in8bits, encoding_option & encoding, float & confidence)
 {
 	bool result = false;
-	std::string codepage = builtins::ustring_detectcodepage(weak_cast<const std::uint8_t *>(in8bits.data()), in8bits.length(), confidence);
+	std::string codepage = builtins::ustring_detectcodepage(in8bits.data(), in8bits.length(), confidence);
 	if (builtins::ustring_getencoding(codepage.c_str(), encoding)) {
 		result = true;
 	} else {
@@ -355,6 +367,12 @@ void ustring::swap(ustring & ustr)
 	m_ustr = ustr.m_ustr;
 	ustr.m_ustr = tmp;
 }
+
+std::uint16_t ustring::at(std::size_t index) const
+{ return code_unit_at(index); }
+
+std::uint32_t ustring::char_at(std::size_t index) const
+{ return code_point_at(index); }
 
 #pragma mark -
 
