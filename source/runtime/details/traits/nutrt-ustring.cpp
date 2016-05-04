@@ -773,23 +773,65 @@ std::uint32_t ustring::code_point_at(std::size_t index) const
 
 #pragma mark -
 
-void ustring::append(const ustring & ustr)
-{ m_ustr.append(ustr.m_ustr); }
+ustring & ustring::append(const ustring & ustr)
+{ m_ustr.append(ustr.m_ustr); return *this; }
 
-void ustring::capitalized()
-{ m_ustr.toTitle(nullptr); }
+ustring & ustring::append(std::int16_t & code_unit)
+{ m_ustr.append(weak_cast<UChar>(code_unit)); return *this; }
 
-void ustring::lowercase()
-{ m_ustr.toLower(); }
+ustring & ustring::append(std::int32_t & code_point)
+{ m_ustr.append(weak_cast<UChar32>(code_point)); return *this; }
 
-void ustring::uppercase()
-{ m_ustr.toUpper(); }
+ustring & ustring::append(std::uint16_t & code_unit)
+{ m_ustr.append(weak_cast<UChar>(code_unit)); return *this; }
+
+ustring & ustring::append(std::uint32_t & code_point)
+{ m_ustr.append(weak_cast<UChar32>(code_point)); return *this; }
+
+#pragma mark -
+
+ustring & ustring::capitalized()
+{ m_ustr.toTitle(nullptr); return *this; }
+
+ustring & ustring::lowercased()
+{ m_ustr.toLower(); return *this; }
+
+ustring & ustring::uppercased()
+{ m_ustr.toUpper(); return *this; }
+
+#pragma mark -
 
 ustring ustring::by_appending(const ustring & ustr) const
 {
 	ustring result;
 	result.m_ustr.append(m_ustr);
 	result.m_ustr.append(ustr.m_ustr);
+	return result;
+}
+
+#pragma mark -
+
+ustring ustring::by_capitalizing(const ustring & ustr) const
+{
+	ustring result;
+	result.m_ustr.append(m_ustr);
+	result.m_ustr.toTitle(nullptr);
+	return result;
+}
+
+ustring ustring::by_lowercasing(const ustring & ustr) const
+{
+	ustring result;
+	result.m_ustr.append(m_ustr);
+	result.m_ustr.toLower();
+	return result;
+}
+
+ustring ustring::by_uppercasing(const ustring & ustr) const
+{
+	ustring result;
+	result.m_ustr.append(m_ustr);
+	result.m_ustr.toUpper();
 	return result;
 }
 

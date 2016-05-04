@@ -54,17 +54,13 @@ public:
 	COCONUT_CLASSMETHOD int compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options);
 	
 	template <typename... ArgsT>
-	COCONUT_CLASSMETHOD std::string format(const std::string & fmt, ArgsT &&... args)
-	{ return algorithm::format(fmt.c_str(), std::forward<ArgsT>(args)...); }
-	
-	template <typename... ArgsT>
 	COCONUT_CLASSMETHOD std::u16string uformat(const char * utf8_fmt, ArgsT &&... args)
 	{
 		std::u16string result;
 		if (utf8_fmt) {
-			UChar ubuf[1024];
+			char16_t ubuf[1024];
 			std::int32_t written = 0;
-			if ((written = u_snprintf(ubuf, 1024, utf8_fmt, args...)) > 0) {
+			if ((written = u_snprintf(weak_cast<UChar *>(ubuf), 1024, utf8_fmt, args...)) > 0) {
 				result.assign(ubuf, (ubuf + written));
 			}
 		}
@@ -76,9 +72,9 @@ public:
 	{
 		std::u16string result;
 		if (utf16_fmt) {
-			UChar ubuf[1024];
+			char16_t ubuf[1024];
 			std::int32_t written = 0;
-			if ((written = u_snprintf_u(ubuf, 1024, weak_cast<UChar *>(utf16_fmt), args...)) > 0) {
+			if ((written = u_snprintf_u(weak_cast<UChar *>(ubuf), 1024, weak_cast<UChar *>(utf16_fmt), args...)) > 0) {
 				result.assign(ubuf, (ubuf + written));
 			}
 		}
@@ -92,6 +88,11 @@ public:
 	
 	ustring & assign(const ustring & ustr);
 	ustring & assign(ustring && ustr);
+	ustring & assign(const ustring & ustr, std::size_t subpos, std::size_t sublen);
+	
+	template <class IterInT>
+	ustring & assign(IterInT beg, IterInT end)
+	{ clear(); for (; beg != end; ++beg) { append(*beg); } return *this; }
 	
 	void swap(ustring & ustr);
 	
@@ -160,12 +161,30 @@ public:
 	std::uint16_t code_unit_at(std::size_t index) const;
 	std::uint32_t code_point_at(std::size_t index) const;
 	
-	void append(const ustring & ustr);
-	void capitalized();
-	void lowercase();
-	void uppercase();
+	ustring & append(const ustring & ustr);
+	
+	ustring & append(std::int16_t & code_unit);
+	ustring & append(std::int32_t & code_point);
+	
+	ustring & append(std::uint16_t & code_unit);
+	ustring & append(std::uint32_t & code_point);
+	
+	template <class IterInT>
+	ustring & append(IterInT beg, IterInT end)
+	{ for (; beg != end; ++beg) { append(*beg); } return *this; }
+	
+	ustring & capitalized();
+	ustring & lowercased();
+	ustring & uppercased();
+	ustring & lowercased(const locale & loc);
+	ustring & uppercased(const locale & loc);
 	
 	ustring by_appending(const ustring & ustr) const;
+	ustring by_capitalizing(const ustring & ustr) const;
+	ustring by_lowercasing(const ustring & ustr) const;
+	ustring by_uppercasing(const ustring & ustr) const;
+	ustring by_lowercasing(const ustring & ustr, const locale & loc) const;
+	ustring by_uppercasing(const ustring & ustr, const locale & loc) const;
 	
 private:
 	icu::UnicodeString m_ustr;

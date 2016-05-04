@@ -326,28 +326,28 @@ const String String::stringByPaddingToLength(std::size_t newLength, const String
 const Range String::rangeOfString(const String & str) const
 {
 	Range rg;
-	rg.m_impl = m_impl.range_of(str.m_impl);
+	rg.m_impl = std::move(m_impl.range_of(str.m_impl));
 	return rg;
 }
 
 const Range String::rangeOfString(const String & str, const Range & in_rg) const
 {
 	Range rg;
-	rg.m_impl = m_impl.range_of(str.m_impl, in_rg.m_impl);
+	rg.m_impl = std::move(m_impl.range_of(str.m_impl, in_rg.m_impl));
 	return rg;
 }
 
 const Range String::rangeOfString(const String & str, StringSearchOptions options) const
 {
 	Range rg;
-	rg.m_impl = m_impl.range_of(str.m_impl, options);
+	rg.m_impl = std::move(m_impl.range_of(str.m_impl, options));
 	return rg;
 }
 
 const Range String::rangeOfString(const String & str, const Range & in_rg, StringSearchOptions options) const
 {
 	Range rg;
-	rg.m_impl = m_impl.range_of(str.m_impl, in_rg.m_impl, options);
+	rg.m_impl = std::move(m_impl.range_of(str.m_impl, in_rg.m_impl, options));
 	return rg;
 }
 
@@ -388,14 +388,14 @@ const String String::capitalizedString() const
 const String String::lowercaseString() const
 {
 	String result = String(*this);
-	result.m_impl.lowercase();
+	result.m_impl.lowercased();
 	return result;
 }
 
 const String String::uppercaseString() const
 {
 	String result = String(*this);
-	result.m_impl.uppercase();
+	result.m_impl.uppercased();
 	return result;
 }
 
