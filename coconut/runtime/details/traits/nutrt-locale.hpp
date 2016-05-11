@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_LOCALE_HPP
 #define COCONUT_RUNTIME_LOCALE_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 		
 COCONUT_PRIVATE class COCONUT_VISIBLE locale COCONUT_FINAL
 {

@@ -10,9 +10,10 @@
 #ifndef COCONUT_RUNTIME_BYTEBUF_HPP
 #define COCONUT_RUNTIME_BYTEBUF_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
 COCONUT_CLASSFORWARD_DCL(upath)
 COCONUT_CLASSFORWARD_DCL(uri)
@@ -245,19 +246,31 @@ public:
 	
 	bytebuf & operator + (char v);
 	bytebuf & operator += (char v);
+
+private:
+	typedef std::vector<std::uint8_t> container_type;
 	
 public:
-	typedef std::vector<std::uint8_t>::iterator iterator;
-	typedef std::vector<std::uint8_t>::const_iterator const_iterator;
+	/* type_traits */
+	
+	typedef container_type::iterator iterator;
+	typedef container_type::const_iterator const_iterator;
 
-	typedef std::vector<std::uint8_t>::reverse_iterator reverse_iterator;
-	typedef std::vector<std::uint8_t>::const_reverse_iterator const_reverse_iterator;
+	typedef container_type::reverse_iterator reverse_iterator;
+	typedef container_type::const_reverse_iterator const_reverse_iterator;
 
-	typedef std::vector<std::uint8_t>::value_type value_type;
-	typedef std::vector<std::uint8_t>::size_type size_type;
-	typedef std::vector<std::uint8_t>::difference_type difference_type;
+	typedef container_type::value_type value_type;
+	typedef container_type::size_type size_type;
+	typedef container_type::difference_type difference_type;
+	
+	typedef container_type::reference reference;
+	typedef container_type::const_reference const_reference;
+	typedef container_type::pointer pointer;
+	typedef container_type::const_pointer const_pointer;
 	
 public:
+	/* type_iterator */
+	
 	iterator begin();
 	iterator end();
 	
@@ -277,7 +290,7 @@ public:
 	const_reverse_iterator crend() const;
 
 private:
-	std::vector<std::uint8_t> m_bytes;
+	container_type m_bytes;
 };
 
 }}} /* EONS */

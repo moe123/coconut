@@ -108,6 +108,11 @@ namespace coconut
 		typedef impl_trait::size_type size_type;
 		typedef impl_trait::difference_type difference_type;
 		
+		typedef impl_trait::reference reference;
+		typedef impl_trait::const_reference const_reference;
+		typedef impl_trait::pointer pointer;
+		typedef impl_trait::const_pointer const_pointer;
+		
 	public:
 		iterator begin();
 		iterator end();

@@ -9,8 +9,9 @@
 #ifndef COCONUT_RUNTIME_NUCLEUS_HPP
 #define COCONUT_RUNTIME_NUCLEUS_HPP
 
-namespace coconut {
-	namespace runtime {
+namespace coconut
+{ namespace runtime
+{
 
 COCONUT_PRIVATE class COCONUT_VISIBLE nucleus 
 {

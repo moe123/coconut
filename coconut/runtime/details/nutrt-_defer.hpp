@@ -7,9 +7,10 @@
 #ifndef COCONUT_RUNTIME_DEFER_HPP
 #define COCONUT_RUNTIME_DEFER_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace defer {
+namespace coconut
+{ namespace runtime
+{ namespace defer
+{
 
 template <typename CallableT>
 COCONUT_PRIVATE struct COCONUT_VISIBLE scope_holder COCONUT_FINAL

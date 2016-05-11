@@ -21,7 +21,7 @@ namespace coconut {
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::wstring stream_convpath(const std::u16string & utf16_in)
 {
-	std::wstring wout(utf16_in.begin(), utf16_in.end());
+	std::wstring wout(utf16_in.cbegin(), utf16_in.cend());
 	return wout;
 }
 

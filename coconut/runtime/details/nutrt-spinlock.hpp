@@ -9,8 +9,9 @@
 #ifndef COCONUT_RUNTIME_SPINLOCK_HPP
 #define COCONUT_RUNTIME_SPINLOCK_HPP
 
-namespace coconut {
-	namespace runtime {
+namespace coconut
+{ namespace runtime
+{
 
 COCONUT_PRIVATE class COCONUT_VISIBLE COCONUT_ALIGNAS(64) spinlock COCONUT_FINAL
 {

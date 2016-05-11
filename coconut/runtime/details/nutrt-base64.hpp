@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_BASE64_HPP
 #define COCONUT_RUNTIME_BASE64_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace base64 {
+namespace coconut
+{ namespace runtime
+{ namespace base64
+{
 
 namespace
 {

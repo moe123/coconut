@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_ITERATOR_HPP
 #define COCONUT_RUNTIME_ITERATOR_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace iterators {
+namespace coconut
+{ namespace runtime
+{ namespace iterators
+{
 
 template <class MapT>
 COCONUT_PRIVATE class key_map_facet : public MapT::iterator
@@ -69,18 +70,26 @@ friend FriendT;
 protected:
 	typedef range_facet<ItemT, FriendT> facet;
 	typedef const range_facet<ItemT, FriendT> const_facet;
+	
 	typedef ItemT value_type;
-	typedef ItemT size_type;
+	typedef std::size_t size_type;
 	typedef std::ptrdiff_t difference_type;
+
+	typedef ItemT & reference;
+	typedef const ItemT & const_reference;
+	typedef ItemT * pointer;
+	typedef const ItemT * const_pointer;
+	
+	typedef std::random_access_iterator_tag iterator_category;
 	
 protected:
 	range_facet(value_type beg) : m_val (beg) { /* NOP */ }
 	
 public:
-	value_type & operator * () { return m_val; }
+	reference operator * () { return m_val; }
 	value_type operator * () const { return m_val; }
 	
-	value_type * operator -> () const { return &(operator*()); }
+	pointer operator -> () const { return *&(operator*()); }
 	
 	const_facet & operator ++ () noexcept { ++m_val; return *this; }
 	facet operator ++ (int) noexcept { facet cpy(*this); ++m_val; return cpy; }
@@ -113,18 +122,26 @@ friend FriendT;
 protected:
 	typedef range_rfacet<ItemT, FriendT> facet;
 	typedef const range_rfacet<ItemT, FriendT> const_facet;
+	
 	typedef ItemT value_type;
-	typedef ItemT size_type;
+	typedef std::size_t size_type;
 	typedef std::ptrdiff_t difference_type;
+	
+	typedef ItemT & reference;
+	typedef const ItemT & const_reference;
+	typedef ItemT * pointer;
+	typedef const ItemT * const_pointer;
+	
+	typedef std::random_access_iterator_tag iterator_category;
 	
 protected:
 	range_rfacet(value_type beg) : m_val (beg) { /* NOP */ }
 	
 public:
-	value_type & operator * () { value_type cpy = m_val; return --cpy; }
+	reference operator * () { value_type cpy = m_val; return --cpy; }
 	value_type operator * () const { value_type cpy = m_val; return --cpy; }
 	
-	value_type * operator -> () const { return &(operator*()); }
+	pointer operator -> () const { return *&(operator*()); }
 	
 	const_facet & operator ++ () noexcept { --m_val; return *this; }
 	facet operator ++ (int) noexcept { facet cpy(*this); --m_val; return cpy; }

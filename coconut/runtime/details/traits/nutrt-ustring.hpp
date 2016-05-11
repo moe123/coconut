@@ -13,9 +13,10 @@
 #ifndef COCONUT_RUNTIME_USTRING_HPP
 #define COCONUT_RUNTIME_USTRING_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
 COCONUT_CLASSFORWARD_DCL(locale)
 COCONUT_CLASSFORWARD_DCL(irange)
@@ -144,8 +145,15 @@ public:
 	std::size_t hash_code() const;
 	
 	const std::string to_utf8() const;
+	
 	const std::u16string to_utf16() const;
 	const std::u32string to_utf32() const;
+	
+	const std::u16string to_utf16_le() const;
+	const std::u32string to_utf32_le() const;
+	
+	const std::u16string to_utf16_be() const;
+	const std::u32string to_utf32_be() const;
 	
 	bool has_prefix(const ustring & ustr) const;
 	bool has_suffix(const ustring & ustr) const;

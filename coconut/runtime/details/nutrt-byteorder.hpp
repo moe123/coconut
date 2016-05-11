@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_BYTEORDER_HPP
 #define COCONUT_RUNTIME_BYTEORDER_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace byteorder {
+namespace coconut
+{ namespace runtime
+{ namespace byteorder
+{
 	
 typedef struct { std::uint32_t v; } fswp_t;
 typedef struct { std::uint64_t v; } dswp_t;

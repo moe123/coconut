@@ -16,35 +16,20 @@ namespace {
 static struct { encoding_option encoding; const char * codepage; } const ustring_codepages[] =
 {
 	{ encoding_utf8, "UTF-8" },
-#if COCONUT_ARCH_BIG_ENDIAN
-	{ encoding_utf16, "UTF-16BE" },
-#else
+	
 	{ encoding_utf16, "UTF-16LE" },
-#endif
 	{ encoding_utf16be, "UTF-16BE" },
 	{ encoding_utf16le, "UTF-16LE" },
 
-#if COCONUT_ARCH_BIG_ENDIAN
-	{ encoding_utf32, "UTF-32BE" },
-#else
-	{ encoding_utf32, "UTF-32LE" },
-#endif
+	{ encoding_utf32, "UTF-32" },
 	{ encoding_utf32be, "UTF-32BE" },
 	{ encoding_utf32le, "UTF-32LE" },
 
-#if COCONUT_ARCH_BIG_ENDIAN
-	{ encoding_ucs2, "UTF-16BE" },
-#else
-	{ encoding_ucs2, "UTF-16LE" },
-#endif
+	{ encoding_ucs2, "UTF-16" },
 	{ encoding_ucs2be, "UTF-16BE" },
 	{ encoding_ucs2le, "UTF-16LE" },
 
-#if COCONUT_ARCH_BIG_ENDIAN
-	{ encoding_ucs4, "UTF-32BE" },
-#else
-	{ encoding_ucs4, "UTF-32LE" },
-#endif
+	{ encoding_ucs4, "UTF-32" },
 	{ encoding_ucs4be, "UTF-32BE" },
 	{ encoding_ucs4le, "UTF-32LE" },
 	

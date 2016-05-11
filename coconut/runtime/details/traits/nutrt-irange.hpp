@@ -10,9 +10,10 @@
 #ifndef COCONUT_RUNTIME_IRANGE_HPP
 #define COCONUT_RUNTIME_IRANGE_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
 COCONUT_PRIVATE class COCONUT_VISIBLE irange COCONUT_FINAL
 {
@@ -62,6 +63,11 @@ public:
 	typedef iter_facet::value_type value_type;
 	typedef iter_facet::size_type size_type;
 	typedef iter_facet::difference_type difference_type;
+	
+	typedef iter_facet::reference reference;
+	typedef iter_facet::const_reference const_reference;
+	typedef iter_facet::pointer pointer;
+	typedef iter_facet::const_pointer const_pointer;
 	
 	iterator begin();
 	iterator end();

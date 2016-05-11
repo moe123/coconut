@@ -9,10 +9,16 @@
 #ifndef COCONUT_RUNTIME_NUMERIC_HPP
 #define COCONUT_RUNTIME_NUMERIC_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
+/**
+ * The numeric class offers a container as any C scalar (numeric) type.
+ * Note that numeric class does preserve the type it is created with ;
+ * thus, it does not guard against any overflows.
+ */
 COCONUT_PRIVATE class COCONUT_VISIBLE numeric COCONUT_FINAL
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.numeric, numeric)
@@ -131,7 +137,6 @@ private:
 	
 private:
 	std::uint16_t m_type;
-	
 	bool m_signed;
 	bool m_floating;
 };

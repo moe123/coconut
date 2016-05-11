@@ -11,8 +11,9 @@
 #ifndef COCONUT_RUNTIME_TYPES_HPP
 #define COCONUT_RUNTIME_TYPES_HPP
 
-namespace coconut {
-	namespace runtime {
+namespace coconut
+{ namespace runtime
+{
 		
 COCONUT_CLASSFORWARD_DCL(nucleus)
 
@@ -21,7 +22,8 @@ template <typename T> using Owning = std::shared_ptr<T>;
 
 }} /* EONS */
 
-namespace coconut {
+namespace coconut
+{
 
 using runtime::Any;
 using runtime::Owning;
@@ -61,8 +63,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 Owning<T1> ptr_cast(Owning<T2> const & r)
 { return std::dynamic_pointer_cast<T1>(r); }
 
-template <class T> struct tag_is_ptr : std::false_type {};
-template <class T> struct tag_is_ptr< Owning<T> > : std::true_type {};
+template <class T> struct tag_is_shared_ptr : std::false_type {};
+template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type {};
 
 template<class T> struct do_plain_type {
 	typedef typename std::remove_cv<
@@ -72,8 +74,9 @@ template<class T> struct do_plain_type {
 	
 } /* EONS */
 
-namespace coconut {
-	namespace runtime {
+namespace coconut
+{ namespace runtime
+{
 
 constexpr std::size_t const NotFound = std::numeric_limits<std::size_t>::max();
 constexpr std::size_t const MaxFound = (NotFound - 1);
@@ -248,6 +251,14 @@ COCONUT_OPT(launch_option)
 	launch_any
 };
 
+COCONUT_OPT(unicode_option)
+{
+	conv_default = 0,
+	conv_gen_bom,
+	conv_del_bom,
+	conv_del_gen_bom
+};
+	
 }} /* EONS */
 
 #endif /* !COCONUT_RUNTIME_TYPES_HPP */

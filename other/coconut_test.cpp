@@ -1060,6 +1060,149 @@ int Σ0() {
 int main(int argc, const char * argv[])
 {
 	{
+		std::u16string out = u"ΠαρθένωνΗ";
+		//std::string utf8_in = u8"나는태오";
+		std::string utf8_in = u8"\xEF\xBB\xBFΠαρθένωνΗ";
+		//std::string utf8_in = u8"ΠαρθένωνΗ";
+		
+		for (char16_t c : out) {
+			std::cerr << std::hex << std::showbase << c << std::endl;
+		}
+		
+		icu::UnicodeString str = icu::UnicodeString(utf8_in.data(), utf8_in.size(), "UTF-8");
+		
+		
+		for (std::int32_t i = 0 ; i <= str.length() ; i++) {
+			std::cerr << std::hex << std::showbase << str.charAt(i) << std::endl;
+		}
+		
+		UFILE * f;
+		f = u_fopen("/tmp/UTF-16_LE.txt", "w", NULL, "UTF-16 LE");
+		u_file_write(str.getTerminatedBuffer(), str.length() + 1, f);
+		u_fclose(f);
+		
+		f = u_fopen("/tmp/UTF-16_BE.txt", "w", NULL, "UTF-16 BE");
+		u_file_write(str.getTerminatedBuffer(), str.length() + 1, f);
+		u_fclose(f);
+
+		f = u_fopen("/tmp/UTF-16_BOM.txt", "w", NULL, "UTF-16");
+		u_file_write(str.getTerminatedBuffer(), str.length() + 1, f);
+		u_fclose(f);
+		
+		out.clear();
+		
+		runtime::unicode::conv_utf8_utf16<>(utf8_in, out);
+		
+		//std::u16string out1 = u"\uFFFE";
+		//out1.append(out);
+		
+		
+		
+		std::cerr << " --- codeset_utf8_utf16 out " << std::endl;
+		
+		for (char16_t c : out) {
+			std::cerr << std::hex << std::showbase << c << std::endl;
+		}
+		
+		std::cerr << " --- UnicodeString out UTF-16 BE " << std::endl;
+		
+		str = icu::UnicodeString((char *)out.data(), (int32_t)out.size() * 2, "UTF-16 BE");
+		
+		for (std::int32_t i = 0 ; i <= str.length() ; i++) {
+			std::cerr << std::hex << std::showbase << str.charAt(i) << std::endl;
+		}
+		
+		{
+			std::string r;
+			str.toUTF8String<std::string>(r);
+			std::cerr << r << std::endl;
+		}
+		
+		std::cerr << " --- UnicodeString end " << std::endl;
+		std::cerr << " --- UnicodeString out UTF-16" << std::endl;
+		
+		str = icu::UnicodeString((char *)out.data(), (int32_t)out.size() * sizeof(char16_t), "UTF-16");
+		
+		for (std::int32_t i = 0 ; i <= str.length() ; i++) {
+			std::cerr << std::hex << std::showbase << str.charAt(i) << std::endl;
+		}
+		
+		{
+			std::string r;
+			str.toUTF8String<std::string>(r);
+			std::cerr << r << std::endl;
+		}
+		
+		std::cerr << " --- UnicodeString end " << std::endl;
+		std::cerr << " --- UnicodeString out UTF-16 LE" << std::endl;
+		
+		str = icu::UnicodeString((char *)out.data(), (int32_t)out.size() * 2, "UTF-16 LE");
+		
+		for (std::int32_t i = 0 ; i <= str.length() ; i++) {
+			std::cerr << std::hex << std::showbase << str.charAt(i) << std::endl;
+		}
+		
+		{
+			std::string r;
+			str.toUTF8String<std::string>(r);
+			std::cerr << r << std::endl;
+		}
+		
+		std::cerr << " --- UnicodeString end " << std::endl;
+		
+		runtime::traits::ustring s1(out, runtime::encoding_utf16be);
+		
+		std::cerr << "+ s1 " << s1.to_utf8() << std::endl;
+		
+		std::wstring wout(out.cbegin(), out.cend());
+		
+		std::cerr << " --- wout " << std::endl;
+		
+		for (char16_t c : wout) {
+			std::cerr << std::hex << std::showbase << c << std::endl;
+		}
+		
+		out.clear();
+		
+		runtime::unicode::conv_utf8_utf16<>(utf8_in, out);
+		
+		std::cerr << " --- out " << std::endl;
+		
+		for (char16_t c : out) {
+			std::cerr << std::hex << std::showbase << c << std::endl;
+		}
+		
+		std::cerr << " --- s1_1 " << std::endl;
+		
+		std::u16string s1_1 = s1.to_utf16_le();
+		
+		for (char16_t c : s1_1) {
+			std::cerr << std::hex << std::showbase << c << std::endl;
+		}
+		
+		std::cerr << " --- s1_2 " << std::endl;
+		
+		std::u16string s1_2 = s1.to_utf16();
+		
+		for (char16_t c : s1_2) {
+			std::cerr << std::hex << std::showbase << c << std::endl;
+		}
+		
+		std::cerr << " --- " << std::endl;
+		
+		runtime::traits::ustring s1_3(s1_1, runtime::encoding_utf16le);
+		
+		std::cerr << "+ s1_3 " << s1_3.to_utf8() << std::endl;
+		
+		
+		//std::cerr << runtime::traits::ustring::get_codepage(runtime::encoding_utf16be) << std::endl;
+		
+		runtime::traits::ustring s1_4(s1_2, runtime::encoding_utf16be);
+		
+		std::cerr << "+ s1_4 " << s1_4.to_utf8() << std::endl;
+	}
+	
+	{
 		Array nums = {
 			With<Number>(1),
 			With<Number>(2),

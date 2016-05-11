@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_INDEXPATH_HPP
 #define COCONUT_RUNTIME_INDEXPATH_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 	
 COCONUT_PRIVATE class COCONUT_VISIBLE indexpath COCONUT_FINAL
 {
@@ -49,18 +50,25 @@ public:
 	std::string to_string() const;
 	std::size_t hash_code() const;
 
+private:
+	typedef std::vector<std::size_t> container_type;
+	
 public:
-	typedef std::vector<std::size_t>::iterator iterator;
-	typedef std::vector<std::size_t>::const_iterator const_iterator;
+	/* type_traits */
 	
-	typedef std::vector<std::size_t>::reverse_iterator reverse_iterator;
-	typedef std::vector<std::size_t>::const_reverse_iterator const_reverse_iterator;
+	typedef container_type::iterator iterator;
+	typedef container_type::const_iterator const_iterator;
 	
-	typedef std::vector<std::size_t>::value_type value_type;
-	typedef std::vector<std::size_t>::size_type size_type;
-	typedef std::vector<std::size_t>::difference_type difference_type;
+	typedef container_type::reverse_iterator reverse_iterator;
+	typedef container_type::const_reverse_iterator const_reverse_iterator;
+	
+	typedef container_type::value_type value_type;
+	typedef container_type::size_type size_type;
+	typedef container_type::difference_type difference_type;
 
 public:
+	/* type_iterator */
+	
 	iterator begin();
 	iterator end();
 	
@@ -80,7 +88,7 @@ public:
 	const_reverse_iterator crend() const;
 	
 private:
-	std::vector<std::size_t> m_indexes;
+	container_type m_indexes;
 };
 
 }}} /* EONS */

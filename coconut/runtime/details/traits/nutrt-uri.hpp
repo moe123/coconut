@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_URI_HPP
 #define COCONUT_RUNTIME_URI_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 	
 COCONUT_PRIVATE class COCONUT_VISIBLE uri COCONUT_FINAL
 {
@@ -80,7 +81,6 @@ public:
 private:
 	std::map<std::string, std::string> m_components;
 	std::map<std::string, std::string> m_parameters;
-	
 	std::uint16_t m_port;
 	bool m_isfile_url;
 	bool m_isvalid_url;

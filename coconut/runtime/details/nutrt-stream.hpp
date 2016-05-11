@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_STREAM_HPP
 #define COCONUT_RUNTIME_STREAM_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace stream {
+namespace coconut
+{ namespace runtime
+{ namespace stream
+{
 
 COCONUT_PRIVATE class COCONUT_VISIBLE ifstream COCONUT_FINAL : public std::ifstream
 {

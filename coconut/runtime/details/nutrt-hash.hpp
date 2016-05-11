@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_HASH_HPP
 #define COCONUT_RUNTIME_HASH_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace hash {
+namespace coconut
+{ namespace runtime
+{ namespace hash
+{
 
 COCONUT_PRIVATE class COCONUT_VISIBLE sha_base
 {

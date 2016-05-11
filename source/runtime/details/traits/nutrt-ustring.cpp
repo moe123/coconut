@@ -11,6 +11,7 @@
 #include <coconut/runtime/details/nutrt-base64.hpp>
 #include <coconut/runtime/details/nutrt-hash.hpp>
 #include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-byteorder.hpp>
 #include <coconut/runtime/details/nutrt-unicode.hpp>
 
 using namespace coconut::runtime::traits;
@@ -133,10 +134,21 @@ ustring::ustring(const std::int16_t * bytes, std::size_t length, encoding_option
 			case encoding_utf16le:
 			case encoding_utf16be:
 			{
+				std::string codepage = builtins::ustring_getcodepage(encoding);
+				
+				std::cerr << " --- codepage -- " << codepage << std::endl;
+				
 				m_ustr = icu::UnicodeString(
-					weak_cast<const UChar *>(bytes),
-					weak_cast<std::int32_t>(length)
+					weak_cast<const char *>(bytes),
+					weak_cast<std::int32_t>(length * sizeof(UChar)),
+					codepage.c_str()
 				);
+				/*
+				m_ustr = icu::UnicodeString(
+				   weak_cast<const UChar *>(bytes),
+				   weak_cast<std::int32_t>(length)
+				);*/
+				
 				if (!is_valid() || !size()) {
 					clear();
 					m_ustr.setToBogus();
@@ -685,6 +697,63 @@ const std::u32string ustring::to_utf32() const
 		}
 	}
 	return result;
+}
+
+const std::u16string ustring::to_utf16_le() const
+{
+#if COCONUT_ARCH_BIG_ENDIAN
+	std::u16string s = to_utf16();
+	for (std::size_t i = 0 ; i < s.size() ; i++) {
+		char16_t c = s[i];
+		s[i] = runtime::byteorder::swpc16(c);
+	}
+	return s;
+#else
+	return to_utf16();
+#endif
+}
+
+const std::u32string ustring::to_utf32_le() const
+{
+#if COCONUT_ARCH_BIG_ENDIAN
+	std::u32string s = to_utf32();
+	for (std::size_t i = 0 ; i < s.size() ; i++) {
+		char32_t c = s[i];
+		s[i] = runtime::byteorder::swpc32(c);
+	}
+	return s;
+#else
+	return to_utf32();
+#endif
+}
+
+const std::u16string ustring::to_utf16_be() const
+{
+#if COCONUT_ARCH_BIG_ENDIAN
+	return to_utf16();
+#else
+	std::u16string s0 = u"\uFFFE";
+	std::u16string s1 = to_utf16();
+	for (std::size_t i = 0 ; i < s1.size(); i++) {
+		const char16_t c = s1[i];
+		s1[i] = runtime::byteorder::swpc16(c);
+	}
+	return s1;
+#endif
+}
+
+const std::u32string ustring::to_utf32_be() const
+{
+#if COCONUT_ARCH_BIG_ENDIAN
+	return to_utf32();
+#else
+	std::u32string s = to_utf32();
+	for (std::size_t i = 0 ; i < s.size() ; i++) {
+		char32_t c = s[i];
+		s[i] = runtime::byteorder::swpc32(c);
+	}
+	return s;
+#endif
 }
 
 #pragma mark -

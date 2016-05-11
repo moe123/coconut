@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_INDEXSET_HPP
 #define COCONUT_RUNTIME_INDEXSET_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
 COCONUT_CLASSFORWARD_DCL(irange)
 		

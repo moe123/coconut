@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_ISLICE_HPP
 #define COCONUT_RUNTIME_ISLICE_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
 COCONUT_PRIVATE class COCONUT_VISIBLE islice COCONUT_FINAL
 {
@@ -42,18 +43,30 @@ public:
 	
 	std::string to_string() const;
 
-public:
-	typedef std::vector<std::size_t>::iterator iterator;
-	typedef std::vector<std::size_t>::const_iterator const_iterator;
-	
-	typedef std::vector<std::size_t>::reverse_iterator reverse_iterator;
-	typedef std::vector<std::size_t>::const_reverse_iterator const_reverse_iterator;
-	
-	typedef std::vector<std::size_t>::value_type value_type;
-	typedef std::vector<std::size_t>::size_type size_type;
-	typedef std::vector<std::size_t>::difference_type difference_type;
+private:
+	typedef std::vector<std::size_t> container_type;
 	
 public:
+	/* type_traits */
+	
+	typedef container_type::iterator iterator;
+	typedef container_type::const_iterator const_iterator;
+	
+	typedef container_type::reverse_iterator reverse_iterator;
+	typedef container_type::const_reverse_iterator const_reverse_iterator;
+	
+	typedef container_type::value_type value_type;
+	typedef container_type::size_type size_type;
+	typedef container_type::difference_type difference_type;
+	
+	typedef container_type::reference reference;
+	typedef container_type::const_reference const_reference;
+	typedef container_type::pointer pointer;
+	typedef container_type::const_pointer const_pointer;
+	
+public:
+	/* type_iterator */
+	
 	iterator begin();
 	iterator end();
 	
@@ -73,7 +86,7 @@ public:
 	const_reverse_iterator crend() const;
 	
 private:
-	mutable std::vector<std::size_t> m_indexes;
+	mutable container_type m_indexes;
 	std::int64_t m_start;
 	std::int64_t m_stop;
 	std::int64_t m_step;

@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_DATETIME_HPP
 #define COCONUT_RUNTIME_DATETIME_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace traits {
+namespace coconut
+{ namespace runtime
+{ namespace traits
+{
 
 /**
  * The datetime class encapsulates a single point in time, independent
@@ -67,7 +68,7 @@ public:
 	
 	datetime by_adding_time(double milliseconds) const;
 	datetime by_adding_time(double interval, timeunit_option unit_opt) const;
-	
+
 private:
 	std::size_t m_type;
 	double m_millitime;

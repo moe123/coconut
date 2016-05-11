@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_ASYNC_HPP
 #define COCONUT_RUNTIME_ASYNC_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace async {
+namespace coconut
+{ namespace runtime
+{ namespace async
+{
 	
 template <typename PromT>
 COCONUT_PRIVATE class COCONUT_VISIBLE shall COCONUT_FINAL
