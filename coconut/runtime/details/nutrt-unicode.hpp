@@ -16,7 +16,7 @@ namespace coconut
 	
 template<typename CharT1, typename CharT2, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void conv_from(
+void conv_from_bytes(
 	const std::basic_string<CharT1, std::char_traits<CharT1>, std::allocator<CharT1> > & src,
 	std::basic_string<CharT2, std::char_traits<CharT2>, std::allocator<CharT2> > & dest
 ) {
@@ -26,7 +26,7 @@ void conv_from(
 
 template<typename CharT1, typename CharT2, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void conv_to(
+void conv_to_bytes(
 	const std::basic_string<CharT1, std::char_traits<CharT1>, std::allocator<CharT1> > & src,
 	std::basic_string<CharT2, std::char_traits<CharT2>, std::allocator<CharT2> > & dest
 ) {
@@ -46,7 +46,7 @@ void conv_utf16_utf8(
 	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
-	conv_from<Char8T, Char16T, CodecvtT>(src, dest);
+	conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -60,7 +60,7 @@ typename std::enable_if<
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
-	conv_from<Char8T, Char16T, CodecvtT>(src, dest);
+	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -76,7 +76,7 @@ typename std::enable_if<
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header|std::generate_header)
 	>;
-	conv_from<Char8T, Char16T, CodecvtT>(src, dest);
+	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -92,7 +92,7 @@ typename std::enable_if<
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header)
 	>;
-	conv_from<Char8T, Char16T, CodecvtT>(src, dest);
+	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -108,7 +108,7 @@ typename std::enable_if<
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::generate_header)
 	>;
-	conv_from<Char8T, Char16T, CodecvtT>(src, dest);
+	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 
 template<typename Char8T, typename Char16T,
