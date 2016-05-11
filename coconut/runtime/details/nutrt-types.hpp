@@ -253,10 +253,10 @@ COCONUT_OPT(launch_option)
 
 COCONUT_OPT(unicode_option)
 {
-	conv_default = 0,
-	conv_gen_bom,
-	conv_del_bom,
-	conv_del_gen_bom
+	unicode_conv_default = 0,
+	unicode_conv_gen_bom,
+	unicode_conv_del_bom,
+	unicode_conv_del_gen_bom
 };
 	
 }} /* EONS */
