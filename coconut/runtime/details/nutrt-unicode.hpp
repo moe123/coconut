@@ -193,12 +193,29 @@ void conv_utf8_ucs2(
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string utf8_to_utf16(
 	const std::string & utf8_in,
-	unicode_option option = conv_default
+	unicode_option option
 ) {
 	std::u16string utf16_out;
-	conv_utf8_to_utf16<>(utf8_in, utf16_out, option);
+	
+	using Char8T = std::string::value_type;
+	using Char16T = std::u16string::value_type;
+	
+	conv_utf8_to_utf16<Char8T, Char16T>(utf8_in, utf16_out, option);
 	return utf16_out;
 }
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::u16string utf8_to_utf16(const std::string & utf8_in)
+{
+	std::u16string utf16_out;
+	
+	using Char8T = std::string::value_type;
+	using Char16T = std::u16string::value_type;
+	
+	conv_utf8_to_utf16<Char8T, Char16T, conv_default>(utf8_in, utf16_out);
+	return utf16_out;
+}
+
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string utf8_to_ucs2(
