@@ -34,6 +34,62 @@ void __conv_to_bytes(
 	dest = conv.to_bytes(src);
 }
 
+template<typename Char8T,
+	typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+bool __utf8_have_bom(
+	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8
+) {
+	bool have_bom = false;
+	if (in_utf8.size() >= 3) {
+		if (in_utf8[0] == 0xEF && in_utf8[1] == 0xBB &&  in_utf8[2] == 0XBF) {
+			have_bom = true;
+		}
+	}
+	return have_bom;
+}
+	
+template<typename Char8T,
+	typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+void __utf8_add_bom(
+	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8
+) { if (!__utf8_have_bom(in_utf8)) { in_utf8.insert(0, R"(\xEF\xBB\xBF)"); } }
+	
+template<typename Char8T,
+	typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+void __utf8_del_bom(
+	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8
+) { if (__utf8_have_bom(in_utf8)) { in_utf8.erase(0, 3); } }
+	
+template<typename Char8T,
+	typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+void __utf8_bom(
+	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8,
+	unicode_option option
+) {
+	switch (option)
+	{
+		case unicode_conv_del_gen_bom:
+		case unicode_conv_gen_bom:
+			__utf8_add_bom(in_utf8);
+		break;
+		default:
+			__utf8_del_bom(in_utf8);
+		break;
+	}
+}
+
 template<typename Char16T, typename Char8T,
 	typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
@@ -48,26 +104,7 @@ void _conv_utf16_to_utf8(
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
 	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
-	if (option != unicode_conv_default) {
-		bool have_bom = false;
-		if (dest.size() >= 3) {
-			if (dest[0] == 0xEF && dest[1] == 0xBB &&  dest[2] == 0XBF) {
-				have_bom = true;
-			}
-		}
-		switch (option)
-		{
-			case unicode_conv_del_gen_bom:
-			case unicode_conv_gen_bom:
-				if (!have_bom) { dest.insert(0, u8"\xEF\xBB\xBF"); }
-			break;
-			case unicode_conv_del_bom:
-				if (have_bom) { dest.erase(0, 3); }
-			break;
-			default:
-			break;
-		}
-	}
+	__utf8_bom<Char8T>(dest, option);
 }
 
 template<typename Char16T, typename Char8T,
@@ -190,26 +227,7 @@ void _conv_ucs2_to_utf8(
 ) {
 	using CodecvtT = std::codecvt_utf8<Char16T>;
 	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
-	if (option != unicode_conv_default) {
-		bool have_bom = false;
-		if (dest.size() >= 3) {
-			if (dest[0] == 0xEF && dest[1] == 0xBB &&  dest[2] == 0XBF) {
-				have_bom = true;
-			}
-		}
-		switch (option)
-		{
-			case unicode_conv_del_gen_bom:
-			case unicode_conv_gen_bom:
-				if (!have_bom) { dest.insert(0, u8"\xEF\xBB\xBF"); }
-			break;
-			case unicode_conv_del_bom:
-				if (have_bom) { dest.erase(0, 3); }
-			break;
-			default:
-			break;
-		}
-	}
+	__utf8_bom<Char8T>(dest, option);
 }
 
 template<typename Char16T, typename Char8T,
@@ -332,26 +350,7 @@ void _conv_ucs4_to_utf8(
 ) {
 	using CodecvtT = std::codecvt_utf8<Char32T>;
 	__conv_to_bytes<Char32T, Char8T, CodecvtT>(src, dest);
-	if (option != unicode_conv_default) {
-		bool have_bom = false;
-		if (dest.size() >= 3) {
-			if (dest[0] == 0xEF && dest[1] == 0xBB &&  dest[2] == 0XBF) {
-				have_bom = true;
-			}
-		}
-		switch (option)
-		{
-			case unicode_conv_del_gen_bom:
-			case unicode_conv_gen_bom:
-				if (!have_bom) { dest.insert(0, u8"\xEF\xBB\xBF"); }
-			break;
-			case unicode_conv_del_bom:
-				if (have_bom) { dest.erase(0, 3); }
-			break;
-			default:
-			break;
-		}
-	}
+	__utf8_bom<Char8T>(dest, option);
 }
 
 template<typename Char32T, typename Char8T,
