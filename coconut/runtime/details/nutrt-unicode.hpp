@@ -644,6 +644,14 @@ std::string utf32_to_utf8(
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string utf32_to_utf8(const std::u32string & in_utf32)
 { return ucs4_to_utf8(in_utf32); }
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string & utf8_add_bom(std::string & in_utf8)
+{ __utf8_add_bom(in_utf8); return in_utf8; }
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string & utf8_del_bom(std::string & in_utf8)
+{ __utf8_del_bom(in_utf8); return in_utf8; }
 
 std::wstring utf8_to_wide(const std::string & utf8_in);
 std::string wide_to_utf8(const std::wstring & wide_in);
