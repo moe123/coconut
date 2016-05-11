@@ -16,7 +16,7 @@ namespace coconut
 	
 template<typename CharT1, typename CharT2, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void conv_from_bytes(
+void from_bytes(
 	const std::basic_string<CharT1, std::char_traits<CharT1>, std::allocator<CharT1> > & src,
 	std::basic_string<CharT2, std::char_traits<CharT2>, std::allocator<CharT2> > & dest
 ) {
@@ -26,7 +26,7 @@ void conv_from_bytes(
 
 template<typename CharT1, typename CharT2, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void conv_to_bytes(
+void to_bytes(
 	const std::basic_string<CharT1, std::char_traits<CharT1>, std::allocator<CharT1> > & src,
 	std::basic_string<CharT2, std::char_traits<CharT2>, std::allocator<CharT2> > & dest
 ) {
@@ -41,12 +41,12 @@ template<typename Char16T, typename Char8T,
 	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void conv_utf16_utf8(
+void conv_utf16_to_utf8(
 	const std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & src,
 	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
-	conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
+	to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -55,12 +55,12 @@ typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
 	O == conv_default, void
->::type conv_utf8_utf16(
+>::type conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
-	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -69,14 +69,14 @@ typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
 	O == conv_del_gen_bom, void
->::type conv_utf8_utf16(
+>::type conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header|std::generate_header)
 	>;
-	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -85,14 +85,14 @@ typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
 	O == conv_del_bom, void
->::type conv_utf8_utf16(
+>::type conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header)
 	>;
-	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
 template<typename Char8T, typename Char16T, unicode_option O>
@@ -101,14 +101,14 @@ typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
 	O == conv_gen_bom, void
->::type conv_utf8_utf16(
+>::type conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::generate_header)
 	>;
-	conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 
 template<typename Char8T, typename Char16T,
@@ -118,7 +118,7 @@ template<typename Char8T, typename Char16T,
 	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void conv_utf8_utf16(
+void conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest,
 	unicode_option option = conv_default
@@ -126,16 +126,16 @@ void conv_utf8_utf16(
 	switch (option)
 	{
 		case conv_del_gen_bom:
-			conv_utf8_utf16<Char8T, Char16T, conv_del_gen_bom>(src, dest);
+			conv_utf8_to_utf16<Char8T, Char16T, conv_del_gen_bom>(src, dest);
 		break;
 		case conv_del_bom:
-			conv_utf8_utf16<Char8T, Char16T, conv_del_bom>(src, dest);
+			conv_utf8_to_utf16<Char8T, Char16T, conv_del_bom>(src, dest);
 		break;
 		case conv_gen_bom:
-			conv_utf8_utf16<Char8T, Char16T, conv_gen_bom>(src, dest);
+			conv_utf8_to_utf16<Char8T, Char16T, conv_gen_bom>(src, dest);
 		break;
 		default:
-			conv_utf8_utf16<Char8T, Char16T, conv_default>(src, dest);
+			conv_utf8_to_utf16<Char8T, Char16T, conv_default>(src, dest);
 		break;
 	}
 }
@@ -196,7 +196,7 @@ std::u16string utf8_to_utf16(
 	unicode_option option = conv_default
 ) {
 	std::u16string utf16_out;
-	conv_utf8_utf16<>(utf8_in, utf16_out, option);
+	conv_utf8_to_utf16<>(utf8_in, utf16_out, option);
 	return utf16_out;
 }
 
