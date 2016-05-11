@@ -33,7 +33,43 @@ void __conv_to_bytes(
 	std::wstring_convert<CodecvtT, CharT1> conv;
 	dest = conv.to_bytes(src);
 }
-	
+
+template<typename Char16T, typename Char8T,
+	typename std::enable_if<
+		sizeof(Char16T) == sizeof(char16_t) &&
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void _conv_utf16_to_utf8(
+	const std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & src,
+	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & dest,
+	unicode_option option
+) {
+	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
+	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
+	if (option != unicode_conv_default) {
+		bool have_bom = false;
+		if (dest.size() >= 3) {
+			if (dest[0] == 0xEF && dest[1] == 0xBB &&  dest[2] == 0XBF) {
+				have_bom = true;
+			}
+		}
+		switch (option)
+		{
+			case unicode_conv_del_gen_bom:
+			case unicode_conv_gen_bom:
+				if (!have_bom) { dest.insert(0, u8"\xEF\xBB\xBF"); }
+			break;
+			case unicode_conv_del_bom:
+				if (have_bom) { dest.erase(0, 3); }
+			break;
+			default:
+			break;
+		}
+	}
+}
+
 template<typename Char16T, typename Char8T,
 	typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
@@ -48,7 +84,7 @@ void _conv_utf16_to_utf8(
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
 	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
 }
-	
+
 template<typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -121,7 +157,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest,
-	unicode_option option = unicode_conv_default
+	unicode_option option
 ) {
 	switch (option)
 	{
@@ -139,7 +175,43 @@ void _conv_utf8_to_utf16(
 		break;
 	}
 }
-	
+
+template<typename Char16T, typename Char8T,
+	typename std::enable_if<
+		sizeof(Char16T) == sizeof(char16_t) &&
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void _conv_ucs2_to_utf8(
+	const std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & src,
+	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & dest,
+	unicode_option option
+) {
+	using CodecvtT = std::codecvt_utf8<Char16T>;
+	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
+	if (option != unicode_conv_default) {
+		bool have_bom = false;
+		if (dest.size() >= 3) {
+			if (dest[0] == 0xEF && dest[1] == 0xBB &&  dest[2] == 0XBF) {
+				have_bom = true;
+			}
+		}
+		switch (option)
+		{
+			case unicode_conv_del_gen_bom:
+			case unicode_conv_gen_bom:
+				if (!have_bom) { dest.insert(0, u8"\xEF\xBB\xBF"); }
+			break;
+			case unicode_conv_del_bom:
+				if (have_bom) { dest.erase(0, 3); }
+			break;
+			default:
+			break;
+		}
+	}
+}
+
 template<typename Char16T, typename Char8T,
 	typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
@@ -227,7 +299,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void _conv_utf8_to_ucs2(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest,
-	unicode_option option = unicode_conv_default
+	unicode_option option
 ) {
 	switch (option)
 	{
@@ -243,6 +315,42 @@ void _conv_utf8_to_ucs2(
 		default:
 			_conv_utf8_to_ucs2<Char8T, Char16T, unicode_conv_default>(src, dest);
 		break;
+	}
+}
+
+template<typename Char32T, typename Char8T,
+	typename std::enable_if<
+		sizeof(Char32T) == sizeof(char32_t) &&
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void _conv_ucs4_to_utf8(
+	const std::basic_string<Char32T, std::char_traits<Char32T>, std::allocator<Char32T> > & src,
+	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & dest,
+	unicode_option option
+) {
+	using CodecvtT = std::codecvt_utf8<Char32T>;
+	__conv_to_bytes<Char32T, Char8T, CodecvtT>(src, dest);
+	if (option != unicode_conv_default) {
+		bool have_bom = false;
+		if (dest.size() >= 3) {
+			if (dest[0] == 0xEF && dest[1] == 0xBB &&  dest[2] == 0XBF) {
+				have_bom = true;
+			}
+		}
+		switch (option)
+		{
+			case unicode_conv_del_gen_bom:
+			case unicode_conv_gen_bom:
+				if (!have_bom) { dest.insert(0, u8"\xEF\xBB\xBF"); }
+			break;
+			case unicode_conv_del_bom:
+				if (have_bom) { dest.erase(0, 3); }
+			break;
+			default:
+			break;
+		}
 	}
 }
 
@@ -333,7 +441,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void _conv_utf8_to_ucs4(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char32T, std::char_traits<Char32T>, std::allocator<Char32T> > & dest,
-	unicode_option option = unicode_conv_default
+	unicode_option option
 ) {
 	switch (option)
 	{
@@ -440,6 +548,20 @@ std::u32string utf8_to_utf32(const std::string & utf8_in)
 { return utf8_to_ucs4(utf8_in); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string utf16_to_utf8(
+	const std::u16string & utf16_in,
+	unicode_option option
+) {
+	std::string utf8_out;
+	
+	using Char16T = std::u16string::value_type;
+	using Char8T = std::string::value_type;
+	
+	_conv_utf16_to_utf8<Char16T, Char8T>(utf16_in, utf8_out, option);
+	return utf8_out;
+}
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string utf16_to_utf8(const std::u16string & utf16_in)
 {
 	std::string utf8_out;
@@ -448,6 +570,20 @@ std::string utf16_to_utf8(const std::u16string & utf16_in)
 	using Char8T = std::string::value_type;
 	
 	_conv_utf16_to_utf8<Char16T, Char8T>(utf16_in, utf8_out);
+	return utf8_out;
+}
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string ucs2_to_utf8(
+	const std::u16string & in_ucs2,
+	unicode_option option
+) {
+	std::string utf8_out;
+	
+	using Char16T = std::u16string::value_type;
+	using Char8T = std::string::value_type;
+	
+	_conv_ucs2_to_utf8<Char16T, Char8T>(in_ucs2, utf8_out, option);
 	return utf8_out;
 }
 
@@ -464,8 +600,29 @@ std::string ucs2_to_utf8(const std::u16string & in_ucs2)
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::u16string ucs2_to_utf16(
+	const std::u16string & in_ucs2,
+	unicode_option option
+)
+{ return utf8_to_utf16(ucs2_to_utf8(in_ucs2, unicode_conv_del_bom), option); }
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string ucs2_to_utf16(const std::u16string & in_ucs2)
-{ return utf8_to_utf16(ucs2_to_utf8(in_ucs2)); }
+{ return utf8_to_utf16(ucs2_to_utf8(in_ucs2, unicode_conv_del_bom)); }
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string ucs4_to_utf8(
+	const std::u32string & in_ucs4,
+	unicode_option option
+) {
+	std::string utf8_out;
+	
+	using Char32T = std::u32string::value_type;
+	using Char8T = std::string::value_type;
+	
+	_conv_ucs4_to_utf8<Char32T, Char8T>(in_ucs4, utf8_out, option);
+	return utf8_out;
+}
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string ucs4_to_utf8(const std::u32string & in_ucs4)
@@ -478,6 +635,12 @@ std::string ucs4_to_utf8(const std::u32string & in_ucs4)
 	_conv_ucs4_to_utf8<Char32T, Char8T>(in_ucs4, utf8_out);
 	return utf8_out;
 }
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string utf32_to_utf8(
+	const std::u32string & in_utf32,
+	unicode_option option
+) { return ucs4_to_utf8(in_utf32, option); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string utf32_to_utf8(const std::u32string & in_utf32)

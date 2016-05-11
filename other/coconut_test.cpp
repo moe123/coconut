@@ -1091,7 +1091,7 @@ int main(int argc, const char * argv[])
 		
 		out.clear();
 		
-		runtime::unicode::_conv_utf8_to_utf16<>(utf8_in, out);
+		runtime::unicode::_conv_utf8_to_utf16<>(utf8_in, out, runtime::unicode_conv_default);
 		
 		//std::u16string out1 = u"\uFFFE";
 		//out1.append(out);
@@ -1164,7 +1164,7 @@ int main(int argc, const char * argv[])
 		
 		out.clear();
 		
-		runtime::unicode::_conv_utf8_to_utf16<>(utf8_in, out);
+		runtime::unicode::_conv_utf8_to_utf16<>(utf8_in, out, runtime::unicode_conv_default);
 		
 		std::cerr << " --- out " << std::endl;
 		
