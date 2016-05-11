@@ -429,7 +429,7 @@ MutableArray & MutableArray::sortUsingDescriptors(const Array & descriptors, Sor
 Owning<Any> & MutableArray::operator [] (std::size_t index)
 {
 	std::size_t sz = m_impl.size();
-	if (index  == MaxFound || index >= sz) {
+	if (index == MaxFound || index >= sz) {
 		m_impl.resize(sz + 1);
 		index = sz;
 	}

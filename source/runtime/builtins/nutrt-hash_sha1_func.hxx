@@ -4,15 +4,16 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
+	
 // //////////////////////////////////////////////////////////
 // @based on sha1.cpp
 // Copyright (C) 2014 Stephan Brumme. All rights reserved.
 // @see http://create.stephan-brumme.com/disclaimer.html
 //
-
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint32_t hash_sha1_rot(std::uint32_t a, std::uint32_t c)

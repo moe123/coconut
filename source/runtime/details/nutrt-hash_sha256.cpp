@@ -145,7 +145,7 @@ void hash::sha256::process_block(const void * block)
 			)
 			+ words[i-7]
 			+ (
-			   builtins::hash_sha256_rot(words[i - 2], 17)
+				builtins::hash_sha256_rot(words[i - 2], 17)
 				^ builtins::hash_sha256_rot(words[i - 2], 19)
 				^ (words[i - 2] >> 10)
 			);

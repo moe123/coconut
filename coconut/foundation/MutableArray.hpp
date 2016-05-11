@@ -54,7 +54,7 @@ namespace coconut
 		{ return setObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
 		
 		template <typename IterT>
-		MutableArray &  setObjects(IterT && beg, IterT && end, CopyOption option)
+		MutableArray & setObjects(IterT && beg, IterT && end, CopyOption option)
 		{ return setObjectsFromArray({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
 		
 		MutableArray & setObject(const Any & obj, std::size_t at_idx);

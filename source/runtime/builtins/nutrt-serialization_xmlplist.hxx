@@ -4,12 +4,12 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
+
 #define PUGIXML_HEADER_ONLY
-
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
-
 #include "pugixml.hpp"
 
 struct xmlplist_writer : pugi::xml_writer

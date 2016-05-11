@@ -145,7 +145,7 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return  ptr_create<Array>(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 #pragma mark -
@@ -179,11 +179,11 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 			Owning<Any> item = (*it);
 			Owning<Any> v;
 			if (item) { v = item->valueForKeyPath(utf8_keypath); }
-			if (!v) { v =  ptr_create<None>(); }
+			if (!v) { v = ptr_create<None>(); }
 			buf.push_back(v);
 		}
 	}
-	return  ptr_create<Array>(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 #pragma mark -
@@ -197,7 +197,7 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 		if (item) {
 			v = item->valueForSelectorKey(utf8_selkey, arg);
 		}
-		if (!v) { v =  ptr_create<None>(); }
+		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
 	return {buf.begin(), buf.end()};

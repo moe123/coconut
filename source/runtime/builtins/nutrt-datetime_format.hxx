@@ -9,9 +9,10 @@
 #include "unicode/smpdtfmt.h"
 #include "unicode/fieldpos.h"
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string datetime_format_utc(double milliseconds)

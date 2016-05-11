@@ -705,7 +705,7 @@ Owning<Any> Object::KVCunionOfArrays(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return  ptr_create<Array>(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::KVCunionOfOrderedSets(const std::string & utf8_key) const
@@ -736,7 +736,7 @@ Owning<Any> Object::KVCunionOfOrderedSets(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return  ptr_create<Array>(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 
 Owning<Any> Object::KVCunionOfSets(const std::string & utf8_key) const
@@ -767,7 +767,7 @@ Owning<Any> Object::KVCunionOfSets(const std::string & utf8_key) const
 	} else {
 		// Fault();
 	}
-	return  ptr_create<Array>(buf.begin(), buf.end());
+	return ptr_create<Array>(buf.begin(), buf.end());
 }
 	
 /* EOF */

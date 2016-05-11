@@ -7,11 +7,13 @@
 #include "unicode/coll.h"
 #include "unicode/ucsdet.h"
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
-namespace {
+namespace
+{
 	
 static struct { encoding_option encoding; const char * codepage; } const ustring_codepages[] =
 {
@@ -74,7 +76,7 @@ static struct { encoding_option encoding; const char * codepage; } const ustring
 	{ 10000, nullptr }
 };
 	
-}  /* EONS */
+} /* EONS */
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ustring_syscodepages(std::vector<std::string> & codepages)

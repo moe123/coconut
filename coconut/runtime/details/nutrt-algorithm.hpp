@@ -9,9 +9,10 @@
 #ifndef COCONUT_RUNTIME_ALGORITHM_HPP
 #define COCONUT_RUNTIME_ALGORITHM_HPP
 
-namespace coconut {
-	namespace runtime {
-		namespace algorithm {
+namespace coconut
+{ namespace runtime
+{ namespace algorithm
+{
 
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

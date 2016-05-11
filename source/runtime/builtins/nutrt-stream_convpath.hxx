@@ -12,9 +12,10 @@
 	#include <windows.h>
 #endif
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 #if defined(__MICROSOFT__)
 

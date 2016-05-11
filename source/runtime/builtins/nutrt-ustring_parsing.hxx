@@ -9,9 +9,10 @@
 #include "unicode/dcfmtsym.h"
 #include "unicode/numfmt.h"
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ustring_parse_numeric(const icu::UnicodeString & in, std::string & out, bool & isfp, icu::Locale * locale = nullptr)

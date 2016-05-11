@@ -4,15 +4,17 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 ___COCONUT_BEGIN_DECLS
 #include "uriparser/Uri.h"
 ___COCONUT_END_DECLS
 
-namespace {	
+namespace
+{
 
 static struct { const char * scheme; } const uri_schemes[] =
 {
@@ -72,7 +74,7 @@ static struct { const char * scheme; } const uri_schemes[] =
 	nullptr
 };
 	
-}  /* EONS */
+} /* EONS */
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool uri_valid_scheme(const std::string & scheme)

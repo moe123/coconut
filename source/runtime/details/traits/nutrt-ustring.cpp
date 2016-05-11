@@ -145,8 +145,8 @@ ustring::ustring(const std::int16_t * bytes, std::size_t length, encoding_option
 				);
 				/*
 				m_ustr = icu::UnicodeString(
-				   weak_cast<const UChar *>(bytes),
-				   weak_cast<std::int32_t>(length)
+					weak_cast<const UChar *>(bytes),
+					weak_cast<std::int32_t>(length)
 				);*/
 				
 				if (!is_valid() || !size()) {

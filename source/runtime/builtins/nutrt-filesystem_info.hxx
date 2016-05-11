@@ -21,9 +21,10 @@
 	#include <sys/stat.h>
 #endif
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 #if defined(__MICROSOFT__)
 
@@ -295,7 +296,7 @@ std::int64_t fs_mtime(const std::string & utf8_path)
 		nanosecond = static_cast<std::int64_t>((attr.st_mtimespec.tv_sec * 1000000000LL) + attr.st_mtimespec.tv_nsec);
 	#endif
 #else
-		// __FreeBSD__ 10 yes, __linux__  yes, __DragonFly__ , __OpenBSD__, __NetBSD__ ?
+		// __FreeBSD__ 10 yes, __linux__ yes, __DragonFly__ , __OpenBSD__, __NetBSD__ ?
 		nanosecond = static_cast<std::int64_t>((attr.st_mtim.tv_sec * 1000000000LL) + attr.st_mtim.tv_nsec);
 #endif
 	}
@@ -316,7 +317,7 @@ std::int64_t fs_atime(const std::string & utf8_path)
 		nanosecond = static_cast<std::int64_t>((attr.st_atimespec.tv_sec * 1000000000LL) + attr.st_atimespec.tv_nsec);
 	#endif
 #else
-		// __FreeBSD__  10 yes, __linux__  yes, __DragonFly__, __OpenBSD__, __NetBSD__ ?
+		// __FreeBSD__ 10 yes, __linux__ yes, __DragonFly__, __OpenBSD__, __NetBSD__ ?
 		nanosecond = static_cast<std::int64_t>((attr.st_atim.tv_sec * 1000000000LL) + attr.st_atim.tv_nsec);
 #endif
 	}

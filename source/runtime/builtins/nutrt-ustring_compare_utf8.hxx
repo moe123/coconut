@@ -7,9 +7,10 @@
 #include "unicode/locid.h"
 #include "unicode/coll.h"
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int ustring_compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options, icu::Locale * locale = nullptr)
@@ -54,9 +55,9 @@ int ustring_compare_utf8(const std::string & utf8_a, const std::string & utf8_b,
 				status = U_ZERO_ERROR;
 				coll->setAttribute(UCOL_CASE_FIRST, UCOL_LOWER_FIRST, status);
 			} /* else {
-			   status = U_ZERO_ERROR;
-			   coll->setAttribute(UCOL_CASE_FIRST, UCOL_UPPER_FIRST, status);
-			   } */
+				status = U_ZERO_ERROR;
+				coll->setAttribute(UCOL_CASE_FIRST, UCOL_UPPER_FIRST, status);
+			} */
 			if (nowidth) {
 				status = U_ZERO_ERROR;
 				coll->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, status);

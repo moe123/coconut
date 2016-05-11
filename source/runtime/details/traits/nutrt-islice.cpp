@@ -137,7 +137,7 @@ void islice::do_indexes(std::size_t forlen) const
 	std::int64_t stop = start + (m_stop < 0 ? m_stop + forlen : m_stop);
 	std::int64_t step = m_step;
 #if COCONUT_DEBUG
-	std::cerr << " + start  + : " << start << std::endl;
+	std::cerr << " + start + : " << start << std::endl;
 	std::cerr << " + stop  + : " << stop << std::endl;
 #endif
 	m_indexes.clear();

@@ -4,9 +4,10 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-namespace coconut {
-	namespace runtime {
-		namespace builtins {
+namespace coconut
+{ namespace runtime
+{ namespace builtins
+{
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool upath_absolute(const std::string & utf8_path_in, std::string & utf8_path_out)

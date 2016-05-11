@@ -21,7 +21,7 @@ namespace coconut
 		
 		explicit JobPool(std::size_t count, bool start = true) :
 			m_pool(count)
-		{  if (start) { m_pool.start(); } }
+		{ if (start) { m_pool.start(); } }
 		
 		void start() { m_pool.start(); }
 		void stop() { m_pool.stop(); }

@@ -54,7 +54,7 @@ namespace coconut
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _ancestor_of(const T2 & r, std::false_type) -> bool
-	{ return r . template  isAncestorOf<T1>(); }
+	{ return r . template isAncestorOf<T1>(); }
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

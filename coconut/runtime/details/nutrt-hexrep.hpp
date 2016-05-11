@@ -63,7 +63,7 @@ void format(
 		if (cnt % 16 == 0 && opt->u_row) {
 			os << std::endl;
 		} else if (cnt % 8 == 0) {
-			os <<  opt->u_dword;
+			os << opt->u_dword;
 		} else if (cnt % 4 == 0) {
 			os << opt->u_word;
 		} else {

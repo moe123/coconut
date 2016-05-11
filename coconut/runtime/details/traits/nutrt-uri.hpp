@@ -42,12 +42,12 @@ public:
 	
 private:
 	bool parseit(
-	   const std::string & str_url,
-	   std::map<std::string, std::string> & components,
-	   std::map<std::string, std::string> & parameters,
-	   bool & is_file,
-	   std::uint16_t & port,
-	   bool normalize
+		const std::string & str_url,
+		std::map<std::string, std::string> & components,
+		std::map<std::string, std::string> & parameters,
+		bool & is_file,
+		std::uint16_t & port,
+		bool normalize
 	);
 	
 	bool joinit(
