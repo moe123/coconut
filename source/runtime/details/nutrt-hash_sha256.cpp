@@ -40,7 +40,7 @@ void hash::sha256::process_block(const void * block)
 {
 	const std::uint32_t * input = weak_cast<const std::uint32_t *>(block);
 	std::uint32_t words[64];
-	std::size_t i;
+	std::size_t i = 0;
 	std::uint32_t x, y;
 	
 	std::uint32_t a = m_hash[0];
@@ -52,31 +52,103 @@ void hash::sha256::process_block(const void * block)
 	std::uint32_t g = m_hash[6];
 	std::uint32_t h = m_hash[7];
 	
-	for (i = 0; i < 16; i++) {
+	for (; i < 16; i++) {
 		words[i] = runtime::byteorder::h2be32(input[i]);
 	}
 	
-	x = h + builtins::hash_sha256_f1(e, f, g) + 0x428a2f98 + words[0]; y = builtins::hash_sha256_f2(a, b, c); d += x; h = x + y;
-	x = g + builtins::hash_sha256_f1(d, e, f) + 0x71374491 + words[1]; y = builtins::hash_sha256_f2(h, a, b); c += x; g = x + y;
-	x = f + builtins::hash_sha256_f1(c, d, e) + 0xb5c0fbcf + words[2]; y = builtins::hash_sha256_f2(g, h, a); b += x; f = x + y;
-	x = e + builtins::hash_sha256_f1(b, c, d) + 0xe9b5dba5 + words[3]; y = builtins::hash_sha256_f2(f, g, h); a += x; e = x + y;
-	x = d + builtins::hash_sha256_f1(a, b, c) + 0x3956c25b + words[4]; y = builtins::hash_sha256_f2(e, f, g); h += x; d = x + y;
-	x = c + builtins::hash_sha256_f1(h, a, b) + 0x59f111f1 + words[5]; y = builtins::hash_sha256_f2(d, e, f); g += x; c = x + y;
-	x = b + builtins::hash_sha256_f1(g, h, a) + 0x923f82a4 + words[6]; y = builtins::hash_sha256_f2(c, d, e); f += x; b = x + y;
-	x = a + builtins::hash_sha256_f1(f, g, h) + 0xab1c5ed5 + words[7]; y = builtins::hash_sha256_f2(b, c, d); e += x; a = x + y;
+	x = h + builtins::hash_sha256_f1(e, f, g) + 0x428a2f98 + words[0];
+	y = builtins::hash_sha256_f2(a, b, c);
+	d += x;
+	h = x + y;
 	
-	x = h + builtins::hash_sha256_f1(e, f, g) + 0xd807aa98 + words[8]; y = builtins::hash_sha256_f2(a, b, c); d += x; h = x + y;
-	x = g + builtins::hash_sha256_f1(d, e, f) + 0x12835b01 + words[9]; y = builtins::hash_sha256_f2(h, a, b); c += x; g = x + y;
-	x = f + builtins::hash_sha256_f1(c, d, e) + 0x243185be + words[10]; y = builtins::hash_sha256_f2(g, h, a); b += x; f = x + y;
-	x = e + builtins::hash_sha256_f1(b, c, d) + 0x550c7dc3 + words[11]; y = builtins::hash_sha256_f2(f, g, h); a += x; e = x + y;
-	x = d + builtins::hash_sha256_f1(a, b, c) + 0x72be5d74 + words[12]; y = builtins::hash_sha256_f2(e, f, g); h += x; d = x + y;
-	x = c + builtins::hash_sha256_f1(h, a, b) + 0x80deb1fe + words[13]; y = builtins::hash_sha256_f2(d, e, f); g += x; c = x + y;
-	x = b + builtins::hash_sha256_f1(g, h, a) + 0x9bdc06a7 + words[14]; y = builtins::hash_sha256_f2(c, d, e); f += x; b = x + y;
-	x = a + builtins::hash_sha256_f1(f, g, h) + 0xc19bf174 + words[15]; y = builtins::hash_sha256_f2(b, c, d); e += x; a = x + y;
+	x = g + builtins::hash_sha256_f1(d, e, f) + 0x71374491 + words[1];
+	y = builtins::hash_sha256_f2(h, a, b);
+	c += x;
+	g = x + y;
+	
+	x = f + builtins::hash_sha256_f1(c, d, e) + 0xb5c0fbcf + words[2];
+	y = builtins::hash_sha256_f2(g, h, a);
+	b += x;
+	f = x + y;
+	
+	x = e + builtins::hash_sha256_f1(b, c, d) + 0xe9b5dba5 + words[3];
+	y = builtins::hash_sha256_f2(f, g, h);
+	a += x;
+	e = x + y;
+	
+	x = d + builtins::hash_sha256_f1(a, b, c) + 0x3956c25b + words[4];
+	y = builtins::hash_sha256_f2(e, f, g);
+	h += x;
+	d = x + y;
+	
+	x = c + builtins::hash_sha256_f1(h, a, b) + 0x59f111f1 + words[5];
+	y = builtins::hash_sha256_f2(d, e, f);
+	g += x;
+	c = x + y;
+	
+	x = b + builtins::hash_sha256_f1(g, h, a) + 0x923f82a4 + words[6];
+	y = builtins::hash_sha256_f2(c, d, e);
+	f += x;
+	b = x + y;
+	
+	x = a + builtins::hash_sha256_f1(f, g, h) + 0xab1c5ed5 + words[7];
+	y = builtins::hash_sha256_f2(b, c, d);
+	e += x;
+	a = x + y;
+	
+	x = h + builtins::hash_sha256_f1(e, f, g) + 0xd807aa98 + words[8];
+	y = builtins::hash_sha256_f2(a, b, c);
+	d += x;
+	h = x + y;
+	
+	x = g + builtins::hash_sha256_f1(d, e, f) + 0x12835b01 + words[9];
+	y = builtins::hash_sha256_f2(h, a, b);
+	c += x;
+	g = x + y;
+	
+	x = f + builtins::hash_sha256_f1(c, d, e) + 0x243185be + words[10];
+	y = builtins::hash_sha256_f2(g, h, a);
+	b += x;
+	f = x + y;
+	
+	x = e + builtins::hash_sha256_f1(b, c, d) + 0x550c7dc3 + words[11];
+	y = builtins::hash_sha256_f2(f, g, h);
+	a += x;
+	e = x + y;
+	
+	x = d + builtins::hash_sha256_f1(a, b, c) + 0x72be5d74 + words[12];
+	y = builtins::hash_sha256_f2(e, f, g);
+	h += x;
+	d = x + y;
+	
+	x = c + builtins::hash_sha256_f1(h, a, b) + 0x80deb1fe + words[13];
+	y = builtins::hash_sha256_f2(d, e, f);
+	g += x;
+	c = x + y;
+	
+	x = b + builtins::hash_sha256_f1(g, h, a) + 0x9bdc06a7 + words[14];
+	y = builtins::hash_sha256_f2(c, d, e);
+	f += x;
+	b = x + y;
+	
+	x = a + builtins::hash_sha256_f1(f, g, h) + 0xc19bf174 + words[15];
+	y = builtins::hash_sha256_f2(b, c, d);
+	e += x;
+	a = x + y;
 	
 	for (; i < 24; i++) {
-		words[i] = words[i - 16] + (builtins::hash_sha256_rot(words[i - 15], 7) ^ builtins::hash_sha256_rot(words[i - 15], 18) ^ (words[i - 15] >> 3)) +
-		words[i-7] + (builtins::hash_sha256_rot(words[i - 2], 17) ^ builtins::hash_sha256_rot(words[i - 2], 19) ^ (words[i - 2] >> 10));
+		words[i] = words[i - 16]
+			+ (
+				builtins::hash_sha256_rot(words[i - 15], 7)
+				^ builtins::hash_sha256_rot(words[i - 15], 18)
+				^ (words[i - 15] >> 3)
+			)
+			+ words[i-7]
+			+ (
+			   builtins::hash_sha256_rot(words[i - 2], 17)
+				^ builtins::hash_sha256_rot(words[i - 2], 19)
+				^ (words[i - 2] >> 10)
+			);
 	}
 	
 	x = h + builtins::hash_sha256_f1(e, f, g) + 0xe49b69c1 + words[16]; y = builtins::hash_sha256_f2(a, b, c); d += x; h = x + y;
