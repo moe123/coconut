@@ -18,6 +18,22 @@ namespace coconut
 {
 
 #if defined(__MICROSOFT__)
+	
+#if defined(__MICROSOFT_MINGW__)
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+const std::string stream_convpath(const std::u16string & utf16_in)
+{
+	return unicode::utf8_to_ansi(
+		unicode::utf16_to_utf8(utf16_in, unicode_conv_del_bom)
+	);
+}
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+const std::string & stream_convpath(const std::string & utf8_in)
+{ return unicode::utf8_to_ansi(utf8_in); }
+	
+#else
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::wstring stream_convpath(const std::u16string & utf16_in)
@@ -30,6 +46,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::wstring stream_convpath(const std::string & utf8_in)
 { return unicode::utf8_to_wide(utf8_in); }
 
+#endif
+	
 #else
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

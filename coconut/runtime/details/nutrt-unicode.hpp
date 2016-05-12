@@ -658,6 +658,12 @@ std::wstring utf8_to_wide(const std::string & utf8_in);
 	
 COCONUT_PRIVATE COCONUT_VISIBLE
 std::string wide_to_utf8(const std::wstring & wide_in);
+
+COCONUT_PRIVATE COCONUT_VISIBLE
+std::string utf8_to_ansi(const std::string & utf8_in);
+	
+COCONUT_PRIVATE COCONUT_VISIBLE
+std::string ansi_to_utf8(const std::string & ansi_in);
 	
 }}} /* EONS */
 
