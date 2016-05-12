@@ -15,11 +15,11 @@ bool upath_absolute(const std::string & utf8_path_in, std::string & utf8_path_ou
 	bool result = false;
 #if defined(__MICROSOFT__)
 
-	std::wstring win;
+	std::wstring win = unicode::utf8_to_wide(utf8_path_in);
 	std::wstring wout;
-	unicode::codeset_utf8_utf16(utf8_path_in, win);
+
 	if ((result = fs_resolve_v0(win, wout))) {
-		unicode::codeset_utf16_utf8(wout, utf8_path_out);
+		utf8_path_out = unicode::wide_to_utf8(wout);
 	}
 
 #else

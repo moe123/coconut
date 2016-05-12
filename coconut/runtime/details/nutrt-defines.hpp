@@ -121,6 +121,31 @@
 #ifndef COCONUT_RUNTIME_DEFINE_HPP
 #define COCONUT_RUNTIME_DEFINE_HPP
 
+	#if defined(__MICROSOFT__)
+		#define COCONUT_SIZEOF_WIDE 2
+	#elif defined(__SIZEOF_WCHAR_T__)
+		#define COCONUT_SIZEOF_WIDE __SIZEOF_WCHAR_T__
+	#endif
+
+	#if !defined(COCONUT_SIZEOF_WIDE)
+		#if defined(__WCHAR_MAX__) && \
+		(__WCHAR_MAX__ == 0x7FFFFFFF || __WCHAR_MAX__ == 0xFFFFFFFF)
+			#define COCONUT_SIZEOF_WIDE 4
+		#elif
+			#define COCONUT_SIZEOF_WIDE 2
+		#endif
+	#endif
+
+	#if !defined(COCONUT_SIZEOF_WIDE)
+		#if defined(__WCHAR_WIDTH__) && defined(CHAR_BIT)
+			#define COCONUT_SIZEOF_WIDE (__WCHAR_WIDTH__ / CHAR_BIT)
+		#endif
+	#endif
+
+	#if !defined(COCONUT_SIZEOF_WIDE)
+		#define COCONUT_SIZEOF_WIDE 4
+	#endif
+
 	#ifndef COCONUT_API_VERSION
 		#define COCONUT_API_VERSION 1_0_0
 	#endif

@@ -28,23 +28,7 @@ const std::wstring stream_convpath(const std::u16string & utf16_in)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::wstring stream_convpath(const std::string & utf8_in)
-{
-	std::wstring wout;
-	unicode::codeset_utf8_utf16(utf8_in, wout);
-	return wout;
-	/*
-	std::wstring wout;
-	UINT codepage = CP_UTF8, len = 0;
-	DWORD flags = 0;
-	len = MultiByteToWideChar(codepage, flags, utf8_in.c_str(), -1, 0, 0);
-	if (len > 0) {
-		std::vector<std::wstring::value_type> buf(len);
-		MultiByteToWideChar(codepage, flags, utf8_in.c_str(), -1, buf.data(), len);
-		wout.assign(buf.begin(), buf.end() -1);
-	}
-	return wout;
-	*/
-}
+{ return unicode::utf8_to_wide(utf8_in); }
 
 #else
 

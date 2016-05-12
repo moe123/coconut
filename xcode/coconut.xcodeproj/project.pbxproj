@@ -80,6 +80,10 @@
 		D56A57AC1BC4BCCC0056B40C /* libruntime_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52B86C11A8ECA200086CB97 /* libruntime_static.a */; };
 		D56A57AD1BC4BCDD0056B40C /* libruntime_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D52B86C11A8ECA200086CB97 /* libruntime_static.a */; };
 		D56A57AE1BC4BD1B0056B40C /* libfoundation_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D56A57AB1BC4BC630056B40C /* libfoundation_static.a */; };
+		D56C6AB51CE4FFBA0010BC85 /* nutrt-unicode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D56C6AB41CE4FFBA0010BC85 /* nutrt-unicode.cpp */; };
+		D56C6AB61CE4FFBA0010BC85 /* nutrt-unicode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D56C6AB41CE4FFBA0010BC85 /* nutrt-unicode.cpp */; };
+		D56C6AB81CE512EC0010BC85 /* nutrt-unicode_wide.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D56C6AB71CE512EC0010BC85 /* nutrt-unicode_wide.hxx */; };
+		D56C6AB91CE512EC0010BC85 /* nutrt-unicode_wide.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D56C6AB71CE512EC0010BC85 /* nutrt-unicode_wide.hxx */; };
 		D59B558C1C25DA7600739192 /* Slice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59B558B1C25DA7600739192 /* Slice.cpp */; };
 		D59B558D1C25DA7600739192 /* Slice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59B558B1C25DA7600739192 /* Slice.cpp */; };
 		D5B920011C1F721700829B3A /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5B920001C1F721700829B3A /* Error.cpp */; };
@@ -201,6 +205,8 @@
 		D54EBAED1C9DE46500B7256F /* JobBroker.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = JobBroker.hpp; sourceTree = "<group>"; };
 		D56A57241BC4BC520056B40C /* libfoundation_dylib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libfoundation_dylib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56A57AB1BC4BC630056B40C /* libfoundation_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfoundation_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D56C6AB41CE4FFBA0010BC85 /* nutrt-unicode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "nutrt-unicode.cpp"; sourceTree = "<group>"; };
+		D56C6AB71CE512EC0010BC85 /* nutrt-unicode_wide.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-unicode_wide.hxx"; sourceTree = "<group>"; };
 		D59B55881C25DA5F00739192 /* Slice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Slice.hpp; sourceTree = "<group>"; };
 		D59B558B1C25DA7600739192 /* Slice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slice.cpp; sourceTree = "<group>"; };
 		D5A0E4761BFFA5A2003E566D /* coconut_test_attrs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = coconut_test_attrs.hpp; sourceTree = "<group>"; };
@@ -609,6 +615,7 @@
 				D5FC0E6E1CD6C73C00F2E75B /* nutrt-serialization_xmlplist.hxx */,
 				D5FC0E6F1CD6C73C00F2E75B /* nutrt-stream_convpath.hxx */,
 				D5FC0E701CD6C73C00F2E75B /* nutrt-terminal_utf8.hxx */,
+				D56C6AB71CE512EC0010BC85 /* nutrt-unicode_wide.hxx */,
 				D5FC0E711CD6C73C00F2E75B /* nutrt-upath_absolute.hxx */,
 				D5FC0E721CD6C73C00F2E75B /* nutrt-upath_detection.hxx */,
 				D5FC0E731CD6C73C00F2E75B /* nutrt-uri_escaping.hxx */,
@@ -633,6 +640,7 @@
 				D5FC0E7F1CD6C73C00F2E75B /* nutrt-nucleus.cpp */,
 				D5FC0E801CD6C73C00F2E75B /* nutrt-spinlock.cpp */,
 				D5FC0E811CD6C73C00F2E75B /* nutrt-stream.cpp */,
+				D56C6AB41CE4FFBA0010BC85 /* nutrt-unicode.cpp */,
 				D5FC0E821CD6C73C00F2E75B /* nutrt-zombie.cpp */,
 				D5FC0E831CD6C73C00F2E75B /* traits */,
 			);
@@ -702,6 +710,7 @@
 				D5FC0E9D1CD6C73C00F2E75B /* nutrt-serialization_xmlplist.hxx in Headers */,
 				D5FC0E931CD6C73C00F2E75B /* nutrt-filesystem_info.hxx in Headers */,
 				D5FC0E951CD6C73C00F2E75B /* nutrt-hash_sha1_func.hxx in Headers */,
+				D56C6AB91CE512EC0010BC85 /* nutrt-unicode_wide.hxx in Headers */,
 				D5FC0EA31CD6C73C00F2E75B /* nutrt-upath_absolute.hxx in Headers */,
 				D5FC0EA91CD6C73C00F2E75B /* nutrt-uri_joining.hxx in Headers */,
 				D5FC0EA71CD6C73C00F2E75B /* nutrt-uri_escaping.hxx in Headers */,
@@ -743,6 +752,7 @@
 				D5FC0E9C1CD6C73C00F2E75B /* nutrt-serialization_xmlplist.hxx in Headers */,
 				D5FC0E921CD6C73C00F2E75B /* nutrt-filesystem_info.hxx in Headers */,
 				D5FC0E941CD6C73C00F2E75B /* nutrt-hash_sha1_func.hxx in Headers */,
+				D56C6AB81CE512EC0010BC85 /* nutrt-unicode_wide.hxx in Headers */,
 				D5FC0EA21CD6C73C00F2E75B /* nutrt-upath_absolute.hxx in Headers */,
 				D5FC0EA81CD6C73C00F2E75B /* nutrt-uri_joining.hxx in Headers */,
 				D5FC0EA61CD6C73C00F2E75B /* nutrt-uri_escaping.hxx in Headers */,
@@ -892,6 +902,7 @@
 				D5FC0EB91CD6C73C00F2E75B /* nutrt-hash_sha256.cpp in Sources */,
 				D5FC0ECB1CD6C73C00F2E75B /* nutrt-indexset.cpp in Sources */,
 				D5FC0ED71CD6C73C00F2E75B /* nutrt-ustring.cpp in Sources */,
+				D56C6AB61CE4FFBA0010BC85 /* nutrt-unicode.cpp in Sources */,
 				D5FC0EBF1CD6C73C00F2E75B /* nutrt-spinlock.cpp in Sources */,
 				D5FC0EB71CD6C73C00F2E75B /* nutrt-hash_sha1.cpp in Sources */,
 				D5FC0ECF1CD6C73C00F2E75B /* nutrt-islice.cpp in Sources */,
@@ -998,6 +1009,7 @@
 				D5FC0EB81CD6C73C00F2E75B /* nutrt-hash_sha256.cpp in Sources */,
 				D5FC0ECA1CD6C73C00F2E75B /* nutrt-indexset.cpp in Sources */,
 				D5FC0ED61CD6C73C00F2E75B /* nutrt-ustring.cpp in Sources */,
+				D56C6AB51CE4FFBA0010BC85 /* nutrt-unicode.cpp in Sources */,
 				D5FC0EBE1CD6C73C00F2E75B /* nutrt-spinlock.cpp in Sources */,
 				D5FC0EB61CD6C73C00F2E75B /* nutrt-hash_sha1.cpp in Sources */,
 				D5FC0ECE1CD6C73C00F2E75B /* nutrt-islice.cpp in Sources */,
