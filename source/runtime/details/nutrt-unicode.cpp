@@ -69,5 +69,4 @@ std::string unicode::wide_to_utf8(const std::wstring & wide_in)
 	return utf8_out;
 }
 
-
 /* EOF */

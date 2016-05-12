@@ -17,12 +17,12 @@ namespace coconut
 struct format_option
 {
 	format_option() :
-		u_start(R"()"),
-		u_stop(R"()"),
-		u_byte(R"( )"),
-		u_word(R"(  )"),
-		u_dword(R"( | )"),
-		u_ellipsis(R"(...)"),
+		u_start(u8""),
+		u_stop(u8""),
+		u_byte(u8" "),
+		u_word(u8"  "),
+		u_dword(u8" | "),
+		u_ellipsis(u8"..."),
 		u_max(std::numeric_limits<std::size_t>::max()),
 		u_row(true)
 	{ /* NOP */ }

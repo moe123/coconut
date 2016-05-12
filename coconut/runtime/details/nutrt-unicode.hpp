@@ -44,7 +44,7 @@ bool __utf8_have_bom(
 ) {
 	bool have_bom = false;
 	if (in_utf8.size() >= 3) {
-		if (in_utf8[0] == 0xEF && in_utf8[1] == 0xBB &&  in_utf8[2] == 0XBF) {
+		if (in_utf8[0] == 0xEF && in_utf8[1] == 0xBB &&  in_utf8[2] == 0xBF) {
 			have_bom = true;
 		}
 	}
@@ -58,7 +58,7 @@ template<typename Char8T,
 >
 void __utf8_add_bom(
 	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8
-) { if (!__utf8_have_bom(in_utf8)) { in_utf8.insert(0, R"(\xEF\xBB\xBF)"); } }
+) { if (!__utf8_have_bom(in_utf8)) { in_utf8.insert(0, u8"\xEF\xBB\xBF"); } }
 	
 template<typename Char8T,
 	typename std::enable_if<

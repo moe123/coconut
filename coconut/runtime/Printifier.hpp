@@ -131,11 +131,11 @@ namespace coconut
 		
 		runtime::hexrep::format_option opt;
 		
-		opt.u_start = "<";
-		opt.u_stop = ">";
-		opt.u_byte = "";
-		opt.u_word = " ";
-		opt.u_dword = "";
+		opt.u_start = u8"<";
+		opt.u_stop = u8">";
+		opt.u_byte = u8"";
+		opt.u_word = u8" ";
+		opt.u_dword = u8"";
 		opt.u_max = 24;
 		opt.u_row = false;
 
