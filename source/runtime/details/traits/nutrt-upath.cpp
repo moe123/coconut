@@ -12,6 +12,7 @@
 
 using namespace coconut::runtime::traits;
 
+#include <source/runtime/builtins/nutrt-unicode_wide.hxx>
 #include <source/runtime/builtins/nutrt-filesystem_info.hxx>
 #include <source/runtime/builtins/nutrt-upath_absolute.hxx>
 #include <source/runtime/builtins/nutrt-upath_detection.hxx>

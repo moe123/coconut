@@ -24,27 +24,46 @@ namespace coconut
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::string stream_convpath(const std::u16string & utf16_in)
 {
-	return unicode::utf8_to_ansi(
-		unicode::utf16_to_utf8(utf16_in, unicode_conv_del_bom)
+	std::string ansi_out;
+	std::string utf8_out = unicode::utf16_to_utf8(
+		utf16_in,
+		unicode_conv_del_bom
 	);
+	builtins::unicode_utf8_to_ansi(utf8_out, ansi_out);
+	
+	return ansi_out;
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::string & stream_convpath(const std::string & utf8_in)
-{ return unicode::utf8_to_ansi(utf8_in); }
+{
+	std::string ansi_out;
+	builtins::unicode_utf8_to_ansi(utf8_in, ansi_out);
+	return ansi_out;
+}
 	
 #else
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::wstring stream_convpath(const std::u16string & utf16_in)
 {
-	std::wstring wout(utf16_in.cbegin(), utf16_in.cend());
-	return wout;
+	std::wstring wide_out;
+	std::string utf8_out = unicode::utf16_to_utf8(
+		utf16_in,
+		unicode_conv_del_bom
+	);
+	unicode_utf8_to_wide(utf8_out, wide_out);
+	
+	return wide_out;
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::wstring stream_convpath(const std::string & utf8_in)
-{ return unicode::utf8_to_wide(utf8_in); }
+{
+	std::wstring wide_out;
+	unicode_utf8_to_wide(utf8_in, wide_out);
+	return wide_out;
+}
 
 #endif
 	

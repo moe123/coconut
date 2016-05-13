@@ -653,18 +653,6 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string & utf8_del_bom(std::string & in_utf8)
 { __utf8_del_bom(in_utf8); return in_utf8; }
 
-COCONUT_PRIVATE COCONUT_VISIBLE
-std::wstring utf8_to_wide(const std::string & utf8_in);
-	
-COCONUT_PRIVATE COCONUT_VISIBLE
-std::string wide_to_utf8(const std::wstring & wide_in);
-
-COCONUT_PRIVATE COCONUT_VISIBLE
-std::string utf8_to_ansi(const std::string & utf8_in);
-	
-COCONUT_PRIVATE COCONUT_VISIBLE
-std::string ansi_to_utf8(const std::string & ansi_in);
-	
 }}} /* EONS */
 
 #endif /* !COCONUT_RUNTIME_UNICODE_HPP */

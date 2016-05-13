@@ -10,6 +10,7 @@
 
 using namespace coconut::runtime;
 
+#include <source/runtime/builtins/nutrt-unicode_wide.hxx>
 #include <source/runtime/builtins/nutrt-stream_convpath.hxx>
 
 stream::ifstream::ifstream()
