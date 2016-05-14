@@ -365,7 +365,7 @@ std::uint16_t le2h16(std::uint16_t x)
 #elif COCONUT_ARCH_LITTLE_ENDIAN
 	return x;
 #else
-	return swap16(x);
+	return swapc16(x);
 #endif
 }
 
@@ -377,7 +377,7 @@ std::uint32_t le2h32(std::uint32_t x)
 #elif COCONUT_ARCH_LITTLE_ENDIAN
 	return x;
 #else
-	return swap32(x);
+	return swapc32(x);
 #endif
 }
 
@@ -389,7 +389,7 @@ std::uint64_t le2h64(std::uint64_t x)
 #elif COCONUT_ARCH_LITTLE_ENDIAN
 	return x;
 #else
-	return swap64(x);
+	return swapc64(x);
 #endif
 }
 
@@ -401,7 +401,7 @@ std::uint16_t h2le16(std::uint16_t x)
 #elif COCONUT_ARCH_LITTLE_ENDIAN
 	return x;
 #else
-	return swap16(x);
+	return swapc16(x);
 #endif
 }
 
@@ -413,7 +413,7 @@ std::uint32_t h2le32(std::uint32_t x)
 #elif COCONUT_ARCH_LITTLE_ENDIAN
 	return x;
 #else
-	return swap32(x);
+	return swapc32(x);
 #endif
 }
 
@@ -425,7 +425,7 @@ std::uint64_t h2le64(std::uint64_t x)
 #elif COCONUT_ARCH_LITTLE_ENDIAN
 	return x;
 #else
-	return swap64(x);
+	return swapc64(x);
 #endif
 }
 	
