@@ -13,6 +13,7 @@
 #include <coconut/runtime/details/nutrt-byteorder.hpp>
 #include <coconut/runtime/details/nutrt-hash.hpp>
 
+using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 bytebuf::bytebuf()

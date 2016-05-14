@@ -10,6 +10,7 @@
 #include <coconut/runtime/details/nutrt-algorithm.hpp>
 #include <coconut/runtime/details/nutrt-unicode.hpp>
 
+using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 #include <source/runtime/builtins/nutrt-unicode_wide.hxx>

@@ -7,6 +7,7 @@
 #include <coconut/runtime/details/traits/nutrt-uri.hpp>
 #include <coconut/runtime/details/nutrt-algorithm.hpp>
 
+using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 #include <source/runtime/builtins/nutrt-uri_escaping.hxx>

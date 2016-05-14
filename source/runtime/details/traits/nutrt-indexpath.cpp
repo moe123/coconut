@@ -7,6 +7,7 @@
 #include <coconut/runtime/details/traits/nutrt-indexpath.hpp>
 #include <coconut/runtime/details/nutrt-stream.hpp>
 
+using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 indexpath::indexpath()

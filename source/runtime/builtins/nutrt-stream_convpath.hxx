@@ -29,7 +29,7 @@ const std::string stream_convpath(const std::u16string & utf16_in)
 		utf16_in,
 		unicode_conv_del_bom
 	);
-	builtins::unicode_utf8_to_ansi(utf8_out, ansi_out);
+	unicode_utf8_to_ansi(utf8_out, ansi_out);
 	
 	return ansi_out;
 }
@@ -38,7 +38,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 const std::string & stream_convpath(const std::string & utf8_in)
 {
 	std::string ansi_out;
-	builtins::unicode_utf8_to_ansi(utf8_in, ansi_out);
+	unicode_utf8_to_ansi(utf8_in, ansi_out);
 	return ansi_out;
 }
 	

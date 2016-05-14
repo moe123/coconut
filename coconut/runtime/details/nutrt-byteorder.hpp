@@ -28,14 +28,8 @@ inline T swpc(T x)
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t swpc16(const volatile std::uint16_t x)
 {
-#if defined(__APPLE__) && !defined(__clang__)
-	return OSSwapInt16(x);
-#elif defined(__ICL)
-	return _bswap16(x);
-#elif defined(__GNUC__) || defined(__clang__)
-	return __builtin_bswap16(x);
-#elif __MICROSOFT_VS__
-	return _byteswap_ushort(x);
+#if defined(___COCONUT_BUILTIN_BSWAP16)
+	return ___COCONUT_BUILTIN_BSWAP16(x);
 #else
 	std::uint16_t v;
 	v = (std::uint16_t)(((x << 8) & 0xFF00) | ((x >> 8) & 0xFF));
@@ -50,12 +44,8 @@ std::int16_t swpcs16(std::int16_t & x)
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint32_t swpc32(const volatile std::uint32_t x)
 {
-#if defined(__APPLE__) && !defined(__clang__)
-	return OSSwapInt32(x);
-#elif defined(__GNUC__) || defined(__clang__)
-	return __builtin_bswap32(x);
-#elif __MICROSOFT_VS__
-	return _byteswap_ulong(x);
+#if defined(___COCONUT_BUILTIN_BSWAP32)
+	return ___COCONUT_BUILTIN_BSWAP32(x);
 #else
 	std::uint32_t v;
 	v = ((x & 0xFF) << 24) | ((x & 0xFF00) << 8) | ((x >> 8) & 0xFF00) | ((x >> 24) & 0xFF);
@@ -70,12 +60,8 @@ std::int32_t swpcs32(std::int32_t & x)
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint64_t swpc64(const volatile std::uint64_t x)
 {
-#if defined(__APPLE__) && !defined(__clang__)
-	return OSSwapInt64(x);
-#elif defined(__GNUC__) || defined(__clang__)
-	return __builtin_bswap64(x);
-#elif __MICROSOFT_VS__
-	return _byteswap_uint64(x);
+#if defined(___COCONUT_BUILTIN_BSWAP64)
+	return ___COCONUT_BUILTIN_BSWAP64(x);
 #else
 	std::uint64_t v = (
 		(x >> 56)
@@ -437,6 +423,137 @@ std::uint64_t h2le64(std::uint64_t x)
 #endif
 }
 
+#if defined(___COCONUT_BUILTIN_BSWAP16)
+	#define ___nutrt_bswap16(x) ___COCONUT_BUILTIN_BSWAP16((x))
+#else
+	#define ___nutrt_bswap16(x) \
+		::coconut::runtime::swpc16(\
+			::coconut::weak_cast<const volatile std::uint16_t>((x))\
+		)
+#endif
+
+#if defined(___COCONUT_BUILTIN_BSWAP32)
+	#define ___nutrt_bswap32(x) ___COCONUT_BUILTIN_BSWAP32((x))
+#else
+	#define ___nutrt_bswap32(x) \
+		::coconut::runtime::swpc32(\
+			::coconut::weak_cast<const volatile std::uint32_t>((x))\
+		)
+#endif
+
+#if defined(___COCONUT_BUILTIN_BSWAP64)
+	#define ___nutrt_bswap64(x) ___COCONUT_BUILTIN_BSWAP64((x))
+#else
+	#define ___nutrt_bswap64(x) \
+		::coconut::runtime::swpc64(\
+			::coconut::weak_cast<const volatile std::uint64_t>((x))\
+	)
+#endif
+
+#if defined(COCONUT_ARCH_LITTLE_ENDIAN)
+
+	#define ___nutrt_htobe16(x) ___nutrt_bswap16((x))
+	#define ___nutrt_htobe32(x) ___nutrt_bswap32((x))
+	#define ___nutrt_htobe64(x) ___nutrt_bswap64((x))
+
+	#define ___nutrt_betoh16(x) ___nutrt_bswap16((x))
+	#define ___nutrt_betoh32(x) ___nutrt_bswap32((x))
+	#define ___nutrt_betoh64(x) ___nutrt_bswap64((x))
+
+	#define ___nutrt_htole16(x) (x)
+	#define ___nutrt_htole32(x) (x)
+	#define ___nutrt_htole64(x) (x)
+
+	#define ___nutrt_letoh16(x) (x)
+	#define ___nutrt_letoh32(x) (x)
+	#define ___nutrt_letoh64(x) (x)
+
+	#define ___nutrt_htons(x) ___nutrt_bswap16((x))
+	#define ___nutrt_htonl(x) ___nutrt_bswap32((x))
+	#define ___nutrt_htonll(x) ___nutrt_bswap64((x))
+
+	#define ___nutrt_ntohs(x) ___nutrt_bswap16((x))
+	#define ___nutrt_ntohl(x) ___nutrt_bswap32((x))
+	#define ___nutrt_ntohll(x) ___nutrt_bswap64((x))
+
+	#if !defined(htons)
+		#define htons ___nutrt_htons
+	#endif
+
+	#if !defined(htonl)
+		#define htonl ___nutrt_htonl
+	#endif
+
+	#if !defined(htonll)
+		#define htonll ___nutrt_htonll
+	#endif
+
+	#if !defined(ntohs)
+		#define ntohs ___nutrt_ntohs
+	#endif
+
+	#if !defined(ntohl)
+		#define ntohl ___nutrt_ntohl
+	#endif
+
+	#if !defined(ntohll)
+		#define ntohll ___nutrt_ntohll
+	#endif
+	
+#endif
+	
+#if defined(COCONUT_ARCH_BIG_ENDIAN)
+
+	#define ___nutrt_htobe16(x) (x)
+	#define ___nutrt_htobe32(x) (x)
+	#define ___nutrt_htobe64(x) (x)
+
+	#define ___nutrt_betoh16(x) (x)
+	#define ___nutrt_betoh32(x) (x)
+	#define ___nutrt_betoh64(x) (x)
+
+	#define ___nutrt_htole16(x) ___nutrt_bswap16((x))
+	#define ___nutrt_htole32(x) ___nutrt_bswap32((x))
+	#define ___nutrt_htole64(x) ___nutrt_bswap64((x))
+
+	#define ___nutrt_letoh16(x) ___nutrt_bswap16((x))
+	#define ___nutrt_letoh32(x) ___nutrt_bswap32((x))
+	#define ___nutrt_letoh64(x) ___nutrt_bswap64((x))
+
+	#define ___nutrt_htons(x) (x)
+	#define ___nutrt_htonl(x) (x)
+	#define ___nutrt_htonll(x) (x)
+
+	#define ___nutrt_ntohs(x) (x)
+	#define ___nutrt_ntohl(x) (x)
+	#define ___nutrt_ntohll(x) (x)
+
+	#if !defined(htons)
+		#define htons ___nutrt_htons
+	#endif
+
+	#if !defined(htonl)
+		#define htonl ___nutrt_htonl
+	#endif
+
+	#if !defined(htonll)
+		#define htonll ___nutrt_htonll
+	#endif
+
+	#if !defined(ntohs)
+		#define ntohs ___nutrt_ntohs
+	#endif
+
+	#if !defined(ntohl)
+		#define ntohl ___nutrt_ntohl
+	#endif
+
+	#if !defined(ntohll)
+		#define ntohll ___nutrt_ntohll
+	#endif
+
+#endif
+	
 }}} /* EONS */
 
 #endif /* !COCONUT_RUNTIME_BYTEORDER_HPP */

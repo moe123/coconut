@@ -7,6 +7,7 @@
 #include <coconut/runtime/details/traits/nutrt-irange.hpp>
 #include <coconut/runtime/details/nutrt-algorithm.hpp>
 
+using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 irange::irange()

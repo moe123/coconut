@@ -299,8 +299,8 @@
 	#define COCONUT_OPT ___COCONUT_WEAK_ENUM
 	#define COCONUT_OPT_TYPED ___COCONUT_WEAK_ENUM_TYPED
 
-	#include <coconut/runtime/details/nutrt-_endian.hpp>
 	#include <coconut/runtime/details/nutrt-_intrinsic.hpp>
+	#include <coconut/runtime/details/nutrt-_endian.hpp>
 	#include <coconut/runtime/details/nutrt-_inifini.hpp>
 	#include <coconut/runtime/details/nutrt-_defer.hpp>
 

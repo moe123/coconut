@@ -19,8 +19,8 @@ namespace coconut
 		JobPool(const JobPool &) = delete;
 		JobPool & operator = (const JobPool &) = delete;
 		
-		explicit JobPool(std::size_t count, bool start = true) :
-			m_pool(count)
+		explicit JobPool(std::size_t count, bool start = true)
+		: m_pool(count)
 		{ if (start) { m_pool.start(); } }
 		
 		void start() { m_pool.start(); }

@@ -9,6 +9,7 @@
 #include <coconut/runtime/details/traits/nutrt-locale.hpp>
 #include <coconut/runtime/details/traits/nutrt-timezone.hpp>
 
+using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
 #include <source/runtime/builtins/nutrt-datetime_epoch.hxx>
