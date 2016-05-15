@@ -28,8 +28,8 @@ inline T swpc(T x)
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t swpc16(const volatile std::uint16_t x)
 {
-#if defined(COCONUT_BSWAP16)
-	return COCONUT_BSWAP16(x);
+#if defined(___COCONUT_bswap16)
+	return ___COCONUT_bswap16(x);
 #else
 	/*
 	std::uint16_t v;
@@ -41,13 +41,13 @@ std::uint16_t swpc16(const volatile std::uint16_t x)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int16_t swpcs16(std::int16_t & x)
-{ return COCONUT_BSWAP16(x); }
+{ return ___COCONUT_bswap16(x); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint32_t swpc32(const volatile std::uint32_t x)
 {
-#if defined(COCONUT_BSWAP32)
-	return COCONUT_BSWAP32(x);
+#if defined(___COCONUT_bswap32)
+	return ___COCONUT_bswap32(x);
 #else
 	/*
 	std::uint32_t v;
@@ -59,13 +59,13 @@ std::uint32_t swpc32(const volatile std::uint32_t x)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int32_t swpcs32(std::int32_t & x)
-{ return COCONUT_BSWAP32(x); }
+{ return ___COCONUT_bswap32(x); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint64_t swpc64(const volatile std::uint64_t x)
 {
-#if defined(COCONUT_BSWAP64)
-	return COCONUT_BSWAP64(x);
+#if defined(___COCONUT_bswap64)
+	return ___COCONUT_bswap64(x);
 #else
 	/*
 	std::uint64_t v = (
@@ -85,7 +85,7 @@ std::uint64_t swpc64(const volatile std::uint64_t x)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int64_t swpcs64(std::int64_t & x)
-{ return COCONUT_BSWAP64(x); }
+{ return ___COCONUT_bswap64(x); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r16be(const std::uint8_t (&r)[2], std::uint16_t & out)

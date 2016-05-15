@@ -37,101 +37,101 @@
 	#if defined(__clang__) && defined(__has_builtin)
 
 		#if __has_builtin(__builtin_bswap16)
-			#define COCONUT_BSWAP16(x) __builtin_bswap16((x))
+			#define ___COCONUT_bswap16(x) __builtin_bswap16((x))
 		#endif
 
 		#if __has_builtin(__builtin_bswap32)
-			#define COCONUT_BSWAP32(x) __builtin_bswap32((x))
+			#define ___COCONUT_bswap32(x) __builtin_bswap32((x))
 		#endif
 
 		#if __has_builtin(__builtin_bswap64)
-			#define COCONUT_BSWAP64(x) __builtin_bswap64((x))
+			#define ___COCONUT_bswap64(x) __builtin_bswap64((x))
 		#endif
 
 	#endif
 
 	#if defined(__GNUC__)
 		#if (__GNUC__ > 4) || (__GNUC_MINOR__ > 7)
-			#if !defined(COCONUT_BSWAP16)
-				#define COCONUT_BSWAP16(x) __builtin_bswap16((x))
+			#if !defined(___COCONUT_bswap16)
+				#define ___COCONUT_bswap16(x) __builtin_bswap16((x))
 			#endif
 		#endif
 		#if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)
-			#if !defined(COCONUT_BSWAP32)
-				#define COCONUT_BSWAP32(x) __builtin_bswap32((x))
+			#if !defined(___COCONUT_bswap32)
+				#define ___COCONUT_bswap32(x) __builtin_bswap32((x))
 			#endif
 
-			#if !defined(COCONUT_BSWAP64)
-				#define COCONUT_BSWAP64(x) __builtin_bswap64((x))
+			#if !defined(___COCONUT_bswap64)
+				#define ___COCONUT_bswap64(x) __builtin_bswap64((x))
 			#endif
 		#endif
 	#endif
 
 	#if defined(__ICL)
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) _bswap16((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) _bswap16((x))
 		#endif
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) _bswap((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) _bswap((x))
 		#endif
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) _bswap64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) _bswap64((x))
 		#endif
 	#endif
 
 	#if defined(_MSC_VER)
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) _byteswap_ushort((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) _byteswap_ushort((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) _byteswap_ulong((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) _byteswap_ulong((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) _byteswap_uint64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) _byteswap_uint64((x))
 		#endif
 	#endif
 
 	#if defined(__linux__) || defined(__GLIBC__) || defined(__CYGWIN__)
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) bswap_16((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) bswap_16((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) bswap_32((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) bswap_32((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) bswap_64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) bswap_64((x))
 		#endif
 	#endif
 
 	#if defined(__sun__)
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) BSWAP_16((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) BSWAP_16((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) BSWAP_32((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) BSWAP_32((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) BSWAP_64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) BSWAP_64((x))
 		#endif
 	#endif
 
 	#if defined(__OpenBSD__)
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) swap16((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) swap16((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) swap32((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) swap32((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) swap64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) swap64((x))
 		#endif
 	#endif
 
@@ -139,41 +139,41 @@
 		defined(__NetBSD__) || defined(__DragonFly__) || \
 		defined(__minix__) || defined(__minix)
 
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) bswap16((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) bswap16((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) bswap32((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) bswap32((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) bswap64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) bswap64((x))
 		#endif
 
 	#endif
 
 	#if defined(__APPLE__)
-		#if !defined(COCONUT_BSWAP16)
-			#define COCONUT_BSWAP16(x) OSSwapInt16((x))
+		#if !defined(___COCONUT_bswap16)
+			#define ___COCONUT_bswap16(x) OSSwapInt16((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP32)
-			#define COCONUT_BSWAP32(x) OSSwapInt32((x))
+		#if !defined(___COCONUT_bswap32)
+			#define ___COCONUT_bswap32(x) OSSwapInt32((x))
 		#endif
 
-		#if !defined(COCONUT_BSWAP64)
-			#define COCONUT_BSWAP64(x) OSSwapInt64((x))
+		#if !defined(___COCONUT_bswap64)
+			#define ___COCONUT_bswap64(x) OSSwapInt64((x))
 		#endif
 	#endif
 
-	#if !defined(COCONUT_BSWAP16)
-		#pragma warning COCONUT_BSWAP16 BYE BYE!
+	#if !defined(___COCONUT_bswap16)
+		#pragma warning ___COCONUT_bswap16 BYE BYE!
 
 		#define COCONUT_U16_DECL(x) uint16_t x
 		#define COCONUT_U16_CAST(x) ((uint16_t)(x))
 
-		#define COCONUT_BSWAP16(x) \
+		#define ___COCONUT_bswap16(x) \
 		({ \
 			COCONUT_U16_DECL(v) = (x);\
 			(COCONUT_U16_CAST(\
@@ -185,13 +185,13 @@
 		#undef COCONUT_U16_CAST
 	#endif
 
-	#if !defined(COCONUT_BSWAP32)
-		#pragma warning COCONUT_BSWAP32 BYE BYE!
+	#if !defined(___COCONUT_bswap32)
+		#pragma warning ___COCONUT_bswap32 BYE BYE!
 
 		#define COCONUT_U32_DECL(x) uint32_t x
 		#define COCONUT_U32_CAST(x) ((uint32_t)(x))
 
-		#define COCONUT_BSWAP32(x) \
+		#define ___COCONUT_bswap32(x) \
 		({ \
 			COCONUT_U32_DECL(v) = (x); \
 			(COCONUT_U32_CAST( \
@@ -205,13 +205,13 @@
 		#undef COCONUT_U32_CAST
 	#endif
 
-	#if !defined(COCONUT_BSWAP64)
-		#pragma warning COCONUT_BSWAP64 BYE BYE!
+	#if !defined(___COCONUT_bswap64)
+		#pragma warning ___COCONUT_bswap64 BYE BYE!
 
 		#define COCONUT_U64_DECL(x) uint64_t x
 		#define COCONUT_U64_CAST(x) ((uint64_t)(x))
 
-		#define COCONUT_BSWAP64(x) \
+		#define ___COCONUT_bswap64(x) \
 		({ \
 			COCONUT_U64_DECL(v) = (x); \
 				(COCONUT_U64_CAST( \
@@ -255,7 +255,7 @@
 		#endif
 	#endif
 
-	#if defined(__MICROSOFT__)
+	#if defined(_MSC_VER)
 		#ifndef BYTE_ORDER
 			#ifndef __BYTE_ORDER
 				#if defined(REG_DWORD) && (REG_DWORD == REG_DWORD_BIG_ENDIAN)
@@ -365,13 +365,13 @@
 
 	#if defined(COCONUT_ARCH_LITTLE_ENDIAN)
 
-		#define ___COCONUT_htobe16(x) COCONUT_BSWAP16((x))
-		#define ___COCONUT_htobe32(x) COCONUT_BSWAP32((x))
-		#define ___COCONUT_htobe64(x) COCONUT_BSWAP64((x))
+		#define ___COCONUT_htobe16(x) ___COCONUT_bswap16((x))
+		#define ___COCONUT_htobe32(x) ___COCONUT_bswap32((x))
+		#define ___COCONUT_htobe64(x) ___COCONUT_bswap64((x))
 
-		#define ___COCONUT_betoh16(x) COCONUT_BSWAP16((x))
-		#define ___COCONUT_betoh32(x) COCONUT_BSWAP32((x))
-		#define ___COCONUT_betoh64(x) COCONUT_BSWAP64((x))
+		#define ___COCONUT_betoh16(x) ___COCONUT_bswap16((x))
+		#define ___COCONUT_betoh32(x) ___COCONUT_bswap32((x))
+		#define ___COCONUT_betoh64(x) ___COCONUT_bswap64((x))
 
 		#define ___COCONUT_htole16(x) (x)
 		#define ___COCONUT_htole32(x) (x)
@@ -381,13 +381,13 @@
 		#define ___COCONUT_letoh32(x) (x)
 		#define ___COCONUT_letoh64(x) (x)
 
-		#define ___COCONUT_htons(x) COCONUT_BSWAP16((x))
-		#define ___COCONUT_htonl(x) COCONUT_BSWAP32((x))
-		#define ___COCONUT_htonll(x) COCONUT_BSWAP64((x))
+		#define ___COCONUT_htons(x) ___COCONUT_bswap16((x))
+		#define ___COCONUT_htonl(x) ___COCONUT_bswap32((x))
+		#define ___COCONUT_htonll(x) ___COCONUT_bswap64((x))
 
-		#define ___COCONUT_ntohs(x) COCONUT_BSWAP16((x))
-		#define ___COCONUT_ntohl(x) COCONUT_BSWAP32((x))
-		#define ___COCONUT_ntohll(x) COCONUT_BSWAP64((x))
+		#define ___COCONUT_ntohs(x) ___COCONUT_bswap16((x))
+		#define ___COCONUT_ntohl(x) ___COCONUT_bswap32((x))
+		#define ___COCONUT_ntohll(x) ___COCONUT_bswap64((x))
 
 	#endif
 
@@ -401,13 +401,13 @@
 		#define ___COCONUT_betoh32(x) (x)
 		#define ___COCONUT_betoh64(x) (x)
 
-		#define ___COCONUT_htole16(x) COCONUT_BSWAP16((x))
-		#define ___COCONUT_htole32(x) COCONUT_BSWAP32((x))
-		#define ___COCONUT_htole64(x) COCONUT_BSWAP64((x))
+		#define ___COCONUT_htole16(x) ___COCONUT_bswap16((x))
+		#define ___COCONUT_htole32(x) ___COCONUT_bswap32((x))
+		#define ___COCONUT_htole64(x) ___COCONUT_bswap64((x))
 
-		#define ___COCONUT_letoh16(x) COCONUT_BSWAP16((x))
-		#define ___COCONUT_letoh32(x) COCONUT_BSWAP32((x))
-		#define ___COCONUT_letoh64(x) COCONUT_BSWAP64((x))
+		#define ___COCONUT_letoh16(x) ___COCONUT_bswap16((x))
+		#define ___COCONUT_letoh32(x) ___COCONUT_bswap32((x))
+		#define ___COCONUT_letoh64(x) ___COCONUT_bswap64((x))
 
 		#define ___COCONUT_htons(x) (x)
 		#define ___COCONUT_htonl(x) (x)
@@ -420,15 +420,15 @@
 	#endif
 
 	#if !defined(bswap16)
-		#define bswap16 COCONUT_BSWAP16
+		#define bswap16 ___COCONUT_bswap16
 	#endif
 
 	#if !defined(bswap32)
-		#define bswap32 COCONUT_BSWAP32
+		#define bswap32 ___COCONUT_bswap32
 	#endif
 
 	#if !defined(bswap64)
-		#define bswap64 COCONUT_BSWAP64
+		#define bswap64 ___COCONUT_bswap64
 	#endif
 
 	#if !defined(htobe16)
