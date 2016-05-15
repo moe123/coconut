@@ -34,7 +34,7 @@
 #ifndef COCONUT_RUNTIME_ENDIAN_HPP
 #define COCONUT_RUNTIME_ENDIAN_HPP
 
-	#ifdef __has_builtin
+	#if defined(__clang__) && defined(__has_builtin)
 
 		#if __has_builtin(__builtin_bswap16)
 			#define COCONUT_BSWAP16(x) __builtin_bswap16((x))
@@ -168,6 +168,8 @@
 	#endif
 
 	#if !defined(COCONUT_BSWAP16)
+		#pragma warning COCONUT_BSWAP16 BYE BYE!
+
 		#define COCONUT_U16_DECL(x) uint16_t x
 		#define COCONUT_U16_CAST(x) ((uint16_t)(x))
 
@@ -184,6 +186,8 @@
 	#endif
 
 	#if !defined(COCONUT_BSWAP32)
+		#pragma warning COCONUT_BSWAP32 BYE BYE!
+
 		#define COCONUT_U32_DECL(x) uint32_t x
 		#define COCONUT_U32_CAST(x) ((uint32_t)(x))
 
@@ -202,6 +206,8 @@
 	#endif
 
 	#if !defined(COCONUT_BSWAP64)
+		#pragma warning COCONUT_BSWAP64 BYE BYE!
+
 		#define COCONUT_U64_DECL(x) uint64_t x
 		#define COCONUT_U64_CAST(x) ((uint64_t)(x))
 
@@ -274,11 +280,47 @@
 		#elif defined(_BYTE_ORDER)
 			#define BYTE_ORDER _BYTE_ORDER
 		#else
-			#if defined(_M_PPC) || defined(__ppc__) || defined(__ppc64__)
+			#if defined(_M_PPC) || \
+				defined(__ppc__) || \
+				defined(__ppc64__) || \
+				defined(__powerpc) || \
+				defined(__powerpc__) || \
+				defined(__powerpc64__) || \
+				defined(__POWERPC__) || \
+				defined(__PPC__) || \
+				defined(__PPC64__) || \
+				defined(_ARCH_PPC) || \
+				defined(_ARCH_PPC64) || \
+				defined(__ppc) || \
+				defined(__PPCGECKO__) || \
+				defined(__PPCBROADWAY__) || \
+				defined(_XENON)
+
 				#define BYTE_ORDER BIG_ENDIAN
 			#else
 				#define BYTE_ORDER LITTLE_ENDIAN
 			#endif
+		#endif
+	#endif
+
+	#ifndef BYTE_ORDER
+		#if defined(__i386__) || \
+			defined(__i386) || \
+			defined(__x86_64__) || \
+			defined(__x86_64) || \
+			defined(__amd64) || \
+			defined(__amd64__) || \
+			defined(_M_I86) || \
+			defined(__I86__) || \
+			defined(_X86_) || \
+			defined(__X86__) || \
+			defined(_M_X64) || \
+			defined(_M_AMD64) || \
+			defined(_M_IX86)
+
+			#define BYTE_ORDER LITTLE_ENDIAN
+		#else
+			#define BYTE_ORDER BIG_ENDIAN
 		#endif
 	#endif
 
