@@ -4,31 +4,62 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
+#if !defined(_MSC_VER)
+	#include <unistd.h>
+	#include <stdint.h>
+	#include <netinet/in.h>
+	#include <arpa/inet.h>
+#endif
+
 #if defined(__APPLE__)
+
 	#include <sys/types.h>
 	#include <machine/endian.h>
 	#include <libkern/OSByteOrder.h>
+
+#elif defined(AIX)
+
+	#include <sys/machine.h>
+
 #elif defined(__OpenBSD__) || defined(__Bitrig__)
+
 	#include <sys/types.h>
 	#include <machine/endian.h>
 	#include <sys/endian.h>
-#elif defined(__SVR4) && defined(__sun)
+
+#elif defined(__SVR4) || \
+	defined(__svr4__) || \
+	defined(__sun__) || \
+	defined(__sun) || \
+	defined(sun)
+
 	#include <sys/byteorder.h>
-#elif defined(__linux__) || defined(__CYGWIN__) || (defined(__GNUC__) && !defined(__clang__))
+
+#elif defined (__vxworks) || defined (__VXWORKS__)
+
+	#include <netinet/in.h>
+
+#elif defined(__linux__) || \
+	defined(__CYGWIN__) || \
+	defined(__GLIBC__)
+
 	#include <endian.h>
 	#include <byteswap.h>
-#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
-	#include <sys/types.h>
-	#include <sys/endian.h>
-#elif defined(__minix__) || defined(__minix)
-	#include <sys/types.h>
-	#include <sys/endian.h>
-#elif defined(_MSC_VER)
-	#include <stdlib.h>
-#endif
 
-#if !defined(_MSC_VER)
-	#include <stdint.h>
+#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
+
+	#include <sys/types.h>
+	#include <sys/endian.h>
+
+#elif defined(__minix__) || defined(__minix)
+
+	#include <sys/types.h>
+	#include <sys/endian.h>
+
+#elif defined(_MSC_VER)
+
+	#include <stdlib.h>
+
 #endif
 
 #ifndef COCONUT_RUNTIME_ENDIAN_HPP
@@ -51,6 +82,7 @@
 	#endif
 
 	#if defined(__GNUC__)
+
 		#if (__GNUC__ > 4) || (__GNUC_MINOR__ > 7)
 			#if !defined(___COCONUT_bswap16)
 				#define ___COCONUT_bswap16(x) __builtin_bswap16((x))
@@ -65,9 +97,11 @@
 				#define ___COCONUT_bswap64(x) __builtin_bswap64((x))
 			#endif
 		#endif
+
 	#endif
 
 	#if defined(__ICL)
+
 		#if !defined(___COCONUT_bswap16)
 			#define ___COCONUT_bswap16(x) _bswap16((x))
 		#endif
@@ -77,9 +111,11 @@
 		#if !defined(___COCONUT_bswap64)
 			#define ___COCONUT_bswap64(x) _bswap64((x))
 		#endif
+
 	#endif
 
 	#if defined(_MSC_VER)
+
 		#if !defined(___COCONUT_bswap16)
 			#define ___COCONUT_bswap16(x) _byteswap_ushort((x))
 		#endif
@@ -91,9 +127,11 @@
 		#if !defined(___COCONUT_bswap64)
 			#define ___COCONUT_bswap64(x) _byteswap_uint64((x))
 		#endif
+
 	#endif
 
 	#if defined(__linux__) || defined(__GLIBC__) || defined(__CYGWIN__)
+
 		#if !defined(___COCONUT_bswap16)
 			#define ___COCONUT_bswap16(x) bswap_16((x))
 		#endif
@@ -105,9 +143,15 @@
 		#if !defined(___COCONUT_bswap64)
 			#define ___COCONUT_bswap64(x) bswap_64((x))
 		#endif
+
 	#endif
 
-	#if defined(__sun__)
+	#if defined(__SVR4) || \
+		defined(__svr4__) || \
+		defined(__sun__) || \
+		defined(__sun) || \
+		defined(sun)
+
 		#if !defined(___COCONUT_bswap16)
 			#define ___COCONUT_bswap16(x) BSWAP_16((x))
 		#endif
@@ -119,9 +163,11 @@
 		#if !defined(___COCONUT_bswap64)
 			#define ___COCONUT_bswap64(x) BSWAP_64((x))
 		#endif
+
 	#endif
 
 	#if defined(__OpenBSD__)
+
 		#if !defined(___COCONUT_bswap16)
 			#define ___COCONUT_bswap16(x) swap16((x))
 		#endif
@@ -133,6 +179,7 @@
 		#if !defined(___COCONUT_bswap64)
 			#define ___COCONUT_bswap64(x) swap64((x))
 		#endif
+
 	#endif
 
 	#if defined(__FreeBSD__) || \
@@ -154,6 +201,7 @@
 	#endif
 
 	#if defined(__APPLE__)
+
 		#if !defined(___COCONUT_bswap16)
 			#define ___COCONUT_bswap16(x) OSSwapInt16((x))
 		#endif
@@ -165,6 +213,7 @@
 		#if !defined(___COCONUT_bswap64)
 			#define ___COCONUT_bswap64(x) OSSwapInt64((x))
 		#endif
+
 	#endif
 
 	#if !defined(___COCONUT_bswap16)
