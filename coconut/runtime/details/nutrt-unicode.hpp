@@ -127,8 +127,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_default, void
->::type _conv_utf8_to_utf16(
+	O == unicode_conv_default,
+void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -141,8 +141,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_del_gen_bom, void
->::type _conv_utf8_to_utf16(
+	O == unicode_conv_del_gen_bom,
+void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -157,8 +157,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_del_bom, void
->::type _conv_utf8_to_utf16(
+	O == unicode_conv_del_bom,
+void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -173,8 +173,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_gen_bom, void
->::type _conv_utf8_to_utf16(
+	O == unicode_conv_gen_bom,
+void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -250,8 +250,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_default, void
->::type _conv_utf8_to_ucs2(
+	O == unicode_conv_default,
+void>::type _conv_utf8_to_ucs2(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -264,8 +264,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_del_gen_bom, void
->::type _conv_utf8_to_ucs2(
+	O == unicode_conv_del_gen_bom,
+void>::type _conv_utf8_to_ucs2(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -280,8 +280,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_del_bom, void
->::type _conv_utf8_to_ucs2(
+	O == unicode_conv_del_bom,
+void>::type _conv_utf8_to_ucs2(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -296,8 +296,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_gen_bom, void
->::type _conv_utf8_to_ucs2(
+	O == unicode_conv_gen_bom,
+void>::type _conv_utf8_to_ucs2(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, std::allocator<Char16T> > & dest
 ) {
@@ -373,8 +373,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char32T) == sizeof(char32_t) &&
-	O == unicode_conv_default, void
->::type _conv_utf8_to_ucs4(
+	O == unicode_conv_default,
+void>::type _conv_utf8_to_ucs4(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char32T, std::char_traits<Char32T>, std::allocator<Char32T> > & dest
 ) {
@@ -387,8 +387,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char32T) == sizeof(char32_t) &&
-	O == unicode_conv_del_gen_bom, void
->::type _conv_utf8_to_ucs4(
+	O == unicode_conv_del_gen_bom,
+void>::type _conv_utf8_to_ucs4(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char32T, std::char_traits<Char32T>, std::allocator<Char32T> > & dest
 ) {
@@ -403,8 +403,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char32T) == sizeof(char32_t) &&
-	O == unicode_conv_del_bom, void
->::type _conv_utf8_to_ucs4(
+	O == unicode_conv_del_bom,
+void>::type _conv_utf8_to_ucs4(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char32T, std::char_traits<Char32T>, std::allocator<Char32T> > & dest
 ) {
@@ -419,8 +419,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char32T) == sizeof(char32_t) &&
-	O == unicode_conv_gen_bom, void
->::type _conv_utf8_to_ucs4(
+	O == unicode_conv_gen_bom,
+void>::type _conv_utf8_to_ucs4(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & src,
 	std::basic_string<Char32T, std::char_traits<Char32T>, std::allocator<Char32T> > & dest
 ) {

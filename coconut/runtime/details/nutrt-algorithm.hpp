@@ -4,7 +4,7 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/details/nutrt-defines.hpp>
+#include <coconut/runtime/details/nutrt-types.hpp>
 
 #ifndef COCONUT_RUNTIME_ALGORITHM_HPP
 #define COCONUT_RUNTIME_ALGORITHM_HPP
@@ -216,16 +216,23 @@ int icmp(
 	return icmp(left, right_);
 }
 
+template<typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_integer(const std::string & in, bool is_unsigned = false)
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char) &&
+	(
+		std::is_same<CharT, char>::value ||
+		std::is_same<CharT, unsigned char>::value
+	)
+, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
 {
 	bool result;
 	try {
-		std::regex regex;
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
 		if (is_unsigned) {
-			regex.assign("[[:digit:]]+");
+			regex.assign(weak_cast<const CharT *>(u8"[[:digit:]]+"));
 		} else {
-			regex.assign("(\\+|-)?[[:digit:]]+");
+			regex.assign(weak_cast<const CharT *>(u8"(\\+|-)?[[:digit:]]+"));
 		}
 		result = std::regex_match(in, regex);
 	}
@@ -233,16 +240,62 @@ bool is_integer(const std::string & in, bool is_unsigned = false)
 	return result;
 }
 
+template<typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_integer(const std::wstring & in, bool is_unsigned = false)
+typename std::enable_if<
+	sizeof(CharT) == sizeof(wchar_t) &&
+	std::is_same<CharT, wchar_t>::value
+, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
 {
 	bool result;
 	try {
-		std::wregex regex;
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
 		if (is_unsigned) {
 			regex.assign(L"[[:digit:]]+");
 		} else {
 			regex.assign(L"(\\+|-)?[[:digit:]]+");
+		}
+		result = std::regex_match(in, regex);
+	}
+	catch (std::regex_error e) { result = false; }
+	return result;
+}
+	
+template<typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char16_t) &&
+	std::is_same<CharT, char16_t>::value
+, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
+{
+	bool result;
+	try {
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
+		if (is_unsigned) {
+			regex.assign(u"[[:digit:]]+");
+		} else {
+			regex.assign(u"(\\+|-)?[[:digit:]]+");
+		}
+		result = std::regex_match(in, regex);
+	}
+	catch (std::regex_error e) { result = false; }
+	return result;
+}
+	
+template<typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char32_t) &&
+	std::is_same<CharT, char32_t>::value
+, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
+{
+	bool result;
+	try {
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
+		if (is_unsigned) {
+			regex.assign(U"[[:digit:]]+");
+		} else {
+			regex.assign(U"(\\+|-)?[[:digit:]]+");
 		}
 		result = std::regex_match(in, regex);
 	}
@@ -255,7 +308,7 @@ bool is_number(const std::string & in)
 {
 	bool result;
 	try {
-		result = std::regex_match(in, std::regex("((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"));
+		result = std::regex_match(in, std::regex(u8"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"));
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
@@ -278,7 +331,7 @@ bool is_numeric(const std::string & in)
 	bool result;
 	try {
 		result = std::regex_match(in,
-			std::regex("((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
+			std::regex(u8"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
