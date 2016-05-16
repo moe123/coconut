@@ -343,6 +343,10 @@ static void test_stuff(void)
 	Number n0 = 10;
 	Number n1 = 5;
 	
+	if (10 == n0) {
+		std::cerr << " (10 == n0) = " << (10 == n0) << std::endl;
+	}
+	
 	std::cerr << " (n0 > n1) = " << (n0 > n1) << std::endl;
 	
 	String now = Date::UTC();
@@ -1059,11 +1063,17 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
+	test_stuff();
 	{
 		std::u16string out = u"ΠαρθένωνΗ";
 		//std::string utf8_in = u8"나는태오";
 		std::string utf8_in = u8"\xEF\xBB\xBFΠαρθένωνΗ";
+		std::string utf8_in_ = u8"\xEF\xBB\xBFΠαρθένωνΗ";
 		//std::string utf8_in = u8"ΠαρθένωνΗ";
+		
+		if (utf8_in == utf8_in) {
+			
+		}
 		
 		for (char16_t c : out) {
 			std::cerr << std::hex << std::showbase << c << std::endl;

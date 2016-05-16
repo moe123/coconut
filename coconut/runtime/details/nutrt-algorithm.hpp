@@ -23,6 +23,28 @@ bool starts_with(
 	return needle.size() <= haystack.size() &&
 		std::equal(needle.cbegin(), needle.cend(), haystack.cbegin());
 }
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	const CharT * haystack,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
+) {
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > haystack_(haystack);
+	return needle.size() <= haystack_.size() &&
+		std::equal(needle.cbegin(),needle.cend(), haystack_.cbegin());
+}
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
+	const CharT * needle
+) {
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > needle_(needle);
+	return needle_.size() <= haystack.size() &&
+		std::equal(needle_.cbegin(), needle_.cend(), haystack.cbegin());
+}
 
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -32,6 +54,28 @@ bool ends_with(
 ) {
 	return needle.size() <= haystack.size() &&
 		std::equal(needle.crbegin(), needle.crend(), haystack.crbegin());
+}
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	const CharT * haystack,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
+) {
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > haystack_(haystack);
+	return needle.size() <= haystack_.size() &&
+		std::equal(needle.crbegin(), needle.crend(), haystack_.crbegin());
+}
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
+	const CharT * needle
+) {
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > needle_(needle);
+	return needle_.size() <= haystack.size() &&
+		std::equal(needle_.crbegin(), needle_.crend(), haystack.crbegin());
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

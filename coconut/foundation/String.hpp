@@ -152,7 +152,7 @@ namespace coconut
 		const Range rangeOfString(const String & str, StringSearchOptions options) const;
 		const Range rangeOfString(const String & str, const Range & in_rg, StringSearchOptions options) const;
 		
-		Owning<Array> componentsSeparatedByString(const String & separator) const;
+		const Array componentsSeparatedByString(const String & separator) const;
 		
 		const String stringByReplacingOccurrencesOfString(const String & target, const String & replacement) const;
 		
@@ -169,14 +169,6 @@ namespace coconut
 		
 		const String operator + (const String & str) const;
 		const String operator + (const Owning<String> & str) const;
-	
-	public:
-		bool operator == (const String & other_str) const;
-		bool operator != (const String & other_str) const;
-		bool operator <  (const String & other_str) const;
-		bool operator <= (const String & other_str) const;
-		bool operator >  (const String & other_str) const;
-		bool operator >= (const String & other_str) const;
 		
 	protected:
 		friend class Path;
@@ -187,6 +179,13 @@ namespace coconut
 	protected:
 		impl_trait m_impl;
 	};
+	
+	bool operator == (const String & left, const String & right);
+	bool operator != (const String & left, const String & right);
+	bool operator <  (const String & left, const String & right);
+	bool operator <= (const String & left, const String & right);
+	bool operator >  (const String & left, const String & right);
+	bool operator >= (const String & left, const String & right);
 }
 
 #endif /* !COCONUT_FOUNDATION_STRING_HPP */

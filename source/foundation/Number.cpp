@@ -186,27 +186,27 @@ NumberType Number::type() const
 
 #pragma mark -
 
-bool Number::operator == (const Number & other_num) const
-{ return (compare(other_num) == OrderedSame); }
+bool coconut::operator == (const Number & left, const Number & right)
+{ return (left.compare(right) == OrderedSame); }
 
-bool Number::operator != (const Number & other_num) const
-{ return (compare(other_num) != OrderedSame); }
+bool coconut::operator != (const Number & left, const Number & right)
+{ return (left.compare(right) != OrderedSame); }
 
-bool Number::operator < (const Number & other_num) const
-{ return (compare(other_num) == OrderedAscending); }
+bool coconut::operator < (const Number & left, const Number & right)
+{ return (left.compare(right) == OrderedAscending); }
 
-bool Number::operator <= (const Number & other_num) const
+bool coconut::operator <= (const Number & left, const Number & right)
 {
-	ComparisonResult cmp = compare(other_num);
+	ComparisonResult cmp = left.compare(right);
 	return (cmp == OrderedAscending || cmp == OrderedSame);
 }
 
-bool Number::operator > (const Number & other_num) const
-{ return (compare(other_num) == OrderedDescending); }
+bool coconut::operator > (const Number & left, const Number & right)
+{ return (left.compare(right) == OrderedDescending); }
 
-bool Number::operator >= (const Number & other_num) const
+bool coconut::operator >= (const Number & left, const Number & right)
 {
-	ComparisonResult cmp = compare(other_num);
+	ComparisonResult cmp = left.compare(right);
 	return (cmp == OrderedDescending || cmp == OrderedSame);
 }
 

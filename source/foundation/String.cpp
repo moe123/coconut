@@ -353,7 +353,7 @@ const Range String::rangeOfString(const String & str, const Range & in_rg, Strin
 
 #pragma mark -
 
-Owning<Array> String::componentsSeparatedByString(const String & separator) const
+const Array String::componentsSeparatedByString(const String & separator) const
 {
 	return {};
 }
@@ -414,27 +414,27 @@ const String String::operator + (const Owning<String> & str) const
 
 #pragma mark -
 
-bool String::operator == (const String & other_str) const
-{ return (compare(other_str) == OrderedSame); }
+bool coconut::operator == (const String & left, const String & right)
+{ return (left.compare(right) == OrderedSame); }
 
-bool String::operator != (const String & other_str) const
-{ return (compare(other_str) != OrderedSame); }
+bool coconut::operator != (const String & left, const String & right)
+{ return (left.compare(right) != OrderedSame); }
 
-bool String::operator < (const String & other_str) const
-{ return (compare(other_str) == OrderedAscending); }
+bool coconut::operator < (const String & left, const String & right)
+{ return (left.compare(right) == OrderedAscending); }
 
-bool String::operator <= (const String & other_str) const
+bool coconut::operator <= (const String & left, const String & right)
 {
-	ComparisonResult cmp = compare(other_str);
+	ComparisonResult cmp = left.compare(right);
 	return (cmp == OrderedAscending || cmp == OrderedSame);
 }
 
-bool String::operator > (const String & other_str) const
-{ return (compare(other_str) == OrderedDescending); }
+bool coconut::operator > (const String & left, const String & right)
+{ return (left.compare(right) == OrderedDescending); }
 
-bool String::operator >= (const String & other_str) const
+bool coconut::operator >= (const String & left, const String & right)
 {
-	ComparisonResult cmp = compare(other_str);
+	ComparisonResult cmp = left.compare(right);
 	return (cmp == OrderedDescending || cmp == OrderedSame);
 }
 

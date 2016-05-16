@@ -53,7 +53,7 @@ nucleus::~nucleus()
 
 bool nucleus::isSelectorKey(const std::string & utf8_in)
 {
-	if (algorithm::starts_with<char>(utf8_in, u8"@") && !algorithm::starts_with<char>(utf8_in, u8"@@")) {
+	if (algorithm::starts_with(utf8_in, u8"@") && !algorithm::starts_with(utf8_in, u8"@@")) {
 		return true;
 	}
 	return false;
@@ -61,7 +61,7 @@ bool nucleus::isSelectorKey(const std::string & utf8_in)
 
 bool nucleus::isAttributeKey(const std::string & utf8_attrkey)
 {
-	if (algorithm::starts_with<char>(utf8_attrkey, u8"$") && !algorithm::starts_with<char>(utf8_attrkey, u8"$$")) {
+	if (algorithm::starts_with(utf8_attrkey, u8"$") && !algorithm::starts_with(utf8_attrkey, u8"$$")) {
 		return true;
 	}
 	return false;
@@ -73,7 +73,7 @@ bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 {
 	if (isSelectorKey(utf8_selkey)) {
 		Owning<Any> ptr;
-		if (runtime::algorithm::ends_with<char>(utf8_selkey, u8":")) {
+		if (runtime::algorithm::ends_with(utf8_selkey, u8":")) {
 			ptr = valueForSelectorKey(utf8_selkey, ptr_create<zombie>());
 		} else {
 			ptr = valueForSelectorKey(utf8_selkey);

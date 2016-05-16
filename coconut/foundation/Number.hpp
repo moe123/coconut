@@ -97,14 +97,6 @@ namespace coconut
 	
 	public:
 		NumberType type() const;
-
-	public:
-		bool operator == (const Number & other_num) const;
-		bool operator != (const Number & other_num) const;
-		bool operator <  (const Number & other_num) const;
-		bool operator <= (const Number & other_num) const;
-		bool operator >  (const Number & other_num) const;
-		bool operator >= (const Number & other_num) const;
 		
 	protected:
 		typedef runtime::traits::numeric impl_trait;
@@ -112,6 +104,13 @@ namespace coconut
 	private:
 		impl_trait m_impl;
 	};
+	
+	bool operator == (const Number & left, const Number & right);
+	bool operator != (const Number & left, const Number & right);
+	bool operator <  (const Number & left, const Number & right);
+	bool operator <= (const Number & left, const Number & right);
+	bool operator >  (const Number & left, const Number & right);
+	bool operator >= (const Number & left, const Number & right);
 }
 
 #endif /* !COCONUT_FOUNDATION_NUMBER_HPP */
