@@ -112,7 +112,7 @@ const upath upath::dirname(dirsep_option option) const
 		break;
 	}
 	return upath(
-		algorithm::join<std::string>(m_components, sep), encoding_utf8, option
+		algorithm::join(m_components, sep), encoding_utf8, option
 	);
 }
 
@@ -131,7 +131,7 @@ const std::string upath::to_utf8_string(dirsep_option option) const
 			sep.assign("/");
 		break;
 	}
-	return algorithm::join<std::string>(m_components, sep);
+	return algorithm::join(m_components, sep);
 }
 
 const std::u16string upath::to_utf16_string(dirsep_option option) const

@@ -322,7 +322,10 @@ int icmp(
 	);
 }
 
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char) &&
@@ -331,7 +334,7 @@ typename std::enable_if<
 		std::is_same<CharT, unsigned char>::value
 	)
 , bool>::type is_integer(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in,
 	bool is_unsigned = false
 ) {
 	bool result;
@@ -348,13 +351,16 @@ typename std::enable_if<
 	return result;
 }
 
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(wchar_t) &&
 	std::is_same<CharT, wchar_t>::value
 , bool>::type is_integer(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in,
 	bool is_unsigned = false
 ) {
 	bool result;
@@ -371,13 +377,16 @@ typename std::enable_if<
 	return result;
 }
 	
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char16_t) &&
 	std::is_same<CharT, char16_t>::value
 , bool>::type is_integer(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in,
 	bool is_unsigned = false
 ) {
 	bool result;
@@ -394,13 +403,16 @@ typename std::enable_if<
 	return result;
 }
 	
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char32_t) &&
 	std::is_same<CharT, char32_t>::value
 , bool>::type is_integer(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in,
 	bool is_unsigned = false
 ) {
 	bool result;
@@ -417,29 +429,101 @@ typename std::enable_if<
 	return result;
 }
 
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_number(const std::string & in)
-{
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char) &&
+	(
+		std::is_same<CharT, char>::value ||
+		std::is_same<CharT, unsigned char>::value
+	)
+, bool>::type is_number(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
+) {
 	bool result;
 	try {
-		result = std::regex_match(in, std::regex(u8"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"));
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			weak_cast<const CharT *>(u8"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?")
+		);
+		result = std::regex_match(in, regex);
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
 }
 
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_number(const std::wstring & in)
-{
+typename std::enable_if<
+	sizeof(CharT) == sizeof(wchar_t) &&
+	std::is_same<CharT, wchar_t>::value
+, bool>::type is_number(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
+) {
 	bool result;
 	try {
-		result = std::regex_match(in, std::wregex(L"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"));
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			L"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"
+		);
+		result = std::regex_match(in, regex);
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
 }
 
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char16_t) &&
+	std::is_same<CharT, char16_t>::value
+, bool>::type is_number(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
+) {
+	bool result;
+	try {
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			u"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"
+		);
+		result = std::regex_match(in, regex);
+	}
+	catch (std::regex_error e) { result = false; }
+	return result;
+}
+
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char32_t) &&
+	std::is_same<CharT, char32_t>::value
+, bool>::type is_number(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
+) {
+	bool result;
+	try {
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			U"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?"
+		);
+		result = std::regex_match(in, regex);
+	}
+	catch (std::regex_error e) { result = false; }
+	return result;
+}
+
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char) &&
@@ -448,7 +532,7 @@ typename std::enable_if<
 		std::is_same<CharT, unsigned char>::value
 	)
 , bool>::type is_numeric(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
 	bool result;
 	try {
@@ -461,13 +545,16 @@ typename std::enable_if<
 	return result;
 }
 
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(wchar_t) &&
 	std::is_same<CharT, wchar_t>::value
 , bool>::type is_numeric(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
 	bool result;
 	try {
@@ -480,13 +567,16 @@ typename std::enable_if<
 	return result;
 }
 
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char16_t) &&
 	std::is_same<CharT, char16_t>::value
 , bool>::type is_numeric(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
 	bool result;
 	try {
@@ -499,13 +589,16 @@ typename std::enable_if<
 	return result;
 }
 	
-template<typename CharT>
+template<typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char32_t) &&
 	std::is_same<CharT, char32_t>::value
 , bool>::type is_numeric(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
 	bool result;
 	try {
@@ -540,7 +633,7 @@ NumT to_numeric(const std::basic_string<CharT, TraitsT, AllocatorT> & in)
 
 	typedef std::basic_stringstream<CharT, TraitsT, AllocatorT> stringstream_type;
 	
-	if (in.size() && is_numeric(in)) {
+	if (in.size() && is_numeric<CharT, TraitsT, AllocatorT>(in)) {
 		stringstream_type buf;
 		buf << in;
 		buf >> t;
@@ -564,15 +657,18 @@ std::basic_string<CharT, TraitsT, AllocatorT> to_string(const NumT & n, std::siz
 	return ostr.str();
 }
 
-template <typename StrT, typename IterT>
+template <typename IterT, typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-StrT joiner(IterT && beg, IterT && end, const StrT & sep)
-{
-	using char_type = typename StrT::value_type;
-	using traits_type = typename StrT::traits_type;
-	using allocator_type = typename StrT::allocator_type;
-	
-	using ostringstream_type = std::basic_ostringstream<char_type, traits_type, allocator_type>;
+void joiner(
+	IterT && beg,
+	IterT && end,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & sep,
+	std::basic_string<CharT, TraitsT, AllocatorT> & joined
+) {
+	using ostringstream_type = std::basic_ostringstream<CharT, TraitsT, AllocatorT>;
 	
 	ostringstream_type result;
 
@@ -583,7 +679,7 @@ StrT joiner(IterT && beg, IterT && end, const StrT & sep)
 		result << sep;
 		result << *beg++;
 	}
-	return result.str();
+	joined = std::move(result.str());
 }
 
 template <typename StrT, typename VecT>
@@ -673,10 +769,30 @@ std::size_t explode(
 	return out.size();
 }
 
-template <typename StrT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-StrT join(const std::vector<StrT> & parts, const StrT & separator)
-{ return joiner(parts.cbegin(), parts.cend(), separator); }
+std::basic_string<CharT, TraitsT, AllocatorT> join(
+	const std::vector< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & separator
+) {
+	using IterT = typename std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >::const_iterator;
+	std::basic_string<CharT, TraitsT, AllocatorT> joined;
+	joiner<IterT, CharT, TraitsT, AllocatorT>(parts.cbegin(), parts.cend(), separator, joined);
+	return joined;
+}
+
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, TraitsT, AllocatorT> join(
+	const std::vector< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
+	const CharT * separator
+) { return join<CharT, TraitsT, AllocatorT>(parts, std::basic_string<CharT, TraitsT, AllocatorT>(separator)); }
 
 template <typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

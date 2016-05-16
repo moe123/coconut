@@ -344,7 +344,7 @@ Owning<Any> nucleus::valueForKeyPath(const std::string & utf8_keypath) const
 		if (vv) {
 			parts.erase(parts.begin());
 			if (parts.size() >= 2) {
-				v = vv->valueForKeyPath(algorithm::join<std::string>(parts, u8"."));
+				v = vv->valueForKeyPath(algorithm::join(parts, u8"."));
 			} else if (parts.size() == 1) {
 				v = vv->valueForKey(parts[0]);
 			}
@@ -365,7 +365,7 @@ void nucleus::setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypa
 			if (vv) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
-					vv->setValueForKeyPath(ptr, algorithm::join<std::string>(parts, u8"."));
+					vv->setValueForKeyPath(ptr, algorithm::join(parts, u8"."));
 				} else if (parts.size() == 1) {
 					vv->setValueForKey(ptr, parts[0]);
 				}

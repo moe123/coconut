@@ -167,7 +167,7 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
-					return item->valueForKeyPath(runtime::algorithm::join<std::string>(parts, u8"."));
+					return item->valueForKeyPath(runtime::algorithm::join(parts, u8"."));
 				} else if (parts.size() == 1) {
 					return item->valueForKey(parts[0]);
 				}
@@ -1033,7 +1033,7 @@ const String Array::componentsJoinedByString(const String & separator)
 	for (const_iterator it = cbegin(); it != cend(); ++it) {
 		if ((*it)) { buf.push_back((*it)->stringValue()); }
 	}
-	return {runtime::algorithm::join<std::string>(buf, separator.stringValue())};
+	return {runtime::algorithm::join(buf, separator.stringValue())};
 }
 
 #pragma mark -
