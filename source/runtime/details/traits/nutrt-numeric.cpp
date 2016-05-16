@@ -338,33 +338,33 @@ std::string numeric::to_string() const
 	switch (m_type)
 	{
 		case numeric_float :
-			return algorithm::to_string<std::string>(m_val_float, 6);
+			return algorithm::to_string<std::string::value_type>(m_val_float, 6);
 		case numeric_double :
-			return algorithm::to_string<std::string>(m_val_double, 24);
+			return algorithm::to_string<std::string::value_type>(m_val_double, 24);
 		case numeric_long_double :
-			return algorithm::to_string<std::string>(m_val_long_double, 36);
+			return algorithm::to_string<std::string::value_type>(m_val_long_double, 36);
 		case numeric_bool :
-			return algorithm::to_string<std::string>(m_val_bool);
+			return algorithm::to_string<std::string::value_type>(m_val_bool);
 		case numeric_char :
-			return algorithm::to_string<std::string>(m_val_char);
+			return algorithm::to_string<std::string::value_type>(m_val_char);
 		case numeric_short :
-			return algorithm::to_string<std::string>(m_val_short);
+			return algorithm::to_string<std::string::value_type>(m_val_short);
 		case numeric_int :
-			return algorithm::to_string<std::string>(m_val_int);
+			return algorithm::to_string<std::string::value_type>(m_val_int);
 		case numeric_long :
-			return algorithm::to_string<std::string>(m_val_long);
+			return algorithm::to_string<std::string::value_type>(m_val_long);
 		case numeric_long_long :
-			return algorithm::to_string<std::string>(m_val_long_long);
+			return algorithm::to_string<std::string::value_type>(m_val_long_long);
 		case numeric_unsigned_char :
-			return algorithm::to_string<std::string>(m_val_unsigned_char);
+			return algorithm::to_string<std::string::value_type>(m_val_unsigned_char);
 		case numeric_unsigned_short :
-			return algorithm::to_string<std::string>(m_val_unsigned_short);
+			return algorithm::to_string<std::string::value_type>(m_val_unsigned_short);
 		case numeric_unsigned_int :
-			return algorithm::to_string<std::string>(m_val_unsigned_int);
+			return algorithm::to_string<std::string::value_type>(m_val_unsigned_int);
 		case numeric_unsigned_long :
-			return algorithm::to_string<std::string>(m_val_unsigned_long);
+			return algorithm::to_string<std::string::value_type>(m_val_unsigned_long);
 		case numeric_unsigned_long_long :
-			return algorithm::to_string<std::string>(m_val_unsigned_long_long);
+			return algorithm::to_string<std::string::value_type>(m_val_unsigned_long_long);
 	}
 	return u8"0";
 }

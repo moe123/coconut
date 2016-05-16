@@ -306,7 +306,7 @@ static void test_date(void)
 	tms.push_back(std::make_pair("TimeUnitNanoSeconds  ", Date::timestamp(TimeUnitNanoSeconds, TimestampSinceJanuary1970)));
 	
 	for (auto && tm : tms) {
-		std::cerr << "+ now_unixepoch ('" << tm.first << "') : " << to_string<std::string>(tm.second, 3) << std::endl;
+		std::cerr << "+ now_unixepoch ('" << tm.first << "') : " << to_string<char>(tm.second, 3) << std::endl;
 	}
 	
 	tms.clear();
@@ -318,7 +318,7 @@ static void test_date(void)
 	tms.push_back(std::make_pair("TimeUnitNanoSeconds  ", Date::timestamp(TimeUnitNanoSeconds, TimestampSinceReferenceDate)));
 	
 	for (auto && tm : tms) {
-		std::cerr << "+ now_refepoch  ('" << tm.first << "') : " << to_string<std::string>(tm.second, 3) << std::endl;
+		std::cerr << "+ now_refepoch  ('" << tm.first << "') : " << to_string<char>(tm.second, 3) << std::endl;
 	}
 	
 	tms.clear();
@@ -674,19 +674,19 @@ static void test_stuff(void)
 	std::string hello = u8"hello & wérld!";
 	ustring::guess_encoding(hello, encoding, confidence);
 	
-	std::cerr << "guess_encoding->codepage: " << ustring::get_codepage(encoding) << " " <<  to_string<std::string>(confidence, 1) << std::endl;
+	std::cerr << "guess_encoding->codepage: " << ustring::get_codepage(encoding) << " " <<  to_string<char>(confidence, 1) << std::endl;
 	
 	std::string ret = ustring::make_utf8(hello, confidence, encoding_utf16);
 	// expecting 0
-	std::cerr << "guess_encoding: " << ret << " " << to_string<std::string>(confidence, 1) << std::endl;
+	std::cerr << "guess_encoding: " << ret << " " << to_string<char>(confidence, 1) << std::endl;
 	
 	ret = ustring::make_utf8(hello, confidence, encoding_utf8);
 	// expecting 0.8 -> return hello
-	std::cerr << "guess_encoding: " << ret << " " << to_string<std::string>(confidence, 1) << std::endl;
+	std::cerr << "guess_encoding: " << ret << " " << to_string<char>(confidence, 1) << std::endl;
 	
 	ret = ustring::make_utf8(hello, confidence, encoding_auto);
 	// expecting 0.8 -> return new thru encoding detection
-	std::cerr << "guess_encoding: " << ret << " " << to_string<std::string>(confidence, 1) << std::endl;
+	std::cerr << "guess_encoding: " << ret << " " << to_string<char>(confidence, 1) << std::endl;
 	
 	std::cerr << "dt1: " <<  dt1.stringValue() << " " << &dt1 << std::endl;
 	std::cerr << "dt1: " << dt1.hash() << std::endl;
@@ -1422,8 +1422,8 @@ int main(int argc, const char * argv[])
 	StringSearchOptions opt_0 = StringSearchLiteral | StringSearchBackwards;
 	StringSearchOptions opt_1 = StringSearchLiteral | StringSearchNumeric;
 	
-	std::cerr << runtime::algorithm::to_binary(opt_0) << std::endl;
-	std::cerr << runtime::algorithm::to_binary(opt_1) << std::endl;
+	std::cerr << runtime::algorithm::to_binary<std::string::value_type>(opt_0) << std::endl;
+	std::cerr << runtime::algorithm::to_binary<std::string::value_type>(opt_1) << std::endl;
 	
 	Data dt_0 = { "some bytes", 10 };
 	

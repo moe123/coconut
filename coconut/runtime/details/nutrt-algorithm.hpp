@@ -14,65 +14,71 @@ namespace coconut
 { namespace algorithm
 {
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
+	const std::basic_string<CharT, TraitsT, AllocatorT> & haystack,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & needle
 ) {
 	return needle.size() <= haystack.size() &&
 		std::equal(needle.cbegin(), needle.cend(), haystack.cbegin());
 }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
 	const CharT * haystack,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
-) {
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > haystack_(haystack);
-	return starts_with(haystack_, needle);
-}
+	const std::basic_string<CharT, TraitsT, AllocatorT> & needle
+) { return starts_with(std::basic_string<CharT, TraitsT, AllocatorT>(haystack), needle); }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & haystack,
 	const CharT * needle
-) {
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > needle_(needle);
-	return starts_with(haystack, needle_);
-}
+) { return starts_with(haystack, std::basic_string<CharT, TraitsT, AllocatorT>(needle)); }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
+	const std::basic_string<CharT, TraitsT, AllocatorT> & haystack,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & needle
 ) {
 	return needle.size() <= haystack.size() &&
 		std::equal(needle.crbegin(), needle.crend(), haystack.crbegin());
 }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
 	const CharT * haystack,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
-) {
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > haystack_(haystack);
-	return ends_with(haystack_, needle);
-}
+	const std::basic_string<CharT, TraitsT, AllocatorT> & needle
+) { return ends_with(std::basic_string<CharT, TraitsT, AllocatorT>(haystack), needle); }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & haystack,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & haystack,
 	const CharT * needle
-) {
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > needle_(needle);
-	return ends_with(haystack, needle_);
-}
+) { return ends_with(haystack, std::basic_string<CharT, TraitsT, AllocatorT>(needle)); }
 
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -82,76 +88,98 @@ bool is_alpha(CharT a)
 	return std::use_facet< std::ctype<CharT> >(loc).is(std::ctype<CharT>::alpha, a);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_ascii(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in)
+bool is_ascii(const std::basic_string<CharT, TraitsT, AllocatorT> & in)
 {
-	using const_iterator = typename std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> >::const_iterator;
-	for (const_iterator it= in.cbegin(); it!= in.cend(); ++it) {
+	using const_iter = typename std::basic_string<CharT, TraitsT, AllocatorT>::const_iterator;
+	for (const_iter it = in.cbegin(); it!= in.cend(); ++it) {
 		if (!((reinterpret_cast<int>(*it) & ~0x7F) == 0)) { return false; }
 	}
 	return true;
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & ltrim(
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+std::basic_string<CharT, TraitsT, AllocatorT> & ltrim(
+	std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+	s.erase(s.begin(), std::find_if(
+		s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
 	return s;
 }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > ltrim_copy(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+std::basic_string<CharT, TraitsT, AllocatorT> ltrim_copy(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > s_(s);
-	return ltrim(s_);
+	std::basic_string<CharT, TraitsT, AllocatorT> s_(s);
+	return ltrim<CharT, TraitsT, AllocatorT>(s_);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & rtrim(
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+std::basic_string<CharT, TraitsT, AllocatorT> & rtrim(
+	std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+	s.erase(std::find_if(
+		s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
 	return s;
 }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > rtrim_copy(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+std::basic_string<CharT, TraitsT, AllocatorT> rtrim_copy(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > s_(s);
-	return rtrim(s_);
+	std::basic_string<CharT, TraitsT, AllocatorT> s_(s);
+	return rtrim<CharT, TraitsT, AllocatorT>(s_);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & trim(
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
-) {
-	return ltrim<std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > >(
-		rtrim<std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > >(s)
-	);
-}
+std::basic_string<CharT, TraitsT, AllocatorT> & trim(
+	std::basic_string<CharT, TraitsT, AllocatorT> & s
+) { return ltrim<CharT, TraitsT, AllocatorT>(rtrim<CharT, TraitsT, AllocatorT>(s)); }
 	
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > trim_copy(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+std::basic_string<CharT, TraitsT, AllocatorT> trim_copy(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > s_(s);
-	return trim(s_);
+	std::basic_string<CharT, TraitsT, AllocatorT> s_(s);
+	return trim<CharT, TraitsT, AllocatorT>(s_);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & to_upper(
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+std::basic_string<CharT, TraitsT, AllocatorT> & to_upper(
+	std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
 	std::locale loc;
 	std::transform(
@@ -165,19 +193,25 @@ std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & to_u
 	return in;
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > to_upper_copy(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+std::basic_string<CharT, TraitsT, AllocatorT> to_upper_copy(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > out(in);
-	return to_upper(out);
+	std::basic_string<CharT, TraitsT, AllocatorT> out(in);
+	return to_upper<CharT, TraitsT, AllocatorT>(out);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & to_lower(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+std::basic_string<CharT, TraitsT, AllocatorT> & to_lower(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
 	std::locale loc;
 	std::transform(
@@ -191,67 +225,101 @@ std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & to_l
 	return in;
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > to_lower_copy(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+std::basic_string<CharT, TraitsT, AllocatorT> to_lower_copy(
+	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > out(in);
-	return to_lower(out);
+	std::basic_string<CharT, TraitsT, AllocatorT> out(in);
+	return to_lower<CharT, TraitsT, AllocatorT>(out);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool cmp(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+	const std::basic_string<CharT, TraitsT, AllocatorT> & left,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & right
 ) { return left.compare(right); }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool cmp(
 	const CharT * left,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+	const std::basic_string<CharT, TraitsT, AllocatorT> & right
 ) {
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > left_(left);
-	return cmp(left_, right);
+	return cmp<CharT, TraitsT, AllocatorT>(
+		std::basic_string<CharT, TraitsT, AllocatorT>(left),
+		right
+	);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool cmp(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & left,
 	const CharT * right
 ) {
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > right_(right);
-	return cmp(left, right_);
+	return cmp<CharT, TraitsT, AllocatorT>(
+		left,
+		std::basic_string<CharT, TraitsT, AllocatorT>(right)
+	);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
-) { return cmp(to_upper_copy(left), to_upper_copy(right)); }
+	const std::basic_string<CharT, TraitsT, AllocatorT> & left,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & right
+) {
+	return cmp(
+		to_upper_copy<CharT, TraitsT, AllocatorT>(left),
+		to_upper_copy<CharT, TraitsT, AllocatorT>(right)
+	);
+}
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
 	const CharT * left,
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+	const std::basic_string<CharT, TraitsT, AllocatorT> & right
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > left_(left);
-	return icmp(left_, right);
+	return icmp<CharT, TraitsT, AllocatorT>(
+		std::basic_string<CharT, TraitsT, AllocatorT>(left),
+		right
+	);
 }
 
-template <typename CharT>
+template <typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
-	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
+	const std::basic_string<CharT, TraitsT, AllocatorT> & left,
 	const CharT * right
 ) {
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > right_(right);
-	return icmp(left, right_);
+	return icmp<CharT, TraitsT, AllocatorT>(
+		left,
+		std::basic_string<CharT, TraitsT, AllocatorT>(right)
+	);
 }
 
 template<typename CharT>
@@ -262,8 +330,10 @@ typename std::enable_if<
 		std::is_same<CharT, char>::value ||
 		std::is_same<CharT, unsigned char>::value
 	)
-, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
-{
+, bool>::type is_integer(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	bool is_unsigned = false
+) {
 	bool result;
 	try {
 		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
@@ -283,8 +353,10 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(wchar_t) &&
 	std::is_same<CharT, wchar_t>::value
-, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
-{
+, bool>::type is_integer(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	bool is_unsigned = false
+) {
 	bool result;
 	try {
 		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
@@ -304,8 +376,10 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char16_t) &&
 	std::is_same<CharT, char16_t>::value
-, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
-{
+, bool>::type is_integer(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	bool is_unsigned = false
+) {
 	bool result;
 	try {
 		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
@@ -325,8 +399,10 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(CharT) == sizeof(char32_t) &&
 	std::is_same<CharT, char32_t>::value
-, bool>::type is_integer(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in, bool is_unsigned = false)
-{
+, bool>::type is_integer(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in,
+	bool is_unsigned = false
+) {
 	bool result;
 	try {
 		std::basic_regex<CharT, std::regex_traits<CharT> > regex;
@@ -363,45 +439,106 @@ bool is_number(const std::wstring & in)
 	return result;
 }
 
+template<typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_numeric(const std::string & in)
-{
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char) &&
+	(
+		std::is_same<CharT, char>::value ||
+		std::is_same<CharT, unsigned char>::value
+	)
+, bool>::type is_numeric(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
 	bool result;
 	try {
-		result = std::regex_match(in,
-			std::regex(u8"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			weak_cast<const CharT *>(u8"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?")
+		);
+		result = std::regex_match(in, regex);
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
 }
 
+template<typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_numeric(const std::wstring & in)
-{
+typename std::enable_if<
+	sizeof(CharT) == sizeof(wchar_t) &&
+	std::is_same<CharT, wchar_t>::value
+, bool>::type is_numeric(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
 	bool result;
 	try {
-		result = std::regex_match(in,
-			std::wregex(L"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"));
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			L"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"
+		);
+		result = std::regex_match(in, regex);
 	}
 	catch (std::regex_error e) { result = false; }
 	return result;
 }
 
-template <typename NumT>
+template<typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string to_binary(const NumT & x)
-{ std::bitset<(sizeof(x) * CHAR_BIT)> bits(x); return bits.to_string(); }
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char16_t) &&
+	std::is_same<CharT, char16_t>::value
+, bool>::type is_numeric(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
+	bool result;
+	try {
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			u"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"
+		);
+		result = std::regex_match(in, regex);
+	}
+	catch (std::regex_error e) { result = false; }
+	return result;
+}
+	
+template<typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char32_t) &&
+	std::is_same<CharT, char32_t>::value
+, bool>::type is_numeric(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
+	bool result;
+	try {
+		std::basic_regex<CharT, std::regex_traits<CharT> > regex(
+			U"((\\+|-)?[[:digit:]]+)(\\.(([[:digit:]]+)?))?((e|E)((\\+|-)?)[[:digit:]]+)?"
+		);
+		result = std::regex_match(in, regex);
+	}
+	catch (std::regex_error e) { result = false; }
+	return result;
+}
 
-template <typename NumT, typename StrT>
+template <typename CharT, typename NumT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-NumT to_numeric(const StrT & in)
+std::basic_string<CharT, TraitsT, AllocatorT> to_binary(const NumT & x)
+{
+	std::bitset<(sizeof(x) * CHAR_BIT)> bits(x);
+	return bits. template to_string<CharT, TraitsT, AllocatorT>();
+}
+
+template <typename NumT, typename CharT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+NumT to_numeric(const std::basic_string<CharT, TraitsT, AllocatorT> & in)
 {
 	NumT t = 0;
-	using char_type = typename StrT::value_type;
-	using traits_type = typename StrT::traits_type;
-	using allocator_type = typename StrT::allocator_type;
-	
-	typedef std::basic_stringstream<char_type, traits_type, allocator_type> stringstream_type;
+
+	typedef std::basic_stringstream<CharT, TraitsT, AllocatorT> stringstream_type;
 	
 	if (in.size() && is_numeric(in)) {
 		stringstream_type buf;
@@ -411,15 +548,14 @@ NumT to_numeric(const StrT & in)
 	return t;
 }
 
-template <typename StrT, typename NumT>
+template <typename CharT, typename NumT,
+	typename TraitsT = std::char_traits<CharT>,
+	typename AllocatorT = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-StrT to_string(const NumT & n, std::size_t p = 6)
+std::basic_string<CharT, TraitsT, AllocatorT> to_string(const NumT & n, std::size_t p = 6)
 {
-	using char_type = typename StrT::value_type;
-	using traits_type = typename StrT::traits_type;
-	using allocator_type = typename StrT::allocator_type;
-	
-	using ostringstream_type = std::basic_ostringstream<char_type, traits_type, allocator_type>;
+	using ostringstream_type = std::basic_ostringstream<CharT, TraitsT, AllocatorT>;
 	
 	ostringstream_type ostr;
 	ostr.setf(std::ios::fixed, std::ios::floatfield);
