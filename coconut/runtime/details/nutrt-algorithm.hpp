@@ -31,8 +31,7 @@ bool starts_with(
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
 ) {
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > haystack_(haystack);
-	return needle.size() <= haystack_.size() &&
-		std::equal(needle.cbegin(),needle.cend(), haystack_.cbegin());
+	return starts_with(haystack_, needle);
 }
 	
 template <typename CharT>
@@ -42,8 +41,7 @@ bool starts_with(
 	const CharT * needle
 ) {
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > needle_(needle);
-	return needle_.size() <= haystack.size() &&
-		std::equal(needle_.cbegin(), needle_.cend(), haystack.cbegin());
+	return starts_with(haystack, needle_);
 }
 
 template <typename CharT>
@@ -63,8 +61,7 @@ bool ends_with(
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & needle
 ) {
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > haystack_(haystack);
-	return needle.size() <= haystack_.size() &&
-		std::equal(needle.crbegin(), needle.crend(), haystack_.crbegin());
+	return ends_with(haystack_, needle);
 }
 	
 template <typename CharT>
@@ -74,8 +71,7 @@ bool ends_with(
 	const CharT * needle
 ) {
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > needle_(needle);
-	return needle_.size() <= haystack.size() &&
-		std::equal(needle_.crbegin(), needle_.crend(), haystack.crbegin());
+	return ends_with(haystack, needle_);
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -144,16 +140,80 @@ std::string to_lower(const std::string & in)
 	return out;
 }
 
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool cmp(const std::string & left, const std::string & right)
-{
-	return left.compare(right);
+bool cmp(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+) { return left.compare(right); }
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool cmp(
+	const CharT * left,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+) {
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > left_(left);
+	return cmp(left_, right);
 }
 
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-int icmp(const std::string & left, const std::string & right)
-{
-	return cmp(to_upper(left), to_upper(right));
+bool cmp(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
+	const CharT * right
+) {
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > right_(right);
+	return cmp(left, right_);
+}
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+) {
+	std::locale loc;
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > left_(left);
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > right_(right);
+	
+	std::transform(
+		left_.begin(),
+		left_.end(),
+		left_.begin(), std::bind1st(
+			std::mem_fun(&std::ctype<CharT>::toupper),
+			&std::use_facet< std::ctype<CharT> >(loc)
+		)
+	);
+	std::transform(
+		right_.begin(),
+		right_.end(),
+		right_.begin(), std::bind1st(
+			std::mem_fun(&std::ctype<CharT>::toupper),
+			&std::use_facet< std::ctype<CharT> >(loc)
+		)
+	);
+	return cmp(left_, right_);
+}
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
+	const CharT * left,
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > left_(left);
+	return icmp(left_, right);
+}
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
+	const CharT * right
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > right_(right);
+	return icmp(left, right_);
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
