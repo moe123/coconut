@@ -74,18 +74,21 @@ bool ends_with(
 	return ends_with(haystack, needle_);
 }
 
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_alpha(char a)
+bool is_alpha(CharT a)
 {
 	std::locale loc;
-	return std::use_facet< std::ctype<char> >(loc).is(std::ctype<char>::alpha, a);
+	return std::use_facet< std::ctype<CharT> >(loc).is(std::ctype<CharT>::alpha, a);
 }
 
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool is_ascii(const std::string & in)
+bool is_ascii(const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in)
 {
-	for (std::string::const_iterator it= in.cbegin(); it!= in.cend(); ++it) {
-		if (!((static_cast<int>(*it) & ~0x7F) == 0)) { return false; }
+	using const_iterator = typename std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> >::const_iterator;
+	for (const_iterator it= in.cbegin(); it!= in.cend(); ++it) {
+		if (!((reinterpret_cast<int>(*it) & ~0x7F) == 0)) { return false; }
 	}
 	return true;
 }
@@ -98,6 +101,15 @@ std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & ltri
 	s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
 	return s;
 }
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > ltrim_copy(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > s_(s);
+	return ltrim(s_);
+}
 
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -106,6 +118,15 @@ std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & rtri
 ) {
 	s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
 	return s;
+}
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > rtrim_copy(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > s_(s);
+	return rtrim(s_);
 }
 
 template <typename CharT>
@@ -117,27 +138,66 @@ std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & trim
 		rtrim<std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > >(s)
 	);
 }
-
+	
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string to_upper(const std::string & in)
-{
-	std::locale loc;
-	std::string out;
-	std::transform(in.cbegin(), in.cend(), back_inserter(out), [&loc](char c) {
-		return std::toupper(c, loc);
-	});
-	return out;
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > trim_copy(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & s
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > s_(s);
+	return trim(s_);
 }
 
+template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string to_lower(const std::string & in)
-{
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & to_upper(
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
 	std::locale loc;
-	std::string out;
-	std::transform(in.cbegin(), in.cend(), back_inserter(out), [&loc](char c) {
-		return std::tolower(c, loc);
-	});
-	return out;
+	std::transform(
+		in.begin(),
+		in.end(),
+		in.begin(), std::bind1st(
+			std::mem_fun(&std::ctype<CharT>::toupper),
+			&std::use_facet< std::ctype<CharT> >(loc)
+		)
+	);
+	return in;
+}
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > to_upper_copy(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > out(in);
+	return to_upper(out);
+}
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & to_lower(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
+	std::locale loc;
+	std::transform(
+		in.begin(),
+		in.end(),
+		in.begin(), std::bind1st(
+			std::mem_fun(&std::ctype<CharT>::tolower),
+			&std::use_facet< std::ctype<CharT> >(loc)
+		)
+	);
+	return in;
+}
+
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > to_lower_copy(
+	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & in
+) {
+	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > out(in);
+	return to_lower(out);
 }
 
 template <typename CharT>
@@ -172,29 +232,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & left,
 	const std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > & right
-) {
-	std::locale loc;
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > left_(left);
-	std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> > right_(right);
-	
-	std::transform(
-		left_.begin(),
-		left_.end(),
-		left_.begin(), std::bind1st(
-			std::mem_fun(&std::ctype<CharT>::toupper),
-			&std::use_facet< std::ctype<CharT> >(loc)
-		)
-	);
-	std::transform(
-		right_.begin(),
-		right_.end(),
-		right_.begin(), std::bind1st(
-			std::mem_fun(&std::ctype<CharT>::toupper),
-			&std::use_facet< std::ctype<CharT> >(loc)
-		)
-	);
-	return cmp(left_, right_);
-}
+) { return cmp(to_upper_copy(left), to_upper_copy(right)); }
 
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -427,12 +465,14 @@ void tokenizer(const StrT & in, VecT & tokens, const StrT & delimiter)
 		if (pos == StrT::npos) {
 			pos = in.length();
 			if (pos != last_pos) {
-				tokens.push_back(value_type(in.data() + last_pos, static_cast<size_type>(pos) - last_pos ));
+				tokens.push_back(value_type(in.data() + last_pos,
+					static_cast<size_type>(pos) - last_pos ));
 			}
 			break;
 		} else {
 			if (pos != last_pos) {
-				tokens.push_back(value_type(in.data() + last_pos, static_cast<size_type>(pos) - last_pos ));
+				tokens.push_back(value_type(in.data() + last_pos,
+					static_cast<size_type>(pos) - last_pos ));
 			}
 		}
 		last_pos = pos + 1;
@@ -511,7 +551,7 @@ std::string format(const char * fmt, ArgsT &&... args)
 		std::vector<char> buf(static_cast<std::size_t>(sz));
 		std::snprintf(buf.data(), buf.size(), fmt, std::forward<ArgsT>(args)...);
 		if (buf.back() == '\0') { buf.pop_back(); }
-		return std::string(buf.begin(), buf.end());
+		return {buf.begin(), buf.end()};
 	}
 	return {};
 }
