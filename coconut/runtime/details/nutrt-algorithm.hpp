@@ -772,7 +772,12 @@ std::size_t explode(
 template <typename CharT,
 	template <
 		typename,
-		typename = std::allocator< std::basic_string<CharT> >
+		typename = std::allocator<
+			std::basic_string<CharT,
+				std::char_traits<CharT>,
+				std::allocator<CharT>
+			>
+		>
 	> class ContainerT,
 	typename TraitsT = std::char_traits<CharT>,
 	typename AllocatorT = std::allocator<CharT>,
@@ -806,7 +811,12 @@ template <
 	typename CharT,
 	template <
 		typename,
-		typename = std::allocator< std::basic_string<CharT> >
+		typename = std::allocator<
+			std::basic_string<CharT,
+				std::char_traits<CharT>,
+				std::allocator<CharT>
+			>
+		>
 	> class ContainerT,
 	typename TraitsT = std::char_traits<CharT>,
 	typename AllocatorT = std::allocator<CharT>,
