@@ -770,12 +770,30 @@ std::size_t explode(
 }
 
 template <typename CharT,
+	template <
+		typename,
+		typename = std::allocator< std::basic_string<CharT> >
+	> class ContainerT,
 	typename TraitsT = std::char_traits<CharT>,
-	typename AllocatorT = std::allocator<CharT>
+	typename AllocatorT = std::allocator<CharT>,
+	typename std::enable_if<
+		std::is_same<
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
+			std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >
+		>::value ||
+		std::is_same<
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
+			std::list< std::basic_string<CharT, TraitsT, AllocatorT> >
+		>::value ||
+		std::is_same<
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
+			std::set< std::basic_string<CharT, TraitsT, AllocatorT> >
+		>::value
+	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> join(
-	const std::vector< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
+	const ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
 	const std::basic_string<CharT, TraitsT, AllocatorT> & separator
 ) {
 	using IterT = typename std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >::const_iterator;
@@ -784,15 +802,34 @@ std::basic_string<CharT, TraitsT, AllocatorT> join(
 	return joined;
 }
 
-template <typename CharT,
+template <
+	typename CharT,
+	template <
+		typename,
+		typename = std::allocator< std::basic_string<CharT> >
+	> class ContainerT,
 	typename TraitsT = std::char_traits<CharT>,
-	typename AllocatorT = std::allocator<CharT>
+	typename AllocatorT = std::allocator<CharT>,
+	typename std::enable_if<
+		std::is_same<
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
+			std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >
+		>::value ||
+		std::is_same<
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
+			std::list< std::basic_string<CharT, TraitsT, AllocatorT> >
+		>::value ||
+		std::is_same<
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
+			std::set< std::basic_string<CharT, TraitsT, AllocatorT> >
+		>::value
+	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> join(
-	const std::vector< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
+	const ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
 	const CharT * separator
-) { return join<CharT, TraitsT, AllocatorT>(parts, std::basic_string<CharT, TraitsT, AllocatorT>(separator)); }
+) { return join<CharT, ContainerT, TraitsT, AllocatorT>(parts, std::basic_string<CharT, TraitsT, AllocatorT>(separator)); }
 
 template <typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
