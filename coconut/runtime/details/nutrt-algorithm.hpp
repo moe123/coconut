@@ -35,7 +35,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
 	const CharT * haystack,
 	const std::basic_string<CharT, TraitsT, AllocatorT> & needle
-) { return starts_with(std::basic_string<CharT, TraitsT, AllocatorT>(haystack), needle); }
+) { return starts_with<CharT, TraitsT, AllocatorT>(std::basic_string<CharT, TraitsT, AllocatorT>(haystack), needle); }
 	
 template <typename CharT,
 	typename TraitsT = std::char_traits<CharT>,
@@ -45,7 +45,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & haystack,
 	const CharT * needle
-) { return starts_with(haystack, std::basic_string<CharT, TraitsT, AllocatorT>(needle)); }
+) { return starts_with<CharT, TraitsT, AllocatorT>(haystack, std::basic_string<CharT, TraitsT, AllocatorT>(needle)); }
 
 template <typename CharT,
 	typename TraitsT = std::char_traits<CharT>,
@@ -68,7 +68,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
 	const CharT * haystack,
 	const std::basic_string<CharT, TraitsT, AllocatorT> & needle
-) { return ends_with(std::basic_string<CharT, TraitsT, AllocatorT>(haystack), needle); }
+) { return ends_with<CharT, TraitsT, AllocatorT>(std::basic_string<CharT, TraitsT, AllocatorT>(haystack), needle); }
 	
 template <typename CharT,
 	typename TraitsT = std::char_traits<CharT>,
@@ -78,7 +78,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & haystack,
 	const CharT * needle
-) { return ends_with(haystack, std::basic_string<CharT, TraitsT, AllocatorT>(needle)); }
+) { return ends_with<CharT, TraitsT, AllocatorT>(haystack, std::basic_string<CharT, TraitsT, AllocatorT>(needle)); }
 
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
