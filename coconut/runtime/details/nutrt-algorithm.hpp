@@ -811,16 +811,40 @@ template <typename CharT,
 	typename AllocatorT = std::allocator<CharT>,
 	typename std::enable_if<
 		std::is_same<
-			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
-			std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>,
+			std::vector< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>
 		>::value ||
 		std::is_same<
-			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
-			std::list< std::basic_string<CharT, TraitsT, AllocatorT> >
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>,
+			std::list< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>
 		>::value ||
 		std::is_same<
-			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
-			std::set< std::basic_string<CharT, TraitsT, AllocatorT> >
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>,
+			std::set< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>
 		>::value
 	>::type* = nullptr
 >
@@ -829,14 +853,21 @@ std::basic_string<CharT, TraitsT, AllocatorT> join(
 	const ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> > & parts,
 	const std::basic_string<CharT, TraitsT, AllocatorT> & separator
 ) {
-	using IterT = typename std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >::const_iterator;
 	std::basic_string<CharT, TraitsT, AllocatorT> joined;
-	joiner<IterT, CharT, TraitsT, AllocatorT>(parts.cbegin(), parts.cend(), separator, joined);
+	joiner<typename ContainerT<
+			std::basic_string<CharT, TraitsT, AllocatorT>,
+			typename ContainerT<
+				std::basic_string<CharT, TraitsT, AllocatorT>
+			>::allocator_type
+		>::const_iterator,
+		CharT,
+		TraitsT,
+		AllocatorT
+	>(parts.cbegin(), parts.cend(), separator, joined);
 	return joined;
 }
 
-template <
-	typename CharT,
+template <typename CharT,
 	template <
 		typename,
 		typename = std::allocator<
@@ -850,16 +881,40 @@ template <
 	typename AllocatorT = std::allocator<CharT>,
 	typename std::enable_if<
 		std::is_same<
-			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
-			std::vector< std::basic_string<CharT, TraitsT, AllocatorT> >
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>,
+			std::vector< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>
 		>::value ||
 		std::is_same<
-			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
-			std::list< std::basic_string<CharT, TraitsT, AllocatorT> >
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>,
+			std::list< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>
 		>::value ||
 		std::is_same<
-			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT> >,
-			std::set< std::basic_string<CharT, TraitsT, AllocatorT> >
+			ContainerT< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>,
+			std::set< std::basic_string<CharT, TraitsT, AllocatorT>,
+				typename ContainerT<
+					std::basic_string<CharT, TraitsT, AllocatorT>
+				>::allocator_type
+			>
 		>::value
 	>::type* = nullptr
 >

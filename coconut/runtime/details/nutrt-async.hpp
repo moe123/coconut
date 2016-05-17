@@ -46,7 +46,9 @@ shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option,
 	std::launch policy = (std::launch::async | std::launch::deferred);
 	switch (option) {
 		case launch_any:
-			// std::launch::any is implementation-defined.
+#if defined(__clang__)
+			policy = std::launch::any;
+#endif
 		break;
 		case launch_async:
 			policy = std::launch::async;
