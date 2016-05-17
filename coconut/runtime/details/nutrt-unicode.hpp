@@ -34,8 +34,8 @@ void __conv_to_bytes(
 	dest = conv.to_bytes(src);
 }
 
-template<typename Char8T,
-	typename std::enable_if<
+template<typename Char8T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
@@ -51,8 +51,8 @@ bool __utf8_have_bom(
 	return have_bom;
 }
 	
-template<typename Char8T,
-	typename std::enable_if<
+template<typename Char8T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
@@ -60,8 +60,8 @@ void __utf8_add_bom(
 	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8
 ) { if (!__utf8_have_bom(in_utf8)) { in_utf8.insert(0, u8"\xEF\xBB\xBF"); } }
 	
-template<typename Char8T,
-	typename std::enable_if<
+template<typename Char8T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
@@ -69,8 +69,8 @@ void __utf8_del_bom(
 	std::basic_string<Char8T, std::char_traits<Char8T>, std::allocator<Char8T> > & in_utf8
 ) { if (__utf8_have_bom(in_utf8)) { in_utf8.erase(0, 3); } }
 	
-template<typename Char8T,
-	typename std::enable_if<
+template<typename Char8T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
@@ -90,8 +90,8 @@ void __utf8_bom(
 	}
 }
 
-template<typename Char16T, typename Char8T,
-	typename std::enable_if<
+template<typename Char16T, typename Char8T
+	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
@@ -107,8 +107,8 @@ void _conv_utf16_to_utf8(
 	__utf8_bom<Char8T>(dest, option);
 }
 
-template<typename Char16T, typename Char8T,
-	typename std::enable_if<
+template<typename Char16T, typename Char8T
+	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
@@ -184,8 +184,8 @@ void>::type _conv_utf8_to_utf16(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 
-template<typename Char8T, typename Char16T,
-	typename std::enable_if<
+template<typename Char8T, typename Char16T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char) &&
 		sizeof(Char16T) == sizeof(char16_t), void
 	>::type* = nullptr
@@ -213,8 +213,8 @@ void _conv_utf8_to_utf16(
 	}
 }
 
-template<typename Char16T, typename Char8T,
-	typename std::enable_if<
+template<typename Char16T, typename Char8T
+	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
@@ -230,8 +230,8 @@ void _conv_ucs2_to_utf8(
 	__utf8_bom<Char8T>(dest, option);
 }
 
-template<typename Char16T, typename Char8T,
-	typename std::enable_if<
+template<typename Char16T, typename Char8T
+	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
@@ -307,8 +307,8 @@ void>::type _conv_utf8_to_ucs2(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 
-template<typename Char8T, typename Char16T,
-	typename std::enable_if<
+template<typename Char8T, typename Char16T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char) &&
 		sizeof(Char16T) == sizeof(char16_t), void
 	>::type* = nullptr
@@ -336,8 +336,8 @@ void _conv_utf8_to_ucs2(
 	}
 }
 
-template<typename Char32T, typename Char8T,
-	typename std::enable_if<
+template<typename Char32T, typename Char8T
+	, typename std::enable_if<
 		sizeof(Char32T) == sizeof(char32_t) &&
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
@@ -353,8 +353,8 @@ void _conv_ucs4_to_utf8(
 	__utf8_bom<Char8T>(dest, option);
 }
 
-template<typename Char32T, typename Char8T,
-	typename std::enable_if<
+template<typename Char32T, typename Char8T
+	, typename std::enable_if<
 		sizeof(Char32T) == sizeof(char32_t) &&
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
@@ -430,8 +430,8 @@ void>::type _conv_utf8_to_ucs4(
 	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
 }
 
-template<typename Char8T, typename Char32T,
-	typename std::enable_if<
+template<typename Char8T, typename Char32T
+	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char) &&
 		sizeof(Char32T) == sizeof(char32_t), void
 	>::type* = nullptr

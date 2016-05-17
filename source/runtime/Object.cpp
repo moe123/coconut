@@ -127,7 +127,7 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 			}
 		} else {
 			std::vector<std::string> parts;
-			parts = runtime::algorithm::split<std::string>(utf8_selkey, u8".");
+			parts = runtime::algorithm::split(utf8_selkey, u8".");
 			if (parts.size() >= 2) {
 				if (parts[0] == u8"@self") {
 					parts.erase(parts.begin());

@@ -1422,8 +1422,8 @@ int main(int argc, const char * argv[])
 	StringSearchOptions opt_0 = StringSearchLiteral | StringSearchBackwards;
 	StringSearchOptions opt_1 = StringSearchLiteral | StringSearchNumeric;
 	
-	std::cerr << runtime::algorithm::to_binary<std::string::value_type>(opt_0) << std::endl;
-	std::cerr << runtime::algorithm::to_binary<std::string::value_type>(opt_1) << std::endl;
+	std::cerr << runtime::algorithm::to_binary<char>(opt_0) << std::endl;
+	std::cerr << runtime::algorithm::to_binary<char>(opt_1) << std::endl;
 	
 	Data dt_0 = { "some bytes", 10 };
 	

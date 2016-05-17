@@ -338,7 +338,7 @@ Owning<Any> nucleus::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	Owning<Any> v;
 	std::vector<std::string> parts;
-	parts = algorithm::split<std::string>(utf8_keypath, u8".");
+	parts = algorithm::split(utf8_keypath, u8".");
 	if (parts.size() >= 2) {
 		Owning<Any> vv = valueForKey(parts[0]);
 		if (vv) {
@@ -359,7 +359,7 @@ void nucleus::setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypa
 {
 	if (ptr) {
 		std::vector<std::string> parts;
-		parts = algorithm::split<std::string>(utf8_keypath, u8".");
+		parts = algorithm::split(utf8_keypath, u8".");
 		if (parts.size() >= 2) {
 			Owning<Any> vv = valueForKey(parts[0]);
 			if (vv) {
@@ -531,8 +531,8 @@ const std::string nucleus::description() const
 	return COCONUT_DESCRIPTION_FMT(
 		class_name(),
 		class_tree(),
-		algorithm::to_string<std::string::value_type>(size()),
-		algorithm::to_string<std::string::value_type>(sig()),
+		algorithm::to_string<char>(size()),
+		algorithm::to_string<char>(sig()),
 		ss.str()
 	);
 }

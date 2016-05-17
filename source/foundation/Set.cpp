@@ -154,7 +154,7 @@ Owning<Any> Set::valueForKeyPath(const std::string & utf8_keypath) const
 	}
 	Array::impl_trait buf;
 	std::vector<std::string> parts;
-	parts = runtime::algorithm::split<std::string>(utf8_keypath, u8".");
+	parts = runtime::algorithm::split(utf8_keypath, u8".");
 	if (parts.size() == 1) {
 		return valueForKey(utf8_keypath);
 	} else if (parts.size() >= 2) {
