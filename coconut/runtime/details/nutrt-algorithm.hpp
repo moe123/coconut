@@ -149,7 +149,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> ltrim_copy(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	std::basic_string<CharT, TraitsT, AllocatorT> s_(s);
+	std::basic_string<CharT, TraitsT, AllocatorT> s_(s.data(), s.size());
 	return ltrim<CharT, TraitsT, AllocatorT>(s_);
 }
 
@@ -176,7 +176,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> rtrim_copy(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	std::basic_string<CharT, TraitsT, AllocatorT> s_(s);
+	std::basic_string<CharT, TraitsT, AllocatorT> s_(s.data(), s.size());
 	return rtrim<CharT, TraitsT, AllocatorT>(s_);
 }
 
@@ -197,7 +197,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> trim_copy(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
-	std::basic_string<CharT, TraitsT, AllocatorT> s_(s);
+	std::basic_string<CharT, TraitsT, AllocatorT> s_(s.data(), s.size());
 	return trim<CharT, TraitsT, AllocatorT>(s_);
 }
 
@@ -229,7 +229,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> to_upper_copy(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
-	std::basic_string<CharT, TraitsT, AllocatorT> out(in);
+	std::basic_string<CharT, TraitsT, AllocatorT> out(in.data(), in.size());
 	return to_upper<CharT, TraitsT, AllocatorT>(out);
 }
 
@@ -261,7 +261,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, TraitsT, AllocatorT> to_lower_copy(
 	const std::basic_string<CharT, TraitsT, AllocatorT> & in
 ) {
-	std::basic_string<CharT, TraitsT, AllocatorT> out(in);
+	std::basic_string<CharT, TraitsT, AllocatorT> out(in.data(), in.size());
 	return to_lower<CharT, TraitsT, AllocatorT>(out);
 }
 
