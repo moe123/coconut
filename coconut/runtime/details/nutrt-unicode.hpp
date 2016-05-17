@@ -14,24 +14,24 @@ namespace coconut
 { namespace unicode
 {
 	
-template<typename CharT1, typename CharT2, typename CodecvtT>
+template<typename CharInT, typename CharOutT, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __conv_from_bytes(
-	const std::basic_string<CharT1, std::char_traits<CharT1>, std::allocator<CharT1> > & src,
-	std::basic_string<CharT2, std::char_traits<CharT2>, std::allocator<CharT2> > & dest
+	const std::basic_string<CharInT, std::char_traits<CharInT>, std::allocator<CharInT> > & src,
+	std::basic_string<CharOutT, std::char_traits<CharOutT>, std::allocator<CharOutT> > & dest
 ) {
-	std::wstring_convert<CodecvtT, CharT2> conv;
-	dest = conv.from_bytes(src);
+	std::wstring_convert<CodecvtT, CharOutT> conv;
+	dest = std::move(conv.from_bytes(src));
 }
 
-template<typename CharT1, typename CharT2, typename CodecvtT>
+template<typename CharInT, typename CharOutT, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __conv_to_bytes(
-	const std::basic_string<CharT1, std::char_traits<CharT1>, std::allocator<CharT1> > & src,
-	std::basic_string<CharT2, std::char_traits<CharT2>, std::allocator<CharT2> > & dest
+	const std::basic_string<CharInT, std::char_traits<CharInT>, std::allocator<CharInT> > & src,
+	std::basic_string<CharOutT, std::char_traits<CharOutT>, std::allocator<CharOutT> > & dest
 ) {
-	std::wstring_convert<CodecvtT, CharT1> conv;
-	dest = conv.to_bytes(src);
+	std::wstring_convert<CodecvtT, CharInT> conv;
+	dest = std::move(conv.to_bytes(src));
 }
 
 template<typename Char8T
@@ -653,6 +653,10 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string & utf8_del_bom(std::string & in_utf8)
 { __utf8_del_bom(in_utf8); return in_utf8; }
 
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string & utf8_hav_bom(std::string & in_utf8)
+{ __utf8_have_bom(in_utf8); return in_utf8; }
+	
 }}} /* EONS */
 
 #endif /* !COCONUT_RUNTIME_UNICODE_HPP */
