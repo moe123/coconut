@@ -121,7 +121,7 @@ bool is_ascii(const std::basic_string<CharT, TraitsT, AllocatorT> & in)
 {
 	using const_iter = typename std::basic_string<CharT, TraitsT, AllocatorT>::const_iterator;
 	for (const_iter it = in.cbegin(); it!= in.cend(); ++it) {
-		if (!((reinterpret_cast<int>(*it) & ~0x7F) == 0)) { return false; }
+		if (!((reinterpret_cast<std::int32_t>(*it) & ~0x7F) == 0)) { return false; }
 	}
 	return true;
 }
@@ -135,7 +135,9 @@ std::basic_string<CharT, TraitsT, AllocatorT> & ltrim(
 	std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
 	s.erase(s.begin(), std::find_if(
-		s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+		s.begin(), s.end(), std::not1(
+			std::ptr_fun<std::int32_t, std::int32_t>(std::isspace)
+	)));
 	return s;
 }
 	
@@ -160,7 +162,9 @@ std::basic_string<CharT, TraitsT, AllocatorT> & rtrim(
 	std::basic_string<CharT, TraitsT, AllocatorT> & s
 ) {
 	s.erase(std::find_if(
-		s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+		s.rbegin(), s.rend(), std::not1(
+			std::ptr_fun<std::int32_t, std::int32_t>(std::isspace)
+	)).base(), s.end());
 	return s;
 }
 	
