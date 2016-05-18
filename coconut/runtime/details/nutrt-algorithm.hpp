@@ -1179,9 +1179,9 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void print(std::ostream & os, const std::string & fmt, ArgsT &&... args)
 { os << format(fmt.c_str(), std::forward<ArgsT>(args)...); }
 	
-template <typename... ArgsT>
+template <std::size_t N, typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void print_stderr(const std::string & fmt, ArgsT &&... args)
+void print_stderr(const char (&fmt)[N], ArgsT &&... args)
 {
 #if defined(__MICROSOFT__)
 	const char _endl[3] = "\r\n";
@@ -1189,12 +1189,17 @@ void print_stderr(const std::string & fmt, ArgsT &&... args)
 	const char _endl = '\n';
 #endif
 	std::cerr << std::nounitbuf;
-	std::cerr << format(fmt.c_str(), std::forward<ArgsT>(args)...) << _endl;
+	std::cerr << format(fmt, std::forward<ArgsT>(args)...) << _endl;
 }
-
+	
 template <typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void print_stdout(const std::string & fmt, ArgsT &&... args)
+void print_stderr(const std::string & fmt, ArgsT &&... args)
+{ print_stderr(fmt.c_str(), std::forward<ArgsT>(args)...); }
+
+template <std::size_t N, typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void print_stdout(const char (&fmt)[N], ArgsT &&... args)
 {
 #if defined(__MICROSOFT__)
 		const char _endl[3] = "\r\n";
@@ -1202,8 +1207,13 @@ void print_stdout(const std::string & fmt, ArgsT &&... args)
 		const char _endl = '\n';
 #endif
 	std::cout << std::nounitbuf;
-	std::cout << format(fmt.c_str(), std::forward<ArgsT>(args)...) << _endl;
+	std::cout << format(fmt, std::forward<ArgsT>(args)...) << _endl;
 }
+	
+template <typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void print_stdout(const std::string & fmt, ArgsT &&... args)
+{ print_stdout(fmt.c_str(), std::forward<ArgsT>(args)...); }
 	
 }}} /* EONS */
 
