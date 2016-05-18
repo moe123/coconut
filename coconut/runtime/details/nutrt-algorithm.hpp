@@ -62,6 +62,23 @@ bool starts_with(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	const CharT (&haystack)[N1],
+	const CharT (&needle)[N2]
+) {
+	return starts_with<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
@@ -100,6 +117,23 @@ bool ends_with(
 ) {
 	return ends_with<CharT, Traits, Allocator>(
 		haystack,
+		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	const CharT (&haystack)[N1],
+	const CharT (&needle)[N2]
+) {
+	return ends_with<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
 		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
@@ -797,15 +831,30 @@ std::vector<
 	);
 }
 
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::size_t explode(
-	std::vector<std::string> & out,
-	const std::string & delimiter,
-	const std::string & in,
+	std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & out,
+	const std::basic_string<CharT, Traits, Allocator> & delimiter,
+	const std::basic_string<CharT, Traits, Allocator> & in,
 	int limit = std::numeric_limits<int>::max()
 ) {
-	std::vector<std::string>::size_type begin = 0;
-	std::vector<std::string>::size_type end = 0;
+	using size_type = typename std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	>::size_type;
+ 
+	size_type begin = 0, end = 0;
 	
 	if (delimiter.empty()) {
 		return 0;
@@ -813,22 +862,22 @@ std::size_t explode(
 	if (limit == 0) {
 		limit = 1;
 	}
-	if (in.find(delimiter) == std::string::npos) {
+	if (in.find(delimiter) == std::basic_string<CharT, Traits, Allocator>::npos) {
 		if (limit > 0) {
 			out.push_back(in);
 		}
 		return out.size();
 	}
 	
-	while (end != std::string::npos) {
+	while (end != std::basic_string<CharT, Traits, Allocator>::npos) {
 		if (limit > 0 && static_cast<int>(out.size()) == limit - 1) {
 			out.push_back(in.substr(begin));
 			break;
 		}
-		std::vector<std::string>::size_type substr_len = std::string::npos;
-		std::vector<std::string>::size_type next_tok = std::string::npos;
+		size_type substr_len = std::basic_string<CharT, Traits, Allocator>::npos;
+		size_type next_tok = std::basic_string<CharT, Traits, Allocator>::npos;
 		end = in.find_first_of(delimiter, begin);
-		if (end != std::string::npos) {
+		if (end != std::basic_string<CharT, Traits, Allocator>::npos) {
 			substr_len = end - begin;
 			next_tok = end + delimiter.size();
 		}
@@ -845,6 +894,82 @@ std::size_t explode(
 	}
 	return out.size();
 }
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t explode(
+	std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & out,
+	const CharT (&delimiter)[N],
+	const std::basic_string<CharT, Traits, Allocator> & in,
+	int limit = std::numeric_limits<int>::max()
+) {
+	return explode<CharT, Traits, Allocator>(
+		out,
+		std::basic_string<CharT, Traits, Allocator>(delimiter),
+		in,
+		limit
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t explode(
+	std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & out,
+	const std::basic_string<CharT, Traits, Allocator> & delimiter,
+	const CharT (&in)[N],
+	int limit = std::numeric_limits<int>::max()
+) {
+	return explode<CharT, Traits, Allocator>(
+		out,
+		delimiter,
+		std::basic_string<CharT, Traits, Allocator>(in),
+		limit
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t explode(
+	std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & out,
+	const CharT (&delimiter)[N1],
+	const CharT (&in)[N2],
+	int limit = std::numeric_limits<int>::max()
+) {
+	return explode<CharT, Traits, Allocator>(
+		out,
+		std::basic_string<CharT, Traits, Allocator>(delimiter),
+		std::basic_string<CharT, Traits, Allocator>(in),
+		limit
+	);
+}
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
@@ -853,8 +978,8 @@ template <typename CharT
 		typename
 		, typename = std::allocator<
 			std::basic_string<CharT
-				, std::char_traits<CharT>
-				, std::allocator<CharT>
+				, Traits
+				, Allocator
 			>
 		>
 	> class Container
@@ -864,8 +989,8 @@ template <typename CharT
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
-			>,
-			std::vector< std::basic_string<CharT, Traits, Allocator>
+			>
+			, std::vector< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
@@ -876,8 +1001,8 @@ template <typename CharT
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
-			>,
-			std::list< std::basic_string<CharT, Traits, Allocator>
+			>
+			, std::list< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
@@ -888,8 +1013,8 @@ template <typename CharT
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
-			>,
-			std::set< std::basic_string<CharT, Traits, Allocator>
+			>
+			, std::set< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
@@ -927,8 +1052,8 @@ template <typename CharT
 		typename
 		, typename = std::allocator<
 			std::basic_string<CharT
-				, std::char_traits<CharT>
-				, std::allocator<CharT>
+				, Traits
+				, Allocator
 			>
 		>
 	> class Container
@@ -939,8 +1064,8 @@ template <typename CharT
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
-			>,
-			std::vector< std::basic_string<CharT, Traits, Allocator>
+			>
+			, std::vector< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
@@ -951,8 +1076,8 @@ template <typename CharT
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
-			>,
-			std::list< std::basic_string<CharT, Traits, Allocator>
+			>
+			, std::list< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
@@ -963,8 +1088,8 @@ template <typename CharT
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
-			>,
-			std::set< std::basic_string<CharT, Traits, Allocator>
+			>
+			, std::set< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type

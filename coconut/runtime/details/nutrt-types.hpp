@@ -16,7 +16,7 @@ namespace coconut
 {
 		
 COCONUT_CLASSFORWARD_DCL(nucleus)
-
+	
 using Any = nucleus;
 template <typename T> using Owning = std::shared_ptr<T>;
 
