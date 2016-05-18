@@ -1256,9 +1256,9 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void print_stdout(const char (&fmt)[N], ArgsT &&... args)
 {
 #if defined(__MICROSOFT__)
-		const char _endl[3] = "\r\n";
+	const char _endl[3] = "\r\n";
 #else
-		const char _endl = '\n';
+	const char _endl = '\n';
 #endif
 	std::cout << std::nounitbuf;
 	std::cout << format(fmt, std::forward<ArgsT>(args)...) << _endl;
