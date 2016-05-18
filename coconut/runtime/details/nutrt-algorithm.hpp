@@ -418,6 +418,51 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
+	std::basic_string<CharT, Traits, Allocator> && left,
+	std::basic_string<CharT, Traits, Allocator> && right
+) {
+	return cmp(
+		to_upper<CharT, Traits, Allocator>(left),
+		to_upper<CharT, Traits, Allocator>(right)
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
+	std::basic_string<CharT, Traits, Allocator> && left,
+	const std::basic_string<CharT, Traits, Allocator> & right
+) {
+	return cmp(
+		to_upper<CharT, Traits, Allocator>(left),
+		to_upper_copy<CharT, Traits, Allocator>(right)
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
+	const std::basic_string<CharT, Traits, Allocator> & left,
+	std::basic_string<CharT, Traits, Allocator> && right
+) {
+	return cmp(
+		to_upper_copy<CharT, Traits, Allocator>(left),
+		to_upper<CharT, Traits, Allocator>(right)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
 	const std::basic_string<CharT, Traits, Allocator> & left,
 	const std::basic_string<CharT, Traits, Allocator> & right
 ) {
@@ -438,7 +483,7 @@ int icmp(
 	const std::basic_string<CharT, Traits, Allocator> & right
 ) {
 	return icmp<CharT, Traits, Allocator>(
-		std::basic_string<CharT, Traits, Allocator>(left),
+		std::move(std::basic_string<CharT, Traits, Allocator>(left)),
 		right
 	);
 }
@@ -455,7 +500,7 @@ int icmp(
 ) {
 	return icmp<CharT, Traits, Allocator>(
 		left,
-		std::basic_string<CharT, Traits, Allocator>(right)
+		std::move(std::basic_string<CharT, Traits, Allocator>(right))
 	);
 }
 	
@@ -471,8 +516,8 @@ int icmp(
 	const CharT (&right)[N2]
 ) {
 	return icmp<CharT, Traits, Allocator>(
-		std::basic_string<CharT, Traits, Allocator>(left),
-		std::basic_string<CharT, Traits, Allocator>(right)
+		std::move(std::basic_string<CharT, Traits, Allocator>(left)),
+		std::move(std::basic_string<CharT, Traits, Allocator>(right))
 	);
 }
 
