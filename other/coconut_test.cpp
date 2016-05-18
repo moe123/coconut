@@ -1065,6 +1065,8 @@ int main(int argc, const char * argv[])
 {
 	test_stuff();
 	{
+		runtime::algorithm::cmp(u8"toto", u8"toto");
+		
 		std::u16string out = u"ΠαρθένωνΗ";
 		//std::string utf8_in = u8"나는태오";
 		std::string utf8_in = u8"\xEF\xBB\xBFΠαρθένωνΗ";

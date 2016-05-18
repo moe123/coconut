@@ -312,10 +312,11 @@ bool cmp(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool cmp(
-	const CharT * left,
+	const CharT (&left)[N],
 	const std::basic_string<CharT, Traits, Allocator> & right
 ) {
 	return cmp<CharT, Traits, Allocator>(
@@ -327,14 +328,32 @@ bool cmp(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool cmp(
 	const std::basic_string<CharT, Traits, Allocator> & left,
-	const CharT * right
+	const CharT (&right)[N]
 ) {
 	return cmp<CharT, Traits, Allocator>(
 		left,
+		std::basic_string<CharT, Traits, Allocator>(right)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool cmp(
+	const CharT (&left)[N1],
+	const CharT (&right)[N2]
+) {
+	return cmp<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(left),
 		std::basic_string<CharT, Traits, Allocator>(right)
 	);
 }
@@ -357,10 +376,11 @@ int icmp(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
-	const CharT * left,
+	const CharT (&left)[N],
 	const std::basic_string<CharT, Traits, Allocator> & right
 ) {
 	return icmp<CharT, Traits, Allocator>(
@@ -372,14 +392,32 @@ int icmp(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
 	const std::basic_string<CharT, Traits, Allocator> & left,
-	const CharT * right
+	const CharT (&right)[N]
 ) {
 	return icmp<CharT, Traits, Allocator>(
 		left,
+		std::basic_string<CharT, Traits, Allocator>(right)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+int icmp(
+	const CharT (&left)[N1],
+	const CharT (&right)[N2]
+) {
+	return icmp<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(left),
 		std::basic_string<CharT, Traits, Allocator>(right)
 	);
 }
@@ -1112,9 +1150,9 @@ std::basic_string<CharT, Traits, Allocator> join(
 	);
 }
 
-template <typename... ArgsT>
+template <std::size_t N, typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string format(const char * fmt, ArgsT &&... args)
+std::string format(const char (&fmt)[N], ArgsT &&... args)
 {
 	int sz = std::snprintf(nullptr, 0, fmt, std::forward<ArgsT>(args)...);
 	if (sz) {
@@ -1125,7 +1163,48 @@ std::string format(const char * fmt, ArgsT &&... args)
 	}
 	return {};
 }
+	
+template <typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::string format(const std::string & fmt, ArgsT &&... args)
+{ return format(fmt.c_str(), std::forward<ArgsT>(args)...); }
+	
+template <std::size_t N, typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void print(std::ostream & os, const char (&fmt)[N], ArgsT &&... args)
+{ os << format(fmt, std::forward<ArgsT>(args)...); }
+	
+template <typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void print(std::ostream & os, const std::string & fmt, ArgsT &&... args)
+{ os << format(fmt.c_str(), std::forward<ArgsT>(args)...); }
+	
+template <typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void print_stderr(const std::string & fmt, ArgsT &&... args)
+{
+#if defined(__MICROSOFT__)
+	const char _endl[3] = "\r\n";
+#else
+	const char _endl = '\n';
+#endif
+	std::cerr << std::nounitbuf;
+	std::cerr << format(fmt.c_str(), std::forward<ArgsT>(args)...) << _endl;
+}
 
+template <typename... ArgsT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void print_stdout(const std::string & fmt, ArgsT &&... args)
+{
+#if defined(__MICROSOFT__)
+		const char _endl[3] = "\r\n";
+#else
+		const char _endl = '\n';
+#endif
+	std::cout << std::nounitbuf;
+	std::cout << format(fmt.c_str(), std::forward<ArgsT>(args)...) << _endl;
+}
+	
 }}} /* EONS */
 
 #endif /* !COCONUT_RUNTIME_ALGORITHM_HPP */
