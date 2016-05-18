@@ -13,7 +13,7 @@ namespace coconut
 { namespace runtime
 { namespace algorithm
 {
-
+	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
@@ -72,6 +72,60 @@ bool starts_with(
 ) {
 	return starts_with<CharT, Traits, Allocator>(
 		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+
+template <typename IterT1, typename IterT2
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	IterT1 && haystack_beg,
+	IterT1 && haystack_end,
+	IterT2 && needle_beg,
+	IterT2 && needle_end
+) {
+	const std::basic_string<CharT, Traits, Allocator> haystack(haystack_beg, haystack_end);
+	return std::equal(needle_beg, needle_end, haystack.cbegin());
+}
+
+template <typename IterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	IterT && haystack_beg,
+	IterT && haystack_end,
+	const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	return starts_with<IterT, CharT, Traits, Allocator>(
+		std::forward<IterT>(haystack_beg),
+		std::forward<IterT>(haystack_end),
+		needle.cbegin(),
+		needle.cend()
+	);
+}
+
+template <typename IterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool starts_with(
+	IterT && haystack_beg,
+	IterT && haystack_end,
+	const CharT (&needle)[N]
+) {
+	return starts_with<IterT, CharT, Traits, Allocator>(
+		std::forward<IterT>(haystack_beg),
+		std::forward<IterT>(haystack_end),
 		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
