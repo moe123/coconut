@@ -971,6 +971,13 @@ std::vector<
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, typename USizeT = typename std::vector<
+		std::basic_string<CharT, Traits, Allocator>
+		, typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	>::size_type
+	, typename SSizeT = std::ptrdiff_t
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::size_t explode(
@@ -982,16 +989,9 @@ std::size_t explode(
 	> & out,
 	const std::basic_string<CharT, Traits, Allocator> & delimiter,
 	const std::basic_string<CharT, Traits, Allocator> & in,
-	int limit = std::numeric_limits<int>::max()
+	SSizeT limit = std::numeric_limits<SSizeT>::max()
 ) {
-	using size_type = typename std::vector<
-		std::basic_string<CharT, Traits, Allocator>,
-		typename std::vector<
-			std::basic_string<CharT, Traits, Allocator>
-		>::allocator_type
-	>::size_type;
- 
-	size_type begin = 0, end = 0;
+	USizeT begin = 0, end = 0;
 	
 	if (delimiter.empty()) {
 		return 0;
@@ -1007,12 +1007,12 @@ std::size_t explode(
 	}
 	
 	while (end != std::basic_string<CharT, Traits, Allocator>::npos) {
-		if (limit > 0 && static_cast<int>(out.size()) == limit - 1) {
+		if (limit > 0 && weak_cast<SSizeT>(out.size()) == limit - 1) {
 			out.push_back(in.substr(begin));
 			break;
 		}
-		size_type substr_len = std::basic_string<CharT, Traits, Allocator>::npos;
-		size_type next_tok = std::basic_string<CharT, Traits, Allocator>::npos;
+		USizeT substr_len = std::basic_string<CharT, Traits, Allocator>::npos;
+		USizeT next_tok = std::basic_string<CharT, Traits, Allocator>::npos;
 		end = in.find_first_of(delimiter, begin);
 		if (end != std::basic_string<CharT, Traits, Allocator>::npos) {
 			substr_len = end - begin;
@@ -1023,8 +1023,8 @@ std::size_t explode(
 	}
 	if (limit < 0) {
 		limit = std::abs(limit);
-		if (limit < static_cast<int>(out.size())) {
-			out.resize(out.size() - static_cast<std::size_t>(limit));
+		if (limit < weak_cast<SSizeT>(out.size())) {
+			out.resize(out.size() - weak_cast<USizeT>(limit));
 		} else {
 			out.clear();
 		}
