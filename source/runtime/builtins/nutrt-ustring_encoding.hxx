@@ -146,7 +146,7 @@ std::string ustring_getcodepage(encoding_option encoding)
 		}
 		++i;
 	} while(nullptr != ustring_codepages[i].codepage);
-	return {};
+	return {"UTF-8"};
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

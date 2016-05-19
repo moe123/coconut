@@ -496,17 +496,15 @@ std::size_t ustring::count() const
 std::size_t ustring::size_for(encoding_option encoding) const
 {
 	std::int32_t sz = m_ustr.length();
-	if (sz && encoding != encoding_auto) {
-		std::string codepage = builtins::ustring_getcodepage(encoding);
-		if (!codepage.size()) {
-			return 0;
-		}
+	if (sz) {
+		std::string codepage = builtins::ustring_getcodepage(
+			((encoding == encoding_auto) ? encoding_utf8 : encoding)
+		);
 		std::int32_t nb = m_ustr.extract(0, sz, NULL, codepage.c_str());
 		if (nb) { return weak_cast<std::size_t>(nb); }
 	}
 	return 0;
 }
-
 
 #pragma mark -
 
