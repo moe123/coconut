@@ -25,23 +25,23 @@ namespace coconut
 		Array(const std::initializer_list< Owning<Any> > & args);
 		Array(const std::initializer_list<Any *> & args);
 
-		template <typename IterT>
-		Array(IterT && beg, IterT && end) :
-			Array(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		template <typename InputIterT>
+		Array(InputIterT && first, InputIterT && last) :
+			Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)
 		{ /* NOP */ }
 		
-		template <typename IterT>
-		Array(IterT && beg, IterT && end, CopyOption option) :
+		template <typename InputIterT>
+		Array(InputIterT && first, InputIterT && last, CopyOption option) :
 			Object(ArrayClass),
 			m_impl()
 		{
-			for (; beg != end; ++beg) {
-				if ((*beg)) {
+			for (; first != last; ++first) {
+				if ((*first)) {
 					if (option != CopyNone) {
-						Owning<Any> copy = Object::copyObject((*beg), option);
+						Owning<Any> copy = Object::copyObject((*first), option);
 						if (copy) { m_impl.push_back(copy); }
 					} else {
-						m_impl.push_back((*beg));
+						m_impl.push_back((*first));
 					}
 				}
 			}
@@ -156,13 +156,13 @@ namespace coconut
 		const Array arrayByPushingObjectsFromArray(const Array & arr) const;
 		const Array arrayByPushingObjectsFromArray(const Array & arr, CopyOption option) const;
 		
-		template <typename IterT>
-		const Array arrayByPushingObjects(IterT && beg, IterT && end) const
-		{ return arrayByPushingObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		template <typename InputIterT>
+		const Array arrayByPushingObjects(InputIterT && first, InputIterT && last) const
+		{ return arrayByPushingObjects(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
 		
-		template <typename IterT>
-		const Array arrayByPushingObjects(IterT && beg, IterT && end, CopyOption option) const
-		{ return arrayByPushingObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		template <typename InputIterT>
+		const Array arrayByPushingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
+		{ return arrayByPushingObjectsFromArray(Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last)), option); }
 		
 		const Array arrayByAddingObject(const Any & obj) const;
 		const Array arrayByAddingObject(const Any & obj, CopyOption option) const;
@@ -173,13 +173,13 @@ namespace coconut
 		const Array arrayByAddingObjectsFromArray(const Array & arr) const;
 		const Array arrayByAddingObjectsFromArray(const Array & arr, CopyOption option) const;
 		
-		template <typename IterT>
-		const Array arrayByAddingObjects(IterT && beg, IterT && end) const
-		{ return arrayByAddingObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		template <typename InputIterT>
+		const Array arrayByAddingObjects(InputIterT && first, InputIterT && last) const
+		{ return arrayByAddingObjects(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
 		
-		template <typename IterT>
-		const Array arrayByAddingObjects(IterT && beg, IterT && end, CopyOption option) const
-		{ return arrayByAddingObjectsFromArray(Array(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		template <typename InputIterT>
+		const Array arrayByAddingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
+		{ return arrayByAddingObjectsFromArray(Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last)), option); }
 		
 		const Array subarrayWithRange(const Range & rg, CopyOption option = CopyNone) const;
 		const Array subarrayWithSlice(const Slice & slc, CopyOption option = CopyNone) const;

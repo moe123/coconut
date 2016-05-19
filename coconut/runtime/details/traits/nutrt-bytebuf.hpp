@@ -41,10 +41,10 @@ public:
 	bytebuf(const std::uint8_t * membytes, std::size_t length, bool b64dec = false);
 	bytebuf(const char * membytes, std::size_t length, bool b64dec = false);
 	
-	template <typename IterT>
-	bytebuf(IterT && beg, IterT && end, bool b64dec)
+	template <typename InputIterT>
+	bytebuf(InputIterT && first, InputIterT && last, bool b64dec)
 	: m_bytes()
-	{ IterT it = beg; while (it != end) { push_back((*it)); ++it; } if (b64dec) { b64_decode(); } }
+	{ InputIterT it = first; while (it != last) { push_back((*it)); ++it; } if (b64dec) { b64_decode(); } }
 	
 	bytebuf(const std::uint16_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	bytebuf(const std::uint32_t * membytes, std::size_t length, packing_option option = packing_bigendian);
@@ -54,15 +54,15 @@ public:
 	bytebuf(const std::int32_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	bytebuf(const std::int64_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	
-	template <typename IterT>
-	bytebuf(IterT && beg, IterT && end, packing_option option)
+	template <typename InputIterT>
+	bytebuf(InputIterT && first, InputIterT && last, packing_option option)
 	: m_bytes()
-	{ IterT it = beg; while (it != end) { push_back((*it), option); ++it; } }
+	{ InputIterT it = first; while (it != last) { push_back((*it), option); ++it; } }
 	
-	template <typename IterT>
-	bytebuf(IterT && beg, IterT && end)
+	template <typename InputIterT>
+	bytebuf(InputIterT && first, InputIterT && last)
 	: m_bytes()
-	{ IterT it = beg; while (it != end) { push_back((*it)); ++it; } }
+	{ InputIterT it = first; while (it != last) { push_back((*it)); ++it; } }
 	
 	bytebuf(stream::fstream & in_binary);
 	bytebuf(stream::ifstream & in_binary);
@@ -129,9 +129,9 @@ public:
 	void set(const std::uint8_t * membytes, std::size_t length, bool b64dec = false);
 	void set(const char * membytes, std::size_t length, bool b64dec = false);
 	
-	template <typename IterT>
-	void set(IterT && beg, IterT && end, bool b64dec)
-	{ IterT it = beg; clear(); while (it != end) { push_back((*it)); ++it; } if (b64dec) { b64_decode(); } }
+	template <typename InputIterT>
+	void set(InputIterT && first, InputIterT && last, bool b64dec)
+	{ InputIterT it = first; clear(); while (it != last) { push_back((*it)); ++it; } if (b64dec) { b64_decode(); } }
 	
 	void set(const std::uint16_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	void set(const std::uint32_t * membytes, std::size_t length, packing_option option = packing_bigendian);
@@ -141,9 +141,9 @@ public:
 	void set(const std::int32_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	void set(const std::int64_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	
-	template <typename IterT>
-	void set(IterT && beg, IterT && end, packing_option option)
-	{ IterT it = beg; clear(); while (it != end) { push_back((*it), option); ++it; } }
+	template <typename InputIterT>
+	void set(InputIterT && first, InputIterT && last, packing_option option)
+	{ InputIterT it = first; clear(); while (it != last) { push_back((*it), option); ++it; } }
 	
 	void put(const std::uint8_t v, std::size_t index);
 	void put(const char v, std::size_t index);

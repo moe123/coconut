@@ -26,19 +26,19 @@ namespace coconut
 		MutableDictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		MutableDictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
-		template <typename IterT>
-		MutableDictionary(IterT && beg, IterT && end) :
-			Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		template <typename InputIterT>
+		MutableDictionary(InputIterT && first, InputIterT && last) :
+			Dictionary(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)
 		{ setClassKind(MutableDictionaryClass, true); }
 		
-		template <typename IterT>
-		MutableDictionary(IterT && beg, IterT && end, CopyOption option) :
-			Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end), option)
+		template <typename InputIterT>
+		MutableDictionary(InputIterT && first, InputIterT && last, CopyOption option) :
+			Dictionary(std::forward<InputIterT>(first), std::forward<InputIterT>(last), option)
 		{ setClassKind(MutableDictionaryClass, true); }
 		
 		template <typename IterKeyT, typename IterValT>
-		MutableDictionary(IterKeyT && beg_key, IterKeyT && end_key, IterValT && beg_val, IterValT && end_val, CopyOption option = CopyNone) :
-			Dictionary(std::forward<IterKeyT>(beg_key), std::forward<IterKeyT>(end_key), std::forward<IterValT>(beg_val), std::forward<IterValT>(end_val), option)
+		MutableDictionary(IterKeyT && first_key, IterKeyT && last_key, IterValT && first_val, IterValT && last_val, CopyOption option = CopyNone) :
+			Dictionary(std::forward<IterKeyT>(first_key), std::forward<IterKeyT>(last_key), std::forward<IterValT>(first_val), std::forward<IterValT>(last_val), option)
 		{ setClassKind(MutableDictionaryClass, true); }
 		
 		MutableDictionary(const Path & path);
@@ -54,13 +54,13 @@ namespace coconut
 		MutableDictionary & setObjectsFromDictionary(const Dictionary & dict);
 		MutableDictionary & setObjectsFromDictionary(const Dictionary & dict, CopyOption option);
 		
-		template <typename IterT>
-		MutableDictionary & setObjects(IterT && beg, IterT && end)
-		{ return setObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		template <typename InputIterT>
+		MutableDictionary & setObjects(InputIterT && first, InputIterT && last)
+		{ return setObjects(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
 		
-		template <typename IterT>
-		MutableDictionary & setObjects(IterT && beg, IterT && end, CopyOption option)
-		{ return setObjectsFromDictionary({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
+		template <typename InputIterT>
+		MutableDictionary & setObjects(InputIterT && first, InputIterT && last, CopyOption option)
+		{ return setObjectsFromDictionary({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
 		
 		MutableDictionary & setObject(const Owning<Any> & obj, const std::string & utf8_key);
 		MutableDictionary & setObject(const Owning<Any> & obj, const Any & key);
@@ -81,13 +81,13 @@ namespace coconut
 		MutableDictionary & addEntriesFromDictionary(const Dictionary & dict);
 		MutableDictionary & addEntriesFromDictionary(const Dictionary & dict, CopyOption option);
 		
-		template <typename IterT>
-		MutableDictionary & addEntries(IterT && beg, IterT && end) const
-		{ return addEntries(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		template <typename InputIterT>
+		MutableDictionary & addEntries(InputIterT && first, InputIterT && last) const
+		{ return addEntries(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
 		
-		template <typename IterT>
-		MutableDictionary & addEntries(IterT && beg, IterT && end, CopyOption option)
-		{ return addEntriesFromDictionary({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
+		template <typename InputIterT>
+		MutableDictionary & addEntries(InputIterT && first, InputIterT && last, CopyOption option)
+		{ return addEntriesFromDictionary({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
 		
 		MutableDictionary & removeObjectForKey(const std::string & utf8_key);
 		MutableDictionary & removeObjectForKey(const Any & key);

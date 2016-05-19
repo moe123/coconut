@@ -63,9 +63,13 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 Owning<T1> ptr_cast(Owning<T2> const & r)
 { return std::dynamic_pointer_cast<T1>(r); }
 
-template <class T> struct tag_is_shared_ptr : std::false_type {};
-template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type {};
+template <class T> struct tag_is_shared_ptr : std::false_type { /* NOP */ };
+template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type { /* NOP */ };
 
+template<typename T> struct tag_is_reverse_iterator : std::false_type { /* NOP */ };
+template<typename T> struct tag_is_reverse_iterator<std::reverse_iterator<T>>
+: std::integral_constant<bool, !tag_is_reverse_iterator<T>::value> { /* NOP */ };
+	
 template<class T> struct do_plain_type {
 	typedef typename std::remove_cv<
 		typename std::remove_reference<T>::type

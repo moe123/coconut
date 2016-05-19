@@ -55,7 +55,8 @@ namespace
 	};
 }
 			
-namespace {
+namespace
+{
 	const lookup_table lt{};
 }
 
@@ -80,20 +81,20 @@ void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option o
 			chunk_size = 64;
 			have_cr = true;
 			have_lf = true;
-			break;
+		break;
 		case chunksplit_64lf :
 			chunk_size = 64;
 			have_lf = true;
-			break;
+		break;
 		case chunksplit_76crlf :
 			chunk_size = 76;
 			have_cr = true;
 			have_lf = true;
-			break;
+		break;
 		case chunksplit_76lf :
 			chunk_size = 76;
 			have_lf = true;
-			break;
+		break;
 	}
 	
 	do {

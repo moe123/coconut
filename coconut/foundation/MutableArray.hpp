@@ -26,14 +26,14 @@ namespace coconut
 		MutableArray(const std::initializer_list< Owning<Any> > & args);
 		MutableArray(const std::initializer_list<Any *> & args);
 		
-		template <typename IterT>
-		MutableArray(IterT && beg, IterT && end) :
-			Array(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		template <typename InputIterT>
+		MutableArray(InputIterT && first, InputIterT && last) :
+			Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)
 		{ setClassKind(MutableArrayClass, true); }
 		
-		template <typename IterT>
-		MutableArray(IterT && beg, IterT && end, CopyOption option) :
-			Array(std::forward<IterT>(beg), std::forward<IterT>(end), option)
+		template <typename InputIterT>
+		MutableArray(InputIterT && first, InputIterT && last, CopyOption option) :
+			Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last), option)
 		{ setClassKind(MutableArrayClass, true); }
 		
 		MutableArray(const Path & path);
@@ -49,13 +49,13 @@ namespace coconut
 		MutableArray & setObjectsFromArray(const Array & arr);
 		MutableArray & setObjectsFromArray(const Array & arr, CopyOption option);
 		
-		template <typename IterT>
-		MutableArray & setObjects(IterT && beg, IterT && end)
-		{ return setObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		template <typename InputIterT>
+		MutableArray & setObjects(InputIterT && first, InputIterT && last)
+		{ return setObjects(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
 		
-		template <typename IterT>
-		MutableArray & setObjects(IterT && beg, IterT && end, CopyOption option)
-		{ return setObjectsFromArray({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
+		template <typename InputIterT>
+		MutableArray & setObjects(InputIterT && first, InputIterT && last, CopyOption option)
+		{ return setObjectsFromArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
 		
 		MutableArray & setObject(const Any & obj, std::size_t at_idx);
 		MutableArray & setObject(const Any & obj, std::size_t at_idx, CopyOption option);
@@ -80,13 +80,13 @@ namespace coconut
 		MutableArray & addObjectsFromArray(const Array & arr);
 		MutableArray & addObjectsFromArray(const Array & arr, CopyOption option);
 		
-		template <typename IterT>
-		MutableArray & addObjects(IterT && beg, IterT && end) const
-		{ return addObjects(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone); }
+		template <typename InputIterT>
+		MutableArray & addObjects(InputIterT && first, InputIterT && last) const
+		{ return addObjects(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
 		
-		template <typename IterT>
-		MutableArray & addObjects(IterT && beg, IterT && end, CopyOption option)
-		{ return addObjectsFromArray({std::forward<IterT>(beg), std::forward<IterT>(end)}, option); }
+		template <typename InputIterT>
+		MutableArray & addObjects(InputIterT && first, InputIterT && last, CopyOption option)
+		{ return addObjectsFromArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
 		
 		MutableArray & removeObjectAtIndex(std::size_t index);
 		
@@ -105,9 +105,9 @@ namespace coconut
 		MutableArray & removeObjectsInArray(const Array & arr);
 		MutableArray & removeObjectsInRange(const Range & in_rg);
 		
-		template <typename IterT>
-		MutableArray & removeObjects(IterT && beg, IterT && end)
-		{ return removeObjectsInArray({std::forward<IterT>(beg), std::forward<IterT>(end)}); }
+		template <typename InputIterT>
+		MutableArray & removeObjects(InputIterT && first, InputIterT && last)
+		{ return removeObjectsInArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}); }
 		
 		MutableArray & removeLastObject();
 		MutableArray & removeAllObjects();

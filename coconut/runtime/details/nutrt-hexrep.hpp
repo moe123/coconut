@@ -41,12 +41,12 @@ namespace {
 	format_option default_option{};
 }
 
-template <typename IterT>
+template <typename InputIterT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void format(
 	std::ostream & os,
-	IterT && beg,
-	IterT && end,
+	InputIterT && first,
+	InputIterT && last,
 	format_option * opt
 ) {
 	std::size_t cnt = 0;
@@ -56,8 +56,8 @@ void format(
 	os.copyfmt(default_fmt);
 	if (!opt) { opt = &default_option; }
 	os << opt->u_start;
-	for (; beg != end; ++beg) {
-		std::uint8_t c = weak_cast<std::uint8_t>(*beg);
+	for (; first != last; ++first) {
+		std::uint8_t c = weak_cast<std::uint8_t>(*first);
 		os << std::hex << std::setw(2) << std::setfill('0') << (c & 0xff);
 		++cnt;
 		if (cnt % 16 == 0 && opt->u_row) {

@@ -25,10 +25,10 @@ namespace coconut
 		Data(const std::uint8_t * in, std::size_t length, bool b64_decode = false);
 		Data(const char * in, std::size_t length, bool b64_decode = false);
 		
-		template <typename IterT>
-		Data(IterT && beg, IterT && end, bool b64_decode) :
+		template <typename InputIterT>
+		Data(InputIterT && first, InputIterT && last, bool b64_decode) :
 			Object(DataClass),
-			m_impl(std::forward<IterT>(beg), std::forward<IterT>(end), b64_decode)
+			m_impl(std::forward<InputIterT>(first), std::forward<InputIterT>(last), b64_decode)
 		{ /* NOP */ }
 		
 		Data(const std::uint16_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
@@ -38,10 +38,10 @@ namespace coconut
 		Data(const std::int32_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		Data(const std::int64_t * in, std::size_t length, DataPackingOption option = DataPackingBigEndian);
 		
-		template <typename IterT>
-		Data(IterT && beg, IterT && end, DataPackingOption option) :
+		template <typename InputIterT>
+		Data(InputIterT && first, InputIterT && last, DataPackingOption option) :
 			Object(DataClass),
-			m_impl(std::forward<IterT>(beg), std::forward<IterT>(end), option)
+			m_impl(std::forward<InputIterT>(first), std::forward<InputIterT>(last), option)
 		{ /* NOP */ }
 		
 		Data(const Path & path, bool b64_decode = false);

@@ -87,10 +87,10 @@ protected:
 	) COCONUT_FINAL_OVERRIDE;
 	
 private:
-	char * m_begin;
+	char * m_head;
 	std::size_t m_size;
-	char * m_end;
-	char * m_current;
+	char * m_tail;
+	char * m_curr;
 };
 
 COCONUT_PRIVATE class COCONUT_VISIBLE imstream COCONUT_FINAL : public std::istream

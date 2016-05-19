@@ -24,24 +24,24 @@ namespace coconut
 		Set(const std::initializer_list< Owning<Any> > & args);
 		Set(const std::initializer_list<Any *> & args);
 		
-		template <typename IterT>
-		Set(IterT && beg, IterT && end) :
-			Set(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		template <typename InputIterT>
+		Set(InputIterT && first, InputIterT && last) :
+			Set(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)
 		{ /* NOP */ }
 		
-		template <typename IterT>
-		Set(IterT && beg, IterT && end, CopyOption option) :
+		template <typename InputIterT>
+		Set(InputIterT && first, InputIterT && last, CopyOption option) :
 			Object(SetClass),
 			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) != OrderedSame); })
 		{
-			for (; beg != end; ++beg) {
-				if ((*beg)) {
+			for (; first != last; ++first) {
+				if ((*first)) {
 					if (option != CopyNone) {
-						Owning<Any> copy = Object::copyObject((*beg), option);
+						Owning<Any> copy = Object::copyObject((*first), option);
 						if (copy) { m_impl.insert(copy); }
 					} else {
-						m_impl.insert((*beg));
+						m_impl.insert((*first));
 					}
 				}
 			}
@@ -111,13 +111,13 @@ namespace coconut
 		const Set setByAddingObjectsFromOrderedSet(const OrderedSet & set, CopyOption option = CopyNone) const;
 		const Set setByAddingObjectsFromArray(const Array & arr, CopyOption option = CopyNone) const;
 		
-		template <typename IterT>
-		const Set setByAddingObjects(IterT && beg, IterT && end) const
-		{ return setByAddingObjectsFromSet(Set(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)); }
+		template <typename InputIterT>
+		const Set setByAddingObjects(InputIterT && first, InputIterT && last) const
+		{ return setByAddingObjectsFromSet(Set(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)); }
 		
-		template <typename IterT>
-		const Set setByAddingObjects(IterT && beg, IterT && end, CopyOption option) const
-		{ return setByAddingObjectsFromSet(Set(std::forward<IterT>(beg), std::forward<IterT>(end)), option); }
+		template <typename InputIterT>
+		const Set setByAddingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
+		{ return setByAddingObjectsFromSet(Set(std::forward<InputIterT>(first), std::forward<InputIterT>(last)), option); }
 	
 	protected:
 		typedef std::set< Owning<Any>, bool (*) (const Owning<Any> & a, const Owning<Any> & b)> impl_trait;

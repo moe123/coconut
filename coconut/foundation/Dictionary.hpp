@@ -25,32 +25,32 @@ namespace coconut
 		Dictionary(const std::initializer_list< std::pair< Owning<Any>, Owning<Any> > > & args);
 		Dictionary(const std::initializer_list< std::pair<Any *, Any *> > & args);
 		
-		template <typename IterT>
-		Dictionary(IterT && beg, IterT && end) :
-			Dictionary(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		template <typename InputIterT>
+		Dictionary(InputIterT && first, InputIterT && last) :
+			Dictionary(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)
 		{ /* NOP */ }
 		
-		template <typename IterT>
-		Dictionary(IterT && beg, IterT && end, CopyOption option) :
+		template <typename InputIterT>
+		Dictionary(InputIterT && first, InputIterT && last, CopyOption option) :
 			Object(DictionaryClass),
 			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) == OrderedAscending); })
 		{
-			for (; beg != end; ++beg) {
-				if ((*beg).first && (*beg).second) {
+			for (; first != last; ++first) {
+				if ((*first).first && (*first).second) {
 					if (option != CopyNone) {
-						Owning<Any> kcpy = Object::copyObject((*beg).first, CopyImmutable);
-						Owning<Any> vcpy = Object::copyObject((*beg).second, option);
+						Owning<Any> kcpy = Object::copyObject((*first).first, CopyImmutable);
+						Owning<Any> vcpy = Object::copyObject((*first).second, option);
 						if (kcpy && vcpy) { m_impl.insert(std::make_pair(kcpy, vcpy)); }
 					} else {
-						m_impl.insert(std::make_pair((*beg).first, (*beg).second));
+						m_impl.insert(std::make_pair((*first).first, (*first).second));
 					}
 				}
 			}
 		}
 		
 		template <typename IterKeyT, typename IterValT>
-		Dictionary(IterKeyT && beg_key, IterKeyT && end_key, IterValT && beg_val, IterValT && end_val, CopyOption option = CopyNone) :
+		Dictionary(IterKeyT && first_key, IterKeyT && last_key, IterValT && first_val, IterValT && last_val, CopyOption option = CopyNone) :
 			Object(DictionaryClass),
 			m_impl([] (const Owning<Any> & a, const Owning<Any> & b) -> bool
 			{ return (a->compare(*b) == OrderedAscending); })
@@ -58,8 +58,8 @@ namespace coconut
 			using key_diff_t = typename IterKeyT::difference_type;
 			using val_diff_t = typename IterValT::difference_type;
 			
-			key_diff_t dist_k = std::distance<typename std::decay<IterKeyT>::type>(beg_key, end_key);
-			val_diff_t dist_v = std::distance<typename std::decay<IterValT>::type>(beg_val, end_val);
+			key_diff_t dist_k = std::distance<typename std::decay<IterKeyT>::type>(first_key, last_key);
+			val_diff_t dist_v = std::distance<typename std::decay<IterValT>::type>(first_val, last_val);
 			
 			typedef std::pair<
 				typename std::decay<IterKeyT>::type,
@@ -67,7 +67,7 @@ namespace coconut
 			> pair_iterator;
 			
 			if (dist_k <= dist_v) {
-				for (pair_iterator it(beg_key, beg_val); it.first != end_key; ++it.first, ++it.second) {
+				for (pair_iterator it(first_key, first_val); it.first != last_key; ++it.first, ++it.second) {
 					if ((*it.first) && (*it.second)) {
 						if (option != CopyNone) {
 							Owning<Any> kcpy = Object::copyObject((*it.first), CopyImmutable);

@@ -76,42 +76,36 @@ bool starts_with(
 	);
 }
 
-template <typename IterT1, typename IterT2
+template <typename InputIterT1, typename InputIterT2
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
-	IterT1 && haystack_beg,
-	IterT1 && haystack_end,
-	IterT2 && needle_beg,
-	IterT2 && needle_end
-) {
-	const std::basic_string<CharT, Traits, Allocator> haystack(haystack_beg, haystack_end);
-	return std::equal(needle_beg, needle_end, haystack.cbegin());
-}
+	InputIterT1 && first_haystack,
+	InputIterT2 && first_needle,
+	InputIterT2 && last_needle
+) { return std::equal(first_needle, last_needle, first_haystack); }
 
-template <typename IterT
+template <typename InputIterT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
-	IterT && haystack_beg,
-	IterT && haystack_end,
+	InputIterT && first_haystack,
 	const std::basic_string<CharT, Traits, Allocator> & needle
 ) {
-	return starts_with<IterT, CharT, Traits, Allocator>(
-		std::forward<IterT>(haystack_beg),
-		std::forward<IterT>(haystack_end),
+	return starts_with<InputIterT, CharT, Traits, Allocator>(
+		std::forward<InputIterT>(first_haystack),
 		needle.cbegin(),
 		needle.cend()
 	);
 }
 
-template <typename IterT
+template <typename InputIterT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
@@ -119,13 +113,11 @@ template <typename IterT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
-	IterT && haystack_beg,
-	IterT && haystack_end,
+	InputIterT && first_haystack,
 	const CharT (&needle)[N]
 ) {
-	return starts_with<IterT, CharT, Traits, Allocator>(
-		std::forward<IterT>(haystack_beg),
-		std::forward<IterT>(haystack_end),
+	return starts_with<InputIterT, CharT, Traits, Allocator>(
+		std::forward<InputIterT>(first_haystack),
 		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
@@ -188,6 +180,57 @@ bool ends_with(
 ) {
 	return ends_with<CharT, Traits, Allocator>(
 		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+
+template <typename InputIterT1, typename InputIterT2
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, typename std::enable_if<
+		std::integral_constant<bool,
+			tag_is_reverse_iterator<InputIterT2>::value
+		>::value
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	InputIterT1 && first_haystack,
+	InputIterT2 && first_needle,
+	InputIterT2 && last_needle
+) { return std::equal(first_needle, last_needle, first_haystack); }
+
+template <typename InputIterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	InputIterT && first_haystack,
+	const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	return starts_with<InputIterT, CharT, Traits, Allocator>(
+		std::forward<InputIterT>(first_haystack),
+		needle.crbegin(),
+		needle.crend()
+	);
+}
+
+template <typename InputIterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool ends_with(
+	InputIterT && first_haystack,
+	const CharT (&needle)[N]
+) {
+	return starts_with<InputIterT, CharT, Traits, Allocator>(
+		std::forward<InputIterT>(first_haystack),
 		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
@@ -854,25 +897,25 @@ std::basic_string<CharT, Traits, Allocator> to_string(const NumT & n, std::size_
 	return os.str();
 }
 
-template <typename IterT, typename CharT
+template <typename InputIterT, typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void joiner(
-	IterT && beg,
-	IterT && end,
+	InputIterT && first,
+	InputIterT && last,
 	const std::basic_string<CharT, Traits, Allocator> & sep,
 	std::basic_string<CharT, Traits, Allocator> & joined
 ) {
 	std::basic_ostringstream<CharT, Traits, Allocator> os;
 
-	if (beg != end) {
-		os << *beg++;
+	if (first != last) {
+		os << *first++;
 	}
-	while (beg != end) {
+	while (first != last) {
 		os << sep;
-		os << *beg++;
+		os << *first++;
 	}
 	joined = std::move(os.str());
 }

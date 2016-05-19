@@ -23,9 +23,9 @@ namespace coconut
 		IndexPath(const std::initializer_list<std::size_t> & args);
 		IndexPath(std::size_t index);
 		
-		template <typename IterT>
-		IndexPath(IterT && beg, IterT && end) :
-			m_impl(std::forward<IterT>(beg), std::forward<IterT>(end))
+		template <typename InputIterT>
+		IndexPath(InputIterT && first, InputIterT && last) :
+			m_impl(std::forward<InputIterT>(first), std::forward<InputIterT>(last))
 		{ /* NOP */ }
 		
 		virtual ~IndexPath();

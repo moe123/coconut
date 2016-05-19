@@ -23,23 +23,23 @@ namespace coconut
 		Deque(const std::initializer_list< Owning<Any> > & args);
 		Deque(const std::initializer_list<Any *> & args);
 		
-		template <typename IterT>
-		Deque(IterT && beg, IterT && end) :
-			Deque(std::forward<IterT>(beg), std::forward<IterT>(end), CopyNone)
+		template <typename InputIterT>
+		Deque(InputIterT && first, InputIterT && last) :
+			Deque(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone)
 		{ /* NOP */ }
 		
-		template <typename IterT>
-		Deque(IterT && beg, IterT && end, CopyOption option) :
+		template <typename InputIterT>
+		Deque(InputIterT && first, InputIterT && last, CopyOption option) :
 			Object(DequeClass),
 			m_impl()
 		{
-			for (; beg != end; ++beg) {
-				if ((*beg)) {
+			for (; first != last; ++first) {
+				if ((*first)) {
 					if (option != CopyNone) {
-						Owning<Any> copy = Object::copyObject((*beg), option);
+						Owning<Any> copy = Object::copyObject((*first), option);
 						if (copy) { m_impl.push_back(copy); }
 					} else {
-						m_impl.push_back((*beg));
+						m_impl.push_back((*first));
 					}
 				}
 			}
