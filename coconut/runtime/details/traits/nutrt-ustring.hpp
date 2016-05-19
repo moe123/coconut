@@ -91,9 +91,9 @@ public:
 	ustring & assign(ustring && ustr);
 	ustring & assign(const ustring & ustr, std::size_t subpos, std::size_t sublen);
 	
-	template <class IterInT>
-	ustring & assign(IterInT beg, IterInT end)
-	{ clear(); for (; beg != end; ++beg) { append(*beg); } return *this; }
+	template <class InputIterT>
+	ustring & assign(InputIterT && first, InputIterT && last)
+	{ clear(); for (; first != last; ++first) { append(*first); } return *this; }
 	
 	void swap(ustring & ustr);
 	
@@ -177,9 +177,14 @@ public:
 	ustring & append(std::uint16_t & code_unit);
 	ustring & append(std::uint32_t & code_point);
 	
-	template <class IterInT>
-	ustring & append(IterInT beg, IterInT end)
-	{ for (; beg != end; ++beg) { append(*beg); } return *this; }
+	ustring & append(char16_t & code_unit);
+	ustring & append(char32_t & code_point);
+	
+	ustring & append(wchar_t & code);
+	
+	template <class InputIterT>
+	ustring & append(InputIterT && first, InputIterT &&  last)
+	{ for (; first != last; ++first) { append(*first); } return *this; }
 	
 	ustring & capitalized();
 	ustring & lowercased();

@@ -66,11 +66,11 @@ namespace
 // @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml
 //
 			
-template <typename IterInT, typename IterOutT>
+template <typename InputIterT, typename OutputIterT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option option = chunksplit_none)
+void encode(InputIterT && beg, InputIterT && end, OutputIterT && out, chunksplit_option option = chunksplit_none)
 {
-	IterInT it = beg;
+	InputIterT it = beg;
 	std::size_t chunk_size = 0, line_size = 0;
 	std::int32_t bytes = 0;
 	bool have_cr = false, have_lf = false;
@@ -125,11 +125,11 @@ void encode(IterInT && beg, IterInT && end, IterOutT && out, chunksplit_option o
 	}
 }
 
-template <typename IterInT, typename IterOutT>
+template <typename InputIterT, typename OutputIterT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void decode(IterInT && beg, IterInT && end, IterOutT && out)
+void decode(InputIterT && beg, InputIterT && end, OutputIterT && out)
 {
-	IterInT it = beg;
+	InputIterT it = beg;
 	std::int32_t chars;
 	
 	do {
