@@ -80,6 +80,12 @@ template <typename InputIterT1, typename InputIterT2
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = std::allocator<CharT>
+	, typename std::enable_if<
+		std::integral_constant<bool,
+			!tag_is_reverse_iterator<InputIterT1>::value &&
+			!tag_is_reverse_iterator<InputIterT2>::value
+		>::value
+	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
@@ -190,7 +196,8 @@ template <typename InputIterT1, typename InputIterT2
 	, typename Allocator = std::allocator<CharT>
 	, typename std::enable_if<
 		std::integral_constant<bool,
-			tag_is_reverse_iterator<InputIterT2>::value
+			!!tag_is_reverse_iterator<InputIterT1>::value &&
+			!!tag_is_reverse_iterator<InputIterT2>::value
 		>::value
 	>::type* = nullptr
 >
