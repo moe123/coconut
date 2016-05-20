@@ -134,7 +134,7 @@ void upath_parse(std::vector<std::string> & out, const std::string & utf8_path, 
 		}
 		
 		std::vector<std::string> comps;
-		algorithm::explode(comps, sep, path);
+		algorithms::explode(comps, sep, path);
 		if (comps.size()) {
 			out.insert(out.end(), comps.begin(), comps.end());
 		}

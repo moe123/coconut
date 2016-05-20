@@ -5,7 +5,7 @@
 //
 
 #include <coconut/runtime/details/traits/nutrt-uri.hpp>
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
 
 using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
@@ -77,7 +77,7 @@ uri::uri(const uri & url, bool normalize)
 			, normalize
 		);
 		if (m_isvalid_url && m_components.at("port").size()) {
-			m_port = algorithm::to_numeric<std::size_t>(m_components.at("port"));
+			m_port = algorithms::to_numeric<std::size_t>(m_components.at("port"));
 		}
 	}
 }
@@ -113,7 +113,7 @@ uri::uri(const std::string & str_url, const uri & url, bool normalize)
 			, normalize
 		);
 		if (m_isvalid_url && m_components.at("port").size()) {
-			m_port = algorithm::to_numeric<std::size_t>(m_components.at("port"));
+			m_port = algorithms::to_numeric<std::size_t>(m_components.at("port"));
 		}
 	}
 }
@@ -149,7 +149,7 @@ uri::uri(const std::string & str_url, const std::string & str_base_url, bool nor
 			, normalize
 		);
 		if (m_isvalid_url && m_components.at("port").size()) {
-			m_port = algorithm::to_numeric<std::size_t>(m_components.at("port"));
+			m_port = algorithms::to_numeric<std::size_t>(m_components.at("port"));
 		}
 	}
 }
@@ -198,7 +198,7 @@ uri::uri(const std::string & str_url, bool is_filepath, bool normalize)
 		);
 	}
 	if (m_isvalid_url && m_components.at("port").size()) {
-		m_port = algorithm::to_numeric<std::size_t>(m_components.at("port"));
+		m_port = algorithms::to_numeric<std::size_t>(m_components.at("port"));
 	}
 }
 
@@ -235,7 +235,7 @@ uri::uri(const std::string & scheme, const std::string & host, const std::string
 		, normalize
 	);
 	if (m_isvalid_url && m_components.at("port").size()) {
-		m_port = algorithm::to_numeric<std::size_t>(m_components.at("port"));
+		m_port = algorithms::to_numeric<std::size_t>(m_components.at("port"));
 	}
 }
 
@@ -317,7 +317,7 @@ uri & uri::operator = (const uri & url)
 }
 
 int uri::compare(const uri & other_url) const
-{ return algorithm::icmp(to_string(), other_url.to_string()); }
+{ return algorithms::icmp(to_string(), other_url.to_string()); }
 
 #pragma mark -
 

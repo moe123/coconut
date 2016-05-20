@@ -10,7 +10,7 @@
 
 #include <coconut/runtime/details/nutrt-base64.hpp>
 #include <coconut/runtime/details/nutrt-hash.hpp>
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
 #include <coconut/runtime/details/nutrt-byteorder.hpp>
 #include <coconut/runtime/details/nutrt-unicode.hpp>
 
@@ -518,7 +518,7 @@ float ustring::to_float() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<float>(out);
+		return algorithms::to_numeric<float>(out);
 	}
 	return 0;
 }
@@ -528,7 +528,7 @@ double ustring::to_double() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<double>(out);
+		return algorithms::to_numeric<double>(out);
 	}
 	return 0;
 }
@@ -538,7 +538,7 @@ long double ustring::to_long_double() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<long double>(out);
+		return algorithms::to_numeric<long double>(out);
 	}
 	return 0;
 }
@@ -553,7 +553,7 @@ char ustring::to_char() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<char>(out);
+		return algorithms::to_numeric<char>(out);
 	}
 	return 0;
 }
@@ -563,7 +563,7 @@ short ustring::to_short() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<short>(out);
+		return algorithms::to_numeric<short>(out);
 	}
 	return 0;
 }
@@ -573,7 +573,7 @@ int ustring::to_int() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<int>(out);
+		return algorithms::to_numeric<int>(out);
 	}
 	return 0;
 }
@@ -583,7 +583,7 @@ long ustring::to_long() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<long>(out);
+		return algorithms::to_numeric<long>(out);
 	}
 	return 0;
 }
@@ -593,7 +593,7 @@ long long ustring::to_long_long() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<long long>(out);
+		return algorithms::to_numeric<long long>(out);
 	}
 	return 0;
 }
@@ -603,7 +603,7 @@ unsigned char ustring::to_unsigned_char() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<unsigned char>(out);
+		return algorithms::to_numeric<unsigned char>(out);
 	}
 	return 0;
 }
@@ -613,7 +613,7 @@ unsigned short ustring::to_unsigned_short() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<unsigned short>(out);
+		return algorithms::to_numeric<unsigned short>(out);
 	}
 	return 0;
 }
@@ -623,7 +623,7 @@ unsigned int ustring::to_unsigned_int() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<unsigned int>(out);
+		return algorithms::to_numeric<unsigned int>(out);
 	}
 	return 0;
 }
@@ -633,7 +633,7 @@ unsigned long ustring::to_unsigned_long() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<unsigned long>(out);
+		return algorithms::to_numeric<unsigned long>(out);
 	}
 	return 0;
 }
@@ -643,7 +643,7 @@ unsigned long long ustring::to_unsigned_long_long() const
 	std::string out;
 	bool isfp = false;
 	if (builtins::ustring_parse_numeric(m_ustr, out, isfp)) {
-		return algorithm::to_numeric<unsigned long long>(out);
+		return algorithms::to_numeric<unsigned long long>(out);
 	}
 	return 0;
 }

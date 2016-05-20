@@ -8,7 +8,8 @@
 	#pragma once
 #endif
 
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
+#include <coconut/runtime/details/nutrt-allocators.hpp>
 #include <coconut/runtime/details/nutrt-async.hpp>
 #include <coconut/runtime/details/nutrt-byteorder.hpp>
 #include <coconut/runtime/details/nutrt-hash.hpp>

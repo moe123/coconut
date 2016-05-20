@@ -94,7 +94,7 @@ bool uri_have_scheme(const std::string & in)
 {
 	std::size_t i = 0;
 	do {
-		if (algorithm::starts_with(in, std::string(uri_schemes[i].scheme) + "://")) {
+		if (algorithms::starts_with(in, std::string(uri_schemes[i].scheme) + "://")) {
 			return true;
 		}
 		++i;
@@ -108,7 +108,7 @@ bool uri_filetouri(const std::string & in, std::string & out)
 	std::vector<char> vecbuf(1152);
 	int (*filenameToUriString)(const char *, char *);
 	if (in.size() > 2 &&
-		((algorithm::is_alpha(in[0]) && in[1] == ':') ||
+		((algorithms::is_alpha(in[0]) && in[1] == ':') ||
 		 std::string::npos != in.find_first_of("\\"))
 		) {
 		filenameToUriString = &uriWindowsFilenameToUriStringA;
@@ -192,7 +192,7 @@ bool uri_parse(
 			return result;
 		}
 
-		if (algorithm::icmp(out_map.at("scheme"), "file") == cmp_same) {
+		if (algorithms::icmp(out_map.at("scheme"), "file") == cmp_same) {
 			is_file = true;
 		}
 
@@ -201,7 +201,7 @@ bool uri_parse(
 		if (buf.size()) {
 			if (std::string::npos != buf.find_first_of(":")) {
 				std::vector<std::string> out;
-				algorithm::explode(out, ":", buf, 2);
+				algorithms::explode(out, ":", buf, 2);
 				if (out.size() == 2) {
 					out_map.at("user").assign(out[0]);
 					out_map.at("password").assign(out[1]);
@@ -237,7 +237,7 @@ bool uri_parse(
 		COCONUT_URI_CPY_RANGE(out_map.at("fragment"), uri_parse.fragment)
 		COCONUT_URI_CPY_RANGE(buf, uri_parse.portText)
 		if (buf.size()) {
-			port = algorithm::to_numeric<std::size_t>(buf);
+			port = algorithms::to_numeric<std::size_t>(buf);
 			if (port > 0 && port < 65535) {
 				out_map.at("port").assign(buf);
 			}

@@ -7,7 +7,7 @@
 #include <coconut/runtime/details/nutrt-nucleus.hpp>
 #include <coconut/runtime/details/nutrt-zombie.hpp>
 
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
 #include <coconut/runtime/details/nutrt-async.hpp>
 #include <coconut/runtime/details/nutrt-unicode.hpp>
 
@@ -53,7 +53,7 @@ nucleus::~nucleus()
 
 bool nucleus::isSelectorKey(const std::string & utf8_in)
 {
-	if (algorithm::starts_with(utf8_in, u8"@") && !algorithm::starts_with(utf8_in, u8"@@")) {
+	if (algorithms::starts_with(utf8_in, u8"@") && !algorithms::starts_with(utf8_in, u8"@@")) {
 		return true;
 	}
 	return false;
@@ -61,7 +61,7 @@ bool nucleus::isSelectorKey(const std::string & utf8_in)
 
 bool nucleus::isAttributeKey(const std::string & utf8_attrkey)
 {
-	if (algorithm::starts_with(utf8_attrkey, u8"$") && !algorithm::starts_with(utf8_attrkey, u8"$$")) {
+	if (algorithms::starts_with(utf8_attrkey, u8"$") && !algorithms::starts_with(utf8_attrkey, u8"$$")) {
 		return true;
 	}
 	return false;
@@ -73,7 +73,7 @@ bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 {
 	if (isSelectorKey(utf8_selkey)) {
 		Owning<Any> ptr;
-		if (runtime::algorithm::ends_with(utf8_selkey, u8":")) {
+		if (runtime::algorithms::ends_with(utf8_selkey, u8":")) {
 			ptr = valueForSelectorKey(utf8_selkey, ptr_create<zombie>());
 		} else {
 			ptr = valueForSelectorKey(utf8_selkey);
@@ -338,13 +338,13 @@ Owning<Any> nucleus::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	Owning<Any> v;
 	std::vector<std::string> parts;
-	parts = algorithm::split(utf8_keypath, u8".");
+	parts = algorithms::split(utf8_keypath, u8".");
 	if (parts.size() >= 2) {
 		Owning<Any> vv = valueForKey(parts[0]);
 		if (vv) {
 			parts.erase(parts.begin());
 			if (parts.size() >= 2) {
-				v = vv->valueForKeyPath(algorithm::join(parts, u8"."));
+				v = vv->valueForKeyPath(algorithms::join(parts, u8"."));
 			} else if (parts.size() == 1) {
 				v = vv->valueForKey(parts[0]);
 			}
@@ -359,13 +359,13 @@ void nucleus::setValueForKeyPath(Owning<Any> ptr, const std::string & utf8_keypa
 {
 	if (ptr) {
 		std::vector<std::string> parts;
-		parts = algorithm::split(utf8_keypath, u8".");
+		parts = algorithms::split(utf8_keypath, u8".");
 		if (parts.size() >= 2) {
 			Owning<Any> vv = valueForKey(parts[0]);
 			if (vv) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
-					vv->setValueForKeyPath(ptr, algorithm::join(parts, u8"."));
+					vv->setValueForKeyPath(ptr, algorithms::join(parts, u8"."));
 				} else if (parts.size() == 1) {
 					vv->setValueForKey(ptr, parts[0]);
 				}
@@ -531,8 +531,8 @@ const std::string nucleus::description() const
 	return COCONUT_DESCRIPTION_FMT(
 		class_name(),
 		class_tree(),
-		algorithm::to_string<char>(size()),
-		algorithm::to_string<char>(sig()),
+		algorithms::to_string<char>(size()),
+		algorithms::to_string<char>(sig()),
 		ss.str()
 	);
 }

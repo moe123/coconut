@@ -5,7 +5,7 @@
 //
 
 #include <coconut/runtime/details/nutrt-types.hpp>
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
 
 #include "unicode/ustdio.h"
 #include "unicode/unistr.h"

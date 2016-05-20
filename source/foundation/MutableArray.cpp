@@ -57,8 +57,8 @@ MutableArray::~MutableArray()
 
 void MutableArray::setValueForKey(Owning<Any> ptr, const std::string & utf8_key)
 {
-	if (runtime::algorithm::is_integer(utf8_key, true)) {
-		setObject(ptr, runtime::algorithm::to_numeric<std::size_t>(utf8_key));
+	if (runtime::algorithms::is_integer(utf8_key, true)) {
+		setObject(ptr, runtime::algorithms::to_numeric<std::size_t>(utf8_key));
 	} else {
 		Object::setValueForKey(ptr, utf8_key);
 	}

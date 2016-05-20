@@ -127,50 +127,50 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 			}
 		} else {
 			std::vector<std::string> parts;
-			parts = runtime::algorithm::split(utf8_selkey, u8".");
+			parts = runtime::algorithms::split(utf8_selkey, u8".");
 			if (parts.size() >= 2) {
 				if (parts[0] == u8"@self") {
 					parts.erase(parts.begin());
-					result = valueForKeyPath(runtime::algorithm::join(parts, u8"."));
+					result = valueForKeyPath(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@sum") {
 					parts.erase(parts.begin());
-					result = KVCsum(runtime::algorithm::join(parts, u8"."));
+					result = KVCsum(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@min") {
 					parts.erase(parts.begin());
-					result = KVCmin(runtime::algorithm::join(parts, u8"."));
+					result = KVCmin(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@max") {
 					parts.erase(parts.begin());
-					result = KVCmax(runtime::algorithm::join(parts, u8"."));
+					result = KVCmax(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@avg") {
 					parts.erase(parts.begin());
-					result = KVCavg(runtime::algorithm::join(parts, u8"."));
+					result = KVCavg(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@count" || parts[0] == u8"@length" || parts[0] == u8"@size") {
 					parts.erase(parts.begin());
-					result = KVClen(runtime::algorithm::join(parts, u8"."));
+					result = KVClen(runtime::algorithms::join(parts, u8"."));
 				}else if (parts[0] == u8"@distinctUnionOfObjects") {
 					parts.erase(parts.begin());
-					result = KVCdistinctUnionOfObjects(runtime::algorithm::join(parts, u8"."));
+					result = KVCdistinctUnionOfObjects(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfObjects") {
 					parts.erase(parts.begin());
-					result = KVCunionOfObjects(runtime::algorithm::join(parts, u8"."));
+					result = KVCunionOfObjects(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@distinctUnionOfArrays") {
 					parts.erase(parts.begin());
-					result = KVCdistinctUnionOfArrays(runtime::algorithm::join(parts, u8"."));
+					result = KVCdistinctUnionOfArrays(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@distinctUnionOfOrderedSets") {
 					parts.erase(parts.begin());
-					result = KVCdistinctUnionOfOrderedSets(runtime::algorithm::join(parts, u8"."));
+					result = KVCdistinctUnionOfOrderedSets(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@distinctUnionOfSets") {
 					parts.erase(parts.begin());
-					result = KVCdistinctUnionOfSets(runtime::algorithm::join(parts, u8"."));
+					result = KVCdistinctUnionOfSets(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfArrays") {
 					parts.erase(parts.begin());
-					result = KVCunionOfArrays(runtime::algorithm::join(parts, u8"."));
+					result = KVCunionOfArrays(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfOrderedSets") {
 					parts.erase(parts.begin());
-					result = KVCunionOfOrderedSets(runtime::algorithm::join(parts, u8"."));
+					result = KVCunionOfOrderedSets(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfSets") {
 					parts.erase(parts.begin());
-					result = KVCunionOfSets(runtime::algorithm::join(parts, u8"."));
+					result = KVCunionOfSets(runtime::algorithms::join(parts, u8"."));
 				}
 			} else {
 				if (utf8_selkey == u8"@self") {

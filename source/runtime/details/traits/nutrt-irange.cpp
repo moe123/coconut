@@ -5,7 +5,7 @@
 //
 
 #include <coconut/runtime/details/traits/nutrt-irange.hpp>
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
 
 using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
@@ -40,9 +40,9 @@ irange::irange(const std::string & rg_string)
 		if (std::regex_match(rg_string, match, regex)) {
 			if (match.size() == 3) {
 				sub_match = match[1];
-				m_loc = algorithm::to_numeric<std::size_t>(sub_match.str());
+				m_loc = algorithms::to_numeric<std::size_t>(sub_match.str());
 				sub_match = match[2];
-				m_len = algorithm::to_numeric<std::size_t>(sub_match.str());
+				m_len = algorithms::to_numeric<std::size_t>(sub_match.str());
 			}
 		}
 	}
@@ -84,7 +84,7 @@ int irange::compare(const irange & other_rg) const
 
 std::string irange::to_string() const
 {
-	return algorithm::format
+	return algorithms::format
 	(
 		u8"{\"#{range}\": {\"location\": %" PRIu64 ", \"length\": %" PRIu64 "}}}",
 		m_loc,

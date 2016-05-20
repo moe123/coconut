@@ -123,9 +123,9 @@ Owning<Any> OrderedSet::valueForKey(const std::string & utf8_key) const
 		return Object::valueForSelectorKey(utf8_key);
 	} else if (isAttributeKey(utf8_key)) {
 		return Object::attributeForKey(utf8_key);
-	} else if (runtime::algorithm::is_integer(utf8_key, true)) {
+	} else if (runtime::algorithms::is_integer(utf8_key, true)) {
 		return objectAtIndex(
-			runtime::algorithm::to_numeric<std::size_t>(utf8_key)
+			runtime::algorithms::to_numeric<std::size_t>(utf8_key)
 		);
 	}
 	Array::impl_trait buf;
@@ -146,17 +146,17 @@ Owning<Any> OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 	}
 	Array::impl_trait buf;
 	std::vector<std::string> parts;
-	parts = runtime::algorithm::split(utf8_keypath, u8".");
+	parts = runtime::algorithms::split(utf8_keypath, u8".");
 	if (parts.size() == 1) {
 		return valueForKey(utf8_keypath);
 	} else if (parts.size() >= 2) {
 		
-		if (runtime::algorithm::is_integer(parts[0], true)) {
+		if (runtime::algorithms::is_integer(parts[0], true)) {
 			Owning<Any> item = valueForKey(parts[0]);
 			if (item) {
 				parts.erase(parts.begin());
 				if (parts.size() >= 2) {
-					return item->valueForKeyPath(runtime::algorithm::join(parts, u8"."));
+					return item->valueForKeyPath(runtime::algorithms::join(parts, u8"."));
 				} else if (parts.size() == 1) {
 					return item->valueForKey(parts[0]);
 				}

@@ -157,7 +157,7 @@ bool ustring_getencoding(const char * codepage, encoding_option & encoding)
 	do {
 		std::string cp1(ustring_codepages[i].codepage);
 		std::string cp2(codepage);
-		if (0 == algorithm::icmp(cp1, cp2)) {
+		if (0 == algorithms::icmp(cp1, cp2)) {
 			encoding = ustring_codepages[i].encoding;
 			return true;
 		}

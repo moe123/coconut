@@ -18,7 +18,7 @@ namespace coconut
 COCONUT_CLASSFORWARD_DCL(nucleus)
 	
 using Any = nucleus;
-template <typename T> using Owning = std::shared_ptr<T>;
+template <typename InnerT> using Owning = std::shared_ptr<InnerT>;
 
 }} /* EONS */
 
@@ -77,42 +77,6 @@ template<class T> struct do_plain_type {
 };
 
 } /* EONS */
-	
-namespace coconut
-{ namespace runtime
-	{
-	
-template <typename T>
-COCONUT_PRIVATE struct COCONUT_VISIBLE no_allocator COCONUT_FINAL : public std::allocator<T>
-{
-	no_allocator(void * p = nullptr) throw() : std::allocator<T>(), m_stack(p) { /* NOP */ }
-	no_allocator(const no_allocator & other) throw() : std::allocator<T>(other) { m_stack = other.m_stack; }
-	no_allocator(no_allocator && other) throw() : std::allocator<T>(std::move(other)) { m_stack = other.m_stack; }
-	~no_allocator() throw() { /* NOP */ }
-	
-	typedef std::size_t size_type;
-	typedef std::ptrdiff_t difference_type;
-	typedef T * pointer;
-	typedef const T * const_pointer;
-	typedef T & reference;
-	typedef const T & const_reference;
-	typedef T value_type;
-	
-	template<typename T1>
-	struct rebind { typedef no_allocator<T1> other; };
-	
-	pointer allocate(size_type n, const void * hint = 0)
-	{ char * alias = new (m_stack) char[n * sizeof(T)]; return weak_cast<T *>(alias); }
-	
-	void deallocate(pointer p, size_type n) { /* NOP */ }
-	
-	pointer address(reference x) const { return std::addressof(x); }
-	const_pointer address(const_reference x) const { return address(weak_cast<reference>(x)); }
-	
-	void * m_stack;
-};
-	
-}} /* EONS */
 
 namespace coconut
 { namespace runtime

@@ -109,10 +109,10 @@ Owning<Any> xmlplist_read_number(const pugi::xml_node & node)
 		return ptr_create<Number>(true);
 	} else if ("integer" == type) {
 		std::string val = node.first_child().value();
-		return ptr_create<Number>(runtime::algorithm::to_numeric<std::int64_t>(val));
+		return ptr_create<Number>(runtime::algorithms::to_numeric<std::int64_t>(val));
 	} else if ("real" == type) {
 		std::string val = node.first_child().value();
-		return ptr_create<Number>(runtime::algorithm::to_numeric<double>(val));
+		return ptr_create<Number>(runtime::algorithms::to_numeric<double>(val));
 	}
 	return ptr_create<Number>(NotFound);
 }

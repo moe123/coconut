@@ -295,7 +295,7 @@ static void test_array(void)
 
 static void test_date(void)
 {
-	using namespace coconut::runtime::algorithm;
+	using namespace coconut::runtime::algorithms;
 	
 	std::vector< std::pair<std::string, TimeInterval> > tms;
 	
@@ -338,7 +338,7 @@ static void test_stuff(void)
 {
 	
 	using namespace coconut::runtime;
-	using namespace coconut::runtime::algorithm;
+	using namespace coconut::runtime::algorithms;
 	
 	Number n0 = 10;
 	Number n1 = 5;
@@ -1063,19 +1063,19 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
-	std::ptrdiff_t pos = runtime::algorithm::last_index_of(u8"toto toto toto toto", u8"toto");
+	std::ptrdiff_t pos = runtime::algorithms::last_index_of(u8"toto toto toto toto", u8"toto");
 	std::cerr << "last_index_of toto " << pos << std::endl;
 	
 	std::cerr << "substr pos: '" << std::basic_string<char
 										, std::char_traits<char>
-										, runtime::no_allocator<char>
+										, runtime::allocators::placement<char>
 									>(u8"toto toto toto toto").substr(pos) << "'" << std::endl;
 	
 	test_stuff();
 	{
 		
 		
-		runtime::algorithm::cmp(u8"toto", u8"toto");
+		runtime::algorithms::cmp(u8"toto", u8"toto");
 		
 		std::u16string out = u"ΠαρθένωνΗ";
 		//std::string utf8_in = u8"나는태오";
@@ -1434,8 +1434,8 @@ int main(int argc, const char * argv[])
 	StringSearchOptions opt_0 = StringSearchLiteral | StringSearchBackwards;
 	StringSearchOptions opt_1 = StringSearchLiteral | StringSearchNumeric;
 	
-	std::cerr << runtime::algorithm::to_binary<char>(opt_0) << std::endl;
-	std::cerr << runtime::algorithm::to_binary<char>(opt_1) << std::endl;
+	std::cerr << runtime::algorithms::to_binary<char>(opt_0) << std::endl;
+	std::cerr << runtime::algorithms::to_binary<char>(opt_1) << std::endl;
 	
 	Data dt_0 = { "some bytes", 10 };
 	

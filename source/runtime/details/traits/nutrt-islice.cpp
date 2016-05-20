@@ -5,7 +5,7 @@
 //
 
 #include <coconut/runtime/details/traits/nutrt-islice.hpp>
-#include <coconut/runtime/details/nutrt-algorithm.hpp>
+#include <coconut/runtime/details/nutrt-algorithms.hpp>
 
 using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
@@ -47,11 +47,11 @@ islice::islice(const std::string & slc_string)
 		if (std::regex_match(slc_string, match, regex)) {
 			if (match.size() == 4) {
 				sub_match = match[1];
-				m_start = algorithm::to_numeric<std::int64_t>(sub_match.str());
+				m_start = algorithms::to_numeric<std::int64_t>(sub_match.str());
 				sub_match = match[2];
-				m_stop = algorithm::to_numeric<std::int64_t>(sub_match.str());
+				m_stop = algorithms::to_numeric<std::int64_t>(sub_match.str());
 				sub_match = match[3];
-				m_step = algorithm::to_numeric<std::int64_t>(sub_match.str());
+				m_step = algorithms::to_numeric<std::int64_t>(sub_match.str());
 			}
 		}
 	}
@@ -101,7 +101,7 @@ int islice::compare(const islice & other_slc) const
 
 std::string islice::to_string() const
 {
-	return algorithm::format
+	return algorithms::format
 	(
 		u8"{\"#{slice}\": {\"start\": %" PRId64 ", \"stop\": %" PRId64 ", \"step\": %" PRId64 "}}}",
 		m_start,

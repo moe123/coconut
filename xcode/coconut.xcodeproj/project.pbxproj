@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5205CF91CEF8D4F00FDF88F /* nutrt-allocators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */; };
+		D5205CFA1CEF8D4F00FDF88F /* nutrt-allocators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */; };
 		D521DD1E1C35C48A00944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
 		D521DD1F1C35C4A600944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
 		D521DD201C35C4CD00944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
@@ -183,6 +185,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-allocators.hpp"; sourceTree = "<group>"; };
 		D5209D511C3B50A400D86E74 /* ReadMe.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.markdown; path = ../ReadMe.markdown; sourceTree = "<group>"; };
 		D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D523CA381C2A07B4007270F7 /* Features.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Features.hpp; sourceTree = "<group>"; };
@@ -275,7 +278,7 @@
 		D5FC0E461CD6C71E00F2E75B /* nutrt-_endian.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-_endian.hpp"; sourceTree = "<group>"; };
 		D5FC0E471CD6C71E00F2E75B /* nutrt-_inifini.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-_inifini.hpp"; sourceTree = "<group>"; };
 		D5FC0E481CD6C71E00F2E75B /* nutrt-_intrinsic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-_intrinsic.hpp"; sourceTree = "<group>"; };
-		D5FC0E491CD6C71E00F2E75B /* nutrt-algorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-algorithm.hpp"; sourceTree = "<group>"; };
+		D5FC0E491CD6C71E00F2E75B /* nutrt-algorithms.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-algorithms.hpp"; sourceTree = "<group>"; };
 		D5FC0E4A1CD6C71E00F2E75B /* nutrt-async.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-async.hpp"; sourceTree = "<group>"; };
 		D5FC0E4B1CD6C71E00F2E75B /* nutrt-base64.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-base64.hpp"; sourceTree = "<group>"; };
 		D5FC0E4C1CD6C71E00F2E75B /* nutrt-byteorder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-byteorder.hpp"; sourceTree = "<group>"; };
@@ -559,7 +562,8 @@
 				D5FC0E461CD6C71E00F2E75B /* nutrt-_endian.hpp */,
 				D5FC0E471CD6C71E00F2E75B /* nutrt-_inifini.hpp */,
 				D5FC0E481CD6C71E00F2E75B /* nutrt-_intrinsic.hpp */,
-				D5FC0E491CD6C71E00F2E75B /* nutrt-algorithm.hpp */,
+				D5FC0E491CD6C71E00F2E75B /* nutrt-algorithms.hpp */,
+				D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */,
 				D5FC0E4A1CD6C71E00F2E75B /* nutrt-async.hpp */,
 				D5FC0E4B1CD6C71E00F2E75B /* nutrt-base64.hpp */,
 				D5FC0E4C1CD6C71E00F2E75B /* nutrt-byteorder.hpp */,
@@ -699,6 +703,7 @@
 				D5FC0E8F1CD6C73C00F2E75B /* nutrt-datetime_epoch.hxx in Headers */,
 				D5FC0EB11CD6C73C00F2E75B /* nutrt-ustring_encoding.hxx in Headers */,
 				D5FC0E971CD6C73C00F2E75B /* nutrt-hash_sha256_func.hxx in Headers */,
+				D5205CFA1CEF8D4F00FDF88F /* nutrt-allocators.hpp in Headers */,
 				D5FC0EAD1CD6C73C00F2E75B /* nutrt-ustring_compare_utf16.hxx in Headers */,
 				D5FC0EA51CD6C73C00F2E75B /* nutrt-upath_detection.hxx in Headers */,
 				D5FC0EB51CD6C73C00F2E75B /* nutrt-ustring_searching.hxx in Headers */,
@@ -741,6 +746,7 @@
 				D5FC0E8E1CD6C73C00F2E75B /* nutrt-datetime_epoch.hxx in Headers */,
 				D5FC0EB01CD6C73C00F2E75B /* nutrt-ustring_encoding.hxx in Headers */,
 				D5FC0E961CD6C73C00F2E75B /* nutrt-hash_sha256_func.hxx in Headers */,
+				D5205CF91CEF8D4F00FDF88F /* nutrt-allocators.hpp in Headers */,
 				D5FC0EAC1CD6C73C00F2E75B /* nutrt-ustring_compare_utf16.hxx in Headers */,
 				D5FC0EA41CD6C73C00F2E75B /* nutrt-upath_detection.hxx in Headers */,
 				D5FC0EB41CD6C73C00F2E75B /* nutrt-ustring_searching.hxx in Headers */,

@@ -1,17 +1,17 @@
 //
-// nutrt-algorithm.hpp
+// nutrt-algorithms.hpp
 //
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/details/nutrt-types.hpp>
+#include <coconut/runtime/details/nutrt-allocators.hpp>
 
 #ifndef COCONUT_RUNTIME_ALGORITHM_HPP
 #define COCONUT_RUNTIME_ALGORITHM_HPP
 
 namespace coconut
 { namespace runtime
-{ namespace algorithm
+{ namespace algorithms
 {
 	
 template <typename CharT
@@ -434,8 +434,8 @@ std::ptrdiff_t index_of(
 	const CharT (&haystack)[N],
 	const std::basic_string<CharT, Traits, Allocator> needle
 ) {
-	return index_of<CharT, Traits, no_allocator<CharT>, Allocator>(
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
+	return index_of<CharT, Traits, allocators::placement<CharT>, Allocator>(
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
 		needle
 	);
 }
@@ -450,9 +450,9 @@ std::ptrdiff_t index_of(
 	const std::basic_string<CharT, Traits, Allocator> haystack,
 	const CharT (&needle)[N]
 ) {
-	return index_of<CharT, Traits, Allocator, no_allocator<CharT>>(
+	return index_of<CharT, Traits, Allocator, allocators::placement<CharT>>(
 		haystack,
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
 	);
 }
 	
@@ -467,9 +467,9 @@ std::ptrdiff_t index_of(
 	const CharT (&haystack)[N1],
 	const CharT (&needle)[N2]
 ) {
-	return index_of<CharT, Traits, no_allocator<CharT>, no_allocator<CharT> >(
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+	return index_of<CharT, Traits, allocators::placement<CharT>, allocators::placement<CharT> >(
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
 	);
 }
 	
@@ -509,8 +509,8 @@ std::ptrdiff_t last_index_of(
 	const CharT (&haystack)[N],
 	const std::basic_string<CharT, Traits, Allocator> needle
 ) {
-	return last_index_of<CharT, Traits, no_allocator<CharT>, Allocator>(
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
+	return last_index_of<CharT, Traits, allocators::placement<CharT>, Allocator>(
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
 		needle
 	);
 }
@@ -525,9 +525,9 @@ std::ptrdiff_t last_index_of(
 	const std::basic_string<CharT, Traits, Allocator> haystack,
 	const CharT (&needle)[N]
 ) {
-	return last_index_of<CharT, Traits, Allocator, no_allocator<CharT> >(
+	return last_index_of<CharT, Traits, Allocator, allocators::placement<CharT> >(
 		haystack,
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
 	);
 }
 	
@@ -542,9 +542,9 @@ std::ptrdiff_t last_index_of(
 	const CharT (&haystack)[N1],
 	const CharT (&needle)[N2]
 ) {
-	return last_index_of<CharT, Traits, no_allocator<CharT>, no_allocator<CharT> >(
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
-		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+	return last_index_of<CharT, Traits, allocators::placement<CharT>, allocators::placement<CharT> >(
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
+		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
 	);
 }
 
