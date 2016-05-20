@@ -6,8 +6,8 @@
 
 #include <coconut/runtime/details/nutrt-allocators.hpp>
 
-#ifndef COCONUT_RUNTIME_ALGORITHM_HPP
-#define COCONUT_RUNTIME_ALGORITHM_HPP
+#ifndef COCONUT_RUNTIME_ALGORITHMS_HPP
+#define COCONUT_RUNTIME_ALGORITHMS_HPP
 
 namespace coconut
 { namespace runtime
@@ -1649,6 +1649,6 @@ void print_stdout(const std::string & fmt, ArgsT &&... args)
 	
 }}} /* EONS */
 
-#endif /* !COCONUT_RUNTIME_ALGORITHM_HPP */
+#endif /* !COCONUT_RUNTIME_ALGORITHMS_HPP */
 
 /* EOF */
