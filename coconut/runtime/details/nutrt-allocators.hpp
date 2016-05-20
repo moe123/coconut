@@ -43,8 +43,8 @@ namespace coconut
 		template<typename T1>
 		struct rebind { typedef placement<T1> other; };
 
-		pointer allocate(size_type n, const void * hint = nullptr)
-		{ char * dummy = new (m_stackmem) char[n * sizeof(T)]; return weak_cast<T *>(dummy); }
+		pointer allocate(size_type n, mallocator<void>::const_pointer = nullptr)
+		{ char * dummy = ::new (m_stackmem) char[n * sizeof(T)]; return weak_cast<T *>(dummy); }
 
 		void deallocate(pointer p, size_type n) noexcept { /* NOP */ }
 
@@ -52,7 +52,7 @@ namespace coconut
 		const_pointer address(const_reference x) const noexcept { return address(weak_cast<reference>(x)); }
 	
 	private:
-		void * m_stackmem;
+		COCONUT_ALIGNAS(sizeof(T *)) void * m_stackmem;
 	};
 	
 }}} /* EONS */
