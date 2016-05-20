@@ -1177,11 +1177,11 @@ std::vector<
 	std::basic_string<CharT, Traits, Allocator1>
 > chunk_split(
 	const std::basic_string<CharT, Traits, Allocator2> & in,
-	std::size_t sz
+	std::size_t chunk_sz
 ) {
 	std::vector< std::basic_string<CharT, Traits, Allocator1> > out;
-	for (size_t i = 0; i < in.size(); i += sz) {
-		out.push_back(in.substr(i, sz));
+	for (size_t i = 0; i < in.size(); i += chunk_sz) {
+		out.push_back(in.substr(i, chunk_sz));
 	}
 	return out;
 }
@@ -1196,13 +1196,84 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::vector<
 	std::basic_string<CharT, Traits, Allocator1>
 > chunk_split(
-	CharT (&in)[N],
-	std::size_t sz
+	const CharT (&in)[N],
+	std::size_t chunk_sz
 ) {
 	return chunk_split<CharT, Traits, Allocator1, Allocator2>
 	(
 		std::basic_string<CharT, Traits, Allocator2>(in),
-	 	sz
+	 	chunk_sz
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, Traits, Allocator> chunk_join(
+	const std::basic_string<CharT, Traits, Allocator> & in,
+	const std::basic_string<CharT, Traits, Allocator> & token,
+	std::size_t chunk_sz
+) {
+	std::basic_ostringstream<CharT, Traits, Allocator> os;
+	std::size_t j = chunk_sz == 0 ? 1 : chunk_sz, i = 1;
+	for (; i < in.size(); i++) { if (i % j == 0) { os << token; } os << in[i]; }
+	return os.str();
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, Traits, Allocator> chunk_join(
+	const CharT (&in)[N],
+	const std::basic_string<CharT, Traits, Allocator> & token,
+	std::size_t chunk_sz
+) {
+	return chunk_join<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(in),
+		token,
+		chunk_sz
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, Traits, Allocator> chunk_join(
+	const std::basic_string<CharT, Traits, Allocator> & in,
+	const CharT (&token)[N],
+	std::size_t chunk_sz
+) {
+	return chunk_join<CharT, Traits, Allocator>(
+		in,
+		std::basic_string<CharT, Traits, Allocator>(token),
+		chunk_sz
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, size_t N1
+	, size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, Traits, Allocator> chunk_join(
+	const CharT (&in)[N1],
+	const CharT (&token)[N2],
+	std::size_t chunk_sz
+) {
+	return chunk_join<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(in),
+		std::basic_string<CharT, Traits, Allocator>(token),
+		chunk_sz
 	);
 }
 
