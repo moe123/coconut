@@ -18,7 +18,7 @@ namespace coconut
 COCONUT_CLASSFORWARD_DCL(nucleus)
 	
 using Any = nucleus;
-template <typename InnerT> using Owning = std::shared_ptr<InnerT>;
+template <typename T> using Owning = std::shared_ptr<T>;
 
 }} /* EONS */
 

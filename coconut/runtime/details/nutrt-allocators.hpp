@@ -13,16 +13,34 @@ namespace coconut
 { namespace runtime
 { namespace allocators
 {
-	template <typename InnerT> using mallocator = std::allocator<InnerT>;
+	template <typename T> using mallocator = std::allocator<T>;
 	
 	template <typename T>
 	COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public mallocator<T>
 	{
+		using size_type = typename mallocator<T>::size_type;
+		using difference_type = typename mallocator<T>::difference_type;
+		
+		using pointer = typename mallocator<T>::pointer;
+		using const_pointer = typename mallocator<T>::const_pointer;
+		
+		using reference = typename mallocator<T>::reference;
+		using const_reference = typename mallocator<T>::const_reference;
+		
+		using value_type = typename mallocator<T>::value_type;
+		
+		using void_pointer = typename mallocator<void>::pointer;
+		using const_void_pointer = typename mallocator<void>::const_pointer;
+		
+		template<typename T0>
+		struct rebind { typedef placement<T0> other; };
+		
 #if COCONUT_DEBUG
 		template <typename T0> using this_parent = mallocator<T0>;
+		template <typename T0> using this_type = placement<T0>;
 #endif
 
-		placement(mallocator<void>::pointer p = nullptr) throw() : mallocator<T>(), m_ref(p) { /* NOP */ }
+		placement(void_pointer p = nullptr) throw() : mallocator<T>(), m_ref(p) { /* NOP */ }
 		placement(const placement & other) throw() : mallocator<T>(other) { m_ref = other.m_ref; }
 		placement(placement && other) throw() : mallocator<T>(std::move(other)) { m_ref = other.m_ref; }
 		~placement() throw()
@@ -32,18 +50,7 @@ namespace coconut
 #endif
 		}
 
-		typedef std::size_t size_type;
-		typedef std::ptrdiff_t difference_type;
-		typedef T * pointer;
-		typedef const T * const_pointer;
-		typedef T & reference;
-		typedef const T & const_reference;
-		typedef T value_type;
-
-		template<typename T1>
-		struct rebind { typedef placement<T1> other; };
-
-		pointer allocate(size_type n, mallocator<void>::const_pointer = nullptr)
+		pointer allocate(size_type n, const_void_pointer = nullptr)
 		{ char * p = new (m_ref) char[n * sizeof(T)]; return weak_cast<T *>(p); }
 
 		void deallocate(pointer p, size_type n) noexcept { /* NOP */ }
