@@ -85,9 +85,10 @@ namespace coconut
 template <typename T>
 COCONUT_PRIVATE struct COCONUT_VISIBLE no_allocator COCONUT_FINAL : public std::allocator<T>
 {
-	no_allocator(void * p = nullptr) throw(): std::allocator<T>(), m_stack(p) { /* NOP */ }
-	no_allocator(const no_allocator & other) throw(): std::allocator<T>(other) { m_stack = other.m_stack; }
-	~no_allocator() throw() {}
+	no_allocator(void * p = nullptr) throw() : std::allocator<T>(), m_stack(p) { /* NOP */ }
+	no_allocator(const no_allocator & other) throw() : std::allocator<T>(other) { m_stack = other.m_stack; }
+	no_allocator(no_allocator && other) throw() : std::allocator<T>(std::move(other)) { m_stack = other.m_stack; }
+	~no_allocator() throw() { /* NOP */ }
 	
 	typedef std::size_t size_type;
 	typedef std::ptrdiff_t difference_type;
@@ -106,7 +107,7 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE no_allocator COCONUT_FINAL : public std::
 	void deallocate(pointer p, size_type n) { /* NOP */ }
 	
 	pointer address(reference x) const { return std::addressof(x); }
-	const_pointer address(const_reference x) const { return std::addressof(x); }
+	const_pointer address(const_reference x) const { return address(weak_cast<reference>(x)); }
 	
 	void * m_stack;
 };
