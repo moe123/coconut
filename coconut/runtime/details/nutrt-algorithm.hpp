@@ -402,6 +402,151 @@ std::basic_string<CharT, Traits, Allocator> to_lower_copy(
 	std::basic_string<CharT, Traits, Allocator> out(in.data(), in.size());
 	return to_lower<CharT, Traits, Allocator>(out);
 }
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator1 = std::allocator<CharT>
+	, typename Allocator2 = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t index_of(
+		const std::basic_string<CharT, Traits, Allocator1> haystack,
+		const std::basic_string<CharT, Traits, Allocator2> needle
+) {
+	using size_type = typename std::basic_string<CharT, Traits, Allocator1>::size_type;
+	
+	if (!haystack.size() || (needle.size() > haystack.size())) {
+		return -1;
+	}
+	size_type idx = haystack.find(needle);
+	return ((
+		idx != std::basic_string<CharT, Traits, Allocator1>::npos
+	) ? weak_cast<std::ptrdiff_t>(idx) : -1);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>,
+	std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t index_of(
+	const CharT (&haystack)[N],
+	const std::basic_string<CharT, Traits, Allocator> needle
+) {
+	return index_of<CharT, Traits, no_allocator<CharT>, Allocator>(
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
+		needle
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>,
+	std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t index_of(
+	const std::basic_string<CharT, Traits, Allocator> haystack,
+	const CharT (&needle)[N]
+) {
+	return index_of<CharT, Traits, Allocator, no_allocator<CharT>>(
+		haystack,
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>,
+	std::size_t N1,
+	std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t index_of(
+	const CharT (&haystack)[N1],
+	const CharT (&needle)[N2]
+) {
+	return index_of<CharT, Traits, no_allocator<CharT>, no_allocator<CharT> >(
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator1 = std::allocator<CharT>
+	, typename Allocator2 = std::allocator<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t last_index_of(
+	const std::basic_string<CharT, Traits, Allocator1> haystack,
+	const std::basic_string<CharT, Traits, Allocator2> needle
+) {
+	using const_iter = typename std::basic_string<CharT, Traits, Allocator1>::const_iterator;
+	
+	if (!haystack.size() || (needle.size() > haystack.size())) {
+		return -1;
+	}
+	const_iter it = std::find_end(
+		haystack.cbegin(),
+		haystack.cend(),
+		needle.cbegin(),
+		needle.cend()
+	);
+	return ((
+		it != haystack.cend()
+	) ? weak_cast<std::ptrdiff_t>(it - haystack.cbegin()) : -1);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>,
+	std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t last_index_of(
+	const CharT (&haystack)[N],
+	const std::basic_string<CharT, Traits, Allocator> needle
+) {
+	return last_index_of<CharT, Traits, no_allocator<CharT>, Allocator>(
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
+		needle
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>,
+	std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t last_index_of(
+	const std::basic_string<CharT, Traits, Allocator> haystack,
+	const CharT (&needle)[N]
+) {
+	return last_index_of<CharT, Traits, Allocator, no_allocator<CharT> >(
+		haystack,
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = std::allocator<CharT>,
+	std::size_t N1,
+	std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::ptrdiff_t last_index_of(
+	const CharT (&haystack)[N1],
+	const CharT (&needle)[N2]
+) {
+	return last_index_of<CharT, Traits, no_allocator<CharT>, no_allocator<CharT> >(
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(haystack),
+		std::basic_string<CharT, Traits, no_allocator<CharT> >(needle)
+	);
+}
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
@@ -1206,6 +1351,18 @@ template <typename CharT
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type
 			>
+		>::value ||
+		std::is_same<
+			Container< std::basic_string<CharT, Traits, Allocator>
+				, typename Container<
+					std::basic_string<CharT, Traits, Allocator>
+				>::allocator_type
+			>
+			, std::deque< std::basic_string<CharT, Traits, Allocator>
+				, typename Container<
+					std::basic_string<CharT, Traits, Allocator>
+				>::allocator_type
+			>
 		>::value
 	>::type* = nullptr
 >
@@ -1277,6 +1434,18 @@ template <typename CharT
 				>::allocator_type
 			>
 			, std::set< std::basic_string<CharT, Traits, Allocator>
+				, typename Container<
+					std::basic_string<CharT, Traits, Allocator>
+				>::allocator_type
+			>
+		>::value ||
+		std::is_same<
+			Container< std::basic_string<CharT, Traits, Allocator>
+				, typename Container<
+					std::basic_string<CharT, Traits, Allocator>
+				>::allocator_type
+			>
+			, std::deque< std::basic_string<CharT, Traits, Allocator>
 				, typename Container<
 					std::basic_string<CharT, Traits, Allocator>
 				>::allocator_type

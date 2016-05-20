@@ -1063,8 +1063,18 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
+	std::ptrdiff_t pos = runtime::algorithm::last_index_of(u8"toto toto toto toto", u8"toto");
+	std::cerr << "last_index_of toto " << pos << std::endl;
+	
+	std::cerr << "substr pos: '" << std::basic_string<char
+										, std::char_traits<char>
+										, runtime::no_allocator<char>
+									>(u8"toto toto toto toto").substr(pos) << "'" << std::endl;
+	
 	test_stuff();
 	{
+		
+		
 		runtime::algorithm::cmp(u8"toto", u8"toto");
 		
 		std::u16string out = u"ΠαρθένωνΗ";
