@@ -1175,13 +1175,13 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::vector<
 	std::basic_string<CharT, Traits, Allocator1>
-> chunksplit(
+> chunk_split(
 	const std::basic_string<CharT, Traits, Allocator2> & in,
-	std::size_t chunksize
+	std::size_t sz
 ) {
 	std::vector< std::basic_string<CharT, Traits, Allocator1> > out;
-	for (size_t i = 0; i < in.size(); i += chunksize) {
-		out.push_back(in.substr(i, chunksize));
+	for (size_t i = 0; i < in.size(); i += sz) {
+		out.push_back(in.substr(i, sz));
 	}
 	return out;
 }
@@ -1195,14 +1195,14 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::vector<
 	std::basic_string<CharT, Traits, Allocator1>
-> chunksplit(
+> chunk_split(
 	CharT (&in)[N],
-	std::size_t chunksize
+	std::size_t sz
 ) {
-	return chunksplit<CharT, Traits, Allocator1, Allocator2>
+	return chunk_split<CharT, Traits, Allocator1, Allocator2>
 	(
 		std::basic_string<CharT, Traits, Allocator2>(in),
-	 	chunksize
+	 	sz
 	);
 }
 
