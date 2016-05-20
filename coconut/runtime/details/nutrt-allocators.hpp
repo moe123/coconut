@@ -22,9 +22,9 @@ namespace coconut
 		template <typename T0> using this_parent = mallocator<T0>;
 #endif
 
-		placement(void * p = nullptr) throw() : mallocator<T>(), m_stackmem(p) { /* NOP */ }
-		placement(const placement & other) throw() : mallocator<T>(other) { m_stackmem = other.m_stackmem; }
-		placement(placement && other) throw() : mallocator<T>(std::move(other)) { m_stackmem = other.m_stackmem; }
+		placement(mallocator<void>::pointer p = nullptr) throw() : mallocator<T>(), m_ref(p) { /* NOP */ }
+		placement(const placement & other) throw() : mallocator<T>(other) { m_ref = other.m_ref; }
+		placement(placement && other) throw() : mallocator<T>(std::move(other)) { m_ref = other.m_ref; }
 		~placement() throw()
 		{
 #if COCONUT_DEBUG
@@ -44,7 +44,7 @@ namespace coconut
 		struct rebind { typedef placement<T1> other; };
 
 		pointer allocate(size_type n, mallocator<void>::const_pointer = nullptr)
-		{ char * dummy = ::new (m_stackmem) char[n * sizeof(T)]; return weak_cast<T *>(dummy); }
+		{ char * p = new (m_ref) char[n * sizeof(T)]; return weak_cast<T *>(p); }
 
 		void deallocate(pointer p, size_type n) noexcept { /* NOP */ }
 
@@ -52,7 +52,11 @@ namespace coconut
 		const_pointer address(const_reference x) const noexcept { return address(weak_cast<reference>(x)); }
 	
 	private:
-		COCONUT_ALIGNAS(sizeof(T *)) void * m_stackmem;
+#if COCONUT_DEBUG
+		COCONUT_ALIGNAS(std::max_align_t) void * m_ref;
+#else
+		void * m_ref;
+#endif
 	};
 	
 }}} /* EONS */
