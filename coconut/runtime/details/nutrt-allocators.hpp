@@ -13,36 +13,36 @@ namespace coconut
 { namespace runtime
 { namespace allocators
 {
-	template <typename T> using mallocator = std::allocator<T>;
+	template <typename T> using standard = std::allocator<T>;
 	
 	template <typename T>
-	COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public mallocator<T>
+	COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public standard<T>
 	{
-		using size_type = typename mallocator<T>::size_type;
-		using difference_type = typename mallocator<T>::difference_type;
+		using size_type = typename standard<T>::size_type;
+		using difference_type = typename standard<T>::difference_type;
 		
-		using pointer = typename mallocator<T>::pointer;
-		using const_pointer = typename mallocator<T>::const_pointer;
+		using pointer = typename standard<T>::pointer;
+		using const_pointer = typename standard<T>::const_pointer;
 		
-		using reference = typename mallocator<T>::reference;
-		using const_reference = typename mallocator<T>::const_reference;
+		using reference = typename standard<T>::reference;
+		using const_reference = typename standard<T>::const_reference;
 		
-		using value_type = typename mallocator<T>::value_type;
+		using value_type = typename standard<T>::value_type;
 		
-		using void_pointer = typename mallocator<void>::pointer;
-		using const_void_pointer = typename mallocator<void>::const_pointer;
+		using void_pointer = typename standard<void>::pointer;
+		using const_void_pointer = typename standard<void>::const_pointer;
 		
 		template<typename T0>
 		struct rebind { typedef placement<T0> other; };
 		
 #if COCONUT_DEBUG
-		template <typename T0> using this_parent = mallocator<T0>;
+		template <typename T0> using this_parent = standard<T0>;
 		template <typename T0> using this_type = placement<T0>;
 #endif
 
-		placement(void_pointer p = nullptr) throw() : mallocator<T>(), m_ref(p) { /* NOP */ }
-		placement(const placement & other) throw() : mallocator<T>(other) { m_ref = other.m_ref; }
-		placement(placement && other) throw() : mallocator<T>(std::move(other)) { m_ref = other.m_ref; }
+		placement(void_pointer p = nullptr) throw() : standard<T>(), m_ref(p) { /* NOP */ }
+		placement(const placement & other) throw() : standard<T>(other) { m_ref = other.m_ref; }
+		placement(placement && other) throw() : standard<T>(std::move(other)) { m_ref = other.m_ref; }
 		~placement() throw()
 		{
 #if COCONUT_DEBUG

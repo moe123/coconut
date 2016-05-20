@@ -16,7 +16,7 @@ namespace coconut
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
@@ -29,7 +29,7 @@ bool starts_with(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -45,7 +45,7 @@ bool starts_with(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -61,7 +61,7 @@ bool starts_with(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N1
 	, std::size_t N2
 >
@@ -79,7 +79,7 @@ bool starts_with(
 template <typename InputIterT1, typename InputIterT2
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, typename std::enable_if<
 		std::integral_constant<bool,
 			!tag_is_reverse_iterator<InputIterT1>::value &&
@@ -97,7 +97,7 @@ bool starts_with(
 template <typename InputIterT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
@@ -114,7 +114,7 @@ bool starts_with(
 template <typename InputIterT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -130,7 +130,7 @@ bool starts_with(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
@@ -143,7 +143,7 @@ bool ends_with(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -159,7 +159,7 @@ bool ends_with(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -175,7 +175,7 @@ bool ends_with(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N1
 	, std::size_t N2
 >
@@ -193,7 +193,7 @@ bool ends_with(
 template <typename InputIterT1, typename InputIterT2
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, typename std::enable_if<
 		std::integral_constant<bool,
 			!!tag_is_reverse_iterator<InputIterT1>::value &&
@@ -211,7 +211,7 @@ bool ends_with(
 template <typename InputIterT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ends_with(
@@ -228,7 +228,7 @@ bool ends_with(
 template <typename InputIterT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -252,7 +252,7 @@ bool is_alpha(CharT a)
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool is_ascii(const std::basic_string<CharT, Traits, Allocator> & in)
@@ -266,7 +266,7 @@ bool is_ascii(const std::basic_string<CharT, Traits, Allocator> & in)
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> & ltrim(
@@ -281,7 +281,7 @@ std::basic_string<CharT, Traits, Allocator> & ltrim(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> ltrim_copy(
@@ -293,7 +293,7 @@ std::basic_string<CharT, Traits, Allocator> ltrim_copy(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> & rtrim(
@@ -308,7 +308,7 @@ std::basic_string<CharT, Traits, Allocator> & rtrim(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> rtrim_copy(
@@ -320,7 +320,7 @@ std::basic_string<CharT, Traits, Allocator> rtrim_copy(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> & trim(
@@ -329,7 +329,7 @@ std::basic_string<CharT, Traits, Allocator> & trim(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> trim_copy(
@@ -341,7 +341,7 @@ std::basic_string<CharT, Traits, Allocator> trim_copy(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> & to_upper(
@@ -361,7 +361,7 @@ std::basic_string<CharT, Traits, Allocator> & to_upper(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> to_upper_copy(
@@ -373,7 +373,7 @@ std::basic_string<CharT, Traits, Allocator> to_upper_copy(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> & to_lower(
@@ -393,7 +393,7 @@ std::basic_string<CharT, Traits, Allocator> & to_lower(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::basic_string<CharT, Traits, Allocator> to_lower_copy(
@@ -405,8 +405,8 @@ std::basic_string<CharT, Traits, Allocator> to_lower_copy(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator1 = std::allocator<CharT>
-	, typename Allocator2 = std::allocator<CharT>
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ptrdiff_t index_of(
@@ -426,39 +426,41 @@ std::ptrdiff_t index_of(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>,
-	std::size_t N
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::placement<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ptrdiff_t index_of(
 	const CharT (&haystack)[N],
-	const std::basic_string<CharT, Traits, Allocator> needle
+	const std::basic_string<CharT, Traits, Allocator1> needle
 ) {
-	return index_of<CharT, Traits, allocators::placement<CharT>, Allocator>(
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
+	return index_of<CharT, Traits, Allocator2, Allocator1>(
+		std::basic_string<CharT, Traits, Allocator2>(haystack),
 		needle
 	);
 }
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>,
-	std::size_t N
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::placement<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ptrdiff_t index_of(
-	const std::basic_string<CharT, Traits, Allocator> haystack,
+	const std::basic_string<CharT, Traits, Allocator1> haystack,
 	const CharT (&needle)[N]
 ) {
-	return index_of<CharT, Traits, Allocator, allocators::placement<CharT>>(
+	return index_of<CharT, Traits, Allocator1, Allocator2>(
 		haystack,
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
+		std::basic_string<CharT, Traits, Allocator2>(needle)
 	);
 }
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>,
+	, typename Allocator = allocators::placement<CharT>,
 	std::size_t N1,
 	std::size_t N2
 >
@@ -467,16 +469,16 @@ std::ptrdiff_t index_of(
 	const CharT (&haystack)[N1],
 	const CharT (&needle)[N2]
 ) {
-	return index_of<CharT, Traits, allocators::placement<CharT>, allocators::placement<CharT> >(
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
+	return index_of<CharT, Traits, Allocator, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator1 = std::allocator<CharT>
-	, typename Allocator2 = std::allocator<CharT>
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ptrdiff_t last_index_of(
@@ -501,39 +503,41 @@ std::ptrdiff_t last_index_of(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>,
-	std::size_t N
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::placement<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ptrdiff_t last_index_of(
 	const CharT (&haystack)[N],
-	const std::basic_string<CharT, Traits, Allocator> needle
+	const std::basic_string<CharT, Traits, Allocator1> needle
 ) {
-	return last_index_of<CharT, Traits, allocators::placement<CharT>, Allocator>(
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
+	return last_index_of<CharT, Traits, Allocator2, Allocator1>(
+		std::basic_string<CharT, Traits, Allocator2>(haystack),
 		needle
 	);
 }
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>,
-	std::size_t N
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::placement<CharT>
+	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ptrdiff_t last_index_of(
-	const std::basic_string<CharT, Traits, Allocator> haystack,
+	const std::basic_string<CharT, Traits, Allocator1> haystack,
 	const CharT (&needle)[N]
 ) {
-	return last_index_of<CharT, Traits, Allocator, allocators::placement<CharT> >(
+	return last_index_of<CharT, Traits, Allocator1, Allocator2>(
 		haystack,
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
+		std::basic_string<CharT, Traits, Allocator2>(needle)
 	);
 }
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>,
+	, typename Allocator = allocators::placement<CharT>,
 	std::size_t N1,
 	std::size_t N2
 >
@@ -542,15 +546,15 @@ std::ptrdiff_t last_index_of(
 	const CharT (&haystack)[N1],
 	const CharT (&needle)[N2]
 ) {
-	return last_index_of<CharT, Traits, allocators::placement<CharT>, allocators::placement<CharT> >(
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(haystack),
-		std::basic_string<CharT, Traits, allocators::placement<CharT> >(needle)
+	return last_index_of<CharT, Traits, Allocator, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool cmp(
@@ -560,7 +564,7 @@ bool cmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -576,7 +580,7 @@ bool cmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -592,7 +596,7 @@ bool cmp(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N1
 	, std::size_t N2
 >
@@ -609,7 +613,7 @@ bool cmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
@@ -624,7 +628,7 @@ int icmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
@@ -639,7 +643,7 @@ int icmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
@@ -654,7 +658,7 @@ int icmp(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 int icmp(
@@ -669,7 +673,7 @@ int icmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -685,7 +689,7 @@ int icmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -701,7 +705,7 @@ int icmp(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N1
 	, std::size_t N2
 >
@@ -718,7 +722,7 @@ int icmp(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -747,7 +751,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -773,7 +777,7 @@ typename std::enable_if<
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -799,7 +803,7 @@ typename std::enable_if<
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -825,7 +829,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -850,7 +854,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -872,7 +876,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -894,7 +898,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -916,7 +920,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -941,7 +945,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -963,7 +967,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -985,7 +989,7 @@ typename std::enable_if<
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -1007,7 +1011,7 @@ typename std::enable_if<
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, typename NumT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -1020,7 +1024,7 @@ std::basic_string<CharT, Traits, Allocator> to_binary(const NumT & x)
 template <typename NumT
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 NumT to_numeric(const std::basic_string<CharT, Traits, Allocator> & in)
@@ -1036,7 +1040,7 @@ NumT to_numeric(const std::basic_string<CharT, Traits, Allocator> & in)
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, typename NumT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -1051,7 +1055,7 @@ std::basic_string<CharT, Traits, Allocator> to_string(const NumT & n, std::size_
 
 template <typename InputIterT, typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void joiner(
@@ -1074,7 +1078,7 @@ void joiner(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void tokenizer(
@@ -1113,7 +1117,7 @@ void tokenizer(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::vector<
@@ -1129,7 +1133,7 @@ std::vector<
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -1147,7 +1151,7 @@ std::vector<
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -1162,10 +1166,49 @@ std::vector<
 		std::basic_string<CharT, Traits, Allocator>(delimiter)
 	);
 }
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::standard<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::vector<
+	std::basic_string<CharT, Traits, Allocator1>
+> chunksplit(
+	const std::basic_string<CharT, Traits, Allocator2> & in,
+	std::size_t chunksize
+) {
+	std::vector< std::basic_string<CharT, Traits, Allocator1> > out;
+	for (size_t i = 0; i < in.size(); i += chunksize) {
+		out.push_back(in.substr(i, chunksize));
+	}
+	return out;
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator1 = allocators::standard<CharT>
+	, typename Allocator2 = allocators::placement<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::vector<
+	std::basic_string<CharT, Traits, Allocator1>
+> chunksplit(
+	CharT (&in)[N],
+	std::size_t chunksize
+) {
+	return chunksplit<CharT, Traits, Allocator1, Allocator2>
+	(
+		std::basic_string<CharT, Traits, Allocator2>(in),
+	 	chunksize
+	);
+}
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, typename USizeT = typename std::vector<
 		std::basic_string<CharT, Traits, Allocator>
 		, typename std::vector<
@@ -1229,7 +1272,7 @@ std::size_t explode(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -1254,7 +1297,7 @@ std::size_t explode(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -1279,7 +1322,7 @@ std::size_t explode(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, std::size_t N1
 	, std::size_t N2
 >
@@ -1305,10 +1348,10 @@ std::size_t explode(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, template <
 		typename
-		, typename = std::allocator<
+		, typename = allocators::standard<
 			std::basic_string<CharT
 				, Traits
 				, Allocator
@@ -1391,10 +1434,10 @@ std::basic_string<CharT, Traits, Allocator> join(
 
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = std::allocator<CharT>
+	, typename Allocator = allocators::standard<CharT>
 	, template <
 		typename
-		, typename = std::allocator<
+		, typename = allocators::standard<
 			std::basic_string<CharT
 				, Traits
 				, Allocator
