@@ -434,8 +434,7 @@ SizeTypeT ifind(
 	return ((
 			it == haystack.cend()
 		) ? std::basic_string<CharT, Traits, Allocator>::npos :
-		weak_cast<SizeTypeT>(std::distance<it>(haystack.cbegin(), it))
-	);
+		weak_cast<SizeTypeT>(std::distance<const_iter>(haystack.cbegin(), it)));
 }
 	
 template <typename CharT
@@ -444,7 +443,7 @@ template <typename CharT
 	, typename Allocator2 = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::ptrdiff_t index_of(
+std::ptrdiff_t first_index_of(
 		const std::basic_string<CharT, Traits, Allocator1> haystack,
 		const std::basic_string<CharT, Traits, Allocator2> needle
 ) {
@@ -467,11 +466,11 @@ template <typename CharT
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::ptrdiff_t index_of(
+std::ptrdiff_t first_index_of(
 	const CharT (&haystack)[N],
 	const std::basic_string<CharT, Traits, Allocator1> needle
 ) {
-	return index_of<CharT, Traits, Allocator2, Allocator1>(
+	return first_index_of<CharT, Traits, Allocator2, Allocator1>(
 		std::basic_string<CharT, Traits, Allocator2>(haystack),
 		needle
 	);
@@ -484,11 +483,11 @@ template <typename CharT
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::ptrdiff_t index_of(
+std::ptrdiff_t first_index_of(
 	const std::basic_string<CharT, Traits, Allocator1> haystack,
 	const CharT (&needle)[N]
 ) {
-	return index_of<CharT, Traits, Allocator1, Allocator2>(
+	return first_index_of<CharT, Traits, Allocator1, Allocator2>(
 		haystack,
 		std::basic_string<CharT, Traits, Allocator2>(needle)
 	);
@@ -501,11 +500,11 @@ template <typename CharT
 	std::size_t N2
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::ptrdiff_t index_of(
+std::ptrdiff_t first_index_of(
 	const CharT (&haystack)[N1],
 	const CharT (&needle)[N2]
 ) {
-	return index_of<CharT, Traits, Allocator, Allocator>(
+	return first_index_of<CharT, Traits, Allocator, Allocator>(
 		std::basic_string<CharT, Traits, Allocator>(haystack),
 		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
@@ -534,7 +533,8 @@ std::ptrdiff_t last_index_of(
 	);
 	return ((
 		it != haystack.cend()
-	) ? weak_cast<std::ptrdiff_t>(it - haystack.cbegin()) : -1);
+	) ? weak_cast<std::ptrdiff_t>(std::distance<const_iter>(haystack.cbegin(), it)) : -1);
+	// weak_cast<std::ptrdiff_t>(it - haystack.cbegin()) : -1);
 }
 
 template <typename CharT
