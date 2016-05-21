@@ -416,6 +416,11 @@ SizeTypeT ifind(
 	const std::basic_string<CharT, Traits, Allocator> & needle
 ) {
 	using const_iter = typename std::basic_string<CharT, Traits, Allocator>::const_iterator;
+	
+	if (!haystack.size() || !needle.size() || (needle.size() > haystack.size())) {
+		return std::basic_string<CharT, Traits, Allocator>::npos;
+	}
+	
 	const_iter it = std::search(
 		haystack.cbegin(),
 		haystack.cend(),
@@ -445,7 +450,7 @@ std::ptrdiff_t index_of(
 ) {
 	using size_type = typename std::basic_string<CharT, Traits, Allocator1>::size_type;
 	
-	if (!haystack.size() || (needle.size() > haystack.size())) {
+	if (!haystack.size() || !needle.size() || (needle.size() > haystack.size())) {
 		return -1;
 	}
 	
@@ -518,7 +523,7 @@ std::ptrdiff_t last_index_of(
 ) {
 	using const_iter = typename std::basic_string<CharT, Traits, Allocator1>::const_iterator;
 	
-	if (!haystack.size() || (needle.size() > haystack.size())) {
+	if (!haystack.size() || !needle.size() || (needle.size() > haystack.size())) {
 		return -1;
 	}
 	const_iter it = std::find_end(
