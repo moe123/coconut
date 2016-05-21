@@ -19,6 +19,53 @@ template <typename CharT
 	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+	bool istarts_with(
+		const std::basic_string<CharT, Traits, Allocator> & haystack,
+		const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	return needle.size() <= haystack.size() &&
+		std::equal(
+			needle.cbegin(),
+			needle.cend(),
+			haystack.cbegin(),
+			[] (CharT ch1, CharT ch2) {
+				return (std::toupper(ch1) == std::toupper(ch2));
+			}
+		);
+}
+	
+template <typename InputIterT1, typename InputIterT2
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename std::enable_if<
+		std::integral_constant<bool,
+			!tag_is_reverse_iterator<InputIterT1>::value &&
+			!tag_is_reverse_iterator<InputIterT2>::value
+		>::value
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool istarts_with(
+	InputIterT1 && first_haystack,
+	InputIterT2 && first_needle,
+	InputIterT2 && last_needle
+) {
+	return std::equal(
+		first_needle,
+		last_needle,
+		first_haystack,
+		[] (CharT ch1, CharT ch2) {
+			return (std::toupper(ch1) == std::toupper(ch2));
+		}
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool starts_with(
 	const std::basic_string<CharT, Traits, Allocator> & haystack,
 	const std::basic_string<CharT, Traits, Allocator> & needle
@@ -125,6 +172,53 @@ bool starts_with(
 	return starts_with<InputIterT, CharT, Traits, Allocator>(
 		std::forward<InputIterT>(first_haystack),
 		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool iends_with(
+	const std::basic_string<CharT, Traits, Allocator> & haystack,
+	const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	return needle.size() <= haystack.size() &&
+		std::equal(
+			needle.crbegin(),
+			needle.crend(),
+			haystack.crbegin(),
+			[] (CharT ch1, CharT ch2) {
+				return (std::toupper(ch1) == std::toupper(ch2));
+			}
+		);
+}
+	
+template <typename InputIterT1, typename InputIterT2
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename std::enable_if<
+		std::integral_constant<bool,
+			!!tag_is_reverse_iterator<InputIterT1>::value &&
+			!!tag_is_reverse_iterator<InputIterT2>::value
+		>::value
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool iends_with(
+	InputIterT1 && first_haystack,
+	InputIterT2 && first_needle,
+	InputIterT2 && last_needle
+) {
+	return std::equal(
+		first_needle,
+		last_needle,
+		first_haystack,
+		[] (CharT ch1, CharT ch2) {
+			return (std::toupper(ch1) == std::toupper(ch2));
+		}
 	);
 }
 
@@ -427,7 +521,7 @@ SizeTypeT ifind(
 		needle.cbegin(),
 		needle.cend(),
 		[] (CharT ch1, CharT ch2) {
-			return std::toupper(ch1) == std::toupper(ch2);
+			return (std::toupper(ch1) == std::toupper(ch2));
 		}
 	);
 	
