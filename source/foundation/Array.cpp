@@ -10,6 +10,8 @@
 #include <coconut/foundation/Number.hpp>
 #include <coconut/foundation/Path.hpp>
 #include <coconut/foundation/Range.hpp>
+#include <coconut/foundation/Deque.hpp>
+#include <coconut/foundation/OrderedSet.hpp>
 #include <coconut/foundation/Set.hpp>
 #include <coconut/foundation/Slice.hpp>
 #include <coconut/foundation/SortDescriptor.hpp>
@@ -1063,6 +1065,52 @@ const Array Array::operator + (const Any & obj) const
 
 const Array Array::operator + (const Owning<Any> & obj) const
 { return arrayByAddingObject(obj); }
+
+const Array Array::operator * (std::size_t accumulate) const
+{
+	impl_trait buf;
+	for (std::size_t i = 0; i < accumulate; i++) {
+		for (const_iterator it = cbegin(); it != cend(); ++it) {
+			buf.push_back((*it));
+		}
+	}
+	return {buf.begin(), buf.end()};
+}
+
+const Array Array::operator << (const Any & obj) const
+{
+	if (obj.isKindOf(ArrayClass)) {
+		return arrayByAddingObjects(
+			ref_cast<Array>(obj).cbegin(),
+			ref_cast<Array>(obj).cend()
+		);
+	} else if (obj.isKindOf(DequeClass)) {
+		return arrayByAddingObjects(
+			ref_cast<Deque>(obj).cbegin(),
+			ref_cast<Deque>(obj).cend()
+		);
+	} else if (obj.isKindOf(OrderedSetClass)) {
+		return arrayByAddingObjects(
+			ref_cast<OrderedSet>(obj).cbegin(),
+			ref_cast<OrderedSet>(obj).cend()
+		);
+	} else if (obj.isKindOf(SetClass)) {
+		return arrayByAddingObjects(
+			ref_cast<Set>(obj).cbegin(),
+			ref_cast<Set>(obj).cend()
+		);
+	}
+	
+	return operator+(obj);
+}
+
+const Array Array::operator << (const Owning<Any> & obj) const
+{
+	if (obj) {
+		return operator<<(*obj);
+	}
+	return {cbegin(), cend()};
+}
 
 #pragma mark -
 

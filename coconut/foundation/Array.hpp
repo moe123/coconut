@@ -196,6 +196,11 @@ namespace coconut
 		const Array operator + (const Any & obj) const;
 		const Array operator + (const Owning<Any> & obj) const;
 		
+		const Array operator * (std::size_t accumulate) const;
+		
+		const Array operator << (const Any & obj) const;
+		const Array operator << (const Owning<Any> & obj) const;
+		
 	protected:
 		typedef std::vector< Owning<Any> > impl_trait;
 		
