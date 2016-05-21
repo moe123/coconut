@@ -253,12 +253,14 @@ int numeric::compare(const numeric & other_num) const
 			} else if (to_double() > other_num.to_double()) {
 				return cmp_descending;
 			}
+			return cmp_same;
 		} else {
 			if (to_long_long() < other_num.to_long_long()) {
 				return cmp_ascending;
 			} else if (to_long_long() > other_num.to_long_long()) {
 				return cmp_descending;
 			}
+			return cmp_same;
 		}
 	} else {
 		if (to_unsigned_long_long() < other_num.to_unsigned_long_long()) {
@@ -266,6 +268,7 @@ int numeric::compare(const numeric & other_num) const
 		} else if (to_unsigned_long_long() > other_num.to_unsigned_long_long()) {
 			return cmp_descending;
 		}
+		return cmp_same;
 	}
 	return cmp_same;
 }

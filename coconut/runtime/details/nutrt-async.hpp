@@ -230,7 +230,7 @@ protected:
 	void main()
 	{
 		for (;;) {
-			std::future<void> f;
+			std::future<void> fut;
 			{
 				std::unique_lock<std::mutex> lock(m_mutex);
 				m_cond.wait(lock, [this] {
@@ -240,18 +240,18 @@ protected:
 				if (m_stop && m_tasks.empty()) {
 					return;
 				} else if (!m_tasks.empty()) {
-					f = std::move(m_tasks.front());
+					fut = std::move(m_tasks.front());
 					m_tasks.pop_front();
 				}
 			}
-			f.get();
+			fut.get();
 		}
 	}
 	
 private:
 	std::mutex m_mutex;
 	std::condition_variable m_cond;
-	std::deque<std::future<void>> m_tasks;
+	std::deque< std::future<void> > m_tasks;
 	std::vector<std::thread> m_threads;
 	
 	std::size_t m_count;

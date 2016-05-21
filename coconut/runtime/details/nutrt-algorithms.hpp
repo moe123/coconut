@@ -34,6 +34,55 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 		);
 }
 	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool istarts_with(
+	const CharT (&haystack)[N],
+	const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	return istarts_with<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		needle
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool istarts_with(
+	const std::basic_string<CharT, Traits, Allocator> & haystack,
+	const CharT (&needle)[N]
+) {
+	return istarts_with<CharT, Traits, Allocator>(
+		haystack,
+		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool istarts_with(
+	const CharT (&haystack)[N1],
+	const CharT (&needle)[N2]
+) {
+	return istarts_with<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
+	);
+}
+	
 template <typename InputIterT1, typename InputIterT2
 	, typename CharT
 	, typename Traits = std::char_traits<CharT>
@@ -58,6 +107,40 @@ bool istarts_with(
 		[] (CharT ch1, CharT ch2) {
 			return (std::toupper(ch1) == std::toupper(ch2));
 		}
+	);
+}
+
+template <typename InputIterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool istarts_with(
+	InputIterT && first_haystack,
+	const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	return istarts_with<InputIterT, CharT, Traits, Allocator>(
+		std::forward<InputIterT>(first_haystack),
+		needle.cbegin(),
+		needle.cend()
+	);
+}
+	
+template <typename InputIterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool istarts_with(
+	InputIterT && first_haystack,
+	const CharT (&needle)[N]
+) {
+	return istarts_with<InputIterT, CharT, Traits, Allocator>(
+		std::forward<InputIterT>(first_haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle)
 	);
 }
 	
@@ -526,9 +609,9 @@ SizeTypeT ifind(
 	);
 	
 	return ((
-			it == haystack.cend()
-		) ? std::basic_string<CharT, Traits, Allocator>::npos :
-		weak_cast<SizeTypeT>(std::distance<const_iter>(haystack.cbegin(), it)));
+		it == haystack.cend()
+	) ? std::basic_string<CharT, Traits, Allocator>::npos :
+	weak_cast<SizeTypeT>(std::distance<const_iter>(haystack.cbegin(), it)));
 }
 	
 template <typename CharT
@@ -1410,16 +1493,16 @@ std::basic_string<CharT, Traits, Allocator> chunk_join(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = allocators::standard<CharT>
-	, typename USizeT = typename std::vector<
+	, typename usize_type = typename std::vector<
 		std::basic_string<CharT, Traits, Allocator>
 		, typename std::vector<
 			std::basic_string<CharT, Traits, Allocator>
 		>::allocator_type
 	>::size_type
-	, typename SSizeT = std::ptrdiff_t
+	, typename ssize_type = std::ptrdiff_t
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::size_t explode(
+usize_type explode(
 	std::vector<
 		std::basic_string<CharT, Traits, Allocator>,
 		typename std::vector<
@@ -1428,9 +1511,9 @@ std::size_t explode(
 	> & out,
 	const std::basic_string<CharT, Traits, Allocator> & delimiter,
 	const std::basic_string<CharT, Traits, Allocator> & in,
-	SSizeT limit = std::numeric_limits<SSizeT>::max()
+	ssize_type limit = std::numeric_limits<ssize_type>::max()
 ) {
-	USizeT begin = 0, end = 0;
+	usize_type begin = 0, end = 0;
 	
 	if (delimiter.empty()) {
 		return 0;
@@ -1446,12 +1529,12 @@ std::size_t explode(
 	}
 	
 	while (end != std::basic_string<CharT, Traits, Allocator>::npos) {
-		if (limit > 0 && weak_cast<SSizeT>(out.size()) == limit - 1) {
+		if (limit > 0 && weak_cast<ssize_type>(out.size()) == limit - 1) {
 			out.push_back(in.substr(begin));
 			break;
 		}
-		USizeT substr_len = std::basic_string<CharT, Traits, Allocator>::npos;
-		USizeT next_tok = std::basic_string<CharT, Traits, Allocator>::npos;
+		usize_type substr_len = std::basic_string<CharT, Traits, Allocator>::npos;
+		usize_type next_tok = std::basic_string<CharT, Traits, Allocator>::npos;
 		end = in.find_first_of(delimiter, begin);
 		if (end != std::basic_string<CharT, Traits, Allocator>::npos) {
 			substr_len = end - begin;
@@ -1462,8 +1545,8 @@ std::size_t explode(
 	}
 	if (limit < 0) {
 		limit = std::abs(limit);
-		if (limit < weak_cast<SSizeT>(out.size())) {
-			out.resize(out.size() - weak_cast<USizeT>(limit));
+		if (limit < weak_cast<ssize_type>(out.size())) {
+			out.resize(out.size() - weak_cast<usize_type>(limit));
 		} else {
 			out.clear();
 		}
@@ -1474,10 +1557,17 @@ std::size_t explode(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::vector<
+		std::basic_string<CharT, Traits, Allocator>
+		, typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	>::size_type
+	, typename ssize_type = std::ptrdiff_t
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::size_t explode(
+usize_type explode(
 	std::vector<
 		std::basic_string<CharT, Traits, Allocator>,
 		typename std::vector<
@@ -1486,7 +1576,7 @@ std::size_t explode(
 	> & out,
 	const CharT (&delimiter)[N],
 	const std::basic_string<CharT, Traits, Allocator> & in,
-	int limit = std::numeric_limits<int>::max()
+	ssize_type limit = std::numeric_limits<ssize_type>::max()
 ) {
 	return explode<CharT, Traits, Allocator>(
 		out,
@@ -1499,10 +1589,17 @@ std::size_t explode(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::vector<
+		std::basic_string<CharT, Traits, Allocator>
+		, typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	>::size_type
+	, typename ssize_type = std::ptrdiff_t
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::size_t explode(
+usize_type explode(
 	std::vector<
 		std::basic_string<CharT, Traits, Allocator>,
 		typename std::vector<
@@ -1511,7 +1608,7 @@ std::size_t explode(
 	> & out,
 	const std::basic_string<CharT, Traits, Allocator> & delimiter,
 	const CharT (&in)[N],
-	int limit = std::numeric_limits<int>::max()
+	ssize_type limit = std::numeric_limits<ssize_type>::max()
 ) {
 	return explode<CharT, Traits, Allocator>(
 		out,
@@ -1524,11 +1621,18 @@ std::size_t explode(
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::vector<
+		std::basic_string<CharT, Traits, Allocator>
+		, typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	>::size_type
+	, typename ssize_type = std::ptrdiff_t
 	, std::size_t N1
 	, std::size_t N2
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::size_t explode(
+usize_type explode(
 	std::vector<
 		std::basic_string<CharT, Traits, Allocator>,
 		typename std::vector<
@@ -1537,7 +1641,7 @@ std::size_t explode(
 	> & out,
 	const CharT (&delimiter)[N1],
 	const CharT (&in)[N2],
-	int limit = std::numeric_limits<int>::max()
+	ssize_type limit = std::numeric_limits<ssize_type>::max()
 ) {
 	return explode<CharT, Traits, Allocator>(
 		out,
@@ -1709,6 +1813,117 @@ std::basic_string<CharT, Traits, Allocator> join(
 	return join<CharT, Traits, Allocator, Container>(
 		parts,
 		std::basic_string<CharT, Traits, Allocator>(separator)
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::basic_string<CharT, Traits, Allocator>::size_type
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+usize_type replace(
+	const std::basic_string<CharT, Traits, Allocator> & search,
+	const std::basic_string<CharT, Traits, Allocator> & substitute,
+	std::basic_string<CharT, Traits, Allocator> & subject
+) {
+	usize_type j = 0;
+
+	for (usize_type pos = 0; ; pos += substitute.size()) {
+		pos = subject.find(search, pos);
+		if (pos != std::basic_string<CharT, Traits, Allocator>::npos) {
+			subject.erase(pos, search.size());
+			subject.insert(pos, replace);
+			j++;
+		} else {
+			break;
+		}
+	}
+	return j;
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::basic_string<CharT, Traits, Allocator>::size_type
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+usize_type replace(
+	const std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & search,
+	const std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & substitute,
+	std::basic_string<CharT, Traits, Allocator> & subject
+) {
+	usize_type j = 0;
+	usize_type max = std::min(search.size(), substitute.size());
+	
+	for (usize_type i = 0; i < max; i++) {
+		j += replace<CharT, Traits, Allocator, usize_type>(
+			search[i],
+			replace[i],
+			subject
+		);
+		
+	}
+	return j;
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::basic_string<CharT, Traits, Allocator>::size_type
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+usize_type replace_copy(
+	std::basic_string<CharT, Traits, Allocator> & out,
+	const std::basic_string<CharT, Traits, Allocator> & search,
+	const std::basic_string<CharT, Traits, Allocator> & substitute,
+	const std::basic_string<CharT, Traits, Allocator> & subject
+) {
+	out.assign(subject);
+	return replace<CharT, Traits, Allocator, usize_type>(
+		search,
+		substitute,
+		out
+	);
+}
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename usize_type = typename std::basic_string<CharT, Traits, Allocator>::size_type
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+usize_type replace_copy(
+	std::basic_string<CharT, Traits, Allocator> & out,
+	const std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & search,
+	const std::vector<
+		std::basic_string<CharT, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<CharT, Traits, Allocator>
+		>::allocator_type
+	> & substitute,
+	const std::basic_string<CharT, Traits, Allocator> & subject
+) {
+	out.assign(subject);
+	return replace<CharT, Traits, Allocator, usize_type>(
+		search,
+		substitute,
+		out
 	);
 }
 
