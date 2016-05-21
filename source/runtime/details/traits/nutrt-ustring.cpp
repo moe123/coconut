@@ -844,25 +844,25 @@ std::uint32_t ustring::code_point_at(std::size_t index) const
 ustring & ustring::append(const ustring & ustr)
 { m_ustr.append(ustr.m_ustr); return *this; }
 
-ustring & ustring::append(std::int16_t & code_unit)
+ustring & ustring::append(const std::int16_t & code_unit)
 { m_ustr.append(weak_cast<UChar>(code_unit)); return *this; }
 
-ustring & ustring::append(std::int32_t & code_point)
+ustring & ustring::append(const std::int32_t & code_point)
 { m_ustr.append(weak_cast<UChar32>(code_point)); return *this; }
 
-ustring & ustring::append(std::uint16_t & code_unit)
+ustring & ustring::append(const std::uint16_t & code_unit)
 { m_ustr.append(weak_cast<UChar>(code_unit)); return *this; }
 
-ustring & ustring::append(std::uint32_t & code_point)
+ustring & ustring::append(const std::uint32_t & code_point)
 { m_ustr.append(weak_cast<UChar32>(code_point)); return *this; }
 
-ustring & ustring::append(char16_t & code_unit)
+ustring & ustring::append(const char16_t & code_unit)
 { m_ustr.append(weak_cast<UChar>(code_unit)); return *this; }
 
-ustring & ustring::append(char32_t & code_point)
+ustring & ustring::append(const char32_t & code_point)
 { m_ustr.append(weak_cast<UChar32>(code_point)); return *this; }
 
-ustring & ustring::append(wchar_t & code)
+ustring & ustring::append(const wchar_t & code)
 {
 #if defined(COCONUT_SIZEOF_WIDE) && COCONUT_SIZEOF_WIDE == 4
 	m_ustr.append(weak_cast<UChar32>(code)); return *this;

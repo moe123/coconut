@@ -244,7 +244,7 @@ const std::string Data::sha256Value() const
 #pragma mark -
 
 bool Data::writeToFile(const Path & path, bool atomically) const
-{ return m_impl.write(path.stringValue(), atomically); }
+{ return m_impl.write(path.m_impl, atomically); }
 
 bool Data::writeToURL(const URL & url, bool atomically) const
 {

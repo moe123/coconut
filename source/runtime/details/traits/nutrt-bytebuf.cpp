@@ -163,47 +163,11 @@ bytebuf::bytebuf(const uri & url, bool b64dec)
 	}
 }
 
-bytebuf::bytebuf(const std::string & utf8_path, bool b64dec)
-: m_bytes()
-{
-	stream::ifstream in_binary(utf8_path);
-	if (in_binary.is_open()) {
-		rb_fin(in_binary);
-		in_binary.close();
-		if (b64dec) {
-			b64_decode();
-		}
-	}
-}
-
-bytebuf::bytebuf(const std::u16string & utf16_path, bool b64dec)
-: m_bytes()
-{
-	stream::ifstream in_binary(utf16_path);
-	if (in_binary.is_open()) {
-		rb_fin(in_binary);
-		in_binary.close();
-		if (b64dec) {
-			b64_decode();
-		}
-	}
-}
-
 bytebuf::bytebuf(stream::ifstream & in_binary, std::size_t location, std::size_t length)
 : m_bytes()
 {
 	if (in_binary.is_open()) {
 		rb_fin(in_binary, location, length);
-	}
-}
-
-bytebuf::bytebuf(const std::string & utf8_path, std::size_t location, std::size_t length)
-: m_bytes()
-{
-	stream::ifstream in_binary(utf8_path);
-	if (in_binary.is_open()) {
-		rb_fin(in_binary, location, length);
-		in_binary.close();
 	}
 }
 
@@ -1138,11 +1102,11 @@ void bytebuf::reset()
 bool bytebuf::write(stream::ofstream & out_binary) const
 { return wb_fout(out_binary); }
 
-bool bytebuf::write(const std::string & utf8_path, bool atomically) const
+bool bytebuf::write(const upath & path, bool atomically) const
 {
 	COCONUT_UNUSED(atomically);
 	bool result = false;
-	stream::ofstream out_binary(utf8_path);
+	stream::ofstream out_binary(path.to_utf8_string());
 	if (out_binary.is_open()) {
 		result = wb_fout(out_binary);
 		out_binary.close();
@@ -1150,14 +1114,17 @@ bool bytebuf::write(const std::string & utf8_path, bool atomically) const
 	return result;
 }
 
-bool bytebuf::write(const std::u16string & utf16_path, bool atomically) const
+bool bytebuf::write(const uri & url, bool atomically) const
 {
 	COCONUT_UNUSED(atomically);
 	bool result = false;
-	stream::ofstream out_binary(utf16_path);
-	if (out_binary.is_open()) {
-		result = wb_fout(out_binary);
-		out_binary.close();
+	if (url.is_file_url()) {
+		upath path(url.path());
+		stream::ofstream out_binary(path.to_utf8_string());
+		if (out_binary.is_open()) {
+			result = wb_fout(out_binary);
+			out_binary.close();
+		}
 	}
 	return result;
 }

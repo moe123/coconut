@@ -171,16 +171,16 @@ public:
 	
 	ustring & append(const ustring & ustr);
 	
-	ustring & append(std::int16_t & code_unit);
-	ustring & append(std::int32_t & code_point);
+	ustring & append(const std::int16_t & code_unit);
+	ustring & append(const std::int32_t & code_point);
 	
-	ustring & append(std::uint16_t & code_unit);
-	ustring & append(std::uint32_t & code_point);
+	ustring & append(const std::uint16_t & code_unit);
+	ustring & append(const std::uint32_t & code_point);
 	
-	ustring & append(char16_t & code_unit);
-	ustring & append(char32_t & code_point);
+	ustring & append(const char16_t & code_unit);
+	ustring & append(const char32_t & code_point);
 	
-	ustring & append(wchar_t & code);
+	ustring & append(const wchar_t & code);
 	
 	template <class InputIterT>
 	ustring & append(InputIterT && first, InputIterT &&  last)

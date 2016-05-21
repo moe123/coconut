@@ -70,15 +70,11 @@ public:
 	
 	bytebuf(const upath & path, bool b64dec = false);
 	bytebuf(const uri & url, bool b64dec = false);
-	bytebuf(const std::string & utf8_path, bool b64dec = false);
-	bytebuf(const std::u16string & utf16_path, bool b64dec = false);
 	
 	bytebuf(stream::fstream & in_binary, std::size_t location, std::size_t length);
 	bytebuf(stream::ifstream & in_binary, std::size_t location, std::size_t length);
 	bytebuf(stream::imstream & in_binary, std::size_t location, std::size_t length);
 	
-	bytebuf(const std::string & utf8_path, std::size_t location, std::size_t length);
-	bytebuf(const std::u16string & utf16_path, std::size_t location, std::size_t length);	
 	~bytebuf();
 
 public:
@@ -235,8 +231,8 @@ public:
 	bool write(stream::fstream & out_binary) const;
 	bool write(stream::ofstream & out_binary) const;
 	
-	bool write(const std::string & utf8_path, bool atomically = true) const;
-	bool write(const std::u16string & utf16_path, bool atomically = true) const;
+	bool write(const upath & path, bool atomically = true) const;
+	bool write(const uri & url, bool atomically = true) const;
 
 public:
 	const std::uint8_t & operator [] (std::size_t index) const;
