@@ -351,7 +351,8 @@ std::basic_string<CharT, Traits, Allocator> & to_upper(
 	std::transform(
 		in.begin(),
 		in.end(),
-		in.begin(), std::bind1st(
+		in.begin(),
+		std::bind1st(
 			std::mem_fun(&std::ctype<CharT>::toupper),
 			&std::use_facet< std::ctype<CharT> >(loc)
 		)
@@ -383,7 +384,8 @@ std::basic_string<CharT, Traits, Allocator> & to_lower(
 	std::transform(
 		in.begin(),
 		in.end(),
-		in.begin(), std::bind1st(
+		in.begin(),
+		std::bind1st(
 			std::mem_fun(&std::ctype<CharT>::tolower),
 			&std::use_facet< std::ctype<CharT> >(loc)
 		)
@@ -405,6 +407,34 @@ std::basic_string<CharT, Traits, Allocator> to_lower_copy(
 	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename SizeTypeT = typename std::basic_string<CharT, Traits, Allocator>::size_type
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+SizeTypeT ifind(
+	const std::basic_string<CharT, Traits, Allocator> & haystack,
+	const std::basic_string<CharT, Traits, Allocator> & needle
+) {
+	using const_iter = typename std::basic_string<CharT, Traits, Allocator>::const_iterator;
+	const_iter it = std::search(
+		haystack.cbegin(),
+		haystack.cend(),
+		needle.cbegin(),
+		needle.cend(),
+		[] (CharT ch1, CharT ch2) {
+			return std::toupper(ch1) == std::toupper(ch2);
+		}
+	);
+	
+	return ((
+			it == haystack.cend()
+		) ? std::basic_string<CharT, Traits, Allocator>::npos :
+		weak_cast<SizeTypeT>(std::distance<it>(haystack.cbegin(), it))
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
 	, typename Allocator1 = allocators::standard<CharT>
 	, typename Allocator2 = allocators::standard<CharT>
 >
@@ -418,6 +448,7 @@ std::ptrdiff_t index_of(
 	if (!haystack.size() || (needle.size() > haystack.size())) {
 		return -1;
 	}
+	
 	size_type idx = haystack.find(needle);
 	return ((
 		idx != std::basic_string<CharT, Traits, Allocator1>::npos
