@@ -19,9 +19,9 @@ template <typename CharT
 	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	bool istarts_with(
-		const std::basic_string<CharT, Traits, Allocator> & haystack,
-		const std::basic_string<CharT, Traits, Allocator> & needle
+bool istarts_with(
+	const std::basic_string<CharT, Traits, Allocator> & haystack,
+	const std::basic_string<CharT, Traits, Allocator> & needle
 ) {
 	return needle.size() <= haystack.size() &&
 		std::equal(
