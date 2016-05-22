@@ -24,7 +24,7 @@ COCONUT_CLASSFORWARD_DCL(irange)
 COCONUT_PRIVATE class COCONUT_VISIBLE ustring COCONUT_FINAL
 {
 COCONUT_RUNTIME_CLASSDECLARE(coconut.runtime.ustring, ustring)
-
+	
 public:
 	ustring();
 	ustring(const ustring & ustr);
@@ -198,6 +198,48 @@ public:
 	ustring by_uppercasing(const ustring & ustr) const;
 	ustring by_lowercasing(const ustring & ustr, const locale & loc) const;
 	ustring by_uppercasing(const ustring & ustr, const locale & loc) const;
+
+private:
+	typedef std::vector<UChar32, allocators::placement<UChar32> > container_type;
+
+public:
+	/* type_traits */
+	
+	typedef container_type::iterator iterator;
+	typedef container_type::const_iterator const_iterator;
+	
+	typedef container_type::reverse_iterator reverse_iterator;
+	typedef container_type::const_reverse_iterator const_reverse_iterator;
+	
+	typedef container_type::value_type value_type;
+	typedef container_type::size_type size_type;
+	typedef container_type::difference_type difference_type;
+	
+	typedef container_type::reference reference;
+	typedef container_type::const_reference const_reference;
+	typedef container_type::pointer pointer;
+	typedef container_type::const_pointer const_pointer;
+
+public:
+	/* type_iterator */
+	
+	iterator begin();
+	iterator end();
+	
+	const_iterator begin() const;
+	const_iterator end() const;
+	
+	const_iterator cbegin() const;
+	const_iterator cend() const;
+	
+	reverse_iterator rbegin();
+	reverse_iterator rend();
+	
+	const_reverse_iterator rbegin() const;
+	const_reverse_iterator rend() const;
+	
+	const_reverse_iterator crbegin() const;
+	const_reverse_iterator crend() const;
 	
 private:
 	icu::UnicodeString m_ustr;

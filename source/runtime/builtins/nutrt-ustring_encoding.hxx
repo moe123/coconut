@@ -170,6 +170,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string ustring_detectcodepage(const char * in, std::size_t len, float & confidence)
 {
 	std::string result{u8"utf-8"};
+	const char * res;
 	UCharsetDetector * dctr;
 	const UCharsetMatch * chmt;
 	const UCharsetMatch ** chmts;
@@ -216,12 +217,13 @@ std::string ustring_detectcodepage(const char * in, std::size_t len, float & con
 	}
 	if (best) {
 		status = U_ZERO_ERROR;
-		result = ucsdet_getName(chmts[idx], &status);
-		if (result == NULL || U_FAILURE(status)) {
+		res = ucsdet_getName(chmts[idx], &status);
+		if (res == NULL || U_FAILURE(status)) {
 			ucsdet_close(dctr);
 			confidence = 0.0;
 			return {};
 		}
+		result = res;
 		confidence = static_cast<float>(best) / 100.0;
 		return result;
 	}
@@ -235,12 +237,13 @@ std::string ustring_detectcodepage(const char * in, std::size_t len, float & con
 	}
 	
 	status = U_ZERO_ERROR;
-	result = ucsdet_getName(chmt, &status);
-	if (result == NULL || U_FAILURE(status)) {
+	res = ucsdet_getName(chmt, &status);
+	if (res == NULL || U_FAILURE(status)) {
 		ucsdet_close(dctr);
 		confidence = 0.0;
 		return {};
 	}
+	result = res;
 	c = ucsdet_getConfidence(chmt, &status);
 	if (U_FAILURE(status)) {
 		ucsdet_close(dctr);
