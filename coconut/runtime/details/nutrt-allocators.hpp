@@ -132,7 +132,7 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE emptiness COCONUT_FINAL
 	
 	void destroy(pointer p) { /* NOP */ }
 	
-	template<class U>
+	template<typename U>
 	void destroy(U * p) { /* NOP */ }
 };
 	
