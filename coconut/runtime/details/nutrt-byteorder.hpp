@@ -14,9 +14,11 @@ namespace coconut
 { namespace byteorder
 {
 	
+#pragma mark -
+	
 typedef struct { std::uint32_t v; } fswp_t;
 typedef struct { std::uint64_t v; } dswp_t;
-
+	
 template <typename T>
 inline void swpi(T & x)
 { char & raw = reinterpret_cast<char &>(x); std::reverse(&raw, &raw + sizeof(T)); }
@@ -24,6 +26,9 @@ inline void swpi(T & x)
 template <typename T>
 inline T swpc(T x)
 { swpi(x); return x; }
+	
+#pragma mark -
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t swpc16(const volatile std::uint16_t x)
@@ -43,6 +48,8 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int16_t swpcs16(std::int16_t & x)
 { return ___COCONUT_bswap16(x); }
 
+#pragma mark -
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint32_t swpc32(const volatile std::uint32_t x)
 {
@@ -60,6 +67,8 @@ std::uint32_t swpc32(const volatile std::uint32_t x)
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int32_t swpcs32(std::int32_t & x)
 { return ___COCONUT_bswap32(x); }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint64_t swpc64(const volatile std::uint64_t x)
@@ -87,6 +96,10 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int64_t swpcs64(std::int64_t & x)
 { return ___COCONUT_bswap64(x); }
 
+#pragma mark -
+#pragma mark -
+#pragma mark -
+
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r16be(const std::uint8_t (&r)[2], std::uint16_t & out)
 {
@@ -104,6 +117,8 @@ void rs16be(const std::uint8_t (&r)[2], std::int16_t & out)
 	x |= r[1];
 	out = x;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r32be(const std::uint8_t (&r)[4], std::uint32_t & out)
@@ -126,6 +141,8 @@ void rs32be(const std::uint8_t (&r)[4], std::int32_t & out)
 	x |= r[3];
 	out = x;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r64be(const std::uint8_t (&r)[8], std::uint64_t & out)
@@ -156,6 +173,9 @@ void rs64be(const std::uint8_t (&r)[8], std::int64_t & out)
 	x |= r[7];
 	out = x;
 }
+	
+#pragma mark -
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r16le(const std::uint8_t (&r)[2], std::uint16_t & out)
@@ -174,6 +194,8 @@ void rs16le(const std::uint8_t (&r)[2], std::int16_t & out)
 	x |= r[0];
 	out = x;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r32le(const std::uint8_t (&r)[4], std::uint32_t & out)
@@ -196,6 +218,8 @@ void rs32le(const std::uint8_t (&r)[4], std::int32_t & out)
 	x |= r[0];
 	out = x;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void r64le(const std::uint8_t (&r)[8], std::uint64_t & out)
@@ -227,6 +251,10 @@ void rs64le(const std::uint8_t (&r)[8], std::int64_t & out)
 	out = x;
 }
 
+#pragma mark -
+#pragma mark -
+#pragma mark -
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void w16be(std::uint16_t in, std::uint8_t (&w)[2])
 {
@@ -255,6 +283,8 @@ void w64be(std::uint64_t in, std::uint8_t (&w)[8])
 	w[6] = ((in & 0x000000000000FF00ULL) >> 8);
 	w[7] = ((in & 0x00000000000000FFULL));
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void w16le(std::uint16_t in, std::uint8_t (&w)[2])
@@ -284,6 +314,10 @@ void w64le(std::uint64_t in, std::uint8_t (&w)[8])
 	w[6] = ((in & 0x00FF000000000000ULL) >> 48);
 	w[7] = ((in & 0xFF00000000000000ULL) >> 56);
 }
+	
+#pragma mark -
+#pragma mark -
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t be2h16(std::uint16_t x)
@@ -320,6 +354,8 @@ std::uint64_t be2h64(std::uint64_t x)
 	return x;
 #endif
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t h2be16(std::uint16_t x)
@@ -356,6 +392,9 @@ std::uint64_t h2be64(std::uint64_t x)
 	return x;
 #endif
 }
+	
+#pragma mark -
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t le2h16(std::uint16_t x)
@@ -392,6 +431,8 @@ std::uint64_t le2h64(std::uint64_t x)
 	return swapc64(x);
 #endif
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t h2le16(std::uint16_t x)
@@ -428,6 +469,8 @@ std::uint64_t h2le64(std::uint64_t x)
 	return swapc64(x);
 #endif
 }
+
+#pragma mark -
 	
 }}} /* EONS */
 

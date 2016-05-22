@@ -14,6 +14,8 @@ namespace coconut
 { namespace unicode
 {
 	
+#pragma mark -
+	
 template<typename CharInT, typename CharOutT, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __conv_from_bytes(
@@ -33,6 +35,8 @@ void __conv_to_bytes(
 	std::wstring_convert<CodecvtT, CharInT> conv;
 	dest = std::move(conv.to_bytes(src));
 }
+	
+#pragma mark -
 
 template<typename Char8T
 	, typename std::enable_if<
@@ -90,6 +94,9 @@ void __utf8_bom(
 	}
 }
 
+#pragma mark -
+#pragma mark -
+
 template<typename Char16T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
@@ -122,6 +129,8 @@ void _conv_utf16_to_utf8(
 	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
 }
 
+#pragma mark -
+	
 template<typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -213,6 +222,9 @@ void _conv_utf8_to_utf16(
 	}
 }
 
+#pragma mark -
+#pragma mark -
+
 template<typename Char16T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
@@ -245,6 +257,8 @@ void _conv_ucs2_to_utf8(
 	__conv_to_bytes<Char16T, Char8T, CodecvtT>(src, dest);
 }
 	
+#pragma mark -
+	
 template<typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -258,6 +272,7 @@ void>::type _conv_utf8_to_ucs2(
 	using CodecvtT = std::codecvt_utf8<Char16T>;
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
+	
 	
 template<typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -336,6 +351,9 @@ void _conv_utf8_to_ucs2(
 	}
 }
 
+#pragma mark -
+#pragma mark -
+
 template<typename Char32T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char32T) == sizeof(char32_t) &&
@@ -367,6 +385,8 @@ void _conv_ucs4_to_utf8(
 	using CodecvtT = std::codecvt_utf8<Char32T>;
 	__conv_to_bytes<Char32T, Char8T, CodecvtT>(src, dest);
 }
+	
+#pragma mark -
 	
 template<typename Char8T, typename Char32T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -459,6 +479,8 @@ void _conv_utf8_to_ucs4(
 	}
 }
 	
+#pragma mark -
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string utf8_to_utf16(
 	const std::string & utf8_in,
@@ -484,6 +506,8 @@ std::u16string utf8_to_utf16(const std::string & utf8_in)
 	_conv_utf8_to_utf16<Char8T, Char16T, unicode_conv_default>(utf8_in, utf16_out);
 	return utf16_out;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string utf8_to_ucs2(
@@ -509,6 +533,8 @@ std::u16string utf8_to_ucs2(const std::string & utf8_in) {
 	_conv_utf8_to_ucs2<Char8T, Char16T, unicode_conv_default>(utf8_in, ucs2_out);
 	return ucs2_out;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u32string utf8_to_ucs4(
@@ -545,7 +571,9 @@ std::u32string utf8_to_utf32(
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u32string utf8_to_utf32(const std::string & utf8_in)
 { return utf8_to_ucs4(utf8_in); }
-
+	
+#pragma mark -
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string utf16_to_utf8(
 	const std::u16string & utf16_in,
@@ -571,6 +599,8 @@ std::string utf16_to_utf8(const std::u16string & utf16_in)
 	_conv_utf16_to_utf8<Char16T, Char8T>(utf16_in, utf8_out);
 	return utf8_out;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string ucs2_to_utf8(
@@ -597,6 +627,8 @@ std::string ucs2_to_utf8(const std::u16string & in_ucs2)
 	_conv_ucs2_to_utf8<Char16T, Char8T>(in_ucs2, utf8_out);
 	return utf8_out;
 }
+	
+#pragma mark -
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string ucs2_to_utf16(
@@ -604,11 +636,13 @@ std::u16string ucs2_to_utf16(
 	unicode_option option
 )
 { return utf8_to_utf16(ucs2_to_utf8(in_ucs2, unicode_conv_del_bom), option); }
-
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string ucs2_to_utf16(const std::u16string & in_ucs2)
 { return utf8_to_utf16(ucs2_to_utf8(in_ucs2, unicode_conv_del_bom)); }
 
+#pragma mark -
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string ucs4_to_utf8(
 	const std::u32string & in_ucs4,
@@ -644,6 +678,8 @@ std::string utf32_to_utf8(
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string utf32_to_utf8(const std::u32string & in_utf32)
 { return ucs4_to_utf8(in_utf32); }
+
+#pragma mark -
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::string & utf8_add_bom(std::string & in_utf8)

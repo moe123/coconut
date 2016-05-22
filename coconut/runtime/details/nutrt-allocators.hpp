@@ -15,6 +15,8 @@ namespace coconut
 {
 /* this is not the droid you're looking for */
 
+#pragma mark -
+	
 template <typename T> using standard = std::allocator<T>;
 
 template <typename T>
@@ -145,7 +147,8 @@ namespace coconut
 {
 /* trickster */
 
-// ------ placement / standard
+#pragma mark -
+#pragma mark - placement / standard
 
 template <typename T>
 bool operator == (
@@ -171,7 +174,7 @@ bool operator != (
 	const runtime::allocators::standard<T> &
 ) { return false; }
 
-// ------
+#pragma mark -
 
 template <typename T1, typename T2>
 bool operator == (
@@ -197,7 +200,8 @@ bool operator != (
 	const runtime::allocators::standard<T2> &
 ) { return false; }
 
-// ------ emptiness / standard
+#pragma mark -
+#pragma mark - emptiness / standard
 
 template <typename T>
 bool operator == (
@@ -223,7 +227,7 @@ bool operator != (
 	const runtime::allocators::standard<T> &
 ) { return false; }
 
-// ------
+#pragma mark -
 
 template <typename T1, typename T2>
 bool operator == (
@@ -249,7 +253,8 @@ bool operator != (
 	const runtime::allocators::standard<T2> &
 ) { return false; }
 
-// ------ emptiness / placement
+#pragma mark -
+#pragma mark - emptiness / placement
 
 template <typename T>
 bool operator == (
@@ -275,7 +280,7 @@ bool operator != (
 	const runtime::allocators::emptiness<T> &
 ) { return false; }
 
-// ------
+#pragma mark -
 
 template <typename T1, typename T2>
 bool operator == (
@@ -301,7 +306,7 @@ bool operator != (
 	const runtime::allocators::emptiness<T2> &
 ) { return false; }
 
-// ------
+#pragma mark -
 	
 } /* EONS */
 
