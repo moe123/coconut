@@ -1714,17 +1714,19 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const std::basic_string<CharT, Traits, Allocator> & search,
 	const std::basic_string<CharT, Traits, Allocator> & substitute,
-	std::basic_string<CharT, Traits, Allocator> & subject
+	const std::basic_string<CharT, Traits, Allocator> & subject
 ) {
 	usize_type j = 0;
-
+	out.assign(subject);
+	
 	for (usize_type pos = 0; ; pos += substitute.size()) {
-		pos = subject.find(search, pos);
+		pos = out.find(search, pos);
 		if (pos != std::basic_string<CharT, Traits, Allocator>::npos) {
-			subject.erase(pos, search.size());
-			subject.insert(pos, substitute);
+			out.erase(pos, search.size());
+			out.insert(pos, substitute);
 			j++;
 		} else {
 			break;
@@ -1741,11 +1743,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const CharT (&search)[N],
 	const std::basic_string<CharT, Traits, Allocator> & substitute,
-	std::basic_string<CharT, Traits, Allocator> & subject
+	const std::basic_string<CharT, Traits, Allocator> & subject
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		std::basic_string<CharT, Traits, Allocator>(search),
 		substitute,
 		subject
@@ -1760,11 +1764,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const std::basic_string<CharT, Traits, Allocator> & search,
 	const CharT (&substitute)[N],
-	std::basic_string<CharT, Traits, Allocator> & subject
+	const std::basic_string<CharT, Traits, Allocator> & subject
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		search,
 		std::basic_string<CharT, Traits, Allocator>(substitute),
 		subject
@@ -1779,11 +1785,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const std::basic_string<CharT, Traits, Allocator> & search,
 	const std::basic_string<CharT, Traits, Allocator> & substitute,
 	const CharT (&subject)[N]
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		search,
 		substitute,
 		std::basic_string<CharT, Traits, Allocator>(subject)
@@ -1801,11 +1809,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const CharT (&search)[N1],
 	const CharT (&substitute)[N2],
-	std::basic_string<CharT, Traits, Allocator> & subject
+	const std::basic_string<CharT, Traits, Allocator> & subject
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		std::basic_string<CharT, Traits, Allocator>(search),
 		std::basic_string<CharT, Traits, Allocator>(substitute),
 		subject
@@ -1821,11 +1831,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const CharT (&search)[N1],
-	std::basic_string<CharT, Traits, Allocator> & substitute,
+	const std::basic_string<CharT, Traits, Allocator> & substitute,
 	const CharT (&subject)[N2]
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		std::basic_string<CharT, Traits, Allocator>(search),
 		substitute,
 		std::basic_string<CharT, Traits, Allocator>(subject)
@@ -1841,11 +1853,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
-	std::basic_string<CharT, Traits, Allocator> & search,
+	std::basic_string<CharT, Traits, Allocator> & out,
+	const std::basic_string<CharT, Traits, Allocator> & search,
 	const CharT (&substitute)[N1],
 	const CharT (&subject)[N2]
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		search,
 		std::basic_string<CharT, Traits, Allocator>(substitute),
 		std::basic_string<CharT, Traits, Allocator>(subject)
@@ -1862,11 +1876,13 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const CharT (&search)[N1],
 	const CharT (&substitute)[N2],
 	const CharT (&subject)[N3]
 ) {
 	return replace<CharT, Traits, Allocator, usize_type>(
+		out,
 		std::basic_string<CharT, Traits, Allocator>(search),
 		std::basic_string<CharT, Traits, Allocator>(substitute),
 		std::basic_string<CharT, Traits, Allocator>(subject)
@@ -1882,6 +1898,7 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 usize_type replace(
+	std::basic_string<CharT, Traits, Allocator> & out,
 	const std::vector<
 		std::basic_string<CharT, Traits, Allocator>,
 		typename std::vector<
@@ -1894,13 +1911,14 @@ usize_type replace(
 			std::basic_string<CharT, Traits, Allocator>
 		>::allocator_type
 	> & substitute,
-	std::basic_string<CharT, Traits, Allocator> & subject
+	const std::basic_string<CharT, Traits, Allocator> & subject
 ) {
 	usize_type j = 0;
 	usize_type max = std::min(search.size(), substitute.size());
 	
 	for (usize_type i = 0; i < max; i++) {
 		j += replace<CharT, Traits, Allocator, usize_type>(
+			out,
 			search[i],
 			substitute[i],
 			subject
@@ -1908,56 +1926,6 @@ usize_type replace(
 		
 	}
 	return j;
-}
-
-template <typename CharT
-	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = allocators::standard<CharT>
-	, typename usize_type = typename std::basic_string<CharT, Traits, Allocator>::size_type
->
-COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-usize_type replace_copy(
-	std::basic_string<CharT, Traits, Allocator> & out,
-	const std::basic_string<CharT, Traits, Allocator> & search,
-	const std::basic_string<CharT, Traits, Allocator> & substitute,
-	const std::basic_string<CharT, Traits, Allocator> & subject
-) {
-	out.assign(subject);
-	return replace<CharT, Traits, Allocator, usize_type>(
-		search,
-		substitute,
-		out
-	);
-}
-
-template <typename CharT
-	, typename Traits = std::char_traits<CharT>
-	, typename Allocator = allocators::standard<CharT>
-	, typename usize_type = typename std::basic_string<CharT, Traits, Allocator>::size_type
->
-COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-usize_type replace_copy(
-	std::basic_string<CharT, Traits, Allocator> & out,
-	const std::vector<
-		std::basic_string<CharT, Traits, Allocator>,
-		typename std::vector<
-			std::basic_string<CharT, Traits, Allocator>
-		>::allocator_type
-	> & search,
-	const std::vector<
-		std::basic_string<CharT, Traits, Allocator>,
-		typename std::vector<
-			std::basic_string<CharT, Traits, Allocator>
-		>::allocator_type
-	> & substitute,
-	const std::basic_string<CharT, Traits, Allocator> & subject
-) {
-	out.assign(subject);
-	return replace<CharT, Traits, Allocator, usize_type>(
-		search,
-		substitute,
-		out
-	);
 }
 
 #pragma mark -
