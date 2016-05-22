@@ -141,6 +141,34 @@ namespace coconut
 namespace coconut
 {
 	/* trickster */
+
+// ------ placement / standard
+	
+	template <typename T>
+	bool operator == (
+		const runtime::allocators::standard<T> &,
+		const runtime::allocators::placement<T> &
+	) { return true; }
+
+	template <typename T>
+	bool operator == (
+		const runtime::allocators::placement<T> &,
+		const runtime::allocators::standard<T> &
+	) { return true; }
+
+	template <typename T>
+	bool operator != (
+		const runtime::allocators::standard<T> &,
+		const runtime::allocators::placement<T> &
+	) { return false; }
+
+	template <typename T>
+	bool operator != (
+		const runtime::allocators::placement<T> &,
+		const runtime::allocators::standard<T> &
+	) { return false; }
+
+// ------
 	
 	template <typename T1, typename T2>
 	bool operator == (
@@ -159,12 +187,40 @@ namespace coconut
 		const runtime::allocators::standard<T1> &,
 		const runtime::allocators::placement<T2> &
 	) { return false; }
-
+	
 	template <typename T1, typename T2>
 	bool operator != (
 		const runtime::allocators::placement<T1> &,
 		const runtime::allocators::standard<T2> &
 	) { return false; }
+	
+// ------ emptiness / standard
+	
+	template <typename T>
+	bool operator == (
+		const runtime::allocators::standard<T> &,
+		const runtime::allocators::emptiness<T> &
+	) { return true; }
+	
+	template <typename T>
+	bool operator == (
+		const runtime::allocators::emptiness<T> &,
+		const runtime::allocators::standard<T> &
+	) { return true; }
+	
+	template <typename T>
+	bool operator != (
+		const runtime::allocators::standard<T> &,
+		const runtime::allocators::emptiness<T> &
+	) { return false; }
+	
+	template <typename T>
+	bool operator != (
+		const runtime::allocators::emptiness<T> &,
+		const runtime::allocators::standard<T> &
+	) { return false; }
+	
+// ------
 	
 	template <typename T1, typename T2>
 	bool operator == (
@@ -190,6 +246,34 @@ namespace coconut
 		const runtime::allocators::standard<T2> &
 	) { return false; }
 	
+// ------ emptiness / placement
+
+	template <typename T>
+	bool operator == (
+		const runtime::allocators::emptiness<T> &,
+		const runtime::allocators::placement<T> &
+	) { return true; }
+
+	template <typename T>
+	bool operator == (
+		const runtime::allocators::placement<T> &,
+		const runtime::allocators::emptiness<T> &
+	) { return true; }
+
+	template <typename T>
+	bool operator != (
+		const runtime::allocators::emptiness<T> &,
+		const runtime::allocators::placement<T> &
+	) { return false; }
+
+	template <typename T>
+	bool operator != (
+		const runtime::allocators::placement<T> &,
+		const runtime::allocators::emptiness<T> &
+	) { return false; }
+	
+// ------
+	
 	template <typename T1, typename T2>
 	bool operator == (
 		const runtime::allocators::emptiness<T1> &,
@@ -213,6 +297,8 @@ namespace coconut
 		const runtime::allocators::placement<T1> &,
 		const runtime::allocators::emptiness<T2> &
 	) { return false; }
+	
+// ------
 	
 } /* EONS */
 
