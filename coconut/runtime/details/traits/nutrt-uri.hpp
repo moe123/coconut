@@ -79,6 +79,12 @@ public:
 	const std::map<std::string, std::string> & parameters() const;
 
 private:
+	/* private traits */
+	
+	using item_type = void;
+	using this_type = uri;
+	
+private:
 	std::map<std::string, std::string> m_components;
 	std::map<std::string, std::string> m_parameters;
 	std::uint16_t m_port;

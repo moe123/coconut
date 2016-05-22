@@ -6,6 +6,7 @@
 
 #include <coconut/runtime/details/nutrt-types.hpp>
 #include <coconut/runtime/details/nutrt-iterators.hpp>
+#include <coconut/runtime/details/nutrt-allocators.hpp>
 
 #ifndef COCONUT_RUNTIME_IRANGE_HPP
 #define COCONUT_RUNTIME_IRANGE_HPP
@@ -46,28 +47,56 @@ public:
 	
 	std::string to_string() const;
 
-private:
-	typedef iterators::range_facet<std::size_t, irange> iter_facet;
-	typedef const iterators::range_facet<std::size_t, irange> const_iter_facet;
 	
-	typedef iterators::range_rfacet<std::size_t, irange> iter_rfacet;
-	typedef const iterators::range_rfacet<std::size_t, irange> const_iter_rfacet;
+private:
+	/* private traits */
+	
+	using item_type = std::size_t;
+	using this_type = irange;
+	
+	using iter_type = iterators::integer_facet<
+		item_type
+		, this_type
+	>;
+	
+	using const_iter_type = iterators::const_integer_facet<
+		item_type
+		, this_type
+	>;
+	
+	using iter_reverse_type = iterators::integer_reverse_facet<
+		item_type
+		, this_type
+	>;
+	
+	
+	using const_iter_reverse_type = iterators::const_integer_reverse_facet<
+		item_type
+		, this_type
+	>;
 
 public:
-	typedef iter_facet iterator;
-	typedef const_iter_facet const_iterator;
+	/* type_traits */
 	
-	typedef iter_rfacet reverse_iterator;
-	typedef const_iter_rfacet const_reverse_iterator;
+	typedef iter_type iterator;
+	typedef const_iter_type const_iterator;
+	
+	typedef iter_reverse_type reverse_iterator;
+	typedef const_iter_reverse_type const_reverse_iterator;
+	
+	typedef iter_type::value_type value_type;
+	typedef iter_type::size_type size_type;
+	typedef iter_type::difference_type difference_type;
+	
+	typedef iter_type::reference reference;
+	typedef iter_type::const_reference const_reference;
+	typedef iter_type::pointer pointer;
+	typedef iter_type::const_pointer const_pointer;
+	
+	typedef allocators::builtins<this_type> allocator_type;
 
-	typedef iter_facet::value_type value_type;
-	typedef iter_facet::size_type size_type;
-	typedef iter_facet::difference_type difference_type;
-	
-	typedef iter_facet::reference reference;
-	typedef iter_facet::const_reference const_reference;
-	typedef iter_facet::pointer pointer;
-	typedef iter_facet::const_pointer const_pointer;
+public:
+	/* type_iterator */
 	
 	iterator begin();
 	iterator end();

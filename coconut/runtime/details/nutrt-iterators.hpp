@@ -63,13 +63,13 @@ template <typename ItemT, class FriendT,
 		std::numeric_limits<ItemT>::is_integer
 	>::type* = nullptr
 >
-COCONUT_PRIVATE class range_facet
+COCONUT_PRIVATE class integer_facet
 {
 friend FriendT;
 	
 protected:
-	typedef range_facet<ItemT, FriendT> facet;
-	typedef const range_facet<ItemT, FriendT> const_facet;
+	typedef integer_facet<ItemT, FriendT> facet;
+	typedef const integer_facet<ItemT, FriendT> const_facet;
 	
 	typedef ItemT value_type;
 	typedef std::size_t size_type;
@@ -83,7 +83,7 @@ protected:
 	typedef std::random_access_iterator_tag iterator_category;
 	
 protected:
-	range_facet(value_type beg) : m_val (beg) { /* NOP */ }
+	integer_facet(value_type beg) : m_val (beg) { /* NOP */ }
 	
 public:
 	reference operator * () { return m_val; }
@@ -109,19 +109,26 @@ public:
 private:
 	value_type m_val;
 };
+	
+template <typename ItemT, class FriendT,
+	typename std::enable_if<
+		std::numeric_limits<ItemT>::is_integer
+	>::type* = nullptr
+>
+using const_integer_facet = const integer_facet<ItemT, FriendT>;
 
 template <typename ItemT, class FriendT,
 	typename std::enable_if<
 		std::numeric_limits<ItemT>::is_integer
 	>::type* = nullptr
 >
-COCONUT_PRIVATE class range_rfacet
+COCONUT_PRIVATE class integer_reverse_facet
 {
 friend FriendT;
 	
 protected:
-	typedef range_rfacet<ItemT, FriendT> facet;
-	typedef const range_rfacet<ItemT, FriendT> const_facet;
+	typedef integer_reverse_facet<ItemT, FriendT> facet;
+	typedef const integer_reverse_facet<ItemT, FriendT> const_facet;
 	
 	typedef ItemT value_type;
 	typedef std::size_t size_type;
@@ -135,7 +142,7 @@ protected:
 	typedef std::random_access_iterator_tag iterator_category;
 	
 protected:
-	range_rfacet(value_type beg) : m_val (beg) { /* NOP */ }
+	integer_reverse_facet(value_type beg) : m_val (beg) { /* NOP */ }
 	
 public:
 	reference operator * () { value_type cpy = m_val; return --cpy; }
@@ -161,6 +168,13 @@ public:
 private:
 	value_type m_val;
 };
+	
+template <typename ItemT, class FriendT,
+	typename std::enable_if<
+		std::numeric_limits<ItemT>::is_integer
+	>::type* = nullptr
+>
+using const_integer_reverse_facet = const integer_reverse_facet<ItemT, FriendT>;
 
 }}} /* EONS */
 

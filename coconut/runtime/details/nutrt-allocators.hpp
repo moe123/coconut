@@ -18,6 +18,9 @@ namespace coconut
 template <typename T> using standard = std::allocator<T>;
 
 template <typename T>
+COCONUT_PRIVATE struct COCONUT_VISIBLE builtins COCONUT_FINAL { /* NOP */ };
+	
+template <typename T>
 COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public standard<T>
 {
 	using size_type = typename standard<T>::size_type;

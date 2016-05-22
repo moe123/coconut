@@ -5,6 +5,7 @@
 //
 
 #include <coconut/runtime/details/nutrt-types.hpp>
+#include <coconut/runtime/details/nutrt-allocators.hpp>
 
 #ifndef COCONUT_RUNTIME_INDEXPATH_HPP
 #define COCONUT_RUNTIME_INDEXPATH_HPP
@@ -51,7 +52,12 @@ public:
 	std::size_t hash_code() const;
 
 private:
-	typedef std::vector<std::size_t> container_type;
+	/* private traits */
+	
+	using item_type = std::size_t;
+	using this_type = indexpath;
+	
+	typedef std::vector<item_type> container_type;
 	
 public:
 	/* type_traits */
@@ -65,6 +71,13 @@ public:
 	typedef container_type::value_type value_type;
 	typedef container_type::size_type size_type;
 	typedef container_type::difference_type difference_type;
+	
+	typedef container_type::reference reference;
+	typedef container_type::const_reference const_reference;
+	typedef container_type::pointer pointer;
+	typedef container_type::const_pointer const_pointer;
+	
+	typedef allocators::builtins<this_type> allocator_type;
 
 public:
 	/* type_iterator */

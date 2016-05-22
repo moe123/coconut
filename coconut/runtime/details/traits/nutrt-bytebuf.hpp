@@ -6,6 +6,7 @@
 
 #include <coconut/runtime/details/nutrt-types.hpp>
 #include <coconut/runtime/details/nutrt-stream.hpp>
+#include <coconut/runtime/details/nutrt-allocators.hpp>
 
 #ifndef COCONUT_RUNTIME_BYTEBUF_HPP
 #define COCONUT_RUNTIME_BYTEBUF_HPP
@@ -244,7 +245,12 @@ public:
 	bytebuf & operator += (char v);
 
 private:
-	typedef std::vector<std::uint8_t> container_type;
+	/* private traits */
+	
+	using item_type = std::uint8_t;
+	using this_type = bytebuf;
+	
+	typedef std::vector<item_type> container_type;
 	
 public:
 	/* type_traits */
@@ -263,6 +269,8 @@ public:
 	typedef container_type::const_reference const_reference;
 	typedef container_type::pointer pointer;
 	typedef container_type::const_pointer const_pointer;
+	
+	typedef allocators::builtins<this_type> allocator_type;
 	
 public:
 	/* type_iterator */

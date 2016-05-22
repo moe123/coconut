@@ -5,6 +5,7 @@
 //
 
 #include <coconut/runtime/details/nutrt-types.hpp>
+#include <coconut/runtime/details/nutrt-allocators.hpp>
 
 #ifndef COCONUT_RUNTIME_INDEXSET_HPP
 #define COCONUT_RUNTIME_INDEXSET_HPP
@@ -72,17 +73,37 @@ public:
 	void remove(std::size_t loc, std::size_t len);
 	void remove(std::size_t idx = 0);
 
-public:
-	typedef std::vector<irange>::iterator iterator;
-	typedef std::vector<irange>::const_iterator const_iterator;
+private:
+	/* private traits */
 	
-	typedef std::vector<irange>::reverse_iterator reverse_iterator;
-	typedef std::vector<irange>::const_reverse_iterator const_reverse_iterator;
+	using item_type = irange;
+	using this_type = indexset;
 	
-	typedef std::vector<irange>::value_type value_type;
-	typedef std::vector<irange>::difference_type difference_type;
+	typedef std::vector<item_type> container_type;
 	
 public:
+	/* type_traits */
+	
+	typedef container_type::iterator iterator;
+	typedef container_type::const_iterator const_iterator;
+	
+	typedef container_type::reverse_iterator reverse_iterator;
+	typedef container_type::const_reverse_iterator const_reverse_iterator;
+	
+	typedef container_type::value_type value_type;
+	typedef container_type::size_type size_type;
+	typedef container_type::difference_type difference_type;
+	
+	typedef container_type::reference reference;
+	typedef container_type::const_reference const_reference;
+	typedef container_type::pointer pointer;
+	typedef container_type::const_pointer const_pointer;
+	
+	typedef allocators::builtins<this_type> allocator_type;
+	
+public:
+	/* type_iterator */
+	
 	iterator begin();
 	iterator end();
 	
@@ -103,7 +124,7 @@ public:
 	
 private:
 	std::size_t m_len;
-	std::vector<irange> m_ranges;
+	container_type m_ranges;
 };
 
 }}} /* EONS */

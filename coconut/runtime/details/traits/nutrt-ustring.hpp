@@ -200,8 +200,14 @@ public:
 	ustring by_uppercasing(const ustring & ustr, const locale & loc) const;
 
 private:
-	typedef std::vector<UChar32, allocators::placement<UChar32> > container_type;
-
+	/* private traits */
+	
+	using item_type = UChar32;
+	using this_type = ustring;
+	using inner_type = icu::UnicodeString;
+	
+	typedef std::vector<item_type, allocators::placement<item_type> > container_type;
+	
 public:
 	/* type_traits */
 	
@@ -219,7 +225,9 @@ public:
 	typedef container_type::const_reference const_reference;
 	typedef container_type::pointer pointer;
 	typedef container_type::const_pointer const_pointer;
-
+	
+	typedef allocators::builtins<this_type> allocator_type;
+	
 public:
 	/* type_iterator */
 	
@@ -242,7 +250,7 @@ public:
 	const_reverse_iterator crend() const;
 	
 private:
-	icu::UnicodeString m_ustr;
+	inner_type m_ustr;
 };
 
 }}} /* EONS */

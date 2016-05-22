@@ -113,6 +113,12 @@ public:
 	std::uint64_t to_unsigned_integer() const;
 	
 	std::uint16_t type() const;
+
+private:
+	/* private traits */
+	
+	using item_type = void;
+	using this_type = numeric;
 	
 private:
 	union
