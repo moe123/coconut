@@ -34,26 +34,26 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public standard
 	using void_pointer = typename standard<void>::pointer;
 	using const_void_pointer = typename standard<const void>::const_pointer;
 	
-	template<typename T0>
-	struct rebind { typedef placement<T0> other; };
+	template<typename U>
+	struct rebind { typedef placement<U> other; };
 	
 	using propagate_on_container_move_assignment = typename std::true_type;
 	using is_always_equal = typename std::true_type;
 	
 #if COCONUT_DEBUG
-	template <typename T0> using this_parent = standard<T0>;
-	template <typename T0> using this_type = placement<T0>;
+	template <typename U> using this_parent = standard<U>;
+	template <typename U> using this_type = placement<U>;
 #endif
 
 	placement(void_pointer p = nullptr) throw() : standard<T>(), m_ref(p) { /* NOP */ }
 	placement(const placement & other) throw() : standard<T>(other) { m_ref = other.m_ref; }
 	placement(placement && other) throw() : standard<T>(std::move(other)) { m_ref = other.m_ref; }
 	
-	template <typename T0>
-	placement(const placement<T0> & other) throw() : standard<T0>(other) { m_ref = other.m_ref; }
+	template <typename U>
+	placement(const placement<U> & other) throw() : standard<U>(other) { m_ref = other.m_ref; }
 	
-	template <typename T0>
-	placement(placement<T0> && other) throw() : standard<T0>(other) { m_ref = other.m_ref; }
+	template <typename U>
+	placement(placement<U> && other) throw() : standard<U>(other) { m_ref = other.m_ref; }
 	
 	~placement() throw()
 	{
@@ -100,18 +100,18 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE emptiness COCONUT_FINAL
 	using propagate_on_container_move_assignment = typename std::true_type;
 	using is_always_equal = typename std::true_type;
 	
-	template<typename T0>
-	struct rebind { typedef emptiness<T0> other; };
+	template<typename U>
+	struct rebind { typedef emptiness<U> other; };
 	
 	emptiness(void_pointer p = nullptr) { /* NOP */ }
 	emptiness(const emptiness & other) { /* NOP */ }
 	emptiness(emptiness && other) { /* NOP */ }
 	
-	template <typename T0>
-	emptiness(const emptiness<T0> & other) { /* NOP */ }
+	template <typename U>
+	emptiness(const emptiness<U> & other) { /* NOP */ }
 	
-	template <typename T0>
-	emptiness(emptiness<T0> && other) { /* NOP */ }
+	template <typename U>
+	emptiness(emptiness<U> && other) { /* NOP */ }
 	
 	~emptiness() { /* NOP */ }
 	
