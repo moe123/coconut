@@ -103,7 +103,7 @@ void __utf8_bom(
 namespace
 {
 
-template <typename Char8T  = char
+template <typename Char8T = char
 	, typename Char16T = char16_t
 	, typename CodecvtT = std::codecvt_utf8_utf16<Char16T>
 >

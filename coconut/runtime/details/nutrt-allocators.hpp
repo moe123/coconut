@@ -39,7 +39,7 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public standard
 	using void_pointer = typename standard<void>::pointer;
 	using const_void_pointer = typename standard<const void>::const_pointer;
 	
-	template<typename U>
+	template <typename U>
 	struct rebind { typedef placement<U> other; };
 	
 	using propagate_on_container_move_assignment = typename std::true_type;
@@ -105,7 +105,7 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE emptiness COCONUT_FINAL
 	using propagate_on_container_move_assignment = typename std::true_type;
 	using is_always_equal = typename std::true_type;
 	
-	template<typename U>
+	template <typename U>
 	struct rebind { typedef emptiness<U> other; };
 	
 	emptiness(void_pointer p = nullptr) { /* NOP */ }
@@ -137,7 +137,7 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE emptiness COCONUT_FINAL
 	
 	void destroy(pointer p) { /* NOP */ }
 	
-	template<typename U>
+	template <typename U>
 	void destroy(U * p) { /* NOP */ }
 };
 	

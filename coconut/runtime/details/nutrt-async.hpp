@@ -147,7 +147,7 @@ public:
 	
 	~pool() { /* NOP */ }
 	
-	template<typename FuncT, typename... ArgsT>
+	template <typename FuncT, typename... ArgsT>
 	shall<typename std::result_of<FuncT(ArgsT...)>::type> push(FuncT f, ArgsT... args)
 	{
 		if (!m_run) { throw; }
@@ -167,7 +167,7 @@ public:
 		);
 	}
 	
-	template<typename FuncT>
+	template <typename FuncT>
 	shall<typename std::result_of<FuncT()>::type> push(FuncT f)
 	{
 		if (!m_run) { throw; }
@@ -187,7 +187,7 @@ public:
 		);
 	}
 	
-	template<typename... ArgsT>
+	template <typename... ArgsT>
 	shall<void> push(const std::function<void(ArgsT...)> f, ArgsT... args)
 	{
 		if (!m_run) { throw; }
