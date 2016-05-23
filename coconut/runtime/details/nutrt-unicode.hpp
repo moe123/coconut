@@ -99,27 +99,32 @@ void __utf8_bom(
 }
 	
 #pragma mark -
-
+	
 namespace
 {
-
+	
 template <typename Char8T = char
 	, typename Char16T = char16_t
 	, typename CodecvtT = std::codecvt_utf8_utf16<Char16T>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-byteorder_type __utf16_storage_endianess(Char8T * no_param = nullptr)
-{
+byteorder_type __utf16_storage_endianess(
+	Char8T * no_param1 = nullptr,
+	Char16T * no_param2 = nullptr
+) {
+	COCONUT_UNUSED(no_param1);
+	COCONUT_UNUSED(no_param2);
+	
 	std::basic_string<
-		Char8T,
-		std::char_traits<Char8T>,
-		allocators::standard<Char8T>
+	Char8T,
+	std::char_traits<Char8T>,
+	allocators::standard<Char8T>
 	> src(u8"\xEF\xBB\xBF");
 	
 	std::basic_string<
-		Char16T,
-		std::char_traits<Char16T>,
-		allocators::standard<Char16T>
+	Char16T,
+	std::char_traits<Char16T>,
+	allocators::standard<Char16T>
 	> dest;
 	
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
@@ -138,7 +143,112 @@ byteorder_type __utf16_storage_endianess(Char8T * no_param = nullptr)
 } /* EONS */
 
 static byteorder_type _utf16_storage = __utf16_storage_endianess();
+
 	
+#pragma mark -
+
+template <typename Char16T
+	, typename std::enable_if<
+		sizeof(Char16T) == sizeof(char16_t), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+byteorder_type __utf16_have_bom(
+	const std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16
+) {
+	if (in_utf16.size()) {
+		if (in_utf16[0] == 0xFEFF) {
+			return byteorder_bigendian;
+		} else if (in_utf16[0] == 0xFFFE) {
+			return byteorder_littleendian;
+		}
+	}
+	return byteorder_platform;
+}
+	
+template <typename Char16T
+	, typename std::enable_if<
+		sizeof(Char16T) == sizeof(char16_t), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+byteorder_type __utf16_add_bom(
+	const std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16,
+	byteorder_type byteorder
+) {
+	byteorder_type ret = __utf16_have_bom(in_utf16);
+	if (ret != byteorder_platform) {
+		if (ret != byteorder) {
+			throw;
+		}
+	} else {
+		if (byteorder == byteorder_bigendian) {
+			in_utf16.insert(0, Char16T(0xFEFF), 1);
+			ret = byteorder_bigendian;
+		} else if (byteorder == byteorder_littleendian) {
+			in_utf16.insert(0, Char16T(0xFFFE), 1);
+			ret = byteorder_littleendian;
+		} else {
+#if defined(__MICROSOFT__)
+			ret = byteorder_littleendian;
+#else
+			ret = byteorder_bigendian;
+#endif
+			byteorder_type storage = _utf16_storage;
+			
+			COCONUT_UNUSED(storage);
+			
+			if (byteorder == byteorder_bigendian) {
+				in_utf16.insert(0, Char16T(0xFEFF), 1);
+				ret = byteorder_bigendian;
+			} else if (byteorder == byteorder_littleendian) {
+				in_utf16.insert(0, Char16T(0xFFFE), 1);
+				ret = byteorder_littleendian;
+			}
+			
+			throw;
+		}
+	}
+	return ret;
+}
+	
+template <typename Char16T
+	, typename std::enable_if<
+		sizeof(Char16T) == sizeof(char16_t), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void __utf16_del_bom(
+	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16
+) {
+	byteorder_type ret = __utf16_have_bom(in_utf16);
+	if (ret == byteorder_bigendian || ret == byteorder_littleendian) {
+		in_utf16.erase(0, 1);
+	}
+}
+	
+template <typename Char16T
+	, typename std::enable_if<
+		sizeof(Char16T) == sizeof(char), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+void __utf16_bom(
+	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16,
+	unicode_option option
+) {
+	switch (option)
+	{
+		case unicode_conv_del_gen_bom:
+		case unicode_conv_gen_bom:
+			__utf16_add_bom(in_utf16);
+		break;
+		default:
+			__utf16_del_bom(in_utf16);
+		break;
+	}
+}
+
 #pragma mark -
 #pragma mark -
 
@@ -210,9 +320,6 @@ void>::type _conv_utf8_to_utf16(
 		std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > _src(src);
 		__utf8_add_bom(_src);
 		__conv_from_bytes<Char8T, Char16T, CodecvtT>(_src, dest);
-	}
-	if (dest.size() && (dest[0] != 0xFEFF || dest[0] != 0xFFFE)) {
-		dest.insert(0, Char16T(0xFEFF), 1);
 	}
 }
 	

@@ -212,6 +212,7 @@ COCONUT_OPT(packing_option)
 COCONUT_OPT(byteorder_type)
 {
 	byteorder_unknown = 0ULL,
+	byteorder_platform,
 	byteorder_bigendian,
 	byteorder_littleendian
 };
