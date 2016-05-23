@@ -208,6 +208,13 @@ COCONUT_OPT(packing_option)
 	packing_bigendian = 0ULL,
 	packing_littleendian
 };
+	
+COCONUT_OPT(byteorder_type)
+{
+	byteorder_unknown = 0ULL,
+	byteorder_bigendian,
+	byteorder_littleendian
+};
 
 COCONUT_OPT(chunksplit_option)
 {

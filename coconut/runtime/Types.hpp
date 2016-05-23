@@ -249,9 +249,9 @@ namespace coconut
 	
 	COCONUT_OPT(ByteOrderType)
 	{
-		ByteOrderUnknown = 0ULL,
-		ByteOrderBigEndian,
-		ByteOrderLittleEndian
+		ByteOrderUnknown = runtime::byteorder_unknown,
+		ByteOrderBigEndian = runtime::byteorder_bigendian,
+		ByteOrderLittleEndian = runtime::byteorder_littleendian,
 	};
 	
 	using SwappedFloat = runtime::byteorder::fswp_t;

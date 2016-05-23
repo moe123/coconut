@@ -17,6 +17,7 @@ namespace coconut
 { namespace builtins
 {
 
+/* Output UTF16-LE */
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool unicode_utf8_to_wide(const std::string & utf8_in, std::wstring & wide_out)
 {

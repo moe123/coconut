@@ -16,7 +16,7 @@ namespace coconut
 	
 #pragma mark -
 	
-template<typename CharInT, typename CharOutT, typename CodecvtT>
+template <typename CharInT, typename CharOutT, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __conv_from_bytes(
 	const std::basic_string<CharInT, std::char_traits<CharInT>, allocators::standard<CharInT> > & src,
@@ -26,7 +26,7 @@ void __conv_from_bytes(
 	dest = std::move(conv.from_bytes(src));
 }
 
-template<typename CharInT, typename CharOutT, typename CodecvtT>
+template <typename CharInT, typename CharOutT, typename CodecvtT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __conv_to_bytes(
 	const std::basic_string<CharInT, std::char_traits<CharInT>, allocators::standard<CharInT> > & src,
@@ -38,11 +38,12 @@ void __conv_to_bytes(
 	
 #pragma mark -
 
-template<typename Char8T
+template <typename Char8T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool __utf8_have_bom(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & in_utf8
 ) {
@@ -55,29 +56,32 @@ bool __utf8_have_bom(
 	return have_bom;
 }
 	
-template<typename Char8T
+template <typename Char8T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __utf8_add_bom(
 	std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & in_utf8
 ) { if (!__utf8_have_bom(in_utf8)) { in_utf8.insert(0, u8"\xEF\xBB\xBF"); } }
 	
-template<typename Char8T
+template <typename Char8T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __utf8_del_bom(
 	std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & in_utf8
 ) { if (__utf8_have_bom(in_utf8)) { in_utf8.erase(0, 3); } }
 	
-template<typename Char8T
+template <typename Char8T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
 	>::type* = nullptr
 >
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __utf8_bom(
 	std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & in_utf8,
 	unicode_option option
@@ -93,11 +97,37 @@ void __utf8_bom(
 		break;
 	}
 }
+	
+#pragma mark -
 
+namespace
+{
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+byteorder_type __utf16_storage_endianess()
+{
+	std::string src(u8"\xEF\xBB\xBF");
+	std::u16string dest;
+	using CodecvtT = std::codecvt_utf8_utf16<char16_t>;
+	__conv_from_bytes<char, char16_t, CodecvtT>(src, dest);
+	if (dest.size()) {
+		if (dest[0] == 0xFEFF) {
+			return byteorder_bigendian;
+		} else if (dest[0] == 0xFFFE) {
+			return byteorder_littleendian;
+		}
+	}
+	return byteorder_unknown;
+}
+	
+} /* EONS */
+
+static byteorder_type _utf16_storage = __utf16_storage_endianess();
+	
 #pragma mark -
 #pragma mark -
 
-template<typename Char16T, typename Char8T
+template <typename Char16T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
@@ -114,7 +144,7 @@ void _conv_utf16_to_utf8(
 	__utf8_bom<Char8T>(dest, option);
 }
 
-template<typename Char16T, typename Char8T
+template <typename Char16T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
@@ -131,7 +161,7 @@ void _conv_utf16_to_utf8(
 
 #pragma mark -
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -145,7 +175,7 @@ void>::type _conv_utf8_to_utf16(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -155,13 +185,23 @@ void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & dest
 ) {
-	using CodecvtT = std::codecvt_utf8_utf16<
+	/*using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header|std::generate_header)
-	>;
-	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	>;*/
+	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
+	if (__utf8_have_bom(src)) {
+		__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	} else {
+		std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > _src(src);
+		__utf8_add_bom(_src);
+		__conv_from_bytes<Char8T, Char16T, CodecvtT>(_src, dest);
+	}
+	if (dest.size() && (dest[0] != 0xFEFF || dest[0] != 0xFFFE)) {
+		dest.insert(0, Char16T(0xFEFF), 1);
+	}
 }
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -171,13 +211,25 @@ void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & dest
 ) {
+	/*
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header)
 	>;
-	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	*/
+	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
+	if (__utf8_have_bom(src)) {
+		std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > _src(src);
+		__utf8_del_bom(_src);
+		__conv_from_bytes<Char8T, Char16T, CodecvtT>(_src, dest);
+	} else {
+		__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	}
+	if (dest.size() && (dest[0] == 0xFEFF || dest[0] == 0xFFFE)) {
+		dest.erase(0, 1);
+	}
 }
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -192,8 +244,10 @@ void>::type _conv_utf8_to_utf16(
 	>;
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
+	
+#pragma mark -
 
-template<typename Char8T, typename Char16T
+template <typename Char8T, typename Char16T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char) &&
 		sizeof(Char16T) == sizeof(char16_t), void
@@ -225,7 +279,7 @@ void _conv_utf8_to_utf16(
 #pragma mark -
 #pragma mark -
 
-template<typename Char16T, typename Char8T
+template <typename Char16T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
@@ -242,7 +296,7 @@ void _conv_ucs2_to_utf8(
 	__utf8_bom<Char8T>(dest, option);
 }
 
-template<typename Char16T, typename Char8T
+template <typename Char16T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char16T) == sizeof(char16_t) &&
 		sizeof(Char8T) == sizeof(char), void
@@ -259,7 +313,7 @@ void _conv_ucs2_to_utf8(
 	
 #pragma mark -
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -274,7 +328,7 @@ void>::type _conv_utf8_to_ucs2(
 }
 	
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -290,7 +344,7 @@ void>::type _conv_utf8_to_ucs2(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -306,7 +360,7 @@ void>::type _conv_utf8_to_ucs2(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
-template<typename Char8T, typename Char16T, unicode_option O>
+template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -322,7 +376,7 @@ void>::type _conv_utf8_to_ucs2(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 
-template<typename Char8T, typename Char16T
+template <typename Char8T, typename Char16T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char) &&
 		sizeof(Char16T) == sizeof(char16_t), void
@@ -354,7 +408,7 @@ void _conv_utf8_to_ucs2(
 #pragma mark -
 #pragma mark -
 
-template<typename Char32T, typename Char8T
+template <typename Char32T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char32T) == sizeof(char32_t) &&
 		sizeof(Char8T) == sizeof(char), void
@@ -371,7 +425,7 @@ void _conv_ucs4_to_utf8(
 	__utf8_bom<Char8T>(dest, option);
 }
 
-template<typename Char32T, typename Char8T
+template <typename Char32T, typename Char8T
 	, typename std::enable_if<
 		sizeof(Char32T) == sizeof(char32_t) &&
 		sizeof(Char8T) == sizeof(char), void
@@ -388,7 +442,7 @@ void _conv_ucs4_to_utf8(
 	
 #pragma mark -
 	
-template<typename Char8T, typename Char32T, unicode_option O>
+template <typename Char8T, typename Char32T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -402,7 +456,7 @@ void>::type _conv_utf8_to_ucs4(
 	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
 }
 	
-template<typename Char8T, typename Char32T, unicode_option O>
+template <typename Char8T, typename Char32T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -418,7 +472,7 @@ void>::type _conv_utf8_to_ucs4(
 	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
 }
 	
-template<typename Char8T, typename Char32T, unicode_option O>
+template <typename Char8T, typename Char32T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -434,7 +488,7 @@ void>::type _conv_utf8_to_ucs4(
 	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
 }
 	
-template<typename Char8T, typename Char32T, unicode_option O>
+template <typename Char8T, typename Char32T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
@@ -450,7 +504,7 @@ void>::type _conv_utf8_to_ucs4(
 	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
 }
 
-template<typename Char8T, typename Char32T
+template <typename Char8T, typename Char32T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char) &&
 		sizeof(Char32T) == sizeof(char32_t), void

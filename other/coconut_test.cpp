@@ -1063,6 +1063,28 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
+	{
+		std::string u8s = u8"\xEF\xBB\xBFΠαρθένωνΗ";
+		std::u16string u16s = runtime::unicode::utf8_to_utf16(u8s);
+		
+		for (char c8 : u8s) {
+			std::cerr << std::hex << std::showbase << c8 << std::endl;
+		}
+		
+		for (char16_t c16 : u16s) {
+			std::cerr << std::hex << std::showbase << c16 << std::endl;
+		}
+		
+		std::string u8s_ = runtime::unicode::utf16_to_utf8(u16s);
+		
+		for (char c8 : u8s_) {
+			std::cerr << std::hex << std::showbase << c8 << std::endl;
+		}
+		
+	}
+	
+	
+	return 0;
 	std::ptrdiff_t pos = runtime::algorithms::last_index_of(u8"toto toto toto toto", u8"toto");
 	std::cerr << "last_index_of toto " << pos << std::endl;
 	
