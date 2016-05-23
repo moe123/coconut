@@ -108,7 +108,7 @@ template <typename Char8T = char
 	, typename CodecvtT = std::codecvt_utf8_utf16<Char16T>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-byteorder_type __utf16_storage_endianess()
+byteorder_type __utf16_storage_endianess(Char8T * no_param = nullptr)
 {
 	std::basic_string<
 		Char8T,
