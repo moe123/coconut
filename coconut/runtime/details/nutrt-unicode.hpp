@@ -103,13 +103,27 @@ void __utf8_bom(
 namespace
 {
 
+template <typename Char8T  = char
+	, typename Char16T = char16_t
+	, typename CodecvtT = std::codecvt_utf8_utf16<Char16T>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 byteorder_type __utf16_storage_endianess()
 {
-	std::string src(u8"\xEF\xBB\xBF");
-	std::u16string dest;
-	using CodecvtT = std::codecvt_utf8_utf16<char16_t>;
-	__conv_from_bytes<char, char16_t, CodecvtT>(src, dest);
+	std::basic_string<
+		Char8T,
+		std::char_traits<Char8T>,
+		allocators::standard<Char8T>
+	> src(u8"\xEF\xBB\xBF");
+	
+	std::basic_string<
+		Char16T,
+		std::char_traits<Char16T>,
+		allocators::standard<Char16T>
+	> dest;
+	
+	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	
 	if (dest.size()) {
 		if (dest[0] == 0xFEFF) {
 			return byteorder_bigendian;
@@ -117,6 +131,7 @@ byteorder_type __utf16_storage_endianess()
 			return byteorder_littleendian;
 		}
 	}
+	
 	return byteorder_unknown;
 }
 	
