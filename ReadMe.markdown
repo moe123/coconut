@@ -3,9 +3,10 @@ Coconut
 
 Coconut is an object-oriented runtime, cross-platform, written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
 with a strong emphasis on concurrency ability, the subscripting side of things e.g `feel like scripting`, Coconut is more than just yet-another-Object 
-framework: it adds a syntax within the syntax, close to a meta-programming approach (something like an embedded meta-language mixed to a domain-specific language) what we named mainly Features: 
-@see: [coconut/runtime/Features.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Features.hpp). Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
-a meta-object protocol (MOP): @see: [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
+framework: it adds a syntax within the syntax, close to a meta-programming approach (something like an embedded meta-language mixed to a domain-specific
+language) what we named mainly Features; @see: [coconut/runtime/Features.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Features.hpp).
+Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
+a meta-object protocol (MOP); @see: [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
 
 -----------------------------------------------------------------------------------------------
 
@@ -65,12 +66,12 @@ Note that Coconut is written in C++11. C++14 is not widely and fully implemented
 
 Credits && builtin runtime dependencies:
 
-- ASIO (Looper/Timer/Periodic/Events) http://think-async.com
-- ICU (Unicode/Punycode/Localization) http://site.icu-project.org
-- NLOHMANN JSON (Serialization) http://nlohmann.me, https://github.com/nlohmann/json
-- PUGI XML (Serialization/DOM) http://zeuxcg.org, http://pugixml.org
-- MBED TLS (SSL/TLS) <sup>(1)</sup> https://github.com/ARMmbed/mbedtls, https://www.mbed.com
-- URIPARSER (RFC 3986) http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
+- ASIO (Looper/Timer/Periodic/Events); @see http://think-async.com
+- ICU (Unicode/Punycode/Localization); @see http://site.icu-project.org
+- NLOHMANN JSON (Serialization); @see http://nlohmann.me, https://github.com/nlohmann/json
+- PUGI XML (Serialization/DOM); @see http://zeuxcg.org, http://pugixml.org
+- MBED TLS (SSL/TLS) <sup>(1)</sup>; @see https://github.com/ARMmbed/mbedtls, https://www.mbed.com
+- URIPARSER (RFC 3986); @see http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 
 -----------------------------------------------------------------------------------------------
 
@@ -80,9 +81,9 @@ Credits && builtin runtime dependencies:
 
 Forked and melted with significant changes:
 
-- BASE64 (RFC 2045, Ryan Petrie) http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml, https://www.ietf.org/rfc/rfc2045.txt
-- SHA1/SHA256 (Stephan Brumme) http://create.stephan-brumme.com/hash-library
-- THREAD_POOL (Tyler Hardin) https://github.com/Tyler-Hardin/thread_pool
+- BASE64 (RFC 2045, Ryan Petrie); @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml, https://www.ietf.org/rfc/rfc2045.txt
+- SHA1/SHA256 (Stephan Brumme); @see http://create.stephan-brumme.com/hash-library
+- THREAD_POOL (Tyler Hardin); @see https://github.com/Tyler-Hardin/thread_pool
 
 -----------------------------------------------------------------------------------------------
 
@@ -155,7 +156,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 ```
 
 You can print collections as well ; the output is in a pseudo-json 
-format, we are truncating some data: @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+format, we are truncating some data; @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
 
 ```cpp
 
