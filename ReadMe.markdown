@@ -3,9 +3,9 @@ Coconut
 
 Coconut is an object-oriented runtime, cross-platform, written in modern C++ that adds Smalltalk-style objects, dynamic typing and messaging features ; 
 with a strong emphasis on concurrency ability, the subscripting side of things e.g `feel like scripting`, Coconut is more than just yet-another-Object 
-framework: it adds a syntax within the syntax, close to a meta-programming approach (something like an embedded meta-language mixed to a domain-specific language) what we named mainly Features.
-Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
-a meta-object protocol (MOP).
+framework: it adds a syntax within the syntax, close to a meta-programming approach (something like an embedded meta-language mixed to a domain-specific language) what we named mainly Features: 
+@see: [coconut/runtime/Features.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Features.hpp). Coconut implements type introspection (e.g knowing type [parent-type, properties] of an object at runtime) and a tiny barebones reflection system: 
+a meta-object protocol (MOP): @see: [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
 
 -----------------------------------------------------------------------------------------------
 
@@ -155,7 +155,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 ```
 
 You can print collections as well ; the output is in a pseudo-json 
-format, we are truncating some data. @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+format, we are truncating some data: @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
 
 ```cpp
 
