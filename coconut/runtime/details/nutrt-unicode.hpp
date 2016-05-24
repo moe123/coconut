@@ -140,10 +140,47 @@ byteorder_type __utf16_storage_endianess(
 	return byteorder_unknown;
 }
 	
+template <typename Char8T = char
+	, typename Char32T = char16_t
+	, typename CodecvtT = std::codecvt_utf8<Char32T>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+byteorder_type __utf32_storage_endianess(
+	Char8T * no_param1 = nullptr,
+	Char32T * no_param2 = nullptr
+) {
+	COCONUT_UNUSED(no_param1);
+	COCONUT_UNUSED(no_param2);
+	
+	std::basic_string<
+		Char8T,
+		std::char_traits<Char8T>,
+		allocators::standard<Char8T>
+	> src(u8"\xEF\xBB\xBF");
+	
+	std::basic_string<
+		Char32T,
+		std::char_traits<Char32T>,
+		allocators::standard<Char32T>
+	> dest;
+	
+	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
+	
+	if (dest.size()) {
+		if (dest[0] == 0x0000FEFF) {
+			return byteorder_bigendian;
+		} else if (dest[0] == 0xFFFE0000) {
+			return byteorder_littleendian;
+		}
+	}
+	
+	return byteorder_unknown;
+}
+	
 } /* EONS */
 
 static byteorder_type _utf16_storage = __utf16_storage_endianess();
-
+static byteorder_type _utf32_storage = __utf32_storage_endianess();
 	
 #pragma mark -
 
