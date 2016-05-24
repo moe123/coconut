@@ -155,7 +155,12 @@ for (std::size_t i = 0; i < 10; i++ ) {
 //
 // yes you can print any collection too ; the output is in a pseudo-json 
 // format, we are truncationg some data.
-// @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+
+```
+
+@see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+
+```cpp
 
 std::cerr << tree << std::endl;
 //
