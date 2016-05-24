@@ -152,13 +152,10 @@ for (std::size_t i = 0; i < 10; i++ ) {
 	tree += parent;
 }
 
-//
-// yes you can print any collection too ; the output is in a pseudo-json 
-// format, we are truncationg some data.
-
 ```
 
-@see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+You can print any collection too ; the output is in a pseudo-json 
+format, we are truncationg some data. @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
 
 ```cpp
 
@@ -166,6 +163,9 @@ std::cerr << tree << std::endl;
 //
 // output: [{"parent": {"child": 1}}, {"parent": {"child": 2}}, {"parent": {"child": 3}}, {"parent": {"child": 4}}, {"parent": {"child": 5}}, {"parent": {"child": 6}}, {"parent": {"child": 7}}, {"parent": {"child": 8}}, {"parent": {"child": 9}}, {"parent": {"child": 10}}]
 //
+
+```
+```cpp
 
 auto values = tree.valueForKeyPath(u8"parent.child");
 if (KindOf<Array>(values)) {
