@@ -154,8 +154,8 @@ for (std::size_t i = 0; i < 10; i++ ) {
 
 ```
 
-You can print any collection too ; the output is in a pseudo-json 
-format, we are truncationg some data. @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+You can print collections as well ; the output is in a pseudo-json 
+format, we are truncating some data. @see: [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
 
 ```cpp
 
