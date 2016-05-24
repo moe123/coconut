@@ -116,15 +116,15 @@ byteorder_type __utf16_storage_endianess(
 	COCONUT_UNUSED(no_param2);
 	
 	std::basic_string<
-	Char8T,
-	std::char_traits<Char8T>,
-	allocators::standard<Char8T>
+		Char8T,
+		std::char_traits<Char8T>,
+		allocators::standard<Char8T>
 	> src(u8"\xEF\xBB\xBF");
 	
 	std::basic_string<
-	Char16T,
-	std::char_traits<Char16T>,
-	allocators::standard<Char16T>
+		Char16T,
+		std::char_traits<Char16T>,
+		allocators::standard<Char16T>
 	> dest;
 	
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
@@ -346,9 +346,6 @@ void>::type _conv_utf8_to_utf16(
 	} else {
 		__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 	}
-	if (dest.size() && (dest[0] == 0xFEFF || dest[0] == 0xFFFE)) {
-		dest.erase(0, 1);
-	}
 }
 	
 template <typename Char8T, typename Char16T, unicode_option O>
@@ -361,10 +358,19 @@ void>::type _conv_utf8_to_utf16(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
 	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & dest
 ) {
+	/*
 	using CodecvtT = std::codecvt_utf8_utf16<
 		Char16T, 0x10FFFF, std::codecvt_mode(std::generate_header)
 	>;
-	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	*/
+	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
+	if (__utf8_have_bom(src)) {
+		__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
+	} else {
+		std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > _src(src);
+		__utf8_add_bom(_src);
+		__conv_from_bytes<Char8T, Char16T, CodecvtT>(_src, dest);
+	}
 }
 	
 #pragma mark -
