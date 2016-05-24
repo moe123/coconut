@@ -66,12 +66,12 @@ Note that Coconut is written in C++11. C++14 is not widely and fully implemented
 
 Credits && builtin runtime dependencies:
 
-- ASIO (Looper/Timer/Periodic/Events); @see http://think-async.com
-- ICU (Unicode/Punycode/Localization); @see http://site.icu-project.org
-- NLOHMANN JSON (Serialization); @see http://nlohmann.me, https://github.com/nlohmann/json
-- PUGI XML (Serialization/DOM); @see http://zeuxcg.org, http://pugixml.org
-- MBED TLS (SSL/TLS) <sup>(1)</sup>; @see https://github.com/ARMmbed/mbedtls, https://www.mbed.com
-- URIPARSER (RFC 3986); @see http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
+- ASIO (Looper/Timer/Periodic/Events); `@see` http://think-async.com
+- ICU (Unicode/Punycode/Localization); `@see` http://site.icu-project.org
+- NLOHMANN JSON (Serialization); `@see` http://nlohmann.me, https://github.com/nlohmann/json
+- PUGI XML (Serialization/DOM); `@see` http://zeuxcg.org, http://pugixml.org
+- MBED TLS (SSL/TLS) <sup>(1)</sup>; `@see` https://github.com/ARMmbed/mbedtls, https://www.mbed.com
+- URIPARSER (RFC 3986); `@see` http://uriparser.sourceforge.net, https://www.ietf.org/rfc/rfc3986.txt
 
 -----------------------------------------------------------------------------------------------
 
@@ -81,9 +81,9 @@ Credits && builtin runtime dependencies:
 
 Forked and melted with significant changes:
 
-- BASE64 (RFC 2045, Ryan Petrie); @see http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml, https://www.ietf.org/rfc/rfc2045.txt
-- SHA1/SHA256 (Stephan Brumme); @see http://create.stephan-brumme.com/hash-library
-- THREAD_POOL (Tyler Hardin); @see https://github.com/Tyler-Hardin/thread_pool
+- BASE64 (RFC 2045, Ryan Petrie); `@see` http://www.flipcode.com/archives/Base64_Encoder_Decoder.shtml, https://www.ietf.org/rfc/rfc2045.txt
+- SHA1/SHA256 (Stephan Brumme); `@see` http://create.stephan-brumme.com/hash-library
+- THREAD_POOL (Tyler Hardin); `@see` https://github.com/Tyler-Hardin/thread_pool
 
 -----------------------------------------------------------------------------------------------
 
