@@ -178,6 +178,9 @@ namespace coconut
 		typedef impl_trait::reverse_iterator reverse_iterator;
 		typedef impl_trait::const_reverse_iterator const_reverse_iterator;
 		
+		typedef impl_trait::key_type key_type;
+		typedef impl_trait::mapped_type mapped_type;
+		
 		typedef impl_trait::value_type value_type;
 		typedef impl_trait::size_type size_type;
 		typedef impl_trait::difference_type difference_type;
@@ -186,7 +189,9 @@ namespace coconut
 		typedef impl_trait::const_reference const_reference;
 		typedef impl_trait::pointer pointer;
 		typedef impl_trait::const_pointer const_pointer;
-	
+		
+		typedef impl_trait::allocator_type allocator_type;
+		
 	public:
 		iterator begin();
 		iterator end();

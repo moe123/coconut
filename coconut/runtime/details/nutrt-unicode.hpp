@@ -108,7 +108,7 @@ template <typename Char8T = char
 	, typename CodecvtT = std::codecvt_utf8_utf16<Char16T>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-byteorder_type __utf16_storage_endianess(
+const byteorder_type __utf16_storage_endianess(
 	Char8T * no_param1 = nullptr,
 	Char16T * no_param2 = nullptr
 ) {
@@ -145,7 +145,7 @@ template <typename Char8T = char
 	, typename CodecvtT = std::codecvt_utf8<Char32T>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-byteorder_type __utf32_storage_endianess(
+const byteorder_type __utf32_storage_endianess(
 	Char8T * no_param1 = nullptr,
 	Char32T * no_param2 = nullptr
 ) {
@@ -179,8 +179,8 @@ byteorder_type __utf32_storage_endianess(
 	
 } /* EONS */
 
-static byteorder_type _utf16_storage = __utf16_storage_endianess();
-static byteorder_type _utf32_storage = __utf32_storage_endianess();
+static byteorder_type const _utf16_storage = __utf16_storage_endianess();
+static byteorder_type const _utf32_storage = __utf32_storage_endianess();
 	
 #pragma mark -
 

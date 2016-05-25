@@ -220,6 +220,8 @@ namespace coconut
 		typedef impl_trait::pointer pointer;
 		typedef impl_trait::const_pointer const_pointer;
 		
+		typedef impl_trait::allocator_type allocator_type;
+		
 	public:
 		iterator begin();
 		iterator end();
