@@ -83,7 +83,7 @@ bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 	return false;
 }
 
-void nucleus::performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg) const
+void nucleus::performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	if (isSelectorKey(utf8_selkey)) {
 		if (wait) {

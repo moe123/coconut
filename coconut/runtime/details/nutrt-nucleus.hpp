@@ -39,7 +39,7 @@ protected:
 public:
 	bool respondsToSelectorKey(const std::string & utf8_selkey) const;
 	
-	void performSelectorKeyAfterDelay(uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg = {}) const;
+	void performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 	void performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 	Owning<Any> performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 	
