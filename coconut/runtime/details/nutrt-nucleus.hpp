@@ -187,7 +187,7 @@ private:
 
 public:
 	bool isEqual(const Any & ref) const;
-	bool isEqual(const Owning<Any> ptr) const;
+	bool isEqual(const Owning<Any> & ptr) const;
 	
 	virtual ComparisonResult compare(const Any & ref) const;
 	ComparisonResult compare(const Owning<Any> & ptr) const;

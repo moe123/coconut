@@ -430,7 +430,7 @@ bool nucleus::isEqual(const Any & ref) const
 	return false;
 }
 
-bool nucleus::isEqual(Owning<Any> ptr) const { if (ptr) { return isEqual(*ptr); } return false; }
+bool nucleus::isEqual(const Owning<Any> & ptr) const { if (ptr) { return isEqual(*ptr); } return false; }
 
 #pragma mark -
 
