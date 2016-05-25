@@ -436,6 +436,12 @@ for (auto jobs = tasks.begin(); jobs != tasks.end(); ++jobs) {
 }
 
 ```
+All coconut containers define STL like traits and operators:
+	for sequence-requirements: `@see` Container/Sequence-requirements [ISOCPP](http://www.open-std.org/JTC1/SC22/WG21/)
+	for operators implemenation : `@see` [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
+	for iterators and traits :`@see` [coconut/foundation/Array.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/foundation/Array.hpp)
+	for iterators and traits : `@see` [coconut/foundation/Dictionary.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/foundation/Dictionary.hpp)
+
 ```cpp
 
 // STL bindings, Coconut collections (or data structures) already implement 
