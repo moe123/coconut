@@ -46,12 +46,12 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 static std::size_t __utf8_char_length(const unsigned char & c)
 {
 	std::size_t len;
-	std::uint32_t cccc = c;
+	int cccc = c;
 	if(cccc <= 127) { len = 1; }
 	else if ((cccc & 0xE0) == 0xC0) { len = 2; }
 	else if ((cccc & 0xF0) == 0xE0) { len = 3; }
 	else if ((cccc & 0xF8) == 0xF0) { len = 4; }
-	else { len = 1; /* invalid */ }
+	else { len = 1; }
 	return len;
 }
 	
@@ -77,6 +77,33 @@ std::size_t __utf8_count(
 	std::size_t i = 0, j = 0;
 	for (; i < in_utf8.size() ; j++) { i += __utf8_char_length(in_utf8[i]); }
 	return j;
+}
+	
+template <typename Char8T
+	, typename Traits = std::char_traits<Char8T>
+	, typename Allocator = allocators::standard<Char8T>
+	, typename std::enable_if<
+sizeof(Char8T) == sizeof(char), void
+>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t __utf8_split_char(
+	std::vector<
+		std::basic_string<Char8T, Traits, Allocator>,
+		typename std::vector<
+			std::basic_string<Char8T, Traits, Allocator>
+		>::allocator_type
+	> & out,
+	const std::basic_string<Char8T, Traits, Allocator> & in_utf8
+) {
+	std::size_t i = 0, first = 0, last = 0;
+	for (; i < in_utf8.size() ; ) {
+		first = i;
+		last = __utf8_char_length(in_utf8[i]);
+		i += last;
+		out.push_back(in_utf8.substr(first, last));
+	}
+	return out.size();
 }
 	
 template <typename Char8T

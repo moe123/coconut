@@ -1064,8 +1064,17 @@ int Σ0() {
 int main(int argc, const char * argv[])
 {
 	{
-		std::string u8s0 = u8"Παρθ";
+		std::string u8s0 = u8"ΠαρθένωνΗ";
 		std::cerr << runtime::unicode::__utf8_count(u8s0) << std::endl;
+		
+		std::vector<std::string> parts;
+		
+		runtime::unicode::__utf8_split_char(parts, u8s0);
+		
+		for (auto c : parts) {
+			std::cerr << c << std::endl;
+		}
+		
 		
 		std::string u8s = u8"\xEF\xBB\xBFΠαρθένωνΗ";
 		std::u16string u16s = runtime::unicode::utf8_to_utf16(u8s);
