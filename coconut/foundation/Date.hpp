@@ -61,10 +61,10 @@ namespace coconut
 		const Date & earlierDate(const Date & dtm) const;
 		const Date & laterDate(const Date & dtm) const;
 		
-	protected:
+	private:
 		typedef runtime::traits::datetime impl_trait;
 	
-	protected:
+	private:
 		impl_trait m_impl;
 	};
 }

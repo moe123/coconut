@@ -42,10 +42,10 @@ namespace coconut
 		const String domain() const;
 		const Dictionary userInfo() const;
 		
-	public:
+	private:
 		typedef std::tuple<String, std::size_t, Dictionary> impl_trait;
 		
-	protected:
+	private:
 		impl_trait m_impl;
 	};
 }

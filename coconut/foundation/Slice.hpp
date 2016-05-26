@@ -43,7 +43,7 @@ namespace coconut
 		
 		void indexesForLength(std::size_t length) const;
 
-	protected:
+	private:
 		typedef runtime::traits::islice impl_trait;
 		
 	public:
@@ -81,7 +81,7 @@ namespace coconut
 		const_reverse_iterator crbegin() const;
 		const_reverse_iterator crend() const;
 	
-	protected:
+	private:
 		impl_trait m_impl;
 	};
 }

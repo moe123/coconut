@@ -188,7 +188,7 @@ namespace coconut
 		
 		bool writeToFile(const Path & path, bool atomically = true) const;
 		bool writeToURL(const URL & url, bool atomically = true) const;
-
+		
 	public:
 		const Owning<Any> operator [] (std::size_t index) const;
 		const Array operator [] (const Slice & slc) const;

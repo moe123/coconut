@@ -98,7 +98,7 @@ namespace coconut
 	public:
 		NumberType type() const;
 		
-	protected:
+	private:
 		typedef runtime::traits::numeric impl_trait;
 	
 	private:

@@ -71,7 +71,7 @@ namespace coconut
 		void removeLast();
 		void removeAll();
 		
-	public:
+	private:
 		typedef std::deque< Owning<Any> > impl_trait;
 
 	public:
@@ -111,7 +111,7 @@ namespace coconut
 		const_reverse_iterator crbegin() const;
 		const_reverse_iterator crend() const;
 		
-	protected:
+	private:
 		impl_trait m_impl;
 	};
 }

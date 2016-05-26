@@ -85,7 +85,7 @@ namespace coconut
 		const_reverse_iterator crbegin() const;
 		const_reverse_iterator crend() const;
 
-	private:
+	protected:
 		impl_trait m_impl;
 	};
 }

@@ -38,7 +38,7 @@ namespace coconut
 		const String selectorKey() const;
 		bool ascending() const;
 		
-	protected:
+	private:
 		typedef std::tuple<std::string, std::string, bool> impl_trait;
 		
 	private:

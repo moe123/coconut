@@ -71,7 +71,7 @@ namespace coconut
 		friend class Data;
 		friend class Dictionary;
 		
-	protected:
+	private:
 		typedef runtime::traits::uri impl_trait;
 		
 	private:
