@@ -121,6 +121,11 @@ Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<
 
 #pragma mark -
 
+void nucleus::doesNotRecognizeSelectorKey(const std::string & utf8_selkey) const noexcept(false)
+{ throw std::runtime_error(u8"unrecognized selectorKey sent: " + utf8_selkey); }
+
+#pragma mark -
+
 void nucleus::setClassKind(ClassKind kind, bool ismutable)
 {
 	if (m_kind != kind) {
@@ -199,6 +204,9 @@ bool nucleus::isKindOfClass(ClassKind kind) const
 bool nucleus::isMemberOfClass(ClassKind kind) const
 { return (m_kind == kind); }
 
+bool nucleus::isSubclassOfClass(ClassKind kind) const
+{ return (parentClassKind() == kind); }
+
 #pragma mark -
 
 bool nucleus::isKindOf(ClassKind kind) const
@@ -229,7 +237,7 @@ bool nucleus::isKindOf(const Owning<Any> & ptr) const
 #pragma mark -
 
 bool nucleus::isSubclassOf(ClassKind kind) const
-{ return (parentClassKind() == kind); }
+{ return isSubclassOfClass(kind); }
 
 bool nucleus::isSubclassOf(const Any & ref, const Any & other_ref) const
 { return (ref.isSubclassOf(other_ref.classKind())); }

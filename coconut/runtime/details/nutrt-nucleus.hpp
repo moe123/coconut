@@ -42,6 +42,9 @@ public:
 	void performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 	void performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 	Owning<Any> performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
+
+protected:
+	void doesNotRecognizeSelectorKey(const std::string & utf8_selkey) const noexcept(false);
 	
 protected:
 /**
@@ -77,13 +80,15 @@ public:
 	const Owning<Any> itself() const;
 	virtual std::size_t hash() const;
 	
-public:
+protected:
 /**
  * Interface/Protocol @iConformance: Object inheritance and behavior.
  */
 	bool isKindOfClass(ClassKind kind) const;
 	bool isMemberOfClass(ClassKind kind) const;
-	
+	bool isSubclassOfClass(ClassKind kind) const;
+
+public:
 	template <typename T>
 	bool conformsTo(void * no_param = nullptr) const
 	{ COCONUT_UNUSED(no_param); T * ptr = dynamic_cast<T *>(this); return (ptr != nullptr); }
