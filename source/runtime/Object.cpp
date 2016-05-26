@@ -89,7 +89,7 @@ Owning<Any> Object::copyObject(const Owning<Any> & obj, CopyOption option)
 Owning<Any> Object::valueForKey(const std::string & utf8_key) const
 {
 	if (utf8_key == u8"self") {
-		return ptr_snatch<Any>(this);
+		return itself();
 	}
 	return nucleus::valueForKey(utf8_key);
 }
@@ -174,7 +174,7 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 				}
 			} else {
 				if (utf8_selkey == u8"@self") {
-					result = ptr_snatch<Any>(this);
+					result = itself();
 				} else if (utf8_selkey == u8"@count" || utf8_selkey == u8"@length" || utf8_selkey == u8"@size") {
 					result = ptr_create<Number>(size());
 				} else if (utf8_selkey == u8"@floatValue") {
@@ -210,6 +210,8 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 				}
 			}
 		}
+	} else {
+		doesNotRecognizeSelectorKey(utf8_selkey);
 	}
 	return result;
 }

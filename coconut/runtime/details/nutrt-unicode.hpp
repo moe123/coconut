@@ -35,9 +35,92 @@ void __conv_to_bytes(
 	std::wstring_convert<CodecvtT, CharInT> conv;
 	dest = std::move(conv.to_bytes(src));
 }
+
+#pragma mark -
+#pragma mark -
+
+namespace
+{
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+static std::size_t __utf8_char_length(const unsigned char & c)
+{
+	std::size_t len;
+	std::uint32_t cccc = c;
+	if(cccc <= 127) { len = 1; }
+	else if ((cccc & 0xE0) == 0xC0) { len = 2; }
+	else if ((cccc & 0xF0) == 0xE0) { len = 3; }
+	else if ((cccc & 0xF8) == 0xF0) { len = 4; }
+	else { len = 1; /* invalid */ }
+	return len;
+}
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+static std::size_t __utf8_char_offset(const unsigned char & c)
+{ return __utf8_char_length(c) -1; }
+
+} /* EONS */
 	
 #pragma mark -
 
+template <typename Char8T
+	, typename Traits = std::char_traits<Char8T>
+	, typename Allocator = allocators::standard<Char8T>
+	, typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t __utf8_count(
+	const std::basic_string<Char8T, Traits, Allocator> & in_utf8
+) {
+	std::size_t i = 0;
+	std::size_t cnt = 0;
+	for (; i < in_utf8.size() ; ) {
+		i += __utf8_char_length(in_utf8[i]);
+		cnt++;
+	}
+	return cnt;
+}
+	
+template <typename Char8T
+	, typename Traits = std::char_traits<Char8T>
+	, typename Allocator = allocators::standard<Char8T>
+	, typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<Char8T, Traits, Allocator> __utf8_substr(
+	const std::basic_string<Char8T, Traits, Allocator> & in_utf8,
+	std::size_t pos,
+	std::size_t len = std::basic_string<Char8T, Traits, Allocator>::npos
+) {
+	std::size_t i, j, k;
+	std::size_t ln = len, sz = in_utf8.size();
+	std::size_t first, last;
+	std::size_t npos = std::basic_string<Char8T, Traits, Allocator>::npos;
+	
+	first = npos;
+	last = npos;
+	
+	if (ln == 0 || !sz || pos >= sz) { return {}; }
+	if (ln == npos) { ln = sz - pos; }
+	
+	for (k = 0, i = 0, j = sz; i < j; i++, k++) {
+		if (k == pos) { first = i; }
+		if (k <= pos + ln || ln == npos) { last = i; }
+		i += __utf8_char_offset(in_utf8[i]);
+	}
+	
+	if (k <= pos + ln || ln == npos) { last = i; }
+	if (first == npos || last == npos) { return {}; }
+	
+	return in_utf8.substr(first, last);
+}
+	
+#pragma mark -
+	
 template <typename Char8T
 	, typename std::enable_if<
 		sizeof(Char8T) == sizeof(char), void
@@ -97,7 +180,8 @@ void __utf8_bom(
 		break;
 	}
 }
-	
+
+#pragma mark -
 #pragma mark -
 	
 namespace
@@ -181,7 +265,8 @@ const byteorder_type __utf32_storage_endianess(
 
 static byteorder_type const _utf16_storage = __utf16_storage_endianess();
 static byteorder_type const _utf32_storage = __utf32_storage_endianess();
-	
+
+#pragma mark -
 #pragma mark -
 
 template <typename Char16T
@@ -702,7 +787,7 @@ void _conv_utf8_to_ucs4(
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string utf8_to_utf16(
-	const std::string & utf8_in,
+	const std::string & in_utf8,
 	unicode_option option
 ) {
 	std::u16string utf16_out;
@@ -710,19 +795,19 @@ std::u16string utf8_to_utf16(
 	using Char8T = std::string::value_type;
 	using Char16T = std::u16string::value_type;
 	
-	_conv_utf8_to_utf16<Char8T, Char16T>(utf8_in, utf16_out, option);
+	_conv_utf8_to_utf16<Char8T, Char16T>(in_utf8, utf16_out, option);
 	return utf16_out;
 }
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::u16string utf8_to_utf16(const std::string & utf8_in)
+std::u16string utf8_to_utf16(const std::string & in_utf8)
 {
 	std::u16string utf16_out;
 	
 	using Char8T = std::string::value_type;
 	using Char16T = std::u16string::value_type;
 	
-	_conv_utf8_to_utf16<Char8T, Char16T, unicode_conv_default>(utf8_in, utf16_out);
+	_conv_utf8_to_utf16<Char8T, Char16T, unicode_conv_default>(in_utf8, utf16_out);
 	return utf16_out;
 }
 	
@@ -730,7 +815,7 @@ std::u16string utf8_to_utf16(const std::string & utf8_in)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u16string utf8_to_ucs2(
-	const std::string & utf8_in,
+	const std::string & in_utf8,
 	unicode_option option
 ) {
 	std::u16string ucs2_out;
@@ -738,18 +823,18 @@ std::u16string utf8_to_ucs2(
 	using Char8T = std::string::value_type;
 	using Char16T = std::u16string::value_type;
 	
-	_conv_utf8_to_ucs2<Char8T, Char16T>(utf8_in, ucs2_out, option);
+	_conv_utf8_to_ucs2<Char8T, Char16T>(in_utf8, ucs2_out, option);
 	return ucs2_out;
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::u16string utf8_to_ucs2(const std::string & utf8_in) {
+std::u16string utf8_to_ucs2(const std::string & in_utf8) {
 	std::u16string ucs2_out;
 	
 	using Char8T = std::string::value_type;
 	using Char16T = std::u16string::value_type;
 	
-	_conv_utf8_to_ucs2<Char8T, Char16T, unicode_conv_default>(utf8_in, ucs2_out);
+	_conv_utf8_to_ucs2<Char8T, Char16T, unicode_conv_default>(in_utf8, ucs2_out);
 	return ucs2_out;
 }
 	
@@ -757,7 +842,7 @@ std::u16string utf8_to_ucs2(const std::string & utf8_in) {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u32string utf8_to_ucs4(
-	const std::string & utf8_in,
+	const std::string & in_utf8,
 	unicode_option option
 ) {
 	std::u32string ucs4_out;
@@ -765,31 +850,31 @@ std::u32string utf8_to_ucs4(
 	using Char8T = std::string::value_type;
 	using Char32T = std::u32string::value_type;
 	
-	_conv_utf8_to_ucs4<Char8T, Char32T>(utf8_in, ucs4_out, option);
+	_conv_utf8_to_ucs4<Char8T, Char32T>(in_utf8, ucs4_out, option);
 	return ucs4_out;
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::u32string utf8_to_ucs4(const std::string & utf8_in)
+std::u32string utf8_to_ucs4(const std::string & in_utf8)
 {
 	std::u32string ucs4_out;
 	
 	using Char8T = std::string::value_type;
 	using Char32T = std::u32string::value_type;
 	
-	_conv_utf8_to_ucs4<Char8T, Char32T, unicode_conv_default>(utf8_in, ucs4_out);
+	_conv_utf8_to_ucs4<Char8T, Char32T, unicode_conv_default>(in_utf8, ucs4_out);
 	return ucs4_out;
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::u32string utf8_to_utf32(
-	const std::string & utf8_in,
+	const std::string & in_utf8,
 	unicode_option option
-) { return utf8_to_ucs4(utf8_in, option); }
+) { return utf8_to_ucs4(in_utf8, option); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::u32string utf8_to_utf32(const std::string & utf8_in)
-{ return utf8_to_ucs4(utf8_in); }
+std::u32string utf8_to_utf32(const std::string & in_utf8)
+{ return utf8_to_ucs4(in_utf8); }
 	
 #pragma mark -
 	

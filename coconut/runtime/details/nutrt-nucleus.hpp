@@ -89,6 +89,10 @@ protected:
 	bool isSubclassOfClass(ClassKind kind) const;
 
 public:
+	bool isKindOfClassNamed(const std::string & name) const;
+	bool isMemberOfClassNamed(const std::string & name) const;
+	
+public:
 	template <typename T>
 	bool conformsTo(void * no_param = nullptr) const
 	{ COCONUT_UNUSED(no_param); T * ptr = dynamic_cast<T *>(this); return (ptr != nullptr); }

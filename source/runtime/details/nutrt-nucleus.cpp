@@ -104,9 +104,7 @@ void nucleus::performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait
 }
 
 void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg) const
-{
-	performSelectorKeyAfterDelay(0, false, utf8_selkey, arg);
-}
+{ performSelectorKeyAfterDelay(0, false, utf8_selkey, arg); }
 
 Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
@@ -206,6 +204,19 @@ bool nucleus::isMemberOfClass(ClassKind kind) const
 
 bool nucleus::isSubclassOfClass(ClassKind kind) const
 { return (parentClassKind() == kind); }
+
+bool nucleus::isKindOfClassNamed(const std::string & name) const
+{
+	std::vector<std::string> parts;
+	parts = runtime::algorithms::split(name, u8".");
+	for (std::vector<std::string>::reverse_iterator it = parts.rbegin(); it != parts.rend(); ++it) {
+		if ((*it) == name) { return true; }
+	}
+	return false;
+}
+
+bool nucleus::isMemberOfClassNamed(const std::string & name) const
+{ return (class_name() == name); }
 
 #pragma mark -
 

@@ -4,7 +4,7 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/details/nutrt-allocators.hpp>
+#include <coconut/runtime/details/nutrt-unicode.hpp>
 
 #ifndef COCONUT_RUNTIME_ALGORITHMS_HPP
 #define COCONUT_RUNTIME_ALGORITHMS_HPP
@@ -430,10 +430,13 @@ std::ptrdiff_t ifind(
 	const std::basic_string<CharT, Traits, Allocator> & needle
 ) {
 	std::locale loc;
+	
+	using size_type = typename std::basic_string<CharT, Traits, Allocator>::size_type;
 	using const_iter = typename std::basic_string<CharT, Traits, Allocator>::const_iterator;
+	size_type npos = std::basic_string<CharT, Traits, Allocator>::npos;
 	
 	if (!haystack.size() || !needle.size() || (needle.size() > haystack.size())) {
-		return std::basic_string<CharT, Traits, Allocator>::npos;
+		return npos;
 	}
 	
 	const_iter it = std::search(
@@ -448,8 +451,7 @@ std::ptrdiff_t ifind(
 	
 	return ((
 		it == haystack.cend()
-	) ? std::basic_string<CharT, Traits, Allocator>::npos :
-	weak_cast<std::ptrdiff_t>(std::distance<const_iter>(haystack.cbegin(), it)));
+	) ? npos : weak_cast<std::ptrdiff_t>(std::distance<const_iter>(haystack.cbegin(), it)));
 }
 
 #pragma mark -
@@ -1168,10 +1170,11 @@ void tokenizer(
 	>::size_type;
 
 	size_type pos, last_pos = 0;
+	size_type npos = std::basic_string<CharT, Traits, Allocator>::npos;
 	
 	while (true) {
 		pos = in.find_first_of(delimiter, last_pos);
-		if (pos == std::basic_string<CharT, Traits, Allocator>::npos) {
+		if (pos == npos) {
 			pos = in.length();
 			if (pos != last_pos) {
 				tokens.push_back(value_type(in.data() + last_pos,
@@ -1401,6 +1404,7 @@ usize_type explode(
 	ssize_type limit = std::numeric_limits<ssize_type>::max()
 ) {
 	usize_type begin = 0, end = 0;
+	usize_type npos = std::basic_string<CharT, Traits, Allocator>::npos;
 	
 	if (delimiter.empty()) {
 		return 0;
@@ -1408,22 +1412,22 @@ usize_type explode(
 	if (limit == 0) {
 		limit = 1;
 	}
-	if (in.find(delimiter) == std::basic_string<CharT, Traits, Allocator>::npos) {
+	if (in.find(delimiter) == npos) {
 		if (limit > 0) {
 			out.push_back(in);
 		}
 		return out.size();
 	}
 	
-	while (end != std::basic_string<CharT, Traits, Allocator>::npos) {
+	while (end != npos) {
 		if (limit > 0 && weak_cast<ssize_type>(out.size()) == limit - 1) {
 			out.push_back(in.substr(begin));
 			break;
 		}
-		usize_type substr_len = std::basic_string<CharT, Traits, Allocator>::npos;
-		usize_type next_tok = std::basic_string<CharT, Traits, Allocator>::npos;
+		usize_type substr_len = npos;
+		usize_type next_tok = npos;
 		end = in.find_first_of(delimiter, begin);
-		if (end != std::basic_string<CharT, Traits, Allocator>::npos) {
+		if (end != npos) {
 			substr_len = end - begin;
 			next_tok = end + delimiter.size();
 		}
@@ -1720,11 +1724,12 @@ usize_type replace(
 	const std::basic_string<CharT, Traits, Allocator> & subject
 ) {
 	usize_type j = 0;
+	usize_type npos = std::basic_string<CharT, Traits, Allocator>::npos;
 	out.assign(subject);
 	
 	for (usize_type pos = 0; ; pos += substitute.size()) {
 		pos = out.find(search, pos);
-		if (pos != std::basic_string<CharT, Traits, Allocator>::npos) {
+		if (pos != npos) {
 			out.erase(pos, search.size());
 			out.insert(pos, substitute);
 			j++;
