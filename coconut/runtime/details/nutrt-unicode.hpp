@@ -43,7 +43,7 @@ namespace
 {
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-static std::size_t __utf8_char_length(const unsigned char & c)
+static std::size_t __utf8_glyph_length(const unsigned char & c)
 {
 	std::size_t len;
 	int cccc = c;
@@ -56,8 +56,8 @@ static std::size_t __utf8_char_length(const unsigned char & c)
 }
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-static std::size_t __utf8_char_offset(const unsigned char & c)
-{ return __utf8_char_length(c) -1; }
+static std::size_t __utf8_glyph_offset(const unsigned char & c)
+{ return __utf8_glyph_length(c) -1; }
 
 } /* EONS */
 	
@@ -71,11 +71,11 @@ template <typename Char8T
 	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::size_t __utf8_count(
+std::size_t __utf8_glyph_count(
 	const std::basic_string<Char8T, Traits, Allocator> & in_utf8
 ) {
 	std::size_t i = 0, j = 0;
-	for (; i < in_utf8.size() ; j++) { i += __utf8_char_length(in_utf8[i]); }
+	for (; i < in_utf8.size() ; j++) { i += __utf8_glyph_length(in_utf8[i]); }
 	return j;
 }
 	
@@ -87,7 +87,7 @@ sizeof(Char8T) == sizeof(char), void
 >::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::size_t __utf8_split_char(
+std::size_t __utf8_glyph_split(
 	std::vector<
 		std::basic_string<Char8T, Traits, Allocator>,
 		typename std::vector<
@@ -99,7 +99,7 @@ std::size_t __utf8_split_char(
 	std::size_t i = 0, first = 0, last = 0;
 	for (; i < in_utf8.size() ; ) {
 		first = i;
-		last = __utf8_char_length(in_utf8[i]);
+		last = __utf8_glyph_length(in_utf8[i]);
 		i += last;
 		out.push_back(in_utf8.substr(first, last));
 	}
@@ -133,13 +133,13 @@ std::basic_string<Char8T, Traits, Allocator> __utf8_substr(
 	for (k = 0, i = 0, j = sz; i < j; i++, k++) {
 		if (k == pos) { first = i; }
 		if (k <= pos + ln || ln == npos) { last = i; }
-		i += __utf8_char_offset(in_utf8[i]);
+		i += __utf8_glyph_offset(in_utf8[i]);
 	}
 	
 	if (k <= pos + ln || ln == npos) { last = i; }
 	if (first == npos || last == npos) { return {}; }
 	
-	return in_utf8.substr(first, last);
+	return in_utf8.substr(first, last - first);
 }
 	
 #pragma mark -

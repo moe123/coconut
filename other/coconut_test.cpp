@@ -1065,15 +1065,19 @@ int main(int argc, const char * argv[])
 {
 	{
 		std::string u8s0 = u8"ΠαρθένωνΗ";
-		std::cerr << runtime::unicode::__utf8_count(u8s0) << std::endl;
+		std::cerr << runtime::unicode::__utf8_glyph_count(u8s0) << std::endl;
 		
 		std::vector<std::string> parts;
 		
-		runtime::unicode::__utf8_split_char(parts, u8s0);
+		runtime::unicode::__utf8_glyph_split(parts, u8s0);
 		
 		for (auto c : parts) {
 			std::cerr << c << std::endl;
 		}
+		
+		std::cerr << runtime::unicode::__utf8_substr(u8s0, 4, 1) << std::endl;
+		
+		std::cerr << u8s0.substr(8, 2) << std::endl;
 		
 		
 		std::string u8s = u8"\xEF\xBB\xBFΠαρθένωνΗ";
