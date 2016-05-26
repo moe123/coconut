@@ -74,13 +74,9 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::size_t __utf8_count(
 	const std::basic_string<Char8T, Traits, Allocator> & in_utf8
 ) {
-	std::size_t i = 0;
-	std::size_t cnt = 0;
-	for (; i < in_utf8.size() ; ) {
-		i += __utf8_char_length(in_utf8[i]);
-		cnt++;
-	}
-	return cnt;
+	std::size_t i = 0, j = 0;
+	for (; i < in_utf8.size() ; j++) { i += __utf8_char_length(in_utf8[i]); }
+	return j;
 }
 	
 template <typename Char8T
