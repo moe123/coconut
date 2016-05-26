@@ -131,15 +131,10 @@ void nucleus::setClassKind(ClassKind kind, bool ismutable)
 }
 
 ClassKind nucleus::classKind() const
-{
-	return m_kind;
-}
+{ return m_kind; }
 
 ClassKind nucleus::parentClassKind() const
-{
-	std::size_t n = m_kinds.size();
-	return n > 1 ? m_kinds[n - 2] : m_kind;
-}
+{ std::size_t n = m_kinds.size(); return n > 1 ? m_kinds[n - 2] : m_kind; }
 
 #pragma mark -
 
@@ -188,19 +183,26 @@ const std::string nucleus::classTree() const
 
 #pragma mark -
 
-const Any * nucleus::itself() const { return this; }
+const Owning<Any> nucleus::itself() const
+{ return ptr_snatch<Any>(this); }
 
 #pragma mark -
 
 std::size_t nucleus::hash() const
-{
-	return weak_cast<std::size_t>(sig());
-}
+{ return weak_cast<std::size_t>(sig()); }
+
+#pragma mark -
+
+bool nucleus::isKindOfClass(ClassKind kind) const
+{ return !(std::find(m_kinds.begin(), m_kinds.end(), kind) == m_kinds.end()); }
+
+bool nucleus::isMemberOfClass(ClassKind kind) const
+{ return (m_kind == kind); }
 
 #pragma mark -
 
 bool nucleus::isKindOf(ClassKind kind) const
-{ return !(std::find(m_kinds.begin(), m_kinds.end(), kind) == m_kinds.end()); }
+{ return isKindOfClass(kind); }
 
 bool nucleus::isKindOf(const Any & ref, const Any & other_ref) const
 { return (ref.isKindOf(other_ref.classKind())); }
@@ -254,7 +256,7 @@ bool nucleus::isSubclassOf(const Owning<Any> & ptr) const
 #pragma mark -
 
 bool nucleus::isMemberOf(ClassKind kind) const
-{ return (m_kind == kind); }
+{ return isMemberOfClass(kind); }
 
 bool nucleus::isMemberOf(const Any & ref, const Any & other_ref) const
 { return (ref.classKind() == other_ref.classKind()); }
@@ -268,7 +270,7 @@ bool nucleus::isMemberOf(const Owning<Any> & ptr, const Owning<Any> & other_ptr)
 }
 
 bool nucleus::isMemberOf(const Any & ref) const
-{ return (m_kind == ref.classKind()); }
+{ return isMemberOf(ref.classKind()); }
 
 bool nucleus::isMemberOf(const Owning<Any> & ptr) const
 {

@@ -74,13 +74,16 @@ public:
 	const std::string classTree() const;
 
 public:
-	const Any * itself() const;
+	const Owning<Any> itself() const;
 	virtual std::size_t hash() const;
 	
 public:
 /**
  * Interface/Protocol @iConformance: Object inheritance and behavior.
  */
+	bool isKindOfClass(ClassKind kind) const;
+	bool isMemberOfClass(ClassKind kind) const;
+	
 	template <typename T>
 	bool conformsTo(void * no_param = nullptr) const
 	{ COCONUT_UNUSED(no_param); T * ptr = dynamic_cast<T *>(this); return (ptr != nullptr); }
