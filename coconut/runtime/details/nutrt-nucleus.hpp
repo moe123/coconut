@@ -39,9 +39,31 @@ protected:
 public:
 	bool respondsToSelectorKey(const std::string & utf8_selkey) const;
 	
-	void performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg = {}) const;
-	void performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
-	Owning<Any> performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
+	void performSelectorKeyAfterDelay(std::uint64_t microseconds
+		, bool wait
+		, const std::string & utf8_selkey
+		, Owning<Any> arg
+		, const std::function<void(Owning<Any> result)> & completion
+	) const noexcept(false);
+	
+	void performSelectorKeyAfterDelay(std::uint64_t microseconds
+		, bool wait
+		, const std::string & utf8_selkey
+		, Owning<Any> arg = {}
+	) const noexcept(false);
+	
+	void performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg = {}) const noexcept(false);
+	
+	void performSelectorKeyInBackground(const std::string & utf8_selkey
+		, const std::function<void(Owning<Any> result)> & completion
+	) const;
+	
+	void performSelectorKeyInBackground(const std::string & utf8_selkey
+		, Owning<Any> arg
+		, const std::function<void(Owning<Any> result)> & completion
+	) const noexcept(false);
+	
+	Owning<Any> performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const noexcept(false);
 
 protected:
 	void doesNotRecognizeSelectorKey(const std::string & utf8_selkey) const noexcept(false);

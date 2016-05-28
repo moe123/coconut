@@ -83,44 +83,71 @@ bool nucleus::respondsToSelectorKey(const std::string & utf8_selkey) const
 	return false;
 }
 
-void nucleus::performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg) const
+void nucleus::performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg, const std::function<void(Owning<Any> result)> & completion) const noexcept(false)
 {
 	if (isSelectorKey(utf8_selkey)) {
 		if (wait) {
-			auto op = runtime::async::exec(runtime::launch_async, [this, &microseconds, &utf8_selkey, &arg]
+			auto op = runtime::async::exec(runtime::launch_async, [this, &microseconds, &utf8_selkey, &arg, &completion]
 			{
 				if (microseconds) { std::this_thread::sleep_for(std::chrono::microseconds(microseconds)); }
-				valueForSelectorKey(utf8_selkey, arg);
+				Owning<Any> result = valueForSelectorKey(utf8_selkey, arg);
+				if (completion) {
+					completion(result);
+				}
 			});
 			op();
 		} else {
-			runtime::async::detach([this, microseconds, utf8_selkey, arg]
+			runtime::async::detach([this, microseconds, &utf8_selkey, arg, &completion]
 			{
 				if (microseconds) { std::this_thread::sleep_for(std::chrono::microseconds(microseconds)); }
-				valueForSelectorKey(utf8_selkey, arg);
+				Owning<Any> result = valueForSelectorKey(utf8_selkey, arg);
+				if (completion) {
+					completion(result);
+				}
 			});
 		}
+	} else {
+		doesNotRecognizeSelectorKey(utf8_selkey);
 	}
 }
 
-void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg) const
-{ performSelectorKeyAfterDelay(0, false, utf8_selkey, arg); }
+void nucleus::performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait, const std::string & utf8_selkey, Owning<Any> arg) const noexcept(false)
+{ performSelectorKeyAfterDelay(0, false, utf8_selkey, arg, {}); }
 
-Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
+void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg) const
+{ performSelectorKeyAfterDelay(0, false, utf8_selkey, arg, {}); }
+
+void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, const std::function<void(Owning<Any> result)> & completion) const noexcept(false)
+{ performSelectorKeyAfterDelay(0, false, utf8_selkey, {}, completion); }
+
+void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg , const std::function<void(Owning<Any> result)> & completion) const noexcept(false)
+{ performSelectorKeyAfterDelay(0, false, utf8_selkey, arg, completion); }
+
+Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const noexcept(false)
 {
 	if (isSelectorKey(utf8_selkey)) {
 		auto op = runtime::async::exec(runtime::launch_any, [this, &utf8_selkey, &arg]
 		{ return valueForSelectorKey(utf8_selkey, arg); });
 		return op();
+	} else {
+		doesNotRecognizeSelectorKey(utf8_selkey);
 	}
-	// Fault();
 	return {};
 }
 
 #pragma mark -
 
 void nucleus::doesNotRecognizeSelectorKey(const std::string & utf8_selkey) const noexcept(false)
-{ throw std::runtime_error(u8"unrecognized selectorKey sent: " + utf8_selkey); }
+{
+	std::stringstream ss;
+	ss << u8"unrecognized selectorKey sent: ('";
+	ss << utf8_selkey;
+	ss << u8"', ";
+	ss << std::hex << std::showbase << this;
+	ss << u8")";
+	
+	throw std::runtime_error(ss.str());
+}
 
 #pragma mark -
 

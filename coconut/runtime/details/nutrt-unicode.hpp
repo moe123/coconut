@@ -141,7 +141,8 @@ std::basic_string<Char8T, Traits, Allocator> __utf8_substr(
 	
 	return in_utf8.substr(first, last - first);
 }
-	
+
+#pragma mark -
 #pragma mark -
 	
 template <typename Char8T
