@@ -1064,6 +1064,16 @@ int Σ0() {
 int main(int argc, const char * argv[])
 {
 	{
+		Number n0 = 167878888888UL;
+		
+		std::cerr << n0 << std::endl;
+		
+		n0++;
+		
+		std::cerr << n0 << std::endl;
+		
+		std::cerr << -10 * n0 / 2.7 << std::endl;
+		
 		std::string u8s0 = u8"ΠαρθένωνΗ";
 		std::cerr << runtime::unicode::__utf8_glyph_count(u8s0) << std::endl;
 		

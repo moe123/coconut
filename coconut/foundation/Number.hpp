@@ -97,6 +97,17 @@ namespace coconut
 	
 	public:
 		NumberType type() const;
+	
+	private:
+		friend const Number operator +  (const Number & left, const Number & right);
+		friend const Number operator -  (const Number & left, const Number & right);
+		friend const Number operator *  (const Number & left, const Number & right);
+		friend const Number operator /  (const Number & left, const Number & right);
+		
+		friend const Number & operator ++ (Number & left);
+		friend const Number & operator ++ (Number & left, int n);
+		friend const Number & operator -- (Number & left);
+		friend const Number & operator -- (Number & left, int n);
 		
 	private:
 		typedef runtime::traits::numeric impl_trait;
@@ -111,6 +122,16 @@ namespace coconut
 	bool operator <= (const Number & left, const Number & right);
 	bool operator >  (const Number & left, const Number & right);
 	bool operator >= (const Number & left, const Number & right);
+	
+	const Number operator +  (const Number & left, const Number & right);
+	const Number operator -  (const Number & left, const Number & right);
+	const Number operator *  (const Number & left, const Number & right);
+	const Number operator /  (const Number & left, const Number & right);
+	
+	const Number & operator ++ (Number & left);
+	const Number & operator ++ (Number & left, int n);
+	const Number & operator -- (Number & left);
+	const Number & operator -- (Number & left, int n);
 }
 
 #endif /* !COCONUT_FOUNDATION_NUMBER_HPP */

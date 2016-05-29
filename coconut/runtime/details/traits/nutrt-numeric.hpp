@@ -45,6 +45,16 @@ public:
 public:
 	numeric & operator = (const numeric & num);
 	int compare(const numeric & other_num) const;
+
+public:
+	numeric by_adding(const numeric & other_num) const;
+	numeric by_subtracting(const numeric & other_num) const;
+	
+	numeric by_dividing(const numeric & other_num) const;
+	numeric by_multiplying(const numeric & other_num) const;
+	
+	numeric by_incrementing(int n = 0) const;
+	numeric by_decrementing(int n = 0) const;
 	
 private:
 	template <typename T>

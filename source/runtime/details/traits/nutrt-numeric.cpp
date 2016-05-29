@@ -275,6 +275,132 @@ int numeric::compare(const numeric & other_num) const
 
 #pragma mark -
 
+numeric numeric::by_adding(const numeric & other_num) const
+{
+	if (m_signed) {
+		if (m_floating || other_num.m_floating) {
+			return {to_double() + other_num.to_double()};
+		}
+		long long n = to_long_long();
+		if (other_num.m_signed) {
+			n += other_num.to_long_long();
+		} else {
+			n += other_num.to_unsigned_long_long();
+		}
+		return {n};
+	} else {
+		unsigned long long n = to_unsigned_long_long();
+		if (other_num.m_signed) {
+			n += other_num.to_long_long();
+		} else {
+			n += other_num.to_unsigned_long_long();
+		}
+		return {n};
+	}
+	return {};
+}
+
+numeric numeric::by_subtracting(const numeric & other_num) const
+{
+	if (m_signed) {
+		if (m_floating || other_num.m_floating) {
+			return {to_double() - other_num.to_double()};
+		}
+		long long n = to_long_long();
+		if (other_num.m_signed) {
+			n -= other_num.to_long_long();
+		} else {
+			n -= other_num.to_unsigned_long_long();
+		}
+		return {n};
+	} else {
+		unsigned long long n = to_unsigned_long_long();
+		if (other_num.m_signed) {
+			n -= other_num.to_long_long();
+		} else {
+			n -= other_num.to_unsigned_long_long();
+		}
+		return {n};
+	}
+	return {};
+}
+
+numeric numeric::by_dividing(const numeric & other_num) const
+{
+	if (m_signed) {
+		if (m_floating || other_num.m_floating) {
+			return {to_double() / other_num.to_double()};
+		}
+		long long n = to_long_long();
+		if (other_num.m_signed) {
+			n /= other_num.to_long_long();
+		} else {
+			n /= other_num.to_unsigned_long_long();
+		}
+		return {n};
+	} else {
+		unsigned long long n = to_unsigned_long_long();
+		if (other_num.m_signed) {
+			n /= other_num.to_long_long();
+		} else {
+			n /= other_num.to_unsigned_long_long();
+		}
+		return {n};
+	}
+	return {};
+}
+
+numeric numeric::by_multiplying(const numeric & other_num) const
+{
+	if (m_signed) {
+		if (m_floating || other_num.m_floating) {
+			return {to_double() * other_num.to_double()};
+		}
+		long long n = to_long_long();
+		if (other_num.m_signed) {
+			n *= other_num.to_long_long();
+		} else {
+			n *= other_num.to_unsigned_long_long();
+		}
+		return {n};
+	} else {
+		unsigned long long n = to_unsigned_long_long();
+		if (other_num.m_signed) {
+			n *= other_num.to_long_long();
+		} else {
+			n *= other_num.to_unsigned_long_long();
+		}
+		return {n};
+	}
+	return {};
+}
+
+numeric numeric::by_incrementing(int n) const
+{
+	if (n == 0) { n++; }
+	if (m_signed) {
+		if (m_floating) {
+			return {to_double() + n};
+		}
+		return {to_long_long() + n};
+	}
+	return {to_unsigned_long_long() + n};
+}
+
+numeric numeric::by_decrementing(int n) const
+{
+	if (n == 0) { n++; }
+	if (m_signed) {
+		if (m_floating) {
+			return {to_double() - n};
+		}
+		return {to_long_long() - n};
+	}
+	return {to_unsigned_long_long() - n};
+}
+
+#pragma mark -
+
 float numeric::to_float() const
 { return get<float>(); }
 

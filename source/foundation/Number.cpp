@@ -210,4 +210,32 @@ bool coconut::operator >= (const Number & left, const Number & right)
 	return (cmp == OrderedDescending || cmp == OrderedSame);
 }
 
+#pragma mark -
+
+const Number coconut::operator +  (const Number & left, const Number & right)
+{ Number n; n.m_impl = left.m_impl.by_adding(right.m_impl); return n; }
+
+const Number coconut::operator -  (const Number & left, const Number & right)
+{ Number n; n.m_impl = left.m_impl.by_subtracting(right.m_impl); return n; }
+
+const Number coconut::operator *  (const Number & left, const Number & right)
+{ Number n; n.m_impl = left.m_impl.by_multiplying(right.m_impl); return n; }
+
+const Number coconut::operator /  (const Number & left, const Number & right)
+{ Number n; n.m_impl = left.m_impl.by_dividing(right.m_impl); return n; }
+
+#pragma mark -
+
+const Number & coconut::operator ++ (Number & left)
+{ left.m_impl = left.m_impl.by_incrementing(); return left; }
+
+const Number & coconut::operator ++ (Number & left, int n)
+{ left.m_impl = left.m_impl.by_incrementing(n); return left; }
+
+const Number & coconut::operator -- (Number & left)
+{ left.m_impl = left.m_impl.by_decrementing(); return left; }
+
+const Number & coconut::operator -- (Number & left, int n)
+{ left.m_impl = left.m_impl.by_decrementing(n); return left; }
+
 /* EOF */
