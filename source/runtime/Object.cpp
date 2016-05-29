@@ -147,7 +147,7 @@ Owning<Any> Object::valueForSelectorKey(const std::string & utf8_selkey, Owning<
 				} else if (parts[0] == u8"@count" || parts[0] == u8"@length" || parts[0] == u8"@size") {
 					parts.erase(parts.begin());
 					result = KVClen(runtime::algorithms::join(parts, u8"."));
-				}else if (parts[0] == u8"@distinctUnionOfObjects") {
+				} else if (parts[0] == u8"@distinctUnionOfObjects") {
 					parts.erase(parts.begin());
 					result = KVCdistinctUnionOfObjects(runtime::algorithms::join(parts, u8"."));
 				} else if (parts[0] == u8"@unionOfObjects") {

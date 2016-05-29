@@ -131,7 +131,7 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 {
 	if (isSelectorKey(utf8_key)) {
 		return Object::valueForSelectorKey(utf8_key);
-	} else if (isAttributeKey(utf8_key)) {
+	} if (isAttributeKey(utf8_key)) {
 		return Object::attributeForKey(utf8_key);
 	} else if (runtime::algorithms::is_integer(utf8_key, true)) {
 		return objectAtIndex(
@@ -155,7 +155,7 @@ Owning<Any> Array::valueForKey(const std::string & utf8_key) const
 Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 {
 	if (isSelectorKey(utf8_keypath)) {
-		return valueForSelectorKey(utf8_keypath);
+		return Object::valueForSelectorKey(utf8_keypath);
 	}
 	impl_trait buf;
 	std::vector<std::string> parts;
@@ -163,7 +163,7 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 	if (parts.size() == 1) {
 		return valueForKey(utf8_keypath);
 	} else if (parts.size() >= 2) {
-		
+
 		if (runtime::algorithms::is_integer(parts[0], true)) {
 			Owning<Any> item = valueForKey(parts[0]);
 			if (item) {
@@ -978,6 +978,38 @@ const Array Array::arrayByAddingObjectsFromArray(const Array & arr, CopyOption o
 {
 	impl_trait buf(begin(), end());
 	buf.insert(buf.end(), arr.begin(), arr.end());
+	return {buf.begin(), buf.end(), option};
+}
+
+#pragma mark -
+
+const Array Array::arrayByDifferencingObjectsWithArray(const Array & arr) const
+{ return arrayByDifferencingObjectsWithArray(arr, CopyNone); }
+
+const Array Array::arrayByDifferencingObjectsWithArray(const Array & arr, CopyOption option) const
+{
+	impl_trait buf;
+	for (const_iterator it = cbegin(); it != cend(); ++it) {
+		if ((*it) && arr.doesNotContain(*(*it))) {
+			buf.push_back((*it));
+		}
+	}
+	return {buf.begin(), buf.end(), option};
+}
+
+#pragma mark -
+
+const Array Array::arrayByIntersectingObjectsWithArray(const Array & arr) const
+{ return arrayByIntersectingObjectsWithArray(arr, CopyNone); }
+
+const Array Array::arrayByIntersectingObjectsWithArray(const Array & arr, CopyOption option) const
+{
+	impl_trait buf;
+	for (const_iterator it = cbegin(); it != cend(); ++it) {
+		if ((*it) && arr.doesContain(*(*it))) {
+			buf.push_back((*it));
+		}
+	}
 	return {buf.begin(), buf.end(), option};
 }
 

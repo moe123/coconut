@@ -1157,8 +1157,8 @@ template <typename CharT
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void tokenizer(
+	std::vector< std::basic_string<CharT, Traits, Allocator> > & out,
 	const std::basic_string<CharT, Traits, Allocator> & in,
-	std::vector< std::basic_string<CharT, Traits, Allocator> > & tokens,
 	const std::basic_string<CharT, Traits, Allocator> & delimiter
 ) {
 	using value_type = typename std::vector<
@@ -1177,13 +1177,13 @@ void tokenizer(
 		if (pos == npos) {
 			pos = in.length();
 			if (pos != last_pos) {
-				tokens.push_back(value_type(in.data() + last_pos,
+				out.push_back(value_type(in.data() + last_pos,
 					static_cast<size_type>(pos) - last_pos ));
 			}
 			break;
 		} else {
 			if (pos != last_pos) {
-				tokens.push_back(value_type(in.data() + last_pos,
+				out.push_back(value_type(in.data() + last_pos,
 					static_cast<size_type>(pos) - last_pos ));
 			}
 		}
@@ -1205,7 +1205,7 @@ std::vector<
 	const std::basic_string<CharT, Traits, Allocator> & delimiter
 ) {
 	std::vector< std::basic_string<CharT, Traits, Allocator> > out;
-	tokenizer<CharT, Traits, Allocator>(in, out, delimiter);
+	tokenizer<CharT, Traits, Allocator>(out, in, delimiter);
 	return out;
 }
 	
@@ -1543,66 +1543,35 @@ usize_type explode(
 }
 
 #pragma mark -
-
+	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = allocators::standard<CharT>
 	, template <
 		typename
 		, typename = allocators::standard<
-			std::basic_string<CharT
-				, Traits
-				, Allocator
-			>
+			std::basic_string<CharT, Traits, Allocator>
 		>
 	> class Container
 	, typename std::enable_if<
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::vector< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_vector<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value ||
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::list< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_list<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value ||
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::set< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_set<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value ||
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::deque< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_deque<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value
 	>::type* = nullptr
@@ -1636,60 +1605,29 @@ template <typename CharT
 	, template <
 		typename
 		, typename = allocators::standard<
-			std::basic_string<CharT
-				, Traits
-				, Allocator
-			>
+			std::basic_string<CharT, Traits, Allocator>
 		>
 	> class Container
 	, std::size_t N
 	, typename std::enable_if<
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::vector< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_vector<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value ||
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::list< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_list<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value ||
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::set< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_set<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value ||
-		std::is_same<
-			Container< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
-			>
-			, std::deque< std::basic_string<CharT, Traits, Allocator>
-				, typename Container<
-					std::basic_string<CharT, Traits, Allocator>
-				>::allocator_type
+		container_is_deque<
+			Container<
+				std::basic_string<CharT, Traits, Allocator>
 			>
 		>::value
 	>::type* = nullptr

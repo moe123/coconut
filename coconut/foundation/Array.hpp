@@ -162,7 +162,7 @@ namespace coconut
 		
 		template <typename InputIterT>
 		const Array arrayByPushingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
-		{ return arrayByPushingObjectsFromArray(Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last)), option); }
+		{ return arrayByPushingObjectsFromArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
 		
 		const Array arrayByAddingObject(const Any & obj) const;
 		const Array arrayByAddingObject(const Any & obj, CopyOption option) const;
@@ -175,15 +175,37 @@ namespace coconut
 		
 		template <typename InputIterT>
 		const Array arrayByAddingObjects(InputIterT && first, InputIterT && last) const
-		{ return arrayByAddingObjects(std::forward<InputIterT>(first), std::forward<InputIterT>(last), CopyNone); }
+		{ return arrayByAddingObjectsFromArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, CopyNone); }
 		
 		template <typename InputIterT>
 		const Array arrayByAddingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
-		{ return arrayByAddingObjectsFromArray(Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last)), option); }
+		{ return arrayByAddingObjectsFromArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
+		
+		const Array arrayByDifferencingObjectsWithArray(const Array & arr) const;
+		const Array arrayByDifferencingObjectsWithArray(const Array & arr, CopyOption option) const;
+		
+		template <typename InputIterT>
+		const Array arrayByDifferencingObjects(InputIterT && first, InputIterT && last) const
+		{ return arrayByDifferencingObjectsWithArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, CopyNone); }
+		
+		template <typename InputIterT>
+		const Array arrayByDifferencingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
+		{ return arrayByDifferencingObjectsWithArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
+
+		const Array arrayByIntersectingObjectsWithArray(const Array & arr) const;
+		const Array arrayByIntersectingObjectsWithArray(const Array & arr, CopyOption option) const;
+
+		template <typename InputIterT>
+		const Array arrayByIntersectingObjects(InputIterT && first, InputIterT && last) const
+		{ return arrayByIntersectingObjectsWithArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, CopyNone); }
+		
+		template <typename InputIterT>
+		const Array arrayByIntersectingObjects(InputIterT && first, InputIterT && last, CopyOption option) const
+		{ return arrayByIntersectingObjectsWithArray({std::forward<InputIterT>(first), std::forward<InputIterT>(last)}, option); }
 		
 		const Array subarrayWithRange(const Range & rg, CopyOption option = CopyNone) const;
 		const Array subarrayWithSlice(const Slice & slc, CopyOption option = CopyNone) const;
-		
+	
 		const String componentsJoinedByString(const String & separator);
 		
 		bool writeToFile(const Path & path, bool atomically = true) const;

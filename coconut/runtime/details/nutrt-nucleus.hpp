@@ -224,10 +224,10 @@ public:
 	bool isEqual(const Owning<Any> & ptr) const;
 	
 	virtual ComparisonResult compare(const Any & ref) const;
-	ComparisonResult compare(const Owning<Any> & ptr) const;
+	//ComparisonResult compare(const Owning<Any> & ptr) const;
 	
 	virtual bool doesContain(const Any & ref) const;
-	bool doesContain(const Owning<Any> & ptr) const;
+	//bool doesContain(const Owning<Any> & ptr) const;
 	
 	bool doesNotContain(const Any & ref) const;
 	bool doesNotContain(const Owning<Any> & ptr) const;

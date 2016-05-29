@@ -67,14 +67,44 @@ template <class T> struct tag_is_shared_ptr : std::false_type { /* NOP */ };
 template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type { /* NOP */ };
 
 template <typename T> struct tag_is_reverse_iterator : std::false_type { /* NOP */ };
-template <typename T> struct tag_is_reverse_iterator<std::reverse_iterator<T>>
-: std::integral_constant<bool, !tag_is_reverse_iterator<T>::value> { /* NOP */ };
+template <typename T> struct tag_is_reverse_iterator<
+	std::reverse_iterator<T>
+> : std::integral_constant<bool, !tag_is_reverse_iterator<T>::value>
+{ /* NOP */ };
 	
 template <class T> struct do_plain_type {
 	typedef typename std::remove_cv<
 		typename std::remove_reference<T>::type
 	>::type type;
 };
+	
+template <typename T>
+using container_is_vector = std::is_same<T
+		, std::vector<typename T::value_type
+			, typename T::allocator_type
+	>
+>;
+
+template <typename T>
+using container_is_list = std::is_same<T
+		, std::list<typename T::value_type
+			, typename T::allocator_type
+	>
+>;
+
+template <typename T>
+using container_is_set = std::is_same<T
+		, std::set<typename T::value_type
+			, typename T::allocator_type
+	>
+>;
+
+template <typename T>
+using container_is_deque = std::is_same<T
+		, std::deque<typename T::value_type
+			, typename T::allocator_type
+	>
+>;
 
 } /* EONS */
 
