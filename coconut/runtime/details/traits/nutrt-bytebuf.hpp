@@ -42,7 +42,12 @@ public:
 	bytebuf(const std::uint8_t * membytes, std::size_t length, bool b64dec = false);
 	bytebuf(const char * membytes, std::size_t length, bool b64dec = false);
 	
-	template <typename InputIterT>
+	template <typename InputIterT,
+		typename std::enable_if<
+			sizeof(typename InputIterT::value_type) == sizeof(std::int8_t)
+			, void
+		>::type* = nullptr
+	>
 	bytebuf(InputIterT && first, InputIterT && last, bool b64dec)
 	: m_bytes()
 	{ InputIterT it = first; while (it != last) { push_back((*it)); ++it; } if (b64dec) { b64_decode(); } }
@@ -54,8 +59,17 @@ public:
 	bytebuf(const std::int16_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	bytebuf(const std::int32_t * membytes, std::size_t length, packing_option option = packing_bigendian);
 	bytebuf(const std::int64_t * membytes, std::size_t length, packing_option option = packing_bigendian);
-	
-	template <typename InputIterT>
+
+	template <typename InputIterT,
+		typename std::enable_if<
+			(
+			sizeof(typename InputIterT::value_type) == sizeof(std::int16_t) ||
+			sizeof(typename InputIterT::value_type) == sizeof(std::int32_t) ||
+			sizeof(typename InputIterT::value_type) == sizeof(std::int64_t)
+			) && sizeof(typename InputIterT::value_type) != sizeof(std::uint8_t)
+			, void
+		>::type* = nullptr
+	>
 	bytebuf(InputIterT && first, InputIterT && last, packing_option option)
 	: m_bytes()
 	{ InputIterT it = first; while (it != last) { push_back((*it), option); ++it; } }

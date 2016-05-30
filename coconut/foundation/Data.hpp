@@ -25,11 +25,7 @@ namespace coconut
 		Data(const std::uint8_t * in, std::size_t length, bool b64_decode = false);
 		Data(const char * in, std::size_t length, bool b64_decode = false);
 		
-		template <typename InputIterT,
-			typename std::enable_if<
-				sizeof(InputIterT::value_type) == sizeof(char), void
-			>::type* = nullptr
-		>
+		template <typename InputIterT>
 		Data(InputIterT && first, InputIterT && last, bool b64_decode) :
 			Object(DataClass),
 			m_impl(std::forward<InputIterT>(first), std::forward<InputIterT>(last), b64_decode)
