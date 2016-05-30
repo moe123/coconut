@@ -35,6 +35,8 @@ public:
 	~datetime();
 
 public:
+	COCONUT_CLASSMETHOD double convert(double interval, timeunit_option unit_opt_in, timeunit_option unit_opt_out);
+
 	COCONUT_CLASSMETHOD double absolute(timeunit_option unit_opt);
 	
 	COCONUT_CLASSMETHOD std::string utc_now();

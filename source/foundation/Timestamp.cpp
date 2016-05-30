@@ -56,27 +56,7 @@ double Timestamp::doubleValue() const
 { return m_impl; }
 
 TimeInterval Timestamp::time(TimeUnitOption unit_opt) const
-{
-	switch (unit_opt)
-	{
-		case TimeUnitNanoSeconds:
-			return m_impl;
-		case TimeUnitMicroSeconds:
-			return m_impl / 1000.0;
-		case TimeUnitMilliSeconds:
-			return m_impl / 1000000.0;
-		case TimeUnitPlainSeconds:
-			return m_impl / 1000000000.0;
-		case TimeUnitDoubleSeconds:
-		{
-			std::int64_t t = weak_cast<std::int64_t>(m_impl);
-			std::int64_t s = t / 1000000000LL;
-			std::int64_t m = t >= 0 ? t % 1000000000LL : -((-t % 1000000000LL));
-			return static_cast<double>(s) + static_cast<double>(m);
-		}
-	}
-	return 0.0;
-}
+{ return Date::convertTime(m_impl, TimeUnitNanoSeconds, unit_opt); }
 
 const Date Timestamp::date() const
 { return Date(m_impl, TimeUnitNanoSeconds, TimeReferenceSinceJanuary1970); }

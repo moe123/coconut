@@ -145,6 +145,68 @@ datetime::~datetime()
 
 #pragma mark -
 
+double datetime::convert(double interval, timeunit_option unit_opt_in, timeunit_option unit_opt_out)
+{
+	double nanoseconds = 0.0;
+	if (unit_opt_in == unit_opt_out) {
+		return interval;
+	}
+	
+	switch (unit_opt_in)
+	{
+		case timeunit_nanoseconds:
+		{
+			nanoseconds = interval;
+		}
+		break;
+		case timeunit_microseconds:
+		{
+			nanoseconds = interval * 1000.0;;
+		}
+		break;
+		case timeunit_milliseconds:
+		{
+			nanoseconds = interval * 1000000.0;
+		}
+		break;
+		case timeunit_plainseconds:
+		{
+			nanoseconds = interval * 1000000000.0;
+		}
+		break;
+		case timeunit_doubleseconds:
+		{
+			std::int64_t sec = weak_cast<std::int64_t>(interval);
+			double ms = interval - sec;
+			double milliseconds = (static_cast<double>(sec) * 1000.0) + ms;
+			nanoseconds = milliseconds * 1000000.0;
+		}
+		break;
+	}
+	
+	switch (unit_opt_out)
+	{
+		case timeunit_nanoseconds:
+			return nanoseconds;
+		case timeunit_microseconds:
+			return nanoseconds / 1000.0;
+		case timeunit_milliseconds:
+			return nanoseconds / 1000000.0;
+		case timeunit_plainseconds:
+			return nanoseconds / 1000000000.0;
+		case timeunit_doubleseconds:
+		{
+			std::int64_t ns = weak_cast<std::int64_t>(nanoseconds);
+			std::int64_t sec = ns / 1000000000LL;
+			std::int64_t ms = (ns >= 0 ? ns % 1000000000LL : -((-ns % 1000000000LL))) / 1000000LL ;
+			return static_cast<double>(sec) + static_cast<double>(ms);
+		}
+	}
+	return 0.0;
+}
+
+#pragma mark -
+
 double datetime::absolute(timeunit_option unit_opt)
 {
 	double result = 0.0;

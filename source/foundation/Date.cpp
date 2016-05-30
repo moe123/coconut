@@ -66,6 +66,11 @@ const Date Date::fromUTC(const String & UTC)
 
 #pragma mark -
 
+TimeInterval Date::convertTime(TimeInterval interval, TimeUnitOption unit_opt_in, TimeUnitOption unit_opt_out)
+{ return impl_trait::convert(interval, unit_opt_in, unit_opt_out); }
+
+#pragma mark -
+
 TimeInterval Date::absoluteTime(TimeUnitOption unit_opt)
 { return impl_trait::absolute(unit_opt); }
 
