@@ -72,7 +72,7 @@ TimeInterval Timestamp::time(TimeUnitOption unit_opt) const
 			std::int64_t t = weak_cast<std::int64_t>(m_impl);
 			std::int64_t s = t / 1000000000LL;
 			std::int64_t m = t >= 0 ? t % 1000000000LL : -((-t % 1000000000LL));
-			return static_cast<TimeInterval>(s) + static_cast<TimeInterval>(m);
+			return static_cast<double>(s) + static_cast<double>(m);
 		}
 	}
 	return 0.0;
