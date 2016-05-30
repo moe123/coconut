@@ -11,9 +11,9 @@
 
 namespace coconut
 {
-	COCONUT_ABSTRACT class COCONUT_VISIBLE Serialization : public Object
+	COCONUT_PROTECTED class COCONUT_ABSTRACT COCONUT_VISIBLE Serialization : public Object
 	{
-	COCONUT_CLASSDECLARE(coconut.Object.Serialization, Object.Serialization)
+	COCONUT_CLASSDECLARE(coconut.Serialization, Object.Serialization)
 	
 	protected:
 		Serialization();
