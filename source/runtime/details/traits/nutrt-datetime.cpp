@@ -168,6 +168,7 @@ double datetime::absolute(timeunit_option unit_opt)
 		case timeunit_plainseconds:
 		case timeunit_doubleseconds:
 		{
+			// TODO DOUBLE SECOND
 			result = static_cast<double>(builtins::datetime_millitime()) * 1000.0;
 		}
 		break;

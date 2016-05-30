@@ -82,6 +82,7 @@ namespace coconut
 		SortDescriptorClass,
 		StackClass,
 		StringClass,
+		TimestampClass,
 		URLClass
 	};
 	
@@ -115,6 +116,7 @@ namespace coconut
 	COCONUT_CLASSFORWARD_DCL(SortDescriptor)
 	COCONUT_CLASSFORWARD_DCL(Stack)
 	COCONUT_CLASSFORWARD_DCL(String)
+	COCONUT_CLASSFORWARD_DCL(Timestamp)
 	COCONUT_CLASSFORWARD_DCL(URL)
 	
 	COCONUT_OPT_TYPED(_comparison_result_aliasing, int)

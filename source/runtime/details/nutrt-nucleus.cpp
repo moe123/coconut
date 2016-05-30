@@ -117,11 +117,15 @@ void nucleus::performSelectorKeyAfterDelay(std::uint64_t microseconds, bool wait
 void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg) const
 { performSelectorKeyAfterDelay(0, false, utf8_selkey, arg, {}); }
 
+#pragma mark -
+
 void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, const std::function<void(Owning<Any> result)> & completion) const noexcept(false)
 { performSelectorKeyAfterDelay(0, false, utf8_selkey, {}, completion); }
 
 void nucleus::performSelectorKeyInBackground(const std::string & utf8_selkey, Owning<Any> arg , const std::function<void(Owning<Any> result)> & completion) const noexcept(false)
 { performSelectorKeyAfterDelay(0, false, utf8_selkey, arg, completion); }
+
+#pragma mark -
 
 Owning<Any> nucleus::performSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const noexcept(false)
 {

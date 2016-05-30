@@ -35,6 +35,7 @@
 #include <coconut/foundation/SortDescriptor.hpp>
 #include <coconut/foundation/Stack.hpp>
 #include <coconut/foundation/String.hpp>
+#include <coconut/foundation/Timestamp.hpp>
 #include <coconut/foundation/URL.hpp>
 
 /* EOF */
