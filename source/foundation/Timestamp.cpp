@@ -66,8 +66,14 @@ TimeInterval Timestamp::time(TimeUnitOption unit_opt) const
 		case TimeUnitMilliSeconds:
 			return m_impl / 1000000.0;
 		case TimeUnitPlainSeconds:
-		case TimeUnitDoubleSeconds:
 			return m_impl / 1000000000.0;
+		case TimeUnitDoubleSeconds:
+		{
+			std::int64_t t = weak_cast<std::int64_t>(m_impl);
+			std::int64_t s = t / 1000000000LL;
+			std::int64_t m = t >= 0 ? t % 1000000000LL : -((-t % 1000000000LL));
+			return static_cast<TimeInterval>(s) +  static_cast<TimeInterval>(m);
+		}
 	}
 	return 0.0;
 }

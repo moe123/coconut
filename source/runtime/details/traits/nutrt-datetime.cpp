@@ -166,10 +166,16 @@ double datetime::absolute(timeunit_option unit_opt)
 		}
 		break;
 		case timeunit_plainseconds:
+		{
+			result = static_cast<double>(builtins::datetime_millitime()) / 1000.0;
+		}
+		break;
 		case timeunit_doubleseconds:
 		{
-			// TODO DOUBLE SECOND
-			result = static_cast<double>(builtins::datetime_millitime()) * 1000.0;
+			std::int64_t t = builtins::datetime_millitime();
+			std::int64_t s = t / 1000LL;
+			std::int64_t m = t >= 0 ? t % 1000LL : -((-t % 1000LL));
+			result = static_cast<double>(s) +  static_cast<double>(m);
 		}
 		break;
 		default:
