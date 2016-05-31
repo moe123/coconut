@@ -365,7 +365,8 @@
 			defined(__X86__) || \
 			defined(_M_X64) || \
 			defined(_M_AMD64) || \
-			defined(_M_IX86)
+			defined(_M_IX86) || \
+			defined(__ARMEL__)
 
 			#define BYTE_ORDER LITTLE_ENDIAN
 		#else
@@ -550,6 +551,20 @@
 
 	#if !defined(ntohll)
 		#define ntohll ___COCONUT_ntohll
+	#endif
+
+	#if !defined(___COCONUT_rw_unaligned)
+		#if defined(__i386__) || defined(__x86_64__) || \
+		defined(__ARM_ARCH_6__) || \
+		defined(__ARM_ARCH_7__) || \
+		defined(__ARM_ARCH_7A__) || \
+		(defined(_M_ARM) && _M_ARM >= 6)
+
+			#define ___COCONUT_rw_unaligned 1
+
+		#else
+			#define ___COCONUT_rw_unaligned 0
+		#endif
 	#endif
 
 #endif /* !COCONUT_RUNTIME_ENDIAN_HPP */
