@@ -1915,8 +1915,13 @@ void format_stderr(const char (&fmt)[N], ArgsT &&... args)
 #else
 	const char _endl = '\n';
 #endif
+	std::ios saved_fmt(nullptr);
+	std::ios default_fmt(nullptr);
+	saved_fmt.copyfmt(std::cerr);
+	std::cerr.copyfmt(default_fmt);
 	std::cerr << std::nounitbuf;
 	std::cerr << format(fmt, std::forward<ArgsT>(args)...) << _endl;
+	std::cerr.copyfmt(saved_fmt);
 }
 	
 template <typename... ArgsT>
@@ -1935,8 +1940,13 @@ void format_stdout(const char (&fmt)[N], ArgsT &&... args)
 #else
 	const char _endl = '\n';
 #endif
+	std::ios saved_fmt(nullptr);
+	std::ios default_fmt(nullptr);
+	saved_fmt.copyfmt(std::cout);
+	std::cout.copyfmt(default_fmt);
 	std::cout << std::nounitbuf;
 	std::cout << format(fmt, std::forward<ArgsT>(args)...) << _endl;
+	std::cout.copyfmt(saved_fmt);
 }
 	
 template <typename... ArgsT>
