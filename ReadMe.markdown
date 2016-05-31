@@ -16,7 +16,7 @@ Coconut defines a base layer of classes, fully integrated to the host-lang: C++,
 and have a STL like interface regarding iterators, subscript operators, streams and other common features. In addition to providing 
 a set of useful primitive object classes, it also introduces several paradigms that define functionality not covered by the C++ language.
 Coconut is based on a reuse object/memory eco-system ; it has a low memory and runtime execution footprint in comparison of many other 
-`experiences`, The author don't like argument hence, for the same data-set, benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing. 
+`experiences`. The author don't like argument, this is a sparetime, single-handed project, hence, for the same data-set, benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing. 
 
 -----------------------------------------------------------------------------------------------
 
