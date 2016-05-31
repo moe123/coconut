@@ -17,9 +17,9 @@ and have a STL like interface regarding iterators, subscript operators, streams 
 a set of useful primitive object classes, it also introduces several paradigms that define functionality not covered by the C++ language.
 
 Coconut is based on a reuse object/memory eco-system ; stack and heap, heap and stack ; it has a low memory and runtime execution footprint in comparison of many other 
-`experiences`. The author doesn't like argument ; reminding this is a sparetime and single-handed project ; hence, for the same data-set, 
-benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing, indeed according to few press-releases and bold statements 
-which are not reflecting reality, just a question here.
+`experiences`. The author doesn't like argument ; reminding this is a sparetime and single-handed project ; let us make a room for it anyway ; hence, for the same data-set, 
+benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing, indeed, according to few press-releases and bold statements 
+which are not reflecting reality? just a question here.
 
 -----------------------------------------------------------------------------------------------
 
