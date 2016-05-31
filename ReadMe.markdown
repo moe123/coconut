@@ -15,17 +15,8 @@ for in case of serialization or for designing a UI Toolkit among many OO things;
 Coconut defines a base layer of classes, fully integrated to the host-lang: C++, the data-structures hold ref-counted objects
 and have a STL like interface regarding iterators, subscript operators, streams and other common features. In addition to providing 
 a set of useful primitive object classes, it also introduces several paradigms that define functionality not covered by the C++ language.
-
 Coconut is based on a reuse object/memory eco-system ; stack and heap, heap and stack ; it has a low memory and runtime execution 
-footprint in comparison of many other 
-`experiences` including Qt Core <sup>(1)</sup>.
-
------------------------------------------------------------------------------------------------
-
-<sup>1 - The author doesn't like argument ; reminding everyone, that is a spare time and single-handed project ; let us make a room for it anyway ; hence, for the same data-set, 
-benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing, indeed, according to few press-releases and bold statements 
-over the years which are not reflecting reality? just a question from the author here, who by the way, doesn't claim any specific status, 
-have a single interest in marketing or meetwork socialite buzz (I don't have a Tweeter or a Facebook account, you won't see me naked up there).</sup>
+footprint.
 
 -----------------------------------------------------------------------------------------------
 
