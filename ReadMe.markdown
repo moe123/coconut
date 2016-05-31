@@ -20,7 +20,7 @@ Coconut is based on a reuse object/memory eco-system ; stack and heap, heap and 
 footprint in comparison of many other 
 `experiences` including Qt Core.
 
-The author doesn't like argument ; reminding this is a sparetime and single-handed project ; let us make a room for it anyway ; hence, for the same data-set, 
+The author doesn't like argument ; reminding everyone, that is a sparetime and single-handed project ; let us make a room for it anyway ; hence, for the same data-set, 
 benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing, indeed, according to few press-releases and bold statements 
 which are not reflecting reality? just a question from the author here, who, by the way, doesn't claim any specific status, 
 have a single interest in marketing or metwork socialite buzz (I don't have a Tweeter or a Facebook account, you won't see me naked there).
