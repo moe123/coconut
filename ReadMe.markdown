@@ -8,7 +8,7 @@ language) what we named mainly Features; `@see` [coconut/runtime/Features.hpp](h
 
 Coconut implements type introspection (e.g knowing type [parent-type ancestor-type, properties] of an object at runtime) and a tiny barebones reflection system: 
 a meta-object protocol (MOP); e.g a very simplistic and lightweight, yet powerful, meta-data set: hierarchy and context can be known at anytime which is essential 
-for in case of serialization or for designing a UI Toolkit among many things; `@see` [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
+for in case of serialization or for designing a UI Toolkit among many OO things; `@see` [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
 
 -----------------------------------------------------------------------------------------------
 
