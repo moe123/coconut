@@ -18,9 +18,11 @@ a set of useful primitive object classes, it also introduces several paradigms t
 
 Coconut is based on a reuse object/memory eco-system ; stack and heap, heap and stack ; it has a low memory and runtime execution 
 footprint in comparison of many other 
-`experiences` including Qt Core.
+`experiences` including Qt Core <sup>(1)</sup>.
 
-<sup>The author doesn't like argument ; reminding everyone, that is a spare time and single-handed project ; let us make a room for it anyway ; hence, for the same data-set, 
+-----------------------------------------------------------------------------------------------
+
+<sup>1 - The author doesn't like argument ; reminding everyone, that is a spare time and single-handed project ; let us make a room for it anyway ; hence, for the same data-set, 
 benchmarking against Objective-C or Swift is unnecessary ; would be embarrassing, indeed, according to few press-releases and bold statements 
 which are not reflecting reality? just a question from the author here, who, by the way, doesn't claim any specific status, 
 have a single interest in marketing or meetwork socialite buzz (I don't have a Tweeter or a Facebook account, you won't see me naked up there).</sup>
