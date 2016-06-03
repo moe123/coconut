@@ -70,18 +70,34 @@ template <typename T>
 using arg_is_pointer = std::is_pointer<T>;
 	
 template <class T> struct tag_is_shared_ptr : std::false_type
-{ static const bool value = false; };
+{
+	static const bool value = false;
+	typedef tag_is_shared_ptr type;
+};
 
 template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type
-{ static const bool value = true; };
+{
+	static const bool value = true;
+	typedef tag_is_shared_ptr<
+		Owning<T>
+	> type;
+};
 
 template <typename T> struct tag_is_reverse_iterator : std::false_type
-{ static const bool value = false; };
+{
+	static const bool value = false;
+	typedef tag_is_reverse_iterator type;
+};
 
 template <typename T> struct tag_is_reverse_iterator<
 	std::reverse_iterator<T>
 > : std::integral_constant<bool, !tag_is_reverse_iterator<T>::value>
-{ static const bool value = true; };
+{
+	static const bool value = true;
+	typedef tag_is_reverse_iterator<
+		std::reverse_iterator<T>
+	> type;
+};
 	
 template <class T> struct do_plain_type {
 	typedef typename std::remove_cv<
