@@ -39,6 +39,20 @@ Timestamp::~Timestamp()
 
 #pragma mark -
 
+const Timestamp Timestamp::add(TimeInterval interval, TimeUnitOption unit_opt)
+{
+	return Timestamp(
+		Date::absoluteTime(TimeUnitNanoSeconds) +
+		Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds),
+		TimeUnitNanoSeconds
+	);
+}
+
+const Timestamp Timestamp::now()
+{ return Timestamp(); }
+
+#pragma mark -
+
 std::size_t Timestamp::hash() const
 { return std::hash<long long>()(longLongValue()); }
 
@@ -83,6 +97,14 @@ TimeInterval Timestamp::time(TimeUnitOption unit_opt) const
 
 const Date Timestamp::date() const
 { return Date(m_impl, TimeUnitNanoSeconds, TimeReferenceSinceJanuary1970); }
+
+#pragma mark -
+
+const Timestamp Timestamp::timestampByAddingTimeInterval(TimeInterval interval, TimeUnitOption unit_opt) const
+{
+	TimeInterval add = Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds);
+	return Timestamp(m_impl + add, TimeUnitNanoSeconds);
+}
 
 #pragma mark -
 

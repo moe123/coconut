@@ -23,6 +23,9 @@ namespace coconut
 		Timestamp(const Date & dtm);
 		Timestamp(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds);
 		virtual ~Timestamp();
+		
+		COCONUT_CLASSMETHOD const Timestamp add(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds);
+		COCONUT_CLASSMETHOD const Timestamp now();
 
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
@@ -44,6 +47,8 @@ namespace coconut
 		
 		TimeInterval time(TimeUnitOption unit_opt = TimeUnitNanoSeconds) const;
 		const Date date() const;
+		
+		const Timestamp timestampByAddingTimeInterval(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds) const;
 		
 		const Timestamp & earlierTimestamp(const Timestamp & tms) const;
 		const Timestamp & laterTimestamp(const Timestamp & tms) const;
