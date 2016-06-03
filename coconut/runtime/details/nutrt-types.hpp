@@ -63,14 +63,25 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 Owning<T1> ptr_cast(Owning<T2> const & r)
 { return std::dynamic_pointer_cast<T1>(r); }
 
-template <class T> struct tag_is_shared_ptr : std::false_type { /* NOP */ };
-template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type { /* NOP */ };
+template <typename T>
+using arg_is_reference = std::is_reference<T>;
 
-template <typename T> struct tag_is_reverse_iterator : std::false_type { /* NOP */ };
+template <typename T>
+using arg_is_pointer = std::is_pointer<T>;
+	
+template <class T> struct tag_is_shared_ptr : std::false_type
+{ static const bool value = false; };
+
+template <class T> struct tag_is_shared_ptr< Owning<T> > : std::true_type
+{ static const bool value = true; };
+
+template <typename T> struct tag_is_reverse_iterator : std::false_type
+{ static const bool value = false; };
+
 template <typename T> struct tag_is_reverse_iterator<
 	std::reverse_iterator<T>
 > : std::integral_constant<bool, !tag_is_reverse_iterator<T>::value>
-{ /* NOP */ };
+{ static const bool value = true; };
 	
 template <class T> struct do_plain_type {
 	typedef typename std::remove_cv<
@@ -80,29 +91,29 @@ template <class T> struct do_plain_type {
 	
 template <typename T>
 using container_is_vector = std::is_same<T
-		, std::vector<typename T::value_type
-			, typename T::allocator_type
+	, std::vector<typename T::value_type
+	, typename T::allocator_type
 	>
 >;
 
 template <typename T>
 using container_is_list = std::is_same<T
-		, std::list<typename T::value_type
-			, typename T::allocator_type
+	, std::list<typename T::value_type
+	, typename T::allocator_type
 	>
 >;
 
 template <typename T>
 using container_is_set = std::is_same<T
-		, std::set<typename T::value_type
-			, typename T::allocator_type
+	, std::set<typename T::value_type
+	, typename T::allocator_type
 	>
 >;
 
 template <typename T>
 using container_is_deque = std::is_same<T
-		, std::deque<typename T::value_type
-			, typename T::allocator_type
+	, std::deque<typename T::value_type
+	, typename T::allocator_type
 	>
 >;
 

@@ -11,7 +11,11 @@
 
 namespace coconut
 {		
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _conforms_to(const T2 & r, std::false_type) -> bool
 	{ const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(r)); return (ptr != nullptr); }
@@ -21,7 +25,11 @@ namespace coconut
 	auto _conforms_to(Owning<T2> const & r, std::true_type) -> bool
 	{ if (r) { const T1 * ptr = dynamic_cast<const T1 *>(std::addressof(*r)); return (ptr != nullptr); }; return false; }
 	
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _kind_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isKindOf<T1>(); }
@@ -31,7 +39,11 @@ namespace coconut
 	auto _kind_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isKindOf<T1>()); }
 	
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _subclass_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isSubclassOf<T1>(); }
@@ -41,17 +53,29 @@ namespace coconut
 	auto _subclass_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isSubclassOf<T1>()); }
 
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _member_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isMemberOf<T1>(); }
 	
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _member_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isMemberOf<T1>()); }
 
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _ancestor_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isAncestorOf<T1>(); }
@@ -61,7 +85,11 @@ namespace coconut
 	auto _ancestor_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isAncestorOf<T1>()); }
 
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _parent_of(const T2 & r, std::false_type) -> bool
 	{ return r . template isParenOf<T1>(); }
@@ -71,7 +99,11 @@ namespace coconut
 	auto _parent_of(Owning<T2> const & r, std::true_type) -> bool
 	{ return (r && r -> template isParenOf<T1>()); }
 	
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _thus(const T2 & r, std::false_type)
 		-> T1 &
@@ -83,7 +115,11 @@ namespace coconut
 		-> T1 &
 	{ return (*(ptr_cast<T1>(r))); }
 
-	template <typename T1, typename T2>
+	template <typename T1, typename T2
+		, typename std::enable_if<
+			!arg_is_pointer<T2>::value
+		>::type* = nullptr
+	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _then(const T2 & r, std::false_type)
 		-> T1 *
@@ -98,7 +134,8 @@ namespace coconut
 	template <typename T1, typename T2,
 		typename std::enable_if<
 			std::is_base_of<Any, T1>::value &&
-			std::is_base_of<Any, T2>::value
+			std::is_base_of<Any, T2>::value &&
+			!arg_is_pointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
