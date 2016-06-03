@@ -111,6 +111,11 @@ namespace coconut
 		
 		const Array makeKeysPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 		
+		void enumerateKeysUsingFunction(const std::function<void(const Owning<Any> & key)> & func) const;
+		void enumerateKeysUsingFunction(const std::function<void(const Owning<Any> & key)> & func, EnumerationOptions options) const;
+		
+		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func) const;
+		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func) const;
 		void enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 

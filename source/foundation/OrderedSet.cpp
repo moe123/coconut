@@ -177,6 +177,22 @@ Owning<Any> OrderedSet::valueForKeyPath(const std::string & utf8_keypath) const
 
 #pragma mark -
 
+void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj); }, EnumerationDefault);
+}
+
+void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj); }, options);
+}
+
+#pragma mark -
+
 void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { enumerateObjectsUsingFunction(func, EnumerationDefault); }
 

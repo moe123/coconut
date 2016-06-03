@@ -122,7 +122,9 @@ namespace coconut
 			std::is_same<CollT, Array>::value ||
 			std::is_same<CollT, MutableArray>::value ||
 			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value
+			std::is_same<CollT, MutableOrderedSet>::value ||
+			std::is_same<CollT, Set>::value ||
+			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -133,28 +135,7 @@ namespace coconut
 		EnumerationOptions options
 	)
 	{
-		ref_cast<CollT>(r).enumerateObjectsUsingFunction(
-			[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
-		{ func(obj); }, options);
-	}
-
-	template <typename TypeT, typename CollT,
-		typename std::enable_if<
-			std::is_same<CollT, Set>::value ||
-			std::is_same<CollT, MutableSet>::value
-		>::type* = nullptr
-	>
-	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-	auto _enumerate_dispatch_aliasing
-	(
-		const CollT & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
-		EnumerationOptions options
-	) -> void
-	{
-		ref_cast<CollT>(r).enumerateObjectsUsingFunction(
-			[&func] (const Owning<Any> & obj, bool & stop)
-		{ func(obj); }, options);
+		ref_cast<CollT>(r).enumerateObjectsUsingFunction(func, options);
 	}
 
 	template <typename TypeT, typename CollT,
@@ -167,13 +148,11 @@ namespace coconut
 	auto _enumerate_dispatch_aliasing
 	(
 	 	const CollT & r,
-		const std::function<void(const Owning<Any> & obj)> & func,
+		const std::function<void(const Owning<Any> & key)> & func,
 		EnumerationOptions options
 	) -> void
 	{
-		ref_cast<CollT>(r).enumerateKeysAndObjectsUsingFunction(
-			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
-		{ func(key); }, options);
+		ref_cast<CollT>(r).enumerateKeysUsingFunction(func, options);
 	}
 	
 	template <typename TypeT, typename CollT,
@@ -190,9 +169,7 @@ namespace coconut
 		EnumerationOptions options
 	 ) -> void
 	{
-		ref_cast<CollT>(r).enumerateKeysAndObjectsUsingFunction(
-			[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
-		{ func(key, obj); }, options);
+		ref_cast<CollT>(r).enumerateKeysAndObjectsUsingFunction(func, options);
 	}
 	
 	template <typename TypeT, typename CollT>

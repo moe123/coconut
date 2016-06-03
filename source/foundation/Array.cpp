@@ -207,6 +207,22 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 
 #pragma mark -
 
+void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj); }, EnumerationDefault);
+}
+
+void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj); }, options);
+}
+
+#pragma mark -
+
 void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { enumerateObjectsUsingFunction(func, EnumerationDefault); }
 

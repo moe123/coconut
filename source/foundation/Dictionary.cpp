@@ -163,6 +163,36 @@ const Array Dictionary::makeKeysPerformSelectorKey(const std::string & utf8_selk
 
 #pragma mark -
 
+void Dictionary::enumerateKeysUsingFunction(const std::function<void(const Owning<Any> & key)> & func) const
+{
+	enumerateKeysAndObjectsUsingFunction(
+		[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+	{ func(key); }, EnumerationDefault);
+}
+
+void Dictionary::enumerateKeysUsingFunction(const std::function<void(const Owning<Any> & key)> & func, EnumerationOptions options) const
+{
+	enumerateKeysAndObjectsUsingFunction(
+		[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+	{ func(key); }, options);
+}
+
+void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func) const
+{
+	enumerateKeysAndObjectsUsingFunction(
+		[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+	{ func(key, obj); }, EnumerationDefault);
+}
+
+void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	enumerateKeysAndObjectsUsingFunction(
+		[&func] (const Owning<Any> & key, const Owning<Any> & obj, bool & stop)
+	{ func(key, obj); }, options);
+}
+
+#pragma mark -
+
 void Dictionary::enumerateKeysAndObjectsUsingFunction(const std::function<void(const Owning<Any> & key, const Owning<Any> & obj, bool & stop)> & func) const
 { enumerateKeysAndObjectsUsingFunction(func, EnumerationDefault); }
 

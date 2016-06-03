@@ -77,7 +77,9 @@ namespace coconut
 		COCONUT_FINAL_OVERRIDE;
 		
 		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
-		
+
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 		

@@ -75,6 +75,8 @@ namespace coconut
 		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
 		
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		
