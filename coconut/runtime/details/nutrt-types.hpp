@@ -67,7 +67,7 @@ template <typename T>
 using arg_is_reference = std::is_reference<T>;
 
 template <typename T>
-using arg_is_pointer = std::is_pointer<T>;
+using arg_is_rawpointer = std::is_pointer<T>;
 	
 template <class T> struct tag_is_shared_ptr : std::false_type
 {

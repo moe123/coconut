@@ -13,7 +13,7 @@ namespace coconut
 {		
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -27,7 +27,7 @@ namespace coconut
 	
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -41,7 +41,7 @@ namespace coconut
 	
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -55,7 +55,7 @@ namespace coconut
 
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -64,7 +64,7 @@ namespace coconut
 	
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -73,7 +73,7 @@ namespace coconut
 
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -87,7 +87,7 @@ namespace coconut
 
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -101,7 +101,7 @@ namespace coconut
 	
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -117,7 +117,7 @@ namespace coconut
 
 	template <typename T1, typename T2
 		, typename std::enable_if<
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -135,7 +135,7 @@ namespace coconut
 		typename std::enable_if<
 			std::is_base_of<Any, T1>::value &&
 			std::is_base_of<Any, T2>::value &&
-			!arg_is_pointer<T2>::value
+			!arg_is_rawpointer<T2>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
