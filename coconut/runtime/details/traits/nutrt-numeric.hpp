@@ -122,6 +122,9 @@ public:
 	std::int64_t to_integer() const;
 	std::uint64_t to_unsigned_integer() const;
 	
+	bool is_signed() const;
+	bool is_floating() const;
+	
 	std::uint16_t type() const;
 
 private:

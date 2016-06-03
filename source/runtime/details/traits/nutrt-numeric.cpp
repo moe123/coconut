@@ -534,6 +534,11 @@ std::uint64_t numeric::to_unsigned_integer() const
 
 #pragma mark -
 
+bool numeric::is_signed() const { return m_signed; };
+bool numeric::is_floating() const { return m_floating; };
+
+#pragma mark -
+
 std::uint16_t numeric::type() const { return m_type; };
 
 /* EOF */

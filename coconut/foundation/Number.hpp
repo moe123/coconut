@@ -96,6 +96,9 @@ namespace coconut
 		std::uint64_t unsignedIntegerValue() const;
 	
 	public:
+		bool isUnsigned()const;
+		bool isReal()const;
+		
 		NumberType type() const;
 	
 	private:
