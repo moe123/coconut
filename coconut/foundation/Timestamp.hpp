@@ -13,13 +13,15 @@ namespace coconut
 {
 	COCONUT_PUBLIC class COCONUT_VISIBLE Timestamp COCONUT_FINAL : public Object
 	{
-		COCONUT_CLASSDECLARE(coconut.Timestamp, Object.Timestamp)
+	COCONUT_CLASSDECLARE(coconut.Timestamp, Object.Timestamp)
 		
 	public:
 		Timestamp();
 		Timestamp(const Timestamp & tms);
 		Timestamp & operator = (const Timestamp & tms) = default;
 		Timestamp(Timestamp && tms) noexcept;
+		Timestamp(const Date & dtm);
+		Timestamp(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds);
 		virtual ~Timestamp();
 
 		virtual std::size_t hash() const
@@ -37,8 +39,17 @@ namespace coconut
 		virtual double doubleValue() const
 		COCONUT_FINAL_OVERRIDE;
 		
+		virtual long long longLongValue() const
+		COCONUT_FINAL_OVERRIDE;
+		
 		TimeInterval time(TimeUnitOption unit_opt = TimeUnitNanoSeconds) const;
 		const Date date() const;
+		
+		const Timestamp & earlierTimestamp(const Timestamp & tms) const;
+		const Timestamp & laterTimestamp(const Timestamp & tms) const;
+		
+		bool after(const Timestamp & tms) const;
+		bool before(const Timestamp & tms) const;
 		
 	private:
 		typedef TimeInterval impl_trait;

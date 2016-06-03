@@ -24,14 +24,30 @@ Timestamp::Timestamp(Timestamp && tms) noexcept :
 	m_impl(tms.m_impl)
 { /* NOP */ }
 
+Timestamp::Timestamp(const Date & dtm) :
+	Object(TimestampClass),
+	m_impl(dtm.timeIntervalSinceReference(TimeReferenceSinceJanuary1970, TimeUnitNanoSeconds))
+{ /* NOP */ }
+
+Timestamp::Timestamp(TimeInterval interval, TimeUnitOption unit_opt) :
+	Object(TimestampClass),
+	m_impl(Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds))
+{ /* NOP */ }
+
 Timestamp::~Timestamp()
 { /* NOP */ }
 
+#pragma mark -
+
 std::size_t Timestamp::hash() const
-{ return std::hash<TimeInterval>()(m_impl); }
+{ return std::hash<long long>()(longLongValue()); }
+
+#pragma mark -
 
 Owning<Any> Timestamp::copy() const
 { return ptr_create<Timestamp>(*this); }
+
+#pragma mark -
 
 ComparisonResult Timestamp::compare(const Any & ref) const
 {
@@ -49,16 +65,39 @@ ComparisonResult Timestamp::compare(const Any & ref) const
 	return OrderedDescending;
 }
 
+#pragma mark -
+
 std::string Timestamp::stringValue() const
-{ return runtime::algorithms::to_string<char>(m_impl, 24); }
+{ return runtime::algorithms::to_string<char>(longLongValue()); }
 
 double Timestamp::doubleValue() const
 { return m_impl; }
+
+long long Timestamp::longLongValue() const
+{ return weak_cast<long long>(m_impl); }
+
+#pragma mark -
 
 TimeInterval Timestamp::time(TimeUnitOption unit_opt) const
 { return Date::convertTime(m_impl, TimeUnitNanoSeconds, unit_opt); }
 
 const Date Timestamp::date() const
 { return Date(m_impl, TimeUnitNanoSeconds, TimeReferenceSinceJanuary1970); }
+
+#pragma mark -
+
+const Timestamp & Timestamp::earlierTimestamp(const Timestamp & tms) const
+{ return (longLongValue() > tms.longLongValue()) ? tms : *this; }
+
+const Timestamp & Timestamp::laterTimestamp(const Timestamp & tms) const
+{ return (tms.longLongValue() > longLongValue()) ? tms : *this; }
+
+#pragma mark -
+
+bool Timestamp::after(const Timestamp & tms) const
+{ return longLongValue() > tms.longLongValue(); }
+
+bool Timestamp::before(const Timestamp & tms) const
+{ return tms.longLongValue() > longLongValue(); }
 
 /* EOF */

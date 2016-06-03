@@ -166,4 +166,10 @@ const Date & Date::earlierDate(const Date & dtm) const
 const Date & Date::laterDate(const Date & dtm) const
 { return timeIntervalSinceDate(dtm, TimeUnitMilliSeconds) > 0 ? *this : dtm; }
 
+bool Date::after(const Date & dtm) const
+{ return compare(dtm) == OrderedDescending; }
+
+bool Date::before(const Date & dtm) const
+{ return compare(dtm) == OrderedAscending; }
+
 /* EOF */

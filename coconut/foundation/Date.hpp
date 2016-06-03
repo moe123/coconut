@@ -63,6 +63,9 @@ namespace coconut
 		const Date & earlierDate(const Date & dtm) const;
 		const Date & laterDate(const Date & dtm) const;
 		
+		bool after(const Date & dtm) const;
+		bool before(const Date & dtm) const;
+		
 	private:
 		typedef runtime::traits::datetime impl_trait;
 	

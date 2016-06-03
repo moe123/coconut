@@ -21,6 +21,7 @@ namespace coconut
 			!std::is_same<TypeT, MutablePath>::value &&
 			!std::is_same<TypeT, URL>::value &&
 			!std::is_same<TypeT, Number>::value &&
+			!std::is_same<TypeT, Timestamp>::value &&
 			!std::is_same<TypeT, Array>::value &&
 			!std::is_same<TypeT, MutableArray>::value &&
 			!std::is_same<TypeT, Deque>::value &&
@@ -75,6 +76,7 @@ namespace coconut
 			!std::is_same<TypeT, MutablePath>::value &&
 			!std::is_same<TypeT, URL>::value &&
 			!std::is_same<TypeT, Number>::value &&
+			!std::is_same<TypeT, Timestamp>::value &&
 			!std::is_same<TypeT, Array>::value &&
 			!std::is_same<TypeT, MutableArray>::value &&
 			!std::is_same<TypeT, Deque>::value &&
@@ -163,7 +165,8 @@ namespace coconut
 	template <typename TypeT,
 		typename std::enable_if<
 			std::is_base_of<Any, TypeT>::value &&
-			std::is_same<TypeT, Number>::value
+			(std::is_same<TypeT, Number>::value ||
+			std::is_same<TypeT, Timestamp>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, const TypeT & r)
@@ -173,7 +176,8 @@ namespace coconut
 	template <typename TypeT,
 		typename std::enable_if<
 			std::is_base_of<Any, TypeT>::value &&
-			std::is_same<TypeT, Number>::value
+			(std::is_same<TypeT, Number>::value ||
+			std::is_same<TypeT, Timestamp>::value)
 		>::type* = nullptr
 	>
 	inline auto operator << (std::ostream & os, Owning<TypeT> const & r)
