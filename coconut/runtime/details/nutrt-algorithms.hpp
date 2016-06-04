@@ -1866,7 +1866,6 @@ usize_type replace(
 			substitute[i],
 			subject
 		);
-		
 	}
 	return j;
 }

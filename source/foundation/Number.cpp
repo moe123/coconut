@@ -181,10 +181,10 @@ std::uint64_t Number::unsignedIntegerValue() const
 
 #pragma mark -
 
-bool Number::isUnsigned()const
+bool Number::isUnsigned() const
 { return !m_impl.is_signed(); }
 
-bool Number::isReal()const
+bool Number::isReal() const
 { return m_impl.is_floating(); }
 
 #pragma mark -

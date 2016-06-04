@@ -59,9 +59,9 @@ public:
 	{
 		std::u16string result;
 		if (utf8_fmt) {
-			char16_t ubuf[1024];
+			char16_t ubuf[512];
 			std::int32_t written = 0;
-			if ((written = u_snprintf(weak_cast<UChar *>(ubuf), 1024, utf8_fmt, args...)) > 0) {
+			if ((written = u_snprintf(weak_cast<UChar *>(ubuf), 512, utf8_fmt, args...)) > 0) {
 				result.assign(ubuf, (ubuf + written));
 			}
 		}
@@ -73,9 +73,9 @@ public:
 	{
 		std::u16string result;
 		if (utf16_fmt) {
-			char16_t ubuf[1024];
+			char16_t ubuf[512];
 			std::int32_t written = 0;
-			if ((written = u_snprintf_u(weak_cast<UChar *>(ubuf), 1024, weak_cast<UChar *>(utf16_fmt), args...)) > 0) {
+			if ((written = u_snprintf_u(weak_cast<UChar *>(ubuf), 512, weak_cast<UChar *>(utf16_fmt), args...)) > 0) {
 				result.assign(ubuf, (ubuf + written));
 			}
 		}
