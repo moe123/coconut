@@ -104,8 +104,12 @@ const Timestamp Timestamp::timestampByAddingTimeInterval(TimeInterval nanosecond
 
 const Timestamp Timestamp::timestampByAddingTimeInterval(TimeInterval interval, TimeUnitOption unit_opt) const
 {
-	TimeInterval nanoseconds = Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds);
-	return Timestamp(m_impl + nanoseconds);
+	TimeInterval nanoseconds = Date::convertTime(
+		interval,
+		unit_opt,
+		TimeUnitNanoSeconds
+	);
+	return timestampByAddingTimeInterval(nanoseconds);
 }
 
 #pragma mark -
@@ -119,17 +123,28 @@ const Timestamp & Timestamp::laterTimestamp(const Timestamp & tms) const
 #pragma mark -
 
 TimeInterval Timestamp::elapsed() const
-{
-	return Date::absoluteTime(TimeUnitNanoSeconds) - m_impl;
-}
+{ return Date::absoluteTime(TimeUnitNanoSeconds) - m_impl; }
 
 TimeInterval Timestamp::elapsed(TimeUnitOption unit_opt) const
 {
 	return Date::convertTime(
-		(Date::absoluteTime(TimeUnitNanoSeconds) - m_impl),
+		elapsed(),
 		TimeUnitNanoSeconds,
 		unit_opt
 	);
+}
+
+bool Timestamp::isElapsed(TimeInterval nanoseconds) const
+{ return elapsed() > m_impl + nanoseconds; }
+
+bool Timestamp::isElapsed(TimeInterval interval, TimeUnitOption unit_opt) const
+{
+	TimeInterval nanoseconds = Date::convertTime(
+		interval,
+		unit_opt,
+		TimeUnitNanoSeconds
+	);
+	return elapsed(nanoseconds);
 }
 
 #pragma mark -
@@ -139,5 +154,10 @@ bool Timestamp::after(const Timestamp & tms) const
 
 bool Timestamp::before(const Timestamp & tms) const
 { return tms.longLongValue() > longLongValue(); }
+
+#pragma mark -
+
+void Timestamp::resetTime()
+{ m_impl = Date::absoluteTime(TimeUnitNanoSeconds); }
 
 /* EOF */
