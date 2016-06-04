@@ -21,10 +21,10 @@ namespace coconut
 		Timestamp & operator = (const Timestamp & tms) = default;
 		Timestamp(Timestamp && tms) noexcept;
 		Timestamp(const Date & dtm);
-		Timestamp(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds);
+		Timestamp(TimeInterval nanoseconds);
+		Timestamp(TimeInterval interval, TimeUnitOption unit_opt);
 		virtual ~Timestamp();
 		
-		COCONUT_CLASSMETHOD const Timestamp add(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds);
 		COCONUT_CLASSMETHOD const Timestamp now();
 
 		virtual std::size_t hash() const
@@ -45,13 +45,18 @@ namespace coconut
 		virtual long long longLongValue() const
 		COCONUT_FINAL_OVERRIDE;
 		
-		TimeInterval time(TimeUnitOption unit_opt = TimeUnitNanoSeconds) const;
+		TimeInterval time() const;
+		TimeInterval time(TimeUnitOption unit_opt) const;
 		const Date date() const;
 		
-		const Timestamp timestampByAddingTimeInterval(TimeInterval interval, TimeUnitOption unit_opt = TimeUnitNanoSeconds) const;
+		const Timestamp timestampByAddingTimeInterval(TimeInterval nanoseconds) const;
+		const Timestamp timestampByAddingTimeInterval(TimeInterval interval, TimeUnitOption unit_opt) const;
 		
 		const Timestamp & earlierTimestamp(const Timestamp & tms) const;
 		const Timestamp & laterTimestamp(const Timestamp & tms) const;
+		
+		TimeInterval elapsed() const;
+		TimeInterval elapsed(TimeUnitOption unit_opt) const;
 		
 		bool after(const Timestamp & tms) const;
 		bool before(const Timestamp & tms) const;

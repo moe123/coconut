@@ -29,6 +29,11 @@ Timestamp::Timestamp(const Date & dtm) :
 	m_impl(dtm.timeIntervalSinceReference(TimeReferenceSinceJanuary1970, TimeUnitNanoSeconds))
 { /* NOP */ }
 
+Timestamp::Timestamp(TimeInterval nanoseconds) :
+	Object(TimestampClass),
+	m_impl(nanoseconds)
+{ /* NOP */ }
+
 Timestamp::Timestamp(TimeInterval interval, TimeUnitOption unit_opt) :
 	Object(TimestampClass),
 	m_impl(Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds))
@@ -38,15 +43,6 @@ Timestamp::~Timestamp()
 { /* NOP */ }
 
 #pragma mark -
-
-const Timestamp Timestamp::add(TimeInterval interval, TimeUnitOption unit_opt)
-{
-	return Timestamp(
-		Date::absoluteTime(TimeUnitNanoSeconds) +
-		Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds),
-		TimeUnitNanoSeconds
-	);
-}
 
 const Timestamp Timestamp::now()
 { return Timestamp(); }
@@ -92,6 +88,9 @@ long long Timestamp::longLongValue() const
 
 #pragma mark -
 
+TimeInterval Timestamp::time() const
+{ return m_impl; }
+
 TimeInterval Timestamp::time(TimeUnitOption unit_opt) const
 { return Date::convertTime(m_impl, TimeUnitNanoSeconds, unit_opt); }
 
@@ -100,10 +99,13 @@ const Date Timestamp::date() const
 
 #pragma mark -
 
+const Timestamp Timestamp::timestampByAddingTimeInterval(TimeInterval nanoseconds) const
+{ return Timestamp(m_impl + nanoseconds); }
+
 const Timestamp Timestamp::timestampByAddingTimeInterval(TimeInterval interval, TimeUnitOption unit_opt) const
 {
-	TimeInterval add = Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds);
-	return Timestamp(m_impl + add, TimeUnitNanoSeconds);
+	TimeInterval nanoseconds = Date::convertTime(interval, unit_opt, TimeUnitNanoSeconds);
+	return Timestamp(m_impl + nanoseconds);
 }
 
 #pragma mark -
@@ -113,6 +115,22 @@ const Timestamp & Timestamp::earlierTimestamp(const Timestamp & tms) const
 
 const Timestamp & Timestamp::laterTimestamp(const Timestamp & tms) const
 { return (tms.longLongValue() > longLongValue()) ? tms : *this; }
+
+#pragma mark -
+
+TimeInterval Timestamp::elapsed() const
+{
+	return Date::absoluteTime(TimeUnitNanoSeconds) - m_impl;
+}
+
+TimeInterval Timestamp::elapsed(TimeUnitOption unit_opt) const
+{
+	return Date::convertTime(
+		(Date::absoluteTime(TimeUnitNanoSeconds) - m_impl),
+		TimeUnitNanoSeconds,
+		unit_opt
+	);
+}
 
 #pragma mark -
 

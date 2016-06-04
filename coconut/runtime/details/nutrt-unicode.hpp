@@ -43,26 +43,48 @@ namespace
 {
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-static std::size_t __utf8_glyph_length(const unsigned char & c)
+static std::size_t __utf8_glyph_length(const unsigned char & c) noexcept(false)
 {
-	std::size_t len;
-	int cccc = c;
-	if(cccc <= 127) { len = 1; }
-	else if ((cccc & 0xE0) == 0xC0) { len = 2; }
-	else if ((cccc & 0xF0) == 0xE0) { len = 3; }
-	else if ((cccc & 0xF8) == 0xF0) { len = 4; }
-	else { len = 1; }
-	return len;
+	std::int32_t cp = c;
+	if (cp < 0x80) { return 1; }
+	else if ((cp & 0xE0) == 0xC0) { return 2; }
+	else if ((cp & 0xF0) == 0xE0) { return 3; }
+	else if ((cp & 0xF8) == 0xF0) { return 4; }
+	else if ((cp & 0xFC) == 0xF8) { return 5; }
+	else if ((cp & 0xFE) == 0xFC) { return 6; }
+	throw std::runtime_error("invalid UTF-8 codepoint");
+	return 0;
 }
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-static std::size_t __utf8_glyph_offset(const unsigned char & c)
+static std::size_t __utf8_glyph_offset(const unsigned char & c) noexcept(false)
 { return __utf8_glyph_length(c) -1; }
 
 } /* EONS */
 	
 #pragma mark -
 
+template <typename Char8T
+	, typename Traits = std::char_traits<Char8T>
+	, typename Allocator = allocators::standard<Char8T>
+	, typename std::enable_if<
+		sizeof(Char8T) == sizeof(char), void
+	>::type* = nullptr,
+	std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool __utf8_valid(const Char8T (&in)[N]) {
+	for (std::size_t i = 0 ; i < N ; i++) {
+		if (__utf8_glyph_length(
+			weak_cast<const unsigned char &>(in[i])) == 0
+		) {
+			return false;
+		}
+	}
+	return true;
+}
+
+	
 template <typename Char8T
 	, typename Traits = std::char_traits<Char8T>
 	, typename Allocator = allocators::standard<Char8T>
@@ -285,10 +307,10 @@ const byteorder_type __utf32_storage_endianess(
 	return byteorder_unknown;
 }
 	
-} /* EONS */
-
 static byteorder_type const _utf16_storage = __utf16_storage_endianess();
 static byteorder_type const _utf32_storage = __utf32_storage_endianess();
+	
+} /* EONS */
 
 #pragma mark -
 #pragma mark -
