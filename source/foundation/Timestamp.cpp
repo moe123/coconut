@@ -47,6 +47,9 @@ Timestamp::~Timestamp()
 const Timestamp Timestamp::now()
 { return Timestamp(); }
 
+TimeInterval Timestamp::span()
+{ return Date::absoluteTime(TimeUnitNanoSeconds); }
+
 #pragma mark -
 
 std::size_t Timestamp::hash() const

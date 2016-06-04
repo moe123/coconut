@@ -26,6 +26,7 @@ namespace coconut
 		virtual ~Timestamp();
 		
 		COCONUT_CLASSMETHOD const Timestamp now();
+		COCONUT_CLASSMETHOD TimeInterval span();
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;

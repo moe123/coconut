@@ -25,7 +25,7 @@ namespace coconut
 {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string locale_gui_id()
+std::string locale_user_id()
 {
 	std::string id;
 	char buf[ULOC_FULLNAME_CAPACITY];
@@ -102,6 +102,84 @@ std::string locale_gui_id()
 	}
 #endif
 	return id;
+}
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+icu::Locale locale_default_user()
+{
+	const char * id = locale_user_id().c_str();
+	icu::Locale loc = icu::Locale::Locale(id);
+	if(loc.isBogus()) {
+		loc =  icu::Locale::createCanonical(id);
+	}
+	if(loc.isBogus()) {
+		loc =  icu::Locale::getUS();
+	}
+	if(loc != icu::Locale::getDefault()) {
+		status = U_ZERO_ERROR;
+		icu::Locale::setDefault(loc, status);
+		if (U_FAILURE(status)) { /* NOP */ }
+	}
+	return loc;
+}
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool locale_set_default_user(const icu::Locale & loc)
+{
+	bool result = false;
+	if(loc != icu::Locale::getDefault()) {
+		result = true;
+		status = U_ZERO_ERROR;
+		icu::Locale::setDefault(loc, status);
+		if (U_FAILURE(status)) { result = false; }
+	}
+	return result;
+}
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+icu::Locale & locale_default_base()
+{
+	static icu::Locale loc = icu::Locale::getDefault();
+	return loc;
+}
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+icu::Locale & locale_default_root()
+{
+	static icu::Locale loc = icu::Locale::getRoot();
+	return loc;
+}
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+icu::Locale & locale_default_system()
+{
+	static icu::Locale loc = icu::Locale::getUS();
+	return loc;
+}
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+icu::Locale & locale_default_shell()
+{
+#if defined(__MICROSOFT__) || defined(__APPLE__)
+	static icu::Locale loc = locale_default_system();
+#else
+	static icu::Locale loc = locale_default_user();
+#endif
+	return loc;
+}
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+icu::Locale locale_current()
+{
+	static bool init = false;
+	if (!init) {
+		locale_default_base();
+		locale_default_root();
+		locale_default_system();
+		locale_default_shell();
+		init = true;
+	}
+	return locale_default_user();
 }
 
 }}} /* EONS */
