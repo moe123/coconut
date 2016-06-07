@@ -306,7 +306,8 @@ const byteorder_type __utf32_storage_endianess(
 	
 	return byteorder_unknown;
 }
-	
+
+/* toll-free bridge between STL priv-impl and ICU backend */
 static byteorder_type const _utf16_storage = __utf16_storage_endianess();
 static byteorder_type const _utf32_storage = __utf32_storage_endianess();
 	
