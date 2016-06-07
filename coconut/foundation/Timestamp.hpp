@@ -65,8 +65,6 @@ namespace coconut
 		
 		bool after(const Timestamp & tms) const;
 		bool before(const Timestamp & tms) const;
-		
-		void resetTime();
 	
 	private:
 		typedef TimeInterval impl_trait;

@@ -105,7 +105,7 @@ template <typename Char8T
 	, typename Traits = std::char_traits<Char8T>
 	, typename Allocator = allocators::standard<Char8T>
 	, typename std::enable_if<
-sizeof(Char8T) == sizeof(char), void
+		sizeof(Char8T) == sizeof(char), void
 >::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE

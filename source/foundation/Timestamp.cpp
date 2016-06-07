@@ -158,9 +158,4 @@ bool Timestamp::after(const Timestamp & tms) const
 bool Timestamp::before(const Timestamp & tms) const
 { return tms.longLongValue() > longLongValue(); }
 
-#pragma mark -
-
-void Timestamp::resetTime()
-{ m_impl = Date::absoluteTime(TimeUnitNanoSeconds); }
-
 /* EOF */

@@ -1898,6 +1898,20 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ostream & format_to(std::ostream & os, const char (&fmt)[N], ArgsT &&... args)
 { os << format(fmt, std::forward<ArgsT>(args)...);  return os; }
 	
+	template <typename CharT
+		, typename Traits = std::char_traits<CharT>
+	    , typename Allocator = std::allocator<CharT>
+		, typename... Args
+		, std::size_t N
+	>
+	inline
+	std::basic_ostringstream<CharT, Traits, Allocator> format_to
+	(
+		std::basic_ostringstream<CharT, Traits, Allocator> & os,
+		std::basic_ios<CharT> ios,
+		const CharT (&fmt)[N], Args &&... args
+	) { /* fill the blank */ }
+	
 template <typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::ostream & format_to(std::ostream & os, const std::string & fmt, ArgsT &&... args)
