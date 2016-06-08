@@ -70,9 +70,9 @@ COCONUT_PRIVATE struct COCONUT_VISIBLE placement COCONUT_FINAL : public standard
 	pointer allocate(size_type n, const_void_pointer = nullptr)
 	{ char * p = new (m_ref) char[n * sizeof(T)]; return weak_cast<T *>(p); }
 
-	void deallocate(pointer p, size_type n) noexcept { /* NOP */ }
+	void deallocate(pointer p, size_type n) noexcept { delete [] weak_cast<char *>(m_ref); /* NOP */ }
 	
-	size_type max_size() const noexcept {return size_type(~0) / sizeof(T);}
+	size_type max_size() const noexcept { return size_type(~0) / sizeof(T); }
 	
 	pointer address(reference x) const noexcept { return std::addressof(x); }
 	const_pointer address(const_reference x) const noexcept { return address(weak_cast<reference>(x)); }

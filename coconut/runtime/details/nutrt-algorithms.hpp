@@ -616,7 +616,7 @@ template <typename CharT
 	, typename Allocator = allocators::standard<CharT>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool cmp(
+int cmp(
 	const std::basic_string<CharT, Traits, Allocator> & left,
 	const std::basic_string<CharT, Traits, Allocator> & right
 ) { return left.compare(right); }
@@ -627,7 +627,7 @@ template <typename CharT
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool cmp(
+int cmp(
 	const CharT (&left)[N],
 	const std::basic_string<CharT, Traits, Allocator> & right
 ) {
@@ -643,7 +643,7 @@ template <typename CharT
 	, std::size_t N
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool cmp(
+int cmp(
 	const std::basic_string<CharT, Traits, Allocator> & left,
 	const CharT (&right)[N]
 ) {
@@ -660,7 +660,7 @@ template <typename CharT
 	, std::size_t N2
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool cmp(
+int cmp(
 	const CharT (&left)[N1],
 	const CharT (&right)[N2]
 ) {
