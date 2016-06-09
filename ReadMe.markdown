@@ -6,9 +6,9 @@ with a strong emphasis on concurrency ability, the subscripting side of things e
 framework: it adds a syntax within the syntax, close to a meta-programming approach (something like an embedded meta-language mixed to a domain-specific
 language) what we named mainly Features; `@see` [coconut/runtime/Features.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Features.hpp).
 
-Coconut implements type introspection (e.g knowing type [parent-type ancestor-type, properties] of an object at runtime) and a tiny barebones reflection system: 
-a meta-object protocol (MOP); e.g a very simplistic and lightweight, yet powerful, meta-data set: hierarchy and context can be known at anytime which is essential 
-for in case of serialization or for designing a UI Toolkit among many OO things; `@see` [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
+Coconut implements type introspection (e.g knowing type [parent-type and ancestors-type, properties] of an object at runtime) and a tiny barebones reflection system: 
+a meta-object protocol (MOP). A very simplistic and lightweight, yet powerful, meta-data set: hierarchy and context can be known at anytime which is essential 
+for, in case of, serialization, designing a UI Toolkit and more; `@see` [coconut/runtime/details/nutrt-nucleus.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/details/nutrt-nucleus.hpp)
 
 -----------------------------------------------------------------------------------------------
 
