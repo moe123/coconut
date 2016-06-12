@@ -224,10 +224,7 @@ public:
 	bool isEqual(const Owning<Any> & ptr) const;
 	
 	virtual ComparisonResult compare(const Any & ref) const;
-	//ComparisonResult compare(const Owning<Any> & ptr) const;
-	
 	virtual bool doesContain(const Any & ref) const;
-	//bool doesContain(const Owning<Any> & ptr) const;
 	
 	bool doesNotContain(const Any & ref) const;
 	bool doesNotContain(const Owning<Any> & ptr) const;
@@ -258,9 +255,17 @@ public:
 	
 	/*
 	* operator identical by addresse calling @isIdenticalTo:, e.g left and right are truely the same.
+	* ===
 	*/
 	bool operator &= (const Any & ref) const;
 	bool operator &= (const Owning<Any> & ptr) const;
+
+	/*
+	* operator compare calling @compare:.
+	* <=>
+	*/
+	ComparisonResult operator %= (const Any & ref) const;
+	ComparisonResult operator %= (const Owning<Any> & ptr) const;
 	
 	/*
 	* operators identical and comparison by value calling @compare:.
@@ -285,8 +290,8 @@ public:
 
 public:
 /**
- * Interface/Protocol @iRepresentation: accessing string representations and numeric values.
- */
+* Interface/Protocol @iRepresentation: accessing string representations and numeric values.
+*/
 	
 	const std::string description() const;
 	

@@ -133,6 +133,21 @@ using container_is_deque = std::is_same<T
 	>
 >;
 
+template <class T>
+COCONUT_PRIVATE struct COCONUT_VISIBLE type_traits
+{
+	using U = typename std::remove_cv<T>::type;
+	
+	typedef U value_type;
+	typedef std::size_t size_type;
+	typedef std::ptrdiff_t difference_type;
+	
+	typedef U & reference;
+	typedef const U & const_reference;
+	typedef U * pointer;
+	typedef const U * const_pointer;
+};
+	
 } /* EONS */
 
 namespace coconut

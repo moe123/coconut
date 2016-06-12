@@ -4,10 +4,10 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/details/nutrt-defines.hpp>
+#include <coconut/runtime/details/nutrt-types.hpp>
 
-#ifndef COCONUT_RUNTIME_ITERATOR_HPP
-#define COCONUT_RUNTIME_ITERATOR_HPP
+#ifndef COCONUT_RUNTIME_ITERATORS_HPP
+#define COCONUT_RUNTIME_ITERATORS_HPP
 
 namespace coconut
 { namespace runtime
@@ -19,10 +19,11 @@ COCONUT_PRIVATE class COCONUT_VISIBLE key_map_facet COCONUT_FINAL : public MapT:
 {
 public:
 	typedef typename MapT::iterator facet;
+	typedef const facet const_facet;
 	typedef typename facet::value_type::first_type key_type;
 	
 public:
-	key_map_facet(const facet & other_it) : MapT::iterator(other_it) { /* NOP */ } ;
+	key_map_facet(const_facet & other_it) : MapT::iterator(other_it) { /* NOP */ } ;
 	key_type & operator * () const { return MapT::iterator::operator*().first; }
 };
 
@@ -41,10 +42,11 @@ COCONUT_PRIVATE class COCONUT_VISIBLE value_map_facet COCONUT_FINAL : public Map
 {
 public:
 	typedef typename MapT::iterator facet;
+	typedef const facet const_facet;
 	typedef typename facet::value_type::second_type value_type;
 	
 public:
-	value_map_facet(const facet & other_it) : MapT::iterator(other_it) { /* NOP */ } ;
+	value_map_facet(const_facet & other_it) : MapT::iterator(other_it) { /* NOP */ } ;
 	value_type & operator * () const { return MapT::iterator::operator*().second; }
 };
 
@@ -59,21 +61,8 @@ value_map_facet<MapT> value_end(MapT & m)
 { return value_map_facet<MapT>(m.end()); }
 
 template <class T>
-COCONUT_PRIVATE struct COCONUT_VISIBLE integer_facet_traits COCONUT_FINAL
-{
-	using U = typename std::remove_cv<T>::type;
-	
-	typedef U value_type;
-	typedef std::size_t size_type;
-	typedef std::ptrdiff_t difference_type;
-	
-	typedef U & reference;
-	typedef const U & const_reference;
-	typedef U * pointer;
-	typedef const U * const_pointer;
-	
-	typedef std::random_access_iterator_tag iterator_category;
-};
+COCONUT_PRIVATE struct COCONUT_VISIBLE integer_facet_traits COCONUT_FINAL : type_traits<T>
+{ typedef std::random_access_iterator_tag iterator_category; };
 	
 template <typename ItemT, class FriendT
 	, typename Traits = integer_facet_traits<ItemT>
@@ -106,7 +95,7 @@ protected:
 	
 public:
 	reference operator * () { return m_offset; }
-	value_type operator * () const { return m_offset; }
+	const_reference operator * () const { return m_offset; }
 	
 	pointer operator -> () const { return &(operator*()); }
 	
@@ -125,6 +114,9 @@ public:
 	bool operator == (const_this_type & other_it) const noexcept { return m_offset == other_it.m_offset; }
 	bool operator != (const_this_type & other_it) const noexcept { return m_offset != other_it.m_offset; }
 	
+	operator this_type() const { return const_this_type(m_offset); }
+	operator const_this_type() const { return const_this_type(m_offset); }
+	
 private:
 	value_type m_offset;
 };
@@ -135,7 +127,7 @@ template <typename ItemT, class FriendT
 		std::numeric_limits<ItemT>::is_integer
 	>::type* = nullptr
 >
-using const_integer_facet = const integer_facet<ItemT, FriendT, traits_type>;
+using const_integer_facet = typename integer_facet<ItemT, FriendT, traits_type>::const_this_type;
 
 template <typename ItemT, class FriendT
 	, typename Traits = integer_facet_traits<ItemT>
@@ -168,7 +160,7 @@ protected:
 	
 public:
 	reference operator * () { value_type cpy = m_offset; return --cpy; }
-	value_type operator * () const { value_type cpy = m_offset; return --cpy; }
+	const_reference operator * () const { value_type cpy = m_offset; return --cpy; }
 	
 	pointer operator -> () const { return &(operator*()); }
 	
@@ -187,6 +179,9 @@ public:
 	bool operator == (const_this_type & other_it) const noexcept { return m_offset == other_it.m_offset; }
 	bool operator != (const_this_type & other_it) const noexcept { return m_offset != other_it.m_offset; }
 	
+	operator this_type() const { return const_this_type(m_offset); }
+	operator const_this_type() const { return const_this_type(m_offset); }
+	
 private:
 	value_type m_offset;
 };
@@ -197,10 +192,10 @@ template <typename ItemT, class FriendT
 		std::numeric_limits<ItemT>::is_integer
 	>::type* = nullptr
 >
-using const_integer_reverse_facet = const integer_reverse_facet<ItemT, FriendT, Traits>;
+using const_integer_reverse_facet = typename integer_reverse_facet<ItemT, FriendT, Traits>::const_this_type;
 
 }}} /* EONS */
 
-#endif /* !COCONUT_RUNTIME_ITERATOR_HPP */
+#endif /* !COCONUT_RUNTIME_ITERATORS_HPP */
 
 /* EOF */

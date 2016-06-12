@@ -487,12 +487,10 @@ bool nucleus::isEqual(const Owning<Any> & ptr) const { if (ptr) { return isEqual
 #pragma mark -
 
 ComparisonResult nucleus::compare(const Any & ref) const { return compareTo(*this, &ref); }
-//ComparisonResult nucleus::compare(const Owning<Any> & ptr) const { if (ptr) { return compare(*ptr); } return cmp_descending; }
 
 #pragma mark -
 
 bool nucleus::doesContain(const Any & ref) const { COCONUT_UNUSED(ref); return false; }
-//bool nucleus::doesContain(const Owning<Any> & ptr) const { if (ptr) { return doesContain(*ptr); } return false; }
 
 #pragma mark -
 
@@ -544,6 +542,11 @@ bool nucleus::isGreaterThanOrEqualTo(const Owning<Any> & ptr) const { if (ptr) {
 bool nucleus::operator &= (const Any & ref) const { return isIdenticalTo(ref); }
 bool nucleus::operator &= (const Owning<Any> & ptr) const { return isIdenticalTo(ptr); }
 
+#pragma mark -
+	
+ComparisonResult nucleus::operator %= (const Any & ref) const { return compare(ref); }
+ComparisonResult nucleus::operator %= (const Owning<Any> & ptr) const { if (ptr) { return compare(*ptr); } return false; }
+	
 #pragma mark -
 
 bool nucleus::operator == (const Any & ref) const { return isEqualTo(ref); }
