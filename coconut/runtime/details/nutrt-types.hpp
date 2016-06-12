@@ -136,7 +136,7 @@ using container_is_deque = std::is_same<T
 template <class T>
 COCONUT_PRIVATE struct COCONUT_VISIBLE type_traits
 {
-	using U = typename std::remove_cv<T>::type;
+	using U = typename do_plain_type<T>::type;
 	
 	typedef U value_type;
 	typedef std::size_t size_type;
