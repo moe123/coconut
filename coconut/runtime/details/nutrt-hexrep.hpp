@@ -41,10 +41,17 @@ namespace {
 	format_option default_option{};
 }
 
-template <typename InputIterT>
+template <typename InputIterT
+	, typename CharT
+	, typename Traits = std::char_traits<CharT>
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-void format(
-	std::ostream & os,
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char)  &&
+	sizeof(CharT) == sizeof(typename InputIterT::value_type)
+	, std::basic_ostream<CharT, Traits>
+>::type & format(
+	std::basic_ostream<CharT, Traits> & os,
 	InputIterT && first,
 	InputIterT && last,
 	format_option * opt
@@ -76,6 +83,7 @@ void format(
 	}
 	os << opt->u_stop;
 	os.copyfmt(saved_fmt);
+	return os;
 }
 
 }}} /* EONS */

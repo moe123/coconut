@@ -1872,13 +1872,20 @@ usize_type replace(
 
 #pragma mark -
 
-template <std::size_t N, typename... ArgsT>
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+	, typename... ArgsT
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string format(const char (&fmt)[N], ArgsT &&... args)
+typename std::enable_if<
+	sizeof(CharT) == sizeof(char), std::basic_string<CharT, Traits, Allocator>
+>::type format(const CharT (&fmt)[N], ArgsT &&... args)
 {
 	int sz = std::snprintf(nullptr, 0, fmt, std::forward<ArgsT>(args)...);
 	if (sz) {
-		std::vector<char> buf(static_cast<std::size_t>(sz));
+		std::vector<CharT> buf(static_cast<std::size_t>(sz));
 		std::snprintf(buf.data(), buf.size(), fmt, std::forward<ArgsT>(args)...);
 		if (buf.back() == '\0') { buf.pop_back(); }
 		return {buf.begin(), buf.end()};
@@ -1886,36 +1893,61 @@ std::string format(const char (&fmt)[N], ArgsT &&... args)
 	return {};
 }
 	
-template <typename... ArgsT>
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+	, typename... ArgsT
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string format(const std::string & fmt, ArgsT &&... args)
-{ return format(fmt.c_str(), std::forward<ArgsT>(args)...); }
+typename std::enable_if<
+	sizeof(CharT) == sizeof(wchar_t), std::basic_string<CharT, Traits, Allocator>
+>::type format(const CharT (&fmt)[N], ArgsT &&... args)
+{
+	int sz = std::snprintf(nullptr, 0, fmt, std::forward<ArgsT>(args)...);
+	if (sz) {
+		std::vector<CharT> buf(static_cast<std::size_t>(sz));
+		std::swprintf(buf.data(), buf.size(), fmt, std::forward<ArgsT>(args)...);
+		if (buf.back() == '\0') { buf.pop_back(); }
+		return {buf.begin(), buf.end()};
+	}
+	return {};
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, typename... ArgsT
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::basic_string<CharT, Traits, Allocator> format(
+	const std::basic_string<CharT, Traits, Allocator> & fmt,
+	ArgsT &&... args
+) { return format(fmt.c_str(), std::forward<ArgsT>(args)...); }
 
 #pragma mark -
 
-template <std::size_t N, typename... ArgsT>
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, std::size_t N
+	, typename... ArgsT
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::ostream & format_to(std::ostream & os, const char (&fmt)[N], ArgsT &&... args)
-{ os << format(fmt, std::forward<ArgsT>(args)...);  return os; }
-	
-	template <typename CharT
-		, typename Traits = std::char_traits<CharT>
-	    , typename Allocator = std::allocator<CharT>
-		, typename... Args
-		, std::size_t N
-	>
-	inline
-	std::basic_ostringstream<CharT, Traits, Allocator> format_to
-	(
-		std::basic_ostringstream<CharT, Traits, Allocator> & os,
-		std::basic_ios<CharT> ios,
-		const CharT (&fmt)[N], Args &&... args
-	) { /* fill the blank */ }
-	
-template <typename... ArgsT>
+std::basic_ostream<CharT, Traits> & format_to(
+	std::basic_ostream<CharT, Traits> & os,
+	const CharT (&fmt)[N], ArgsT &&... args
+) { os << format(fmt, std::forward<ArgsT>(args)...);  return os; }
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename... ArgsT
+>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::ostream & format_to(std::ostream & os, const std::string & fmt, ArgsT &&... args)
-{ os << format(fmt.c_str(), std::forward<ArgsT>(args)...); return os; }
+std::basic_ostream<CharT, Traits> & format_to(
+	std::basic_ostream<CharT, Traits> & os,
+	const std::string & fmt,
+	ArgsT &&... args
+) { os << format(fmt.c_str(), std::forward<ArgsT>(args)...); return os; }
 
 #pragma mark -
 
