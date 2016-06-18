@@ -17,7 +17,10 @@ namespace coconut
 /**
  * The numeric class offers a container as any C scalar (numeric) type.
  * Note that numeric class does preserve the type it is created with ;
- * thus, it does not guard against any overflows.
+ * except for arithmetic operations, the largest family container is used ;
+ * thus, it does not guard against any overflows. The numeric class is
+ * as lightweight as possible, meaning strongly optimized, no pointer
+ * tagging-dirt twist.
  */
 COCONUT_PRIVATE class COCONUT_VISIBLE numeric COCONUT_FINAL
 {
