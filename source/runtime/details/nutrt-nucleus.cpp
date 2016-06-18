@@ -586,8 +586,8 @@ const std::string nucleus::description() const
 	return COCONUT_DESCRIPTION_FMT(
 		class_name(),
 		class_tree(),
-		algorithms::to_string<char>(size()),
-		algorithms::to_string<char>(sig()),
+		algorithms::to_string<std::string::value_type>(size()),
+		algorithms::to_string<std::string::value_type>(sig()),
 		ss.str()
 	);
 }

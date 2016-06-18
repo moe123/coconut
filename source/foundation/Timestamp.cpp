@@ -81,7 +81,7 @@ ComparisonResult Timestamp::compare(const Any & ref) const
 #pragma mark -
 
 std::string Timestamp::stringValue() const
-{ return runtime::algorithms::to_string<char>(longLongValue()); }
+{ return runtime::algorithms::to_string<std::string::value_type>(longLongValue()); }
 
 double Timestamp::doubleValue() const
 { return m_impl; }
