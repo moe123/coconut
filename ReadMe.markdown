@@ -160,7 +160,7 @@ for (std::size_t i = 0; i < 10; i++ ) {
 ```
 
 You can print collections as well ; the output is in a valid json 
-format. However, we are truncating some data and printing non-serializable types e.g debug only; `@see` [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
+format (UTF-8). However, we are truncating some data and printing non-serializable types e.g debug only; `@see` [coconut/runtime/Printifier.hpp](https://gitlab.com/cucurbita/coconut/blob/master/coconut/runtime/Printifier.hpp)
 
 ```cpp
 
