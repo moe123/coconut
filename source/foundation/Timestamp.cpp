@@ -44,11 +44,14 @@ Timestamp::~Timestamp()
 
 #pragma mark -
 
+const Timestamp distantFuture()
+{ return Timestamp(Date::distantFuture()); }
+
+const Timestamp distantPast()
+{ return Timestamp(Date::distantPast()); }
+
 const Timestamp Timestamp::now()
 { return Timestamp(); }
-
-TimeInterval Timestamp::span()
-{ return Date::absoluteTime(TimeUnitNanoSeconds); }
 
 #pragma mark -
 

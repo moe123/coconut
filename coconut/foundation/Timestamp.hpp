@@ -25,8 +25,9 @@ namespace coconut
 		Timestamp(TimeInterval interval, TimeUnitOption unit_opt);
 		virtual ~Timestamp();
 		
+		COCONUT_CLASSMETHOD const Timestamp distantFuture();
+		COCONUT_CLASSMETHOD const Timestamp distantPast();
 		COCONUT_CLASSMETHOD const Timestamp now();
-		COCONUT_CLASSMETHOD TimeInterval span();
 		
 		virtual std::size_t hash() const
 		COCONUT_FINAL_OVERRIDE;
