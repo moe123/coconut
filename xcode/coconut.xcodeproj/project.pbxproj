@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D51322F01D1F4FD100DBFFA1 /* nutrt-ustring_api_bridging.hxx in Headers */ = {isa = PBXBuildFile; fileRef = D51322EF1D1F4FD100DBFFA1 /* nutrt-ustring_api_bridging.hxx */; };
 		D5205CF91CEF8D4F00FDF88F /* nutrt-allocators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */; };
 		D5205CFA1CEF8D4F00FDF88F /* nutrt-allocators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */; };
 		D521DD1E1C35C48A00944D77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */; };
@@ -187,6 +188,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D51322EF1D1F4FD100DBFFA1 /* nutrt-ustring_api_bridging.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-ustring_api_bridging.hxx"; sourceTree = "<group>"; };
 		D5205CF81CEF8D4F00FDF88F /* nutrt-allocators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "nutrt-allocators.hpp"; sourceTree = "<group>"; };
 		D5209D511C3B50A400D86E74 /* ReadMe.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.markdown; path = ../ReadMe.markdown; sourceTree = "<group>"; };
 		D521DD1D1C35C48A00944D77 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -628,6 +630,7 @@
 				D5FC0E731CD6C73C00F2E75B /* nutrt-uri_escaping.hxx */,
 				D5FC0E741CD6C73C00F2E75B /* nutrt-uri_joining.hxx */,
 				D5FC0E751CD6C73C00F2E75B /* nutrt-uri_parsing.hxx */,
+				D51322EF1D1F4FD100DBFFA1 /* nutrt-ustring_api_bridging.hxx */,
 				D5FC0E761CD6C73C00F2E75B /* nutrt-ustring_compare_utf16.hxx */,
 				D5FC0E771CD6C73C00F2E75B /* nutrt-ustring_compare_utf8.hxx */,
 				D5FC0E781CD6C73C00F2E75B /* nutrt-ustring_encoding.hxx */,
@@ -763,6 +766,7 @@
 				D56C6AB81CE512EC0010BC85 /* nutrt-unicode_wide.hxx in Headers */,
 				D5FC0EA21CD6C73C00F2E75B /* nutrt-upath_absolute.hxx in Headers */,
 				D5FC0EA81CD6C73C00F2E75B /* nutrt-uri_joining.hxx in Headers */,
+				D51322F01D1F4FD100DBFFA1 /* nutrt-ustring_api_bridging.hxx in Headers */,
 				D5FC0EA61CD6C73C00F2E75B /* nutrt-uri_escaping.hxx in Headers */,
 				D5FC0E9E1CD6C73C00F2E75B /* nutrt-stream_convpath.hxx in Headers */,
 				D5FC0E9A1CD6C73C00F2E75B /* nutrt-locale_system.hxx in Headers */,

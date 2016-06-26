@@ -322,7 +322,7 @@ template <typename Char16T
 	>::type* = nullptr
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-byteorder_type __utf16_have_bom(
+byteorder_type __utf16_if_bom(
 	const std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16
 ) {
 	if (in_utf16.size()) {
@@ -342,10 +342,10 @@ template <typename Char16T
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 byteorder_type __utf16_add_bom(
-	const std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16,
+	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16,
 	byteorder_type byteorder
 ) {
-	byteorder_type ret = __utf16_have_bom(in_utf16);
+	byteorder_type ret = __utf16_if_bom(in_utf16);
 	if (ret != byteorder_platform) {
 		if (ret != byteorder) {
 			throw;
@@ -390,7 +390,7 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 void __utf16_del_bom(
 	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & in_utf16
 ) {
-	byteorder_type ret = __utf16_have_bom(in_utf16);
+	byteorder_type ret = __utf16_if_bom(in_utf16);
 	if (ret == byteorder_bigendian || ret == byteorder_littleendian) {
 		in_utf16.erase(0, 1);
 	}
@@ -1041,8 +1041,22 @@ std::string & utf8_del_bom(std::string & in_utf8)
 { __utf8_del_bom(in_utf8); return in_utf8; }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-std::string & utf8_hav_bom(std::string & in_utf8)
-{ __utf8_have_bom(in_utf8); return in_utf8; }
+bool utf8_have_bom(std::string & in_utf8)
+{ return __utf8_have_bom(in_utf8); }
+	
+#pragma mark -
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::u16string & utf16_add_bom(std::u16string & in_utf16, byteorder_type type)
+{ __utf16_add_bom(in_utf16, type); return in_utf16; }
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::u16string & utf16_del_bom(std::u16string & in_utf16)
+{ __utf16_del_bom(in_utf16); return in_utf16; }
+
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+byteorder_type utf16_have_bom(std::u16string & in_utf16)
+{ return __utf16_if_bom(in_utf16); }
 	
 }}} /* EONS */
 

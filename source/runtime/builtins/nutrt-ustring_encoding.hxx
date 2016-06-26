@@ -77,7 +77,7 @@ static struct { encoding_option encoding; const char * codepage; } const ustring
 };
 	
 } /* EONS */
-
+	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool ustring_syscodepages(std::vector<std::string> & codepages)
 {

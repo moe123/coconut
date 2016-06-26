@@ -17,6 +17,7 @@
 using namespace coconut::runtime;
 using namespace coconut::runtime::traits;
 
+#include <source/runtime/builtins/nutrt-ustring_api_bridging.hxx>
 #include <source/runtime/builtins/nutrt-ustring_compare_utf8.hxx>
 #include <source/runtime/builtins/nutrt-ustring_compare_utf16.hxx>
 #include <source/runtime/builtins/nutrt-ustring_encoding.hxx>
@@ -668,18 +669,14 @@ std::size_t ustring::hash_code() const
 const std::string ustring::to_utf8() const
 {
 	std::string result;
-	m_ustr.toUTF8String<std::string>(result);
+	builtins::ustring_to_std_u8string(m_ustr, result, unicode_conv_del_bom);
 	return result;
 }
 
 const std::u16string ustring::to_utf16() const
 {
 	std::u16string result;
-	const UChar * buff = m_ustr.getBuffer();
-	const std::int32_t size = m_ustr.length();
-	if (buff && size) {
-		result.assign(buff, (buff + size));
-	}
+	builtins::ustring_to_std_u16string(m_ustr, result, unicode_conv_del_bom);
 	return result;
 }
 
