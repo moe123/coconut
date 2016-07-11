@@ -683,74 +683,15 @@ const std::u16string ustring::to_utf16() const
 const std::u32string ustring::to_utf32() const
 {
 	std::u32string result;
-	UErrorCode err = U_ZERO_ERROR;
-	const std::int32_t size = m_ustr.toUTF32(0, 0, err);
-	if (err == U_ZERO_ERROR) {
-		std::vector<UChar32> buff(static_cast<std::size_t>(size));
-		m_ustr.toUTF32(buff.data(), size, err);
-		if (err == U_ZERO_ERROR ) {
-			result.assign(buff.begin(), buff.end());
-		}
-	}
+	builtins::ustring_to_std_u32string(m_ustr, result, unicode_conv_del_bom);
 	return result;
 }
 
-const std::u16string ustring::to_utf16_le() const
-{
-#if COCONUT_ARCH_BIG_ENDIAN
-	std::u16string s = to_utf16();
-	for (std::size_t i = 0 ; i < s.size() ; i++) {
-		char16_t c = s[i];
-		s[i] = runtime::byteorder::swpc16(c);
-	}
-	return s;
-#else
-	return to_utf16();
-#endif
-}
+byteorder_type ustring::get_utf16(std::u16string & out) const
+{ return builtins::ustring_to_std_u16string(m_ustr, out, unicode_conv_del_bom); }
 
-const std::u32string ustring::to_utf32_le() const
-{
-#if COCONUT_ARCH_BIG_ENDIAN
-	std::u32string s = to_utf32();
-	for (std::size_t i = 0 ; i < s.size() ; i++) {
-		char32_t c = s[i];
-		s[i] = runtime::byteorder::swpc32(c);
-	}
-	return s;
-#else
-	return to_utf32();
-#endif
-}
-
-const std::u16string ustring::to_utf16_be() const
-{
-#if COCONUT_ARCH_BIG_ENDIAN
-	return to_utf16();
-#else
-	std::u16string s0 = u"\uFFFE";
-	std::u16string s1 = to_utf16();
-	for (std::size_t i = 0 ; i < s1.size(); i++) {
-		const char16_t c = s1[i];
-		s1[i] = runtime::byteorder::swpc16(c);
-	}
-	return s1;
-#endif
-}
-
-const std::u32string ustring::to_utf32_be() const
-{
-#if COCONUT_ARCH_BIG_ENDIAN
-	return to_utf32();
-#else
-	std::u32string s = to_utf32();
-	for (std::size_t i = 0 ; i < s.size() ; i++) {
-		char32_t c = s[i];
-		s[i] = runtime::byteorder::swpc32(c);
-	}
-	return s;
-#endif
-}
+byteorder_type ustring::get_utf32(std::u32string  & out) const
+{ return builtins::ustring_to_std_u32string(m_ustr, out, unicode_conv_del_bom); }
 
 #pragma mark -
 

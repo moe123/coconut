@@ -217,7 +217,6 @@ void __utf8_bom(
 ) {
 	switch (option)
 	{
-		case unicode_conv_del_gen_bom:
 		case unicode_conv_gen_bom:
 			__utf8_add_bom(in_utf8);
 		break;
@@ -408,7 +407,6 @@ void __utf16_bom(
 ) {
 	switch (option)
 	{
-		case unicode_conv_del_gen_bom:
 		case unicode_conv_gen_bom:
 			__utf16_add_bom(in_utf16);
 		break;
@@ -467,29 +465,6 @@ void>::type _conv_utf8_to_utf16(
 ) {
 	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
-}
-	
-template <typename Char8T, typename Char16T, unicode_option O>
-COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-typename std::enable_if<
-	sizeof(Char8T) == sizeof(char) &&
-	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_del_gen_bom,
-void>::type _conv_utf8_to_utf16(
-	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
-	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & dest
-) {
-	/*using CodecvtT = std::codecvt_utf8_utf16<
-		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header|std::generate_header)
-	>;*/
-	using CodecvtT = std::codecvt_utf8_utf16<Char16T>;
-	if (__utf8_have_bom(src)) {
-		__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
-	} else {
-		std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > _src(src);
-		__utf8_add_bom(_src);
-		__conv_from_bytes<Char8T, Char16T, CodecvtT>(_src, dest);
-	}
 }
 	
 template <typename Char8T, typename Char16T, unicode_option O>
@@ -558,9 +533,6 @@ void _conv_utf8_to_utf16(
 ) {
 	switch (option)
 	{
-		case unicode_conv_del_gen_bom:
-			_conv_utf8_to_utf16<Char8T, Char16T, unicode_conv_del_gen_bom>(src, dest);
-		break;
 		case unicode_conv_del_bom:
 			_conv_utf8_to_utf16<Char8T, Char16T, unicode_conv_del_bom>(src, dest);
 		break;
@@ -624,23 +596,6 @@ void>::type _conv_utf8_to_ucs2(
 	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
 }
 	
-	
-template <typename Char8T, typename Char16T, unicode_option O>
-COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-typename std::enable_if<
-	sizeof(Char8T) == sizeof(char) &&
-	sizeof(Char16T) == sizeof(char16_t) &&
-	O == unicode_conv_del_gen_bom,
-void>::type _conv_utf8_to_ucs2(
-	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
-	std::basic_string<Char16T, std::char_traits<Char16T>, allocators::standard<Char16T> > & dest
-) {
-	using CodecvtT = std::codecvt_utf8<
-		Char16T, 0x10FFFF, std::codecvt_mode(std::consume_header|std::generate_header)
-	>;
-	__conv_from_bytes<Char8T, Char16T, CodecvtT>(src, dest);
-}
-	
 template <typename Char8T, typename Char16T, unicode_option O>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
@@ -687,9 +642,6 @@ void _conv_utf8_to_ucs2(
 ) {
 	switch (option)
 	{
-		case unicode_conv_del_gen_bom:
-			_conv_utf8_to_ucs2<Char8T, Char16T, unicode_conv_del_gen_bom>(src, dest);
-		break;
 		case unicode_conv_del_bom:
 			_conv_utf8_to_ucs2<Char8T, Char16T, unicode_conv_del_bom>(src, dest);
 		break;
@@ -758,22 +710,6 @@ COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 typename std::enable_if<
 	sizeof(Char8T) == sizeof(char) &&
 	sizeof(Char32T) == sizeof(char32_t) &&
-	O == unicode_conv_del_gen_bom,
-void>::type _conv_utf8_to_ucs4(
-	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
-	std::basic_string<Char32T, std::char_traits<Char32T>, allocators::standard<Char32T> > & dest
-) {
-	using CodecvtT = std::codecvt_utf8<
-		Char32T, 0x10FFFF, std::codecvt_mode(std::consume_header|std::generate_header)
-	>;
-	__conv_from_bytes<Char8T, Char32T, CodecvtT>(src, dest);
-}
-	
-template <typename Char8T, typename Char32T, unicode_option O>
-COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-typename std::enable_if<
-	sizeof(Char8T) == sizeof(char) &&
-	sizeof(Char32T) == sizeof(char32_t) &&
 	O == unicode_conv_del_bom,
 void>::type _conv_utf8_to_ucs4(
 	const std::basic_string<Char8T, std::char_traits<Char8T>, allocators::standard<Char8T> > & src,
@@ -815,9 +751,6 @@ void _conv_utf8_to_ucs4(
 ) {
 	switch (option)
 	{
-		case unicode_conv_del_gen_bom:
-			_conv_utf8_to_ucs4<Char8T, Char32T, unicode_conv_del_gen_bom>(src, dest);
-		break;
 		case unicode_conv_del_bom:
 			_conv_utf8_to_ucs4<Char8T, Char32T, unicode_conv_del_bom>(src, dest);
 		break;

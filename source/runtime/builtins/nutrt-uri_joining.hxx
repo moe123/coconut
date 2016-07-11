@@ -14,8 +14,12 @@ ___COCONUT_BEGIN_DECLS
 ___COCONUT_END_DECLS
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool uri_join(const std::string & relative, const std::string & base, std::string & out, bool normalize)
-{
+bool uri_join(
+	const std::string & relative
+	, const std::string & base
+	, std::string & out
+	, bool normalize
+) {
 	bool result = false;
 	UriParserStateA state;
 	UriUriA uriOne;

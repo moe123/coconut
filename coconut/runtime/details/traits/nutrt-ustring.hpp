@@ -149,11 +149,8 @@ public:
 	const std::u16string to_utf16() const;
 	const std::u32string to_utf32() const;
 	
-	const std::u16string to_utf16_le() const;
-	const std::u32string to_utf32_le() const;
-	
-	const std::u16string to_utf16_be() const;
-	const std::u32string to_utf32_be() const;
+	byteorder_type get_utf16(std::u16string & out) const;
+	byteorder_type get_utf32(std::u32string  & out) const;
 	
 	bool has_prefix(const ustring & ustr) const;
 	bool has_suffix(const ustring & ustr) const;

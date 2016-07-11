@@ -13,8 +13,14 @@ namespace coconut
 {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-irange ustring_rangeof(const icu::UnicodeString & haystack, std::size_t start, std::size_t length, const icu::UnicodeString & needle, search_options options, icu::Locale * locale = nullptr)
-{
+irange ustring_rangeof(
+	const icu::UnicodeString & haystack
+	, std::size_t start
+	, std::size_t length
+	, const icu::UnicodeString & needle
+	, search_options options
+	, icu::Locale * locale = nullptr
+) {
 	std::int32_t idx = -1;
 	std::int32_t len = 0;
 	

@@ -125,13 +125,13 @@ bool uri_filetouri(const std::string & in, std::string & out)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool uri_parse(
-	const std::string & in,
-	std::map<std::string, std::string> & out_map,
-	std::map<std::string, std::string> & out_params,
-	bool & is_file,
-	std::uint16_t & port,
-	bool normalize)
-{
+	const std::string & in
+	, std::map<std::string, std::string> & out_map
+	, std::map<std::string, std::string> & out_params
+	, bool & is_file
+	, std::uint16_t & port
+	, bool normalize
+) {
 	bool result = false;
 	UriParserStateA uri_state;
 	UriUriA uri_parse;

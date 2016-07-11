@@ -12,8 +12,10 @@ namespace coconut
 {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool ustring_transliterate(const std::string & utf8_in, std::string & translit_out)
-{
+bool ustring_transliterate(
+	const std::string & utf8_in
+	, std::string & translit_out
+) {
 	bool result = false;
 	icu::UnicodeString str = icu::UnicodeString::fromUTF8(icu::StringPiece(utf8_in));
 

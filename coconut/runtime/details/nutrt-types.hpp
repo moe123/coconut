@@ -339,8 +339,7 @@ COCONUT_OPT(unicode_option)
 {
 	unicode_conv_default = 0,
 	unicode_conv_gen_bom,
-	unicode_conv_del_bom,
-	unicode_conv_del_gen_bom
+	unicode_conv_del_bom
 };
 	
 }} /* EONS */

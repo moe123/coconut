@@ -1257,7 +1257,7 @@ int main(int argc, const char * argv[])
 		
 		std::cerr << " --- s1_1 " << std::endl;
 		
-		std::u16string s1_1 = s1.to_utf16_le();
+		std::u16string s1_1 = s1.to_utf16();
 		
 		for (char16_t c : s1_1) {
 			std::cerr << std::hex << std::showbase << c << std::endl;

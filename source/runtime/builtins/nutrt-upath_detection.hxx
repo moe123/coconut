@@ -10,8 +10,12 @@ namespace coconut
 {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool upath_isposix(const std::string & utf8_path, std::string & utf8_drive, dirsep_option & dsep, bool & isabs)
-{
+bool upath_isposix(
+	const std::string & utf8_path
+	, std::string & utf8_drive
+	, dirsep_option & dsep
+	, bool & isabs
+) {
 	try {
 		std::smatch match_posix;
 		std::ssub_match sub_match;
@@ -31,8 +35,13 @@ bool upath_isposix(const std::string & utf8_path, std::string & utf8_drive, dirs
 }
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool upath_isntfs(const std::string & utf8_path, std::string & utf8_drive, dirsep_option & dsep, bool & popfirst, bool & isabs)
-{
+bool upath_isntfs(
+	const std::string & utf8_path
+	, std::string & utf8_drive
+	, dirsep_option & dsep
+	, bool & popfirst
+	, bool & isabs
+) {
 	try {
 		std::smatch match_win;
 		std::ssub_match sub_match;

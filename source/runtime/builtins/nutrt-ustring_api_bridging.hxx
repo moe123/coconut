@@ -57,12 +57,14 @@ bool ustring_to_del_bom(icu::UnicodeString & src)
 }
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool ustring_to_std_u8string(const icu::UnicodeString & src, std::string & dest_utf8, unicode_option option)
-{
+bool ustring_to_std_u8string(
+	const icu::UnicodeString & src
+	, std::string & dest_utf8
+	, unicode_option option
+) {
 	src.toUTF8String<std::string>(dest_utf8);
 	switch (option)
 	{
-		case unicode_conv_del_gen_bom:
 		case unicode_conv_gen_bom:
 			unicode::utf8_add_bom(dest_utf8);
 			break;
@@ -74,12 +76,15 @@ bool ustring_to_std_u8string(const icu::UnicodeString & src, std::string & dest_
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-byteorder_type ustring_to_std_u16string(const icu::UnicodeString & src, std::u16string & dest_utf16, unicode_option option)
-{
+byteorder_type ustring_to_std_u16string(
+	const icu::UnicodeString & src
+	, std::u16string & dest_utf16
+	, unicode_option option
+) {
+	byteorder_type ret = byteorder_unknown;
+	
 	const UChar * buff = src.getBuffer();
 	const std::int32_t size = src.length();
-	
-	byteorder_type ret = byteorder_unknown;
 	
 	byteorder_type src_storage = ustring_storage;
 	byteorder_type dest_storage = unicode::_utf16_storage;
@@ -105,7 +110,6 @@ byteorder_type ustring_to_std_u16string(const icu::UnicodeString & src, std::u16
 			}
 			switch (option)
 			{
-				case unicode_conv_del_gen_bom:
 				case unicode_conv_gen_bom:
 					unicode::utf16_add_bom(dest_utf16, ret);
 					break;
@@ -117,6 +121,63 @@ byteorder_type ustring_to_std_u16string(const icu::UnicodeString & src, std::u16
 		}
 	} else {
 		ret = byteorder_platform;
+	}
+	return ret;
+}
+	
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+byteorder_type ustring_to_std_u32string(
+	const icu::UnicodeString & src
+	, std::u32string & dest_utf32
+	, unicode_option option
+) {
+	byteorder_type ret = byteorder_unknown;
+	
+	std::vector<UChar32> buff;
+	UErrorCode err = U_ZERO_ERROR;
+	const std::int32_t size = src.toUTF32(0, 0, err);
+	if (err == U_ZERO_ERROR) {
+		buff.resize(static_cast<std::size_t>(size));
+		src.toUTF32(buff.data(), size, err);
+	}
+	
+	if (err == U_ZERO_ERROR) {
+	
+		byteorder_type src_storage = ustring_storage;
+		byteorder_type dest_storage = unicode::_utf32_storage;
+		
+		if (size) {
+			if (
+				src_storage != byteorder_unknown &&
+				dest_storage != byteorder_unknown
+			) {
+				if (ustring_storage == unicode::_utf32_storage) {
+					for (std::size_t i = 0 ; i < size ; i++) {
+						dest_utf32[i] = weak_cast<char32_t>(buff[i]);
+					}
+					ret = src_storage;
+				} else {
+					for (std::size_t i = 0 ; i < size ; i++) {
+						dest_utf32[i] = runtime::byteorder::swpc32(
+								weak_cast<const volatile std::uint32_t>(buff[i])
+						);
+					}
+					ret = dest_storage;
+				}
+				switch (option)
+				{
+					case unicode_conv_gen_bom:
+						// unicode::utf32_add_bom(dest_utf32, ret);
+					break;
+					default:
+						// unicode::utf32_del_bom(dest_utf32);
+					break;
+				}
+				return ret;
+			}
+		} else {
+			ret = byteorder_platform;
+		}
 	}
 	return ret;
 }

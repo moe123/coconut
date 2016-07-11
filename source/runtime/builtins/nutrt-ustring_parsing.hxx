@@ -15,8 +15,12 @@ namespace coconut
 {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool ustring_parse_numeric(const icu::UnicodeString & in, std::string & out, bool & isfp, icu::Locale * locale = nullptr)
-{
+bool ustring_parse_numeric(
+	const icu::UnicodeString & in
+	, std::string & out
+	, bool & isfp
+	, icu::Locale * locale = nullptr
+) {
 	bool result = false;
 	UErrorCode status = U_ZERO_ERROR;
 	icu::NumberFormat * fmt = icu::NumberFormat::createInstance(((locale == nullptr) ? icu::Locale::getRoot() : *locale), status);
@@ -44,8 +48,12 @@ bool ustring_parse_numeric(const icu::UnicodeString & in, std::string & out, boo
 }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-bool ustring_parse_numeric_v1(const icu::UnicodeString & in, std::string & out, bool & isfp, icu::Locale * locale = nullptr)
-{
+bool ustring_parse_numeric_v1(
+	const icu::UnicodeString & in
+	, std::string & out
+	, bool & isfp
+	, icu::Locale * locale = nullptr
+) {
 	//TODO Scanner, CharacterSet
 	
 	bool result = false;

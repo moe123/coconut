@@ -13,8 +13,12 @@ namespace coconut
 {
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-int ustring_compare_utf8(const std::string & utf8_a, const std::string & utf8_b, search_options options, icu::Locale * locale = nullptr)
-{
+int ustring_compare_utf8(
+	const std::string & utf8_a
+	, const std::string & utf8_b
+	, search_options options
+	, icu::Locale * locale = nullptr
+) {
 	int cmp = cmp_descending;
 	bool literal = (options == search_literal || options & search_literal) ? true : false;
 	bool insensitive = (options == search_insensitive || options & search_insensitive) ? true : false;
