@@ -32,17 +32,7 @@ inline T swpc(T x)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint16_t swpc16(const volatile std::uint16_t x)
-{
-#if defined(___COCONUT_bswap16)
-	return ___COCONUT_bswap16(x);
-#else
-	/*
-	std::uint16_t v;
-	v = (std::uint16_t)(((x << 8) & 0xFF00) | ((x >> 8) & 0xFF));
-	return v;
-	*/
-#endif
-}
+{ return ___COCONUT_bswap16(x); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int16_t swpcs16(std::int16_t & x)
@@ -52,17 +42,7 @@ std::int16_t swpcs16(std::int16_t & x)
 	
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint32_t swpc32(const volatile std::uint32_t x)
-{
-#if defined(___COCONUT_bswap32)
-	return ___COCONUT_bswap32(x);
-#else
-	/*
-	std::uint32_t v;
-	v = ((x & 0xFF) << 24) | ((x & 0xFF00) << 8) | ((x >> 8) & 0xFF00) | ((x >> 24) & 0xFF);
-	return v;
-	*/
-#endif
-}
+{ return ___COCONUT_bswap32(x); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int32_t swpcs32(std::int32_t & x)
@@ -72,31 +52,12 @@ std::int32_t swpcs32(std::int32_t & x)
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::uint64_t swpc64(const volatile std::uint64_t x)
-{
-#if defined(___COCONUT_bswap64)
-	return ___COCONUT_bswap64(x);
-#else
-	/*
-	std::uint64_t v = (
-		(x >> 56)
-		| ((x << 40) & 0x00FF000000000000ULL)
-		| ((x << 24) & 0x0000FF0000000000ULL)
-		| ((x <<  8) & 0x000000FF00000000ULL)
-		| ((x >>  8) & 0x00000000FF000000ULL)
-		| ((x >> 24) & 0x0000000000FF0000ULL)
-		| ((x >> 40) & 0x000000000000FF00ULL)
-		| (x << 56)
-	);
-	return v;
-	*/
-#endif
-}
+{ return ___COCONUT_bswap64(x); }
 
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 std::int64_t swpcs64(std::int64_t & x)
 { return ___COCONUT_bswap64(x); }
 
-#pragma mark -
 #pragma mark -
 #pragma mark -
 

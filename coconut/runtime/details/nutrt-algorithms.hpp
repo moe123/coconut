@@ -16,6 +16,22 @@ namespace coconut
 
 #pragma mark -
 	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+CharT toupper(const CharT & ch, std::locale loc = std::locale())
+{
+	return std::use_facet< std::ctype<CharT> >(loc).toupper(ch);
+}
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+CharT tolower(const CharT & ch, std::locale loc = std::locale())
+{
+	return std::use_facet< std::ctype<CharT> >(loc).tolower(ch);
+}
+
+#pragma mark -
+	
 template <typename CharT
 	, typename Traits = std::char_traits<CharT>
 	, typename Allocator = allocators::standard<CharT>
@@ -23,16 +39,15 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool istarts_with(
 	const std::basic_string<CharT, Traits, Allocator> & haystack,
-	const std::basic_string<CharT, Traits, Allocator> & needle
+	const std::basic_string<CharT, Traits, Allocator> & needle,
+	std::locale loc = std::locale()
 ) {
-	std::locale loc;
-	
 	return needle.size() <= haystack.size() && std::equal(
 		haystack.cbegin(),
 		needle.cbegin(),
 		needle.cend(),
 		[&loc] (CharT ch1, CharT ch2) {
-			return (std::toupper(ch1, loc) == std::toupper(ch2, loc));
+			return (toupper(ch1, loc) == toupper(ch2, loc));
 		}
 	);
 }
@@ -45,11 +60,13 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool istarts_with(
 	const CharT (&haystack)[N],
-	const std::basic_string<CharT, Traits, Allocator> & needle
+	const std::basic_string<CharT, Traits, Allocator> & needle,
+	std::locale loc = std::locale()
 ) {
 	return istarts_with<CharT, Traits, Allocator>(
 		std::basic_string<CharT, Traits, Allocator>(haystack),
-		needle
+		needle,
+		loc
 	);
 }
 
@@ -61,11 +78,13 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool istarts_with(
 	const std::basic_string<CharT, Traits, Allocator> & haystack,
-	const CharT (&needle)[N]
+	const CharT (&needle)[N],
+	std::locale loc = std::locale()
 ) {
 	return istarts_with<CharT, Traits, Allocator>(
 		haystack,
-		std::basic_string<CharT, Traits, Allocator>(needle)
+		std::basic_string<CharT, Traits, Allocator>(needle),
+		loc
 	);
 }
 
@@ -78,11 +97,13 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool istarts_with(
 	const CharT (&haystack)[N1],
-	const CharT (&needle)[N2]
+	const CharT (&needle)[N2],
+	std::locale loc = std::locale()
 ) {
 	return istarts_with<CharT, Traits, Allocator>(
 		std::basic_string<CharT, Traits, Allocator>(haystack),
-		std::basic_string<CharT, Traits, Allocator>(needle)
+		std::basic_string<CharT, Traits, Allocator>(needle),
+		loc
 	);
 }
 	
@@ -162,17 +183,71 @@ template <typename CharT
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 bool iends_with(
 	const std::basic_string<CharT, Traits, Allocator> & haystack,
-	const std::basic_string<CharT, Traits, Allocator> & needle
+	const std::basic_string<CharT, Traits, Allocator> & needle,
+	std::locale loc = std::locale()
 ) {
-	std::locale loc;
-	
 	return needle.size() <= haystack.size() && std::equal(
 		haystack.crbegin(),
 		needle.crbegin(),
 		needle.crend(),
 		[&loc] (CharT ch1, CharT ch2) {
-			return (std::toupper(ch1, loc) == std::toupper(ch2, loc));
+			return (toupper(ch1, loc) == toupper(ch2, loc));
 		}
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool iends_with(
+	const CharT (&haystack)[N],
+	const std::basic_string<CharT, Traits, Allocator> & needle,
+	std::locale loc = std::locale()
+) {
+	return iends_with<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		needle,
+		loc
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool iends_with(
+	const std::basic_string<CharT, Traits, Allocator> & haystack,
+	const CharT (&needle)[N],
+	std::locale loc = std::locale()
+) {
+	return iends_with<CharT, Traits, Allocator>(
+		haystack,
+		std::basic_string<CharT, Traits, Allocator>(needle),
+		loc
+	);
+}
+	
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+	, std::size_t N1
+	, std::size_t N2
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+bool iends_with(
+	const CharT (&haystack)[N1],
+	const CharT (&needle)[N2],
+	std::locale loc = std::locale()
+) {
+	return iends_with<CharT, Traits, Allocator>(
+		std::basic_string<CharT, Traits, Allocator>(haystack),
+		std::basic_string<CharT, Traits, Allocator>(needle),
+		loc
 	);
 }
 
@@ -445,7 +520,7 @@ std::ptrdiff_t ifind(
 		needle.cbegin(),
 		needle.cend(),
 		[&loc] (CharT ch1, CharT ch2) {
-			return (std::toupper(ch1, loc) == std::toupper(ch2, loc));
+			return (toupper(ch1, loc) == toupper(ch2, loc));
 		}
 	);
 	

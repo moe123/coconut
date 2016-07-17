@@ -193,6 +193,12 @@
 	#define ___COCONUT_BEGIN_DECLS extern "C" {
 	#define ___COCONUT_END_DECLS }
 
+	#if defined(__LP64__) && __LP64__
+		#define COCONUT_LONG_AND_PTR_AS_64 1
+	#else
+		#define COCONUT_LONG_AND_PTR_AS_64 0
+	#endif
+
 	#if !defined(COCONUT_ALIGNAS)
 		#if defined(__MICROSOFT_VS__) && __MICROSOFT_VS__
 			#if __MICROSOFT_VS_VERSION__ <= __MICROSOFT_VS_2012__

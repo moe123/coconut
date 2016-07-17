@@ -154,7 +154,7 @@ namespace coconut
 	COCONUT_ALWAYS_INLINE
 	unsigned long SwapLong(unsigned long x)
 	{
-	#if __LP64__
+	#if COCONUT_LONG_AND_PTR_AS_64
 		return runtime::byteorder::swpc64(x);
 	#else
 		return runtime::byteorder::swpc32(x);
@@ -176,7 +176,7 @@ namespace coconut
 	COCONUT_ALWAYS_INLINE
 	unsigned long SwapBigLongToHost(unsigned long x)
 	{
-	#if __LP64__
+	#if COCONUT_LONG_AND_PTR_AS_64
 		return runtime::byteorder::be2h64(x);
 	#else
 		return runtime::byteorder::be2h32(x);
@@ -198,7 +198,7 @@ namespace coconut
 	COCONUT_ALWAYS_INLINE
 	unsigned long SwapHostLongToBig(unsigned long x)
 	{
-	#if __LP64__
+	#if COCONUT_LONG_AND_PTR_AS_64
 		return runtime::byteorder::h2be64(x);
 	#else
 		return runtime::byteorder::h2be32(x);
@@ -219,7 +219,7 @@ namespace coconut
 	
 	COCONUT_ALWAYS_INLINE
 	unsigned long SwapLittleLongToHost(unsigned long x) {
-	#if __LP64__
+	#if COCONUT_LONG_AND_PTR_AS_64
 		return runtime::byteorder::le2h64(x);
 	#else
 		return runtime::byteorder::le2h32(x);
@@ -241,7 +241,7 @@ namespace coconut
 	COCONUT_ALWAYS_INLINE
 	unsigned long SwapHostLongToLittle(unsigned long x)
 	{
-	#if __LP64__
+	#if COCONUT_LONG_AND_PTR_AS_64
 		return runtime::byteorder::h2le64(x);
 	#else
 		return runtime::byteorder::h2le32(x);

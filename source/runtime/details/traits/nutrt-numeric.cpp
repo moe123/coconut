@@ -516,7 +516,7 @@ double numeric::to_real() const
 
 std::int64_t numeric::to_integer() const
 {
-#if __LP64__
+#if COCONUT_LONG_AND_PTR_AS_64
 	return to_long();
 #else
 	return to_long_long();
@@ -525,7 +525,7 @@ std::int64_t numeric::to_integer() const
 
 std::uint64_t numeric::to_unsigned_integer() const
 {
-#if __LP64__
+#if COCONUT_LONG_AND_PTR_AS_64
 	return to_unsigned_long();
 #else
 	return to_unsigned_long_long();
