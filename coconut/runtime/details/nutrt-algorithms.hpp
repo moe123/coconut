@@ -15,20 +15,36 @@ namespace coconut
 {
 
 #pragma mark -
+
+template <typename CharT
+	, typename Traits = std::char_traits<CharT>
+	, typename Allocator = allocators::standard<CharT>
+>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t length(const std::basic_string<CharT, Traits, Allocator> & s)
+{ return s.size(); }
+	
+template <typename CharT, std::size_t N>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t length(const CharT (&s)[N])
+{ return N; }
+	
+template <typename CharT>
+COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
+std::size_t length(const CharT * s)
+{ return std::char_traits<CharT>::length(s); }
+
+#pragma mark -
 	
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 CharT toupper(const CharT & ch, std::locale loc = std::locale())
-{
-	return std::use_facet< std::ctype<CharT> >(loc).toupper(ch);
-}
+{ return std::use_facet< std::ctype<CharT> >(loc).toupper(ch); }
 	
 template <typename CharT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 CharT tolower(const CharT & ch, std::locale loc = std::locale())
-{
-	return std::use_facet< std::ctype<CharT> >(loc).tolower(ch);
-}
+{ return std::use_facet< std::ctype<CharT> >(loc).tolower(ch); }
 
 #pragma mark -
 	

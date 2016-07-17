@@ -237,7 +237,7 @@ ustring::ustring(const std::u32string & in, encoding_option encoding)
 ustring::ustring(const char * utf8_str)
 : ustring(
 	weak_cast<const std::int8_t *>(utf8_str),
-	std::char_traits<char>::length(utf8_str),
+	algorithms::length(utf8_str),
 	encoding_utf8
 )
 { /* NOP */ }
@@ -245,7 +245,7 @@ ustring::ustring(const char * utf8_str)
 ustring::ustring(const char16_t * utf16_str)
 : ustring(
 	weak_cast<const std::int16_t *>(utf16_str),
-	std::char_traits<char16_t>::length(utf16_str),
+	algorithms::length(utf16_str),
 	encoding_utf16
 )
 { /* NOP */ }
@@ -253,7 +253,7 @@ ustring::ustring(const char16_t * utf16_str)
 ustring::ustring(const char32_t * utf32_str)
 : ustring(
 	weak_cast<const std::int32_t *>(utf32_str),
-	std::char_traits<char32_t>::length(utf32_str),
+	algorithms::length(utf32_str),
 	encoding_utf32
 )
 { /* NOP */ }
