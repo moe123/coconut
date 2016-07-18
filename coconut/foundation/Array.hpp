@@ -81,6 +81,9 @@ namespace coconut
 		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
+		const Array mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
+		const Array mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
 		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
@@ -89,6 +92,9 @@ namespace coconut
 		
 		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func) const;
 		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
+		const Array select(const std::function<bool(const Owning<Any> & obj)> & func) const;
+		const Array reject(const std::function<bool(const Owning<Any> & obj)> & func) const;
 		
 		const Array flatten() const;
 		

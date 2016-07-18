@@ -209,6 +209,28 @@ const Array Array::map(const std::function<Owning<Any>(const Owning<Any> & obj)>
 
 #pragma mark -
 
+const Array Array::mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
+{ return mapKeyPath(utf8_keypath, func, EnumerationConcurrent); }
+
+const Array Array::mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[&buf, &utf8_keypath, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
+		if (item) {
+			Owning<Any> mapped = func(item);
+			if (mapped) {
+				buf.push_back(mapped);
+			}
+		}
+	}, options);
+	return { buf.begin(), buf.end() };
+}
+
+#pragma mark -
+
 const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
 { return flatMap(func, EnumerationConcurrent); }
 
@@ -301,6 +323,24 @@ const Owning<Any> Array::reduce(const std::function<Owning<Any>(const Owning<Any
 		}
 	}, options);
 	return reduced;
+}
+
+#pragma mark -
+
+const Array Array::select(const std::function<bool(const Owning<Any> & obj)> & func) const
+{ return filter(func, EnumerationConcurrent); }
+
+const Array Array::reject(const std::function<bool(const Owning<Any> & obj)> & func) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		if (!func(obj)) {
+			buf.push_back(obj);
+		}
+	}, EnumerationConcurrent);
+	return { buf.begin(), buf.end() };
 }
 
 #pragma mark -
