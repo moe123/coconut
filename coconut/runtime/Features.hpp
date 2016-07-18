@@ -439,7 +439,7 @@ namespace coconut
 	{
 		using result = typename std::decay<CollT>::type;
 		std::vector< Owning<Any> > buf;
-		Thus(r).enumerateObjectsUsingFunction(
+		Enumerate(r,
 			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 			Owning<Any> mapped = func(obj);
@@ -463,7 +463,7 @@ namespace coconut
 	{
 		using result = typename std::decay<CollT>::type;
 		std::vector< Owning<Any> > buf;
-		Thus(r).enumerateObjectsUsingFunction(
+		Enumerate(r,
 			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 			if (func(obj)) {
@@ -485,7 +485,7 @@ namespace coconut
 		-> Owning<Any>
 	{
 		Owning<Any> reduced = Thus(r).firstObject();
-		Thus(r).enumerateObjectsUsingFunction(
+		Enumerate(r,
 			[&reduced, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 			if (index > 0) {
