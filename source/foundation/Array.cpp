@@ -218,15 +218,41 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 	enumerateObjectsUsingFunction(
 		[this, &buf, &func, &options] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
-		if (obj && obj->isKindOf(*this)) {
+		if (obj && obj->isKindOf(ArrayClass)) {
 			EnumerationOptions opts = options;
 			if (opts == EnumerationConcurrent) {
 				opts = EnumerationDefault;
 			} else if (opts & EnumerationConcurrent) {
 				opts &= ~(EnumerationConcurrent);
 			}
-			const Array merge = ref_cast<Array>(*obj).flatMap(func, opts);
-			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+			const Array flat = ref_cast<Array>(*obj).flatMap(func, opts);
+			for (const_iterator it =  flat.cbegin(); it != flat.cend(); ++it) {
+				buf.push_back(*it);
+			}
+		} else if (obj && obj->isKindOf(SetClass)) {
+			EnumerationOptions opts = options;
+			if (opts == EnumerationConcurrent) {
+				opts = EnumerationDefault;
+			} else if (opts & EnumerationConcurrent) {
+				opts &= ~(EnumerationConcurrent);
+			}
+			const Array flat = Array(
+				ref_cast<Set>(*obj).begin(), ref_cast<Set>(*obj).end()
+			).flatMap(func, opts);
+			for (const_iterator it =  flat.cbegin(); it != flat.cend(); ++it) {
+				buf.push_back(*it);
+			}
+		} else if (obj && obj->isKindOf(OrderedSetClass)) {
+			EnumerationOptions opts = options;
+			if (opts == EnumerationConcurrent) {
+				opts = EnumerationDefault;
+			} else if (opts & EnumerationConcurrent) {
+				opts &= ~(EnumerationConcurrent);
+			}
+			const Array flat = Array(
+				ref_cast<OrderedSet>(*obj).begin(), ref_cast<OrderedSet>(*obj).end()
+			).flatMap(func, opts);
+			for (const_iterator it =  flat.cbegin(); it != flat.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else {
@@ -285,8 +311,22 @@ const Array Array::flatten() const
 	enumerateObjectsUsingFunction(
 		[this, &buf] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
-		if (obj && obj->isKindOf(*this)) {
+		if (obj && obj->isKindOf(ArrayClass)) {
 			const Array merge = ref_cast<Array>(*obj).flatten();
+			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+				buf.push_back(*it);
+			}
+		} else if (obj && obj->isKindOf(SetClass)) {
+			const Array merge = Array(
+				ref_cast<Set>(*obj).begin(), ref_cast<Set>(*obj).end()
+			).flatten();
+			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+				buf.push_back(*it);
+			}
+		} else if (obj && obj->isKindOf(OrderedSetClass)) {
+			const Array merge = Array(
+				ref_cast<OrderedSet>(*obj).begin(), ref_cast<OrderedSet>(*obj).end()
+			).flatten();
 			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
 				buf.push_back(*it);
 			}
