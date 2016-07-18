@@ -96,6 +96,9 @@ namespace coconut
 		const Array filter(const std::function<bool(const Owning<Any> & obj)> & func) const;
 		const Array filter(const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
+		const Array filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const;
+		const Array filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
 		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func) const;
 		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		

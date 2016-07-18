@@ -197,7 +197,7 @@ const Array & Array::each(const std::function<void(const Owning<Any> & obj)> & f
 {
 	impl_trait buf;
 	enumerateObjectsUsingFunction(
-	  [&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
 		if (obj) { func(obj); }
 	}, options);
@@ -283,7 +283,7 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 				opts &= ~(EnumerationConcurrent);
 			}
 			const Array flat = ref_cast<Array>(*obj).flatMap(func, opts);
-			for (const_iterator it =  flat.cbegin(); it != flat.cend(); ++it) {
+			for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else if (obj && obj->isKindOf(SetClass)) {
@@ -296,7 +296,7 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 			const Array flat = Array(
 				ref_cast<Set>(*obj).begin(), ref_cast<Set>(*obj).end()
 			).flatMap(func, opts);
-			for (const_iterator it =  flat.cbegin(); it != flat.cend(); ++it) {
+			for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else if (obj && obj->isKindOf(OrderedSetClass)) {
@@ -309,7 +309,7 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 			const Array flat = Array(
 				ref_cast<OrderedSet>(*obj).begin(), ref_cast<OrderedSet>(*obj).end()
 			).flatMap(func, opts);
-			for (const_iterator it =  flat.cbegin(); it != flat.cend(); ++it) {
+			for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else {
@@ -333,12 +333,32 @@ const Array Array::filter(const std::function<bool(const Owning<Any> & obj)> & f
 	enumerateObjectsUsingFunction(
 		[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
-	  if (func(obj)) {
-		  buf.push_back(obj);
-	  }
+		if (func(obj)) {
+			buf.push_back(obj);
+		}
 	}, options);
 	return { buf.begin(), buf.end() };
 }
+
+const Array Array::filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const
+{ return filter(utf8_keypath, func, EnumerationConcurrent); }
+
+const Array Array::filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+	[&buf, &utf8_keypath, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
+		if (item) {
+			if (func(item)) {
+				buf.push_back(obj);
+			}
+		}
+	}, options);
+	return { buf.begin(), buf.end() };
+}
+
 
 #pragma mark -
 
@@ -388,21 +408,21 @@ const Array Array::flatten() const
 	{
 		if (obj && obj->isKindOf(ArrayClass)) {
 			const Array merge = ref_cast<Array>(*obj).flatten();
-			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+			for (const_iterator it = merge.cbegin(); it != merge.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else if (obj && obj->isKindOf(SetClass)) {
 			const Array merge = Array(
 				ref_cast<Set>(*obj).begin(), ref_cast<Set>(*obj).end()
 			).flatten();
-			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+			for (const_iterator it = merge.cbegin(); it != merge.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else if (obj && obj->isKindOf(OrderedSetClass)) {
 			const Array merge = Array(
 				ref_cast<OrderedSet>(*obj).begin(), ref_cast<OrderedSet>(*obj).end()
 			).flatten();
-			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+			for (const_iterator it = merge.cbegin(); it != merge.cend(); ++it) {
 				buf.push_back(*it);
 			}
 		} else {
