@@ -1979,7 +1979,7 @@ typename std::enable_if<
 		std::vector<CharT> buf(static_cast<std::size_t>(sz));
 		std::snprintf(buf.data(), buf.size(), fmt, std::forward<ArgsT>(args)...);
 		if (buf.back() == '\0') { buf.pop_back(); }
-		return {buf.begin(), buf.end()};
+		return { buf.begin(), buf.end() };
 	}
 	return {};
 }
@@ -2000,7 +2000,7 @@ typename std::enable_if<
 		std::vector<CharT> buf(static_cast<std::size_t>(sz));
 		std::swprintf(buf.data(), buf.size(), fmt, std::forward<ArgsT>(args)...);
 		if (buf.back() == '\0') { buf.pop_back(); }
-		return {buf.begin(), buf.end()};
+		return { buf.begin(), buf.end() };
 	}
 	return {};
 }

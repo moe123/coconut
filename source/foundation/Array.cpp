@@ -190,6 +190,115 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 
 #pragma mark -
 
+const Array Array::map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
+{ return map(func, EnumerationConcurrent); }
+
+const Array Array::map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		Owning<Any> mapped = func(obj);
+		if (mapped) {
+			buf.push_back(mapped);
+		}
+	}, options);
+	return { buf.begin(), buf.end() };
+}
+
+#pragma mark -
+
+const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
+{ return flatMap(func, EnumerationConcurrent); }
+
+const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[this, &buf, &func, &options] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		if (obj && obj->isKindOf(*this)) {
+			EnumerationOptions opts = options;
+			if (options == EnumerationConcurrent) {
+				opts = EnumerationDefault;
+			} else if (options & EnumerationConcurrent) {
+				opts &= ~(EnumerationConcurrent);
+			}
+			const Array merge = ref_cast<Array>(*obj).flatMap(func, opts);
+			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+				buf.push_back(*it);
+			}
+		} else {
+			Owning<Any> mapped = func(obj);
+			if (mapped) {
+				buf.push_back(mapped);
+			}
+		}
+	}, options);
+	return { buf.begin(), buf.end() };
+}
+
+#pragma mark -
+
+const Array Array::filter(const std::function<bool(const Owning<Any> & obj)> & func) const
+{ return filter(func, EnumerationConcurrent); }
+
+const Array Array::filter(const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+	  if (func(obj)) {
+		  buf.push_back(obj);
+	  }
+	}, options);
+	return { buf.begin(), buf.end() };
+}
+
+#pragma mark -
+
+const Owning<Any> Array::reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func) const
+{ return reduce(func, EnumerationConcurrent); }
+
+const Owning<Any> Array::reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	Owning<Any> reduced;
+	enumerateObjectsUsingFunction(
+		[&reduced, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		if (index == 0) {
+			reduced = obj;
+		} else {
+			reduced = func(reduced, obj);
+		}
+	}, options);
+	return reduced;
+}
+
+#pragma mark -
+
+const Array Array::flatten() const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[this, &buf] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		if (obj && obj->isKindOf(*this)) {
+			const Array merge = ref_cast<Array>(*obj).flatten();
+			for (const_iterator it =  merge.cbegin(); it != merge.cend(); ++it) {
+				buf.push_back(*it);
+			}
+		} else {
+			buf.push_back(obj);
+		}
+	}, EnumerationConcurrent);
+	return { buf.begin(), buf.end() };
+}
+
+#pragma mark -
+
 const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg) const
 {
 	impl_trait buf;
@@ -202,7 +311,7 @@ const Array Array::makeObjectsPerformSelectorKey(const std::string & utf8_selkey
 		if (!v) { v = ptr_create<None>(); }
 		buf.push_back(v);
 	}
-	return {buf.begin(), buf.end()};
+	return { buf.begin(), buf.end() };
 }
 
 #pragma mark -
@@ -219,6 +328,22 @@ void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<
 	enumerateObjectsUsingFunction(
 		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{ func(obj); }, options);
+}
+
+#pragma mark -
+
+void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj, stop); }, EnumerationDefault);
+}
+
+void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj, stop); }, options);
 }
 
 #pragma mark -
@@ -279,11 +404,15 @@ void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<
 			{
 				auto op = runtime::async::exec(runtime::launch_async, [this, &idx, &stop, &func]
 				{
-					for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
-						idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, crend() -1));
-						if ((*it)) {
-							func((*it), idx, stop);
-							if (stop) { break; }
+					if (size()) {
+						const_reverse_iterator index_end = crend();
+						--index_end;
+						for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+							idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, index_end));
+							if ((*it)) {
+								func((*it), idx, stop);
+								if (stop) { break; }
+							}
 						}
 					}
 				});
@@ -292,11 +421,15 @@ void Array::enumerateObjectsUsingFunction(const std::function<void(const Owning<
 			break;
 			case IterationDescending:
 			{
-				for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
-					idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, crend() -1));
-					if ((*it)) {
-						func((*it), idx, stop);
-						if (stop) { break; }
+				if (size()) {
+					const_reverse_iterator index_end = crend();
+					--index_end;
+					for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+						idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, index_end));
+						if ((*it)) {
+							func((*it), idx, stop);
+							if (stop) { break; }
+						}
 					}
 				}
 			}
@@ -1122,7 +1255,7 @@ const Array Array::operator * (std::size_t accumulate) const
 			buf.push_back((*it));
 		}
 	}
-	return {buf.begin(), buf.end()};
+	return { buf.begin(), buf.end() };
 }
 
 const Array Array::operator << (const Any & obj) const

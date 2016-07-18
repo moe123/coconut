@@ -78,10 +78,26 @@ namespace coconut
 		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
 		
+		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
+		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
+		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
+		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
+		const Array filter(const std::function<bool(const Owning<Any> & obj)> & func) const;
+		const Array filter(const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
+		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func) const;
+		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
+		const Array flatten() const;
+		
 		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 		
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const;
+		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const;
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const;
 		

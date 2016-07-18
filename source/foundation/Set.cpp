@@ -205,23 +205,39 @@ const Array Set::makeObjectsPerformSelectorKey(const std::string & utf8_selkey, 
 void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const
 {
 	enumerateObjectsUsingFunction(
-		[&func] (const Owning<Any> & obj, bool & stop)
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{ func(obj); }, EnumerationDefault);
 }
 
 void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const
 {
 	enumerateObjectsUsingFunction(
-		[&func] (const Owning<Any> & obj, bool & stop)
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{ func(obj); }, options);
 }
 
 #pragma mark -
 
 void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const
-{ enumerateObjectsUsingFunction(func, EnumerationDefault); }
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj, stop); }, EnumerationDefault);
+}
 
 void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj, stop); }, options);
+}
+
+#pragma mark -
+
+void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
+{ enumerateObjectsUsingFunction(func, EnumerationDefault); }
+
+void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func, EnumerationOptions options) const
 {
 	if (size()) {
 		IterationOption iter_option = IterationAscending;
@@ -239,6 +255,7 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 			}
 		}
 		
+		std::size_t idx = 0;
 		bool stop = false;
 		
 		switch (iter_option)
@@ -246,8 +263,9 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 			case IterationAscending:
 			{
 				for (const_iterator it = cbegin(); it != cend(); ++it) {
+					idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
 					if ((*it)) {
-						func((*it), stop);
+						func((*it), idx, stop);
 						if (stop) { break; }
 					}
 				}
@@ -255,11 +273,12 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 			break;
 			case IterationAsyncAscending:
 			{
-				auto op = runtime::async::exec(runtime::launch_async, [this, &stop, &func]
+				auto op = runtime::async::exec(runtime::launch_async, [this, &idx, &stop, &func]
 				{
 					for (const_iterator it = cbegin(); it != cend(); ++it) {
+						idx = static_cast<std::size_t>(std::distance<const_iterator>(cbegin(), it));
 						if ((*it)) {
-							func((*it), stop);
+							func((*it), idx, stop);
 							if (stop) { break; }
 						}
 					}
@@ -269,12 +288,17 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 			break;
 			case IterationAsyncDescending:
 			{
-				auto op = runtime::async::exec(runtime::launch_async, [this, &stop, &func]
+				auto op = runtime::async::exec(runtime::launch_async, [this, &idx, &stop, &func]
 				{
-					for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
-						if ((*it)) {
-							func((*it), stop);
-							if (stop) { break; }
+					if (size()) {
+						const_reverse_iterator index_end = crend();
+						--index_end;
+						for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+							idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, index_end));
+							if ((*it)) {
+								func((*it), idx, stop);
+								if (stop) { break; }
+							}
 						}
 					}
 				});
@@ -283,10 +307,15 @@ void Set::enumerateObjectsUsingFunction(const std::function<void(const Owning<An
 			break;
 			case IterationDescending:
 			{
-				for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
-					if ((*it)) {
-						func((*it), stop);
-						if (stop) { break; }
+				if (size()) {
+					const_reverse_iterator index_end = crend();
+					--index_end;
+					for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+						idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, index_end));
+						if ((*it)) {
+							func((*it), idx, stop);
+							if (stop) { break; }
+						}
 					}
 				}
 			}

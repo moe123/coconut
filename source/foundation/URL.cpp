@@ -146,7 +146,7 @@ const Dictionary URL::queryParameters() const
 	for (auto & kv : parameters) {
 		buf.insert(std::make_pair(ptr_create<String>(kv.first), ptr_create<String>(kv.second)));
 	}
-	return {buf.begin(), buf.end()};
+	return { buf.begin(), buf.end() };
 }
 
 #pragma mark -

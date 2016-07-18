@@ -193,6 +193,22 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Ow
 
 #pragma mark -
 
+void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj, stop); }, EnumerationDefault);
+}
+
+void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, bool & stop)> & func, EnumerationOptions options) const
+{
+	enumerateObjectsUsingFunction(
+		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{ func(obj, stop); }, options);
+}
+
+#pragma mark -
+
 void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj, std::size_t index, bool & stop)> & func) const
 { enumerateObjectsUsingFunction(func, EnumerationDefault); }
 
@@ -249,11 +265,15 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Ow
 			{
 				auto op = runtime::async::exec(runtime::launch_async, [this, &idx, &stop, &func]
 				{
-					for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
-						idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, crend() -1));
-						if ((*it)) {
-							func((*it), idx, stop);
-							if (stop) { break; }
+					if (size()) {
+						const_reverse_iterator index_end = crend();
+						--index_end;
+						for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+							idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, index_end));
+							if ((*it)) {
+								func((*it), idx, stop);
+								if (stop) { break; }
+							}
 						}
 					}
 				});
@@ -262,11 +282,15 @@ void OrderedSet::enumerateObjectsUsingFunction(const std::function<void(const Ow
 			break;
 			case IterationDescending:
 			{
-				for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
-					idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, crend() -1));
-					if ((*it)) {
-						func((*it), idx, stop);
-						if (stop) { break; }
+				if (size()) {
+					const_reverse_iterator index_end = crend();
+					--index_end;
+					for (const_reverse_iterator it = crbegin(); it != crend(); ++it) {
+						idx = static_cast<std::size_t>(std::distance<const_reverse_iterator>(it, index_end));
+						if ((*it)) {
+							func((*it), idx, stop);
+							if (stop) { break; }
+						}
 					}
 				}
 			}
