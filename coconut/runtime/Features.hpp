@@ -431,7 +431,9 @@ namespace coconut
 			std::is_same<CollT, Array>::value ||
 			std::is_same<CollT, MutableArray>::value ||
 			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value
+			std::is_same<CollT, MutableOrderedSet>::value ||
+			std::is_same<CollT, Set>::value ||
+			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto Map(CollT && r, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
@@ -439,7 +441,7 @@ namespace coconut
 	{
 		using collection = typename std::decay<CollT>::type;
 		std::vector< Owning<Any> > buf;
-		Enumerate(r,
+		Enumerate<TypeT>(r,
 			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 			Owning<Any> mapped = func(obj);
@@ -455,7 +457,9 @@ namespace coconut
 			std::is_same<CollT, Array>::value ||
 			std::is_same<CollT, MutableArray>::value ||
 			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value
+			std::is_same<CollT, MutableOrderedSet>::value ||
+			std::is_same<CollT, Set>::value ||
+			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto Filter(CollT && r, const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
@@ -463,7 +467,7 @@ namespace coconut
 	{
 		using collection = typename std::decay<CollT>::type;
 		std::vector< Owning<Any> > buf;
-		Enumerate(r,
+		Enumerate<TypeT>(r,
 			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 			if (func(obj)) {
@@ -478,14 +482,16 @@ namespace coconut
 			std::is_same<CollT, Array>::value ||
 			std::is_same<CollT, MutableArray>::value ||
 			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value
+			std::is_same<CollT, MutableOrderedSet>::value ||
+			std::is_same<CollT, Set>::value ||
+			std::is_same<CollT, MutableSet>::value
 		>::type* = nullptr
 	>
 	inline auto Reduce(CollT && r, const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
 		-> Owning<Any>
 	{
 		Owning<Any> reduced;
-		Enumerate(r,
+		Enumerate<TypeT>(r,
 			[&reduced, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
 			if (index == 0) {
