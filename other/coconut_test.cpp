@@ -1066,6 +1066,11 @@ int Σ0() {
 int main(int argc, const char * argv[])
 {
 	{
+		std::cerr << runtime::unicode::_utf16_storage << std::endl;
+		std::cerr << runtime::unicode::_utf16_literal_storage << std::endl;
+		
+		return 0;
+		
 		time_t ts = 0;
 		struct tm t;
 		char buf[16];

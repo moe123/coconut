@@ -270,7 +270,7 @@ const byteorder_type __utf16_storage_endianess(
 }
 	
 template <typename Char8T = char
-	, typename Char32T = char16_t
+	, typename Char32T = char32_t
 	, typename CodecvtT = std::codecvt_utf8<Char32T>
 >
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -305,10 +305,36 @@ const byteorder_type __utf32_storage_endianess(
 	
 	return byteorder_unknown;
 }
+	
+static
+const byteorder_type __utf16_literal_storage_endianess()
+{
+	const char16_t ch[2] = u"\n";
+	if (ch[0] == 0x000A) {
+		return byteorder_bigendian;
+	} else if (ch[0] == 0x0A00) {
+		return byteorder_littleendian;
+	}
+	return byteorder_unknown;
+}
+	
+static
+const byteorder_type __utf32_literal_storage_endianess()
+{
+	const char32_t ch[2] = U"\n";
+	if (ch[0] == 0x0000000A) {
+		return byteorder_bigendian;
+	} else if (ch[0] == 0x0A000000) {
+		return byteorder_littleendian;
+	}
+	return byteorder_unknown;
+}
 
 /* toll-free bridge between local STL priv-impl + ICU backend + win32-wide */
 static byteorder_type const _utf16_storage = __utf16_storage_endianess();
 static byteorder_type const _utf32_storage = __utf32_storage_endianess();
+static byteorder_type const _utf16_literal_storage = __utf16_literal_storage_endianess();
+static byteorder_type const _utf32_literal_storage = __utf32_literal_storage_endianess();
 	
 } /* EONS */
 

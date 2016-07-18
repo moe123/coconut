@@ -425,6 +425,75 @@ namespace coconut
 	inline auto Enumerate(CollT && r, FuncT && func, EnumerationOptions options = EnumerationDefault)
 		-> void
 	{ _enumerate<TypeT>(r, func, options, tag_is_shared_ptr<typename std::decay<CollT>::type>{}); }
+	
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<CollT, Array>::value ||
+			std::is_same<CollT, MutableArray>::value ||
+			std::is_same<CollT, OrderedSet>::value ||
+			std::is_same<CollT, MutableOrderedSet>::value
+		>::type* = nullptr
+	>
+	inline auto Map(CollT && r, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
+		-> typename std::decay<CollT>::type
+	{
+		using result = typename std::decay<CollT>::type;
+		std::vector< Owning<Any> > buf;
+		Thus(r).enumerateObjectsUsingFunction(
+			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		{
+			Owning<Any> mapped = func(obj);
+			if (mapped) {
+				buf.push_back(mapped);
+			}
+		}, options);
+		return result(buf.begin(), buf.end());
+	}
+	
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<CollT, Array>::value ||
+			std::is_same<CollT, MutableArray>::value ||
+			std::is_same<CollT, OrderedSet>::value ||
+			std::is_same<CollT, MutableOrderedSet>::value
+		>::type* = nullptr
+	>
+	inline auto Filter(CollT && r, const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
+		-> typename std::decay<CollT>::type
+	{
+		using result = typename std::decay<CollT>::type;
+		std::vector< Owning<Any> > buf;
+		Thus(r).enumerateObjectsUsingFunction(
+			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		{
+			if (func(obj)) {
+				buf.push_back(obj);
+			}
+		}, options);
+		return result(buf.begin(), buf.end());
+	}
+
+	template <typename TypeT, typename CollT,
+		typename std::enable_if<
+			std::is_same<CollT, Array>::value ||
+			std::is_same<CollT, MutableArray>::value ||
+			std::is_same<CollT, OrderedSet>::value ||
+			std::is_same<CollT, MutableOrderedSet>::value
+		>::type* = nullptr
+	>
+	inline auto Reduce(CollT && r, const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
+		-> Owning<Any>
+	{
+		Owning<Any> reduced = Thus(r).firstObject();
+		Thus(r).enumerateObjectsUsingFunction(
+			[&reduced, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+		{
+			if (index > 0) {
+				reduced = func(reduced, obj);
+			}
+		}, options);
+		return reduced;
+	}
 }
 
 #endif /* !COCONUT_RUNTIME_TO_FOUNDATION_FEATURES_HPP */
