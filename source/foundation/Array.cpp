@@ -220,9 +220,9 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 	{
 		if (obj && obj->isKindOf(*this)) {
 			EnumerationOptions opts = options;
-			if (options == EnumerationConcurrent) {
+			if (opts == EnumerationConcurrent) {
 				opts = EnumerationDefault;
-			} else if (options & EnumerationConcurrent) {
+			} else if (opts & EnumerationConcurrent) {
 				opts &= ~(EnumerationConcurrent);
 			}
 			const Array merge = ref_cast<Array>(*obj).flatMap(func, opts);
