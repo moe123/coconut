@@ -78,11 +78,17 @@ namespace coconut
 		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
 		
+		const Array & each(const std::function<void(const Owning<Any> & obj)> & func) const;
+		const Array & each(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
+		const Array & each(const std::string & utf8_keypath, const std::function<void(const Owning<Any> & obj)> & func) const;
+		const Array & each(const std::string & utf8_keypath, const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		
 		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
-		const Array mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
-		const Array mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		const Array map(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
+		const Array map(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
 		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;

@@ -190,6 +190,41 @@ Owning<Any> Array::valueForKeyPath(const std::string & utf8_keypath) const
 
 #pragma mark -
 
+const Array & Array::each(const std::function<void(const Owning<Any> & obj)> & func) const
+{ return each(func, EnumerationConcurrent); }
+
+const Array & Array::each(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+	  [&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		if (obj) { func(obj); }
+	}, options);
+	return *this;
+}
+
+const Array & Array::each(const std::string & utf8_keypath, const std::function<void(const Owning<Any> & obj)> & func) const
+{ return each(utf8_keypath, func, EnumerationConcurrent); }
+
+const Array & Array::each(const std::string & utf8_keypath, const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[&utf8_keypath, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		if (obj) {
+			Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
+			if (item) {
+				func(obj);
+			}
+		}
+	}, options);
+	return *this;
+}
+
+#pragma mark -
+
 const Array Array::map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
 { return map(func, EnumerationConcurrent); }
 
@@ -209,10 +244,10 @@ const Array Array::map(const std::function<Owning<Any>(const Owning<Any> & obj)>
 
 #pragma mark -
 
-const Array Array::mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
-{ return mapKeyPath(utf8_keypath, func, EnumerationConcurrent); }
+const Array Array::map(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
+{ return map(utf8_keypath, func, EnumerationConcurrent); }
 
-const Array Array::mapKeyPath(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+const Array Array::map(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const
 {
 	impl_trait buf;
 	enumerateObjectsUsingFunction(
