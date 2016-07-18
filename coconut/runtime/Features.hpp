@@ -484,11 +484,13 @@ namespace coconut
 	inline auto Reduce(CollT && r, const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
 		-> Owning<Any>
 	{
-		Owning<Any> reduced = Thus(r).firstObject();
+		Owning<Any> reduced;
 		Enumerate(r,
 			[&reduced, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 		{
-			if (index > 0) {
+			if (index == 0) {
+				reduced = obj;
+			} else {
 				reduced = func(reduced, obj);
 			}
 		}, options);
