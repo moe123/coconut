@@ -437,7 +437,7 @@ namespace coconut
 	inline auto Map(CollT && r, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
 		-> typename std::decay<CollT>::type
 	{
-		using result = typename std::decay<CollT>::type;
+		using collection = typename std::decay<CollT>::type;
 		std::vector< Owning<Any> > buf;
 		Enumerate(r,
 			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
@@ -447,7 +447,7 @@ namespace coconut
 				buf.push_back(mapped);
 			}
 		}, options);
-		return result(buf.begin(), buf.end());
+		return collection(buf.begin(), buf.end());
 	}
 	
 	template <typename TypeT, typename CollT,
@@ -461,7 +461,7 @@ namespace coconut
 	inline auto Filter(CollT && r, const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options = EnumerationConcurrent)
 		-> typename std::decay<CollT>::type
 	{
-		using result = typename std::decay<CollT>::type;
+		using collection = typename std::decay<CollT>::type;
 		std::vector< Owning<Any> > buf;
 		Enumerate(r,
 			[&buf, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
@@ -470,7 +470,7 @@ namespace coconut
 				buf.push_back(obj);
 			}
 		}, options);
-		return result(buf.begin(), buf.end());
+		return collection(buf.begin(), buf.end());
 	}
 
 	template <typename TypeT, typename CollT,
