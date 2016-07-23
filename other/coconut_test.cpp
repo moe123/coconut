@@ -377,6 +377,21 @@ static void test_stuff(void)
 	Then<Array>(*values);
 	Thus<Array>(tree);
 	
+	Set set_of_fruits = {
+		With<String>(u8"apple"),
+		With<String>(u8"Banana"),
+		With<String>(u8"Apple"),
+	};
+	
+	for (auto fruits : set_of_fruits) {
+		std::cerr << " fruits  + : " << fruits << std::endl;
+	}
+	
+	Array array_of_fruits = set_of_fruits;
+	for (auto fruits : array_of_fruits) {
+		std::cerr << " fruits  + : " << fruits << std::endl;
+	}
+	
 	if (KindOf<Array>(values)) {
 		for (const auto & number : Thus<Array>(values)) {
 			std::cerr << " number  + : " << number << std::endl;
@@ -1065,6 +1080,8 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
+	test_stuff();
+	return 0;
 	{
 		std::cerr << runtime::unicode::_utf16_storage << std::endl;
 		std::cerr << runtime::unicode::_utf16_literal_storage << std::endl;

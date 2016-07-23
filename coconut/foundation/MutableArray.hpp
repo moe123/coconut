@@ -36,6 +36,21 @@ namespace coconut
 			Array(std::forward<InputIterT>(first), std::forward<InputIterT>(last), option)
 		{ setClassKind(MutableArrayClass, true); }
 		
+		template <typename CollectionT,
+			typename std::enable_if<
+				std::is_same<typename std::decay<CollectionT>::type, OrderedSet>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, MutableOrderedSet>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Set>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, MutableSet>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Deque>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Queue>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Stack>::value
+			>::type* = nullptr
+		>
+		MutableArray(CollectionT && coll, CopyOption option = CopyNone) :
+			Array(coll.begin(), coll.end(), option)
+		{ setClassKind(MutableArrayClass, true); }
+		
 		MutableArray(const Path & path);
 		MutableArray(const URL & url);
 		virtual ~MutableArray();

@@ -126,7 +126,7 @@ public:
 	bool isKindOf(const Owning<Any> & ptr) const;
 	
 	template <typename T> inline bool isKindOf(void * no_param = nullptr) const
-	{ COCONUT_UNUSED(no_param); return isKindOf(std::declval<T>()/*T{}*/); }
+	{ COCONUT_UNUSED(no_param); return isKindOf(T{}); }
 	
 	bool isSubclassOf(ClassKind kind) const;
 	bool isSubclassOf(const Any & ref, const Any & other_ref) const;

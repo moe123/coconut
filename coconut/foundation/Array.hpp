@@ -47,6 +47,21 @@ namespace coconut
 			}
 		}
 		
+		template <typename CollectionT,
+			typename std::enable_if<
+				std::is_same<typename std::decay<CollectionT>::type, OrderedSet>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, MutableOrderedSet>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Set>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, MutableSet>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Deque>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Queue>::value ||
+				std::is_same<typename std::decay<CollectionT>::type, Stack>::value
+			>::type* = nullptr
+		>
+		Array(CollectionT && coll, CopyOption option = CopyNone) :
+			Array(coll.begin(), coll.end(), option)
+		{ /* NOP */ }
+		
 		Array(const Path & path);
 		Array(const URL & url);
 		virtual ~Array();
@@ -77,25 +92,25 @@ namespace coconut
 		
 		virtual Owning<Any> valueForKeyPath(const std::string & utf8_keypath) const
 		COCONUT_FINAL_OVERRIDE;
-		
+	
+	public:
 		const Array & each(const std::function<void(const Owning<Any> & obj)> & func) const;
 		const Array & each(const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
-		
 		const Array & each(const std::string & utf8_keypath, const std::function<void(const Owning<Any> & obj)> & func) const;
 		const Array & each(const std::string & utf8_keypath, const std::function<void(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
 		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array map(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
-		
 		const Array map(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array map(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
 		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
 		const Array flatMap(const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
+		const Array flatMap(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const;
+		const Array flatMap(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
 		const Array filter(const std::function<bool(const Owning<Any> & obj)> & func) const;
 		const Array filter(const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
-		
 		const Array filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const;
 		const Array filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
@@ -103,10 +118,14 @@ namespace coconut
 		const Owning<Any> reduce(const std::function<Owning<Any>(const Owning<Any> & reduced, const Owning<Any> & obj)> & func, EnumerationOptions options) const;
 		
 		const Array select(const std::function<bool(const Owning<Any> & obj)> & func) const;
+		const Array select(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const;
+		
 		const Array reject(const std::function<bool(const Owning<Any> & obj)> & func) const;
+		const Array reject(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const;
 		
 		const Array flatten() const;
-		
+	
+	public:
 		const Array makeObjectsPerformSelectorKey(const std::string & utf8_selkey, Owning<Any> arg = {}) const;
 		
 		void enumerateObjectsUsingFunction(const std::function<void(const Owning<Any> & obj)> & func) const;

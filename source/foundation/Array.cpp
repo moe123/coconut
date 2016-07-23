@@ -199,7 +199,7 @@ const Array & Array::each(const std::function<void(const Owning<Any> & obj)> & f
 	enumerateObjectsUsingFunction(
 		[&func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
-		if (obj) { func(obj); }
+		func(obj);
 	}, options);
 	return *this;
 }
@@ -213,11 +213,9 @@ const Array & Array::each(const std::string & utf8_keypath, const std::function<
 	enumerateObjectsUsingFunction(
 		[&utf8_keypath, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
-		if (obj) {
-			Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
-			if (item) {
-				func(obj);
-			}
+		Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
+		if (item) {
+			func(item);
 		}
 	}, options);
 	return *this;
@@ -275,7 +273,7 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 	enumerateObjectsUsingFunction(
 		[this, &buf, &func, &options] (const Owning<Any> & obj, std::size_t index, bool & stop)
 	{
-		if (obj && obj->isKindOf(ArrayClass)) {
+		if (obj->isKindOf(ArrayClass)) {
 			EnumerationOptions opts = options;
 			if (opts == EnumerationConcurrent) {
 				opts = EnumerationDefault;
@@ -286,7 +284,7 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 			for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
 				buf.push_back(*it);
 			}
-		} else if (obj && obj->isKindOf(SetClass)) {
+		} else if (obj->isKindOf(SetClass)) {
 			EnumerationOptions opts = options;
 			if (opts == EnumerationConcurrent) {
 				opts = EnumerationDefault;
@@ -299,7 +297,7 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 			for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
 				buf.push_back(*it);
 			}
-		} else if (obj && obj->isKindOf(OrderedSetClass)) {
+		} else if (obj->isKindOf(OrderedSetClass)) {
 			EnumerationOptions opts = options;
 			if (opts == EnumerationConcurrent) {
 				opts = EnumerationDefault;
@@ -324,6 +322,67 @@ const Array Array::flatMap(const std::function<Owning<Any>(const Owning<Any> & o
 
 #pragma mark -
 
+const Array Array::flatMap(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func) const
+{ return flatMap(utf8_keypath, func, EnumerationConcurrent); }
+
+const Array Array::flatMap(const std::string & utf8_keypath, const std::function<Owning<Any>(const Owning<Any> & obj)> & func, EnumerationOptions options) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[this, &buf, &utf8_keypath, &func, &options] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
+		if (item) {
+			if (item && item->isKindOf(ArrayClass)) {
+				EnumerationOptions opts = options;
+				if (opts == EnumerationConcurrent) {
+					opts = EnumerationDefault;
+				} else if (opts & EnumerationConcurrent) {
+					opts &= ~(EnumerationConcurrent);
+				}
+				const Array flat = ref_cast<Array>(*item).flatMap(func, opts);
+				for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
+					buf.push_back(*it);
+				}
+			} else if (item && item->isKindOf(SetClass)) {
+				EnumerationOptions opts = options;
+				if (opts == EnumerationConcurrent) {
+					opts = EnumerationDefault;
+				} else if (opts & EnumerationConcurrent) {
+					opts &= ~(EnumerationConcurrent);
+				}
+				const Array flat = Array(
+					ref_cast<Set>(*item).begin(), ref_cast<Set>(*item).end()
+				).flatMap(func, opts);
+				for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
+					buf.push_back(*it);
+				}
+			} else if (item && item->isKindOf(OrderedSetClass)) {
+				EnumerationOptions opts = options;
+				if (opts == EnumerationConcurrent) {
+					opts = EnumerationDefault;
+				} else if (opts & EnumerationConcurrent) {
+					opts &= ~(EnumerationConcurrent);
+				}
+				const Array flat = Array(
+					ref_cast<OrderedSet>(*item).begin(), ref_cast<OrderedSet>(*item).end()
+				).flatMap(func, opts);
+				for (const_iterator it = flat.cbegin(); it != flat.cend(); ++it) {
+					buf.push_back(*it);
+				}
+			} else {
+				Owning<Any> mapped = func(item);
+				if (mapped) {
+					buf.push_back(mapped);
+				}
+			}
+		}
+	}, options);
+	return { buf.begin(), buf.end() };
+}
+
+#pragma mark -
+
 const Array Array::filter(const std::function<bool(const Owning<Any> & obj)> & func) const
 { return filter(func, EnumerationConcurrent); }
 
@@ -340,6 +399,8 @@ const Array Array::filter(const std::function<bool(const Owning<Any> & obj)> & f
 	return { buf.begin(), buf.end() };
 }
 
+#pragma mark -
+
 const Array Array::filter(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const
 { return filter(utf8_keypath, func, EnumerationConcurrent); }
 
@@ -352,13 +413,12 @@ const Array Array::filter(const std::string & utf8_keypath, const std::function<
 		Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
 		if (item) {
 			if (func(item)) {
-				buf.push_back(obj);
+				buf.push_back(item);
 			}
 		}
 	}, options);
 	return { buf.begin(), buf.end() };
 }
-
 
 #pragma mark -
 
@@ -385,6 +445,11 @@ const Owning<Any> Array::reduce(const std::function<Owning<Any>(const Owning<Any
 const Array Array::select(const std::function<bool(const Owning<Any> & obj)> & func) const
 { return filter(func, EnumerationConcurrent); }
 
+const Array Array::select(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const
+{ return filter(utf8_keypath, func, EnumerationConcurrent); }
+
+#pragma mark -
+
 const Array Array::reject(const std::function<bool(const Owning<Any> & obj)> & func) const
 {
 	impl_trait buf;
@@ -393,6 +458,22 @@ const Array Array::reject(const std::function<bool(const Owning<Any> & obj)> & f
 	{
 		if (!func(obj)) {
 			buf.push_back(obj);
+		}
+	}, EnumerationConcurrent);
+	return { buf.begin(), buf.end() };
+}
+
+const Array Array::reject(const std::string & utf8_keypath, const std::function<bool(const Owning<Any> & obj)> & func) const
+{
+	impl_trait buf;
+	enumerateObjectsUsingFunction(
+		[&buf, &utf8_keypath, &func] (const Owning<Any> & obj, std::size_t index, bool & stop)
+	{
+		Owning<Any> item = obj->valueForKeyPath(utf8_keypath);
+		if (item) {
+			if (!func(item)) {
+				buf.push_back(item);
+			}
 		}
 	}, EnumerationConcurrent);
 	return { buf.begin(), buf.end() };
