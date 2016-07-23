@@ -122,8 +122,8 @@ namespace coconut
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
 	auto _then(const T2 & r, std::false_type)
-		-> T1 *
-	{ return std::addressof(ref_cast<T1>(r)); }
+		-> Owning<T1>
+	{ return ptr_cast<T1>(r.itself()); }
 	
 	template <typename T1, typename T2>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -156,12 +156,12 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<CollT, Array>::value ||
-			std::is_same<CollT, MutableArray>::value ||
-			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value ||
-			std::is_same<CollT, Set>::value ||
-			std::is_same<CollT, MutableSet>::value
+			std::is_same<typename std::decay<CollT>::type, Array>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableArray>::value ||
+			std::is_same<typename std::decay<CollT>::type, OrderedSet>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableOrderedSet>::value ||
+			std::is_same<typename std::decay<CollT>::type, Set>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableSet>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -177,8 +177,8 @@ namespace coconut
 
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<CollT, Dictionary>::value ||
-			std::is_same<CollT, MutableDictionary>::value
+			std::is_same<typename std::decay<CollT>::type, Dictionary>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -194,8 +194,8 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<CollT, Dictionary>::value ||
-			std::is_same<CollT, MutableDictionary>::value
+			std::is_same<typename std::decay<CollT>::type, Dictionary>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -231,12 +231,12 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<CollT, Array>::value ||
-			std::is_same<CollT, MutableArray>::value ||
-			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value ||
-			std::is_same<CollT, Set>::value ||
-			std::is_same<CollT, MutableSet>::value
+			std::is_same<typename std::decay<CollT>::type, Array>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableArray>::value ||
+			std::is_same<typename std::decay<CollT>::type, OrderedSet>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableOrderedSet>::value ||
+			std::is_same<typename std::decay<CollT>::type, Set>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableSet>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -250,12 +250,12 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<CollT, Array>::value ||
-			std::is_same<CollT, MutableArray>::value ||
-			std::is_same<CollT, OrderedSet>::value ||
-			std::is_same<CollT, MutableOrderedSet>::value ||
-			std::is_same<CollT, Set>::value ||
-			std::is_same<CollT, MutableSet>::value
+			std::is_same<typename std::decay<CollT>::type, Array>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableArray>::value ||
+			std::is_same<typename std::decay<CollT>::type, OrderedSet>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableOrderedSet>::value ||
+			std::is_same<typename std::decay<CollT>::type, Set>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableSet>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
@@ -269,8 +269,8 @@ namespace coconut
 	
 	template <typename TypeT, typename CollT,
 		typename std::enable_if<
-			std::is_same<CollT, Dictionary>::value ||
-			std::is_same<CollT, MutableDictionary>::value
+			std::is_same<typename std::decay<CollT>::type, Dictionary>::value ||
+			std::is_same<typename std::decay<CollT>::type, MutableDictionary>::value
 		>::type* = nullptr
 	>
 	COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
