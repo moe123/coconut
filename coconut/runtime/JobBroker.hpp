@@ -11,7 +11,7 @@
 
 namespace coconut
 {
-	template <typename T> using JobReturn = runtime::shall<T>;
+	template <typename T> using JobReturn = runtime::promise<T>;
 	
 	COCONUT_PUBLIC class COCONUT_VISIBLE JobPool COCONUT_FINAL
 	{

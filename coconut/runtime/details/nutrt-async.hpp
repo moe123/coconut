@@ -14,43 +14,40 @@ namespace coconut
 { namespace runtime
 {
 
-template <typename PromT>
-COCONUT_PRIVATE class COCONUT_VISIBLE shall : public nucleus
+template <typename PromiseT>
+COCONUT_PRIVATE class COCONUT_VISIBLE promise COCONUT_FINAL : public nucleus
 {
-COCONUT_CLASSDECLARE(coconut.runtime.shall, nucleus.shall)
+COCONUT_CLASSDECLARE(coconut.runtime.promise, nucleus.promise)
 
 public:
-	shall(const shall &) = delete;
-	shall & operator = (const shall &) = delete;
-	~shall() { /* NOP */ }
+	promise(const promise &) = delete;
+	promise & operator = (const promise &) = delete;
+	~promise() { /* NOP */ }
 	
-	shall(shall && s) noexcept
-	: nucleus(classkind_anon, classkind_any)
+	promise(promise && s) noexcept
+	: nucleus(classkind_anon, classkind_hidden)
 	, m_fut{std::move(s.m_fut)}
 	{ /* NOP */ }
 	
-	shall & operator = (shall && s) noexcept
-	{ shall(std::move(s)).swap(*this); return *this; }
+	promise & operator = (promise && s) noexcept
+	{ promise(std::move(s)).swap(*this); return *this; }
 	
-	explicit shall(std::future<PromT> && fut) noexcept
-	: nucleus(classkind_anon, classkind_any)
+	explicit promise(std::future<PromiseT> && fut) noexcept
+	: nucleus(classkind_anon, classkind_hidden)
 	, m_fut{std::move(fut)}
 	{ /* NOP */ }
 	
-	PromT operator () () noexcept { return m_fut.get(); }
+	PromiseT operator () () noexcept { return m_fut.get(); }
 	
-	virtual Owning<Any> copy() const COCONUT_OVERRIDE
+	virtual Owning<Any> copy() const COCONUT_FINAL_OVERRIDE
 	{
-		/* forcing move on const-ref copy */
-		return ptr_create< shall<PromT> >(
-			std::future<PromT>(
-				weak_cast<std::future<PromT> &&>(m_fut)
-			)
+		return ptr_create< promise<PromiseT> >(
+			std::future<PromiseT>(std::move(m_fut))
 		);
 	}
 	
 private:
-	std::future<PromT> m_fut;
+	mutable std::future<PromiseT> m_fut;
 };
 	
 }} /* EONS */
@@ -62,7 +59,7 @@ namespace coconut
 
 template <typename FuncT, typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
-shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option, FuncT && func, ArgsT &&... args)
+promise<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option, FuncT && func, ArgsT &&... args)
 {
 	std::launch policy = (std::launch::async | std::launch::deferred);
 	switch (option) {
@@ -81,7 +78,7 @@ shall<typename std::result_of<FuncT(ArgsT...)>::type> exec(launch_option option,
 			break;
 	}
 	auto bind = std::bind(std::forward<FuncT>(func), std::forward<ArgsT>(args)...);
-	return shall<typename std::result_of<FuncT(ArgsT...)>::type>(
+	return promise<typename std::result_of<FuncT(ArgsT...)>::type>(
 		std::async(policy, std::move(bind))
 	);
 }
@@ -169,7 +166,7 @@ public:
 	~pool() { /* NOP */ }
 	
 	template <typename FuncT, typename... ArgsT>
-	shall<typename std::result_of<FuncT(ArgsT...)>::type> push(FuncT f, ArgsT... args)
+	promise<typename std::result_of<FuncT(ArgsT...)>::type> push(FuncT f, ArgsT... args)
 	{
 		if (!m_run) { throw; }
 		using Ret = typename std::result_of<FuncT(ArgsT...)>::type;
@@ -183,13 +180,13 @@ public:
 			);
 		}
 		m_cond.notify_one();
-		return shall<Ret>(
+		return promise<Ret>(
 			std::async(std::launch::deferred, ret_wrapper)
 		);
 	}
 	
 	template <typename FuncT>
-	shall<typename std::result_of<FuncT()>::type> push(FuncT f)
+	promise<typename std::result_of<FuncT()>::type> push(FuncT f)
 	{
 		if (!m_run) { throw; }
 		using Ret = typename std::result_of<FuncT()>::type;
@@ -203,13 +200,13 @@ public:
 			);
 		}
 		m_cond.notify_one();
-		return shall<Ret>(
+		return promise<Ret>(
 			std::async(std::launch::deferred, ret_wrapper)
 		);
 	}
 	
 	template <typename... ArgsT>
-	shall<void> push(const std::function<void(ArgsT...)> f, ArgsT... args)
+	promise<void> push(const std::function<void(ArgsT...)> f, ArgsT... args)
 	{
 		if (!m_run) { throw; }
 		using Ret = void;
@@ -223,12 +220,12 @@ public:
 			);
 		}
 		m_cond.notify_one();
-		return shall<Ret>(
+		return promise<Ret>(
 			std::async(std::launch::deferred, ret_wrapper)
 		);
 	}
 	
-	shall<void> push(const std::function<void()> f)
+	promise<void> push(const std::function<void()> f)
 	{
 		if (!m_run) { throw; }
 		using Ret = void;
@@ -242,7 +239,7 @@ public:
 			);
 		}
 		m_cond.notify_one();
-		return shall<Ret>(
+		return promise<Ret>(
 			std::async(std::launch::deferred, ret_wrapper)
 		);
 	}

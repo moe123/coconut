@@ -166,11 +166,11 @@ COCONUT_OPT_TYPED(ComparisonResult, int)
 		
 COCONUT_OPT_TYPED(ClassKind, std::uint16_t)
 {
-	classkind_anon = 0,
-	classkind_zombie = 1,
-	classkind_nucleus = 2,
-	classkind_any = 3,
-	classkind_object = 10,
+	classkind_nucleus = 10,
+	classkind_anon = 11,
+	classkind_zombie = 12,
+	classkind_hidden = 13,
+	classkind_object = 100
 };
 
 COCONUT_OPT(encoding_option)
