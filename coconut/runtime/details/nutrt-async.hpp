@@ -24,13 +24,13 @@ public:
 	shall & operator = (const shall &) = delete;
 	~shall() { /* NOP */ }
 	
-	shall(shall && res) noexcept
+	shall(shall && s) noexcept
 	: nucleus(classkind_anon, classkind_any)
-	, m_fut{std::move(res.m_fut)}
+	, m_fut{std::move(s.m_fut)}
 	{ /* NOP */ }
 	
-	shall & operator = (shall && res) noexcept
-	{ shall(std::move(res)).swap(*this); return *this; }
+	shall & operator = (shall && s) noexcept
+	{ shall(std::move(s)).swap(*this); return *this; }
 	
 	explicit shall(std::future<PromT> && fut) noexcept
 	: nucleus(classkind_anon, classkind_any)
@@ -38,6 +38,16 @@ public:
 	{ /* NOP */ }
 	
 	PromT operator () () noexcept { return m_fut.get(); }
+	
+	virtual Owning<Any> copy() const COCONUT_OVERRIDE
+	{
+		/* forcing move on const-ref copy */
+		return ptr_create< shall<PromT> >(
+			std::future<PromT>(
+				weak_cast<std::future<PromT> &&>(m_fut)
+			)
+		);
+	}
 	
 private:
 	std::future<PromT> m_fut;
