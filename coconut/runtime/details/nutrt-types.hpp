@@ -170,7 +170,7 @@ COCONUT_OPT_TYPED(ClassKind, std::uint16_t)
 	classkind_anon = 11,
 	classkind_zombie = 12,
 	classkind_hidden = 13,
-	classkind_object = 100
+	classkind_object = 20
 };
 
 COCONUT_OPT(encoding_option)
