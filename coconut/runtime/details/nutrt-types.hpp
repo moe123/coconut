@@ -169,6 +169,7 @@ COCONUT_OPT_TYPED(ClassKind, std::uint16_t)
 	classkind_anon = 0,
 	classkind_zombie = 1,
 	classkind_nucleus = 2,
+	classkind_any = 3,
 	classkind_object = 10,
 };
 

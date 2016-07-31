@@ -4,14 +4,14 @@
 // Copyright (C) 2015-2016 Cucurbita. All rights reserved.
 //
 
-#include <coconut/runtime/Types.hpp>
+#include <coconut/runtime/Object.hpp>
 
 #ifndef COCONUT_RUNTIME_TO_FOUNDATION_JOBBROKER_HPP
 #define COCONUT_RUNTIME_TO_FOUNDATION_JOBBROKER_HPP
 
 namespace coconut
 {
-	template <typename T> using JobReturn = runtime::async::shall<T>;
+	template <typename T> using JobReturn = runtime::shall<T>;
 	
 	COCONUT_PUBLIC class COCONUT_VISIBLE JobPool COCONUT_FINAL
 	{

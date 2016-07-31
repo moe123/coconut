@@ -1055,15 +1055,17 @@ static void run_queue(void)
 	}
 	
 	JobPool pool {4};
-	std::vector< JobReturn< std::pair<int, bool> > > tasks;
+	//std::vector< JobReturn< std::pair<int, bool> > > tasks;
+	MutableArray tasks;
 	for (int i = 0; i < 10; i++) {
-		tasks.push_back(pool(
+		tasks.addObject(With< JobReturn< std::pair<int, bool> > >(pool(
 			[i] (int ii) -> std::pair<int, bool> {
 				return std::make_pair(i * ii, (i * ii) % 2);
-			}, i));
+			}, i))
+		);
 	}
 	for (auto i = tasks.begin(); i != tasks.end(); i++) {
-		auto n = (*i)();
+		auto n = Thus< JobReturn< std::pair<int, bool> > >(*i)();
 		std::cout << "+ is_odd : " <<  n.first << " -> " << std::boolalpha << n.second << std::endl;
 	}
 	
@@ -1080,7 +1082,8 @@ int Σ0() {
 
 int main(int argc, const char * argv[])
 {
-	test_stuff();
+	run_queue();
+	//test_stuff();
 	return 0;
 	{
 		std::cerr << runtime::unicode::_utf16_storage << std::endl;

@@ -5,32 +5,36 @@
 //
 
 #include <coconut/runtime/details/nutrt-types.hpp>
+#include <coconut/runtime/details/nutrt-nucleus.hpp>
 
 #ifndef COCONUT_RUNTIME_ASYNC_HPP
 #define COCONUT_RUNTIME_ASYNC_HPP
 
 namespace coconut
 { namespace runtime
-{ namespace async
 {
-	
+
 template <typename PromT>
-COCONUT_PRIVATE class COCONUT_VISIBLE shall COCONUT_FINAL
+COCONUT_PRIVATE class COCONUT_VISIBLE shall : public nucleus
 {
+COCONUT_CLASSDECLARE(coconut.runtime.shall, nucleus.shall)
+
 public:
 	shall(const shall &) = delete;
 	shall & operator = (const shall &) = delete;
 	~shall() { /* NOP */ }
 	
 	shall(shall && res) noexcept
-	: m_fut{std::move(res.m_fut)}
+	: nucleus(classkind_anon, classkind_any)
+	, m_fut{std::move(res.m_fut)}
 	{ /* NOP */ }
 	
 	shall & operator = (shall && res) noexcept
 	{ shall(std::move(res)).swap(*this); return *this; }
 	
 	explicit shall(std::future<PromT> && fut) noexcept
-	: m_fut{std::move(fut)}
+	: nucleus(classkind_anon, classkind_any)
+	, m_fut{std::move(fut)}
 	{ /* NOP */ }
 	
 	PromT operator () () noexcept { return m_fut.get(); }
@@ -38,6 +42,13 @@ public:
 private:
 	std::future<PromT> m_fut;
 };
+	
+}} /* EONS */
+	
+namespace coconut
+{ namespace runtime
+{ namespace async
+{
 
 template <typename FuncT, typename... ArgsT>
 COCONUT_PRIVATE COCONUT_ALWAYS_INLINE
